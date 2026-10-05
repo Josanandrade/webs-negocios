@@ -19,6 +19,23 @@ export const siteUrl = (
  */
 export const allowIndexing = process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true";
 
+/**
+ * Campos Open Graph comunes. Next.js no fusiona `openGraph` entre layout y
+ * página: una página que define el suyo debe repetirlos, imagen incluida.
+ */
+export const baseOpenGraph = {
+  type: "website",
+  locale: "es_ES",
+  siteName: business.name,
+} as const;
+
+export const ogImage = {
+  url: "/opengraph-image",
+  width: 1200,
+  height: 630,
+  alt: `${business.name} · ${business.tagline}`,
+};
+
 export const getService = (slug: string) => business.services.find((s) => s.slug === slug);
 
 /** Teléfono enlazable (tel:) a partir del formato E.164. */

@@ -80,11 +80,10 @@
   left: 50%;
   bottom: 1.1rem;
   transform: translateX(-50%);
+  width: max-content;
   max-width: calc(100% - 5rem);
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-align: center;
   padding: 0.45rem 0.7rem;
   background: var(--chalk);
   color: var(--ink-soft);
-  white-space: nowrap;
 }

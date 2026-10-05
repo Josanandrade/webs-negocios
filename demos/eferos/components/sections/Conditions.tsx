@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { business } from "@/business.config";
 import { getService } from "@/lib/site";
 import styles from "./Conditions.module.css";
@@ -36,11 +35,6 @@ export default function Conditions() {
               Escribir por WhatsApp
               <span className="arrow" aria-hidden="true">↗</span>
             </a>
-            {epi && (
-              <Link href={`/especialidades/${epi.slug}`} className="link">
-                Qué es la EPI®
-              </Link>
-            )}
           </div>
         </div>
       </div>

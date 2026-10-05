@@ -35,12 +35,11 @@ export type Service = {
 
 export type Business = {
   name: string;
-  shortName: string;
   tagline: string;
   description: string;
   foundedYear: number;
   contact: { phoneDisplay: string; phoneE164: string; whatsappUrl: string; email: string };
-  booking: { url: string; label: string; provider: string };
+  booking: { url: string; label: string };
   address: {
     street: string;
     postalCode: string;

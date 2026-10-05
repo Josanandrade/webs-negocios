@@ -1,7 +1,5 @@
 .footer {
-  position: relative;
-  overflow: hidden;
-  padding-top: clamp(4rem, 3rem + 4vw, 7rem);
+  padding-block: clamp(4rem, 3rem + 4vw, 7rem) calc(2rem + env(safe-area-inset-bottom, 0px));
   border-top: 1px solid var(--line-pine);
 }
 
@@ -69,26 +67,6 @@
 
 .copy {
   align-self: end;
-}
-
-/* Wordmark recortado por el borde inferior de la página */
-.giant {
-  display: block;
-  width: 100%;
-  height: auto;
-  margin-top: clamp(2rem, 1rem + 3vw, 4rem);
-  margin-bottom: -4%;
-  padding-inline: var(--gutter);
-  user-select: none;
-}
-
-.giant text {
-  fill: var(--pine-2);
-  font-family: var(--font-sans);
-  font-size: 300px;
-  font-weight: 640;
-  font-stretch: 112%;
-  letter-spacing: -0.06em;
 }
 
 @media (max-width: 900px) {

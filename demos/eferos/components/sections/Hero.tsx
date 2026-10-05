@@ -13,7 +13,8 @@ export default function Hero() {
       <div className={`wrap grid ${styles.grid}`}>
         <div className={styles.copy}>
           <p className={`label mark ${styles.eyebrow}`}>
-            Fisioterapia avanzada · {business.address.locality}
+            Centro de fisioterapia ·{" "}
+            <span className={styles.nowrap}>{business.address.locality}</span>
           </p>
           <h1 id="hero-title" className={styles.title}>
             <span className={styles.line}>

@@ -16,7 +16,6 @@
   --ink: #12201e;          /* texto principal, verde pino casi negro */
   --ink-soft: #46524e;     /* texto secundario (7:1 sobre chalk) */
   --pine: #172b28;         /* secciones oscuras */
-  --pine-2: #203a36;       /* superficie dentro de secciones oscuras */
   --on-pine: #e6ebe7;      /* texto sobre pino */
   --on-pine-soft: #a9b8b3; /* texto secundario sobre pino (7:1) */
   --cobalt: #2a44d4;       /* marca de medición, foco, hover */

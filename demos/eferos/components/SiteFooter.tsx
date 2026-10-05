@@ -80,12 +80,6 @@ export default function SiteFooter() {
         </p>
       </div>
 
-      {/* Wordmark decorativo recortado por el borde inferior */}
-      <svg className={styles.giant} viewBox="0 0 1000 250" aria-hidden="true" focusable="false">
-        <text x="500" y="232" textAnchor="middle" textLength="960" lengthAdjust="spacingAndGlyphs">
-          eferos
-        </text>
-      </svg>
     </footer>
   );
 }

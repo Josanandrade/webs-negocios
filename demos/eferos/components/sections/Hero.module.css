@@ -18,6 +18,10 @@
   color: var(--ink);
 }
 
+.nowrap {
+  white-space: nowrap;
+}
+
 .title {
   font-size: var(--step-5);
   font-weight: 580;

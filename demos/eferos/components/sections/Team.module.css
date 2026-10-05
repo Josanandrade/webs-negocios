@@ -118,7 +118,7 @@
   }
 
   .person {
-    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    grid-template-columns: 13rem minmax(0, 1fr);
   }
 }
 

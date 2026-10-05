@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { business } from "@/business.config";
-import { allowIndexing, siteUrl } from "@/lib/site";
+import { allowIndexing, baseOpenGraph, siteUrl } from "@/lib/site";
 import { clinicJsonLd } from "@/lib/jsonld";
 import { archivo, newsreader, plexMono } from "./fonts";
 import SiteHeader from "@/components/SiteHeader";
@@ -19,9 +19,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   robots: allowIndexing ? { index: true, follow: true } : { index: false, follow: false },
   openGraph: {
-    type: "website",
-    locale: "es_ES",
-    siteName: business.name,
+    ...baseOpenGraph,
     title: `${business.name} · Mairena del Aljarafe`,
     description: business.description,
     url: "/",

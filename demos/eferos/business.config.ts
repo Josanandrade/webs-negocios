@@ -13,7 +13,6 @@ import type { Business } from "@/lib/types";
 
 export const business: Business = {
   name: "Eferos Fisioterapia",
-  shortName: "Eferos",
   tagline: "Fisioterapia avanzada en Mairena del Aljarafe",
   description:
     "Centro de fisioterapia en Mairena del Aljarafe. Combinamos terapia manual y tecnología (EPI® ecoguiada, punción seca, diatermia y ejercicio terapéutico) para tratar la lesión desde su origen.",
@@ -26,10 +25,10 @@ export const business: Business = {
     email: "eferos.fisioterapia@gmail.com",
   },
 
+  // Reservas online gestionadas en Setmore
   booking: {
     url: "https://eferosfisioterapia.setmore.com/",
     label: "Reservar cita",
-    provider: "Setmore",
   },
 
   address: {
@@ -219,5 +218,3 @@ export const business: Business = {
     },
   ],
 };
-
-export type { Business };

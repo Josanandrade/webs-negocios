@@ -69,7 +69,7 @@ export default function Spaces() {
                   src={space.photo}
                   alt={space.photoLabel}
                   label={space.photoLabel}
-                  ratio="4 / 3"
+                  ratio="3 / 2"
                   sizes="100vw"
                   className={styles.inlinePhoto}
                 />

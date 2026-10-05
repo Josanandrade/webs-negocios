@@ -68,8 +68,14 @@
   transform: scaleY(1);
 }
 
+/* El foco se dibuja en el fondo a sangre: contrasta sobre la tinta y no toca el texto */
 .row:focus-visible {
-  outline-offset: -2px;
+  outline: none;
+}
+
+.row:focus-visible::before {
+  outline: 2px solid var(--cobalt-light);
+  outline-offset: -5px;
 }
 
 .kind {

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { business } from "@/business.config";
-import { getService } from "@/lib/site";
+import { baseOpenGraph, getService, ogImage } from "@/lib/site";
 import BookingActions from "@/components/BookingActions";
 import BrandName from "@/components/BrandName";
 import styles from "./page.module.css";
@@ -25,7 +25,13 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
     title,
     description,
     alternates: { canonical: `/especialidades/${service.slug}` },
-    openGraph: { title, description, url: `/especialidades/${service.slug}` },
+    openGraph: {
+      ...baseOpenGraph,
+      title,
+      description,
+      url: `/especialidades/${service.slug}`,
+      images: [ogImage],
+    },
   };
 }
 

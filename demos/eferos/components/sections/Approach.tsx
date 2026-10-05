@@ -5,9 +5,9 @@ export default function Approach() {
   return (
     <section className={`section ${styles.approach}`} aria-labelledby="enfoque-title">
       <div className="wrap grid">
-        <p className={`label mark ${styles.kicker}`} id="enfoque-title">
+        <h2 className={`label mark ${styles.kicker}`} id="enfoque-title">
           Cómo trabajamos
-        </p>
+        </h2>
 
         <div className={styles.body}>
           <p className={styles.statement} data-reveal>
@@ -18,14 +18,14 @@ export default function Approach() {
 
           <div className={styles.pair}>
             <div className={styles.pairItem} data-reveal style={{ ["--delay" as string]: "80ms" }}>
-              <h2 className={styles.pairTitle}>Las manos</h2>
+              <h3 className={styles.pairTitle}>Las manos</h3>
               <p className="muted">
                 Para explorar, localizar qué estructura está implicada y tratar articulaciones,
                 músculo y tejido nervioso con terapia manual ortopédica.
               </p>
             </div>
             <div className={styles.pairItem} data-reveal style={{ ["--delay" as string]: "160ms" }}>
-              <h2 className={styles.pairTitle}>La tecnología</h2>
+              <h3 className={styles.pairTitle}>La tecnología</h3>
               <p className="muted">
                 Para llegar donde las manos no llegan: ver el tejido en el ecógrafo, aplicar la
                 aguja con precisión y trabajar el calor en profundidad.
