@@ -18,8 +18,16 @@ export type Space = {
   where: string;
   title: string;
   text: string;
-  photo: string | null;
-  photoLabel: string;
+};
+
+/** Fotografía real del centro. Con `src: null` se muestra un hueco diseñado. */
+export type GalleryPhoto = {
+  src: string | null;
+  alt: string;
+  caption: string;
+  /** Dimensiones del archivo original: fijan la proporción y evitan saltos de layout */
+  width: number;
+  height: number;
 };
 
 export type Service = {
@@ -56,5 +64,6 @@ export type Business = {
   team: TeamMember[];
   mentors: string[];
   spaces: Space[];
+  gallery: GalleryPhoto[];
   services: Service[];
 };

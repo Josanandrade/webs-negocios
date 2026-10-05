@@ -46,6 +46,10 @@ Copia `.env.example` a `.env.local` si necesitas cambiarlas:
 | --- | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | dominio de Vercel/Railway, si no `http://localhost:3000` | URL base para canonical, sitemap y Open Graph. Poner `https://www.eferos.es` solo al publicar en el dominio del cliente. |
 | `NEXT_PUBLIC_ALLOW_INDEXING` | `false` | Con `false` la web se publica con `noindex` y `robots.txt` bloquea a los buscadores, para que la demo no compita con la web real de Eferos. Ponerlo a `true` solo cuando esta web pase a producción en el dominio del cliente. |
+| `GOOGLE_PLACES_API_KEY` | vacía | Clave de Google Cloud para leer las reseñas (Places API, New). Solo servidor: nunca con prefijo `NEXT_PUBLIC_`. |
+| `GOOGLE_PLACE_ID` | vacía | Identificador de la ficha de Eferos en Google Maps. |
+
+Las dos variables de Google se leen en cada petición a `/api/google-reviews`: no hace falta recompilar para activarlas, aunque Railway redespliega el servicio al cambiar variables.
 
 ## Estructura
 
@@ -63,7 +67,7 @@ demos/eferos/
 │   └── not-found.tsx
 ├── components/
 │   ├── sections/             ← secciones de la home (Hero, Approach, Treatments,
-│   │                           Conditions, Spaces, Team, Visit), cada una con su .module.css
+│   │                           Conditions, Spaces, Team, Reviews, Visit), cada una con su .module.css
 │   ├── SiteHeader.tsx        ← navegación + menú móvil (cliente)
 │   ├── SiteFooter.tsx
 │   ├── ScanPanel.tsx         ← ilustración generativa de ecografía (firma visual)
@@ -94,30 +98,58 @@ Todo el contenido del negocio está en **`business.config.ts`**:
 - navegación;
 - equipo, con número de colegiado, resumen, formación y foto;
 - espacios del centro (gabinetes, sala, domicilio);
+- fotografías de la tira de «El centro» (`gallery`);
 - tratamientos: nombre, categoría, resumen, texto de la ficha e indicaciones. Añadir un tratamiento aquí crea su página en `/especialidades/<slug>`, su fila en la home, su enlace en el pie y su entrada en el sitemap.
 
 ### Fotografías
 
-La web está preparada para fotos reales, pero esta versión no las incluye. Desde el entorno de desarrollo no fue posible descargar las imágenes de eferos.es ni de Setmore, y no se han puesto fotos de stock genéricas. Mientras no haya foto se muestra un hueco diseñado con la retícula de la marca.
+La web está preparada para fotos reales, pero esta versión todavía no las incluye: desde el entorno de desarrollo no se ha podido acceder a eferos.es para descargarlas. No se han puesto fotos de stock. Mientras no haya foto se muestra un hueco diseñado con la retícula de la marca.
 
-Para poner una foto:
+**Tira de «El centro»** (`gallery` en `business.config.ts`):
 
-1. Copia la imagen en `public/images/…`, por ejemplo `public/images/equipo/cristina-leon.jpg`.
-2. En `business.config.ts`, cambia `photo: null` por la ruta, por ejemplo `photo: "/images/equipo/cristina-leon.jpg"`.
+1. Copia las fotos en `public/images/centro/`. Basta con JPG de buena calidad, unos 2000 px por el lado largo: `next/image` genera AVIF/WebP en los tamaños necesarios.
+2. En cada entrada de `gallery`, pon la ruta en `src` y las dimensiones reales del archivo en `width` y `height`. Fijan la proporción y evitan saltos de layout.
+3. Escribe un `alt` que describa la foto. `caption` es el pie de foto visible.
 
-Huecos disponibles: retratos del equipo (proporción 3:4) y los tres espacios del centro (4:5 en escritorio, 4:3 en móvil). `next/image` optimiza el tamaño y el formato (AVIF/WebP).
+Se pueden añadir o quitar entradas: la tira se adapta. Funciona mejor mezclando verticales y horizontales.
+
+**Retratos del equipo:** copia la foto en `public/images/equipo/` y pon la ruta en `photo` (proporción 3:4).
 
 ### Logotipo
 
-`components/Logo.tsx` es un logotipo **provisional** (wordmark "eferos" + retícula de medición). Sustitúyelo por el oficial (idealmente un SVG) en ese único componente. El favicon está en `app/icon.svg`.
+`components/Logo.tsx` es un logotipo **provisional**: el símbolo de retícula seguido del nombre «eferos». Se usa solo en los puntos de firma de marca (cabecera, menú móvil y pie), nunca dentro del texto. Para poner el oficial, sustituye el SVG del símbolo en ese único componente, idealmente por el SVG original, manteniendo el orden símbolo + nombre. Actualiza también el favicon en `app/icon.svg`.
+
+### Reseñas de Google
+
+La sección «Opiniones» (`components/sections/Reviews.tsx`) muestra reseñas **reales** mediante la API oficial **Places API (New)**:
+
+- La consulta la hace el servidor en `/api/google-reviews` (`lib/googleReviews.ts`). La API key nunca llega al navegador.
+- La sección pide las reseñas cuando el visitante se acerca a ella. La portada sigue siendo estática.
+- Google devuelve **como máximo 5 reseñas**, elegidas y ordenadas por Google por relevancia, más la nota media y el total.
+- Se cumplen las atribuciones de Google: autor con foto y enlace a su perfil, enlace a cada reseña en Google Maps, enlace para denunciarla, aviso de que la selección y el orden son de Google, y atribución «Google Maps».
+- **Sin caché:** los términos de Google Maps Platform prohíben almacenar el contenido de Places (solo se puede guardar el Place ID). Cada visita que llega a la sección hace una consulta. Hay un tope de 60 consultas cada 10 minutos por instancia.
+- **Sin credenciales, o si Google falla, no se muestra ninguna reseña**: solo un enlace a la ficha real en Google Maps. No hay reseñas de ejemplo ni contenido de relleno.
+
+Para activarla:
+
+1. Proyecto en Google Cloud **con facturación activada** (obligatorio aunque se quede en la franja gratuita).
+2. Habilitar **Places API (New)**.
+3. Crear una API key **restringida** a «Places API (New)». Como la llama el servidor, la restricción por web (HTTP referrer) no sirve; basta con la restricción de API y una **cuota diaria** limitada en la consola.
+4. Obtener el **Place ID** de la ficha de Eferos, con el buscador de Place ID de Google o con una búsqueda «Text Search» de la propia API.
+5. Definir `GOOGLE_PLACES_API_KEY` y `GOOGLE_PLACE_ID` en Railway y redesplegar.
+
+Coste: pedir reseñas usa el SKU «Place Details Enterprise + Atmosphere», con 1.000 consultas gratuitas al mes y unos 25 USD por cada 1.000 adicionales (precios de 2026; comprobar la tabla vigente de Google).
+
+**Alternativa sin el límite de 5 reseñas:** la API de Google Business Profile (`accounts.locations.reviews.list`) devuelve todas las reseñas, pero exige que el propietario de la ficha autorice con OAuth (permiso `business.manage`) y una solicitud de acceso aprobada por Google. Solo compensa si se quieren mostrar más de 5 reseñas o responderlas desde la web.
 
 ## Decisiones de diseño
 
 - **Concepto: "precisión que se ve".** Lo que diferencia a Eferos frente a otras clínicas de la zona son las técnicas guiadas por ecografía (EPI®) combinadas con terapia manual. La firma visual es una ecografía generada en código (`ScanPanel`), con escala de profundidad, aguja y calipers. Las marcas de medición (`+`) y los datos en monoespaciada se repiten por toda la web como lenguaje propio.
-- **Paleta:** blanco mineral frío, tinta verde pino y cobalto solo como acento de medición y foco. Se evitan los tópicos de clínica (azul sanitario, blanco puro) y los de plantilla (crema y terracota, degradados).
+- **Paleta:** fondo blanco, bandas en blanco mineral frío (equipo, caja de reserva, marcos de foto) para dar ritmo, tinta verde pino y cobalto solo como acento de medición y foco. Se evitan los tópicos de clínica (azul sanitario) y los de plantilla (crema y terracota, degradados).
 - **Tipografía:** Archivo en anchura estrecha para titulares y anchura normal para el texto. Newsreader cursiva aparece solo en una palabra clave por bloque. IBM Plex Mono se usa para datos clínicos (NICA, colegiado, horarios).
 - **Sin tarjetas por defecto:** los tratamientos son un índice de filas tipográficas, las lesiones una lista, el contacto filas de acción. Solo la caja de reserva de las fichas tiene fondo propio.
-- **Móvil:** la ecografía pasa a formato apaisado bajo el titular, la ficha del hero se convierte en lista de pares, la historia sticky de "El centro" se convierte en foto + texto por espacio, el menú es un panel a pantalla completa y todos los objetivos táctiles miden al menos 44 px.
+- **«El centro»:** una tira editorial horizontal de fotografías a sangre. En escritorio se desplaza lateralmente al ritmo del scroll de la página, con CSS puro (`animation-timeline: view()`, por GPU y sin JavaScript). En móvil, en navegadores sin soporte y con movimiento reducido es una fila con scroll horizontal nativo e imán (`scroll-snap`), accesible con teclado. No hay animaciones infinitas.
+- **Móvil:** la ecografía pasa a formato apaisado bajo el titular, la ficha del hero se convierte en lista de pares, el menú es un panel a pantalla completa con el botón de reserva siempre visible en la cabecera, y todos los objetivos táctiles miden al menos 44 px.
 
 ## Notas técnicas
 
@@ -148,10 +180,12 @@ Ningún dato de esta lista se ha inventado: o falta, o hay que confirmarlo. Los 
 
 ### Material
 
-- **Logotipo oficial**, en SVG si es posible, y colores de marca si los tienen. Sustituye `components/Logo.tsx` y `app/icon.svg`.
+- **Logotipo oficial**, en SVG si es posible, y colores de marca si los tienen. Sustituye el símbolo en `components/Logo.tsx` y `app/icon.svg`. No se pudo descargar de eferos.es porque el entorno de desarrollo no tiene acceso a ese dominio.
 - **Fotografías reales:**
-  - retratos de Cristina y Alfonso (3:4);
-  - gabinete, sala de recuperación activa y una imagen de tratamiento a domicilio (vertical 4:5, y mejor también una horizontal 3:2 para móvil y tablet).
+  - las de la web actual, en su mayor calidad (no se pudieron descargar por la misma razón);
+  - para la tira de «El centro»: gabinete, sala de recuperación activa, ecógrafo y terapia manual, mezclando verticales y horizontales;
+  - retratos de Cristina y Alfonso (3:4).
+- **Reseñas de Google** (ver la sección «Reseñas de Google» más arriba): API key con facturación y el Place ID de la ficha. Ninguno de los dos los tiene que dar Eferos si el proyecto de Google Cloud es nuestro; lo que sí hay que pedirles es que confirmen cuál es su ficha oficial de Google Maps.
 - **Opcional:**
   - fachada o acceso al local, para «Cómo llegar»;
   - imágenes o vídeo reales de ecografía, con consentimiento del paciente;

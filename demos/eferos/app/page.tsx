@@ -5,6 +5,7 @@ import Conditions from "@/components/sections/Conditions";
 import Spaces from "@/components/sections/Spaces";
 import Team from "@/components/sections/Team";
 import Visit from "@/components/sections/Visit";
+import Reviews from "@/components/sections/Reviews";
 
 export default function HomePage() {
   return (
@@ -15,6 +16,7 @@ export default function HomePage() {
       <Conditions />
       <Spaces />
       <Team />
+      <Reviews />
       <Visit />
     </>
   );

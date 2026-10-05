@@ -107,25 +107,28 @@ export const business: Business = {
       where: "En el centro",
       title: "Gabinetes individuales",
       text: "Valoración y tratamiento a solas contigo, en una sala cerrada. Aquí hacemos la exploración, la terapia manual y las técnicas ecoguiadas.",
-      photo: null,
-      photoLabel: "Gabinete de tratamiento",
     },
     {
       id: "sala",
       where: "En el centro",
       title: "Sala de recuperación activa",
       text: "Un espacio amplio para el ejercicio terapéutico. Lo que trabajamos en camilla se consolida aquí, con movimiento y carga progresiva.",
-      photo: null,
-      photoLabel: "Sala de recuperación activa",
     },
     {
       id: "domicilio",
       where: "A domicilio",
       title: "En tu casa",
       text: "A veces una dolencia no te deja desplazarte. Para esos casos, vamos nosotros a tu domicilio con lo necesario para tratarte.",
-      photo: null,
-      photoLabel: "Fisioterapia a domicilio",
     },
+  ],
+
+  // Fotografías del centro para la tira horizontal de «El centro».
+  // Sustituir `src: null` por la ruta del archivo en /public/images/centro/.
+  gallery: [
+    { src: null, alt: "Gabinete de tratamiento individual", caption: "Gabinete de tratamiento", width: 4, height: 5 },
+    { src: null, alt: "Sala de recuperación activa", caption: "Sala de recuperación activa", width: 3, height: 2 },
+    { src: null, alt: "Ecógrafo del centro", caption: "Ecografía", width: 4, height: 5 },
+    { src: null, alt: "Sesión de terapia manual", caption: "Terapia manual", width: 3, height: 2 },
   ],
 
   // Las descripciones técnicas (`intro`) parten de eferos.es; los bloques

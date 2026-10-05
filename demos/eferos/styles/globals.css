@@ -2,19 +2,20 @@
  * Eferos — sistema visual
  *
  * Idea: "precisión que se ve". El lenguaje toma prestado del ecógrafo y de la
- * ficha clínica: escalas, marcas de medición, datos en monoespaciada. Base clara
- * mineral, tinta verde pino, cobalto solo como marca de medición y foco.
+ * ficha clínica: escalas, marcas de medición, datos en monoespaciada. Base blanca,
+ * bandas en blanco mineral para dar ritmo, tinta verde pino y cobalto solo como
+ * marca de medición y foco.
  * Layout: retícula de 12 columnas con composiciones asimétricas y filas de índice
  * en lugar de tarjetas.
  */
 
 :root {
   /* Color */
-  --chalk: #eceeea;        /* fondo: blanco mineral, ligeramente frío */
-  --chalk-2: #e0e4de;      /* superficie secundaria */
-  --chalk-3: #d3d9d2;      /* trama de marcos fotográficos */
+  --chalk: #ffffff;        /* fondo general: blanco */
+  --chalk-2: #eef1ed;      /* bandas y superficies: blanco mineral frío */
+  --chalk-3: #d9dfd8;      /* trama de marcos fotográficos */
   --ink: #12201e;          /* texto principal, verde pino casi negro */
-  --ink-soft: #46524e;     /* texto secundario (7:1 sobre chalk) */
+  --ink-soft: #46524e;     /* texto secundario (8,6:1 sobre blanco, 7,6:1 sobre chalk-2) */
   --pine: #172b28;         /* secciones oscuras */
   --on-pine: #e6ebe7;      /* texto sobre pino */
   --on-pine-soft: #a9b8b3; /* texto secundario sobre pino (7:1) */

@@ -9,6 +9,8 @@ type Props = {
   ratio?: string;
   sizes?: string;
   priority?: boolean;
+  /** Mostrar la etiqueta dentro del hueco (desactivar si ya hay un pie de foto) */
+  showLabel?: boolean;
   className?: string;
   children?: React.ReactNode;
 };
@@ -25,6 +27,7 @@ export default function PhotoFrame({
   ratio = "4 / 5",
   sizes = "(max-width: 900px) 100vw, 50vw",
   priority = false,
+  showLabel = true,
   className = "",
   children,
 }: Props) {
@@ -42,7 +45,7 @@ export default function PhotoFrame({
             <circle cx="50" cy="50" r="30" />
             <path d="M50 4v24M50 72v24M4 50h24M72 50h24" />
           </svg>
-          <span className={`label ${styles.tag}`}>Foto · {label}</span>
+          {showLabel && <span className={`label ${styles.tag}`}>Foto · {label}</span>}
         </div>
       )}
       {children}

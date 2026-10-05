@@ -1,42 +1,16 @@
 .section {
   border-top: 1px solid var(--line);
+  overflow-x: clip;
 }
 
-.stage {
-  grid-column: 1 / span 6;
+.head {
+  align-items: end;
+  row-gap: 1.25rem;
+  margin-bottom: clamp(2rem, 1.5rem + 2.5vw, 4rem);
 }
 
-.sticky {
-  position: sticky;
-  top: calc(var(--header-h) + 2rem);
-  display: grid;
-}
-
-.slide {
-  grid-area: 1 / 1;
-  opacity: 0;
-  transform: scale(1.02);
-  transition:
-    opacity 500ms ease,
-    transform 800ms var(--ease-out);
-}
-
-.slide[data-active="true"] {
-  opacity: 1;
-  transform: none;
-}
-
-.counter {
-  margin-top: 0.85rem;
-}
-
-.content {
-  grid-column: 8 / span 5;
-  display: grid;
-  gap: clamp(3rem, 2rem + 3vw, 5rem);
-}
-
-.header {
+.heading {
+  grid-column: 1 / span 7;
   display: grid;
   gap: 1.1rem;
 }
@@ -46,91 +20,115 @@
   font-stretch: 72%;
 }
 
-.header .muted {
-  max-width: 28rem;
+.intro {
+  grid-column: 9 / span 4;
+  max-width: 26rem;
+  padding-bottom: 0.4rem;
 }
 
-.list {
+/* ---------- Tira de fotografías ---------- */
+
+/* Base (móvil, sin soporte o movimiento reducido): fila con scroll nativo e imán */
+.strip {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+.strip:focus-visible {
+  outline-offset: -2px;
+}
+
+.track {
+  display: flex;
+  gap: clamp(0.75rem, 0.4rem + 1.2vw, 1.5rem);
+  width: max-content;
+  padding-inline: var(--gutter);
+  padding-bottom: 1rem;
+}
+
+/* Alto común para toda la fila; el ancho sale de la proporción de cada foto (--r) */
+.shot {
+  --shot-h: clamp(15rem, 10rem + 24vw, 34rem);
+  scroll-snap-align: start;
+  flex: none;
+  width: calc(var(--shot-h) * var(--r));
+  max-width: 85vw;
+}
+
+.shot figure {
   display: grid;
-  gap: 0;
+  gap: 0.7rem;
 }
 
-/* Cada espacio ocupa media pantalla para que el cambio de imagen respire */
-.item {
+/* Escritorio con soporte: la fila se desplaza con el scroll de la página */
+@supports (animation-timeline: view()) {
+  @media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
+    .strip {
+      overflow-x: visible;
+      scroll-snap-type: none;
+    }
+
+    .track {
+      animation: drift linear both;
+      animation-timeline: view();
+      animation-range: entry 10% exit 90%;
+    }
+
+    /* El texto deja de ser una región desplazable: no necesita foco */
+    .strip:focus-visible {
+      outline: none;
+    }
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translateX(6vw);
+  }
+  to {
+    /* Recorre todo el exceso de la fila respecto al ancho de la ventana */
+    transform: translateX(calc(-100% + 100vw - 6vw));
+  }
+}
+
+/* ---------- Los tres espacios ---------- */
+
+.spaces {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.5rem var(--col-gap);
+  margin-top: clamp(2.5rem, 2rem + 3vw, 5rem);
+}
+
+.space {
   display: grid;
   gap: 0.75rem;
   align-content: start;
-  min-height: 52vh;
-  padding-top: 1.25rem;
+  padding-top: 1.1rem;
   border-top: 1px solid var(--line-strong);
-  transition: opacity 300ms ease;
 }
 
-.item:last-child {
-  min-height: 0;
+.spaceTitle {
+  font-size: var(--step-2);
+  font-stretch: 80%;
 }
 
-.item[data-active="false"] {
-  opacity: 0.55;
-}
-
-.itemTitle {
-  font-size: var(--step-3);
-  font-stretch: 76%;
-}
-
-.itemText {
+.spaceText {
   max-width: 30rem;
   color: var(--ink-soft);
 }
 
-.inlinePhoto {
-  display: none;
-}
-
 @media (max-width: 900px) {
-  .stage {
-    display: none;
-  }
-
-  .content {
+  .heading,
+  .intro {
     grid-column: 1 / -1;
   }
 
-  .list {
-    gap: 3rem;
-  }
-
-  .item {
-    min-height: 0;
-    padding-top: 0;
-    border-top: 0;
-  }
-
-  .item[data-active="false"] {
-    opacity: 1;
-  }
-
-  .inlinePhoto {
-    display: block;
-    margin-bottom: 0.75rem;
-  }
-}
-
-/* Tablet: foto y texto lado a lado en vez de bloques a todo ancho */
-@media (min-width: 601px) and (max-width: 900px) {
-  .item {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-    grid-template-rows: auto auto 1fr;
-    column-gap: var(--col-gap);
-  }
-
-  .inlinePhoto {
-    grid-row: 1 / span 3;
-    margin-bottom: 0;
-  }
-
-  .item > :not(.inlinePhoto) {
-    grid-column: 2;
+  .spaces {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
