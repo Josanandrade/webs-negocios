@@ -1,0 +1,133 @@
+.section {
+  background: var(--chalk-2);
+}
+
+.head {
+  row-gap: 1rem;
+  margin-bottom: clamp(2.5rem, 2rem + 3vw, 5rem);
+}
+
+.head > * {
+  grid-column: 1 / -1;
+}
+
+.title {
+  font-size: var(--step-4);
+  font-stretch: 72%;
+}
+
+.people {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(2.5rem, 1.5rem + 3vw, 4rem) var(--col-gap);
+}
+
+.person {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--col-gap);
+  align-items: start;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--ink);
+}
+
+.portrait {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  max-width: 100%;
+  overflow: hidden;
+  background: var(--pine);
+  display: grid;
+  place-items: end start;
+}
+
+.portrait img {
+  object-fit: cover;
+}
+
+/* Monograma provisional mientras no haya retrato */
+.initials {
+  padding: 0.75rem 0.9rem;
+  color: var(--on-pine);
+  font-size: clamp(3.5rem, 2rem + 4vw, 6rem);
+  font-weight: 600;
+  font-stretch: 62%;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+}
+
+.info {
+  display: grid;
+  gap: 1.1rem;
+  min-width: 0;
+}
+
+.name {
+  font-size: var(--step-2);
+  font-stretch: 80%;
+  line-height: 1.05;
+}
+
+.role {
+  margin-top: 0.5rem;
+}
+
+.summary {
+  max-width: 32em;
+}
+
+.credentials {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.credentials li {
+  padding-block: 0.55rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.92rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+.mentors {
+  display: grid;
+  gap: 1rem;
+  margin-top: clamp(3.5rem, 2.5rem + 4vw, 6.5rem);
+}
+
+.mentorList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.1em 0;
+  font-size: var(--step-3);
+  line-height: 1.15;
+}
+
+.mentorList li:not(:last-child)::after {
+  content: "/";
+  margin-inline: 0.45em;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: 300;
+  color: var(--cobalt);
+}
+
+@media (max-width: 1100px) {
+  .people {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .person {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .person {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .portrait {
+    width: 9.5rem;
+  }
+}

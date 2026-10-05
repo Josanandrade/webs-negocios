@@ -1,0 +1,72 @@
+.approach {
+  border-top: 1px solid var(--line);
+}
+
+.kicker {
+  grid-column: 1 / span 3;
+  align-self: start;
+  padding-top: 0.9rem;
+}
+
+.body {
+  grid-column: 4 / span 9;
+  display: grid;
+  gap: clamp(3rem, 2rem + 4vw, 6rem);
+}
+
+.statement {
+  font-size: var(--step-4);
+  font-weight: 480;
+  font-stretch: 78%;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  max-width: 17em;
+}
+
+.statement em {
+  color: var(--cobalt);
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--col-gap);
+  max-width: 54rem;
+}
+
+.pairItem {
+  display: grid;
+  gap: 0.85rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--line-strong);
+  align-content: start;
+}
+
+.pairTitle {
+  font-size: var(--step-2);
+  font-stretch: 80%;
+  font-weight: 560;
+}
+
+.pairItem p {
+  max-width: 30em;
+}
+
+@media (max-width: 900px) {
+  .kicker,
+  .body {
+    grid-column: 1 / -1;
+  }
+
+  .kicker {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .pair {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+}

@@ -1,0 +1,108 @@
+.footer {
+  position: relative;
+  overflow: hidden;
+  padding-top: clamp(4rem, 3rem + 4vw, 7rem);
+  border-top: 1px solid var(--line-pine);
+}
+
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) repeat(3, minmax(0, 2.5fr));
+  gap: 2.5rem var(--col-gap);
+}
+
+.brand {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.brand p {
+  max-width: 18rem;
+}
+
+.col {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.col ul {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.col address {
+  font-style: normal;
+  line-height: 1.5;
+}
+
+.mail {
+  overflow-wrap: anywhere;
+}
+
+.legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-top: clamp(3rem, 2rem + 3vw, 5rem);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line-pine);
+  font-size: 0.88rem;
+  color: var(--on-pine-soft);
+}
+
+.regs {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.regs :global(.label) {
+  margin-right: 0.4rem;
+}
+
+.regDetail {
+  opacity: 0.85;
+}
+
+.copy {
+  align-self: end;
+}
+
+/* Wordmark recortado por el borde inferior de la página */
+.giant {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: clamp(2rem, 1rem + 3vw, 4rem);
+  margin-bottom: -4%;
+  padding-inline: var(--gutter);
+  user-select: none;
+}
+
+.giant text {
+  fill: var(--pine-2);
+  font-family: var(--font-sans);
+  font-size: 300px;
+  font-weight: 640;
+  font-stretch: 112%;
+  letter-spacing: -0.06em;
+}
+
+@media (max-width: 900px) {
+  .top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .top {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
