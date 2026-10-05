@@ -167,11 +167,17 @@
   font-stretch: 70%;
   line-height: 1;
   letter-spacing: -0.03em;
-  transition: transform 0.5s var(--ease-out);
+  transition: transform 280ms var(--ease-out);
 }
 
-.next:hover .nextName {
+.next:active .nextName {
   transform: translateX(0.5rem);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .next:hover .nextName {
+    transform: translateX(0.5rem);
+  }
 }
 
 .next:focus-visible {

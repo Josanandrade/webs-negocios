@@ -28,7 +28,7 @@
   align-items: baseline;
   padding-block: 1.15rem;
   text-decoration: none;
-  transition: color 0.3s var(--ease-out);
+  transition: color var(--dur-hover) ease;
 }
 
 .value {
@@ -39,7 +39,7 @@
   line-height: 1.1;
   font-variant-numeric: tabular-nums;
   overflow-wrap: anywhere;
-  transition: transform 0.5s var(--ease-out);
+  transition: transform 280ms var(--ease-out);
 }
 
 .email {
@@ -48,20 +48,26 @@
 
 .icon {
   font-size: var(--step-1);
-  transition: transform 0.5s var(--ease-out);
+  transition: transform 280ms var(--ease-out);
 }
 
-.channel:hover,
-.channel:focus-visible {
+.channel:focus-visible,
+.channel:active {
   color: var(--cobalt-light);
 }
 
-.channel:hover .value {
-  transform: translateX(0.3rem);
-}
+@media (hover: hover) and (pointer: fine) {
+  .channel:hover {
+    color: var(--cobalt-light);
+  }
 
-.channel:hover .icon {
-  transform: translateX(0.25rem);
+  .channel:hover .value {
+    transform: translateX(0.3rem);
+  }
+
+  .channel:hover .icon {
+    transform: translateX(0.25rem);
+  }
 }
 
 .aside {

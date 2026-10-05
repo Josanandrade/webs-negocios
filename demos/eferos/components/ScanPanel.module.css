@@ -122,6 +122,11 @@
   }
 }
 
+.screen[data-offscreen="true"] .pulse circle,
+.screen[data-offscreen="true"] .sweep {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pulse circle:first-child {
     opacity: 0.8;

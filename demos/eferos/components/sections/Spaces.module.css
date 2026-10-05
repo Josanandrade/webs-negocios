@@ -17,8 +17,8 @@
   opacity: 0;
   transform: scale(1.02);
   transition:
-    opacity 0.8s var(--ease-out),
-    transform 1.2s var(--ease-out);
+    opacity 500ms ease,
+    transform 800ms var(--ease-out);
 }
 
 .slide[data-active="true"] {
@@ -63,7 +63,7 @@
   min-height: 52vh;
   padding-top: 1.25rem;
   border-top: 1px solid var(--line-strong);
-  transition: opacity 0.5s var(--ease-out);
+  transition: opacity 300ms ease;
 }
 
 .item:last-child {

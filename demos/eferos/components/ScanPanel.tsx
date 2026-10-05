@@ -113,6 +113,18 @@ function paintRows(d: Uint8ClampedArray, rand: () => number, y0: number, y1: num
 
 export default function ScanPanel({ className = "" }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const screenRef = useRef<HTMLDivElement>(null);
+
+  // Los bucles decorativos (pulso y barrido) se pausan fuera de pantalla.
+  useEffect(() => {
+    const screen = screenRef.current;
+    if (!screen) return;
+    const io = new IntersectionObserver(([entry]) => {
+      screen.dataset.offscreen = String(!entry.isIntersecting);
+    });
+    io.observe(screen);
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -163,7 +175,7 @@ export default function ScanPanel({ className = "" }: { className?: string }) {
 
   return (
     <figure className={`${styles.panel} ${className}`}>
-      <div className={styles.screen}>
+      <div ref={screenRef} className={styles.screen}>
         <canvas ref={canvasRef} width={W} height={H} className={styles.canvas} aria-hidden="true" />
         <svg
           className={styles.overlay}

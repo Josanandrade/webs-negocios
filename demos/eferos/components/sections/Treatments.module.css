@@ -42,7 +42,7 @@
   padding-block: clamp(1.25rem, 0.9rem + 1.2vw, 2rem);
   text-decoration: none;
   isolation: isolate;
-  transition: color 0.4s var(--ease-out);
+  transition: color 280ms ease;
 }
 
 /* Fondo que sube desde la línea inferior en hover */
@@ -54,16 +54,17 @@
   background: var(--ink);
   transform: scaleY(0);
   transform-origin: bottom;
-  transition: transform 0.5s var(--ease-out);
+  transition: transform 280ms var(--ease-out);
 }
 
-.row:hover,
-.row:focus-visible {
+/* Foco de teclado y pulsación táctil: mismo estado que el hover */
+.row:focus-visible,
+.row:active {
   color: var(--chalk);
 }
 
-.row:hover::before,
-.row:focus-visible::before {
+.row:focus-visible::before,
+.row:active::before {
   transform: scaleY(1);
 }
 
@@ -73,11 +74,11 @@
 
 .kind {
   grid-column: 1 / span 2;
-  transition: color 0.4s var(--ease-out);
+  transition: color 280ms ease;
 }
 
-.row:hover .kind,
-.row:focus-visible .kind {
+.row:focus-visible .kind,
+.row:active .kind {
   color: var(--cobalt-light);
 }
 
@@ -88,11 +89,7 @@
   font-stretch: 76%;
   line-height: 1;
   letter-spacing: -0.025em;
-  transition: transform 0.5s var(--ease-out);
-}
-
-.row:hover .name {
-  transform: translateX(0.35rem);
+  transition: transform 280ms var(--ease-out);
 }
 
 .fullName {
@@ -118,12 +115,33 @@
   justify-self: end;
   font-size: var(--step-2);
   line-height: 1;
-  transition: transform 0.5s var(--ease-out);
+  transition: transform 280ms var(--ease-out);
 }
 
-.row:hover .arrow,
 .row:focus-visible .arrow {
   transform: translateX(0.3rem) rotate(-45deg);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .row:hover {
+    color: var(--chalk);
+  }
+
+  .row:hover::before {
+    transform: scaleY(1);
+  }
+
+  .row:hover .kind {
+    color: var(--cobalt-light);
+  }
+
+  .row:hover .name {
+    transform: translateX(0.35rem);
+  }
+
+  .row:hover .arrow {
+    transform: translateX(0.3rem) rotate(-45deg);
+  }
 }
 
 @media (max-width: 900px) {
@@ -149,11 +167,5 @@
   .summary {
     grid-column: 1 / span 11;
     margin-top: 0.6rem;
-  }
-}
-
-@media (hover: none) {
-  .row:hover .name {
-    transform: none;
   }
 }
