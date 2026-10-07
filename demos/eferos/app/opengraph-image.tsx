@@ -1,5 +1,11 @@
 import { ImageResponse } from "next/og";
 import { business } from "@/business.config";
+import { brandColors, symbol, wordmark } from "@/components/brand";
+
+const svgUri = (w: number, h: number, d: string, fill: string) =>
+  `data:image/svg+xml;utf8,${encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}"><path fill="${fill}" fill-rule="evenodd" d="${d}"/></svg>`,
+  )}`;
 
 export const alt = `${business.name} · ${business.tagline}`;
 export const size = { width: 1200, height: 630 };
@@ -20,21 +26,20 @@ export default function OpengraphImage() {
           color: "#e6ebe7",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 18, fontSize: 40, letterSpacing: -1 }}>
-          <div
-            style={{
-              width: 34,
-              height: 34,
-              borderRadius: 999,
-              border: "3px solid #e6ebe7",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <div style={{ width: 8, height: 8, borderRadius: 999, background: "#a9b8ff" }} />
-          </div>
-          eferos
+        {/* Logotipo oficial: símbolo + nombre (en claro sobre pino) */}
+        <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
+          <img
+            src={svgUri(symbol.width, symbol.height, symbol.d, brandColors.blue)}
+            width={110}
+            height={Math.round((110 * symbol.height) / symbol.width)}
+            alt=""
+          />
+          <img
+            src={svgUri(wordmark.width, wordmark.height, `${wordmark.d} ${wordmark.flipD}`, "#e6ebe7")}
+            width={162}
+            height={Math.round((162 * wordmark.height) / wordmark.width)}
+            alt=""
+          />
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <div style={{ fontSize: 88, lineHeight: 0.95, letterSpacing: -3, maxWidth: 980 }}>

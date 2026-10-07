@@ -75,7 +75,9 @@ demos/eferos/
 │   ├── BookingActions.tsx    ← botones Reservar + WhatsApp
 │   ├── HoursTable.tsx        ← horario con el día actual resaltado
 │   ├── BrandName.tsx         ← "®" como superíndice en titulares
-│   ├── Logo.tsx              ← logotipo provisional
+│   ├── Logo.tsx              ← logotipo oficial (símbolo + nombre)
+│   ├── brand.ts              ← trazados vectoriales y colores del logotipo
+│   ├── PhotoStrip.tsx        ← tira de fotos (scroll, flechas, arrastre)
 │   └── RevealObserver.tsx    ← animaciones de entrada al hacer scroll
 ├── lib/
 │   ├── types.ts              ← tipos de business.config
@@ -113,11 +115,18 @@ Las fotos de la tira de «El centro» son fotografías reales de la clínica fac
 
 Se pueden añadir o quitar entradas: la tira se adapta. Funciona mejor mezclando verticales y horizontales.
 
-**Retratos del equipo:** copia la foto en `public/images/equipo/` y pon la ruta en `photo` (proporción 3:4).
+**Retratos del equipo:** copia la foto en `public/images/equipo/` y pon la ruta en `photo`. Se recorta a 3:4 con el encuadre desplazado hacia arriba para conservar la cara. El de Cristina León ya está incluido.
 
 ### Logotipo
 
-`components/Logo.tsx` es un logotipo **provisional**: el símbolo de retícula seguido del nombre «eferos». Se usa solo en los puntos de firma de marca (cabecera, menú móvil y pie), nunca dentro del texto. Para poner el oficial, sustituye el SVG del símbolo en ese único componente, idealmente por el SVG original, manteniendo el orden símbolo + nombre. Actualiza también el favicon en `app/icon.svg`.
+Logotipo **oficial** de Eferos: el símbolo (dos «e» enlazadas, azul `#2B95DA`) seguido del nombre «eferos» (azul marino `#073F67`).
+
+- **Origen:** PNG y WebP facilitados por Eferos, vectorizados con potrace. Los trazados están en `components/brand.ts` y hay copias SVG en `public/brand/`.
+- **Uso:** solo en los puntos de firma de marca (cabecera, menú móvil, pie e imagen Open Graph), nunca dentro del texto. Sobre el verde oscuro, el nombre pasa a claro y el símbolo conserva su azul.
+- **Interacción:** al pasar el ratón (o enfocar el enlace con el teclado), la «ɘ» invertida del nombre gira sobre sí misma y queda como una «e». Ocupa el mismo sitio antes y después.
+- **Favicon:** `app/icon.svg` (símbolo) y `app/apple-icon.png` (180 px, fondo blanco, para iOS).
+
+Si Eferos tiene el logotipo original en vectorial (SVG, AI o PDF), conviene sustituir los trazados de `components/brand.ts` por los originales.
 
 ### Reseñas de Google
 
@@ -148,7 +157,12 @@ Coste: pedir reseñas usa el SKU «Place Details Enterprise + Atmosphere», con 
 - **Paleta:** fondo blanco, bandas en blanco mineral frío (equipo, caja de reserva, marcos de foto) para dar ritmo, tinta verde pino y cobalto solo como acento de medición y foco. Se evitan los tópicos de clínica (azul sanitario) y los de plantilla (crema y terracota, degradados).
 - **Tipografía:** Archivo en anchura estrecha para titulares y anchura normal para el texto. Newsreader cursiva aparece solo en una palabra clave por bloque. IBM Plex Mono se usa para datos clínicos (NICA, colegiado, horarios).
 - **Sin tarjetas por defecto:** los tratamientos son un índice de filas tipográficas, las lesiones una lista, el contacto filas de acción. Solo la caja de reserva de las fichas tiene fondo propio.
-- **«El centro»:** una tira editorial horizontal de fotografías a sangre. En escritorio se desplaza lateralmente al ritmo del scroll de la página, con CSS puro (`animation-timeline: view()`, por GPU y sin JavaScript). En móvil, en navegadores sin soporte y con movimiento reducido es una fila con scroll horizontal nativo e imán (`scroll-snap`), accesible con teclado. No hay animaciones infinitas.
+- **«El centro»:** una tira editorial horizontal de fotografías reales a sangre (`components/PhotoStrip.tsx`). Es un contenedor con scroll horizontal real:
+  - se navega con el dedo (con imán por foto), el trackpad, arrastrando con el ratón, con las flechas anterior/siguiente o con el teclado;
+  - en escritorio, el scroll vertical de la página además la desplaza lateralmente. Lo que el usuario mueve a mano se suma a ese desplazamiento, sin pelearse con él;
+  - una barra fina indica la posición;
+  - con movimiento reducido solo queda la navegación manual;
+  - no hay animaciones infinitas.
 - **Móvil:** la ecografía pasa a formato apaisado bajo el titular, la ficha del hero se convierte en lista de pares, el menú es un panel a pantalla completa con el botón de reserva siempre visible en la cabecera, y todos los objetivos táctiles miden al menos 44 px.
 
 ## Notas técnicas
@@ -179,9 +193,8 @@ Ningún dato de esta lista se ha inventado: o falta, o hay que confirmarlo. Los 
 
 ### Material
 
-- **Logotipo oficial**, en SVG si es posible, y colores de marca si los tienen. Sustituye el símbolo en `components/Logo.tsx` y `app/icon.svg`. No se pudo descargar de eferos.es porque el entorno de desarrollo no tiene acceso a ese dominio.
-- **Fotografías reales:**
-  - retrato de Cristina León (3:4);
+- **Logotipo en vectorial original** (SVG, AI o PDF), si existe. El actual está vectorizado a partir de imágenes y es fiel, pero el original siempre es preferible.
+- **Fotografías:**
   - si existen, versiones de mayor resolución de las fotos de la clínica: las actuales miden entre 800 y 1206 px de ancho, y la tira limita su altura a 400 px para no ampliarlas.
 - **Reseñas de Google** (ver la sección «Reseñas de Google» más arriba): API key con facturación y el Place ID de la ficha. Ninguno de los dos los tiene que dar Eferos si el proyecto de Google Cloud es nuestro; lo que sí hay que pedirles es que confirmen cuál es su ficha oficial de Google Maps.
 - **Opcional:**

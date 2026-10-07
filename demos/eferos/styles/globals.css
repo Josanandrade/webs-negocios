@@ -21,6 +21,8 @@
   --on-pine-soft: #a9b8b3; /* texto secundario sobre pino (7:1) */
   --cobalt: #2a44d4;       /* marca de medición, foco, hover */
   --cobalt-light: #a9b8ff; /* cobalto sobre fondo oscuro */
+  --brand-navy: #073f67;   /* logotipo oficial: nombre (= brandColors en components/brand.ts) */
+  --brand-blue: #2b95da;   /* logotipo oficial: símbolo */
   --line: rgb(18 32 30 / 0.16);
   --line-strong: rgb(18 32 30 / 0.4);
   --line-pine: rgb(230 235 231 / 0.16);
@@ -451,41 +453,59 @@ button {
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  color: var(--ink);
+  gap: 0.55em;
+  /* El tamaño de todo el logotipo se controla con font-size */
+  font-size: 1rem;
   line-height: 1;
 }
 
-.logo--light {
-  color: var(--on-pine);
-}
-
-.logo__mark {
-  width: 1.45rem;
-  height: 1.45rem;
+.logo__symbol {
+  height: 1.5em;
+  width: auto; /* proporción: inline desde components/brand.ts */
   flex: none;
-  transition: transform 500ms var(--ease-out);
-}
-
-.logo__dot {
-  fill: var(--cobalt);
-}
-
-.logo--light .logo__dot {
-  fill: var(--cobalt-light);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  a:hover .logo__mark {
-    transform: rotate(90deg);
-  }
+  fill: var(--brand-blue);
 }
 
 .logo__word {
-  font-size: 1.4rem;
-  font-weight: 620;
-  font-stretch: 112%;
-  letter-spacing: -0.04em;
+  height: 1.08em;
+  width: auto; /* proporción: inline desde components/brand.ts */
+  flex: none;
+  fill: var(--brand-navy);
+  /* La «e» del nombre se apoya en la línea base del símbolo */
+  transform: translateY(0.04em);
+}
+
+.logo--light .logo__word {
+  fill: var(--on-pine);
+}
+
+/* La «ɘ» gira sobre su propio eje vertical: ocupa el mismo sitio antes y después */
+.logo__flip {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 520ms var(--ease-in-out);
+}
+
+a:focus-visible .logo__flip {
+  transform: scaleX(-1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a:hover .logo__flip {
+    transform: scaleX(-1);
+  }
+}
+
+@media (min-width: 901px) {
+  .logo {
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .logo {
+    font-size: 0.82rem;
+  }
 }
 
 /* ---------- Acciones de reserva ---------- */

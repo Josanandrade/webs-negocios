@@ -75,7 +75,7 @@ export const business: Business = {
       initials: "CL",
       role: "Fisioterapeuta",
       license: "Col. nº 9134",
-      photo: null, // p. ej. "/images/equipo/cristina-leon.jpg"
+      photo: "/images/equipo/cristina-leon.jpg",
       summary:
         "Trata trastornos neuromusculoesqueléticos en adultos, tanto lesiones agudas como dolor crónico. Explica a cada paciente, con sinceridad, qué posibilidades reales de recuperación tiene su caso.",
       credentials: ["Grado en Fisioterapia, Universidad de Sevilla (2019)"],

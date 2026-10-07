@@ -41,8 +41,10 @@
   place-items: end start;
 }
 
+/* Encuadre hacia arriba: el recorte 3:4 conserva la cara */
 .portrait img {
   object-fit: cover;
+  object-position: 50% 18%;
 }
 
 /* Monograma provisional mientras no haya retrato */

@@ -1,14 +1,9 @@
 import { business } from "@/business.config";
-import PhotoFrame from "@/components/PhotoFrame";
+import PhotoStrip from "@/components/PhotoStrip";
 import styles from "./Spaces.module.css";
 
 /**
- * "Dónde te tratamos": tira editorial de fotografías + los tres espacios.
- *
- * La tira es una fila con scroll horizontal nativo (táctil, trackpad, teclado).
- * En escritorio, si el navegador soporta animaciones ligadas al scroll y el
- * usuario no pide movimiento reducido, la fila se desplaza lateralmente mientras
- * la página baja. Es CSS puro (animation-timeline: view()), sin JavaScript.
+ * "Dónde te tratamos": tira de fotografías reales (PhotoStrip) + los tres espacios.
  */
 export default function Spaces() {
   return (
@@ -26,35 +21,7 @@ export default function Spaces() {
         </p>
       </div>
 
-      <div
-        className={styles.strip}
-        role="region"
-        aria-label="Fotografías del centro"
-        tabIndex={0}
-      >
-        <ul role="list" className={styles.track}>
-          {business.gallery.map((photo, i) => (
-            <li
-              key={`${photo.caption}-${i}`}
-              className={styles.shot}
-              style={{ ["--r" as string]: photo.width / photo.height }}
-            >
-              <figure>
-                <PhotoFrame
-                  src={photo.src}
-                  alt={photo.alt}
-                  label={photo.caption}
-                  ratio={`${photo.width} / ${photo.height}`}
-                  sizes="(max-width: 900px) 80vw, 45vw"
-                  showLabel={false}
-                  eager
-                />
-                <figcaption className="label">{photo.caption}</figcaption>
-              </figure>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <PhotoStrip photos={business.gallery} label="Fotografías del centro" />
 
       <div className="wrap">
         <ul role="list" className={styles.spaces}>
