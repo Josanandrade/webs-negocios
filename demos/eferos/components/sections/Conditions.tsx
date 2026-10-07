@@ -33,7 +33,7 @@ export default function Conditions() {
           <div className={styles.footLinks}>
             <a href={business.contact.whatsappUrl} className="btn btn--light" target="_blank" rel="noopener">
               Escribir por WhatsApp
-              <span className="arrow" aria-hidden="true">↗</span>
+              <span className="arrow" aria-hidden="true">↗︎</span>
             </a>
           </div>
         </div>

@@ -22,7 +22,7 @@ export default function ReservasPage() {
         <span>
           WhatsApp <span className="tabular booking-actions__num">{contact.phoneDisplay}</span>
         </span>
-        <span className="arrow" aria-hidden="true">↗</span>
+        <span className="arrow" aria-hidden="true">↗︎</span>
       </a>
       <a href={telHref} className="btn btn--ghost">
         <span>

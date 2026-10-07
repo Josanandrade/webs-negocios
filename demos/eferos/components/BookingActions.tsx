@@ -13,7 +13,7 @@ export default function BookingActions({ className = "" }: { className?: string 
         <span>
           WhatsApp <span className="tabular booking-actions__num">{business.contact.phoneDisplay}</span>
         </span>
-        <span className="arrow" aria-hidden="true">↗</span>
+        <span className="arrow" aria-hidden="true">↗︎</span>
       </a>
     </div>
   );

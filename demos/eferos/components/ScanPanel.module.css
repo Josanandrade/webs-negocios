@@ -58,7 +58,7 @@
   stroke: #f2f5f3;
   stroke-width: 2.25;
   stroke-linecap: round;
-  filter: drop-shadow(0 0 3px rgb(169 184 255 / 0.9));
+  filter: drop-shadow(0 0 3px rgb(90 174 230 / 0.9));
   stroke-dasharray: 1;
   stroke-dashoffset: 0;
 }
@@ -84,7 +84,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(180deg, transparent 0%, rgb(169 184 255 / 0.06) 48%, transparent 52%);
+  background: linear-gradient(180deg, transparent 0%, rgb(90 174 230 / 0.06) 48%, transparent 52%);
   opacity: 0;
 }
 
