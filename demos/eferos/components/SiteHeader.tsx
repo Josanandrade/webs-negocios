@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { type MouseEvent as ReactMouseEvent, useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { business } from "@/business.config";
 import { telHref } from "@/lib/site";
@@ -33,6 +33,20 @@ export default function SiteHeader() {
     setOpen(false);
     toggleRef.current?.focus();
   }, []);
+
+  // El logo siempre actúa como "inicio". Si ya estamos en / (incluido un ancla
+  // como /#equipo), quitamos el hash y subimos arriba sin depender de la heurística
+  // de scroll de Next/Safari. Desde cualquier otra ruta, Link navega con normalidad.
+  const goHome = useCallback(
+    (event: ReactMouseEvent<HTMLAnchorElement>) => {
+      setOpen(false);
+      if (pathname !== "/") return;
+      event.preventDefault();
+      window.history.replaceState(window.history.state, "", "/");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },
+    [pathname],
+  );
 
   // Si la ventana pasa a escritorio con el menú abierto (p. ej. girar una tablet),
   // el panel se oculta por CSS: cerrarlo también en estado para liberar el scroll.
@@ -80,7 +94,7 @@ export default function SiteHeader() {
   return (
     <header className={`${styles.header} ${scrolled || open ? styles.solid : ""} ${open ? styles.isOpen : ""}`}>
       <div className={`wrap ${styles.bar}`}>
-        <Link href="/" className={styles.brand}>
+        <Link href="/" className={styles.brand} onClick={goHome} scroll>
           <Logo tone={open ? "light" : "ink"} />
           <span className="visually-hidden"> Fisioterapia, ir al inicio</span>
         </Link>

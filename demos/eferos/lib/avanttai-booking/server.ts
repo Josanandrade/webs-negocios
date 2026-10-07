@@ -23,6 +23,11 @@ type ProxyOptions = {
   maxBookingsPerMinute?: number;
 };
 
+type ProxyResult = {
+  body: Record<string, unknown>;
+  status: number;
+};
+
 const noStore = { "Cache-Control": "no-store" };
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
 const TIME = /^\d{2}:\d{2}$/;
@@ -43,6 +48,13 @@ export function createBookingProxy(options: ProxyOptions = {}) {
   const maxPerMinute = options.maxBookingsPerMinute ?? 6;
   const recent = new Map<string, number[]>();
 
+  // La configuración (servicios, profesionales y reglas) cambia poco y no contiene
+  // disponibilidad. Se guarda 60 s en memoria para que abrir /reservas no tenga que
+  // esperar al backend. Las consultas de huecos siguen pasando siempre en tiempo real.
+  let setupCache: { expiresAt: number; result: ProxyResult } | null = null;
+  let setupInFlight: Promise<ProxyResult> | null = null;
+  const setupTtlMs = 60_000;
+
   const apiBase = (): string | null => {
     const base = (options.apiUrl ?? process.env.AVANTTAI_BOOKING_API_URL ?? "").trim().replace(/\/+$/, "");
     return /^https?:\/\//.test(base) ? base : null;
@@ -55,7 +67,7 @@ export function createBookingProxy(options: ProxyOptions = {}) {
     return `${base}/api/public/booking/${encodeURIComponent(slug)}`;
   };
 
-  async function forward(url: string, init: RequestInit, ip: string): Promise<Response> {
+  async function forwardData(url: string, init: RequestInit, ip: string): Promise<ProxyResult> {
     try {
       const upstream = await fetch(url, {
         ...init,
@@ -63,9 +75,12 @@ export function createBookingProxy(options: ProxyOptions = {}) {
         headers: { ...(init.headers ?? {}), "X-Forwarded-For": ip, Accept: "application/json" },
         signal: AbortSignal.timeout(timeoutMs),
       });
-      const body = await upstream.json().catch(() => null);
-      if (!body || typeof body !== "object") {
-        return json({ ok: false, error: "El sistema de reservas no ha respondido correctamente." }, 502);
+      const body = (await upstream.json().catch(() => null)) as Record<string, unknown> | null;
+      if (!body) {
+        return {
+          body: { ok: false, error: "El sistema de reservas no ha respondido correctamente." },
+          status: 502,
+        };
       }
 
       // AvanttAI Health puede devolver rutas relativas para continuar el onboarding.
@@ -75,13 +90,20 @@ export function createBookingProxy(options: ProxyOptions = {}) {
         if (base) body.onboardingUrl = `${base}${body.onboardingUrl}`;
       }
 
-      // Se devuelve tal cual el estado y el mensaje del motor (409, 400…).
-      return json(body, upstream.status);
+      return { body, status: upstream.status };
     } catch (error) {
       const timedOut = error instanceof Error && error.name === "TimeoutError";
       console.error("[avanttai-booking] proxy", timedOut ? "timeout" : error);
-      return json({ ok: false, error: "No hemos podido conectar con el sistema de reservas. Inténtalo de nuevo en unos minutos." }, 502);
+      return {
+        body: { ok: false, error: "No hemos podido conectar con el sistema de reservas. Inténtalo de nuevo en unos minutos." },
+        status: 502,
+      };
     }
+  }
+
+  async function forward(url: string, init: RequestInit, ip: string): Promise<Response> {
+    const result = await forwardData(url, init, ip);
+    return json(result.body, result.status);
   }
 
   async function GET(request: Request): Promise<Response> {
@@ -99,8 +121,36 @@ export function createBookingProxy(options: ProxyOptions = {}) {
       query.set("date", date);
       if (memberId) query.set("memberId", memberId);
     }
+
     const qs = query.toString();
-    return forward(qs ? `${url}?${qs}` : url, { method: "GET" }, clientIp(request));
+    const ip = clientIp(request);
+
+    // GET sin parámetros = configuración pública. Se deduplican peticiones simultáneas
+    // y se conserva un minuto. La disponibilidad (GET con fecha/servicio) nunca entra aquí.
+    if (!qs) {
+      const now = Date.now();
+      if (setupCache && setupCache.expiresAt > now) {
+        return json(setupCache.result.body, setupCache.result.status);
+      }
+
+      if (!setupInFlight) {
+        setupInFlight = forwardData(url, { method: "GET" }, ip)
+          .then((result) => {
+            if (result.status === 200) {
+              setupCache = { expiresAt: Date.now() + setupTtlMs, result };
+            }
+            return result;
+          })
+          .finally(() => {
+            setupInFlight = null;
+          });
+      }
+
+      const result = await setupInFlight;
+      return json(result.body, result.status);
+    }
+
+    return forward(`${url}?${qs}`, { method: "GET" }, ip);
   }
 
   async function POST(request: Request): Promise<Response> {

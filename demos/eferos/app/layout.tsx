@@ -6,6 +6,7 @@ import { archivo, newsreader, plexMono } from "./fonts";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import RevealObserver from "@/components/RevealObserver";
+import BookingSetupWarmup from "@/components/BookingSetupWarmup";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -60,6 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="contenido">{children}</main>
         <SiteFooter />
         <RevealObserver />
+        <BookingSetupWarmup />
       </body>
     </html>
   );

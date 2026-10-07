@@ -11,7 +11,9 @@ export default function SiteFooter() {
     <footer className={`on-pine ${styles.footer}`}>
       <div className={`wrap ${styles.top}`}>
         <div className={styles.brand}>
-          <Logo tone="light" />
+          <Link href="/" aria-label={`${business.name}, ir al inicio`}>
+            <Logo tone="light" />
+          </Link>
           <p className="muted">{business.tagline}.</p>
         </div>
 
