@@ -43,10 +43,15 @@ export function createBookingProxy(options: ProxyOptions = {}) {
   const maxPerMinute = options.maxBookingsPerMinute ?? 6;
   const recent = new Map<string, number[]>();
 
-  const target = (): string | null => {
+  const apiBase = (): string | null => {
     const base = (options.apiUrl ?? process.env.AVANTTAI_BOOKING_API_URL ?? "").trim().replace(/\/+$/, "");
+    return /^https?:\/\//.test(base) ? base : null;
+  };
+
+  const target = (): string | null => {
+    const base = apiBase();
     const slug = (options.slug ?? process.env.AVANTTAI_BOOKING_SLUG ?? "").trim();
-    if (!/^https?:\/\//.test(base) || !/^[a-z0-9-]{1,80}$/i.test(slug)) return null;
+    if (!base || !/^[a-z0-9-]{1,80}$/i.test(slug)) return null;
     return `${base}/api/public/booking/${encodeURIComponent(slug)}`;
   };
 
@@ -62,7 +67,15 @@ export function createBookingProxy(options: ProxyOptions = {}) {
       if (!body || typeof body !== "object") {
         return json({ ok: false, error: "El sistema de reservas no ha respondido correctamente." }, 502);
       }
-      // Se devuelve tal cual el estado y el mensaje del motor (409, 400…)
+
+      // AvanttAI Health puede devolver rutas relativas para continuar el onboarding.
+      // Desde una web white-label deben apuntar al motor AvanttAI, no al dominio del negocio.
+      if (typeof body.onboardingUrl === "string" && body.onboardingUrl.startsWith("/")) {
+        const base = apiBase();
+        if (base) body.onboardingUrl = `${base}${body.onboardingUrl}`;
+      }
+
+      // Se devuelve tal cual el estado y el mensaje del motor (409, 400…).
       return json(body, upstream.status);
     } catch (error) {
       const timedOut = error instanceof Error && error.name === "TimeoutError";
