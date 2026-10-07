@@ -37,7 +37,7 @@ export const business: Business = {
     theme: {
       primaryColor: "var(--ink)",
       primaryTextColor: "var(--chalk)",
-      accentColor: "var(--cobalt)",
+      accentColor: "var(--accent-strong)",
       backgroundColor: "transparent",
       surfaceColor: "var(--chalk-2)",
       textColor: "var(--ink)",

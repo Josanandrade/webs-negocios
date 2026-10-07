@@ -74,7 +74,7 @@
 }
 
 .row:focus-visible::before {
-  outline: 2px solid var(--cobalt-light);
+  outline: 2px solid var(--accent-light);
   outline-offset: -5px;
 }
 
@@ -85,7 +85,7 @@
 
 .row:focus-visible .kind,
 .row:active .kind {
-  color: var(--cobalt-light);
+  color: var(--accent-light);
 }
 
 .name {
@@ -138,7 +138,7 @@
   }
 
   .row:hover .kind {
-    color: var(--cobalt-light);
+    color: var(--accent-light);
   }
 
   .row:hover .name {

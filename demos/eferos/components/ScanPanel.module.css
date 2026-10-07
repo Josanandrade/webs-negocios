@@ -65,7 +65,7 @@
 
 .pulse circle {
   fill: none;
-  stroke: var(--cobalt-light);
+  stroke: var(--accent-light);
   stroke-width: 1.5;
   transform-box: fill-box;
   transform-origin: center;
@@ -74,7 +74,7 @@
 
 .calipers path,
 .calipers line {
-  stroke: var(--cobalt-light);
+  stroke: var(--accent-light);
   stroke-width: 1.5;
   fill: none;
 }

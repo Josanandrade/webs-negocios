@@ -46,7 +46,7 @@
 .title em {
   font-size: 1.08em;
   letter-spacing: -0.03em;
-  color: var(--cobalt);
+  color: var(--accent);
 }
 
 .lead {

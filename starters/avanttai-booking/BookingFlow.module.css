@@ -593,10 +593,10 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
-  /* En móvil el resumen va primero, compacto y sin fijar */
+  /* En móvil el resumen va después de los pasos y sin fijar:
+     así lo que cambia al cargar queda fuera de la pantalla inicial */
   .aside {
     position: static;
-    order: -1;
   }
 
   .summary {

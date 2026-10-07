@@ -53,12 +53,12 @@
 
 .channel:focus-visible,
 .channel:active {
-  color: var(--cobalt-light);
+  color: var(--accent-light);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .channel:hover {
-    color: var(--cobalt-light);
+    color: var(--accent-light);
   }
 
   .channel:hover .value {

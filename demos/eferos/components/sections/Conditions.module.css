@@ -17,7 +17,7 @@
 }
 
 .title em {
-  color: var(--cobalt-light);
+  color: var(--accent-light);
 }
 
 .side p {
@@ -48,7 +48,7 @@
   flex: none;
   font-family: var(--font-mono);
   font-size: 0.6em;
-  color: var(--cobalt-light);
+  color: var(--accent-light);
   transform: translateY(-0.1em);
 }
 

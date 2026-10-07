@@ -250,11 +250,17 @@ export default function BookingFlow({
   if (setupError) {
     return (
       <div className={styles.root} style={themeStyle}>
-        <div className={styles.unavailable} role="status">
-          <p className={styles.eyebrow}>Reserva online</p>
-          <h2 className={styles.title}>{setupError.unavailable ? "La reserva online no está disponible ahora mismo" : "No hemos podido cargar la reserva"}</h2>
-          <p className={styles.muted}>{setupError.message}</p>
-          {fallback}
+        {/* Misma estructura que la carga: el contenido no salta */}
+        <div className={styles.layout}>
+          <div className={`${styles.steps} ${styles.loading}`}>
+            <div className={styles.unavailable} role="status">
+              <p className={styles.eyebrow}>Reserva online</p>
+              <h2 className={styles.title}>{setupError.unavailable ? "La reserva online no está disponible ahora mismo" : "No hemos podido cargar la reserva"}</h2>
+              <p className={styles.muted}>{setupError.message}</p>
+              {fallback}
+            </div>
+          </div>
+          <BookingAside aside={aside} />
         </div>
       </div>
     );
@@ -270,14 +276,7 @@ export default function BookingFlow({
               Cargando servicios y disponibilidad…
             </p>
           </div>
-          <BookingAside
-            aside={aside}
-            rows={[
-              { label: "Servicio" },
-              { label: "Día" },
-              { label: "Hora" },
-            ]}
-          />
+          <BookingAside aside={aside} />
         </div>
       </div>
     );
@@ -597,22 +596,24 @@ export default function BookingFlow({
 type SummaryRow = { label: string; value?: string; className?: string };
 
 /** Resumen de la reserva + contenido lateral de la web anfitriona */
-function BookingAside({ rows, aside }: { rows: SummaryRow[]; aside?: ReactNode }) {
+function BookingAside({ rows, aside }: { rows?: SummaryRow[]; aside?: ReactNode }) {
   return (
-    <aside className={styles.aside} aria-label="Resumen de tu reserva">
-      <div className={styles.summary}>
-        <p className={styles.eyebrow}>Tu reserva</p>
-        <dl className={styles.summaryList}>
-          {rows.map((row) => (
-            <div key={row.label}>
-              <dt>{row.label}</dt>
-              <dd className={row.value ? row.className : undefined}>
-                {row.value ?? <span className={styles.placeholder}>Sin elegir</span>}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </div>
+    <aside className={styles.aside} aria-label={rows ? "Resumen de tu reserva" : undefined}>
+      {rows && (
+        <div className={styles.summary}>
+          <p className={styles.eyebrow}>Tu reserva</p>
+          <dl className={styles.summaryList}>
+            {rows.map((row) => (
+              <div key={row.label}>
+                <dt>{row.label}</dt>
+                <dd className={row.value ? row.className : undefined}>
+                  {row.value ?? <span className={styles.placeholder}>Sin elegir</span>}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
       {aside}
     </aside>
   );

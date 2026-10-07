@@ -124,7 +124,7 @@
   font-family: var(--font-sans);
   font-style: normal;
   font-weight: 300;
-  color: var(--cobalt);
+  color: var(--accent);
 }
 
 @media (max-width: 1100px) {

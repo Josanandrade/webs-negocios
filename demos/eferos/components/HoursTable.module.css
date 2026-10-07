@@ -33,8 +33,8 @@
 .today {
   margin-left: 0.6rem;
   padding: 0.1rem 0.4rem;
-  border: 1px solid var(--cobalt-light);
-  color: var(--cobalt-light);
+  border: 1px solid var(--accent-light);
+  color: var(--accent-light);
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.06em;

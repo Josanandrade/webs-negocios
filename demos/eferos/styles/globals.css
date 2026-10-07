@@ -3,8 +3,8 @@
  *
  * Idea: "precisión que se ve". El lenguaje toma prestado del ecógrafo y de la
  * ficha clínica: escalas, marcas de medición, datos en monoespaciada. Base blanca,
- * bandas en blanco mineral para dar ritmo, tinta verde pino y cobalto solo como
- * marca de medición y foco.
+ * bandas en blanco mineral para dar ritmo, tinta verde pino y el azul del logotipo solo
+ * como marca de medición, palabras destacadas y foco.
  * Layout: retícula de 12 columnas con composiciones asimétricas y filas de índice
  * en lugar de tarjetas.
  */
@@ -19,10 +19,12 @@
   --pine: #172b28;         /* secciones oscuras */
   --on-pine: #e6ebe7;      /* texto sobre pino */
   --on-pine-soft: #a9b8b3; /* texto secundario sobre pino (7:1) */
-  --cobalt: #2a44d4;       /* marca de medición, foco, hover */
-  --cobalt-light: #a9b8ff; /* cobalto sobre fondo oscuro */
   --brand-navy: #073f67;   /* logotipo oficial: nombre (= brandColors en components/brand.ts) */
   --brand-blue: #2b95da;   /* logotipo oficial: símbolo */
+  /* Acentos de la web, tomados del logotipo */
+  --accent: var(--brand-blue);   /* palabras destacadas, marcas de medición, foco */
+  --accent-strong: var(--brand-navy); /* hover de enlaces y relleno de botones: contraste AA con texto pequeño */
+  --accent-light: #5aaee6;  /* azul del logotipo aclarado para fondo pino (6:1) */
   --line: rgb(18 32 30 / 0.16);
   --line-strong: rgb(18 32 30 / 0.4);
   --line-pine: rgb(230 235 231 / 0.16);
@@ -147,17 +149,17 @@ button {
 }
 
 ::selection {
-  background: var(--cobalt);
+  background: var(--accent-strong);
   color: #fff;
 }
 
 :focus-visible {
-  outline: 2px solid var(--cobalt);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
 .on-pine :focus-visible {
-  outline-color: var(--cobalt-light);
+  outline-color: var(--accent-light);
 }
 
 .skip-link {
@@ -232,12 +234,12 @@ button {
   content: "+";
   display: inline-block;
   margin-right: 0.6em;
-  color: var(--cobalt);
+  color: var(--accent);
   font-weight: 400;
 }
 
 .on-pine .mark::before {
-  color: var(--cobalt-light);
+  color: var(--accent-light);
 }
 
 .serif {
@@ -299,13 +301,13 @@ button {
     transform var(--dur-press) var(--ease-out);
 }
 
-/* Relleno cobalto que barre de izquierda a derecha */
+/* Relleno azul marino del logotipo que barre de izquierda a derecha */
 .btn::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: var(--cobalt);
+  background: var(--accent-strong);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 280ms var(--ease-out);
@@ -316,7 +318,7 @@ button {
 }
 
 .btn:focus-visible {
-  border-color: var(--cobalt);
+  border-color: var(--accent-strong);
   color: #fff;
 }
 
@@ -339,7 +341,7 @@ button {
   }
 
   .btn:hover {
-    border-color: var(--cobalt);
+    border-color: var(--accent-strong);
     color: #fff;
   }
 
@@ -388,16 +390,16 @@ button {
 }
 
 .link:active {
-  color: var(--cobalt);
+  color: var(--accent-strong);
 }
 
 .on-pine .link:active {
-  color: var(--cobalt-light);
+  color: var(--accent-light);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .link:hover {
-    color: var(--cobalt);
+    color: var(--accent-strong);
   }
 
   .link:hover::before {
@@ -405,7 +407,7 @@ button {
   }
 
   .on-pine .link:hover {
-    color: var(--cobalt-light);
+    color: var(--accent-light);
   }
 }
 
