@@ -47,6 +47,7 @@ export default function Spaces() {
                   ratio={`${photo.width} / ${photo.height}`}
                   sizes="(max-width: 900px) 80vw, 45vw"
                   showLabel={false}
+                  eager
                 />
                 <figcaption className="label">{photo.caption}</figcaption>
               </figure>

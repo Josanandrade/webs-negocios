@@ -103,7 +103,7 @@ Todo el contenido del negocio está en **`business.config.ts`**:
 
 ### Fotografías
 
-La web está preparada para fotos reales, pero esta versión todavía no las incluye: desde el entorno de desarrollo no se ha podido acceder a eferos.es para descargarlas. No se han puesto fotos de stock. Mientras no haya foto se muestra un hueco diseñado con la retícula de la marca.
+Las fotos de la tira de «El centro» son fotografías reales de la clínica facilitadas por Eferos (`public/images/centro/`, sin metadatos). No hay fotos de stock. Donde todavía no hay foto (el retrato del equipo) se muestra un hueco diseñado con la retícula de la marca.
 
 **Tira de «El centro»** (`gallery` en `business.config.ts`):
 
@@ -166,10 +166,9 @@ Ningún dato de esta lista se ha inventado: o falta, o hay que confirmarlo. Los 
 ### Datos que debe confirmar Eferos
 
 - **Horario.** eferos.es indica L–J 9:30–20:30 y V 9:30–13:30. Otros directorios publican 9:00–21:00 y 9:00–14:00.
-- **Formación.** Nombre oficial exacto del máster de Alfonso Canto. Si Cristina León tiene más formación que el grado, añadirla. Confirmar que la formación con Chad Cook, Jo Gibson, Annina Schmid y Mark Laslett es de los dos.
+- **Formación de Cristina León.** Si tiene más formación que el grado, añadirla. Confirmar la formación directa con Chad Cook, Jo Gibson, Annina Schmid y Mark Laslett, que se muestra en su ficha.
 - **Textos redactados para la demo:**
   - los bloques «Cómo la usamos», «Por qué ecoguiada», «Cuándo la proponemos» y «Dónde lo hacemos» de las fichas;
-  - el resumen de Alfonso Canto;
   - las descripciones de los tres espacios.
 - **Afirmaciones que se extienden a todo el centro.** Dos frases salen de la biografía de Cristina León: el compromiso de explicar «con sinceridad» las posibilidades de recuperación, y «dolor agudo y crónico en adultos». Confirmar que valen para todo el centro (¿atienden a menores?).
 - **Domicilio.** Zona de cobertura y condiciones.
@@ -182,9 +181,8 @@ Ningún dato de esta lista se ha inventado: o falta, o hay que confirmarlo. Los 
 
 - **Logotipo oficial**, en SVG si es posible, y colores de marca si los tienen. Sustituye el símbolo en `components/Logo.tsx` y `app/icon.svg`. No se pudo descargar de eferos.es porque el entorno de desarrollo no tiene acceso a ese dominio.
 - **Fotografías reales:**
-  - las de la web actual, en su mayor calidad (no se pudieron descargar por la misma razón);
-  - para la tira de «El centro»: gabinete, sala de recuperación activa, ecógrafo y terapia manual, mezclando verticales y horizontales;
-  - retratos de Cristina y Alfonso (3:4).
+  - retrato de Cristina León (3:4);
+  - si existen, versiones de mayor resolución de las fotos de la clínica: las actuales miden entre 800 y 1206 px de ancho, y la tira limita su altura a 400 px para no ampliarlas.
 - **Reseñas de Google** (ver la sección «Reseñas de Google» más arriba): API key con facturación y el Place ID de la ficha. Ninguno de los dos los tiene que dar Eferos si el proyecto de Google Cloud es nuestro; lo que sí hay que pedirles es que confirmen cuál es su ficha oficial de Google Maps.
 - **Opcional:**
   - fachada o acceso al local, para «Cómo llegar»;

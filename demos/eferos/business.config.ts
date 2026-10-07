@@ -79,27 +79,9 @@ export const business: Business = {
       summary:
         "Trata trastornos neuromusculoesqueléticos en adultos, tanto lesiones agudas como dolor crónico. Explica a cada paciente, con sinceridad, qué posibilidades reales de recuperación tiene su caso.",
       credentials: ["Grado en Fisioterapia, Universidad de Sevilla (2019)"],
-    },
-    {
-      slug: "alfonso-canto",
-      name: "Alfonso Canto",
-      initials: "AC",
-      role: "Fisioterapeuta",
-      license: "Col. nº 9042",
-      photo: null,
-      summary:
-        "Centrado en terapia manual, abordaje del dolor y técnicas invasivas guiadas por ecografía.",
-      credentials: [
-        "Grado en Fisioterapia, Universidad de Sevilla (2019)",
-        // TODO(verificar): nombre oficial exacto del máster.
-        "Máster en Terapia Manual y Abordaje del Dolor, Universidad Europea de Madrid",
-        "Posgrado en Ecografía y Técnicas Invasivas",
-        "Formación en Educación en Neurociencia del Dolor y Ejercicio Terapéutico",
-      ],
+      mentors: ["Chad Cook", "Jo Gibson", "Annina Schmid", "Mark Laslett"],
     },
   ],
-
-  mentors: ["Chad Cook", "Jo Gibson", "Annina Schmid", "Mark Laslett"],
 
   spaces: [
     {
@@ -125,10 +107,41 @@ export const business: Business = {
   // Fotografías del centro para la tira horizontal de «El centro».
   // Sustituir `src: null` por la ruta del archivo en /public/images/centro/.
   gallery: [
-    { src: null, alt: "Gabinete de tratamiento individual", caption: "Gabinete de tratamiento", width: 4, height: 5 },
-    { src: null, alt: "Sala de recuperación activa", caption: "Sala de recuperación activa", width: 3, height: 2 },
-    { src: null, alt: "Ecógrafo del centro", caption: "Ecografía", width: 4, height: 5 },
-    { src: null, alt: "Sesión de terapia manual", caption: "Terapia manual", width: 3, height: 2 },
+    {
+      src: "/images/centro/sala-recuperacion-activa.jpg",
+      alt: "Sala de recuperación activa con bicicleta, cinta de correr, jaula de fuerza y esterillas",
+      caption: "Sala de recuperación activa",
+      width: 800,
+      height: 530,
+    },
+    {
+      src: "/images/centro/gabinete-individual.jpg",
+      alt: "Gabinete con mesa de consulta, títulos en la pared, camilla y ecógrafo",
+      caption: "Gabinete individual",
+      width: 1206,
+      height: 872,
+    },
+    {
+      src: "/images/centro/camilla-ecografo.jpg",
+      alt: "Camilla de tratamiento junto al ecógrafo",
+      caption: "Ecografía",
+      width: 1206,
+      height: 878,
+    },
+    {
+      src: "/images/centro/zona-fuerza.jpg",
+      alt: "Zona de fuerza con jaula, barra olímpica y kettlebells",
+      caption: "Zona de fuerza",
+      width: 1206,
+      height: 872,
+    },
+    {
+      src: "/images/centro/gabinete-tratamiento.jpg",
+      alt: "Gabinete de tratamiento con camilla, ecógrafo y el equipo de EPI®",
+      caption: "Gabinete de tratamiento",
+      width: 800,
+      height: 400,
+    },
   ],
 
   // Las descripciones técnicas (`intro`) parten de eferos.es; los bloques

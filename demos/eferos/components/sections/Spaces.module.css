@@ -42,7 +42,8 @@
   outline-offset: -2px;
 }
 
-.track {
+/* `.strip .track` gana a la regla global ul[role="list"] { padding: 0 } */
+.strip .track {
   display: flex;
   gap: clamp(0.75rem, 0.4rem + 1.2vw, 1.5rem);
   width: max-content;
@@ -52,7 +53,8 @@
 
 /* Alto común para toda la fila; el ancho sale de la proporción de cada foto (--r) */
 .shot {
-  --shot-h: clamp(15rem, 10rem + 24vw, 34rem);
+  /* Máximo 25rem (400 px): las fotos más pequeñas miden 800 px de ancho y no se amplían */
+  --shot-h: clamp(14rem, 8rem + 20vw, 25rem);
   scroll-snap-align: start;
   flex: none;
   width: calc(var(--shot-h) * var(--r));

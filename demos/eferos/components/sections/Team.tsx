@@ -17,7 +17,7 @@ export default function Team() {
           <article key={m.slug} className={styles.person} data-reveal style={{ ["--delay" as string]: `${i * 120}ms` }}>
             <div className={styles.portrait}>
               {m.photo ? (
-                <Image src={m.photo} alt={`Retrato de ${m.name}`} fill sizes="(max-width: 700px) 40vw, 20vw" />
+                <Image src={m.photo} alt={`Retrato de ${m.name}`} fill sizes="(max-width: 640px) 15rem, (max-width: 1100px) 17rem, 26rem" />
               ) : (
                 <span className={styles.initials} aria-hidden="true">
                   {m.initials}
@@ -38,20 +38,21 @@ export default function Team() {
                   <li key={c}>{c}</li>
                 ))}
               </ul>
+              {m.mentors && m.mentors.length > 0 && (
+                <div className={styles.mentors}>
+                  <p className="label">Formación directa con referentes internacionales</p>
+                  <ul role="list" className={styles.mentorList}>
+                    {m.mentors.map((name) => (
+                      <li key={name} className="serif">
+                        {name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </article>
         ))}
-      </div>
-
-      <div className={`wrap ${styles.mentors}`}>
-        <p className="label">Formación directa con referentes internacionales</p>
-        <ul role="list" className={styles.mentorList}>
-          {business.mentors.map((name) => (
-            <li key={name} className="serif">
-              {name}
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );

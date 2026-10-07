@@ -11,6 +11,8 @@ export type TeamMember = {
   photo: string | null;
   summary: string;
   credentials: string[];
+  /** Referentes con los que se ha formado directamente */
+  mentors?: string[];
 };
 
 export type Space = {
@@ -62,7 +64,6 @@ export type Business = {
   social: { label: string; url: string }[];
   nav: { label: string; href: string }[];
   team: TeamMember[];
-  mentors: string[];
   spaces: Space[];
   gallery: GalleryPhoto[];
   services: Service[];

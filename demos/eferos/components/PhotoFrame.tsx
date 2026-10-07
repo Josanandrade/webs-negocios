@@ -9,6 +9,11 @@ type Props = {
   ratio?: string;
   sizes?: string;
   priority?: boolean;
+  /**
+   * Carga inmediata con prioridad baja. Para fotos que entran en pantalla en
+   * horizontal (tira desplazable), donde la carga diferida las mostraría vacías.
+   */
+  eager?: boolean;
   /** Mostrar la etiqueta dentro del hueco (desactivar si ya hay un pie de foto) */
   showLabel?: boolean;
   className?: string;
@@ -27,6 +32,7 @@ export default function PhotoFrame({
   ratio = "4 / 5",
   sizes = "(max-width: 900px) 100vw, 50vw",
   priority = false,
+  eager = false,
   showLabel = true,
   className = "",
   children,
@@ -34,7 +40,15 @@ export default function PhotoFrame({
   return (
     <div className={`${styles.frame} ${className}`} style={{ aspectRatio: ratio }}>
       {src ? (
-        <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className={styles.img} />
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes={sizes}
+          priority={priority}
+          {...(eager && !priority ? { loading: "eager" as const, fetchPriority: "low" as const } : {})}
+          className={styles.img}
+        />
       ) : (
         <div className={styles.placeholder} role="img" aria-label={alt}>
           <span className={styles.corner} data-pos="tl" />
