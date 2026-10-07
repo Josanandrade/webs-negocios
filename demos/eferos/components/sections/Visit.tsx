@@ -7,7 +7,7 @@ export default function Visit() {
   const { address, contact, booking } = business;
 
   const channels = [
-    { label: "Reserva online", value: "Elige día y hora", href: booking.url, external: true, icon: "↗" },
+    { label: "Reserva online", value: "Elige día y hora", href: booking.url, external: false, icon: "→" },
     { label: "WhatsApp", value: contact.phoneDisplay, href: contact.whatsappUrl, external: true, icon: "↗" },
     { label: "Teléfono", value: contact.phoneDisplay, href: telHref, external: false, icon: "→" },
     { label: "Email", value: contact.email, href: mailHref, external: false, icon: "→" },

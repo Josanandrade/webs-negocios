@@ -1,3 +1,5 @@
+import type { BookingTheme } from "@/lib/avanttai-booking/types";
+
 export type HoursRow =
   | { days: string; dayIndexes: number[]; opens: string; closes: string; closed?: false }
   | { days: string; dayIndexes: number[]; closed: true };
@@ -50,7 +52,15 @@ export type Business = {
   description: string;
   foundedYear: number;
   contact: { phoneDisplay: string; phoneE164: string; whatsappUrl: string; email: string };
-  booking: { url: string; label: string };
+  booking: {
+    /** Destino de todos los botones de reserva */
+    url: string;
+    label: string;
+    /** Sistema de reservas anterior (solo referencia; ningún botón enlaza aquí) */
+    legacyUrl?: string;
+    /** Tema visual de la reserva integrada */
+    theme: Partial<BookingTheme>;
+  };
   address: {
     street: string;
     postalCode: string;

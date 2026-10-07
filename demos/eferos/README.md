@@ -48,6 +48,8 @@ Copia `.env.example` a `.env.local` si necesitas cambiarlas:
 | `NEXT_PUBLIC_ALLOW_INDEXING` | `false` | Con `false` la web se publica con `noindex` y `robots.txt` bloquea a los buscadores, para que la demo no compita con la web real de Eferos. Ponerlo a `true` solo cuando esta web pase a producción en el dominio del cliente. |
 | `GOOGLE_PLACES_API_KEY` | vacía | Clave de Google Cloud para leer las reseñas (Places API, New). Solo servidor: nunca con prefijo `NEXT_PUBLIC_`. |
 | `GOOGLE_PLACE_ID` | vacía | Identificador de la ficha de Eferos en Google Maps. |
+| `AVANTTAI_BOOKING_API_URL` | vacía | URL base del motor de reservas de AvanttAI, sin barra final. Mientras estemos en pruebas, la de TEST en Railway. Solo servidor. |
+| `AVANTTAI_BOOKING_SLUG` | vacía | Slug público de Eferos en AvanttAI («Reservas online → Tu enlace público»). |
 
 Las dos variables de Google se leen en cada petición a `/api/google-reviews`: no hace falta recompilar para activarlas, aunque Railway redespliega el servicio al cambiar variables.
 
@@ -60,6 +62,9 @@ demos/eferos/
 │   ├── layout.tsx            ← <html>, fuentes, metadata global, JSON-LD, cabecera y pie
 │   ├── page.tsx              ← home: compone las secciones
 │   ├── especialidades/[slug] ← una página estática por tratamiento
+│   ├── reservas/             ← reserva online con la marca de Eferos (motor AvanttAI)
+│   ├── api/reservas/         ← proxy de servidor hacia la API pública de AvanttAI
+│   ├── api/google-reviews/   ← reseñas de Google (servidor)
 │   ├── fonts.ts + fonts/     ← fuentes autoalojadas (next/font/local)
 │   ├── opengraph-image.tsx   ← imagen social generada en build
 │   ├── icon.svg              ← favicon
@@ -81,6 +86,7 @@ demos/eferos/
 │   └── RevealObserver.tsx    ← animaciones de entrada al hacer scroll
 ├── lib/
 │   ├── types.ts              ← tipos de business.config
+│   ├── avanttai-booking/     ← kit de reserva white-label (copia de starters/avanttai-booking)
 │   ├── site.ts               ← URL, indexación y helpers (tel:, mailto:)
 │   └── jsonld.ts             ← datos estructurados schema.org (MedicalClinic / Physiotherapy)
 ├── styles/globals.css        ← tokens, tipografía, retícula, botones y movimiento
@@ -92,7 +98,8 @@ demos/eferos/
 Todo el contenido del negocio está en **`business.config.ts`**:
 
 - nombre, descripción y año de apertura;
-- teléfono, WhatsApp, email y enlace de reserva (Setmore);
+- teléfono, WhatsApp y email;
+- reserva online (`booking`): ruta, texto del botón y tema visual de la reserva (`theme`);
 - dirección, referencia ("frente al parque infantil") y enlace a Google Maps;
 - horario (`hours`), que alimenta la tabla, la ficha del hero y el JSON-LD;
 - registros sanitarios (NICA, Colegio);
@@ -151,6 +158,23 @@ Coste: pedir reseñas usa el SKU «Place Details Enterprise + Atmosphere», con 
 
 **Alternativa sin el límite de 5 reseñas:** la API de Google Business Profile (`accounts.locations.reviews.list`) devuelve todas las reseñas, pero exige que el propietario de la ficha autorice con OAuth (permiso `business.manage`) y una solicitud de acceso aprobada por Google. Solo compensa si se quieren mostrar más de 5 reseñas o responderlas desde la web.
 
+### Reserva online (AvanttAI)
+
+Todos los botones «Reservar cita» llevan a **`/reservas`**, una página de la propia web con su cabecera, su pie y su sistema de diseño. El motor es **AvanttAI**, que sigue siendo la única fuente de verdad:
+
+```text
+/reservas (presentación Eferos) → /api/reservas (proxy de esta web) → AvanttAI /api/public/booking/[slug]
+```
+
+- **La web no decide nada.** Servicios, profesionales, horarios, festivos, vacaciones, bloqueos, antelación mínima y máxima, datos obligatorios, huecos libres, creación de la cita y emails los resuelve AvanttAI. La web pinta y reenvía.
+- **Sin iframe.** El navegador solo habla con `/api/reservas` (mismo dominio, sin CORS). La URL de AvanttAI y el slug están en variables de servidor.
+- **Marca de Eferos por configuración.** `business.booking.theme` asigna los tokens de la web (`var(--ink)`, `var(--cobalt)`, `var(--font-sans)`…) al tema del kit. El kit es genérico y reutilizable: está en `starters/avanttai-booking/` y aquí se usa una copia en `lib/avanttai-booking/` para que la demo se pueda extraer sola. Si se cambia el kit, editar `starters/` y volver a copiar.
+- **Sin configurar, o si AvanttAI no responde,** `/reservas` muestra WhatsApp y teléfono. Nunca se inventan huecos.
+- **AvanttAI Health:** si el paciente es nuevo, AvanttAI retiene la cita y la web le lleva al registro de primera visita de AvanttAI.
+- **Lo que sigue en AvanttAI:** los emails de confirmación, la página de cambiar o cancelar la cita y el registro de primera visita son páginas de AvanttAI.
+
+**Setmore** queda solo como referencia (`booking.legacyUrl`) hasta comprobar que la reserva nueva funciona en TEST. Ningún botón de la web lleva ya a Setmore. Cuando se valide, se puede borrar `legacyUrl`.
+
 ## Decisiones de diseño
 
 - **Concepto: "precisión que se ve".** Lo que diferencia a Eferos frente a otras clínicas de la zona son las técnicas guiadas por ecografía (EPI®) combinadas con terapia manual. La firma visual es una ecografía generada en código (`ScanPanel`), con escala de profundidad, aguja y calipers. Las marcas de medición (`+`) y los datos en monoespaciada se repiten por toda la web como lenguaje propio.
@@ -187,7 +211,7 @@ Ningún dato de esta lista se ha inventado: o falta, o hay que confirmarlo. Los 
 - **Afirmaciones que se extienden a todo el centro.** Las secciones «Cómo trabajamos» y «¿Te suena alguna?» trasladan al centro dos ideas de la presentación de Cristina León: la sinceridad clínica sobre las posibilidades de recuperación, y el dolor agudo y crónico en adultos. Confirmar que valen para todo el centro (¿atienden a menores?).
 - **Domicilio.** Zona de cobertura y condiciones.
 - **Año de apertura.** Se usa 2022, sacado del copyright de su web, en los datos estructurados.
-- **Reservas.** Confirmar que `eferosfisioterapia.setmore.com` es el canal oficial.
+- **Reservas.** Confirmar servicios, duraciones y datos obligatorios de la reserva online en AvanttAI, y el texto de consentimiento de `/reservas`.
 - **Redes sociales.** URLs de Instagram y Facebook.
 - **Precios y duración de las sesiones.** La web no los muestra. Decidir si se quieren publicar.
 
@@ -204,9 +228,10 @@ Ningún dato de esta lista se ha inventado: o falta, o hay que confirmarlo. Los 
 
 ### Producción
 
-- **Legal:** aviso legal, política de privacidad y política de cookies. Las reservas pasan por Setmore y el contacto por WhatsApp, y ambos tratan datos de salud, así que la política de privacidad tiene que cubrirlos. Conviene revisar los textos con la normativa de publicidad sanitaria.
+- **Legal:** aviso legal, política de privacidad y política de cookies. Las reservas pasan por AvanttAI (encargado del tratamiento) y el contacto por WhatsApp, y ambos tratan datos de salud, así que la política de privacidad tiene que cubrirlos. Conviene revisar los textos con la normativa de publicidad sanitaria.
 - **Cookies:** hoy la web no instala cookies ni scripts de terceros, así que no necesita banner. Si se añade analítica no exenta, hace falta consentimiento previo.
 - **Analítica:** no hay ninguna instalada. Decidir herramienta: una sin cookies evita el banner.
+- **Reservas en producción:** cambiar `AVANTTAI_BOOKING_API_URL` a la URL de producción de AvanttAI y comprobar que el slug de Eferos tiene la reserva online activada allí. Después, retirar Setmore.
 - **Dominio:** apuntar `www.eferos.es` al nuevo hosting y definir `NEXT_PUBLIC_SITE_URL=https://www.eferos.es`.
 - **Indexación:** activar `NEXT_PUBLIC_ALLOW_INDEXING=true` solo al publicar en el dominio. Después, enviar el sitemap en Google Search Console.
 - **Redirecciones 301 desde la web actual:**

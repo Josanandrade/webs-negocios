@@ -4,7 +4,7 @@
  * Única fuente de verdad para nombre, contacto, horario, equipo, servicios y
  * navegación. Cualquier componente que muestre datos del negocio los lee de aquí.
  *
- * Origen de los datos: web pública eferos.es y su página de reservas en Setmore
+ * Origen de los datos: web pública eferos.es y su antigua página de reservas en Setmore
  * (consultadas en octubre de 2026). Los puntos marcados con `TODO(verificar)`
  * deben confirmarse con el cliente antes de publicar.
  */
@@ -25,10 +25,31 @@ export const business: Business = {
     email: "eferos.fisioterapia@gmail.com",
   },
 
-  // Reservas online gestionadas en Setmore
+  // Reserva online integrada en la web (/reservas) con el motor de AvanttAI.
+  // El motor se configura con AVANTTAI_BOOKING_API_URL y AVANTTAI_BOOKING_SLUG.
   booking: {
-    url: "https://eferosfisioterapia.setmore.com/",
+    url: "/reservas",
     label: "Reservar cita",
+    // Sistema anterior. Ningún botón lleva aquí; se conserva hasta validar AvanttAI.
+    legacyUrl: "https://eferosfisioterapia.setmore.com/",
+    // Tema white-label de la reserva (esquema BookingTheme del kit avanttai-booking):
+    // reutiliza los tokens de diseño de la web.
+    theme: {
+      primaryColor: "var(--ink)",
+      primaryTextColor: "var(--chalk)",
+      accentColor: "var(--cobalt)",
+      backgroundColor: "transparent",
+      surfaceColor: "var(--chalk-2)",
+      textColor: "var(--ink)",
+      mutedTextColor: "var(--ink-soft)",
+      borderColor: "var(--line-strong)",
+      fontFamily: "var(--font-sans)",
+      headingFontFamily: "var(--font-sans)",
+      headingFontStretch: "76%",
+      labelFontFamily: "var(--font-mono)",
+      borderRadius: "var(--radius)",
+      maxWidth: "100%",
+    },
   },
 
   address: {

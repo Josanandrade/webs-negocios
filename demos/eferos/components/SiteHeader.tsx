@@ -102,10 +102,10 @@ export default function SiteHeader() {
             <span className="visually-hidden">Llamar al </span>
             {business.contact.phoneDisplay}
           </a>
-          <a href={business.booking.url} className={`btn ${styles.cta}`} target="_blank" rel="noopener">
+          <Link href={business.booking.url} className={`btn ${styles.cta}`}>
             {business.booking.label}
             <span className="arrow" aria-hidden="true">→</span>
-          </a>
+          </Link>
         </div>
 
         <button
@@ -141,10 +141,10 @@ export default function SiteHeader() {
             ))}
           </ul>
           <div className={styles.panelFoot}>
-            <a href={business.booking.url} className="btn btn--light" target="_blank" rel="noopener">
+            <Link href={business.booking.url} className="btn btn--light" onClick={() => setOpen(false)}>
               {business.booking.label} online
               <span className="arrow" aria-hidden="true">→</span>
-            </a>
+            </Link>
             <div className={styles.panelContact}>
               <a href={business.contact.whatsappUrl} target="_blank" rel="noopener" className="link">
                 WhatsApp
