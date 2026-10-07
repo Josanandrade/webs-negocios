@@ -180,11 +180,11 @@ Ningún dato de esta lista se ha inventado: o falta, o hay que confirmarlo. Los 
 ### Datos que debe confirmar Eferos
 
 - **Horario.** eferos.es indica L–J 9:30–20:30 y V 9:30–13:30. Otros directorios publican 9:00–21:00 y 9:00–14:00.
-- **Formación de Cristina León.** Si tiene más formación que el grado, añadirla. Confirmar la formación directa con Chad Cook, Jo Gibson, Annina Schmid y Mark Laslett, que se muestra en su ficha.
+- **Formación de Cristina León.** Su presentación usa su propio texto de eferos.es. Si tiene formación adicional al grado (cursos, posgrados), añadirla en `credentials`. Confirmar la formación directa con Chad Cook, Jo Gibson, Annina Schmid y Mark Laslett, que se muestra en su ficha.
 - **Textos redactados para la demo:**
   - los bloques «Cómo la usamos», «Por qué ecoguiada», «Cuándo la proponemos» y «Dónde lo hacemos» de las fichas;
   - las descripciones de los tres espacios.
-- **Afirmaciones que se extienden a todo el centro.** Dos frases salen de la biografía de Cristina León: el compromiso de explicar «con sinceridad» las posibilidades de recuperación, y «dolor agudo y crónico en adultos». Confirmar que valen para todo el centro (¿atienden a menores?).
+- **Afirmaciones que se extienden a todo el centro.** Las secciones «Cómo trabajamos» y «¿Te suena alguna?» trasladan al centro dos ideas de la presentación de Cristina León: la sinceridad clínica sobre las posibilidades de recuperación, y el dolor agudo y crónico en adultos. Confirmar que valen para todo el centro (¿atienden a menores?).
 - **Domicilio.** Zona de cobertura y condiciones.
 - **Año de apertura.** Se usa 2022, sacado del copyright de su web, en los datos estructurados.
 - **Reservas.** Confirmar que `eferosfisioterapia.setmore.com` es el canal oficial.

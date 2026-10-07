@@ -74,10 +74,20 @@
   margin-top: 0.5rem;
 }
 
-.summary {
-  max-width: 32em;
+/* Presentación: el primer párrafo como entradilla, el resto a tamaño de lectura */
+.bio {
+  display: grid;
+  gap: 1rem;
+  max-width: 36em;
+}
+
+.bio p:first-child {
   font-size: var(--step-1);
   line-height: 1.45;
+}
+
+.bio p + p {
+  color: var(--ink-soft);
 }
 
 .credentials {

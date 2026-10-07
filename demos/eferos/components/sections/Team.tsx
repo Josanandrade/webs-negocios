@@ -32,12 +32,18 @@ export default function Team() {
                   {m.role} · {m.license}
                 </p>
               </header>
-              <p className={styles.summary}>{m.summary}</p>
-              <ul role="list" className={styles.credentials}>
-                {m.credentials.map((c) => (
-                  <li key={c}>{c}</li>
+              <div className={styles.bio}>
+                {m.bio.map((paragraph) => (
+                  <p key={paragraph.slice(0, 24)}>{paragraph}</p>
                 ))}
-              </ul>
+              </div>
+              {m.credentials.length > 0 && (
+                <ul role="list" className={styles.credentials}>
+                  {m.credentials.map((c) => (
+                    <li key={c}>{c}</li>
+                  ))}
+                </ul>
+              )}
               {m.mentors && m.mentors.length > 0 && (
                 <div className={styles.mentors}>
                   <p className="label">Formación directa con referentes internacionales</p>

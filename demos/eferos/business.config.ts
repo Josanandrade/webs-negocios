@@ -76,9 +76,13 @@ export const business: Business = {
       role: "Fisioterapeuta",
       license: "Col. nº 9134",
       photo: "/images/equipo/cristina-leon.jpg",
-      summary:
-        "Trata trastornos neuromusculoesqueléticos en adultos, tanto lesiones agudas como dolor crónico. Explica a cada paciente, con sinceridad, qué posibilidades reales de recuperación tiene su caso.",
-      credentials: ["Grado en Fisioterapia, Universidad de Sevilla (2019)"],
+      // Texto de su presentación en eferos.es, en primera persona
+      bio: [
+        "Graduada en Fisioterapia por la Universidad de Sevilla (2019), me he especializado en el tratamiento de trastornos neuromusculoesqueléticos, abordando tanto patologías agudas como dolores crónicos en adultos.",
+        "Entiendo la fisioterapia desde la transparencia y la honestidad. Mi práctica se basa en un alto sentido de la responsabilidad: me comprometo al máximo para resolver tu problema, manteniendo siempre la sinceridad clínica sobre las posibilidades de recuperación en cada caso.",
+      ],
+      // Formación adicional al grado (que ya figura en `bio`); vacío = no se muestra la lista
+      credentials: [],
       mentors: ["Chad Cook", "Jo Gibson", "Annina Schmid", "Mark Laslett"],
     },
   ],

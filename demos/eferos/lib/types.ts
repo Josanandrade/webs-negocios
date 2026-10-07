@@ -9,7 +9,8 @@ export type TeamMember = {
   role: string;
   license: string;
   photo: string | null;
-  summary: string;
+  /** Presentación en sus propias palabras (un elemento por párrafo) */
+  bio: string[];
   credentials: string[];
   /** Referentes con los que se ha formado directamente */
   mentors?: string[];
