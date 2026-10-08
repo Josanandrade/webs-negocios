@@ -1,0 +1,81 @@
+import type { BookingTheme } from "@/lib/avanttai-booking/types";
+
+export type HoursRow =
+  | { days: string; dayIndexes: number[]; opens: string; closes: string; closed?: false }
+  | { days: string; dayIndexes: number[]; closed: true };
+
+export type TeamMember = {
+  slug: string;
+  name: string;
+  initials: string;
+  role: string;
+  license: string;
+  photo: string | null;
+  /** Presentación en sus propias palabras (un elemento por párrafo) */
+  bio: string[];
+  credentials: string[];
+  /** Referentes con los que se ha formado directamente */
+  mentors?: string[];
+};
+
+export type Space = {
+  id: string;
+  where: string;
+  title: string;
+  text: string;
+};
+
+/** Fotografía real del centro. Con `src: null` se muestra un hueco diseñado. */
+export type GalleryPhoto = {
+  src: string | null;
+  alt: string;
+  caption: string;
+  /** Dimensiones del archivo original: fijan la proporción y evitan saltos de layout */
+  width: number;
+  height: number;
+};
+
+export type Service = {
+  slug: string;
+  name: string;
+  fullName?: string;
+  kind: string;
+  summary: string;
+  intro: string;
+  sections: { title: string; body: string }[];
+  indications: string[];
+};
+
+export type Business = {
+  name: string;
+  tagline: string;
+  description: string;
+  foundedYear: number;
+  contact: { phoneDisplay: string; phoneE164: string; whatsappUrl: string; email: string };
+  booking: {
+    /** Destino de todos los botones de reserva */
+    url: string;
+    label: string;
+    /** Sistema de reservas anterior (solo referencia; ningún botón enlaza aquí) */
+    legacyUrl?: string;
+    /** Tema visual de la reserva integrada */
+    theme: Partial<BookingTheme>;
+  };
+  address: {
+    street: string;
+    postalCode: string;
+    locality: string;
+    region: string;
+    country: string;
+    landmark: string;
+    mapsUrl: string;
+  };
+  hours: HoursRow[];
+  registrations: { label: string; value: string; detail?: string }[];
+  social: { label: string; url: string }[];
+  nav: { label: string; href: string }[];
+  team: TeamMember[];
+  spaces: Space[];
+  gallery: GalleryPhoto[];
+  services: Service[];
+};

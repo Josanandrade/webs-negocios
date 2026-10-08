@@ -1,0 +1,168 @@
+.panel {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.screen {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  max-width: 100%;
+  overflow: hidden;
+  background: #070d0d;
+  border-radius: var(--radius);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.canvas,
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.canvas {
+  height: auto;
+  aspect-ratio: 4 / 5;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease-out);
+}
+
+.canvas[data-ready="true"] {
+  opacity: 1;
+}
+
+.overlay {
+  height: 100%;
+  overflow: visible;
+}
+
+.scale line {
+  stroke: rgb(230 235 231 / 0.55);
+  stroke-width: 1;
+}
+
+.scale text,
+.readout text {
+  fill: rgb(230 235 231 / 0.85);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.readout .dim {
+  fill: rgb(230 235 231 / 0.55);
+}
+
+.needle {
+  stroke: #f2f5f3;
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 3px rgb(90 174 230 / 0.9));
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.pulse circle {
+  fill: none;
+  stroke: var(--accent-light);
+  stroke-width: 1.5;
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+}
+
+.calipers path,
+.calipers line {
+  stroke: var(--accent-light);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+/* Barrido muy suave, como el refresco de imagen del ecógrafo */
+.sweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 0%, rgb(90 174 230 / 0.06) 48%, transparent 52%);
+  opacity: 0;
+}
+
+.caption {
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+  flex-wrap: wrap;
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .needle {
+    stroke-dashoffset: 1;
+    animation: draw 1.6s 0.9s var(--ease-out) forwards;
+  }
+
+  .calipers {
+    opacity: 0;
+    animation: fadeIn 0.6s 2.4s ease-out forwards;
+  }
+
+  .pulse circle {
+    animation: pulse 2.8s 2.4s var(--ease-out) infinite;
+  }
+
+  .pulse circle:last-child {
+    animation-delay: 3.8s;
+  }
+
+  .sweep {
+    animation: sweep 7s 2s linear infinite;
+  }
+}
+
+.screen[data-offscreen="true"] .pulse circle,
+.screen[data-offscreen="true"] .sweep {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse circle:first-child {
+    opacity: 0.8;
+  }
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(3.2);
+  }
+}
+
+@keyframes sweep {
+  0% {
+    opacity: 1;
+    transform: translateY(-55%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(55%);
+  }
+}

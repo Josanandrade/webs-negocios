@@ -1,0 +1,67 @@
+.page {
+  padding-block: clamp(2rem, 1rem + 3vw, 4rem) var(--section);
+}
+
+.head {
+  align-items: end;
+  row-gap: 1.25rem;
+  margin-bottom: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+}
+
+.heading {
+  grid-column: 1 / span 7;
+  display: grid;
+  gap: 1.1rem;
+}
+
+.title {
+  font-size: clamp(3rem, 1.4rem + 7vw, 8.5rem);
+  font-weight: 600;
+  font-stretch: 64%;
+  line-height: 0.84;
+  letter-spacing: -0.045em;
+}
+
+.intro {
+  grid-column: 9 / span 4;
+  max-width: 26rem;
+  padding-bottom: 0.4rem;
+}
+
+.aside {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.asideBlock {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.contactLinks {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.contactLinks :global(.btn) {
+  width: 100%;
+}
+
+.hours {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.95rem;
+}
+
+.hours li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .heading,
+  .intro {
+    grid-column: 1 / -1;
+  }
+}
