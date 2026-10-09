@@ -28,7 +28,7 @@ from app.generation.prompts import (GEN_SCHEMA, GEN_SYSTEM, VER_SCHEMA, VER_SYST
                                     build_gen_prompt, build_ver_prompt, verification_passes)
 from app.generation.validation import DocumentContext, OptionDraft, QuestionDraft, validate_draft
 from app.jobs.runner import JobContext
-from app.llm.client import call_llm, task_model
+from app.llm.client import call_llm
 from app.search import search_chunks
 
 BATCH = 4
@@ -240,7 +240,6 @@ def _process_batch(ctx: JobContext, batch: list[Work], doc: DocumentContext, cou
 
     # 7. guardado
     accepted = 0
-    gen_model, ver_model = task_model("generation"), task_model("verification")
     for i, w in enumerate(survivors, start=1):
         report = ver_by_ref.get(f"Q{i}")
         if report is None:
@@ -253,8 +252,8 @@ def _process_batch(ctx: JobContext, batch: list[Work], doc: DocumentContext, cou
             for r in reasons:
                 counters[f"verificador:{r}"] += 1
             continue
-        meta = {"job_id": str(ctx.job_id), "generator": f"{gen_model.provider.name}:{gen_model.model}",
-                "generator_version": gen.model_version, "verifier": f"{ver_model.provider.name}:{ver_model.model}",
+        meta = {"job_id": str(ctx.job_id), "generator": gen.model_spec,
+                "generator_version": gen.model_version, "verifier": ver.model_spec,
                 "verifier_version": ver.model_version, "verifier_report": report,
                 "distractor_tiers": {str(c.fact_id): c.tier for c in w.candidates}}
         question_id = _store_question(ctx, w, report, meta)

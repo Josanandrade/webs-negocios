@@ -19,10 +19,11 @@ class Settings(BaseSettings):
 
     # IA: "proveedor:modelo" por tarea. Por defecto, plan gratuito de Gemini. Las tareas
     # usan modelos distintos: cada modelo tiene su propia cuota diaria gratuita y el
-    # verificador no es el mismo modelo que redacta.
-    llm_extraction: str = "gemini:gemini-flash-lite-latest"
-    llm_generation: str = "gemini:gemini-flash-lite-latest"
-    llm_verification: str = "gemini:gemini-flash-latest"
+    # verificador no es el mismo modelo que redacta. Tras la coma, modelos de reserva para
+    # cuando el principal está saturado (503) o sin cuota.
+    llm_extraction: str = "gemini:gemini-flash-lite-latest,gemini:gemini-3.1-flash-lite"
+    llm_generation: str = "gemini:gemini-flash-lite-latest,gemini:gemini-3.1-flash-lite"
+    llm_verification: str = "gemini:gemini-flash-latest,gemini:gemini-3.6-flash,gemini:gemini-3.5-flash"
     llm_requests_per_minute: int = 8          # por modelo; por debajo del límite gratuito
     llm_max_retries: int = 6
     gemini_api_key: str = ""

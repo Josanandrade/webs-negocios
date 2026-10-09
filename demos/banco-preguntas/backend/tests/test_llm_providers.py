@@ -8,8 +8,8 @@ import pytest
 from sqlalchemy import text
 
 from app.db import user_session
-from app.llm.base import LLMError, LLMResult, QuotaExhausted, RateLimited
-from app.llm.client import call_llm, clear_overrides, override_task
+from app.llm.base import LLMError, LLMResult, ModelUnavailable, QuotaExhausted, RateLimited
+from app.llm.client import call_llm, clear_overrides, override_task, task_models
 from app.llm.gemini import GeminiProvider, next_quota_reset, to_gemini_schema
 
 SCHEMA = {"type": "object", "properties": {"x": {"type": "array", "items": {"type": "string", "enum": ["a", "b"]}}},
@@ -129,3 +129,60 @@ def test_default_configuration_uses_free_gemini_and_distinct_verifier():
     s = get_settings()
     assert all(getattr(s, f"llm_{t}").startswith("gemini:") for t in ("extraction", "generation", "verification"))
     assert s.llm_generation != s.llm_verification
+
+
+def test_gemini_retired_model_is_unavailable():
+    with pytest.raises(ModelUnavailable):
+        GeminiProvider.parse_response(404, json.dumps({"error": {"code": 404, "message": "no longer available"}}))
+
+
+def test_call_llm_falls_back_to_next_model_without_waiting(alice, monkeypatch):
+    monkeypatch.setattr("app.llm.client._pace", lambda key: None)
+    busy = Flaky([RateLimited("Gemini no disponible (503)", 20)])
+    override_task("verification", busy, "principal", (Flaky([]), "reserva"))
+    slept = []
+    result = call_llm(task="verification", system="s", prompt="p", schema=SCHEMA, user_id=alice["id"],
+                      sleep=slept.append)
+    assert result.model_spec == "flaky:reserva"
+    assert slept == []
+
+
+def test_call_llm_waits_only_when_every_model_is_limited(alice, monkeypatch):
+    monkeypatch.setattr("app.llm.client._pace", lambda key: None)
+    override_task("generation", Flaky([RateLimited("x", 30)]), "a", (Flaky([RateLimited("y", 5)]), "b"))
+    slept = []
+    result = call_llm(task="generation", system="s", prompt="p", schema=SCHEMA, user_id=alice["id"], sleep=slept.append)
+    assert slept == [5] and result.model_spec == "flaky:a"
+
+
+def test_call_llm_skips_retired_and_exhausted_models(alice, monkeypatch):
+    monkeypatch.setattr("app.llm.client._pace", lambda key: None)
+    override_task("extraction", Flaky([ModelUnavailable("retirado")]), "viejo",
+                  (Flaky([QuotaExhausted("cuota", next_quota_reset())]), "sin-cuota"), (Flaky([]), "bueno"))
+    result = call_llm(task="extraction", system="s", prompt="p", schema=SCHEMA, user_id=alice["id"], sleep=lambda s: None)
+    assert result.model_spec == "flaky:bueno"
+
+
+def test_call_llm_pauses_when_every_model_is_out_of_quota(alice, monkeypatch):
+    monkeypatch.setattr("app.llm.client._pace", lambda key: None)
+    override_task("extraction", Flaky([QuotaExhausted("cuota", next_quota_reset())]), "a",
+                  (Flaky([ModelUnavailable("retirado")]), "b"))
+    with pytest.raises(QuotaExhausted):
+        call_llm(task="extraction", system="s", prompt="p", schema=SCHEMA, user_id=alice["id"], sleep=lambda s: None)
+
+
+def test_verifier_chain_never_includes_a_generator_model(monkeypatch):
+    from app.config import get_settings
+
+    monkeypatch.setenv("GEMINI_API_KEY", "clave")
+    monkeypatch.setenv("LLM_GENERATION", "gemini:lite,gemini:flash-b")
+    monkeypatch.setenv("LLM_VERIFICATION", "gemini:flash-b,gemini:flash-a")
+    get_settings.cache_clear()
+    try:
+        assert [m.model for m in task_models("verification")] == ["flash-a"]
+        monkeypatch.setenv("LLM_VERIFICATION", "gemini:lite")
+        get_settings.cache_clear()
+        with pytest.raises(LLMError):
+            task_models("verification")
+    finally:
+        get_settings.cache_clear()

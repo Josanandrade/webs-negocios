@@ -7,7 +7,7 @@ from zoneinfo import ZoneInfo
 
 import httpx
 
-from app.llm.base import LLMError, LLMResult, QuotaExhausted, RateLimited
+from app.llm.base import LLMError, LLMResult, ModelUnavailable, QuotaExhausted, RateLimited
 
 API = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 _TYPES = {"object": "OBJECT", "array": "ARRAY", "string": "STRING", "integer": "INTEGER",
@@ -103,6 +103,8 @@ class GeminiProvider:
             raise RateLimited(error.get("message", "Límite por minuto de Gemini"), _retry_delay(details) or 30)
         if status >= 500:
             raise RateLimited(f"Gemini no disponible ({status})", retry_after=20)
+        if status == 404:
+            raise ModelUnavailable(f"Modelo de Gemini no disponible: {payload.get('error', {}).get('message', '')[:200]}")
         if status != 200:
             raise LLMError(f"Gemini {status}: {payload.get('error', {}).get('message', text[:300])}")
 

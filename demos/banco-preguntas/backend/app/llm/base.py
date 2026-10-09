@@ -17,6 +17,7 @@ class LLMResult:
     model_version: str | None
     input_tokens: int
     output_tokens: int
+    model_spec: str | None = None   # "proveedor:modelo" que respondió (puede ser uno de reserva)
 
 
 class LLMError(RuntimeError):
@@ -29,6 +30,10 @@ class RateLimited(LLMError):
     def __init__(self, message: str, retry_after: float):
         super().__init__(message)
         self.retry_after = retry_after
+
+
+class ModelUnavailable(LLMError):
+    """El modelo no existe o se ha retirado: se pasa al siguiente de la cadena."""
 
 
 class QuotaExhausted(LLMError):

@@ -43,8 +43,11 @@ cp .env.example .env                       # ajusta credenciales y JWT_SECRET
 Por defecto usa el **plan gratuito de Gemini** (crea una clave en Google AI Studio y ponla
 en `GEMINI_API_KEY`). Cada tarea puede usar otro proveedor/modelo cambiando
 `LLM_EXTRACTION`, `LLM_GENERATION`, `LLM_VERIFICATION` (`gemini:…`, `anthropic:…`,
-`openai:…`, `ollama:…`). Si se agota la cuota diaria gratuita, el trabajo se pausa y se
-reanuda solo al día siguiente.
+`openai:…`, `ollama:…`). Cada variable admite modelos de reserva separados por comas
+(`gemini:gemini-flash-latest,gemini:gemini-3.6-flash`): si uno está saturado (503), limitado
+por minuto, retirado (404) o sin cuota diaria, se usa el siguiente sin esperar. El
+verificador nunca usa un modelo de la lista del generador. Si todos agotan la cuota diaria,
+el trabajo se pausa y se reanuda solo al día siguiente.
 
 ## Tests
 
