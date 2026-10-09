@@ -14,6 +14,9 @@ class Settings(BaseSettings):
     jwt_secret: str = Field(min_length=16)
     jwt_ttl_minutes: int = 60 * 12
 
+    # Orígenes de la web autorizados a llamar a la API (separados por comas).
+    cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
+
     storage_dir: Path = Path("./data/storage")
     max_upload_mb: int = 150
 

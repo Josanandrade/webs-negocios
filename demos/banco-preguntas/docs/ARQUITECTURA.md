@@ -421,6 +421,27 @@ esperaba), repartidas por los 8 temas, posición correcta A/B/C/D 5-5-5-5.
   cuenta porque sus respuestas aún pueden cambiar.
 - **Dominada** = acertada las 2 últimas veces; **a repasar** = la última vez fallada o en blanco.
 
+### 10.6 Decisiones del bloque 8 (web)
+
+- **Pocas dependencias:** React, React Router y Tailwind. Sin librería de gráficas (SVG propio,
+  una sola serie, color validado para claro y oscuro) ni de PWA (manifest y service worker a
+  mano). 95 KB comprimidos.
+- **La web es estática** (Cloudflare Pages / Netlify) y habla con la API por `VITE_API_URL`;
+  la API solo acepta los orígenes de `CORS_ORIGINS`. En desarrollo Vite reenvía `/api`.
+- **Service worker:** guarda solo la interfaz; las llamadas a `/api` nunca se guardan, así que
+  los datos (preguntas, respuestas, notas) son siempre los del servidor.
+- **Sesión:** el token se guarda en el navegador (`localStorage`); al caducar se vuelve al
+  acceso. Riesgo aceptado para uso personal: la web no muestra HTML ajeno, todo se pinta
+  como texto.
+- **Móvil primero:** barra de navegación inferior, botones grandes, una pregunta por
+  pantalla, zonas seguras del iPhone. En PC, barra lateral y atajos de teclado.
+- **Accesibilidad:** el color nunca es la única señal (iconos ✓/✗ y texto «correcta»/«tu
+  respuesta»), lectores de pantalla en opciones y navegador de preguntas, foco visible,
+  tabla alternativa para la gráfica.
+- **Verificación:** recorrido automático con Chromium (PC y iPhone) que falla ante errores
+  de consola, respuestas 5xx o desbordamiento horizontal, y comprueba que el examen no
+  revela la corrección antes de entregar.
+
 ## 11. Riesgos técnicos
 
 | Riesgo | Mitigación |
@@ -449,5 +470,5 @@ esperaba), repartidas por los 8 temas, posición correcta A/B/C/D 5-5-5-5.
 | **5** ✅ | Generación + validación determinista + verificación LLM + duplicados + posición equilibrada + cobertura | Tests del motor (los pedidos) |
 | **6** ✅ | API del banco de preguntas (filtros, edición, estados, fuentes) | Tests de API |
 | **7** ✅ | Tests del alumno, corrección, estadísticas | Tests de API (práctica, examen, tiempo, modos de selección, copia inmutable, estadísticas, aislamiento) |
-| 8 | Frontend (Documentos → Banco → Generar test → Resultados) | Prueba en navegador |
+| **8** ✅ | Web: documentos, banco, tests, resultados, estadísticas; PWA | Tests de componentes + recorrido real con Chromium en PC y móvil |
 | 9 | Despliegue gratuito (Render + Supabase + web estática), PWA móvil | Prueba real en PC y móvil |

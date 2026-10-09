@@ -28,3 +28,11 @@ def test_endpoints_require_token(client):
 def test_short_password_rejected(client):
     r = client.post("/api/auth/register", json={"email": "x@example.com", "password": "corta"})
     assert r.status_code == 422
+
+
+def test_cors_allows_the_web_origin_only(client):
+    ok = client.options("/api/auth/me", headers={"Origin": "http://localhost:5173", "Access-Control-Request-Method": "GET",
+                                                 "Access-Control-Request-Headers": "authorization"})
+    assert ok.status_code == 200 and ok.headers["access-control-allow-origin"] == "http://localhost:5173"
+    bad = client.options("/api/auth/me", headers={"Origin": "https://malicioso.example", "Access-Control-Request-Method": "GET"})
+    assert "access-control-allow-origin" not in bad.headers

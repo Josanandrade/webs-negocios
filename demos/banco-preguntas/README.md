@@ -17,7 +17,7 @@ preguntas tipo test **verificables y estrictamente basadas en el documento**.
 | 5 | Generación + validación determinista + verificación independiente + duplicados + cobertura | ✅ |
 | 6 | Banco de preguntas: filtros, búsqueda, fuentes, edición auditada, estados, etiquetas, lote | ✅ |
 | 7 | Tests del alumno (práctica/examen, tiempo límite, penalización), corrección, repaso de fallos, estadísticas | ✅ |
-| 8 | Frontend web responsive (PC y móvil, instalable) | pendiente |
+| 8 | Web responsive (PC y móvil), instalable como app (PWA), modo claro/oscuro | ✅ |
 | 9 | Despliegue gratuito (Render + Supabase + web estática) | pendiente |
 
 ## Requisitos
@@ -36,7 +36,37 @@ cp .env.example .env                       # ajusta credenciales y JWT_SECRET
 ./scripts/bootstrap_local_db.sh            # crea BD, rol restringido y aplica migraciones
 .venv/bin/uvicorn app.main:app --reload    # API en http://localhost:8000/docs
 .venv/bin/python -m app.worker             # worker de procesamiento (otra terminal)
+
+cd ../frontend
+npm install
+npm run dev                                # web en http://localhost:5173 (reenvía /api a :8000)
 ```
+
+## Web (`frontend/`)
+
+React + TypeScript + Vite + Tailwind. Funciona en PC y móvil y se puede **instalar como app**
+(en el móvil: «Añadir a pantalla de inicio»). Modo claro u oscuro según el sistema.
+
+| Pantalla | Qué hace |
+|---|---|
+| Tests | Tests en curso (continuar) y realizados (nota) |
+| Nuevo test | Modo práctica/examen, temas, dificultad, número, al azar/no vistas/falladas/puntos débiles, penalización, tiempo límite, barajar opciones |
+| Hacer test | Una pregunta por pantalla, navegador de preguntas, temporizador, teclado (1-4 / A-D, flechas); en práctica, corrección inmediata con página y cita |
+| Resultados | Nota, neto, aciertos/fallos/en blanco, corrección filtrable, «Repasar fallos» |
+| Banco | Filtros (documento, tema, estado, dificultad, etiqueta), búsqueda, acciones en lote |
+| Pregunta | Opciones con su cita y página, contexto resaltado en el temario, cómo se generó, historial, editar/aprobar/descartar |
+| Documentos | Subida con progreso, procesamiento en vivo, temas, calidad del texto, generar preguntas, informe de descartes, cobertura por tema |
+| Estadísticas | Nota media, evolución, aciertos por tema y dificultad, cobertura del banco, preguntas más falladas |
+
+```bash
+cd frontend
+npm test                                   # tests de componentes (vitest)
+npm run build                              # web estática en dist/ (define VITE_API_URL)
+E2E_EMAIL=... E2E_PASSWORD=... node e2e/recorrido.mjs   # recorrido real en PC y móvil (API y web en marcha)
+```
+
+En producción la web es estática y llama a la API indicada en `VITE_API_URL`; la API debe
+incluir el origen de la web en `CORS_ORIGINS`.
 
 ## IA
 
