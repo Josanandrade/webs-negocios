@@ -405,7 +405,7 @@ Consecuencias de diseño (ya implementadas o planificadas):
 | **3** ✅ | Estructura (outline + heurística + patrones OCR), fragmentación con spans exactos, búsqueda FTS + trigramas | Tests de spans ↔ páginas, secciones, reanudación |
 | **4** ✅ | Abstracción LLM (Gemini gratuito por defecto; Anthropic, OpenAI, Ollama), cuotas y pausas, registro de llamadas, extracción de hechos verificados, catálogo de distractores | Tests con proveedor de prueba + test real con Gemini si hay clave |
 | **5** ✅ | Generación + validación determinista + verificación LLM + duplicados + posición equilibrada + cobertura | Tests del motor (los pedidos) |
-| 6 | API del banco de preguntas (filtros, edición, estados, fuentes) | Tests de API |
+| **6** ✅ | API del banco de preguntas (filtros, edición, estados, fuentes) | Tests de API |
 | 7 | Tests del alumno, corrección, estadísticas | Test de integración completo |
 | 8 | Frontend (Documentos → Banco → Generar test → Resultados) | Prueba en navegador |
 | 9 | Despliegue gratuito (Render + Supabase + web estática), PWA móvil | Prueba real en PC y móvil |

@@ -57,7 +57,7 @@ def generate(client, user, doc_id, **body):
 
 
 def questions(client, user, doc_id):
-    listed = client.get("/api/questions", params={"document_id": doc_id}, headers=user["headers"]).json()
+    listed = client.get("/api/questions", params={"document_id": doc_id}, headers=user["headers"]).json()["items"]
     return [client.get(f"/api/questions/{q['id']}", headers=user["headers"]).json() for q in listed]
 
 
@@ -201,5 +201,5 @@ def test_generation_and_questions_are_private(client, alice, bob, doc):
     qid = questions(client, alice, doc["id"])[0]["id"]
     assert client.post(f"/api/documents/{doc['id']}/generate", json={}, headers=bob["headers"]).status_code == 404
     assert client.get(f"/api/questions/{qid}", headers=bob["headers"]).status_code == 404
-    assert client.get("/api/questions", headers=bob["headers"]).json() == []
+    assert client.get("/api/questions", headers=bob["headers"]).json()["items"] == []
     assert client.get(f"/api/documents/{doc['id']}/coverage", headers=bob["headers"]).status_code == 404

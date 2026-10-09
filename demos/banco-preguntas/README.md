@@ -15,7 +15,7 @@ preguntas tipo test **verificables y estrictamente basadas en el documento**.
 | 3 | Estructura (temas), fragmentación con trazabilidad exacta, búsqueda | ✅ |
 | 4 | IA intercambiable (Gemini gratuito por defecto), cuotas, hechos verificados, catálogo de distractores | ✅ |
 | 5 | Generación + validación determinista + verificación independiente + duplicados + cobertura | ✅ |
-| 6 | API del banco | pendiente |
+| 6 | Banco de preguntas: filtros, búsqueda, fuentes, edición auditada, estados, etiquetas, lote | ✅ |
 | 7 | Tests del alumno, corrección, estadísticas | pendiente |
 | 8 | Frontend web responsive (PC y móvil, instalable) | pendiente |
 | 9 | Despliegue gratuito (Render + Supabase + web estática) | pendiente |
@@ -77,6 +77,11 @@ TEST_ADMIN_DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/po
 | POST | `/api/documents/{id}/generate` | Generar preguntas: `section_ids`, `count` (o vacío = máximo de calidad), `difficulty` (`easy`/`medium`/`hard`/`mixed`) |
 | GET | `/api/documents/{id}/coverage` | Preguntas por tema, temas poco cubiertos, reparto A/B/C/D |
 | GET | `/api/jobs/{id}/candidates` | Informe de la generación: aceptadas y motivos de descarte |
-| GET | `/api/questions` · `/api/questions/{id}` | Preguntas; el detalle incluye fuentes (página y cita de la correcta y de cada distractor) |
+| GET | `/api/questions` | Banco con filtros `document_id`, `section_id` (incluye subapartados), `status`, `difficulty`, `tag`, búsqueda `q` (enunciado y opciones, sin acentos) y paginación |
+| GET | `/api/questions/{id}` | Detalle y auditoría: opciones, fuentes de la correcta y de cada distractor (página, cita y texto de alrededor), modelos, informe del verificador, historial de ediciones |
+| PATCH | `/api/questions/{id}` | Editar enunciado, opciones, respuesta correcta, explicación, dificultad, etiquetas o estado (aprobar/descartar/restaurar); queda en el historial |
+| DELETE | `/api/questions/{id}` | Eliminar (los tests ya hechos conservan su copia) |
+| POST | `/api/questions/bulk` | Lote: aprobar, descartar, restaurar, eliminar, añadir/quitar etiqueta, cambiar dificultad |
+| GET | `/api/questions/tags` | Etiquetas usadas y cuántas preguntas tiene cada una |
 | GET | `/api/jobs/{id}` | Progreso real del trabajo |
 | POST | `/api/jobs/{id}/retry` | Reanudar un trabajo fallido desde donde se quedó |

@@ -52,6 +52,6 @@ def test_real_end_to_end_generation(client, alice):
     job = client.get(f"/api/jobs/{job['id']}", headers=alice["headers"]).json()
     print("\n", job["message"])
     print(client.get(f"/api/jobs/{job['id']}/candidates", headers=alice["headers"]).json())
-    for q in client.get("/api/questions", params={"document_id": doc["id"]}, headers=alice["headers"]).json():
+    for q in client.get("/api/questions", params={"document_id": doc["id"]}, headers=alice["headers"]).json()["items"]:
         print(q["stem"], [(o["label"], o["text"], o["is_correct"]) for o in q["options"]])
     assert job["status"] == "succeeded"
