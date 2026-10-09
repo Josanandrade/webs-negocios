@@ -93,7 +93,8 @@ def honest_verifier(prompt: str) -> dict[str, Any]:
         ok = len(hits) == 1
         out.append({"item": it["ref"], "answer": answer, "answerable_from_evidence": ok, "single_correct": ok,
                     "correct_explicitly_supported": ok, "distractors_are_incorrect": ok,
-                    "distractors_from_evidence": True, "ambiguous": not ok, "two_could_be_correct": len(hits) > 1,
+                    "distractors_from_evidence": True, "distractors_plausible": True, "ambiguous": not ok,
+                    "two_could_be_correct": len(hits) > 1,
                     "subjective": False, "needs_external_knowledge": False, "clear_wording": True,
                     "page_reference_correct": True, "confidence": 0.95 if ok else 0.3, "issues": ""})
     return {"items": out}

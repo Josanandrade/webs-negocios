@@ -76,6 +76,31 @@ def test_length_giveaway_rejected():
     assert "longitud_delata_la_correcta" in validate_draft(d, DOC)
 
 
+def test_correct_option_repeating_the_subject_is_rejected():
+    d = draft("¿Cuál es la dosis del medicamento Alfa?")
+    d.options[0] = opt("medicamento Alfa se administra a una dosis de 20 mg", True, "Alfa")
+    d.options[1:] = [opt("se administra a una dosis de 40 mg", False, "Beta"),
+                     opt("se administra a una dosis de 10 mg", False, "Gamma"),
+                     opt("se administra a una dosis de 5 mg", False, "Delta")]
+    assert "correcta_repite_el_sujeto" in validate_draft(d, DOC)
+
+
+def test_option_contained_in_another_or_nearly_equal_is_rejected():
+    page = ("Win + E abre el Explorador de archivos. Ctrl + N abre una nueva ventana del Explorador de archivos. "
+            "Alt + F4 cierra la ventana activa. F5 actualiza la ventana del Explorador de archivos.")
+    doc = DocumentContext.from_pages({1: page})
+
+    def o(value, correct):
+        start = page.index(value)
+        return OptionDraft(value, correct, uuid.uuid4(), value, uuid.uuid4(), 1, uuid.uuid4(), start, start + len(value))
+
+    d = QuestionDraft(uuid.uuid4(), uuid.uuid4(), None, "Win + E", "characteristic", "characteristic", "easy",
+                      "¿Qué acción realiza Win + E?",
+                      [o("abre el Explorador de archivos", True), o("abre una nueva ventana del Explorador de archivos", False),
+                       o("cierra la ventana activa", False), o("actualiza la ventana del Explorador de archivos", False)])
+    assert "opcion_contenida_en_otra" in validate_draft(d, doc)
+
+
 def test_correct_label_distribution_is_balanced():
     counts: Counter[str] = Counter()
     for _ in range(100):

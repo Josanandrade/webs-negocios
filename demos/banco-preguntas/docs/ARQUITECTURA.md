@@ -379,6 +379,27 @@ Consecuencias de diseño (ya implementadas o planificadas):
   temas; si un tema se agota, su cuota pasa a los demás. Si no se llega al número pedido,
   el trabajo termina diciendo cuántas se han podido generar: no se rellena.
 
+### 10.4 Ajustes tras la primera prueba real (temario de ofimática, 62 páginas)
+
+Primera pasada con Gemini real: 245 hechos verificados de 258 propuestos; 20 preguntas
+aceptadas de 44 intentos. Al revisar las **aceptadas** a mano aparecieron defectos que los
+filtros no veían. Se corrigieron endureciendo, nunca relajando:
+
+| Defecto observado | Corrección |
+|---|---|
+| Distractores de otro tema (definiciones de hardware en una pregunta de Excel): se descartan a simple vista | Las respuestas abiertas (definiciones, características, pasos…) solo toman distractores del **mismo tema principal**; las cifras y fechas pueden seguir viniendo de cualquier tema |
+| El generador no sabía de qué se dice cada alternativa | Cada candidato se le muestra con su sujeto; reglas explícitas: mismo tipo de respuesta, longitud y estilo parecidos, falsa para el sujeto preguntado; si no hay 3, omitir |
+| Distractores que «desentonan» aprobados por el verificador | Nueva comprobación del verificador `distractors_plausible`; `two_could_be_correct` cubre también opciones aplicables al sujeto aunque el temario las diga de otra cosa |
+| «Abre el Explorador» frente a «Abre una nueva ventana del Explorador» (ambas defendibles) | Regla determinista `opcion_contenida_en_otra` y `opciones_casi_iguales` |
+| La correcta repite una palabra del sujeto (Almacenamiento óptico → «discos ópticos») | Regla determinista `correcta_repite_el_sujeto` (con singular/plural) |
+| Sinónimos fuera del vocabulario («empezar» por «comienza», «siglas») | Instrucción de reutilizar el vocabulario de la cita; el filtro se mantiene igual |
+| Acentos como entidades HTML («acci&oacute;n») | Se decodifican antes de validar (es codificación, no contenido) |
+| Salida con caracteres de control (`\u0000`) rompía el guardado de la auditoría y forzaba un reintento | Se descarta como `salida_corrupta_del_generador` y la auditoría se limpia |
+| Plan gratuito: 20 peticiones/día por modelo *flash*, 503 frecuentes | Cadena de modelos de reserva por tarea (§ README «IA»); verificación con 5 modelos *flash* ≈ 100 peticiones/día ≈ 400 preguntas |
+
+Resultado con los ajustes: 20 preguntas aceptadas de 66 intentos (más descartes, como se
+esperaba), repartidas por los 8 temas, posición correcta A/B/C/D 5-5-5-5.
+
 ## 11. Riesgos técnicos
 
 | Riesgo | Mitigación |

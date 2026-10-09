@@ -12,7 +12,9 @@ Cada intento queda en question_candidates con su motivo. Reanudable: un hecho ya
 intentado en este job no se repite.
 """
 import hashlib
+import html
 import json
+import re
 from collections import Counter, defaultdict
 from dataclasses import dataclass
 from typing import Any
@@ -32,6 +34,7 @@ from app.llm.client import call_llm
 from app.search import search_chunks
 
 BATCH = 4
+_CONTROL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
 MIN_CONFIDENCE = 0.8
 DIFFICULTY_CYCLE = ("easy", "medium", "hard")
 QUESTION_TYPE = {"definition": "definition", "characteristic": "characteristic", "classification": "classification",
@@ -105,6 +108,17 @@ def _context_window(page_text: str, start: int, end: int, radius: int = 700) -> 
     return page_text[max(0, start - radius): min(len(page_text), end + radius)]
 
 
+def _clean_json(value: Any) -> Any:
+    """Quita caracteres de control (Postgres no admite \\u0000 en jsonb) de lo que guardamos."""
+    if isinstance(value, str):
+        return _CONTROL.sub("", value)
+    if isinstance(value, dict):
+        return {k: _clean_json(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_clean_json(v) for v in value]
+    return value
+
+
 def _record(ctx: JobContext, w: Work, status: str, reasons: list[str], verifier: dict | None = None,
             question_id: UUID | None = None) -> None:
     draft_json = {}
@@ -120,8 +134,8 @@ def _record(ctx: JobContext, w: Work, status: str, reasons: list[str], verifier:
             values (:u, :d, :j, :f, :sec, :st, :r, cast(:dr as jsonb), cast(:v as jsonb), :q)
             on conflict (job_id, fact_id) do nothing"""),
             {"u": ctx.user_id, "d": ctx.document_id, "j": ctx.job_id, "f": w.fact["id"], "sec": w.fact["section_id"],
-             "st": status, "r": reasons, "dr": json.dumps(draft_json, ensure_ascii=False),
-             "v": json.dumps(verifier or {}, ensure_ascii=False), "q": question_id})
+             "st": status, "r": reasons, "dr": json.dumps(_clean_json(draft_json), ensure_ascii=False),
+             "v": json.dumps(_clean_json(verifier or {}), ensure_ascii=False), "q": question_id})
 
 
 def _fact_option(f: dict[str, Any], is_correct: bool) -> OptionDraft:
@@ -161,7 +175,7 @@ def _process_batch(ctx: JobContext, batch: list[Work], doc: DocumentContext, cou
             ref=f"P{i}", subject=f["subject"], attribute=f["attribute"], correct=f["value"], quote=f["quote"],
             context_header=headers.get(f["chunk_id"], ""),
             context=_context_window(doc.pages[f["page_number"]], f["char_start"], f["char_end"]),
-            candidates=[(f"D{k}", c.value) for k, c in enumerate(w.candidates, start=1)], kind=f["kind"]))
+            candidates=[(f"D{k}", c.value, c.subject) for k, c in enumerate(w.candidates, start=1)], kind=f["kind"]))
     gen = call_llm(task="generation", system=GEN_SYSTEM, prompt=build_gen_prompt(items), schema=GEN_SCHEMA,
                    user_id=ctx.user_id, job_id=ctx.job_id, engine=ctx.engine)
     gen_by_ref = {str(it.get("item", "")).strip(): it for it in gen.data.get("items", [])}
@@ -180,6 +194,10 @@ def _process_batch(ctx: JobContext, batch: list[Work], doc: DocumentContext, cou
                 _record(ctx, w, "rejected_generation", ["omitida_por_generador: " + str(out.get("skip_reason", ""))[:200]])
                 counters["generador:omitida"] += 1
                 continue
+            if _CONTROL.search(str(out.get("stem", ""))):
+                _record(ctx, w, "rejected_generation", ["salida_corrupta_del_generador"])
+                counters["generador:salida_corrupta"] += 1
+                continue
             ids = [str(x).strip() for x in out.get("distractor_ids", [])]
             by_id = {f"D{k}": c for k, c in enumerate(w.candidates, start=1)}
             if len(ids) != 3 or len(set(ids)) != 3 or any(x not in by_id for x in ids):
@@ -193,7 +211,7 @@ def _process_batch(ctx: JobContext, batch: list[Work], doc: DocumentContext, cou
             w.draft = QuestionDraft(
                 fact_id=f["id"], document_id=ctx.document_id, section_id=f["section_id"], subject=f["subject"],
                 kind=f["kind"], question_type=QUESTION_TYPE[f["kind"]], difficulty=w.difficulty,
-                stem=str(out.get("stem", "")).strip(),
+                stem=html.unescape(str(out.get("stem", ""))).strip(),   # a veces llega «acci&oacute;n»
                 options=[_fact_option(f, True)] + [_fact_option(rows[c.fact_id], False) for c in chosen],
                 explanation=f"La respuesta está en la página {f['page_number']}: «{f['quote']}»")
             reasons = validate_draft(w.draft, doc)

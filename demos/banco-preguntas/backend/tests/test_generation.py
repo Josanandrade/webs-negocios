@@ -145,6 +145,16 @@ def test_bad_stems_are_rejected_deterministically(client, alice, doc, providers,
     assert len(providers["verification"].calls) == 0           # no se gasta cuota en verificar
 
 
+def test_corrupt_generator_output_is_rejected_and_audited(client, alice, doc, providers):
+    providers["generation"].behaviour = lambda p: honest_generator(p, "\x13\x14Qu\x00é {attribute} del {subject}?")
+    job = generate(client, alice, doc["id"], count=2)
+    assert job["status"] == "succeeded" and job["attempts"] == 1       # sin reintentos por error de BD
+    assert questions(client, alice, doc["id"]) == []
+    with user_session(alice["id"]) as s:
+        reasons = s.execute(text("select reasons from question_candidates")).scalars().all()
+    assert reasons and all(rs == ["salida_corrupta_del_generador"] for rs in reasons)
+
+
 def test_invalid_distractor_choice_rejected(client, alice, doc, providers):
     def wrong_ids(prompt):
         out = honest_generator(prompt)

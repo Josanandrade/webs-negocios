@@ -99,6 +99,12 @@ def content_words(text: str) -> set[str]:
     return {w for w in _WORD.findall(fold(text)) if w not in STOPWORDS}
 
 
+def _root(word: str) -> str:
+    """Raíz tosca para comparar singular/plural: «opticos», «optico» -> «optic»."""
+    word = re.sub(r"(es|s)$", "", word) if len(word) > 5 else word
+    return re.sub(r"[aeo]$", "", word)
+
+
 def _norm_option(text: str) -> str:
     return re.sub(r"\s+", " ", fold(text)).strip(" .;:")
 
@@ -117,7 +123,7 @@ def validate_draft(d: QuestionDraft, doc: DocumentContext) -> list[str]:
             len({norm_value(o.text) for o in d.options}) != len(d.options):
         reasons.append("opciones_duplicadas")
     if reasons:
-        return reasons
+        return sorted(set(reasons), key=reasons.index)
 
     # --- evidencias: cada opción sale literalmente de su cita, y la cita de su página ---
     for o in d.options:
@@ -158,8 +164,23 @@ def validate_draft(d: QuestionDraft, doc: DocumentContext) -> list[str]:
     if d.kind in ("quantity", "date", "deadline"):
         if not all(numbers_in(o.text) for o in d.options):
             reasons.append("opciones_no_homogeneas")
+    words = [content_words(o.text) for o in d.options]
+    for i in range(4):
+        for j in range(i + 1, 4):
+            small, big = sorted((words[i], words[j]), key=len)
+            if len(small) >= 2 and small <= big:
+                # «Abre el Explorador» frente a «Abre una nueva ventana del Explorador»: ambas
+                # podrían defenderse como correctas.
+                reasons.append("opcion_contenida_en_otra")
+            elif small and len(small & big) / len(small | big) >= 0.7:
+                reasons.append("opciones_casi_iguales")
+    subject_roots = {_root(w) for w in subject_words if len(w) >= 5}
+    correct_roots = {_root(w) for w in content_words(correct.text)}
+    distractor_roots = {_root(w) for o in distractors for w in content_words(o.text)}
+    if subject_roots & correct_roots - distractor_roots:
+        reasons.append("correcta_repite_el_sujeto")   # «Almacenamiento óptico» → «discos ópticos»
     stem_words = content_words(stem) - subject_words
     overlap_correct = len(content_words(correct.text) & stem_words)
     if overlap_correct and all(not (content_words(o.text) & stem_words) for o in distractors):
         reasons.append("pista_lexica_en_enunciado")
-    return reasons
+    return sorted(set(reasons), key=reasons.index)

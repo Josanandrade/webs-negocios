@@ -105,7 +105,17 @@ def test_difficulty_orders_by_proximity(alice):
         hard = distractor_candidates(s, target, difficulty="hard")
         easy = distractor_candidates(s, target, difficulty="easy")
     assert hard[0].value == "el cierre de la herida"     # mismo apartado: más parecido
-    assert easy[0].value == "la medición del pulso"      # otro tema: más fácil de descartar
+    # Una definición de otro tema se descarta a simple vista: nunca es candidata.
+    assert "la medición del pulso" not in {c.value for c in hard + easy}
+
+
+def test_numeric_candidates_may_come_from_other_topics(alice):
+    u = alice["id"]
+    doc, secs = setup_doc(u, [["El plazo P es de 10 días."], ["El plazo Q es de 30 días."]])
+    target = add_fact(u, doc, secs[0], "deadline", "plazo P", "duración", "10 días", 10, "dias")
+    add_fact(u, doc, secs[1], "deadline", "plazo Q", "duración", "30 días", 30, "dias")
+    with user_session(u) as s:
+        assert [c.value for c in distractor_candidates(s, target)] == ["30 días"]
 
 
 def test_not_enough_candidates_returns_fewer_than_three(alice):

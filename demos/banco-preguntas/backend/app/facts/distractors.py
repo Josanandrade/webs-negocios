@@ -7,6 +7,9 @@ atributo y unidad). Cada candidato conserva su cita y su página.
 Se descarta un candidato si podría ser también correcto:
   * el sujeto de la pregunta tiene ese mismo valor en algún hecho;
   * el sujeto y el valor aparecen juntos en una misma frase en cualquier parte del documento.
+Las respuestas abiertas (definiciones, características, pasos...) solo se toman del MISMO
+tema principal: una definición de hardware como alternativa en una pregunta de Excel se
+descarta a simple vista y regala la respuesta.
 Si al final no hay al menos 3 candidatos, la pregunta no se generará.
 """
 import math
@@ -99,6 +102,8 @@ def distractor_candidates(session: Session, fact_id: UUID, *, difficulty: str = 
         same_slot = f["slot"] == target["slot"]
         if not same_slot and target["kind"] not in OPEN_KINDS and target["kind"] not in NUMERIC_KINDS:
             continue
+        if target["kind"] in OPEN_KINDS and target_top and tops.get(f["section_id"]) != target_top:
+            continue   # respuesta abierta de otro tema: alternativa evidente
         proximity = 0.0
         if f["section_id"] and f["section_id"] == target["section_id"]:
             proximity = 1.0

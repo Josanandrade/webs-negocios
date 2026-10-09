@@ -23,7 +23,7 @@ class Settings(BaseSettings):
     # cuando el principal está saturado (503) o sin cuota.
     llm_extraction: str = "gemini:gemini-flash-lite-latest,gemini:gemini-3.1-flash-lite"
     llm_generation: str = "gemini:gemini-flash-lite-latest,gemini:gemini-3.1-flash-lite"
-    llm_verification: str = "gemini:gemini-flash-latest,gemini:gemini-3.6-flash,gemini:gemini-3.5-flash"
+    llm_verification: str = "gemini:gemini-flash-latest,gemini:gemini-3.6-flash,gemini:gemini-3.5-flash,gemini:gemini-3-flash-preview,gemini:gemini-3.7-flash"
     llm_requests_per_minute: int = 8          # por modelo; por debajo del límite gratuito
     llm_max_retries: int = 6
     gemini_api_key: str = ""
