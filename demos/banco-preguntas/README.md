@@ -16,7 +16,7 @@ preguntas tipo test **verificables y estrictamente basadas en el documento**.
 | 4 | IA intercambiable (Gemini gratuito por defecto), cuotas, hechos verificados, catálogo de distractores | ✅ |
 | 5 | Generación + validación determinista + verificación independiente + duplicados + cobertura | ✅ |
 | 6 | Banco de preguntas: filtros, búsqueda, fuentes, edición auditada, estados, etiquetas, lote | ✅ |
-| 7 | Tests del alumno, corrección, estadísticas | pendiente |
+| 7 | Tests del alumno (práctica/examen, tiempo límite, penalización), corrección, repaso de fallos, estadísticas | ✅ |
 | 8 | Frontend web responsive (PC y móvil, instalable) | pendiente |
 | 9 | Despliegue gratuito (Render + Supabase + web estática) | pendiente |
 
@@ -86,5 +86,12 @@ TEST_ADMIN_DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/po
 | DELETE | `/api/questions/{id}` | Eliminar (los tests ya hechos conservan su copia) |
 | POST | `/api/questions/bulk` | Lote: aprobar, descartar, restaurar, eliminar, añadir/quitar etiqueta, cambiar dificultad |
 | GET | `/api/questions/tags` | Etiquetas usadas y cuántas preguntas tiene cada una |
+| POST | `/api/quizzes` | Crear test: filtros (`document_ids`, `section_ids`, `difficulties`, `tags`, `only_reviewed`), `selection` (`random`/`unseen`/`failed`/`weak`), `count`, `mode` (`practice`/`exam`), `penalty` (por defecto 1/3), `time_limit_minutes` (examen), `shuffle_options` |
+| GET | `/api/quizzes` · `/api/quizzes/{id}` | Tests realizados y en curso; la respuesta correcta solo aparece cuando ya se puede ver |
+| PUT | `/api/quizzes/{id}/questions/{n}` | Responder (`selected_label` o `null` = en blanco). En práctica devuelve la corrección al momento |
+| POST | `/api/quizzes/{id}/finish` | Entregar: aciertos, fallos, en blanco, neto y nota sobre 10, con página y cita de cada respuesta |
+| POST | `/api/quizzes/{id}/retry` | Nuevo test con los fallos y las preguntas en blanco |
+| DELETE | `/api/quizzes/{id}` | Borrar un test (deja de contar en las estadísticas) |
+| GET | `/api/stats` | Estadísticas (opcional `document_id`): evolución de notas, por tema (peor primero), por dificultad, más falladas, cobertura del banco (vistas, sin ver, dominadas, a repasar) |
 | GET | `/api/jobs/{id}` | Progreso real del trabajo |
 | POST | `/api/jobs/{id}/retry` | Reanudar un trabajo fallido desde donde se quedó |

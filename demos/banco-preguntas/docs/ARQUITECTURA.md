@@ -400,6 +400,27 @@ filtros no veían. Se corrigieron endureciendo, nunca relajando:
 Resultado con los ajustes: 20 preguntas aceptadas de 66 intentos (más descartes, como se
 esperaba), repartidas por los 8 temas, posición correcta A/B/C/D 5-5-5-5.
 
+### 10.5 Decisiones del bloque 7 (tests del alumno)
+
+- **Dos modos.** *Práctica*: cada respuesta se corrige al momento y ya no puede cambiarse.
+  *Examen*: se puede cambiar o dejar en blanco hasta entregar y nada se revela antes; tiempo
+  límite opcional **comprobado en el servidor** (un examen caducado se entrega solo con lo
+  respondido). La letra correcta nunca sale del servidor antes de tiempo.
+- **Puntuación de oposición.** Neto = aciertos − fallos × penalización; nota = neto / total × 10
+  (mínimo 0). Penalización configurable; por defecto 1/3 (corrección del azar con 4 opciones).
+  Las preguntas en blanco no restan.
+- **Copia inmutable.** Cada pregunta del test guarda su enunciado, opciones, correcta, tema,
+  página y cita. Editar o borrar la pregunta en el banco no cambia ni la corrección ni las
+  estadísticas pasadas.
+- **Selección.** Solo preguntas aprobadas. Modos: al azar, no vistas, falladas (la última vez
+  fallada o en blanco) y puntos débiles (falladas primero, luego peor porcentaje y menos
+  vistas). Reparto en turnos entre temas, salvo en «puntos débiles», donde manda la urgencia.
+  Si no hay suficientes, el test sale más corto: no se rellena.
+- **Qué cuenta como intento** (vista `quiz_attempts`): todo test entregado (lo no respondido
+  cuenta en blanco) y, en práctica, cada respuesta en cuanto se da. Un examen sin entregar no
+  cuenta porque sus respuestas aún pueden cambiar.
+- **Dominada** = acertada las 2 últimas veces; **a repasar** = la última vez fallada o en blanco.
+
 ## 11. Riesgos técnicos
 
 | Riesgo | Mitigación |
@@ -427,6 +448,6 @@ esperaba), repartidas por los 8 temas, posición correcta A/B/C/D 5-5-5-5.
 | **4** ✅ | Abstracción LLM (Gemini gratuito por defecto; Anthropic, OpenAI, Ollama), cuotas y pausas, registro de llamadas, extracción de hechos verificados, catálogo de distractores | Tests con proveedor de prueba + test real con Gemini si hay clave |
 | **5** ✅ | Generación + validación determinista + verificación LLM + duplicados + posición equilibrada + cobertura | Tests del motor (los pedidos) |
 | **6** ✅ | API del banco de preguntas (filtros, edición, estados, fuentes) | Tests de API |
-| 7 | Tests del alumno, corrección, estadísticas | Test de integración completo |
+| **7** ✅ | Tests del alumno, corrección, estadísticas | Tests de API (práctica, examen, tiempo, modos de selección, copia inmutable, estadísticas, aislamiento) |
 | 8 | Frontend (Documentos → Banco → Generar test → Resultados) | Prueba en navegador |
 | 9 | Despliegue gratuito (Render + Supabase + web estática), PWA móvil | Prueba real en PC y móvil |
