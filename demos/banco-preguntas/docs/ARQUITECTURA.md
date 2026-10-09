@@ -442,6 +442,23 @@ esperaba), repartidas por los 8 temas, posición correcta A/B/C/D 5-5-5-5.
   de consola, respuestas 5xx o desbordamiento horizontal, y comprueba que el examen no
   revela la corrección antes de entregar.
 
+### 10.7 Decisión del bloque 9 (despliegue)
+
+El plan inicial era 0 € (Render gratis + Supabase + web estática). Decisión del usuario:
+**Railway** para la API (no se duerme y se despliega desde aquí) y **Supabase** en una cuenta
+propia para la base de datos (la cuenta principal ya tenía 2 proyectos gratuitos activos).
+
+- **Un solo servicio**: la API sirve la web compilada y ejecuta el worker en un hilo. Menos
+  coste que tres servicios y sin CORS. Un trabajo largo a medias se retoma tras un reinicio
+  o un nuevo despliegue (lease + checkpoint).
+- **Migraciones al arrancar** (`python -m app.bootstrap`) con la conexión del propietario;
+  la API usa siempre el rol restringido `banco_api`, creado con contraseña aleatoria.
+- **Conexión directa por IPv6** a Supabase (salida IPv6 activada en el servicio), sin pooler.
+- **Supabase endurecido**: `anon`/`authenticated` sin permisos sobre las tablas (migración 0008);
+  la API REST de Supabase no se usa.
+- Coste: consumo del servicio en Railway (sin volumen grande ni base de datos allí);
+  Supabase en plan gratuito, que **se pausa tras 7 días sin uso** y se reactiva desde su panel.
+
 ## 11. Riesgos técnicos
 
 | Riesgo | Mitigación |
@@ -471,4 +488,4 @@ esperaba), repartidas por los 8 temas, posición correcta A/B/C/D 5-5-5-5.
 | **6** ✅ | API del banco de preguntas (filtros, edición, estados, fuentes) | Tests de API |
 | **7** ✅ | Tests del alumno, corrección, estadísticas | Tests de API (práctica, examen, tiempo, modos de selección, copia inmutable, estadísticas, aislamiento) |
 | **8** ✅ | Web: documentos, banco, tests, resultados, estadísticas; PWA | Tests de componentes + recorrido real con Chromium en PC y móvil |
-| 9 | Despliegue gratuito (Render + Supabase + web estática), PWA móvil | Prueba real en PC y móvil |
+| **9** ✅ | Despliegue en Railway (un servicio) + Supabase | Construcción y arranque en Railway, migraciones aplicadas, salud OK |

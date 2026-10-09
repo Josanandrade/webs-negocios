@@ -18,7 +18,7 @@ preguntas tipo test **verificables y estrictamente basadas en el documento**.
 | 6 | Banco de preguntas: filtros, búsqueda, fuentes, edición auditada, estados, etiquetas, lote | ✅ |
 | 7 | Tests del alumno (práctica/examen, tiempo límite, penalización), corrección, repaso de fallos, estadísticas | ✅ |
 | 8 | Web responsive (PC y móvil), instalable como app (PWA), modo claro/oscuro | ✅ |
-| 9 | Despliegue gratuito (Render + Supabase + web estática) | pendiente |
+| 9 | Despliegue: un servicio en Railway (API + worker + web) y base de datos en Supabase | ✅ |
 
 ## Requisitos
 
@@ -125,3 +125,28 @@ TEST_ADMIN_DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/po
 | GET | `/api/stats` | Estadísticas (opcional `document_id`): evolución de notas, por tema (peor primero), por dificultad, más falladas, cobertura del banco (vistas, sin ver, dominadas, a repasar) |
 | GET | `/api/jobs/{id}` | Progreso real del trabajo |
 | POST | `/api/jobs/{id}/retry` | Reanudar un trabajo fallido desde donde se quedó |
+
+## Despliegue (producción)
+
+Un único servicio Docker (`Dockerfile`) con la API, el worker de trabajos largos y la web
+compilada (misma dirección, sin CORS). Base de datos en Supabase; ficheros en un volumen.
+
+| Pieza | Dónde |
+|---|---|
+| API + worker + web | Railway, servicio `app` del proyecto `banco-preguntas` (región Europa), raíz `demos/banco-preguntas` |
+| Ficheros originales | Volumen de Railway montado en `/data` |
+| Base de datos | Supabase (Postgres con pgvector), conexión directa por IPv6 (activada en el servicio) |
+
+Variables del servicio:
+
+| Variable | Valor |
+|---|---|
+| `MIGRATIONS_DATABASE_URL` | Conexión del usuario `postgres` de Supabase. Al arrancar se aplican las migraciones pendientes y se crea el rol restringido |
+| `DATABASE_URL` | Mismo servidor con el rol `banco_api` (sin BYPASSRLS) y una contraseña aleatoria propia |
+| `JWT_SECRET` | Secreto aleatorio largo |
+| `GEMINI_API_KEY` | Clave de Google AI Studio |
+| `CORS_ORIGINS` | La dirección pública del servicio |
+| `RUN_WORKER=true`, `WEB_DIR=/app/web`, `STORAGE_DIR=/data/storage`, `PORT=8000` | Modo de un solo servicio |
+
+Cada push a la rama conectada que toque `demos/banco-preguntas/` vuelve a desplegar. La
+comprobación de salud es `GET /api/health`.
