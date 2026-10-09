@@ -215,6 +215,12 @@ def create_quiz(body: QuizCreate, user_id: UUID = Depends(current_user_id), db: 
     rng = random.Random()
     chosen = choose(rows, body.selection, body.count, tops, rng)
     if not chosen:
+        bank_empty = db.execute(text("select not exists (select 1 from questions where user_id = :u"
+                                     " and status in ('auto_validated', 'manually_reviewed'))"), {"u": user_id}).scalar_one()
+        if bank_empty:
+            raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT,
+                                "Tu banco aún no tiene preguntas. Abre tu documento en «Documentos» y pulsa "
+                                "«Generar»; cuando termine, podrás crear tests.")
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT,
                             "No hay preguntas que cumplan los filtros" +
                             {"unseen": " (todas se han respondido ya)", "failed": " (no hay preguntas falladas)"}

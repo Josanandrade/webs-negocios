@@ -81,6 +81,11 @@ export function DocumentPage() {
       {ready && (
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_20rem]">
           <div className="min-w-0 space-y-5">
+            {d.question_count === 0 && !active && (
+              <div className="rounded-xl bg-brand-50 p-4 text-sm text-brand-900 ring-1 ring-brand-200 dark:bg-brand-900/30 dark:text-brand-100 dark:ring-brand-900">
+                <strong>Siguiente paso:</strong> el temario ya está procesado. Genera las preguntas para poder hacer tests.
+              </div>
+            )}
             <GenerateCard doc={d} sections={sections.data ?? []} busy={active} onStarted={doc.reload} />
             {job?.kind === "generate" && job.status === "succeeded" && <GenerationReport job={job} />}
             {coverage.data && <CoverageCard coverage={coverage.data} />}

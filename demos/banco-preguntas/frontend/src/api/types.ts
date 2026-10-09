@@ -30,6 +30,7 @@ export interface DocumentInfo {
   stats: Record<string, unknown>;
   error: string | null;
   created_at: string;
+  question_count: number;
   latest_job: Job | null;
 }
 

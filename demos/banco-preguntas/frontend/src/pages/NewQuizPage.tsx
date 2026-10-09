@@ -2,7 +2,7 @@ import { type ReactNode, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import { api } from "../api/client";
 import type { Difficulty, DocumentInfo, Quiz, QuizCreate, Section } from "../api/types";
-import { Button, Card, ErrorBox, Field, inputClass, PageTitle } from "../components/ui";
+import { Button, ButtonLink, Card, ErrorBox, Field, inputClass, Loading, PageTitle } from "../components/ui";
 import { useAction, useAsync } from "../lib/hooks";
 import { Chip, shortTitle } from "./DocumentPage";
 
@@ -61,6 +61,9 @@ export function NewQuizPage() {
   });
 
   const toggle = <T,>(list: T[], v: T) => (list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
+
+  if (docs.loading && !docs.data) return <Loading />;
+  if (docs.data && docs.data.every((d) => d.question_count === 0)) return <EmptyBank docs={docs.data} />;
 
   return (
     <>
@@ -160,10 +163,16 @@ export function NewQuizPage() {
               <input type="checkbox" className="h-4 w-4 accent-brand-600" checked={shuffle} onChange={(e) => setShuffle(e.target.checked)} />
               Barajar el orden de las opciones
             </label>
+            <p className="ml-6 text-xs text-slate-500 dark:text-slate-400">
+              Cambia de sitio las respuestas A, B, C y D en cada test, para que no te aprendas «la buena es la C» en vez del contenido.
+            </p>
             <label className="flex items-center gap-2">
               <input type="checkbox" className="h-4 w-4 accent-brand-600" checked={onlyReviewed} onChange={(e) => setOnlyReviewed(e.target.checked)} />
               Solo preguntas que he revisado yo
             </label>
+            <p className="ml-6 text-xs text-slate-500 dark:text-slate-400">
+              Usa solo las que hayas aprobado o editado tú en el Banco. Si no has revisado ninguna, déjala sin marcar.
+            </p>
           </div>
         </Card>
 
@@ -193,5 +202,54 @@ function Choice({ active, onClick, title, children }: { active: boolean; onClick
       <span className="block text-sm font-medium">{title}</span>
       <span className="mt-0.5 block text-xs text-slate-600 dark:text-slate-400">{children}</span>
     </button>
+  );
+}
+
+/** Banco vacío: explica el paso que falta (subir el temario o generar las preguntas). */
+function EmptyBank({ docs }: { docs: DocumentInfo[] }) {
+  const ready = docs.filter((d) => d.status === "ready");
+  const generating = ready.find((d) => d.latest_job?.kind === "generate" && ["pending", "running"].includes(d.latest_job.status));
+  return (
+    <>
+      <PageTitle>Nuevo test</PageTitle>
+      <Card>
+        {generating ? (
+          <>
+            <h2 className="font-medium">Se están generando tus preguntas</h2>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+              Cuando termine podrás crear tests. Puedes ver el progreso en el documento.
+            </p>
+            <ButtonLink to={`/documentos/${generating.id}`} className="mt-4">
+              Ver el progreso
+            </ButtonLink>
+          </>
+        ) : ready.length ? (
+          <>
+            <h2 className="font-medium">Primero, genera las preguntas</h2>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+              Tu temario ya está procesado, pero el banco aún no tiene preguntas. Abre el documento y pulsa «Generar»: tarda unos
+              minutos y después podrás hacer tests.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {ready.map((d) => (
+                <ButtonLink key={d.id} to={`/documentos/${d.id}`}>
+                  Generar preguntas de «{d.title}»
+                </ButtonLink>
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <h2 className="font-medium">Primero, sube tu temario</h2>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+              Los tests se hacen con preguntas sacadas de tu temario. Súbelo en PDF o Word y después genera las preguntas.
+            </p>
+            <ButtonLink to="/documentos" className="mt-4">
+              Ir a Documentos
+            </ButtonLink>
+          </>
+        )}
+      </Card>
+    </>
   );
 }

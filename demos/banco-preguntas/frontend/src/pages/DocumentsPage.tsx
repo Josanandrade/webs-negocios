@@ -111,6 +111,15 @@ export function DocumentsPage() {
                     </div>
                   )}
                   {d.status === "error" && d.error && <p className="mt-2 text-sm text-red-700 dark:text-red-300">{d.error}</p>}
+                  {d.status === "ready" && !isActive(d.latest_job) && (
+                    <p className="mt-2 text-sm">
+                      {d.question_count > 0 ? (
+                        <span className="text-slate-600 dark:text-slate-400">{d.question_count} preguntas en el banco</span>
+                      ) : (
+                        <span className="font-medium text-brand-700 dark:text-brand-200">Siguiente paso: generar las preguntas →</span>
+                      )}
+                    </p>
+                  )}
                 </Link>
               </Card>
             </li>

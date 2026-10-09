@@ -119,7 +119,7 @@ def test_filters_and_errors(client, alice, bob, bank):
 
     new_quiz(client, bob, expected=404, section_ids=[tema2["id"]])          # sección ajena
     new_quiz(client, bob, expected=404, document_ids=[doc["id"]])
-    assert "No hay preguntas" in new_quiz(client, bob, expected=422)["detail"]
+    assert "Tu banco aún no tiene preguntas" in new_quiz(client, bob, expected=422)["detail"]
 
 
 def test_unseen_failed_and_weak_modes(client, alice, bank):
@@ -231,3 +231,11 @@ def test_quizzes_are_private(client, alice, bob, bank):
     assert api(client, bob, "GET", "/api/stats")["coverage"]["active_questions"] == 0
     listed = api(client, alice, "GET", "/api/quizzes")
     assert listed["total"] == 1 and listed["items"][0]["answered"] == 0
+
+
+def test_documents_report_their_question_count(client, alice, bank):
+    doc, items = bank
+    listed = api(client, alice, "GET", "/api/documents")
+    assert listed[0]["question_count"] == len(items)
+    api(client, alice, "PATCH", f"/api/questions/{items[0]['id']}", json={"status": "discarded"})
+    assert api(client, alice, "GET", f"/api/documents/{doc['id']}")["question_count"] == len(items) - 1

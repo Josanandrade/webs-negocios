@@ -51,13 +51,16 @@ class DocumentOut(BaseModel):
     stats: dict[str, Any]
     error: str | None
     created_at: datetime
+    question_count: int = 0             # preguntas activas (no descartadas) del documento
     latest_job: JobOut | None = None
 
 
 _JOB_COLUMNS = ("id, document_id, kind, status, stage, progress_current, progress_total, message, "
                 "attempts, max_attempts, last_error, created_at, started_at, finished_at, checkpoint")
 _DOC_COLUMNS = ("id, title, original_filename, mime_type, size_bytes, status, page_count, "
-                "text_layer, stats, error, created_at")
+                "text_layer, stats, error, created_at, "
+                "(select count(*) from questions q where q.document_id = documents.id"
+                " and q.status <> 'discarded') as question_count")
 
 
 def detect_mime(data: bytes) -> str | None:
