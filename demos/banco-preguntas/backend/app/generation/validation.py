@@ -184,3 +184,34 @@ def validate_draft(d: QuestionDraft, doc: DocumentContext) -> list[str]:
     if overlap_correct and all(not (content_words(o.text) & stem_words) for o in distractors):
         reasons.append("pista_lexica_en_enunciado")
     return sorted(set(reasons), key=reasons.index)
+
+
+def prescreen_candidates(subject: str, correct: str, candidates: list) -> list:
+    """Quita, ANTES de llamar a la IA, los candidatos a distractor con los que la pregunta
+    fallaría seguro las reglas de `validate_draft` (mismas reglas, aplicadas antes: no se
+    relaja nada, solo se ahorran llamadas).
+
+    * Longitud: si cada distractor mide entre len/1.6 y len/0.5 de la correcta, la media
+      también, y la regla de «longitud delata la correcta» se cumple.
+    * Opción contenida en otra o casi igual a la correcta.
+    * Si la correcta repite una palabra del sujeto, solo valen distractores que también la
+      tengan (si no, la correcta quedaría delatada).
+    """
+    n = len(correct)
+    correct_words = content_words(correct)
+    subject_roots = {_root(w) for w in content_words(subject) if len(w) >= 5}
+    giveaway = subject_roots & {_root(w) for w in correct_words}
+    kept = []
+    for c in candidates:
+        if not (n / MAX_LENGTH_RATIO <= len(c.value) <= n / MIN_LENGTH_RATIO):
+            continue
+        words = content_words(c.value)
+        small, big = sorted((words, correct_words), key=len)
+        if len(small) >= 2 and small <= big:
+            continue
+        if small and len(small & big) / len(small | big) >= 0.7:
+            continue
+        if giveaway and not giveaway <= {_root(w) for w in words}:
+            continue
+        kept.append(c)
+    return kept

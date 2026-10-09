@@ -371,7 +371,16 @@ Consecuencias de diseño (ya implementadas o planificadas):
   verificado (la correcta, el hecho objetivo; los distractores, hechos de otros sujetos del
   catálogo). El generador solo redacta el enunciado y elige 3 ids de la lista cerrada.
 - **La explicación tampoco la escribe la IA:** es la cita literal con su página.
-- **Lotes de 4 preguntas por llamada** (generación y verificación) para ahorrar cuota gratuita.
+- **Lotes por llamada para ahorrar cuota gratuita** (revisado tras medir en producción): el redactor
+  recibe lotes fijos de 8 hechos; los borradores que pasan las reglas se acumulan y el verificador
+  los revisa de 8 en 8, en un hilo aparte, mientras se redacta el lote siguiente. Antes se verificaba
+  por cada lote de 4 (1 o 2 supervivientes por llamada) y los lotes se encogían al final.
+- **Filtro previo de distractores** (mismas reglas que la validación determinista, aplicadas antes de
+  llamar a la IA): longitud, opción contenida o casi igual, sujeto repetido. Menos llamadas perdidas.
+- **Datos del temario extraídos al subirlo** (`AUTO_EXTRACT_FACTS`) y trabajos de un mismo documento
+  en orden (`app.claim_job`, migración 0009): «Generar» se puede pedir enseguida y espera su turno.
+- **Tests «Al azar»**: primero las preguntas que menos has visto (por niveles y en turnos entre
+  temas); si no llegan, se completan con las ya vistas.
 - **Duplicados:** mismo hecho, mismo dato (sujeto + ranura), misma huella, o misma respuesta
   con enunciado equivalente. El parecido de texto por sí solo no basta ("¿Dosis de Alfa?" y
   "¿Dosis de Beta?" son preguntas distintas).

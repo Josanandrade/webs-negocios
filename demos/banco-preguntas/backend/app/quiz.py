@@ -2,7 +2,7 @@
 
 Selección:
   * solo preguntas aprobadas (auto_validated / manually_reviewed), nunca descartadas;
-  * modos: 'random', 'unseen' (nunca respondidas), 'failed' (la última vez se fallaron o
+  * modos: 'random' (prefiere las menos vistas, sin quedarse corto), 'unseen' (nunca respondidas), 'failed' (la última vez se fallaron o
     se dejaron en blanco) y 'weak' (primero las falladas, luego las de peor porcentaje y
     las menos vistas);
   * reparto equilibrado: turnos entre temas principales para que ninguno acapare el test
@@ -90,16 +90,25 @@ def choose(rows: list[dict[str, Any]], mode: str, count: int, tops: dict[UUID, U
         rows.sort(key=priority)            # sort estable: conserva el desempate aleatorio
         return rows[:count]
 
-    groups: dict[Any, list[dict[str, Any]]] = defaultdict(list)
+    # Por niveles de uso: primero, en turnos entre temas, las que menos veces has visto (las
+    # nunca vistas antes que ninguna); solo si no llegan se pasa al siguiente nivel. Así un test
+    # nuevo no repite el anterior mientras queden preguntas sin ver, y nunca se queda corto.
+    order: list[Any] = []
     for r in rows:
-        groups[tops.get(r["section_id"], r["section_id"])].append(r)
-    order = list(groups)
+        key = tops.get(r["section_id"], r["section_id"])
+        if key not in order:
+            order.append(key)
     rng.shuffle(order)
     chosen: list[dict[str, Any]] = []
-    while len(chosen) < count and any(groups.values()):
-        for g in order:
-            if groups[g] and len(chosen) < count:
-                chosen.append(groups[g].pop(0))
+    for level in sorted({r["seen"] for r in rows}):
+        groups: dict[Any, list[dict[str, Any]]] = defaultdict(list)
+        for r in rows:
+            if r["seen"] == level:
+                groups[tops.get(r["section_id"], r["section_id"])].append(r)
+        while len(chosen) < count and any(groups.values()):
+            for g in order:
+                if groups[g] and len(chosen) < count:
+                    chosen.append(groups[g].pop(0))
     return chosen
 
 

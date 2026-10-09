@@ -64,7 +64,9 @@ export function DocumentPage() {
 
       {job && (active || job.status === "failed") && (
         <Card className="mb-5">
-          <h2 className="mb-3 font-medium">{job.kind === "ingest" ? "Procesando el documento" : "Generando preguntas"}</h2>
+          <h2 className="mb-3 font-medium">
+            {job.kind === "ingest" ? "Procesando el documento" : job.kind === "extract_facts" ? "Preparando el temario para generar preguntas" : "Generando preguntas"}
+          </h2>
           {job.status === "failed" ? (
             <div className="space-y-3">
               <ErrorBox error={job.last_error || "El trabajo ha fallado"} />
@@ -81,12 +83,18 @@ export function DocumentPage() {
       {ready && (
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_20rem]">
           <div className="min-w-0 space-y-5">
-            {d.question_count === 0 && !active && (
+            {d.question_count === 0 && !(active && job?.kind === "generate") && (
               <div className="rounded-xl bg-brand-50 p-4 text-sm text-brand-900 ring-1 ring-brand-200 dark:bg-brand-900/30 dark:text-brand-100 dark:ring-brand-900">
                 <strong>Siguiente paso:</strong> el temario ya está procesado. Genera las preguntas para poder hacer tests.
               </div>
             )}
-            <GenerateCard doc={d} sections={sections.data ?? []} busy={active} onStarted={doc.reload} />
+            <GenerateCard
+              doc={d}
+              sections={sections.data ?? []}
+              busy={active && job?.kind === "generate"}
+              preparing={active && job?.kind === "extract_facts"}
+              onStarted={doc.reload}
+            />
             {job?.kind === "generate" && job.status === "succeeded" && <GenerationReport job={job} />}
             {coverage.data && <CoverageCard coverage={coverage.data} />}
           </div>
@@ -192,7 +200,19 @@ function SectionTree({ nodes, depth = 0 }: { nodes: Section[]; depth?: number })
   );
 }
 
-function GenerateCard({ doc, sections, busy, onStarted }: { doc: DocumentInfo; sections: Section[]; busy: boolean; onStarted: () => void }) {
+function GenerateCard({
+  doc,
+  sections,
+  busy,
+  preparing,
+  onStarted,
+}: {
+  doc: DocumentInfo;
+  sections: Section[];
+  busy: boolean;
+  preparing: boolean;
+  onStarted: () => void;
+}) {
   const [selected, setSelected] = useState<string[]>([]);
   const [count, setCount] = useState("20");
   const [max, setMax] = useState(false);
@@ -252,6 +272,11 @@ function GenerateCard({ doc, sections, busy, onStarted }: { doc: DocumentInfo; s
           </select>
         </Field>
       </div>
+      {preparing && (
+        <p className="mt-4 text-sm text-slate-600 dark:text-slate-400">
+          Puedes pulsar «Generar» ya: empezará en cuanto termine la preparación del temario.
+        </p>
+      )}
       <div className="mt-4">
         <ErrorBox error={start.error} />
       </div>

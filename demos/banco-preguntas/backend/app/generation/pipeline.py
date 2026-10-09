@@ -16,6 +16,7 @@ import html
 import json
 import re
 from collections import Counter, defaultdict
+from concurrent.futures import Future, ThreadPoolExecutor, wait
 from dataclasses import dataclass
 from typing import Any
 from uuid import UUID
@@ -28,12 +29,14 @@ from app.generation.dedupe import duplicate_reason, fingerprint
 from app.generation.positions import LABELS, arrange, choose_correct_label
 from app.generation.prompts import (GEN_SCHEMA, GEN_SYSTEM, VER_SCHEMA, VER_SYSTEM, GenItem, VerItem,
                                     build_gen_prompt, build_ver_prompt, verification_passes)
-from app.generation.validation import DocumentContext, OptionDraft, QuestionDraft, validate_draft
+from app.generation.validation import (DocumentContext, OptionDraft, QuestionDraft, prescreen_candidates,
+                                       validate_draft)
 from app.jobs.runner import JobContext
 from app.llm.client import call_llm
 from app.search import search_chunks
 
-BATCH = 4
+GEN_BATCH = 8          # hechos por llamada al redactor (lotes fijos: no se encogen al final)
+VER_BATCH = 8          # preguntas por llamada al verificador (el recurso más escaso del plan gratuito)
 _CONTROL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
 MIN_CONFIDENCE = 0.8
 DIFFICULTY_CYCLE = ("easy", "medium", "hard")
@@ -50,6 +53,8 @@ class Work:
     candidates: list[Candidate] | None = None
     draft: QuestionDraft | None = None
     gen_raw: dict[str, Any] | None = None
+    gen_spec: str | None = None
+    gen_version: str | None = None
 
 
 # --------------------------------------------------------------------------- plan
@@ -145,8 +150,10 @@ def _fact_option(f: dict[str, Any], is_correct: bool) -> OptionDraft:
 
 
 # ------------------------------------------------------------------- un lote
-def _process_batch(ctx: JobContext, batch: list[Work], doc: DocumentContext, counters: Counter) -> int:
-    """Procesa un lote de hechos. Devuelve cuántas preguntas se aceptaron."""
+def _draft_batch(ctx: JobContext, batch: list[Work], doc: DocumentContext, counters: Counter) -> list[Work]:
+    """Pasos 1-4 (sin verificador): catálogo de distractores, redacción y validación
+    determinista. Devuelve los borradores válidos, pendientes de verificar; los descartes
+    quedan registrados."""
     # 1-2. duplicados por dato y catálogo de distractores (sin IA)
     ready: list[Work] = []
     with ctx.session() as s:
@@ -156,14 +163,15 @@ def _process_batch(ctx: JobContext, batch: list[Work], doc: DocumentContext, cou
                 _record(ctx, w, "rejected_duplicate", [dup])
                 counters[f"duplicada:{dup}"] += 1
                 continue
-            w.candidates = distractor_candidates(s, w.fact["id"], difficulty=w.difficulty, limit=6)
+            pool = distractor_candidates(s, w.fact["id"], difficulty=w.difficulty, limit=12)
+            w.candidates = prescreen_candidates(w.fact["subject"], w.fact["value"], pool)[:6]
             if len(w.candidates) < 3:
                 _record(ctx, w, "rejected_no_distractors", [f"solo_{len(w.candidates)}_distractores"])
                 counters["sin_3_distractores_del_documento"] += 1
                 continue
             ready.append(w)
         if not ready:
-            return 0
+            return []
         headers = dict(s.execute(text("select id, context_header from document_chunks where document_id = :d"),
                                  {"d": ctx.document_id}).all())
 
@@ -225,10 +233,15 @@ def _process_batch(ctx: JobContext, batch: list[Work], doc: DocumentContext, cou
                 _record(ctx, w, "rejected_duplicate", [dup])
                 counters[f"duplicada:{dup}"] += 1
                 continue
+            w.gen_spec, w.gen_version = gen.model_spec, gen.model_version
             survivors.append(w)
-        if not survivors:
-            return 0
+    return survivors
 
+
+def _verify_batch(ctx: JobContext, survivors: list[Work], counters: Counter) -> list[UUID]:
+    """Pasos 5-7: posición equilibrada, verificación a ciegas y guardado. Devuelve los
+    hechos cuyas preguntas se aceptaron."""
+    with ctx.session() as s:
         # 5. posición de la correcta: equilibrio por documento
         label_counts = Counter(dict(s.execute(text("""
             select o.label, count(*) from question_options o join questions q on q.id = o.question_id
@@ -257,7 +270,7 @@ def _process_batch(ctx: JobContext, batch: list[Work], doc: DocumentContext, cou
     ver_by_ref = {str(it.get("item", "")).strip(): it for it in ver.data.get("items", [])}
 
     # 7. guardado
-    accepted = 0
+    accepted: list[UUID] = []
     for i, w in enumerate(survivors, start=1):
         report = ver_by_ref.get(f"Q{i}")
         if report is None:
@@ -270,8 +283,8 @@ def _process_batch(ctx: JobContext, batch: list[Work], doc: DocumentContext, cou
             for r in reasons:
                 counters[f"verificador:{r}"] += 1
             continue
-        meta = {"job_id": str(ctx.job_id), "generator": gen.model_spec,
-                "generator_version": gen.model_version, "verifier": ver.model_spec,
+        meta = {"job_id": str(ctx.job_id), "generator": w.gen_spec,
+                "generator_version": w.gen_version, "verifier": ver.model_spec,
                 "verifier_version": ver.model_version, "verifier_report": report,
                 "distractor_tiers": {str(c.fact_id): c.tier for c in w.candidates}}
         question_id = _store_question(ctx, w, report, meta)
@@ -281,7 +294,7 @@ def _process_batch(ctx: JobContext, batch: list[Work], doc: DocumentContext, cou
             continue
         _record(ctx, w, "accepted", [], verifier=report, question_id=question_id)
         counters["aceptadas"] += 1
-        accepted += 1
+        accepted.append(w.fact["id"])
     return accepted
 
 
@@ -340,50 +353,93 @@ def run_generate(ctx: JobContext) -> None:
 
     cursor = {top: 0 for top in by_top}
     index = attempted
-    while True:
-        if target is not None and accepted_total >= target:
-            break
-        # Siguiente lote en round-robin entre temas que aún tienen cuota y hechos.
-        batch: list[Work] = []
-        size = BATCH if target is None else min(BATCH, target - accepted_total)
-        progressed = True
-        while len(batch) < size and progressed:
-            progressed = False
-            for top in sorted(by_top, key=lambda t: (accepted_by_top[t], str(t))):
-                quota = quotas.get(top)
-                in_batch = sum(1 for w in batch if w.top == top)
-                if quota is not None and accepted_by_top[top] + in_batch >= quota:
-                    continue
-                if cursor[top] >= len(by_top[top]) or len(batch) >= size:
-                    continue
-                fact = by_top[top][cursor[top]]
-                cursor[top] += 1
-                diff = DIFFICULTY_CYCLE[index % 3] if difficulty == "mixed" else difficulty
-                index += 1
-                batch.append(Work(fact, top, diff))
-                progressed = True
-        if not batch:
-            # Temas agotados con cuota pendiente: repartir el resto entre los que tienen hechos.
-            if target is not None and any(cursor[t] < len(by_top[t]) for t in by_top):
-                for t in by_top:
-                    if cursor[t] < len(by_top[t]):
-                        quotas[t] = (quotas.get(t) or 0) + (target - accepted_total)
-                continue
-            break
 
-        _process_batch(ctx, batch, doc, counters)
-        tops = {w.fact["id"]: w.top for w in batch}
-        with ctx.session() as s:
-            accepted_facts = s.execute(text("select fact_id from question_candidates where job_id = :j"
-                                            " and status = 'accepted' and fact_id = any(cast(:f as uuid[]))"),
-                                       {"j": ctx.job_id, "f": [str(f) for f in tops]}).scalars().all()
-        for fid in accepted_facts:
-            accepted_by_top[tops[fid]] += 1
-        accepted_total += len(accepted_facts)
-        attempted += len(batch)
+    def next_batch() -> list[Work]:
+        """Siguiente lote en round-robin entre temas que aún tienen cuota y hechos."""
+        nonlocal index
+        while True:
+            batch: list[Work] = []
+            progressed = True
+            while len(batch) < GEN_BATCH and progressed:
+                progressed = False
+                for top in sorted(by_top, key=lambda t: (accepted_by_top[t], str(t))):
+                    quota = quotas.get(top)
+                    in_batch = sum(1 for w in batch if w.top == top)
+                    if quota is not None and accepted_by_top[top] + in_batch >= quota:
+                        continue
+                    if cursor[top] >= len(by_top[top]) or len(batch) >= GEN_BATCH:
+                        continue
+                    fact = by_top[top][cursor[top]]
+                    cursor[top] += 1
+                    diff = DIFFICULTY_CYCLE[index % 3] if difficulty == "mixed" else difficulty
+                    index += 1
+                    batch.append(Work(fact, top, diff))
+                    progressed = True
+            if batch or target is None or not any(cursor[t] < len(by_top[t]) for t in by_top):
+                return batch
+            # Temas agotados con cuota pendiente: el resto se reparte entre los que tienen hechos.
+            for t in by_top:
+                if cursor[t] < len(by_top[t]):
+                    quotas[t] = (quotas.get(t) or 0) + (target - accepted_total)
+
+    # Dos etapas en paralelo: el redactor prepara el lote siguiente mientras el verificador
+    # (otro modelo, con su propio límite) revisa el anterior. Los borradores válidos se
+    # acumulan y se verifican de VER_BATCH en VER_BATCH. Si el trabajo se corta, los borradores
+    # aún sin verificar no quedan registrados y sus hechos se vuelven a intentar.
+    queue: list[Work] = []
+    inflight: Future | None = None
+    inflight_n = 0
+    exhausted = False
+
+    def collect(future: Future) -> None:
+        nonlocal accepted_total
+        for fid in future.result():
+            accepted_by_top[next(w.top for w in sent if w.fact["id"] == fid)] += 1
+            accepted_total += 1
+
+    def report() -> None:
         ctx.update(current=accepted_total if target else attempted,
-                   message=f"Generando preguntas ({accepted_total} aceptadas, {attempted - accepted_total} descartadas)",
+                   message=f"Generando preguntas ({accepted_total} aceptadas, {attempted - accepted_total - len(queue) - inflight_n} descartadas)",
                    checkpoint={"generation": dict(counters), "attempted": attempted})
+
+    sent: list[Work] = []
+    with ThreadPoolExecutor(max_workers=1, thread_name_prefix="verificador") as pool:
+        try:
+            while True:
+                if inflight is not None and inflight.done():
+                    collect(inflight)
+                    inflight, inflight_n = None, 0
+                    report()
+                if target is not None and accepted_total >= target:
+                    break
+                needed = None if target is None else target - accepted_total
+                want_more = not exhausted and (needed is None or len(queue) + inflight_n < needed)
+                if want_more:
+                    batch = next_batch()
+                    if batch:
+                        queue += _draft_batch(ctx, batch, doc, counters)
+                        attempted += len(batch)
+                        report()
+                    else:
+                        exhausted = True
+                    want_more = not exhausted and (needed is None or len(queue) + inflight_n < needed)
+                if inflight is None and queue and (len(queue) >= VER_BATCH or not want_more):
+                    size = min(VER_BATCH, len(queue)) if needed is None else min(VER_BATCH, len(queue), needed)
+                    chunk, queue = queue[:size], queue[size:]
+                    sent += chunk
+                    inflight, inflight_n = pool.submit(_verify_batch, ctx, chunk, counters), len(chunk)
+                elif inflight is not None and not want_more:
+                    wait([inflight])                    # nada más que redactar: esperar al verificador
+                elif inflight is None and not queue and not want_more:
+                    break
+        finally:
+            if inflight is not None:
+                wait([inflight])
+                if not inflight.exception():
+                    collect(inflight)
+                inflight_n = 0
+    attempted -= len(queue)                             # borradores sin verificar: se reintentarán
+    ctx.update(checkpoint={"generation": dict(counters), "attempted": attempted})
 
     note = ""
     if target is not None and accepted_total < target:

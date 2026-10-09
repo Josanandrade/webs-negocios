@@ -239,3 +239,13 @@ def test_documents_report_their_question_count(client, alice, bank):
     assert listed[0]["question_count"] == len(items)
     api(client, alice, "PATCH", f"/api/questions/{items[0]['id']}", json={"status": "discarded"})
     assert api(client, alice, "GET", f"/api/documents/{doc['id']}")["question_count"] == len(items) - 1
+
+
+def test_random_prefers_questions_not_seen_in_previous_tests(client, alice, bank):
+    first = new_quiz(client, alice, count=6, mode="exam")
+    api(client, alice, "POST", f"/api/quizzes/{first['id']}/finish")
+    seen = {q["question_id"] for q in first["questions"]}
+    second = new_quiz(client, alice, count=6)                  # quedan justo 6 sin ver
+    assert not seen & {q["question_id"] for q in second["questions"]}
+    third = new_quiz(client, alice, count=12)                  # no hay 12 sin ver: no se queda corto
+    assert third["total"] == 12

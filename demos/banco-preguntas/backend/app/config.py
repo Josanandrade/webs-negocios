@@ -32,6 +32,9 @@ class Settings(BaseSettings):
     # Producción en un solo servicio: el worker corre dentro del proceso de la API y la API
     # sirve también la web compilada (misma dirección, sin CORS).
     run_worker: bool = False
+    # Al terminar de procesar un documento, extraer ya sus datos (hechos) en segundo plano,
+    # para que «Generar» no tenga que esperar a esa fase.
+    auto_extract_facts: bool = False
     web_dir: Path | None = None
 
     storage_dir: Path = Path("./data/storage")

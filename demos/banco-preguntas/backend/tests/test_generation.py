@@ -190,20 +190,21 @@ def test_quota_pause_during_generation_resumes_without_duplicates(client, alice,
         return honest_verifier(prompt)
 
     providers["verification"].behaviour = flaky_verifier
-    r = client.post(f"/api/documents/{doc['id']}/generate", json={"count": 8}, headers=alice["headers"])
+    # 12 preguntas = dos llamadas al verificador (lotes de 8): la segunda agota la cuota.
+    r = client.post(f"/api/documents/{doc['id']}/generate", json={"count": 12}, headers=alice["headers"])
     drain()
     job = client.get(f"/api/jobs/{r.json()['id']}", headers=alice["headers"]).json()
     assert job["status"] == "pending" and "En pausa" in job["message"]
     paused_count = len(questions(client, alice, doc["id"]))
-    assert 0 < paused_count < 8
+    assert 0 < paused_count < 12
     with owner_engine.begin() as conn:
         conn.execute(text("update processing_jobs set run_after = now()"))
     drain()
     job = client.get(f"/api/jobs/{r.json()['id']}", headers=alice["headers"]).json()
     assert job["status"] == "succeeded"
     qs = questions(client, alice, doc["id"])
-    assert len(qs) == 8
-    assert len({q["stem"] for q in qs}) == 8
+    assert len(qs) == 12
+    assert len({q["stem"] for q in qs}) == 12
 
 
 def test_generation_and_questions_are_private(client, alice, bob, doc):
@@ -213,3 +214,41 @@ def test_generation_and_questions_are_private(client, alice, bob, doc):
     assert client.get(f"/api/questions/{qid}", headers=bob["headers"]).status_code == 404
     assert client.get("/api/questions", headers=bob["headers"]).json()["items"] == []
     assert client.get(f"/api/documents/{doc['id']}/coverage", headers=bob["headers"]).status_code == 404
+
+
+def test_verifier_is_called_in_full_batches_and_target_is_not_exceeded(client, alice, doc, providers):
+    job = generate(client, alice, doc["id"], count=10)
+    assert job["status"] == "succeeded"
+    assert len(questions(client, alice, doc["id"])) == 10                  # ni una más de las pedidas
+    assert len(providers["verification"].calls) == 2                      # 8 + 2, no una llamada por cada 4
+    assert len(providers["generation"].calls) == 2                        # lotes fijos de 8 hechos
+    with user_session(alice["id"]) as s:
+        recorded = s.execute(text("select count(*) from question_candidates")).scalar_one()
+    assert recorded == 10      # los borradores sobrantes no se registran: sus hechos quedan para otra vez
+
+
+def test_facts_are_extracted_right_after_upload_and_generation_queues_behind(client, alice, providers, monkeypatch):
+    from app.config import get_settings
+
+    monkeypatch.setenv("AUTO_EXTRACT_FACTS", "true")
+    get_settings.cache_clear()
+    try:
+        data = make_structured_pdf([tema(1, list(zip(NAMES, DOSES))[:6])])
+        doc = client.post("/api/documents", headers=alice["headers"], files={"file": ("t.pdf", data, "application/pdf")}).json()
+        assert run_one("w", retry_delay_seconds=0)                       # ingestión
+        with user_session(alice["id"]) as s:
+            kinds = s.execute(text("select kind, status from processing_jobs order by created_at")).all()
+        assert [tuple(k) for k in kinds] == [("ingest", "succeeded"), ("extract_facts", "pending")]
+        # «Generar» se acepta aunque la extracción no haya empezado: espera su turno.
+        r = client.post(f"/api/documents/{doc['id']}/generate", json={"count": 2}, headers=alice["headers"])
+        assert r.status_code == 202
+        assert client.post(f"/api/documents/{doc['id']}/generate", json={"count": 2},
+                           headers=alice["headers"]).status_code == 409    # pero no dos generaciones a la vez
+        drain()
+        with user_session(alice["id"]) as s:
+            order = s.execute(text("select kind from processing_jobs where status = 'succeeded' order by finished_at")).scalars().all()
+        assert order == ["ingest", "extract_facts", "generate"]
+        assert len(questions(client, alice, doc["id"])) == 2
+        assert len(providers["extraction"].calls) == 1                   # la generación no repite la extracción
+    finally:
+        get_settings.cache_clear()

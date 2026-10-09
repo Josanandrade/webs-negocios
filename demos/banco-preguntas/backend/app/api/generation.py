@@ -54,10 +54,12 @@ def start_generation(document_id: UUID, body: GenerateIn, user_id: UUID = Depend
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Documento no encontrado")
     if doc.status != "ready":
         raise HTTPException(status.HTTP_409_CONFLICT, "El documento aún no está procesado")
-    active = db.execute(text("select id from processing_jobs where document_id = :d and kind in ('generate', 'extract_facts')"
+    # Una extracción de datos en curso no impide generar: los trabajos de un documento se
+    # ejecutan en orden (app.claim_job) y la generación aprovecha lo ya extraído.
+    active = db.execute(text("select id from processing_jobs where document_id = :d and kind = 'generate'"
                              " and status in ('pending', 'running')"), {"d": document_id}).first()
     if active:
-        raise HTTPException(status.HTTP_409_CONFLICT, {"message": "Ya hay un trabajo en curso", "job_id": str(active.id)})
+        raise HTTPException(status.HTTP_409_CONFLICT, {"message": "Ya hay una generación en curso", "job_id": str(active.id)})
     if body.section_ids:
         found = db.execute(text("select count(*) from document_sections where document_id = :d"
                                 " and id = any(cast(:ids as uuid[]))"),

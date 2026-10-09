@@ -147,6 +147,7 @@ Variables del servicio:
 | `GEMINI_API_KEY` | Clave de Google AI Studio |
 | `CORS_ORIGINS` | La dirección pública del servicio |
 | `RUN_WORKER=true`, `WEB_DIR=/app/web`, `STORAGE_DIR=/data/storage`, `PORT=8000` | Modo de un solo servicio |
+| `AUTO_EXTRACT_FACTS=true` | Al terminar de procesar un temario, extrae ya sus datos en segundo plano (así «Generar» no espera esa fase) |
 
 Cada push a la rama conectada que toque `demos/banco-preguntas/` vuelve a desplegar. La
 comprobación de salud es `GET /api/health`.

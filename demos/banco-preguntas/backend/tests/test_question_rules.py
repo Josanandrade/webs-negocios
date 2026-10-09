@@ -120,3 +120,22 @@ def test_label_choice_is_deterministic_and_arrange_keeps_one_correct():
     options = draft().options
     first = [o.text for o in arrange(copy.deepcopy(options), "C", seed)]
     assert first == [o.text for o in arrange(copy.deepcopy(options), "C", seed)]   # mismo orden siempre
+
+
+def test_prescreen_drops_candidates_that_would_fail_the_rules():
+    from types import SimpleNamespace as C
+
+    from app.generation.validation import prescreen_candidates
+
+    cands = [C(value="Abre una nueva ventana del Explorador de archivos"),   # contiene a la correcta
+             C(value="Cierra la ventana activa"),
+             C(value="Actualiza la ventana del Explorador"),
+             C(value="x"),                                                  # demasiado corta
+             C(value="Muestra el escritorio y minimiza todas las ventanas abiertas de una sola vez " * 2)]
+    kept = [c.value for c in prescreen_candidates("Win + E", "Abre el Explorador de archivos", cands)]
+    assert kept == ["Cierra la ventana activa", "Actualiza la ventana del Explorador"]
+    # La correcta repite el sujeto («óptico»): solo valen alternativas que también lo digan.
+    kept = prescreen_candidates("Almacenamiento óptico", "Usa láseres para leer discos ópticos",
+                                [C(value="Discos magnéticos que giran a alta velocidad"),
+                                 C(value="Discos ópticos regrabables de alta capacidad")])
+    assert [c.value for c in kept] == ["Discos ópticos regrabables de alta capacidad"]

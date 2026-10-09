@@ -17,6 +17,7 @@ from app.ingestion.structure import build_sections, detect_headings
 
 from sqlalchemy import text
 
+from app.config import get_settings
 from app.ingestion.cleanup import normalize_text, remove_repeated_margins
 from app.ingestion.extract import ExtractedPage, docx_to_pdf, extract_page, open_pdf
 from app.ingestion.quality import assess_page
@@ -55,6 +56,13 @@ def run_ingest(ctx: JobContext) -> None:
     _index_chunks(ctx)
     with ctx.session() as s:
         s.execute(text("update documents set status = 'ready' where id = :id"), {"id": ctx.document_id})
+        if get_settings().auto_extract_facts:
+            s.execute(text("""
+                insert into processing_jobs (user_id, document_id, kind, payload, message)
+                select :u, :d, 'extract_facts', '{"section_ids": null}', 'Preparando el temario para generar preguntas'
+                where not exists (select 1 from processing_jobs where document_id = :d and kind = 'extract_facts'
+                                  and status in ('pending', 'running'))"""),
+                {"u": ctx.user_id, "d": ctx.document_id})
 
 
 def _extract_pages(ctx: JobContext, pdf) -> None:

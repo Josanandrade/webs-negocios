@@ -7,7 +7,7 @@ import { useAction, useAsync } from "../lib/hooks";
 import { Chip, shortTitle } from "./DocumentPage";
 
 const SELECTIONS: { value: QuizCreate["selection"]; title: string; text: string }[] = [
-  { value: "random", title: "Al azar", text: "Repartidas entre los temas" },
+  { value: "random", title: "Al azar", text: "Repartidas entre los temas; primero las que no has visto" },
   { value: "unseen", title: "No vistas", text: "Las que nunca has respondido" },
   { value: "failed", title: "Falladas", text: "La última vez fallaste o dejaste en blanco" },
   { value: "weak", title: "Puntos débiles", text: "Primero las falladas y las de peor porcentaje" },
@@ -209,6 +209,7 @@ function Choice({ active, onClick, title, children }: { active: boolean; onClick
 function EmptyBank({ docs }: { docs: DocumentInfo[] }) {
   const ready = docs.filter((d) => d.status === "ready");
   const generating = ready.find((d) => d.latest_job?.kind === "generate" && ["pending", "running"].includes(d.latest_job.status));
+  const preparing = ready.find((d) => d.latest_job?.kind === "extract_facts" && ["pending", "running"].includes(d.latest_job.status));
   return (
     <>
       <PageTitle>Nuevo test</PageTitle>
@@ -221,6 +222,17 @@ function EmptyBank({ docs }: { docs: DocumentInfo[] }) {
             </p>
             <ButtonLink to={`/documentos/${generating.id}`} className="mt-4">
               Ver el progreso
+            </ButtonLink>
+          </>
+        ) : preparing ? (
+          <>
+            <h2 className="font-medium">Tu temario se está preparando</h2>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+              La app está extrayendo los datos del temario. Puedes ir ya al documento y pulsar «Generar»: empezará en cuanto
+              termine.
+            </p>
+            <ButtonLink to={`/documentos/${preparing.id}`} className="mt-4">
+              Generar preguntas de «{preparing.title}»
             </ButtonLink>
           </>
         ) : ready.length ? (

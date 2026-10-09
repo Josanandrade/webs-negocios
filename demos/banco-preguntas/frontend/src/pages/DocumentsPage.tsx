@@ -17,7 +17,7 @@ export function DocumentsPage() {
   const [dragging, setDragging] = useState(false);
   const input = useRef<HTMLInputElement>(null);
 
-  const processing = docs.data?.some((d) => isActive(d.latest_job) && d.latest_job?.kind === "ingest") ?? false;
+  const processing = docs.data?.some((d) => isActive(d.latest_job)) ?? false;
   useInterval(docs.reload, 3000, processing);
 
   async function send(file: File) {
