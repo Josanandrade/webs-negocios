@@ -6,7 +6,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
 
-import fitz  # PyMuPDF
+import pymupdf as fitz
 
 from app.ingestion.cleanup import normalize_text
 from app.ingestion.ocr import OcrResult, OcrUnavailable, ocr_png

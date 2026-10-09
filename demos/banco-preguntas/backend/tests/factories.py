@@ -2,7 +2,7 @@
 import hashlib
 import uuid
 
-import fitz  # PyMuPDF
+import pymupdf as fitz
 from sqlalchemy import text
 
 from app.db import user_session
@@ -121,3 +121,24 @@ def make_docx(paragraphs: list[str], page_break_after: set[int] = frozenset()) -
     buf = io.BytesIO()
     d.save(buf)
     return buf.getvalue()
+
+
+def make_structured_pdf(pages: list[list[tuple[str, str]]], toc: list[list] | None = None) -> bytes:
+    """PDF con tipografía real: elementos ('h1'|'h2'|'p', texto) por página. `toc` opcional
+    en formato PyMuPDF [[nivel, título, página], ...]."""
+    styles = {"h1": (18, "hebo"), "h2": (14, "hebo"), "p": (11, "helv")}
+    doc = fitz.open()
+    for elements in pages:
+        page = doc.new_page()
+        y = 56.0
+        for kind, body in elements:
+            size, font = styles[kind]
+            rect = fitz.Rect(56, y, 540, 800)
+            unused = page.insert_textbox(rect, body, fontsize=size, fontname=font)
+            assert unused >= 0, "el texto no cabe en la página de prueba"
+            y = 800 - unused + size * 0.8
+    if toc:
+        doc.set_toc(toc)
+    data = doc.tobytes()
+    doc.close()
+    return data

@@ -33,7 +33,7 @@ def test_native_pdf_end_to_end(client, alice):
     assert d["text_layer"] == "native"
     assert d["stats"]["pages_eligible"] == 5
     assert d["latest_job"]["status"] == "succeeded"
-    assert d["latest_job"]["progress_current"] == 5
+    assert d["latest_job"]["progress_current"] == d["latest_job"]["progress_total"]
 
     page3 = client.get(f"/api/documents/{doc['id']}/pages/3", headers=alice["headers"]).json()
     assert "Apartado C." in page3["text"]
@@ -96,3 +96,78 @@ def test_pages_of_other_user_not_accessible(client, alice, bob):
     assert client.get(f"/api/documents/{doc['id']}/pages/1", headers=bob["headers"]).status_code == 404
     with user_session(bob["id"]) as s:
         assert s.execute(text("select count(*) from document_pages")).scalar_one() == 0
+
+
+def test_structure_chunks_and_search_end_to_end(client, alice):
+    from tests.factories import make_structured_pdf
+
+    p = ("Los residuos del grupo III son residuos sanitarios específicos que requieren tratamiento "
+         "especial. Deben almacenarse en contenedores rígidos de color amarillo durante un máximo de 72 horas. ")
+    q = "El transporte externo de residuos lo realiza un gestor autorizado con vehículos homologados. "
+    data = make_structured_pdf(
+        [[("h1", "Tema 1. Clasificación"), ("p", p * 4)],
+         [("h2", "1.1. Grupo III"), ("p", p * 4)],
+         [("h1", "Tema 2. Transporte"), ("p", q * 6)]],
+        toc=[[1, "Tema 1. Clasificación", 1], [2, "1.1. Grupo III", 2], [1, "Tema 2. Transporte", 3]])
+    doc = upload(client, alice, data)
+    drain()
+    h = alice["headers"]
+    d = client.get(f"/api/documents/{doc['id']}", headers=h).json()
+    assert d["status"] == "ready"
+    assert d["stats"]["sections"] == 3 and d["stats"]["top_level_sections"] == 2
+    assert d["stats"]["chunks"] >= 3 and d["stats"]["chunks_eligible"] >= 3
+
+    tree = client.get(f"/api/documents/{doc['id']}/sections", headers=h).json()
+    assert [s["title"] for s in tree] == ["Tema 1. Clasificación", "Tema 2. Transporte"]
+    assert [c["title"] for c in tree[0]["children"]] == ["1.1. Grupo III"]
+    assert tree[0]["chunks"] >= tree[0]["children"][0]["chunks"] >= 1
+
+    chunks = client.get(f"/api/documents/{doc['id']}/chunks", headers=h).json()
+    for c in chunks:   # trazabilidad: cada span reproduce el texto de su página
+        parts = []
+        for span in c["spans"]:
+            page = client.get(f"/api/documents/{doc['id']}/pages/{span['page']}", headers=h).json()
+            parts.append(page["text"][span["start"]:span["end"]])
+        assert "\n".join(parts) == c["text"]
+    assert any(c["context_header"] == "Tema 1. Clasificación › 1.1. Grupo III" for c in chunks)
+
+    hits = client.get(f"/api/documents/{doc['id']}/search", params={"q": "vehículos homologados"}, headers=h).json()
+    assert hits and hits[0]["page_start"] == 3 and "Tema 2" in hits[0]["context_header"]
+    assert "«" in hits[0]["snippet"]
+    fuzzy = client.get(f"/api/documents/{doc['id']}/search", params={"q": "contenedores amarilo"}, headers=h).json()
+    assert fuzzy, "la búsqueda debe tolerar pequeñas erratas"
+
+
+def test_structure_endpoints_are_private(client, alice, bob):
+    doc = upload(client, alice, make_pdf([PARRAFO * 3]))
+    drain()
+    for path in ("sections", "chunks", "search?q=renal"):
+        assert client.get(f"/api/documents/{doc['id']}/{path}", headers=bob["headers"]).status_code == 404
+
+
+def test_failure_during_indexing_leaves_no_partial_chunks(client, alice, monkeypatch):
+    import app.ingestion.pipeline as pipeline
+    from app.ingestion.chunking import chunk_document as real
+
+    state = {"fail": True}
+
+    def flaky(pages, boundaries):
+        chunks = real(pages, boundaries)
+        if state["fail"]:
+            state["fail"] = False
+            chunks[1].spans = None   # provoca error en mitad de la inserción
+        return chunks
+
+    monkeypatch.setattr(pipeline, "chunk_document", flaky)
+    doc = upload(client, alice, make_pdf([PARRAFO * 12, PARRAFO * 12]))
+    run_one("w", retry_delay_seconds=0)
+    with user_session(alice["id"]) as s:
+        assert s.execute(text("select count(*) from document_chunks")).scalar_one() == 0
+        assert s.execute(text("select count(*) from document_sections")).scalar_one() == 1
+    drain()
+    d = client.get(f"/api/documents/{doc['id']}", headers=alice["headers"]).json()
+    assert d["status"] == "ready" and d["latest_job"]["attempts"] == 2
+    with user_session(alice["id"]) as s:
+        n = s.execute(text("select count(*) from document_chunks")).scalar_one()
+        ordinals = s.execute(text("select array_agg(ordinal order by ordinal) from document_chunks")).scalar_one()
+    assert n >= 2 and ordinals == list(range(n))

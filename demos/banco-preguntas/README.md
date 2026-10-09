@@ -12,8 +12,8 @@ preguntas tipo test **verificables y estrictamente basadas en el documento**.
 |---|---|---|
 | 1 | Esquema SQL, RLS, invariantes de preguntas en BD, auth, subida | ✅ |
 | 2 | Worker con jobs reanudables, extracción por página, OCR, limpieza, calidad | ✅ |
-| 3 | Estructura (temas), fragmentación con trazabilidad, indexado | pendiente |
-| 4 | Abstracción LLM, hechos verificados, catálogo de distractores | pendiente |
+| 3 | Estructura (temas), fragmentación con trazabilidad exacta, búsqueda | ✅ |
+| 4 | Abstracción LLM (Ollama local gratuito por defecto), hechos verificados, catálogo de distractores | pendiente |
 | 5 | Generación + validación determinista + verificación LLM + duplicados | pendiente |
 | 6 | API del banco | pendiente |
 | 7 | Tests del alumno, corrección, estadísticas | pendiente |
@@ -57,5 +57,8 @@ TEST_ADMIN_DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/po
 | DELETE | `/api/documents/{id}` | Borra documento, páginas, preguntas y fichero |
 | GET | `/api/documents/{id}/pages` | Páginas: método (nativo/OCR), confianza, calidad, elegibilidad |
 | GET | `/api/documents/{id}/pages/{n}` | Texto canónico de una página |
+| GET | `/api/documents/{id}/sections` | Árbol de temas/apartados con nº de fragmentos (aptos y totales) |
+| GET | `/api/documents/{id}/chunks` | Fragmentos con sus spans `(página, inicio, fin)`; filtros `section_id`, `eligible_only` |
+| GET | `/api/documents/{id}/search?q=` | Búsqueda en el documento (texto completo en español, tolerante a erratas) |
 | GET | `/api/jobs/{id}` | Progreso real del trabajo |
 | POST | `/api/jobs/{id}/retry` | Reanudar un trabajo fallido desde donde se quedó |

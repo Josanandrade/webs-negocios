@@ -314,6 +314,29 @@ fijo va con *prompt caching*.
 
 ---
 
+### 10.1 Modo gratuito (preferencia del usuario)
+
+Todo lo que no es LLM ya es gratuito y de código abierto: PostgreSQL, Tesseract,
+LibreOffice, PyMuPDF, búsqueda de texto completo y por trigramas. No hacen falta
+embeddings de pago: la recuperación usa la búsqueda de Postgres (bloque 3).
+
+Para las tres tareas con LLM (hechos, redacción, verificación) hay dos vías sin coste:
+
+| Opción | Coste | Privacidad | Requisitos / límites |
+|---|---|---|---|
+| **Modelos locales con Ollama** (p. ej. Qwen 2.5, Llama 3.1, Mistral) | 0 € | Total: el documento no sale del ordenador | ≥16 GB de RAM para modelos de 7–8B; mucho más rápido con GPU o Apple Silicon. En CPU, decenas de segundos por pregunta |
+| **Niveles gratuitos de APIs en la nube** (p. ej. Google Gemini) | 0 € dentro de cuota | En los niveles gratuitos el proveedor puede usar el contenido para mejorar sus productos: revisar condiciones antes de subir material privado | Límites de peticiones por minuto/día: un documento grande puede tardar horas o repartirse en varios días |
+
+**Impacto en fiabilidad:** ninguno en el sentido de "preguntas peores", porque las
+barreras deterministas no dependen del modelo. Un modelo más modesto producirá **más
+descartes** (menos preguntas), no preguntas inventadas. El coste real pasa a ser tiempo
+de cálculo.
+
+Decisión: el bloque 4 implementará el proveedor **Ollama** (local) como opción por
+defecto, además de Gemini, Anthropic y OpenAI, seleccionables por tarea mediante
+configuración. Combinación gratuita recomendada: generador local + verificador local de
+otra familia de modelos (o Gemini gratuito si se acepta su política de datos).
+
 ## 11. Riesgos técnicos
 
 | Riesgo | Mitigación |
@@ -335,10 +358,10 @@ fijo va con *prompt caching*.
 
 | Bloque | Contenido | Verificación |
 |---|---|---|
-| **1** | Esqueleto backend, migraciones SQL, RLS, invariantes de preguntas en BD, autenticación, subida de documentos | Tests: aislamiento entre usuarios, 0/2 correctas, ≠4 opciones, página de otro documento, pregunta sin evidencia |
-| **2** | Worker + jobs reanudables; extracción por página; detección nativo/escaneado/parcial; OCR con confianza; limpieza | Tests con PDFs reales generados (nativo, escaneado, mixto), reanudación tras fallo |
-| 3 | Estructura (outline + heurística), fragmentación con spans, FTS (+ embeddings opcionales) | Tests de spans ↔ páginas, secciones |
-| 4 | Abstracción LLM (Anthropic/OpenAI/Google), contabilidad de coste, extracción de hechos verificados, catálogo de distractores | Tests con proveedor simulado *solo en tests* |
+| **1** ✅ | Esqueleto backend, migraciones SQL, RLS, invariantes de preguntas en BD, autenticación, subida de documentos | Tests: aislamiento entre usuarios, 0/2 correctas, ≠4 opciones, página de otro documento, pregunta sin evidencia |
+| **2** ✅ | Worker + jobs reanudables; extracción por página; detección nativo/escaneado/parcial; OCR con confianza; limpieza | Tests con PDFs reales generados (nativo, escaneado, mixto), reanudación tras fallo |
+| **3** ✅ | Estructura (outline + heurística + patrones OCR), fragmentación con spans exactos, búsqueda FTS + trigramas | Tests de spans ↔ páginas, secciones, reanudación |
+| 4 | Abstracción LLM (Ollama local por defecto, Gemini, Anthropic, OpenAI), contabilidad de coste, extracción de hechos verificados, catálogo de distractores | Tests con proveedor simulado *solo en tests* |
 | 5 | Generación + validación determinista + verificación LLM + duplicados + posición equilibrada + cobertura | Tests del motor (los pedidos) |
 | 6 | API del banco de preguntas (filtros, edición, estados, fuentes) | Tests de API |
 | 7 | Tests del alumno, corrección, estadísticas | Test de integración completo |

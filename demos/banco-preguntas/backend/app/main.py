@@ -1,12 +1,13 @@
 from fastapi import FastAPI
 from sqlalchemy import text
 
-from app.api import auth, documents
+from app.api import auth, documents, structure
 from app.db import get_engine
 
 app = FastAPI(title="Banco de Preguntas", version="0.1.0")
 app.include_router(auth.router)
 app.include_router(documents.router)
+app.include_router(structure.router)
 
 
 @app.get("/api/health")
