@@ -1,0 +1,16 @@
+from fastapi import FastAPI
+from sqlalchemy import text
+
+from app.api import auth, documents
+from app.db import get_engine
+
+app = FastAPI(title="Banco de Preguntas", version="0.1.0")
+app.include_router(auth.router)
+app.include_router(documents.router)
+
+
+@app.get("/api/health")
+def health() -> dict[str, str]:
+    with get_engine().connect() as conn:
+        conn.execute(text("select 1"))
+    return {"status": "ok"}
