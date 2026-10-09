@@ -9,6 +9,7 @@
 import logging
 import os
 import socket
+import threading
 import time
 from collections.abc import Callable
 from typing import Any
@@ -154,13 +155,17 @@ def run_one(worker_id: str | None = None, *, engine: Engine | None = None,
     return ctx.job_id
 
 
-def run_forever(poll_seconds: float = 2.0) -> None:
+def run_forever(poll_seconds: float = 2.0, stop: "threading.Event | None" = None) -> None:
+    """Bucle del worker. Con `stop` (hilo dentro de la API) termina al activarse el evento;
+    un job a medias no se pierde: su lease caduca y se retoma desde el checkpoint."""
+    stop = stop or threading.Event()
     worker_id = default_worker_id()
     log.info("Worker %s iniciado", worker_id)
-    while True:
+    while not stop.is_set():
         try:
             if run_one(worker_id) is None:
-                time.sleep(poll_seconds)
+                stop.wait(poll_seconds)
         except Exception:  # noqa: BLE001 - el bucle no debe morir por un error de BD puntual
             log.exception("Error en el bucle del worker")
-            time.sleep(poll_seconds * 5)
+            stop.wait(poll_seconds * 5)
+    log.info("Worker %s detenido", worker_id)

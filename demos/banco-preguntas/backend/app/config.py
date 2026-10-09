@@ -17,6 +17,11 @@ class Settings(BaseSettings):
     # Orígenes de la web autorizados a llamar a la API (separados por comas).
     cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
 
+    # Producción en un solo servicio: el worker corre dentro del proceso de la API y la API
+    # sirve también la web compilada (misma dirección, sin CORS).
+    run_worker: bool = False
+    web_dir: Path | None = None
+
     storage_dir: Path = Path("./data/storage")
     max_upload_mb: int = 150
 

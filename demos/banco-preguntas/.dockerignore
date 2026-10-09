@@ -1,0 +1,10 @@
+**/node_modules
+**/dist
+**/.venv
+**/__pycache__
+**/.pytest_cache
+**/*.egg-info
+**/data
+**/.env
+frontend/e2e-shots
+docs
