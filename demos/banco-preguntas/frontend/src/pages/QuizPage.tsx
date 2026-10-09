@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import { api } from "../api/client";
 import type { Quiz, QuizQuestion } from "../api/types";
+import { DeleteQuizButton } from "../components/DeleteQuiz";
 import { IconCheck, IconChevronLeft, IconChevronRight, IconClock, IconX } from "../components/icons";
 import { Badge, Button, Card, ErrorBox, Loading, Modal } from "../components/ui";
 import { useAction, useAsync } from "../lib/hooks";
@@ -22,6 +23,7 @@ export function QuizPage() {
 
 // ------------------------------------------------------------------ hacer el test
 function TakeQuiz({ quiz, setQuiz, reload }: { quiz: Quiz; setQuiz: (q: Quiz) => void; reload: () => void }) {
+  const navigate = useNavigate();
   const firstPending = quiz.questions.findIndex((q) => !q.answered);
   const [current, setCurrent] = useState(firstPending >= 0 ? firstPending : 0);
   const [confirm, setConfirm] = useState(false);
@@ -76,6 +78,7 @@ function TakeQuiz({ quiz, setQuiz, reload }: { quiz: Quiz; setQuiz: (q: Quiz) =>
         </div>
         <div className="flex items-center gap-2">
           {quiz.expires_at && quiz.remaining_seconds !== null && <Countdown seconds={quiz.remaining_seconds} onExpire={reload} />}
+          <DeleteQuizButton quiz={quiz} onDeleted={() => navigate("/tests", { replace: true })} compact />
           <Button variant="secondary" onClick={() => setConfirm(true)}>
             Entregar
           </Button>
@@ -359,6 +362,7 @@ function Results({ quiz }: { quiz: Quiz }) {
           <Button variant="secondary" onClick={() => navigate("/tests/nuevo")}>
             Nuevo test
           </Button>
+          <DeleteQuizButton quiz={quiz} onDeleted={() => navigate("/tests", { replace: true })} />
         </div>
         <div className="mt-3 text-left">
           <ErrorBox error={retry.error} />

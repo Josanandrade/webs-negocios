@@ -44,6 +44,7 @@ function mockServer(initial: Quiz) {
     const body = init.body ? JSON.parse(init.body as string) : undefined;
     calls.push({ method, path, body });
     const json = (data: unknown) => new Response(JSON.stringify(data), { status: 200, headers: { "Content-Type": "application/json" } });
+    if (method === "DELETE") return new Response(null, { status: 204 });
     const answer = path.match(/questions\/(\d+)$/);
     if (answer && method === "PUT") {
       const q = state.questions[Number(answer[1]) - 1];
@@ -70,6 +71,7 @@ function renderQuiz() {
     <MemoryRouter initialEntries={["/tests/z1"]}>
       <Routes>
         <Route path="/tests/:id" element={<QuizPage />} />
+        <Route path="/tests" element={<h1>Lista de tests</h1>} />
       </Routes>
     </MemoryRouter>,
   );
@@ -112,4 +114,21 @@ test("examen: no revela nada antes de entregar y avisa de las que quedan en blan
   await user.click(screen.getAllByRole("button", { name: "Entregar" })[0]);
   const dialog = await screen.findByRole("dialog");
   expect(within(dialog).getByText(/Te quedan 1 preguntas sin responder/)).toBeInTheDocument();
+});
+
+test("un test creado por error se puede eliminar, con confirmación", async () => {
+  const user = userEvent.setup();
+  const calls = mockServer(quiz("practice"));
+  renderQuiz();
+
+  await user.click(await screen.findByRole("button", { name: "Eliminar el test «Mi test»" }));
+  const dialog = await screen.findByRole("dialog");
+  expect(within(dialog).getByText(/Las preguntas no se borran/)).toBeInTheDocument();
+  await user.click(within(dialog).getByRole("button", { name: "Cancelar" }));
+  expect(calls.some((c) => c.method === "DELETE")).toBe(false);           // cancelar no borra nada
+
+  await user.click(screen.getByRole("button", { name: "Eliminar el test «Mi test»" }));
+  await user.click(within(await screen.findByRole("dialog")).getByRole("button", { name: "Eliminar" }));
+  expect(await screen.findByRole("heading", { name: "Lista de tests" })).toBeInTheDocument();
+  expect(calls.filter((c) => c.method === "DELETE").map((c) => c.path)).toEqual(["/api/quizzes/z1"]);
 });

@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { api } from "../api/client";
 import type { QuizSummary } from "../api/types";
 import { Badge, ButtonLink, Card, Empty, ErrorBox, Loading, PageTitle } from "../components/ui";
+import { DeleteQuizButton } from "../components/DeleteQuiz";
 import { useAsync } from "../lib/hooks";
 import { formatDate, score } from "../lib/labels";
 
@@ -34,7 +35,7 @@ export function QuizzesPage() {
               <ul className="space-y-2">
                 {inProgress.map((q) => (
                   <li key={q.id}>
-                    <QuizRow quiz={q} />
+                    <QuizRow quiz={q} onDeleted={quizzes.reload} />
                   </li>
                 ))}
               </ul>
@@ -46,7 +47,7 @@ export function QuizzesPage() {
               <ul className="space-y-2">
                 {finished.map((q) => (
                   <li key={q.id}>
-                    <QuizRow quiz={q} />
+                    <QuizRow quiz={q} onDeleted={quizzes.reload} />
                   </li>
                 ))}
               </ul>
@@ -58,11 +59,11 @@ export function QuizzesPage() {
   );
 }
 
-function QuizRow({ quiz }: { quiz: QuizSummary }) {
+function QuizRow({ quiz, onDeleted }: { quiz: QuizSummary; onDeleted: () => void }) {
   const done = quiz.status === "finished";
   return (
-    <Link to={`/tests/${quiz.id}`}>
-      <Card className="flex items-center gap-4 transition-shadow hover:shadow-md">
+    <Card className="flex items-center gap-2 transition-shadow hover:shadow-md sm:gap-4">
+      <Link to={`/tests/${quiz.id}`} className="flex min-w-0 flex-1 items-center gap-4">
         <div className="min-w-0 flex-1">
           <p className="truncate font-medium">{quiz.title}</p>
           <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
@@ -83,7 +84,8 @@ function QuizRow({ quiz }: { quiz: QuizSummary }) {
         ) : (
           <span className="text-sm font-medium text-brand-700 dark:text-brand-200">Continuar →</span>
         )}
-      </Card>
-    </Link>
+      </Link>
+      <DeleteQuizButton quiz={quiz} onDeleted={onDeleted} compact />
+    </Card>
   );
 }

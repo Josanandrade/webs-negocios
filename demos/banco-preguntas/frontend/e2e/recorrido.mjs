@@ -115,6 +115,12 @@ async function browse(page, prefix) {
   await shot(page, `${prefix}-estadisticas`);
   await page.goto(BASE + "/tests");
   await shot(page, `${prefix}-tests`);
+  // Eliminar un test desde la lista (con confirmación)
+  const rows = page.getByRole("button", { name: /^Eliminar el test/ });
+  const before = await rows.count();
+  await rows.first().click();
+  await page.getByRole("dialog").getByRole("button", { name: "Eliminar" }).click();
+  await page.waitForFunction((n) => document.querySelectorAll('button[aria-label^="Eliminar el test"]').length === n - 1, before);
 }
 
 const browser = await chromium.launch();
