@@ -114,7 +114,7 @@ def _line_records(pdf: fitz.Document):
             if not lines:
                 continue
             sizes = {l[1] for l in lines}
-            if len(sizes) == 1 and len(lines) <= 3:
+            if len(sizes) == 1 and len(lines) <= 6:   # título de varias líneas
                 yield index + 1, " ".join(l[0] for l in lines), lines[0][1], all(l[2] for l in lines), sum(l[3] for l in lines)
             else:
                 for text, size, bold, n in lines:
@@ -122,7 +122,8 @@ def _line_records(pdf: fitz.Document):
 
 
 def _looks_like_title(text: str) -> bool:
-    if not (3 <= len(text) <= 140) or not re.search(r"[A-Za-zÁÉÍÓÚÑáéíóúñ]{3}", text):
+    max_len = 350 if KEYWORD.match(text) else 140   # "Tema 4.- …" suele ocupar varias líneas
+    if not (3 <= len(text) <= max_len) or not re.search(r"[A-Za-zÁÉÍÓÚÑáéíóúñ]{3}", text):
         return False
     if DOT_LEADER.search(text) or (TRAILING_PAGE.search(text) and not KEYWORD.match(text)):
         return False  # entradas del índice: "Tema 1. Introducción ...... 5"
@@ -156,7 +157,7 @@ def font_headings(pdf: fitz.Document, pages_text: dict[int, str]) -> list[Headin
         for page, text, size in candidates:
             if KEYWORD.match(text):
                 leveled.append((1, page, text))
-            elif size <= key_size and NUMBERED.match(text):
+            elif size < key_size and (size >= body * 1.15 or NUMBERED.match(text)):
                 leveled.append((2, page, text))
     else:
         counts = Counter(c[2] for c in candidates)
@@ -189,9 +190,21 @@ def text_pattern_headings(pages_text: dict[int, str], pages: set[int] | None = N
     return result
 
 
+def _outline_reliable(outline: list[Heading], pdf: fitz.Document, pages_text: dict[int, str]) -> bool:
+    """Un índice interno solo se usa si parece completo: empieza al principio del documento
+    y, si el texto tiene temas tipo "Tema 3"/"Capítulo II", también los incluye."""
+    if len(outline) < 2:
+        return False
+    if min(h.page for h in outline) > max(2, int(0.1 * pdf.page_count)):
+        return False   # empieza tarde: faltan los primeros temas
+    keyword_in_text = sum(1 for h in text_pattern_headings(pages_text))
+    keyword_in_outline = sum(1 for h in outline if KEYWORD.match(h.title))
+    return not (keyword_in_text >= 2 and keyword_in_outline == 0)
+
+
 def detect_headings(pdf: fitz.Document, pages_text: dict[int, str], ocr_pages: set[int]) -> list[Heading]:
     headings = outline_headings(pdf, pages_text)
-    if len(headings) < 2:
+    if not _outline_reliable(headings, pdf, pages_text):
         headings = font_headings(pdf, pages_text) + text_pattern_headings(pages_text, ocr_pages)
         if sum(1 for h in headings if h.level == 1) < 2:
             by_pattern = text_pattern_headings(pages_text)

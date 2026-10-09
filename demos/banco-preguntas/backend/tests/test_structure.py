@@ -77,3 +77,22 @@ def test_text_patterns_for_ocr_pages():
     found = text_pattern_headings(pages)
     assert [(h.title, h.page) for h in found] == [("TEMA 1", 1), ("Tema 2 Normativa básica", 2)]
     assert pages[2][found[1].offset:].startswith("Tema 2")
+
+
+def test_unreliable_outline_and_multiline_chapter_titles():
+    """Caso real: temas en bloques de varias líneas y un índice interno incompleto que
+    solo recoge subapartados menores a partir de la mitad del documento."""
+    long_title = ("Tema {n}.- Hojas de cálculo: principales funciones y utilidades. Libros, hojas y celdas. "
+                  "Configuración. Introducción y edición de datos. Fórmulas y funciones.")
+    pages = []
+    for n in range(1, 4):
+        pages.append([("h1", long_title.format(n=n)), ("p", P * 3)])
+        pages.append([("h2", f"Apartado {n}A:"), ("p", P * 3), ("h2", f"Apartado {n}B:"), ("p", P * 2)])
+    data = make_structured_pdf(pages, toc=[[1, "Apartado 2A:", 4], [1, "Apartado 3A:", 6]])
+    _, sections, _ = analyze(data)
+    top = [s for s in sections if s.level == 1]
+    assert [s.title.split(".-")[0] for s in top] == ["Tema 1", "Tema 2", "Tema 3"]
+    assert top[0].title.endswith("Fórmulas y funciones")            # título completo, no la primera línea
+    assert all(s.source == "heuristic" for s in sections)
+    subs = [s.title for s in sections if s.level == 2]
+    assert subs == ["Apartado 1A", "Apartado 1B", "Apartado 2A", "Apartado 2B", "Apartado 3A", "Apartado 3B"]
