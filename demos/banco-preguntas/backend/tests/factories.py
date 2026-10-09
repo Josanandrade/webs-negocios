@@ -63,3 +63,61 @@ def insert_question(session, user_id, document_id, page_id, page_number, *, opti
             {"q": qid, "u": user_id, "d": document_id, "p": page_id, "n": page_number},
         )
     return qid, option_ids
+
+
+def make_scanned_pdf(pages: list[str], dpi: int = 200) -> bytes:
+    """PDF 'escaneado' real: cada página es solo una imagen del texto, sin capa de texto."""
+    src = fitz.open(stream=make_pdf(pages), filetype="pdf")
+    out = fitz.open()
+    for page in src:
+        pix = page.get_pixmap(dpi=dpi, colorspace=fitz.csGRAY)
+        new = out.new_page(width=page.rect.width, height=page.rect.height)
+        new.insert_image(new.rect, stream=pix.tobytes("png"))
+    data = out.tobytes()
+    out.close()
+    src.close()
+    return data
+
+
+def make_noise_pdf() -> bytes:
+    """Página con una imagen de ruido: el OCR no puede extraer texto fiable."""
+    import random
+
+    rng = random.Random(42)
+    pix = fitz.Pixmap(fitz.csGRAY, fitz.IRect(0, 0, 600, 800), False)
+    pix.set_rect(pix.irect, (255,))
+    for _ in range(25000):
+        x, y = rng.randrange(600), rng.randrange(800)
+        pix.set_pixel(x, y, (0,))
+    out = fitz.open()
+    page = out.new_page()
+    page.insert_image(page.rect, stream=pix.tobytes("png"))
+    data = out.tobytes()
+    out.close()
+    return data
+
+
+def merge_pdfs(*parts: bytes) -> bytes:
+    out = fitz.open()
+    for part in parts:
+        with fitz.open(stream=part, filetype="pdf") as src:
+            out.insert_pdf(src)
+    data = out.tobytes()
+    out.close()
+    return data
+
+
+def make_docx(paragraphs: list[str], page_break_after: set[int] = frozenset()) -> bytes:
+    import io
+
+    from docx import Document
+    from docx.enum.text import WD_BREAK
+
+    d = Document()
+    for i, p in enumerate(paragraphs):
+        para = d.add_paragraph(p)
+        if i in page_break_after:
+            para.add_run().add_break(WD_BREAK.PAGE)
+    buf = io.BytesIO()
+    d.save(buf)
+    return buf.getvalue()

@@ -163,3 +163,65 @@ def get_job(job_id: UUID, user_id: UUID = Depends(current_user_id), db: Session 
     if row is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Trabajo no encontrado")
     return JobOut(**row)
+
+
+class PageSummaryOut(BaseModel):
+    page_number: int
+    extraction_method: str
+    ocr_confidence: float | None
+    quality_score: float
+    is_eligible: bool
+    quality_flags: list[str]
+    char_count: int
+
+
+class PageOut(PageSummaryOut):
+    text: str
+
+
+_PAGE_COLUMNS = "page_number, extraction_method, ocr_confidence, quality_score, is_eligible, quality_flags, char_count"
+
+
+def _require_document(db: Session, user_id: UUID, document_id: UUID) -> None:
+    if db.execute(text("select 1 from documents where id = :id and user_id = :u"),
+                  {"id": document_id, "u": user_id}).first() is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Documento no encontrado")
+
+
+@router.get("/documents/{document_id}/pages", response_model=list[PageSummaryOut])
+def list_pages(document_id: UUID, user_id: UUID = Depends(current_user_id),
+               db: Session = Depends(db_session)) -> list[PageSummaryOut]:
+    _require_document(db, user_id, document_id)
+    rows = db.execute(text(f"select {_PAGE_COLUMNS} from document_pages where document_id = :d and user_id = :u"
+                           " order by page_number"), {"d": document_id, "u": user_id}).mappings().all()
+    return [PageSummaryOut(**r) for r in rows]
+
+
+@router.get("/documents/{document_id}/pages/{page_number}", response_model=PageOut)
+def get_page(document_id: UUID, page_number: int, user_id: UUID = Depends(current_user_id),
+             db: Session = Depends(db_session)) -> PageOut:
+    row = db.execute(text(f"select {_PAGE_COLUMNS}, text from document_pages"
+                          " where document_id = :d and user_id = :u and page_number = :n"),
+                     {"d": document_id, "u": user_id, "n": page_number}).mappings().first()
+    if row is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Página no encontrada")
+    return PageOut(**row)
+
+
+@router.post("/jobs/{job_id}/retry", response_model=JobOut)
+def retry_job(job_id: UUID, user_id: UUID = Depends(current_user_id), db: Session = Depends(db_session)) -> JobOut:
+    """Reanuda un trabajo fallido. Continúa desde lo ya guardado (no empieza de cero)."""
+    row = db.execute(
+        text("update processing_jobs set status = 'pending', attempts = 0, run_after = now(), finished_at = null,"
+             " message = 'Reanudación solicitada' where id = :id and user_id = :u and status = 'failed' returning id"),
+        {"id": job_id, "u": user_id},
+    ).first()
+    if row is None:
+        exists = db.execute(text("select status from processing_jobs where id = :id and user_id = :u"),
+                            {"id": job_id, "u": user_id}).first()
+        if exists is None:
+            raise HTTPException(status.HTTP_404_NOT_FOUND, "Trabajo no encontrado")
+        raise HTTPException(status.HTTP_409_CONFLICT, "Solo se pueden reanudar trabajos fallidos")
+    db.execute(text("update documents set status = 'processing', error = null"
+                    " where id = (select document_id from processing_jobs where id = :id)"), {"id": job_id})
+    return get_job(job_id, user_id, db)
