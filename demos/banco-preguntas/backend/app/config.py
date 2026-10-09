@@ -1,8 +1,15 @@
 from functools import lru_cache
 from pathlib import Path
 
-from pydantic import Field
+import re
+
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+def psycopg_url(url: str) -> str:
+    """Acepta "postgresql://" o "postgres://" (como los da Supabase o Railway) y usa psycopg 3."""
+    return re.sub(r"^postgres(ql)?://", "postgresql+psycopg://", url)
 
 
 class Settings(BaseSettings):
@@ -10,6 +17,11 @@ class Settings(BaseSettings):
 
     database_url: str = "postgresql+psycopg://banco_api:banco_api@localhost:5432/banco"
     migrations_database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5432/banco"
+
+    @field_validator("database_url", "migrations_database_url")
+    @classmethod
+    def _psycopg_driver(cls, url: str) -> str:
+        return psycopg_url(url)
 
     jwt_secret: str = Field(min_length=16)
     jwt_ttl_minutes: int = 60 * 12
