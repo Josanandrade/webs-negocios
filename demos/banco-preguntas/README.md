@@ -13,11 +13,12 @@ preguntas tipo test **verificables y estrictamente basadas en el documento**.
 | 1 | Esquema SQL, RLS, invariantes de preguntas en BD, auth, subida | ✅ |
 | 2 | Worker con jobs reanudables, extracción por página, OCR, limpieza, calidad | ✅ |
 | 3 | Estructura (temas), fragmentación con trazabilidad exacta, búsqueda | ✅ |
-| 4 | Abstracción LLM (Ollama local gratuito por defecto), hechos verificados, catálogo de distractores | pendiente |
+| 4 | IA intercambiable (Gemini gratuito por defecto), cuotas, hechos verificados, catálogo de distractores | ✅ |
 | 5 | Generación + validación determinista + verificación LLM + duplicados | pendiente |
 | 6 | API del banco | pendiente |
 | 7 | Tests del alumno, corrección, estadísticas | pendiente |
-| 8 | Frontend | pendiente |
+| 8 | Frontend web responsive (PC y móvil, instalable) | pendiente |
+| 9 | Despliegue gratuito (Render + Supabase + web estática) | pendiente |
 
 ## Requisitos
 
@@ -37,6 +38,14 @@ cp .env.example .env                       # ajusta credenciales y JWT_SECRET
 .venv/bin/python -m app.worker             # worker de procesamiento (otra terminal)
 ```
 
+## IA
+
+Por defecto usa el **plan gratuito de Gemini** (crea una clave en Google AI Studio y ponla
+en `GEMINI_API_KEY`). Cada tarea puede usar otro proveedor/modelo cambiando
+`LLM_EXTRACTION`, `LLM_GENERATION`, `LLM_VERIFICATION` (`gemini:…`, `anthropic:…`,
+`openai:…`, `ollama:…`). Si se agota la cuota diaria gratuita, el trabajo se pausa y se
+reanuda solo al día siguiente.
+
 ## Tests
 
 Se ejecutan contra un Postgres real (se crea y destruye una base de datos temporal):
@@ -45,6 +54,8 @@ Se ejecutan contra un Postgres real (se crea y destruye una base de datos tempor
 cd backend
 TEST_ADMIN_DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/postgres .venv/bin/pytest
 ```
+
+`tests/test_live_gemini.py` hace una llamada REAL a Gemini y solo se ejecuta si existe `GEMINI_API_KEY`.
 
 ## API disponible
 
@@ -60,5 +71,8 @@ TEST_ADMIN_DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/po
 | GET | `/api/documents/{id}/sections` | Árbol de temas/apartados con nº de fragmentos (aptos y totales) |
 | GET | `/api/documents/{id}/chunks` | Fragmentos con sus spans `(página, inicio, fin)`; filtros `section_id`, `eligible_only` |
 | GET | `/api/documents/{id}/search?q=` | Búsqueda en el documento (texto completo en español, tolerante a erratas) |
+| POST | `/api/documents/{id}/facts/extract` | Extraer hechos verificados (todo el documento o `section_ids`) |
+| GET | `/api/documents/{id}/facts` | Hechos con su cita literal y página |
+| GET | `/api/documents/{id}/facts/{fact_id}/distractors` | Candidatos a distractor (con cita y página) |
 | GET | `/api/jobs/{id}` | Progreso real del trabajo |
 | POST | `/api/jobs/{id}/retry` | Reanudar un trabajo fallido desde donde se quedó |

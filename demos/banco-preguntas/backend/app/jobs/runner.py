@@ -17,6 +17,7 @@ from uuid import UUID
 from sqlalchemy import Engine, text
 
 from app.db import anonymous_session, get_engine, user_session
+from app.llm.base import QuotaExhausted
 
 log = logging.getLogger("worker")
 
@@ -78,9 +79,10 @@ FailureHook = Callable[[JobContext, str], None]
 
 
 def _handlers() -> dict[str, tuple[Handler, FailureHook | None]]:
+    from app.facts.pipeline import run_extract_facts
     from app.ingestion.pipeline import on_ingest_failed, run_ingest
 
-    return {"ingest": (run_ingest, on_ingest_failed)}
+    return {"ingest": (run_ingest, on_ingest_failed), "extract_facts": (run_extract_facts, None)}
 
 
 def default_worker_id() -> str:
@@ -109,6 +111,18 @@ def run_one(worker_id: str | None = None, *, engine: Engine | None = None,
         handler(ctx)
     except LeaseLost:
         log.warning("Lease perdido en job %s; otro worker continuará", ctx.job_id)
+        return ctx.job_id
+    except QuotaExhausted as exc:
+        # No es un fallo: se pausa hasta que se renueve la cuota y no consume intento.
+        with ctx.session() as s:
+            s.execute(text("""
+                update processing_jobs set status = 'pending', locked_by = null, lease_expires_at = null,
+                  attempts = greatest(attempts - 1, 0), run_after = :resume,
+                  message = :msg
+                where id = :id and locked_by = :w"""),
+                {"resume": exc.resume_at, "id": ctx.job_id, "w": worker_id,
+                 "msg": f"En pausa: {exc}. Se reanudará automáticamente el "
+                        f"{exc.resume_at.astimezone().strftime('%d/%m a las %H:%M')}"})
         return ctx.job_id
     except Exception as exc:  # noqa: BLE001 - cualquier fallo se registra y se reintenta
         log.exception("Fallo en job %s", ctx.job_id)

@@ -332,10 +332,38 @@ barreras deterministas no dependen del modelo. Un modelo más modesto producirá
 descartes** (menos preguntas), no preguntas inventadas. El coste real pasa a ser tiempo
 de cálculo.
 
-Decisión: el bloque 4 implementará el proveedor **Ollama** (local) como opción por
-defecto, además de Gemini, Anthropic y OpenAI, seleccionables por tarea mediante
-configuración. Combinación gratuita recomendada: generador local + verificador local de
-otra familia de modelos (o Gemini gratuito si se acepta su política de datos).
+Decisión final (ver 10.2): plan gratuito de **Gemini** por defecto. Ollama, Anthropic y
+OpenAI quedan disponibles cambiando solo la configuración.
+
+### 10.2 Decisión: web accesible desde PC y móvil, coste 0 €
+
+Decisión del usuario: la herramienta debe estar **alojada en internet** (no en un PC
+propio) y usarse desde ordenador y móvil; IA con el **plan gratuito de Gemini**.
+
+| Pieza | Servicio gratuito propuesto | Limitaciones a tener en cuenta |
+|---|---|---|
+| Interfaz web (PWA instalable en el móvil) | Cloudflare Pages / Vercel / Netlify | Ninguna relevante para uso personal |
+| API + worker (un único contenedor Docker con Tesseract y LibreOffice) | Render, plan gratuito | 512 MB de RAM; se **duerme tras ~15 min sin tráfico** y tarda ~1 min en despertar |
+| Base de datos + ficheros | Supabase, plan gratuito | 500 MB de BD; almacenamiento de ficheros limitado (~0,5–1 GB); el proyecto **se pausa tras 7 días sin uso** y se reactiva desde su panel |
+| IA | Gemini, plan gratuito (modelos Flash / Flash-Lite) | Límites por minuto y por día por modelo; en el plan gratuito Google puede usar el contenido para mejorar sus productos |
+
+Consecuencias de diseño (ya implementadas o planificadas):
+
+- **Cuotas de Gemini:** el cliente de IA respeta un ritmo por modelo, reintenta los
+  límites por minuto y, si se agota la cuota **diaria**, el trabajo se **pausa** y se
+  reanuda solo tras el reinicio de cuota, sin perder lo hecho ni gastar reintentos
+  (bloque 4 ✅). Cada tarea usa un modelo distinto: cada modelo tiene cuota propia y el
+  verificador no es el mismo modelo que redacta.
+- **Servidor que se duerme:** el worker irá dentro del mismo proceso que la API. Mientras
+  la web está abierta, la consulta de progreso mantiene el servidor despierto; si se
+  duerme, los trabajos continúan donde se quedaron al despertar (leases + checkpoints).
+- **Disco efímero del contenedor:** los ficheros originales irán a Supabase Storage.
+  Opción para ahorrar espacio: borrar el PDF original tras procesarlo (el texto por
+  página, que es lo que se cita, queda en la BD).
+- **Memoria (512 MB):** OCR página a página; la conversión DOCX con LibreOffice es el
+  punto más justo de memoria y se vigilará en el despliegue.
+- Los planes gratuitos cambian a menudo: se verificarán en el momento de desplegar.
+  Alternativa gratuita más potente pero más laboriosa: máquina "Always Free" de Oracle Cloud.
 
 ## 11. Riesgos técnicos
 
@@ -361,9 +389,9 @@ otra familia de modelos (o Gemini gratuito si se acepta su política de datos).
 | **1** ✅ | Esqueleto backend, migraciones SQL, RLS, invariantes de preguntas en BD, autenticación, subida de documentos | Tests: aislamiento entre usuarios, 0/2 correctas, ≠4 opciones, página de otro documento, pregunta sin evidencia |
 | **2** ✅ | Worker + jobs reanudables; extracción por página; detección nativo/escaneado/parcial; OCR con confianza; limpieza | Tests con PDFs reales generados (nativo, escaneado, mixto), reanudación tras fallo |
 | **3** ✅ | Estructura (outline + heurística + patrones OCR), fragmentación con spans exactos, búsqueda FTS + trigramas | Tests de spans ↔ páginas, secciones, reanudación |
-| 4 | Abstracción LLM (Ollama local por defecto, Gemini, Anthropic, OpenAI), contabilidad de coste, extracción de hechos verificados, catálogo de distractores | Tests con proveedor simulado *solo en tests* |
+| **4** ✅ | Abstracción LLM (Gemini gratuito por defecto; Anthropic, OpenAI, Ollama), cuotas y pausas, registro de llamadas, extracción de hechos verificados, catálogo de distractores | Tests con proveedor de prueba + test real con Gemini si hay clave |
 | 5 | Generación + validación determinista + verificación LLM + duplicados + posición equilibrada + cobertura | Tests del motor (los pedidos) |
 | 6 | API del banco de preguntas (filtros, edición, estados, fuentes) | Tests de API |
 | 7 | Tests del alumno, corrección, estadísticas | Test de integración completo |
 | 8 | Frontend (Documentos → Banco → Generar test → Resultados) | Prueba en navegador |
-| 9 | DOCX, despliegue, Batches API, mejoras | |
+| 9 | Despliegue gratuito (Render + Supabase + web estática), PWA móvil | Prueba real en PC y móvil |
