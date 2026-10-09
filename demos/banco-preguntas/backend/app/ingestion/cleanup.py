@@ -22,8 +22,13 @@ def _exact_key(line: str) -> str:
     return re.sub(r"\s+", " ", line.strip().lower())
 
 
-def _digit_key(line: str) -> str:
-    return re.sub(r"\d+", "#", _exact_key(line))
+def _counter_key(line: str) -> str:
+    """Plantilla de contador: solo se sustituye el ÚLTIMO número ("Tema 2 · 45" -> "tema 2 · #").
+
+    Así "Tema 1. Farmacología 1", "Tema 2. Farmacología 2"... (títulos de tema que
+    empiezan página tras página) no se confunden con un contador de páginas.
+    """
+    return re.sub(r"\d+(?!.*\d)", "#", _exact_key(line))
 
 
 def _margin_indices(lines: list[str]) -> list[int]:
@@ -53,7 +58,7 @@ def remove_repeated_margins(pages: list[str]) -> tuple[list[str], list[str]]:
         for i in idxs:
             numbers = re.findall(r"\d+", lines[i])
             if numbers:
-                offsets.setdefault(_digit_key(lines[i]), Counter())[int(numbers[-1]) - page_idx] += 1
+                offsets.setdefault(_counter_key(lines[i]), Counter())[int(numbers[-1]) - page_idx] += 1
 
     repeated = {k for k, c in exact.items() if k and c >= threshold}
     counters = {}
@@ -68,8 +73,8 @@ def remove_repeated_margins(pages: list[str]) -> tuple[list[str], list[str]]:
         for i in idxs:
             line = lines[i]
             numbers = re.findall(r"\d+", line)
-            is_counter = (bool(numbers) and _digit_key(line) in counters
-                          and int(numbers[-1]) - page_idx == counters[_digit_key(line)])
+            is_counter = (bool(numbers) and _counter_key(line) in counters
+                          and int(numbers[-1]) - page_idx == counters[_counter_key(line)])
             if _exact_key(line) in repeated or is_counter or _PAGE_NUMBER.match(line.strip()):
                 drop.add(i)
         kept = [l for i, l in enumerate(lines) if i not in drop]

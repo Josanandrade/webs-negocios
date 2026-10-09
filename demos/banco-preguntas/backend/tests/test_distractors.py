@@ -115,3 +115,34 @@ def test_not_enough_candidates_returns_fewer_than_three(alice):
     add_fact(u, doc, secs[0], "deadline", "plazo Q", "duración", "30 días", 30, "dias")
     with user_session(u) as s:
         assert len(distractor_candidates(s, target)) < 3   # la generación descartará esta pregunta
+
+
+def test_duplicate_questions_are_detected(alice):
+    """Idéntica, reformulada con la misma respuesta, o mismo dato con distinta redacción."""
+    from app.generation.dedupe import duplicate_reason, fingerprint
+
+    u = alice["id"]
+    doc, secs = setup_doc(u, [["El medicamento A se administra a 20 mg.", "El medicamento B se administra a 40 mg.",
+                               "El medicamento A se administra a 20 mg en adultos."]])
+    f1 = add_fact(u, doc, secs[0], "quantity", "medicamento A", "dosis", "20 mg", 20, "mg")
+    f2 = add_fact(u, doc, secs[0], "quantity", "medicamento A", "dosis", "20 mg en adultos", 20, "mg")
+    f3 = add_fact(u, doc, secs[0], "quantity", "medicamento B", "dosis", "40 mg", 40, "mg")
+    stem = "¿Cuál es la dosis del medicamento A?"
+    with user_session(u) as s:
+        page = s.execute(text("select id from document_pages where document_id = :d"), {"d": doc}).scalar_one()
+        qid = s.execute(text("insert into questions (user_id, document_id, stem, question_type, difficulty, status,"
+                             " fingerprint, fact_id) values (:u, :d, :s, 'datum', 'medium', 'auto_validated', :fp, :f)"
+                             " returning id"), {"u": u, "d": doc, "s": stem, "fp": fingerprint(stem, "20 mg"), "f": f1}).scalar_one()
+        for label, value, ok in [("A", "20 mg", True), ("B", "40 mg", False), ("C", "10 mg", False), ("D", "5 mg", False)]:
+            s.execute(text("insert into question_options (question_id, user_id, label, text, is_correct)"
+                           " values (:q, :u, :l, :t, :c)"), {"q": qid, "u": u, "l": label, "t": value, "c": ok})
+        s.execute(text("insert into question_sources (question_id, user_id, document_id, role, page_id, page_number, quote)"
+                       " values (:q, :u, :d, 'answer', :p, 1, 'El medicamento A se administra a 20 mg')"),
+                  {"q": qid, "u": u, "d": doc, "p": page})
+    with user_session(u) as s:
+        assert duplicate_reason(s, doc, f1) == "mismo_hecho"
+        assert duplicate_reason(s, doc, f2) == "mismo_dato"            # mismo sujeto y misma ranura
+        assert duplicate_reason(s, doc, f3, stem="¿Cuál es la dosis del medicamento B?", correct="40 mg") is None
+        assert duplicate_reason(s, doc, f3, stem="¿Cuál es la dosis del medicamento A?", correct="20 mg") == "enunciado_identico"
+        assert duplicate_reason(s, doc, f3, stem="¿Qué dosis se indica para el medicamento A?",
+                                correct="20 mg") == "misma_pregunta_reformulada"

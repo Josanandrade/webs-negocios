@@ -96,7 +96,14 @@ def _store(ctx: JobContext, batch: list[ChunkForFacts], facts: list[VerifiedFact
 def run_extract_facts(ctx: JobContext) -> None:
     with ctx.session() as s:
         scope = section_scope(s, ctx.document_id, [UUID(x) for x in ctx.payload.get("section_ids") or []])
+    extract_facts_for_scope(ctx, scope)
+
+
+def extract_facts_for_scope(ctx: JobContext, scope: list[UUID] | None) -> None:
+    """Extrae hechos de los fragmentos aptos aún no procesados dentro de `scope`."""
     chunks = _pending_chunks(ctx, scope)
+    if not chunks:
+        return
     pages = _pages(ctx)
     counters: Counter[str] = Counter(ctx.checkpoint.get("counters", {}))
     done = int(ctx.checkpoint.get("chunks_done", 0))

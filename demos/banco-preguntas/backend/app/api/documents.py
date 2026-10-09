@@ -36,6 +36,7 @@ class JobOut(BaseModel):
     created_at: datetime
     started_at: datetime | None
     finished_at: datetime | None
+    checkpoint: dict[str, Any] = {}
 
 
 class DocumentOut(BaseModel):
@@ -54,7 +55,7 @@ class DocumentOut(BaseModel):
 
 
 _JOB_COLUMNS = ("id, document_id, kind, status, stage, progress_current, progress_total, message, "
-                "attempts, max_attempts, last_error, created_at, started_at, finished_at")
+                "attempts, max_attempts, last_error, created_at, started_at, finished_at, checkpoint")
 _DOC_COLUMNS = ("id, title, original_filename, mime_type, size_bytes, status, page_count, "
                 "text_layer, stats, error, created_at")
 

@@ -365,6 +365,20 @@ Consecuencias de diseño (ya implementadas o planificadas):
 - Los planes gratuitos cambian a menudo: se verificarán en el momento de desplegar.
   Alternativa gratuita más potente pero más laboriosa: máquina "Always Free" de Oracle Cloud.
 
+### 10.3 Decisiones de implementación del bloque 5
+
+- **Las opciones nunca las escribe la IA.** Cada opción es el valor literal de un hecho
+  verificado (la correcta, el hecho objetivo; los distractores, hechos de otros sujetos del
+  catálogo). El generador solo redacta el enunciado y elige 3 ids de la lista cerrada.
+- **La explicación tampoco la escribe la IA:** es la cita literal con su página.
+- **Lotes de 4 preguntas por llamada** (generación y verificación) para ahorrar cuota gratuita.
+- **Duplicados:** mismo hecho, mismo dato (sujeto + ranura), misma huella, o misma respuesta
+  con enunciado equivalente. El parecido de texto por sí solo no basta ("¿Dosis de Alfa?" y
+  "¿Dosis de Beta?" son preguntas distintas).
+- **Cobertura:** cuota por tema proporcional al texto apto del tema; reparto en turnos entre
+  temas; si un tema se agota, su cuota pasa a los demás. Si no se llega al número pedido,
+  el trabajo termina diciendo cuántas se han podido generar: no se rellena.
+
 ## 11. Riesgos técnicos
 
 | Riesgo | Mitigación |
@@ -390,7 +404,7 @@ Consecuencias de diseño (ya implementadas o planificadas):
 | **2** ✅ | Worker + jobs reanudables; extracción por página; detección nativo/escaneado/parcial; OCR con confianza; limpieza | Tests con PDFs reales generados (nativo, escaneado, mixto), reanudación tras fallo |
 | **3** ✅ | Estructura (outline + heurística + patrones OCR), fragmentación con spans exactos, búsqueda FTS + trigramas | Tests de spans ↔ páginas, secciones, reanudación |
 | **4** ✅ | Abstracción LLM (Gemini gratuito por defecto; Anthropic, OpenAI, Ollama), cuotas y pausas, registro de llamadas, extracción de hechos verificados, catálogo de distractores | Tests con proveedor de prueba + test real con Gemini si hay clave |
-| 5 | Generación + validación determinista + verificación LLM + duplicados + posición equilibrada + cobertura | Tests del motor (los pedidos) |
+| **5** ✅ | Generación + validación determinista + verificación LLM + duplicados + posición equilibrada + cobertura | Tests del motor (los pedidos) |
 | 6 | API del banco de preguntas (filtros, edición, estados, fuentes) | Tests de API |
 | 7 | Tests del alumno, corrección, estadísticas | Test de integración completo |
 | 8 | Frontend (Documentos → Banco → Generar test → Resultados) | Prueba en navegador |

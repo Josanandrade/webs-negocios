@@ -80,9 +80,11 @@ FailureHook = Callable[[JobContext, str], None]
 
 def _handlers() -> dict[str, tuple[Handler, FailureHook | None]]:
     from app.facts.pipeline import run_extract_facts
+    from app.generation.pipeline import run_generate
     from app.ingestion.pipeline import on_ingest_failed, run_ingest
 
-    return {"ingest": (run_ingest, on_ingest_failed), "extract_facts": (run_extract_facts, None)}
+    return {"ingest": (run_ingest, on_ingest_failed), "extract_facts": (run_extract_facts, None),
+            "generate": (run_generate, None)}
 
 
 def default_worker_id() -> str:
@@ -146,7 +148,8 @@ def run_one(worker_id: str | None = None, *, engine: Engine | None = None,
     with ctx.session() as s:
         s.execute(text("""
             update processing_jobs set status = 'succeeded', stage = 'done', finished_at = now(),
-              locked_by = null, lease_expires_at = null, message = 'Finalizado'
+              locked_by = null, lease_expires_at = null,
+              message = case when kind = 'generate' then message else 'Finalizado' end
             where id = :id and locked_by = :w"""), {"id": ctx.job_id, "w": worker_id})
     return ctx.job_id
 

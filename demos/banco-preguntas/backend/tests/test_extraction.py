@@ -112,3 +112,9 @@ def test_parse_tsv_confidence_weighted():
     assert r.text == "Dosis de\n\n20mg"
     assert r.words == 3
     assert r.confidence == round((90 * 5 + 60 * 2 + 95 * 4) / 11, 2)
+
+
+def test_consecutive_chapter_titles_are_not_page_counters():
+    pages = [f"Tema {i}. Farmacología {i}\nContenido del tema {chr(64 + i)} con texto suficiente." for i in range(1, 6)]
+    cleaned, _ = remove_repeated_margins(pages)
+    assert all(body.startswith(f"Tema {i}.") for i, body in enumerate(cleaned, start=1))

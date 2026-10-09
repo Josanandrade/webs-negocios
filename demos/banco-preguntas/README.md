@@ -14,7 +14,7 @@ preguntas tipo test **verificables y estrictamente basadas en el documento**.
 | 2 | Worker con jobs reanudables, extracción por página, OCR, limpieza, calidad | ✅ |
 | 3 | Estructura (temas), fragmentación con trazabilidad exacta, búsqueda | ✅ |
 | 4 | IA intercambiable (Gemini gratuito por defecto), cuotas, hechos verificados, catálogo de distractores | ✅ |
-| 5 | Generación + validación determinista + verificación LLM + duplicados | pendiente |
+| 5 | Generación + validación determinista + verificación independiente + duplicados + cobertura | ✅ |
 | 6 | API del banco | pendiente |
 | 7 | Tests del alumno, corrección, estadísticas | pendiente |
 | 8 | Frontend web responsive (PC y móvil, instalable) | pendiente |
@@ -74,5 +74,9 @@ TEST_ADMIN_DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/po
 | POST | `/api/documents/{id}/facts/extract` | Extraer hechos verificados (todo el documento o `section_ids`) |
 | GET | `/api/documents/{id}/facts` | Hechos con su cita literal y página |
 | GET | `/api/documents/{id}/facts/{fact_id}/distractors` | Candidatos a distractor (con cita y página) |
+| POST | `/api/documents/{id}/generate` | Generar preguntas: `section_ids`, `count` (o vacío = máximo de calidad), `difficulty` (`easy`/`medium`/`hard`/`mixed`) |
+| GET | `/api/documents/{id}/coverage` | Preguntas por tema, temas poco cubiertos, reparto A/B/C/D |
+| GET | `/api/jobs/{id}/candidates` | Informe de la generación: aceptadas y motivos de descarte |
+| GET | `/api/questions` · `/api/questions/{id}` | Preguntas; el detalle incluye fuentes (página y cita de la correcta y de cada distractor) |
 | GET | `/api/jobs/{id}` | Progreso real del trabajo |
 | POST | `/api/jobs/{id}/retry` | Reanudar un trabajo fallido desde donde se quedó |
