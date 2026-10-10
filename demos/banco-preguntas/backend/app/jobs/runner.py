@@ -81,7 +81,7 @@ FailureHook = Callable[[JobContext, str], None]
 
 def _handlers() -> dict[str, tuple[Handler, FailureHook | None]]:
     from app.facts.pipeline import run_extract_facts
-    from app.generation.pipeline import run_generate
+    from app.generation.fast_pipeline import run_generate
     from app.ingestion.pipeline import on_ingest_failed, run_ingest
 
     return {"ingest": (run_ingest, on_ingest_failed), "extract_facts": (run_extract_facts, None),
