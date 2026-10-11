@@ -1,17 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import type { Block } from "@/lib/types";
+import { BlockTracker, type BlockView } from "@/components/block-tracker";
+import { Toast, useToast } from "@/components/toast";
 
 export type DayView = {
   date: string;
   name: string;
   short: string;
   isToday: boolean;
-  blocks: Block[];
+  blocks: BlockView[];
 };
 
-export function WeekDays({ days }: { days: DayView[] }) {
+export function WeekDays({ days, meId }: { days: DayView[]; meId: string }) {
+  const { toast, show } = useToast();
   // Todos cerrados al entrar. Se pueden abrir varios a la vez.
   const [open, setOpen] = useState<Set<string>>(() => new Set());
 
@@ -25,6 +27,7 @@ export function WeekDays({ days }: { days: DayView[] }) {
   }
 
   return (
+    <>
     <ol className="border-t border-line">
       {days.map((day) => {
         const empty = day.blocks.length === 0;
@@ -53,25 +56,17 @@ export function WeekDays({ days }: { days: DayView[] }) {
                 className="day-trigger group flex min-h-[4.5rem] w-full items-center justify-between gap-4 px-1 text-left"
               >
                 <DayLabel day={day} />
-                <Chevron open={isOpen} />
+                <span className="flex items-center gap-3">
+                  <DayProgress blocks={day.blocks} />
+                  <Chevron open={isOpen} />
+                </span>
               </button>
             </h2>
             <div id={panelId} role="region" aria-label={`${day.name} ${day.short}`} className="accordion-panel" data-open={isOpen} inert={!isOpen}>
               <div>
                 <div className="space-y-7 px-1 pb-8 pt-1">
                   {day.blocks.map((block) => (
-                    <section key={block.id}>
-                      {block.title && (
-                        <h3 className="font-display text-[15px] font-bold uppercase tracking-[0.12em] text-lemon">
-                          {block.title}
-                        </h3>
-                      )}
-                      {block.content && (
-                        <p className="workout-text mt-2 text-[19px] leading-[1.55] text-chalk sm:text-[20px]">
-                          {block.content}
-                        </p>
-                      )}
-                    </section>
+                    <BlockTracker key={block.id} block={block} meId={meId} notify={show} />
                   ))}
                 </div>
               </div>
@@ -80,6 +75,23 @@ export function WeekDays({ days }: { days: DayView[] }) {
         );
       })}
     </ol>
+    <Toast toast={toast} className="bottom-[calc(5rem+env(safe-area-inset-bottom))] md:bottom-8" />
+    </>
+  );
+}
+
+/** "2/3" bloques hechos; tick completo cuando están todos. */
+function DayProgress({ blocks }: { blocks: BlockView[] }) {
+  const done = blocks.filter((b) => b.log?.done).length;
+  if (done === 0) return null;
+  const all = done === blocks.length;
+  return (
+    <span
+      className={`font-display text-[15px] font-bold uppercase tracking-[0.06em] ${all ? "text-lemon" : "text-chalk-3"}`}
+      aria-label={all ? "Todo hecho" : `${done} de ${blocks.length} hechos`}
+    >
+      {all ? "✓ Hecho" : `${done}/${blocks.length}`}
+    </span>
   );
 }
 

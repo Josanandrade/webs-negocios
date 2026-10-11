@@ -3,10 +3,11 @@ import Link from "next/link";
 import { requireAdmin } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { canSeeProgram, listProfiles } from "@/lib/users";
+import { getRecentNotes } from "@/lib/activity";
 import { createWeek } from "./actions";
 import { SubmitButton } from "@/components/submit-button";
 import { StatusDot } from "@/components/status-dot";
-import { currentWeekStart, formatJoined, weekRangeShort } from "@/lib/dates";
+import { DAY_NAMES, currentWeekStart, formatJoined, isoDayOfWeek, shortDate, weekRangeShort } from "@/lib/dates";
 
 export const metadata: Metadata = { title: "Panel" };
 
@@ -15,9 +16,10 @@ export default async function AdminHome() {
   const supabase = await createClient();
   const thisWeek = currentWeekStart();
 
-  const [profiles, { data: week }] = await Promise.all([
+  const [profiles, { data: week }, notes] = await Promise.all([
     listProfiles(),
     supabase.from("weeks").select("id, status").eq("start_date", thisWeek).maybeSingle(),
+    getRecentNotes(6),
   ]);
 
   const athletes = profiles.filter((p) => p.role === "athlete");
@@ -87,6 +89,32 @@ export default async function AdminHome() {
           </ul>
         </section>
       )}
+
+      <section aria-labelledby="notas" className="mt-10">
+        <h2 id="notas" className="font-display text-[22px] font-bold uppercase">
+          Últimas notas de los atletas
+        </h2>
+        {notes.length === 0 ? (
+          <p className="mt-3 border-t border-line pt-4 text-[16px] text-chalk-3">
+            Aquí aparecerán las notas que dejen los atletas en cada bloque.
+          </p>
+        ) : (
+          <ul className="mt-3 border-t border-line">
+            {notes.map((n) => (
+              <li key={`${n.user_id}-${n.block_id}`} className="border-b border-line">
+                <Link href={`/admin/usuarios/${n.user_id}${n.date ? `?semana=${n.date}` : ""}`} className="day-trigger block py-4">
+                  <p className="text-[14px] text-chalk-3">
+                    <span className="font-semibold text-chalk">{n.full_name}</span> ·{" "}
+                    {n.date ? `${DAY_NAMES[isoDayOfWeek(n.date) - 1]} ${shortDate(n.date)} · ` : ""}
+                    {n.block_title}
+                  </p>
+                  <p className="mt-1 line-clamp-3 whitespace-pre-wrap text-[16px] leading-[1.5]">{n.note}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
 
       <nav aria-label="Accesos directos" className="mt-10 grid gap-3 sm:grid-cols-2">
         <Link href="/admin/programacion" className="btn-secondary justify-between">

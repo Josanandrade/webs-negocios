@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { SCORE_TYPES } from "@/lib/scores";
+import type { ScoreType } from "@/lib/types";
 
-export type EditableBlock = { id: string; title: string; content: string };
+export type EditableBlock = { id: string; title: string; content: string; score_type: ScoreType };
 
 export const BLOCK_PRESETS = [
   "Warm Up",
@@ -116,6 +118,28 @@ export function BlockEditor({
         autoCapitalize="sentences"
         className="workout-text block min-h-32 w-full resize-none bg-transparent px-3 py-3 text-[17px] leading-[1.55] text-chalk placeholder:text-chalk-3/60 focus:outline-none"
       />
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-line px-3 py-2">
+        <label htmlFor={`score-${block.id}`} className="text-[13px] font-semibold uppercase tracking-[0.08em] text-chalk-3">
+          Resultado
+        </label>
+        <select
+          id={`score-${block.id}`}
+          value={block.score_type}
+          onChange={(e) => onChange({ score_type: e.target.value as ScoreType })}
+          className={`h-11 min-w-0 flex-1 rounded-sm border border-line-strong bg-ink px-2 text-[15px] focus:border-lemon focus:outline-none sm:flex-none ${
+            block.score_type === "none" ? "text-chalk-2" : "text-lemon"
+          }`}
+        >
+          {SCORE_TYPES.map((t) => (
+            <option key={t.value} value={t.value}>
+              {t.value === "none" ? "Sin ranking" : `Ranking · ${t.label}`}
+            </option>
+          ))}
+        </select>
+        <p className="w-full text-[13px] text-chalk-3 sm:w-auto">
+          {SCORE_TYPES.find((t) => t.value === block.score_type)?.hint}
+        </p>
+      </div>
     </li>
   );
 }
