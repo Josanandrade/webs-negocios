@@ -6,6 +6,12 @@ import type { NextConfig } from "next";
 // instante). El modelo dinámico clásico es más simple y seguro aquí.
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  experimental: {
+    // Volver a una pantalla visitada hace menos de 30 s es instantáneo (se
+    // reutiliza en el navegador). Cualquier cambio de un admin (acciones con
+    // revalidatePath) invalida esta caché al momento.
+    staleTimes: { dynamic: 30 },
+  },
   turbopack: {
     rules: {
       "*.css": {

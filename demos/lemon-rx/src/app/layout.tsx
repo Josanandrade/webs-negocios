@@ -5,7 +5,8 @@ import "./globals.css";
 const body = Barlow({
   variable: "--font-body",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  // Solo los pesos que se usan con esta fuente (los títulos van en Barlow Condensed).
+  weight: ["400", "600"],
   display: "swap",
 });
 

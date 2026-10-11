@@ -16,16 +16,19 @@ const ERRORS: Record<string, string> = {
 };
 
 export default async function WeeksPage({ searchParams }: PageProps<"/admin/programacion">) {
-  await requireAdmin();
   const sp = await searchParams;
   const error = typeof sp.error === "string" ? ERRORS[sp.error] : undefined;
 
   const supabase = await createClient();
-  const { data } = await supabase
-    .from("weeks")
-    .select("id, start_date, end_date, status, published_at, updated_at")
-    .order("start_date", { ascending: false })
-    .returns<Week[]>();
+  // En paralelo con la comprobación de admin (la RLS protege los borradores).
+  const [, { data }] = await Promise.all([
+    requireAdmin(),
+    supabase
+      .from("weeks")
+      .select("id, start_date, end_date, status, published_at, updated_at")
+      .order("start_date", { ascending: false })
+      .returns<Week[]>(),
+  ]);
   const weeks = data ?? [];
 
   const thisWeek = currentWeekStart();
