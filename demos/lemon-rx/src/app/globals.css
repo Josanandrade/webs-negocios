@@ -1,0 +1,240 @@
+@import "tailwindcss";
+
+/*
+  Lemon RX — sistema visual
+  Negro de pizarra, blanco tiza y amarillo limón. Pensado para leerse en el box:
+  contraste alto, tipografía condensada potente para títulos y cuerpo grande
+  y tabular para cargas, rondas y tiempos.
+*/
+@theme {
+  --color-ink: #0c0c0b;
+  --color-ink-2: #141412;
+  --color-ink-3: #1c1c19;
+  --color-line: #2b2b27;
+  --color-line-strong: #3d3d37;
+  --color-chalk: #f3f3ee;
+  --color-chalk-2: #b9b9b0;
+  --color-chalk-3: #8a8a81;
+  --color-lemon: #e3ef3f;
+  --color-lemon-ink: #171a00;
+  --color-danger: #ff6b5e;
+  --color-ok: #8fe388;
+
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-face), var(--font-body), ui-sans-serif, sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    background: var(--color-ink);
+    color: var(--color-chalk);
+    font-family: var(--font-sans);
+    font-feature-settings: "tnum" 1, "lnum" 1;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-lemon);
+    color: var(--color-lemon-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-lemon);
+    outline-offset: 2px;
+  }
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+  }
+}
+
+/* Pulsable: feedback inmediato al presionar (Emil: scale 0.97 en :active). */
+@utility press {
+  transition: transform 140ms var(--ease-out), background-color 160ms ease, color 160ms ease,
+    border-color 160ms ease, opacity 160ms ease;
+  touch-action: manipulation;
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &:active:not(:disabled) {
+      transform: none;
+    }
+  }
+}
+
+@utility btn {
+  @apply press inline-flex min-h-12 items-center justify-center gap-2 rounded-sm px-5 font-display text-[17px] font-bold uppercase tracking-[0.04em] select-none disabled:cursor-not-allowed disabled:opacity-50;
+}
+@utility btn-primary {
+  @apply btn bg-lemon text-lemon-ink;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      background: #eef76b;
+    }
+  }
+}
+@utility btn-secondary {
+  @apply btn border border-line-strong text-chalk;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      border-color: var(--color-chalk-3);
+    }
+  }
+}
+@utility btn-ghost {
+  @apply btn text-chalk-2;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      color: var(--color-chalk);
+    }
+  }
+}
+@utility btn-danger {
+  @apply btn border border-danger/50 text-danger;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      border-color: var(--color-danger);
+    }
+  }
+}
+
+@utility field {
+  @apply block w-full rounded-sm border border-line-strong bg-ink-2 px-4 text-[17px] text-chalk placeholder:text-chalk-3;
+  min-height: 3.25rem;
+  transition: border-color 160ms ease;
+  &:focus {
+    outline: none;
+    border-color: var(--color-lemon);
+  }
+}
+@utility label {
+  @apply mb-2 block text-[13px] font-semibold uppercase tracking-[0.08em] text-chalk-2;
+}
+@utility eyebrow {
+  @apply text-[12px] font-semibold uppercase tracking-[0.14em] text-chalk-3;
+}
+
+/* Texto de entrenamiento: respeta saltos de línea y espacios tal cual se escriben. */
+@utility workout-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* Acordeón con grid 0fr → 1fr: interrumpible y sin medir alturas en JS. */
+.accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 220ms var(--ease-out), opacity 160ms ease;
+}
+.accordion-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.accordion-panel > div {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Entrada suave para contenido nuevo (toasts, cambios de semana). */
+.enter {
+  transition: opacity 200ms ease, transform 220ms var(--ease-out);
+  @starting-style {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion-panel {
+    transition: opacity 120ms ease;
+  }
+  .enter {
+    transition: opacity 150ms ease;
+    @starting-style {
+      transform: none;
+    }
+  }
+}
+
+/* Fila de día: en filas a todo el ancho el feedback es un cambio de fondo, no escala. */
+.day-trigger {
+  transition: background-color 160ms ease;
+  touch-action: manipulation;
+}
+.day-trigger:active {
+  background-color: var(--color-ink-2);
+}
+
+/* Diálogo: entra desde 0.96 + opacidad (nunca desde scale(0)); centrado, sin origen de trigger. */
+.confirm-dialog[open] {
+  transition: opacity 180ms ease, transform 200ms var(--ease-out), overlay 200ms allow-discrete,
+    display 200ms allow-discrete;
+  @starting-style {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+.confirm-dialog::backdrop {
+  background: rgb(0 0 0 / 0.7);
+}
+.confirm-dialog[open]::backdrop {
+  transition: background-color 180ms ease;
+  @starting-style {
+    background: rgb(0 0 0 / 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .confirm-dialog[open] {
+    @starting-style {
+      transform: none;
+    }
+  }
+}
+
+.toast {
+  transition: opacity 200ms ease, transform 260ms var(--ease-out);
+  @starting-style {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    @starting-style {
+      transform: none;
+    }
+  }
+}
+
+.switch > span[aria-hidden] {
+  transition: transform 200ms var(--ease-out), background-color 160ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .switch > span[aria-hidden] {
+    transition: background-color 160ms ease;
+  }
+}
+
+/* Editor: al escribir, el navegador mantiene el cursor por encima de la barra fija de acciones. */
+html:has(.week-editor) {
+  scroll-padding-bottom: calc(12rem + env(safe-area-inset-bottom));
+}
+@media (min-width: 768px) {
+  html:has(.week-editor) {
+    scroll-padding-bottom: 7rem;
+  }
+}
