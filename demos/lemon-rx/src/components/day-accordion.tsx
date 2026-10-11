@@ -14,16 +14,22 @@ export type DayView = {
 
 export function WeekDays({ days, meId }: { days: DayView[]; meId: string }) {
   const { toast, show } = useToast();
-  // Todos cerrados al entrar. Se pueden abrir varios a la vez.
-  const [open, setOpen] = useState<Set<string>>(() => new Set());
+  // Todos cerrados al entrar. Solo un día abierto a la vez: abrir uno cierra el resto.
+  const [open, setOpen] = useState<string | null>(null);
 
-  function toggle(date: string) {
-    setOpen((prev) => {
-      const next = new Set(prev);
-      if (next.has(date)) next.delete(date);
-      else next.add(date);
-      return next;
-    });
+  function toggle(date: string, trigger: HTMLElement) {
+    const opening = open !== date;
+    setOpen(opening ? date : null);
+    // Si se cierra un día más arriba, el contenido sube y la cabecera pulsada
+    // puede quedar fuera de pantalla: la traemos de vuelta cuando acaba la animación.
+    if (opening && open !== null) {
+      window.setTimeout(() => {
+        if (trigger.getBoundingClientRect().top < 0) {
+          const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          trigger.scrollIntoView({ block: "start", behavior: reduce ? "auto" : "smooth" });
+        }
+      }, 240);
+    }
   }
 
   return (
@@ -31,7 +37,7 @@ export function WeekDays({ days, meId }: { days: DayView[]; meId: string }) {
     <ol className="border-t border-line">
       {days.map((day) => {
         const empty = day.blocks.length === 0;
-        const isOpen = open.has(day.date);
+        const isOpen = open === day.date;
         const panelId = `dia-${day.date}`;
 
         if (empty) {
@@ -52,7 +58,7 @@ export function WeekDays({ days, meId }: { days: DayView[]; meId: string }) {
                 type="button"
                 aria-expanded={isOpen}
                 aria-controls={panelId}
-                onClick={() => toggle(day.date)}
+                onClick={(e) => toggle(day.date, e.currentTarget)}
                 className="day-trigger group flex min-h-[4.5rem] w-full items-center justify-between gap-4 px-1 text-left"
               >
                 <DayLabel day={day} />
