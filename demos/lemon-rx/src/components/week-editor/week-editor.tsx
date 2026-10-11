@@ -177,7 +177,7 @@ export function WeekEditor({ week, today }: { week: WeekWithDays; today: string 
   const filledDays = dates.filter((d) => (days[d] ?? []).some((b) => b.title.trim() || b.content.trim())).length;
 
   return (
-    <main className="mx-auto max-w-3xl px-4 pb-56 pt-4 md:px-6 md:pb-36 md:pt-8">
+    <main className="week-editor mx-auto max-w-3xl px-4 pb-56 pt-4 md:px-6 md:pb-36 md:pt-8">
       <Link
         href="/admin/programacion"
         className="press -ml-1 inline-flex h-11 items-center gap-2 px-1 text-[15px] font-semibold text-chalk-3 hover:text-chalk"

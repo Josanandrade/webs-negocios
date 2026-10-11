@@ -20,10 +20,14 @@ export const BLOCK_PRESETS = [
   "Notes",
 ];
 
+// Ajusta la altura al contenido sin mover la página: al poner height:auto el
+// documento encoge un instante y el navegador recoloca el scroll (salto hacia arriba).
 function autosize(el: HTMLTextAreaElement | null) {
   if (!el) return;
+  const scrollY = window.scrollY;
   el.style.height = "auto";
   el.style.height = `${el.scrollHeight + 2}px`;
+  if (window.scrollY !== scrollY) window.scrollTo({ top: scrollY, behavior: "instant" });
 }
 
 export function BlockEditor({

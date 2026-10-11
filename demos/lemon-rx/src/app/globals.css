@@ -228,3 +228,13 @@
     transition: background-color 160ms ease;
   }
 }
+
+/* Editor: al escribir, el navegador mantiene el cursor por encima de la barra fija de acciones. */
+html:has(.week-editor) {
+  scroll-padding-bottom: calc(12rem + env(safe-area-inset-bottom));
+}
+@media (min-width: 768px) {
+  html:has(.week-editor) {
+    scroll-padding-bottom: 7rem;
+  }
+}
