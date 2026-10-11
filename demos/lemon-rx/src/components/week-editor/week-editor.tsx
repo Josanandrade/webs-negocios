@@ -67,7 +67,8 @@ export function WeekEditor({ week, today }: { week: WeekWithDays; today: string 
   const [focusId, setFocusId] = useState<string | null>(null);
   const { toast, show } = useToast();
 
-  const dirty = snapshot(days) !== savedSnapshot;
+  const currentSnapshot = useMemo(() => snapshot(days), [days]);
+  const dirty = currentSnapshot !== savedSnapshot;
   const daysRef = useRef(days);
   useEffect(() => {
     daysRef.current = days;
@@ -129,8 +130,8 @@ export function WeekEditor({ week, today }: { week: WeekWithDays; today: string 
     setConfirm(null);
     if (!result.ok) return show(result.error, "error");
     setStatus(next);
+    // La acción ya revalida la página en la misma respuesta: no hace falta un refresh extra.
     show(next === "published" ? "Semana publicada" : "Semana despublicada. Vuelve a ser borrador.");
-    router.refresh();
   }
 
   async function removeWeek() {
@@ -264,7 +265,7 @@ export function WeekEditor({ week, today }: { week: WeekWithDays; today: string 
       </section>
 
       {/* Barra de acciones: siempre a mano, encima de la navegación inferior en móvil. */}
-      <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-20 border-t border-line bg-ink/95 backdrop-blur-sm md:bottom-0 md:pb-[env(safe-area-inset-bottom)]">
+      <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-20 border-t border-line bg-ink md:bottom-0 md:pb-[env(safe-area-inset-bottom)]">
         <div className="mx-auto grid max-w-3xl grid-cols-2 items-center gap-x-3 gap-y-2 px-4 py-3 md:flex md:px-6">
           <p className="col-span-2 min-w-0 text-[14px] leading-tight text-chalk-3 md:mr-auto" aria-live="polite">
             {saving ? (

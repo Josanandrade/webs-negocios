@@ -12,11 +12,13 @@ import { DAY_NAMES, currentWeekStart, formatJoined, isoDayOfWeek, shortDate, wee
 export const metadata: Metadata = { title: "Panel" };
 
 export default async function AdminHome() {
-  const { settings, profile: me } = await requireAdmin();
   const supabase = await createClient();
   const thisWeek = currentWeekStart();
 
-  const [profiles, { data: week }, notes] = await Promise.all([
+  // Todo en paralelo: un no-admin es redirigido por requireAdmin y la RLS no le
+  // devolvería estos datos de todos modos.
+  const [{ settings, profile: me }, profiles, { data: week }, notes] = await Promise.all([
+    requireAdmin(),
     listProfiles(),
     supabase.from("weeks").select("id, status").eq("start_date", thisWeek).maybeSingle(),
     getRecentNotes(6),

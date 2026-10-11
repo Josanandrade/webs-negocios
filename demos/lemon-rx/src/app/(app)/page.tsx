@@ -19,18 +19,23 @@ import { WeekDays, type DayView } from "@/components/day-accordion";
 export const metadata: Metadata = { title: "Programación" };
 
 export default async function ProgramPage({ searchParams }: PageProps<"/">) {
-  const viewer = await getViewer();
+  const sp = await searchParams;
+  const thisWeek = currentWeekStart();
+  const start = isIsoDate(sp.semana) ? mondayOf(sp.semana) : thisWeek;
+
+  // Las consultas de la semana salen a la vez que la del perfil (un solo viaje
+  // a la base de datos en lugar de dos). Si el usuario no tiene acceso, la RLS
+  // ya no le devuelve nada y además no se muestra.
+  const [viewer, week, adjacent] = await Promise.all([
+    getViewer(),
+    getPublishedWeek(start),
+    getAdjacentPublished(start),
+  ]);
   if (!viewer.canViewProgram) {
     return (
       <NoAccess name={viewer.profile.full_name.split(" ")[0]} pending={viewer.profile.access_status === "pending"} />
     );
   }
-
-  const sp = await searchParams;
-  const thisWeek = currentWeekStart();
-  const start = isIsoDate(sp.semana) ? mondayOf(sp.semana) : thisWeek;
-
-  const [week, adjacent] = await Promise.all([getPublishedWeek(start), getAdjacentPublished(start)]);
   const today = todayIso();
   const me = viewer.profile.id;
 
