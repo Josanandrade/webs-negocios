@@ -64,6 +64,8 @@
   transition: transform 140ms var(--ease-out), background-color 160ms ease, color 160ms ease,
     border-color 160ms ease, opacity 160ms ease;
   touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
   &:active:not(:disabled) {
     transform: scale(0.97);
   }
@@ -170,10 +172,37 @@
   }
 }
 
+/* Esqueleto de carga: aparece con un pequeño retraso para no parpadear en
+   navegaciones rápidas, y solo anima opacidad (barata para el móvil). */
+.skeleton {
+  border-radius: var(--radius-sm);
+  background: var(--color-ink-3);
+}
+.skeleton-fade {
+  animation: skeleton-in 200ms ease 150ms both, skeleton-pulse 1.4s ease-in-out 350ms infinite;
+}
+@keyframes skeleton-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes skeleton-pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-fade {
+    animation: skeleton-in 200ms ease 150ms both;
+  }
+}
+
 /* Fila de día: en filas a todo el ancho el feedback es un cambio de fondo, no escala. */
 .day-trigger {
   transition: background-color 160ms ease;
   touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .day-trigger:active {
   background-color: var(--color-ink-2);

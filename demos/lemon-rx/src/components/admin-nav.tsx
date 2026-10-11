@@ -44,7 +44,7 @@ export function AdminNav({ variant }: { variant: "top" | "bottom" }) {
   return (
     <nav
       aria-label="Administración"
-      className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-ink/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-sm md:hidden"
+      className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-ink pb-[env(safe-area-inset-bottom)] md:hidden"
     >
       <ul className="grid grid-cols-5">
         {ITEMS.map((item) => {
