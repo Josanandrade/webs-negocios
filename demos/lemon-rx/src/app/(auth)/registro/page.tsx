@@ -9,7 +9,7 @@ export default function SignupPage() {
     <>
       <h1 className="font-display text-[34px] font-bold uppercase leading-none">Crear cuenta</h1>
       <p className="mt-3 text-[15px] leading-relaxed text-chalk-3">
-        Cuando te registres, Fran o Jose activarán tu acceso a la programación.
+        Cuando te registres, Fran o Andrade activarán tu acceso a la programación.
       </p>
       <div className="mt-8">
         <SignupForm />

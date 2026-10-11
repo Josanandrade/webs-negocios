@@ -7,13 +7,13 @@ export function NoAccess({ name, pending }: { name: string; pending: boolean }) 
       <div className="mt-6 space-y-4 text-[17px] leading-relaxed text-chalk-2">
         {pending ? (
           <p>
-            {name ? `${name}, tu` : "Tu"} cuenta está creada. En cuanto Fran o Jose la activen podrás ver la
+            {name ? `${name}, tu` : "Tu"} cuenta está creada. En cuanto Fran o Andrade la activen podrás ver la
             programación aquí.
           </p>
         ) : (
           <p>Tu acceso a Lemon RX no está activo actualmente.</p>
         )}
-        <p>Si crees que se trata de un error, habla con Fran o con el equipo de Lemon RX.</p>
+        <p>Si crees que se trata de un error, habla con Fran o con Andrade.</p>
       </div>
       <form action="/auth/signout" method="post" className="mt-12">
         <button className="btn-secondary w-full sm:w-auto">Cerrar sesión</button>
