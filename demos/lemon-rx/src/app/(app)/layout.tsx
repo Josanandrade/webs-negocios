@@ -14,6 +14,14 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             <Wordmark className="text-[26px] md:text-[28px]" />
           </Link>
           {isAdmin && <AdminNav variant="top" />}
+          {!isAdmin && (
+            <Link
+              href="/ranking"
+              className="press ml-auto flex h-11 items-center px-2 text-[15px] font-semibold text-chalk-2 hover:text-chalk"
+            >
+              Ranking
+            </Link>
+          )}
           <Link
             href="/cuenta"
             className="press -mr-2 flex h-11 items-center px-2 text-[15px] font-semibold text-chalk-2 hover:text-chalk"

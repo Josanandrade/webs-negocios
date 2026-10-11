@@ -1,9 +1,12 @@
 "use client";
 
-import { useId, useOptimistic, useState, useTransition } from "react";
+import { useEffect, useId, useOptimistic, useRef, useState, useTransition } from "react";
 import { deleteBlockResult, saveBlockNote, saveBlockResult, setBlockDone } from "@/app/(app)/actions";
 import { Segmented } from "@/components/segmented";
-import { DIVISIONS, divisionLabel, emptyDraft, formatScore, parseScore, type ScoreDraft } from "@/lib/scores";
+import { RankingRows, ordinal } from "@/components/ranking-rows";
+import { DIVISIONS, SCORE_TYPES, divisionLabel, emptyDraft, formatScore, parseScore, type ScoreDraft } from "@/lib/scores";
+
+const SCORE_LABEL = Object.fromEntries(SCORE_TYPES.map((t) => [t.value, t.label]));
 import type { Block, BlockLog, BlockResult, Division, LeaderboardRow } from "@/lib/types";
 
 export type BlockView = Block & {
@@ -16,6 +19,10 @@ type Notify = (text: string, tone?: "ok" | "error") => void;
 
 /** Seguimiento de un bloque por el atleta: hecho/pendiente, resultado con ranking y nota privada. */
 export function BlockTracker({ block, meId, notify }: { block: BlockView; meId: string; notify: Notify }) {
+  const scored = block.score_type !== "none";
+  const [resultOpen, setResultOpen] = useState(false);
+  const done = block.log?.done ?? false;
+
   return (
     <section>
       <div className="flex items-start justify-between gap-3">
@@ -24,25 +31,48 @@ export function BlockTracker({ block, meId, notify }: { block: BlockView; meId: 
         ) : (
           <span />
         )}
-        <DoneToggle blockId={block.id} done={block.log?.done ?? false} label={block.title || "este bloque"} notify={notify} />
+        <DoneToggle
+          blockId={block.id}
+          done={done}
+          label={block.title || "este bloque"}
+          notify={notify}
+          // En un bloque con ranking, marcarlo como hecho abre la ventana del resultado.
+          onBeforeDone={scored && !block.result ? () => setResultOpen(true) : undefined}
+        />
       </div>
       {block.content && (
         <p className="workout-text mt-2 text-[19px] leading-[1.55] text-chalk sm:text-[20px]">{block.content}</p>
       )}
-      {block.score_type !== "none" && <ResultPanel block={block} meId={meId} notify={notify} />}
+      {scored && <ResultPanel block={block} meId={meId} onEdit={() => setResultOpen(true)} />}
       <NotePanel blockId={block.id} note={block.log?.note ?? ""} notify={notify} />
+      {scored && (
+        <ResultDialog open={resultOpen} block={block} done={done} notify={notify} onClose={() => setResultOpen(false)} />
+      )}
     </section>
   );
 }
 
 // ------------------------------------------------------------------ hecho
 
-function DoneToggle({ blockId, done, label, notify }: { blockId: string; done: boolean; label: string; notify: Notify }) {
+function DoneToggle({
+  blockId,
+  done,
+  label,
+  notify,
+  onBeforeDone,
+}: {
+  blockId: string;
+  done: boolean;
+  label: string;
+  notify: Notify;
+  onBeforeDone?: () => void;
+}) {
   const [optimistic, setOptimistic] = useOptimistic(done);
   const [, startTransition] = useTransition();
 
   function toggle() {
     const next = !optimistic;
+    if (next && onBeforeDone) return onBeforeDone();
     startTransition(async () => {
       setOptimistic(next);
       const r = await setBlockDone(blockId, next);
@@ -79,21 +109,14 @@ function DoneToggle({ blockId, done, label, notify }: { blockId: string; done: b
 
 // ------------------------------------------------------------------ resultado y ranking
 
-export function ordinal(n: number) {
-  return `${n}º`;
-}
-
-function ResultPanel({ block, meId, notify }: { block: BlockView; meId: string; notify: Notify }) {
-  const [editing, setEditing] = useState(false);
+function ResultPanel({ block, meId, onEdit }: { block: BlockView; meId: string; onEdit: () => void }) {
   const [showBoard, setShowBoard] = useState(false);
   const mine = block.board.find((r) => r.user_id === meId);
   const result = block.result;
 
   return (
     <div className="mt-5 rounded-sm border border-line bg-ink-2">
-      {editing ? (
-        <ResultForm block={block} onDone={() => setEditing(false)} notify={notify} />
-      ) : result ? (
+      {result ? (
         <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3">
           <div>
             <p className="eyebrow">Tu resultado · {divisionLabel(result.division)}</p>
@@ -106,14 +129,14 @@ function ResultPanel({ block, meId, notify }: { block: BlockView; meId: string; 
                 <span className="text-[13px] text-chalk-3">de {mine.total}</span>
               </p>
             )}
-            <button type="button" onClick={() => setEditing(true)} className="press h-11 px-1 text-[15px] font-semibold text-chalk-2 hover:text-chalk">
+            <button type="button" onClick={onEdit} className="press h-11 px-1 text-[15px] font-semibold text-chalk-2 hover:text-chalk">
               Editar
             </button>
           </div>
         </div>
       ) : (
         <div className="px-4 py-3">
-          <button type="button" onClick={() => setEditing(true)} className="btn-primary w-full sm:w-auto">
+          <button type="button" onClick={onEdit} className="btn-primary w-full sm:w-auto">
             Añadir mi resultado
           </button>
         </div>
@@ -171,26 +194,83 @@ function Leaderboard({ block, meId, initial }: { block: BlockView; meId: string;
       {rows.length === 0 ? (
         <p className="py-4 text-[15px] text-chalk-3">Todavía nadie ha subido resultado en {divisionLabel(division)}.</p>
       ) : (
-        <ol>
-          {rows.map((r) => {
-            const me = r.user_id === meId;
-            return (
-              <li
-                key={r.user_id}
-                className={`flex items-baseline gap-3 border-b border-line py-2.5 last:border-b-0 ${me ? "text-lemon" : ""}`}
-              >
-                <span className="w-9 shrink-0 font-display text-[18px] font-bold">{ordinal(r.position)}</span>
-                <span className="min-w-0 flex-1 truncate text-[16px] font-semibold">
-                  {r.full_name}
-                  {me && <span className="ml-1.5 font-normal text-chalk-3">(tú)</span>}
-                </span>
-                <span className="shrink-0 font-display text-[18px] font-bold">{formatScore(block.score_type, r)}</span>
-              </li>
-            );
-          })}
-        </ol>
+        <RankingRows rows={rows} type={block.score_type} meId={meId} />
       )}
     </div>
+  );
+}
+
+/** Ventana emergente para subir o editar el resultado de un bloque con ranking. */
+function ResultDialog({
+  open,
+  block,
+  done,
+  notify,
+  onClose,
+}: {
+  open: boolean;
+  block: BlockView;
+  done: boolean;
+  notify: Notify;
+  onClose: () => void;
+}) {
+  const ref = useRef<HTMLDialogElement>(null);
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    const dialog = ref.current;
+    if (!dialog) return;
+    if (open && !dialog.open) dialog.showModal();
+    if (!open && dialog.open) dialog.close();
+  }, [open]);
+
+  // "Hecho" sin resultado: para quien no quiere entrar en la clasificación.
+  async function skip() {
+    setBusy(true);
+    const r = await setBlockDone(block.id, true);
+    setBusy(false);
+    if (!r.ok) return notify(r.error, "error");
+    notify("Marcado como hecho");
+    onClose();
+  }
+
+  return (
+    <dialog
+      ref={ref}
+      aria-labelledby={`res-${block.id}`}
+      onCancel={(e) => {
+        e.preventDefault();
+        if (!busy) onClose();
+      }}
+      onClick={(e) => {
+        if (e.target === ref.current && !busy) onClose();
+      }}
+      className="confirm-dialog m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-md overflow-y-auto rounded-md border border-line-strong bg-ink-2 p-0 text-chalk"
+    >
+      {open && (
+        <div className="pt-5">
+          <div className="px-4">
+            <p className="eyebrow">{block.title || "Bloque"} · {SCORE_LABEL[block.score_type]}</p>
+            <h2 id={`res-${block.id}`} className="mt-1 font-display text-[26px] font-bold uppercase leading-tight">
+              {block.result ? "Editar tu resultado" : "¡Hecho! ¿Cuál ha sido tu resultado?"}
+            </h2>
+          </div>
+          <ResultForm block={block} onDone={onClose} notify={notify} />
+          {!done && !block.result && (
+            <div className="border-t border-line px-4 py-3">
+              <button
+                type="button"
+                onClick={skip}
+                disabled={busy}
+                className="press h-11 text-[15px] font-semibold text-chalk-3 hover:text-chalk"
+              >
+                {busy ? "Un momento…" : "Marcar como hecho sin resultado"}
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+    </dialog>
   );
 }
 

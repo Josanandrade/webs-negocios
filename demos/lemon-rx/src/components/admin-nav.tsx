@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 const ITEMS = [
   { href: "/admin", label: "Panel", match: (p: string) => p === "/admin" },
   { href: "/", label: "Programación", match: (p: string) => p === "/" },
+  { href: "/ranking", label: "Ranking", match: (p: string) => p.startsWith("/ranking") },
   { href: "/admin/programacion", label: "Crear", match: (p: string) => p.startsWith("/admin/programacion") },
   { href: "/admin/usuarios", label: "Usuarios", match: (p: string) => p.startsWith("/admin/usuarios") },
   { href: "/admin/ajustes", label: "Ajustes", match: (p: string) => p.startsWith("/admin/ajustes") },
@@ -46,7 +47,7 @@ export function AdminNav({ variant }: { variant: "top" | "bottom" }) {
       aria-label="Administración"
       className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-ink pb-[env(safe-area-inset-bottom)] md:hidden"
     >
-      <ul className="grid grid-cols-5">
+      <ul className="grid grid-cols-6">
         {ITEMS.map((item) => {
           const active = item.match(pathname);
           return (
@@ -54,7 +55,7 @@ export function AdminNav({ variant }: { variant: "top" | "bottom" }) {
               <Link
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`press relative flex h-16 flex-col items-center justify-center font-display text-[13px] font-bold uppercase tracking-[0.06em] ${
+                className={`press relative flex h-16 flex-col items-center justify-center font-display text-[12px] font-bold uppercase tracking-[0.06em] ${
                   active ? "text-chalk" : "text-chalk-3"
                 }`}
               >
