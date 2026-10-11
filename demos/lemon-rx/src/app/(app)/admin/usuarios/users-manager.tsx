@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useDeferredValue, useEffect, useMemo, useOptimistic, useState, useTransition } from "react";
 import { setAccess, setPayment, setRole } from "../actions";
 import { Segmented } from "@/components/segmented";
@@ -202,6 +203,12 @@ function UserRow({
         </div>
         <p className="text-[14px] text-chalk-3">Alta {formatJoined(p.created_at)}</p>
       </div>
+      <Link
+        href={`/admin/usuarios/${p.id}`}
+        className="press -ml-1 mt-1 inline-flex h-11 items-center gap-2 px-1 text-[15px] font-semibold text-lemon hover:text-chalk"
+      >
+        Ver bloques hechos y notas <span aria-hidden>→</span>
+      </Link>
 
       {isAdmin ? (
         <div className="mt-3 flex flex-wrap items-center justify-between gap-3">

@@ -5,7 +5,8 @@ import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { isIsoDate, isoDayOfWeek } from "@/lib/dates";
-import type { AccessStatus, PaymentStatus, Role, WeekStatus } from "@/lib/types";
+import { SCORE_TYPE_VALUES } from "@/lib/scores";
+import type { AccessStatus, PaymentStatus, Role, ScoreType, WeekStatus } from "@/lib/types";
 
 // Cada acción comprueba el rol en servidor (requireAdmin) y además la base de
 // datos vuelve a comprobarlo con RLS. Nunca se confía en lo que oculta la UI.
@@ -37,7 +38,7 @@ export async function createWeek(form: FormData) {
   redirect(`/admin/programacion/${data.id}`);
 }
 
-export type BlockInput = { id: string; title: string; content: string };
+export type BlockInput = { id: string; title: string; content: string; score_type: ScoreType };
 export type DayInput = { date: string; blocks: BlockInput[] };
 
 export async function saveWeek(weekId: string, days: DayInput[]): Promise<Result> {
@@ -49,7 +50,12 @@ export async function saveWeek(weekId: string, days: DayInput[]): Promise<Result
     if (!isIsoDate(day.date)) return { ok: false, error: "Fecha no válida." };
     const blocks = day.blocks
       .filter((b) => UUID.test(b.id))
-      .map((b) => ({ id: b.id, title: String(b.title).slice(0, 80), content: String(b.content).slice(0, 20000) }))
+      .map((b) => ({
+        id: b.id,
+        title: String(b.title).slice(0, 80),
+        content: String(b.content).slice(0, 20000),
+        score_type: SCORE_TYPE_VALUES.includes(b.score_type) ? b.score_type : "none",
+      }))
       // Un bloque completamente vacío no se guarda.
       .filter((b) => b.title.trim() || b.content.trim());
     clean.push({ date: day.date, blocks });

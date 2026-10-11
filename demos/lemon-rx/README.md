@@ -40,7 +40,21 @@ supabase/
 ```
 
 Modelo de datos: `profiles` (1:1 con `auth.users`) · `weeks` → `days` →
-`workout_blocks` · `app_settings` (fila única). Pensado para crecer: resultados,
+`workout_blocks` · `app_settings` (fila única) · `block_logs` (hecho/pendiente
+y nota de cada atleta por bloque: solo la ven él y los admins) ·
+`block_results` (resultado en RX o Intermedio de los bloques con ranking; los
+demás atletas solo lo ven a través de `week_leaderboard()`).
+
+## Seguimiento y ranking
+
+- En cada bloque, el atleta lo marca como **hecho** y puede dejar una **nota**.
+- El admin elige en el editor si un bloque tiene **ranking** y de qué tipo: por
+  tiempo (con time cap cuentan las reps), AMRAP (rondas + reps), reps o calorías,
+  o peso (kg). El preset *WOD* empieza como "por tiempo".
+- Al guardar su resultado el atleta elige **RX** o **Intermedio**; hay una
+  clasificación por categoría y bloque (empates comparten posición).
+- Los admins ven en **Usuarios → Ver bloques hechos y notas** la ficha de cada
+  atleta, y en el Panel las últimas notas. Pensado para crecer: resultados,
 PRs, escalados o vídeos colgarían de `workout_blocks`/`profiles` sin tocar lo
 existente.
 

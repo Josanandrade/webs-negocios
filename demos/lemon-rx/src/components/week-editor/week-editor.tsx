@@ -27,7 +27,7 @@ function initialState(week: WeekWithDays): DaysState {
   const state: DaysState = {};
   for (const date of weekDates(week.start_date)) {
     const day = week.days.find((d) => d.date === date);
-    state[date] = (day?.workout_blocks ?? []).map((b) => ({ id: b.id, title: b.title, content: b.content }));
+    state[date] = (day?.workout_blocks ?? []).map((b) => ({ id: b.id, title: b.title, content: b.content, score_type: b.score_type }));
   }
   return state;
 }
@@ -36,7 +36,7 @@ function snapshot(days: DaysState) {
   return JSON.stringify(
     Object.entries(days).map(([date, blocks]) => [
       date,
-      blocks.filter((b) => b.title.trim() || b.content.trim()).map((b) => [b.id, b.title, b.content]),
+      blocks.filter((b) => b.title.trim() || b.content.trim()).map((b) => [b.id, b.title, b.content, b.score_type]),
     ]),
   );
 }
@@ -157,7 +157,9 @@ export function WeekEditor({ week, today }: { week: WeekWithDays; today: string 
   function addBlock(title: string) {
     const id = newId();
     setFocusId(id);
-    updateBlocks(active, (b) => [...b, { id, title, content: "" }], true);
+    // El WOD suele puntuar: arranca "por tiempo" y el admin lo cambia si es un AMRAP, etc.
+    const score_type = title === "WOD" ? "time" : "none";
+    updateBlocks(active, (b) => [...b, { id, title, content: "", score_type }], true);
   }
 
   function move(index: number, delta: -1 | 1) {

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getViewer } from "@/lib/auth";
 import { getAdjacentPublished, getPublishedWeek } from "@/lib/program";
+import { getActivity, getWeekLeaderboard } from "@/lib/activity";
 import {
   DAY_NAMES,
   currentWeekStart,
@@ -36,6 +37,10 @@ export default async function ProgramPage({ searchParams }: PageProps<"/">) {
     );
   }
   const today = todayIso();
+  const me = viewer.profile.id;
+
+  const blockIds = week?.days.flatMap((d) => d.workout_blocks.map((b) => b.id)) ?? [];
+  const [activity, board] = await Promise.all([getActivity(me, blockIds), getWeekLeaderboard(week?.id ?? null)]);
 
   const days: DayView[] = weekDates(start).map((date, i) => {
     const day = week?.days.find((d) => d.date === date);
@@ -44,7 +49,14 @@ export default async function ProgramPage({ searchParams }: PageProps<"/">) {
       name: DAY_NAMES[i],
       short: shortDate(date),
       isToday: date === today,
-      blocks: (day?.workout_blocks ?? []).filter((b) => b.title.trim() || b.content.trim()),
+      blocks: (day?.workout_blocks ?? [])
+        .filter((b) => b.title.trim() || b.content.trim())
+        .map((b) => ({
+          ...b,
+          log: activity.logs[b.id] ?? null,
+          result: activity.results[b.id] ?? null,
+          board: board[b.id] ?? [],
+        })),
     };
   });
 
@@ -66,7 +78,7 @@ export default async function ProgramPage({ searchParams }: PageProps<"/">) {
       <div className="mt-8" key={start}>
         {week ? (
           <div className="enter">
-            <WeekDays days={days} />
+            <WeekDays days={days} meId={me} />
           </div>
         ) : (
           <EmptyWeek isCurrent={start === thisWeek} latest={adjacent.prev} />
