@@ -4,6 +4,7 @@ import { useEffect, useId, useOptimistic, useRef, useState, useTransition } from
 import { deleteBlockResult, saveBlockNote, saveBlockResult, setBlockDone } from "@/app/(app)/actions";
 import { Segmented } from "@/components/segmented";
 import { RankingRows, ordinal } from "@/components/ranking-rows";
+import { Toast, useToast } from "@/components/toast";
 import { DIVISIONS, SCORE_TYPES, divisionLabel, emptyDraft, formatScore, parseScore, type ScoreDraft } from "@/lib/scores";
 
 const SCORE_LABEL = Object.fromEntries(SCORE_TYPES.map((t) => [t.value, t.label]));
@@ -102,7 +103,7 @@ function DoneToggle({
           </svg>
         )}
       </span>
-      {optimistic ? "Hecho" : "Pendiente"}
+      {optimistic ? "Hecho" : "Marcar hecho"}
     </button>
   );
 }
@@ -511,5 +512,20 @@ function NotePanel({ blockId, note, notify }: { blockId: string; note: string; n
     <button type="button" onClick={open} className="press -ml-1 mt-3 h-11 px-1 text-[15px] font-semibold text-chalk-3 hover:text-chalk">
       + Añadir nota
     </button>
+  );
+}
+
+/** Botón "Poner mi resultado" para la pantalla de Ranking: abre la misma ventana que el bloque. */
+export function ResultButton({ block }: { block: BlockView }) {
+  const [open, setOpen] = useState(false);
+  const { toast, show } = useToast();
+  return (
+    <>
+      <button type="button" onClick={() => setOpen(true)} className={block.result ? "btn-secondary" : "btn-primary"}>
+        {block.result ? "Editar mi resultado" : "Poner mi resultado"}
+      </button>
+      <ResultDialog open={open} block={block} done={block.log?.done ?? false} notify={show} onClose={() => setOpen(false)} />
+      <Toast toast={toast} className="bottom-[calc(5rem+env(safe-area-inset-bottom))] md:bottom-8" />
+    </>
   );
 }

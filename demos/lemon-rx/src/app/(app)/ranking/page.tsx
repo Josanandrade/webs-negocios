@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getViewer } from "@/lib/auth";
 import { getAdjacentPublished, getPublishedWeek } from "@/lib/program";
-import { getWeekLeaderboard } from "@/lib/activity";
+import { getActivity, getWeekLeaderboard } from "@/lib/activity";
 import { DIVISIONS, SCORE_TYPES } from "@/lib/scores";
 import { DAY_NAMES, isIsoDate, mondayOf, shortDate, todayIso, weekDates, weekRangeShort } from "@/lib/dates";
 import { NoAccess } from "@/components/no-access";
 import { RankingRows } from "@/components/ranking-rows";
+import { ResultButton } from "@/components/block-tracker";
 
 export const metadata: Metadata = { title: "Ranking" };
 
@@ -14,17 +15,26 @@ export const metadata: Metadata = { title: "Ranking" };
 export default async function RankingPage({ searchParams }: PageProps<"/ranking">) {
   const sp = await searchParams;
   const today = todayIso();
-  const day = isIsoDate(sp.dia) ? sp.dia : today;
-  const start = mondayOf(day);
+  const requested = isIsoDate(sp.dia) ? sp.dia : today;
+  const start = mondayOf(requested);
 
   const [viewer, week, adjacent] = await Promise.all([getViewer(), getPublishedWeek(start), getAdjacentPublished(start)]);
   if (!viewer.canViewProgram) {
     return <NoAccess name={viewer.profile.full_name.split(" ")[0]} pending={viewer.profile.access_status === "pending"} />;
   }
-  const board = await getWeekLeaderboard(week?.id ?? null);
-
   const scoredOn = (date: string) =>
     week?.days.find((d) => d.date === date)?.workout_blocks.filter((b) => b.score_type !== "none") ?? [];
+
+  // Sin día elegido y hoy sin WOD con ranking: el último día de la semana que sí lo tenga.
+  let day = requested;
+  if (!isIsoDate(sp.dia) && scoredOn(day).length === 0) {
+    const days = weekDates(start).filter((d) => scoredOn(d).length > 0);
+    day = days.filter((d) => d <= today).at(-1) ?? days[0] ?? day;
+  }
+
+  const me = viewer.profile.id;
+  const ids = scoredOn(day).map((b) => b.id);
+  const [board, activity] = await Promise.all([getWeekLeaderboard(week?.id ?? null), getActivity(me, ids)]);
   const blocks = scoredOn(day);
   const dates = weekDates(start);
   const label = (t: string) => SCORE_TYPES.find((s) => s.value === t)?.label ?? "";
@@ -88,6 +98,11 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
                 {b.content && (
                   <p className="workout-text mt-2 line-clamp-4 text-[16px] leading-[1.5] text-chalk-2">{b.content}</p>
                 )}
+                <div className="mt-4">
+                  <ResultButton
+                    block={{ ...b, log: activity.logs[b.id] ?? null, result: activity.results[b.id] ?? null, board: rows }}
+                  />
+                </div>
                 <div className="mt-4 grid gap-6 md:grid-cols-2">
                   {DIVISIONS.map((d) => {
                     const list = rows.filter((r) => r.division === d.value);
@@ -102,7 +117,7 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
                         {list.length === 0 ? (
                           <p className="py-3 text-[15px] text-chalk-3">Sin resultados todavía.</p>
                         ) : (
-                          <RankingRows rows={list} type={b.score_type} meId={viewer.profile.id} />
+                          <RankingRows rows={list} type={b.score_type} meId={me} />
                         )}
                       </div>
                     );
