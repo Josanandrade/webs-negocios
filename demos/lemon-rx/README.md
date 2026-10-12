@@ -94,6 +94,9 @@ A partir de ahí, un admin puede dar el rol de admin a otros desde **Usuarios**.
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
    - `SITE_URL` (URL pública, p. ej. `https://lemonrx.up.railway.app`)
+   - `RESEND_API_KEY` y `EMAIL_FROM` (opcionales): al publicar una semana por primera vez se
+     avisa por email a todos los usuarios con el email confirmado y el acceso no bloqueado.
+     Despublicar y volver a publicar no repite el aviso (`weeks.notified_at`).
 
    Build `npm run build`, start `npm start` (usa `PORT`). Las variables `NEXT_PUBLIC_*` se leen en build:
    si las cambias, vuelve a desplegar.
