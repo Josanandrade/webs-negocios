@@ -3,6 +3,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { notifyAdminsOfSignup } from "@/lib/signup-notice";
 
 export type AuthState = { error?: string; notice?: string; email?: string } | null;
 
@@ -74,6 +75,8 @@ export async function signUp(_: AuthState, form: FormData): Promise<AuthState> {
       email,
     };
   }
+  // Sin confirmación de email ya hay sesión: avisamos a los admins ahora.
+  await notifyAdminsOfSignup(supabase, await origin());
   redirect("/");
 }
 

@@ -97,6 +97,8 @@ A partir de ahí, un admin puede dar el rol de admin a otros desde **Usuarios**.
    - `RESEND_API_KEY` y `EMAIL_FROM` (opcionales): al publicar una semana por primera vez se
      avisa por email a todos los usuarios con el email confirmado y el acceso no bloqueado.
      Despublicar y volver a publicar no repite el aviso (`weeks.notified_at`).
+     Con las mismas variables, cuando alguien se registra y confirma su email, los admins
+     reciben un aviso con su nombre, su email y un enlace a su ficha (`profiles.admin_notified_at`).
 
    Build `npm run build`, start `npm start` (usa `PORT`). Las variables `NEXT_PUBLIC_*` se leen en build:
    si las cambias, vuelve a desplegar.
