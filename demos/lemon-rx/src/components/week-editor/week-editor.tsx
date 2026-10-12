@@ -131,7 +131,9 @@ export function WeekEditor({ week, today }: { week: WeekWithDays; today: string 
     if (!result.ok) return show(result.error, "error");
     setStatus(next);
     // La acción ya revalida la página en la misma respuesta: no hace falta un refresh extra.
-    show(next === "published" ? "Semana publicada" : "Semana despublicada. Vuelve a ser borrador.");
+    if (next === "draft") show("Semana despublicada. Vuelve a ser borrador.");
+    else if (result.notified) show(`Semana publicada. Avisando por email a ${result.notified} ${result.notified === 1 ? "persona" : "personas"}.`);
+    else show("Semana publicada");
   }
 
   async function removeWeek() {

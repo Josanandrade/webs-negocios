@@ -2,16 +2,18 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { after } from "next/server";
 import { requireAdmin } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { isIsoDate, isoDayOfWeek } from "@/lib/dates";
+import { isIsoDate, isoDayOfWeek, weekRangeSentence } from "@/lib/dates";
+import { emailConfigured, sendEmails, weekPublishedEmail, type Recipient } from "@/lib/email";
 import { SCORE_TYPE_VALUES } from "@/lib/scores";
 import type { AccessStatus, PaymentStatus, Role, ScoreType, WeekStatus } from "@/lib/types";
 
 // Cada acción comprueba el rol en servidor (requireAdmin) y además la base de
 // datos vuelve a comprobarlo con RLS. Nunca se confía en lo que oculta la UI.
 
-type Result = { ok: true; at?: string } | { ok: false; error: string };
+type Result = { ok: true; at?: string; notified?: number } | { ok: false; error: string };
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -75,11 +77,46 @@ export async function setWeekStatus(weekId: string, status: WeekStatus): Promise
     return { ok: false, error: "Petición no válida." };
 
   const supabase = await createClient();
-  const { error } = await supabase.from("weeks").update({ status }).eq("id", weekId);
-  if (error) return { ok: false, error: "No se ha podido cambiar el estado." };
+  const { data: week, error } = await supabase
+    .from("weeks")
+    .update({ status })
+    .eq("id", weekId)
+    .select("start_date")
+    .single();
+  if (error || !week) return { ok: false, error: "No se ha podido cambiar el estado." };
 
   revalidatePath("/", "layout");
-  return { ok: true };
+  if (status !== "published") return { ok: true };
+  const notified = await notifyWeekPublished(weekId, week.start_date);
+  return { ok: true, notified };
+}
+
+/**
+ * Avisa por email a todos los usuarios la primera vez que se publica una
+ * semana. La base de datos marca la semana como avisada antes de enviar, así
+ * que despublicar y volver a publicar no repite el email. El envío se hace
+ * después de responder, para que publicar no espere al correo.
+ */
+async function notifyWeekPublished(weekId: string, startDate: string) {
+  if (!emailConfigured()) return 0;
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("claim_week_notification", { p_week_id: weekId });
+  const recipients = (data ?? []) as Recipient[];
+  if (error || recipients.length === 0) return 0;
+
+  const origin = (process.env.SITE_URL ?? "").replace(/\/$/, "");
+  const url = `${origin}/?semana=${startDate}`;
+  const range = weekRangeSentence(startDate);
+  after(async () => {
+    try {
+      await sendEmails(recipients.map((r) => weekPublishedEmail(r, range, url)));
+    } catch (err) {
+      console.error("Aviso de semana publicada no enviado", err);
+      // Sin marcar: la próxima vez que se publique se vuelve a intentar.
+      await supabase.from("weeks").update({ notified_at: null }).eq("id", weekId);
+    }
+  });
+  return recipients.length;
 }
 
 export async function deleteWeek(weekId: string): Promise<Result> {
