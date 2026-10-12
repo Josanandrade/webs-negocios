@@ -5,7 +5,7 @@ import { deleteBlockResult, saveBlockNote, saveBlockResult, setBlockDone } from 
 import { Segmented } from "@/components/segmented";
 import { RankingRows, ordinal } from "@/components/ranking-rows";
 import { Toast, useToast } from "@/components/toast";
-import { DIVISIONS, SCORE_TYPES, divisionLabel, emptyDraft, formatScore, parseScore, type ScoreDraft } from "@/lib/scores";
+import { DIVISIONS, SCORE_TYPES, divisionLabel, emptyDraft, formatScore, isRanked, parseScore, type ScoreDraft } from "@/lib/scores";
 
 const SCORE_LABEL = Object.fromEntries(SCORE_TYPES.map((t) => [t.value, t.label]));
 import type { Block, BlockLog, BlockResult, Division, LeaderboardRow } from "@/lib/types";
@@ -114,6 +114,7 @@ function ResultPanel({ block, meId, onEdit }: { block: BlockView; meId: string; 
   const [showBoard, setShowBoard] = useState(false);
   const mine = block.board.find((r) => r.user_id === meId);
   const result = block.result;
+  const ranked = isRanked(block.score_type);
 
   return (
     <div className="mt-5 rounded-sm border border-line bg-ink-2">
@@ -121,10 +122,13 @@ function ResultPanel({ block, meId, onEdit }: { block: BlockView; meId: string; 
         <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3">
           <div>
             <p className="eyebrow">Tu resultado · {divisionLabel(result.division)}</p>
-            <p className="mt-1 font-display text-[28px] font-bold leading-none">{formatScore(block.score_type, result)}</p>
+            <p className={`mt-1 font-display font-bold leading-none ${ranked ? "text-[28px]" : "text-[22px] uppercase"}`}>
+              {formatScore(block.score_type, result)}
+            </p>
+            {result.reps_detail && <p className="mt-1.5 whitespace-pre-wrap text-[15px] text-chalk-2">{result.reps_detail}</p>}
           </div>
           <div className="flex items-center gap-4">
-            {mine && (
+            {mine && ranked && (
               <p className="text-right">
                 <span className="block font-display text-[28px] font-extrabold leading-none text-lemon">{ordinal(mine.position)}</span>
                 <span className="text-[13px] text-chalk-3">de {mine.total}</span>
@@ -151,7 +155,7 @@ function ResultPanel({ block, meId, onEdit }: { block: BlockView; meId: string; 
           className="day-trigger flex h-12 w-full items-center justify-between px-4 text-left text-[15px] font-semibold text-chalk-2"
         >
           <span>
-            Clasificación del día{" "}
+            {ranked ? "Clasificación del día" : "Resultados del día"}{" "}
             <span className="ml-1 text-chalk-3">
               {block.board.length}
               <span className="sr-only"> {block.board.length === 1 ? "resultado" : "resultados"}</span>
@@ -281,7 +285,10 @@ function ResultForm({ block, onDone, notify }: { block: BlockView; onDone: () =>
   const [draft, setDraft] = useState<ScoreDraft>(() => emptyDraft(block.result));
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
-  const set = (patch: Partial<ScoreDraft>) => setDraft((d) => ({ ...d, ...patch }));
+  const set = (patch: Partial<ScoreDraft>) => {
+    setDraft((d) => ({ ...d, ...patch }));
+    setError(null);
+  };
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -369,6 +376,40 @@ function ResultForm({ block, onDone, notify }: { block: BlockView; onDone: () =>
           <p className="label">Reps o calorías</p>
           <NumberField id={`${id}-reps`} label="total" name="Reps o calorías" value={draft.reps} onChange={(v) => set({ reps: v })} autoFocus />
         </div>
+      )}
+
+      {block.score_type === "intervals" && (
+        <>
+          <div>
+            <p className="label">¿Mantuviste todas las repeticiones en todos los intervalos?</p>
+            <Segmented
+              label="Todas las repeticiones"
+              value={draft.prescribed || null}
+              onChange={(v) => set({ prescribed: v })}
+              options={[
+                { value: "yes", label: "Sí", tone: "ok" },
+                { value: "no", label: "No", tone: "ok" },
+              ]}
+            />
+          </div>
+          {draft.prescribed === "no" && (
+            <div>
+              <label htmlFor={`${id}-detail`} className="label">
+                ¿Cuántas repeticiones hiciste por ronda?
+              </label>
+              <textarea
+                id={`${id}-detail`}
+                value={draft.detail}
+                onChange={(e) => set({ detail: e.target.value })}
+                rows={3}
+                maxLength={500}
+                autoFocus
+                placeholder="Ej.: rondas 1-4 todas; rondas 5-8, 10 reps en vez de 12"
+                className="field min-h-24 py-3"
+              />
+            </div>
+          )}
+        </>
       )}
 
       {block.score_type === "weight" && (

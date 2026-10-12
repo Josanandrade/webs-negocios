@@ -67,6 +67,8 @@ export async function saveBlockResult(blockId: string, division: Division, draft
     rounds: String(draft?.rounds ?? ""),
     reps: String(draft?.reps ?? ""),
     kg: String(draft?.kg ?? ""),
+    prescribed: draft?.prescribed === "yes" || draft?.prescribed === "no" ? draft.prescribed : "",
+    detail: String(draft?.detail ?? ""),
   });
   if (!parsed.ok) return parsed;
 

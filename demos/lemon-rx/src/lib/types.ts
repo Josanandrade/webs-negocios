@@ -2,7 +2,7 @@ export type Role = "admin" | "athlete";
 export type PaymentStatus = "paid" | "pending";
 export type AccessStatus = "pending" | "active" | "blocked";
 export type WeekStatus = "draft" | "published";
-export type ScoreType = "none" | "time" | "rounds_reps" | "reps" | "weight";
+export type ScoreType = "none" | "time" | "rounds_reps" | "reps" | "weight" | "intervals";
 export type Division = "rx" | "intermediate";
 
 export type Profile = {
@@ -61,6 +61,10 @@ export type Score = {
   rounds: number | null;
   reps: number | null;
   kg: number | null;
+  /** EMOM / intervalos: true si mantuvo todas las reps en todos los intervalos. */
+  as_prescribed: boolean | null;
+  /** EMOM / intervalos adaptado: reps por ronda, escritas libremente. */
+  reps_detail: string;
 };
 
 export type BlockResult = Score & {

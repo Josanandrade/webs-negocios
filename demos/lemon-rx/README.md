@@ -51,6 +51,9 @@ demás atletas solo lo ven a través de `week_leaderboard()`).
 - El admin elige en el editor si un bloque tiene **ranking** y de qué tipo: por
   tiempo (con time cap cuentan las reps), AMRAP (rondas + reps), reps o calorías,
   o peso (kg). El preset *WOD* empieza como "por tiempo".
+- **EMOM / intervalos**: el atleta dice si mantuvo todas las reps en todos los
+  intervalos y, si no, escribe cuántas hizo por ronda. No hay posiciones: se ve
+  una lista de quién lo hizo como estaba programado y quién lo adaptó.
 - Al guardar su resultado el atleta elige **RX** o **Intermedio**; hay una
   clasificación por categoría y bloque (empates comparten posición).
 - Los admins ven en **Usuarios → Ver bloques hechos y notas** la ficha de cada

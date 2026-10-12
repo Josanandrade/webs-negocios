@@ -18,7 +18,8 @@ insert into days (id, week_id, date, day_of_week) values
 insert into workout_blocks (id, day_id, title, content, score_type) values
   ('00000000-0000-4000-8000-000000000021', '00000000-0000-4000-8000-000000000011', 'WOD', 'Fran', 'time'),
   ('00000000-0000-4000-8000-000000000022', '00000000-0000-4000-8000-000000000011', 'STRENGTH', 'Back Squat', 'none'),
-  ('00000000-0000-4000-8000-000000000023', '00000000-0000-4000-8000-000000000012', 'WOD', 'Borrador', 'time');
+  ('00000000-0000-4000-8000-000000000023', '00000000-0000-4000-8000-000000000012', 'WOD', 'Borrador', 'time'),
+  ('00000000-0000-4000-8000-000000000024', '00000000-0000-4000-8000-000000000011', 'WOD 2', 'EMOM 10', 'intervals');
 
 \echo '== atleta2: marca hecho + nota (esperado INSERT 0 1)'
 begin;
@@ -90,7 +91,7 @@ rollback;
 begin;
 set local role authenticated;
 select set_config('request.jwt.claims', json_build_object('sub',:'adm'::uuid,'role','authenticated')::text, true);
-\echo '== admin: ve notas y resultados de todos (esperado 1 nota, 3 resultados)'
+\echo '== admin: ve notas y resultados de todos (esperado 1 nota y 3 resultados más los que ya hubiera en la base)'
 select count(*) from block_logs where note <> '';
 select count(*) from block_results;
 \echo '== admin: guardar semana conserva marcas y cambia el tipo (esperado score_type reps, 1 log)'
@@ -98,6 +99,26 @@ select save_week_content('00000000-0000-4000-8000-000000000001',
   '[{"date":"2026-09-07","blocks":[{"id":"00000000-0000-4000-8000-000000000021","title":"WOD","content":"Fran","score_type":"reps"},{"id":"00000000-0000-4000-8000-000000000022","title":"STRENGTH","content":"Back Squat 5x5"}]}]'::jsonb);
 select title, score_type from workout_blocks where day_id = '00000000-0000-4000-8000-000000000011' order by position;
 select count(*) from block_logs;
+rollback;
+
+\echo '== EMOM: atleta2 completo RX, atleta3 adaptado RX (esperado INSERT 0 1 dos veces)'
+begin;
+set local role authenticated;
+select set_config('request.jwt.claims', json_build_object('sub',:'a2'::uuid,'role','authenticated')::text, true);
+insert into block_results (user_id, block_id, division, as_prescribed) values (:'a2', '00000000-0000-4000-8000-000000000024', 'rx', true);
+commit;
+begin;
+set local role authenticated;
+select set_config('request.jwt.claims', json_build_object('sub',:'a3'::uuid,'role','authenticated')::text, true);
+insert into block_results (user_id, block_id, division, as_prescribed, reps_detail) values (:'a3', '00000000-0000-4000-8000-000000000024', 'rx', false, 'R1-5: 12; R6-10: 9');
+commit;
+\echo '== EMOM: detalle de más de 500 caracteres (esperado ERROR check)'
+insert into block_results (user_id, block_id, division, as_prescribed, reps_detail) values (:'adm', '00000000-0000-4000-8000-000000000024', 'rx', false, repeat('x', 501));
+begin;
+set local role authenticated;
+select set_config('request.jwt.claims', json_build_object('sub',:'a3'::uuid,'role','authenticated')::text, true);
+\echo '== EMOM: lista (esperado Pablo como estaba programado primero, Marta adaptada con detalle)'
+select full_name, division, as_prescribed, reps_detail, position from week_leaderboard('00000000-0000-4000-8000-000000000001') where block_id = '00000000-0000-4000-8000-000000000024';
 rollback;
 
 begin;

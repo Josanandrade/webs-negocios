@@ -25,7 +25,7 @@ export async function getActivity(userId: string, blockIds: string[]): Promise<A
       .returns<BlockLog[]>(),
     supabase
       .from("block_results")
-      .select("block_id, division, seconds, capped, rounds, reps, kg")
+      .select("block_id, division, seconds, capped, rounds, reps, kg, as_prescribed, reps_detail")
       .eq("user_id", userId)
       .in("block_id", blockIds)
       .returns<BlockResult[]>(),

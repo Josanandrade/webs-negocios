@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { PROFILE_COLUMNS } from "@/lib/users";
 import { getAdjacentPublished, getPublishedWeek } from "@/lib/program";
 import { getActivity, getUserNotes, getWeekLeaderboard } from "@/lib/activity";
-import { divisionLabel, formatScore } from "@/lib/scores";
+import { divisionLabel, formatScore, isRanked } from "@/lib/scores";
 import { DAY_NAMES, currentWeekStart, isIsoDate, isoDayOfWeek, mondayOf, shortDate, weekDates, weekRangeShort } from "@/lib/dates";
 import type { Profile } from "@/lib/types";
 
@@ -113,8 +113,11 @@ export default async function AthletePage({ params, searchParams }: PageProps<"/
                               <span className="font-display text-[20px] font-bold">{formatScore(b.score_type, result)}</span>
                               <span className="ml-2 text-chalk-3">
                                 {divisionLabel(result.division)}
-                                {rank && ` · ${rank.position}º de ${rank.total}`}
+                                {rank && isRanked(b.score_type) && ` · ${rank.position}º de ${rank.total}`}
                               </span>
+                              {result.reps_detail && (
+                                <span className="mt-1 block whitespace-pre-wrap text-[15px] text-chalk-2">{result.reps_detail}</span>
+                              )}
                             </p>
                           )}
                           {log?.note && (
