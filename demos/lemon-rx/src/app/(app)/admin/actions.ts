@@ -7,6 +7,7 @@ import { requireAdmin } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { isIsoDate, isoDayOfWeek, weekRangeSentence } from "@/lib/dates";
 import { emailConfigured, sendEmails, weekPublishedEmail, type Recipient } from "@/lib/email";
+import { pushConfigured, sendPush } from "@/lib/push";
 import { SCORE_TYPE_VALUES } from "@/lib/scores";
 import type { AccessStatus, PaymentStatus, Role, ScoreType, WeekStatus } from "@/lib/types";
 
@@ -176,5 +177,54 @@ export async function setSetting(key: "auto_block_unpaid" | "show_past_weeks", v
     .eq("id", true);
   if (error) return { ok: false, error: "No se ha podido guardar el ajuste." };
   revalidatePath("/", "layout");
+  return { ok: true };
+}
+
+// ---------------------------------------------------------------- notificaciones
+
+type PushSubscriptionInput = { endpoint: string; keys: { p256dh: string; auth: string } };
+
+export async function savePushSubscription(sub: PushSubscriptionInput): Promise<Result> {
+  await requireAdmin();
+  const endpoint = String(sub?.endpoint ?? "");
+  const p256dh = String(sub?.keys?.p256dh ?? "");
+  const auth = String(sub?.keys?.auth ?? "");
+  if (!endpoint.startsWith("https://") || !p256dh || !auth) return { ok: false, error: "Este navegador no ha dado permiso." };
+
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("save_push_subscription", { p_endpoint: endpoint, p_p256dh: p256dh, p_auth: auth });
+  if (error) return { ok: false, error: "No se han podido activar las notificaciones." };
+  return { ok: true };
+}
+
+export async function removePushSubscription(endpoint: string): Promise<Result> {
+  await requireAdmin();
+  const supabase = await createClient();
+  const { error } = await supabase.from("push_subscriptions").delete().eq("endpoint", String(endpoint));
+  if (error) return { ok: false, error: "No se han podido desactivar las notificaciones." };
+  return { ok: true };
+}
+
+/** Manda una notificación de prueba a todos los dispositivos del admin actual. */
+export async function sendTestPush(): Promise<Result> {
+  const viewer = await requireAdmin();
+  if (!pushConfigured()) return { ok: false, error: "Las notificaciones aún no están configuradas en el servidor." };
+
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("push_subscriptions")
+    .select("endpoint, p256dh, auth")
+    .eq("user_id", viewer.profile.id);
+  if (!data?.length) return { ok: false, error: "Activa primero las notificaciones en este móvil." };
+
+  const name = viewer.profile.full_name.split(" ")[0];
+  const { sent, gone } = await sendPush(data, {
+    title: "Nuevo registro en Lemon RX",
+    body: `Prueba: así te avisaremos cuando alguien se registre${name ? `, ${name}` : ""}.`,
+    url: "/admin/usuarios?filtro=nuevos",
+    tag: "prueba",
+  });
+  if (gone.length > 0) await supabase.from("push_subscriptions").delete().in("endpoint", gone);
+  if (sent === 0) return { ok: false, error: "No se ha podido entregar. Desactiva y vuelve a activar las notificaciones." };
   return { ok: true };
 }

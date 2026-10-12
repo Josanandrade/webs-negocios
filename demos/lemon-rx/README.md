@@ -97,6 +97,11 @@ A partir de ahí, un admin puede dar el rol de admin a otros desde **Usuarios**.
    - `RESEND_API_KEY` y `EMAIL_FROM` (opcionales): al publicar una semana por primera vez se
      avisa por email a todos los usuarios con el email confirmado y el acceso no bloqueado.
      Despublicar y volver a publicar no repite el aviso (`weeks.notified_at`).
+   - `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` y `PUSH_SECRET` (opcionales): notificación al móvil
+     de los admins cuando alguien se registra. Cada admin la activa en *Ajustes → Notificaciones*
+     (en iPhone, primero hay que añadir la app a la pantalla de inicio). Las claves VAPID se generan
+     con `npx web-push generate-vapid-keys`; `PUSH_SECRET` es un texto aleatorio cuyo hash se guarda
+     en `private.push_secret` (ver `supabase/migrations/20261012210000_push_notifications.sql`).
 
    Build `npm run build`, start `npm start` (usa `PORT`). Las variables `NEXT_PUBLIC_*` se leen en build:
    si las cambias, vuelve a desplegar.

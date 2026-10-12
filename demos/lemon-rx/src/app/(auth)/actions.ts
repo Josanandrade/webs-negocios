@@ -2,7 +2,9 @@
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { after } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { notifyAdminsOfSignup } from "@/lib/push";
 
 export type AuthState = { error?: string; notice?: string; email?: string } | null;
 
@@ -66,6 +68,10 @@ export async function signUp(_: AuthState, form: FormData): Promise<AuthState> {
       return { error: "Demasiados intentos. Espera unos minutos y vuelve a probar.", email };
     return { error: "No hemos podido crear la cuenta. Inténtalo de nuevo.", email };
   }
+
+  // Notificación al móvil de los admins, sin hacer esperar al usuario.
+  const newUserId = data.user?.id;
+  if (newUserId) after(() => notifyAdminsOfSignup(newUserId));
 
   // Con confirmación de email activada no hay sesión todavía.
   if (!data.session) {
