@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { PROFILE_COLUMNS } from "@/lib/users";
 import { getAdjacentPublished, getPublishedWeek } from "@/lib/program";
 import { getActivity, getUserNotes, getWeekLeaderboard } from "@/lib/activity";
-import { divisionLabel, formatScore } from "@/lib/scores";
+import { divisionLabel, formatScore, hasDivision, isRanked } from "@/lib/scores";
 import { DAY_NAMES, currentWeekStart, isIsoDate, isoDayOfWeek, mondayOf, shortDate, weekDates, weekRangeShort } from "@/lib/dates";
 import type { Profile } from "@/lib/types";
 
@@ -57,6 +57,12 @@ export default async function AthletePage({ params, searchParams }: PageProps<"/
 
       <h1 className="mt-2 font-display text-[36px] font-extrabold uppercase leading-[0.95] md:text-[44px]">{name}</h1>
       <p className="mt-1 truncate text-[15px] text-chalk-3">{athlete.email}</p>
+      <Link
+        href={`${base}/historial`}
+        className="press mt-2 inline-flex h-11 items-center text-[15px] font-semibold text-lemon hover:text-chalk"
+      >
+        Ver su historial completo (pesos, resultados y notas) →
+      </Link>
 
       <section aria-labelledby="semana" className="mt-8">
         <div className="flex items-end justify-between gap-3 border-b border-line pb-4">
@@ -112,9 +118,12 @@ export default async function AthletePage({ params, searchParams }: PageProps<"/
                             <p className="mt-2 text-[16px]">
                               <span className="font-display text-[20px] font-bold">{formatScore(b.score_type, result)}</span>
                               <span className="ml-2 text-chalk-3">
-                                {divisionLabel(result.division)}
-                                {rank && ` · ${rank.position}º de ${rank.total}`}
+                                {hasDivision(b.score_type) && divisionLabel(result.division)}
+                                {rank && isRanked(b.score_type) && ` · ${rank.position}º de ${rank.total}`}
                               </span>
+                              {result.reps_detail && (
+                                <span className="mt-1 block whitespace-pre-wrap text-[15px] text-chalk-2">{result.reps_detail}</span>
+                              )}
                             </p>
                           )}
                           {log?.note && (

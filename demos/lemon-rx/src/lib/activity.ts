@@ -1,6 +1,6 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
-import type { BlockLog, BlockResult, LeaderboardRow } from "@/lib/types";
+import type { BlockLog, BlockResult, HistoryEntry, LeaderboardRow } from "@/lib/types";
 
 export type Activity = {
   logs: Record<string, BlockLog>;
@@ -25,7 +25,7 @@ export async function getActivity(userId: string, blockIds: string[]): Promise<A
       .returns<BlockLog[]>(),
     supabase
       .from("block_results")
-      .select("block_id, division, seconds, capped, rounds, reps, kg")
+      .select("block_id, division, seconds, capped, rounds, reps, kg, as_prescribed, reps_detail")
       .eq("user_id", userId)
       .in("block_id", blockIds)
       .returns<BlockResult[]>(),
@@ -109,4 +109,15 @@ export async function getUserNotes(userId: string, limit = 30): Promise<RecentNo
     .limit(limit)
     .returns<RecentNoteRow[]>();
   return (data ?? []).map(toRecentNote);
+}
+
+/**
+ * Historial de un atleta: cada bloque que ha marcado, comentado o puntuado, el
+ * más reciente primero. Incluye semanas que ya no se ven en la programación.
+ * Solo funciona para uno mismo o para un admin (lo comprueba la función SQL).
+ */
+export async function getHistory(userId: string): Promise<HistoryEntry[]> {
+  const supabase = await createClient();
+  const { data } = await supabase.rpc("training_history", { p_user_id: userId });
+  return ((data ?? []) as HistoryEntry[]).map((r) => ({ ...r, kg: r.kg == null ? null : Number(r.kg) }));
 }
