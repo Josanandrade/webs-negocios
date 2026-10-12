@@ -5,7 +5,8 @@ import { deleteBlockResult, saveBlockNote, saveBlockResult, setBlockDone } from 
 import { Segmented } from "@/components/segmented";
 import { RankingRows, ordinal } from "@/components/ranking-rows";
 import { Toast, useToast } from "@/components/toast";
-import { DIVISIONS, SCORE_TYPES, divisionLabel, emptyDraft, formatScore, isRanked, parseScore, type ScoreDraft } from "@/lib/scores";
+import Link from "next/link";
+import { DIVISIONS, SCORE_TYPES, divisionLabel, emptyDraft, formatScore, hasBoard, hasDivision, isRanked, parseScore, type ScoreDraft } from "@/lib/scores";
 
 const SCORE_LABEL = Object.fromEntries(SCORE_TYPES.map((t) => [t.value, t.label]));
 import type { Block, BlockLog, BlockResult, Division, LeaderboardRow } from "@/lib/types";
@@ -121,7 +122,7 @@ function ResultPanel({ block, meId, onEdit }: { block: BlockView; meId: string; 
       {result ? (
         <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3">
           <div>
-            <p className="eyebrow">Tu resultado · {divisionLabel(result.division)}</p>
+            <p className="eyebrow">{hasDivision(block.score_type) ? `Tu resultado · ${divisionLabel(result.division)}` : "Tus pesos"}</p>
             <p className={`mt-1 font-display font-bold leading-none ${ranked ? "text-[28px]" : "text-[22px] uppercase"}`}>
               {formatScore(block.score_type, result)}
             </p>
@@ -142,11 +143,18 @@ function ResultPanel({ block, meId, onEdit }: { block: BlockView; meId: string; 
       ) : (
         <div className="px-4 py-3">
           <button type="button" onClick={onEdit} className="btn-primary w-full sm:w-auto">
-            Añadir mi resultado
+            {block.score_type === "load" ? "Apuntar mis pesos" : "Añadir mi resultado"}
           </button>
         </div>
       )}
 
+      {!hasBoard(block.score_type) ? (
+        <div className="border-t border-line px-4">
+          <Link href="/historial" className="press flex h-12 items-center text-[15px] font-semibold text-chalk-2 hover:text-chalk">
+            Ver mi historial →
+          </Link>
+        </div>
+      ) : (
       <div className="border-t border-line">
         <button
           type="button"
@@ -165,6 +173,7 @@ function ResultPanel({ block, meId, onEdit }: { block: BlockView; meId: string; 
         </button>
         {showBoard && <Leaderboard block={block} meId={meId} initial={result?.division ?? "rx"} />}
       </div>
+      )}
     </div>
   );
 }
@@ -257,7 +266,13 @@ function ResultDialog({
           <div className="px-4">
             <p className="eyebrow">{block.title || "Bloque"} · {SCORE_LABEL[block.score_type]}</p>
             <h2 id={`res-${block.id}`} className="mt-1 font-display text-[26px] font-bold uppercase leading-tight">
-              {block.result ? "Editar tu resultado" : "¡Hecho! ¿Cuál ha sido tu resultado?"}
+              {block.score_type === "load"
+                ? block.result
+                  ? "Editar tus pesos"
+                  : "¡Hecho! ¿Qué peso has cogido?"
+                : block.result
+                  ? "Editar tu resultado"
+                  : "¡Hecho! ¿Cuál ha sido tu resultado?"}
             </h2>
           </div>
           <ResultForm block={block} onDone={onClose} notify={notify} />
@@ -281,7 +296,8 @@ function ResultDialog({
 
 function ResultForm({ block, onDone, notify }: { block: BlockView; onDone: () => void; notify: Notify }) {
   const id = useId();
-  const [division, setDivision] = useState<Division | null>(block.result?.division ?? null);
+  const withDivision = hasDivision(block.score_type);
+  const [division, setDivision] = useState<Division | null>(block.result?.division ?? (withDivision ? null : "rx"));
   const [draft, setDraft] = useState<ScoreDraft>(() => emptyDraft(block.result));
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
@@ -305,7 +321,8 @@ function ResultForm({ block, onDone, notify }: { block: BlockView; onDone: () =>
   }
 
   function remove() {
-    if (!window.confirm("¿Borrar tu resultado? Saldrás de la clasificación de este día.")) return;
+    const ask = hasBoard(block.score_type) ? "¿Borrar tu resultado? Saldrás de la clasificación de este día." : "¿Borrar tus pesos de este bloque?";
+    if (!window.confirm(ask)) return;
     startTransition(async () => {
       const r = await deleteBlockResult(block.id);
       if (!r.ok) return setError(r.error);
@@ -316,6 +333,7 @@ function ResultForm({ block, onDone, notify }: { block: BlockView; onDone: () =>
 
   return (
     <form onSubmit={submit} className="space-y-4 px-4 py-4" noValidate>
+      {withDivision && (
       <div>
         <p className="label">¿Cómo lo hiciste?</p>
         <Segmented
@@ -329,6 +347,30 @@ function ResultForm({ block, onDone, notify }: { block: BlockView; onDone: () =>
         />
         <p className="mt-1.5 text-[13px] text-chalk-3">Intermedio si adaptaste algún movimiento, repeticiones o peso.</p>
       </div>
+      )}
+
+      {block.score_type === "load" && (
+        <>
+          <div>
+            <p className="label">Peso máximo</p>
+            <NumberField id={`${id}-kg`} label="kg" name="Kilos" value={draft.kg} onChange={(v) => set({ kg: v })} decimal autoFocus />
+          </div>
+          <div>
+            <label htmlFor={`${id}-sets`} className="label">
+              Series y pesos <span className="normal-case tracking-normal text-chalk-3">(opcional)</span>
+            </label>
+            <textarea
+              id={`${id}-sets`}
+              value={draft.detail}
+              onChange={(e) => set({ detail: e.target.value })}
+              rows={3}
+              maxLength={500}
+              placeholder="Ej.: Back squat 5x5: 80, 85, 90, 90, 95 kg"
+              className="field min-h-24 py-3"
+            />
+          </div>
+        </>
+      )}
 
       {block.score_type === "time" && (
         <>

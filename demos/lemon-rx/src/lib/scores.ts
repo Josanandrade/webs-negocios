@@ -12,11 +12,22 @@ export const SCORE_TYPES: { value: ScoreType; label: string; hint: string }[] = 
     label: "EMOM / intervalos",
     hint: "Sin posiciones: lista de quién lo hizo como estaba programado y quién lo adaptó",
   },
+  { value: "load", label: "Fuerza: apuntar pesos", hint: "Sin ranking: cada atleta apunta sus kilos y quedan en su historial" },
 ];
 
 /** Tipos con clasificación por posiciones (el resto, como EMOM, es una lista). */
 export function isRanked(type: ScoreType) {
-  return type !== "none" && type !== "intervals";
+  return type !== "none" && type !== "intervals" && type !== "load";
+}
+
+/** Tipos cuyos resultados ven los demás (clasificación o lista). Los pesos de fuerza son personales. */
+export function hasBoard(type: ScoreType) {
+  return type !== "none" && type !== "load";
+}
+
+/** Si el atleta elige RX o Intermedio (en fuerza no aplica). */
+export function hasDivision(type: ScoreType) {
+  return type !== "load";
 }
 
 export const SCORE_TYPE_VALUES = SCORE_TYPES.map((t) => t.value);
@@ -44,6 +55,8 @@ export function formatScore(type: ScoreType, s: Score) {
       return s.kg != null ? `${String(Number(s.kg)).replace(".", ",")} kg` : "—";
     case "intervals":
       return s.as_prescribed ? "Como estaba programado" : "Adaptado";
+    case "load":
+      return s.kg != null ? `${String(Number(s.kg)).replace(".", ",")} kg` : "Pesos apuntados";
     default:
       return "";
   }
@@ -136,6 +149,19 @@ export function parseScore(type: ScoreType, d: ScoreDraft): { ok: true; score: S
       if (!detail) return { ok: false, error: "Escribe cuántas repeticiones hiciste por ronda." };
       if (detail.length > 500) return { ok: false, error: "El detalle es demasiado largo (máximo 500 caracteres)." };
       return { ok: true, score: { ...empty, as_prescribed: false, reps_detail: detail } };
+    }
+    case "load": {
+      const t = d.kg.trim().replace(",", ".");
+      const detail = d.detail.trim();
+      if (!t && !detail) return { ok: false, error: "Apunta el peso máximo o tus series." };
+      if (detail.length > 500) return { ok: false, error: "Las series son demasiado largas (máximo 500 caracteres)." };
+      let kg: number | null = null;
+      if (t) {
+        if (!/^\d+(\.\d{1,2})?$/.test(t) || Number(t) <= 0 || Number(t) >= 10000)
+          return { ok: false, error: "Escribe los kilos (por ejemplo 102,5)." };
+        kg = Number(t);
+      }
+      return { ok: true, score: { ...empty, kg, reps_detail: detail } };
     }
     default:
       return { ok: false, error: "Este bloque no tiene ranking." };

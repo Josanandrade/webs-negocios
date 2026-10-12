@@ -1,15 +1,20 @@
--- Lemon RX: resultado en WODs tipo EMOM / intervalos
+-- Lemon RX: resultado en EMOM / intervalos, pesos en fuerza e historial
 --
 -- · Nuevo tipo de bloque 'intervals': el atleta elige RX o Intermedio y dice
 --   si mantuvo todas las repeticiones en todos los intervalos. Si no, escribe
---   libremente cuántas hizo por ronda.
--- · En estos bloques no hay posiciones: el ranking es una lista de quién lo
---   hizo como estaba programado y quién lo tuvo que adaptar.
+--   libremente cuántas hizo por ronda. Sin posiciones: el ranking es una lista
+--   de quién lo hizo como estaba programado y quién lo tuvo que adaptar.
+-- · Nuevo tipo 'load' (fuerza, weightlifting…): cada atleta apunta el peso
+--   máximo y/o sus series. No sale en el ranking; queda en su historial.
+-- · training_history(): todo lo que ha registrado un atleta (hechos, notas,
+--   resultados y pesos), aunque esa semana ya no esté visible.
 --
--- El nuevo valor del enum no se usa como literal en este mismo script (Postgres
--- no lo permite hasta confirmar la transacción): se compara como texto.
+-- Los nuevos valores del enum no se usan como literal en este mismo script
+-- (Postgres no lo permite hasta confirmar la transacción): se comparan como
+-- texto. Se puede ejecutar más de una vez sin problema.
 
 alter type public.score_type add value if not exists 'intervals';
+alter type public.score_type add value if not exists 'load';
 
 alter table public.block_results
   add column if not exists as_prescribed boolean,
@@ -101,3 +106,66 @@ $$;
 
 revoke execute on function public.week_leaderboard(uuid) from public, anon;
 grant execute on function public.week_leaderboard(uuid) to authenticated;
+
+-- ---------------------------------------------------------------------------
+-- Historial de un atleta: cada bloque que ha marcado, comentado o puntuado.
+-- Security definer para incluir semanas antiguas que ya no se muestran en la
+-- programación; solo lo puede pedir el propio atleta o un admin.
+-- ---------------------------------------------------------------------------
+create or replace function public.training_history(p_user_id uuid)
+returns table (
+  block_id uuid,
+  date date,
+  title text,
+  content text,
+  score_type public.score_type,
+  done boolean,
+  note text,
+  division public.division,
+  seconds integer,
+  capped boolean,
+  rounds integer,
+  reps integer,
+  kg numeric,
+  as_prescribed boolean,
+  reps_detail text
+)
+language sql
+stable
+security definer
+set search_path = ''
+as $$
+  with mine as (
+    select l.block_id from public.block_logs l
+    where l.user_id = p_user_id and (l.done or l.note <> '')
+    union
+    select r.block_id from public.block_results r where r.user_id = p_user_id
+  )
+  select
+    b.id,
+    d.date,
+    b.title,
+    b.content,
+    b.score_type,
+    coalesce(l.done, false) or r.user_id is not null,
+    coalesce(l.note, ''),
+    r.division,
+    r.seconds,
+    r.capped,
+    r.rounds,
+    r.reps,
+    r.kg,
+    r.as_prescribed,
+    r.reps_detail
+  from mine m
+  join public.workout_blocks b on b.id = m.block_id
+  join public.days d on d.id = b.day_id
+  left join public.block_logs l on l.block_id = b.id and l.user_id = p_user_id
+  left join public.block_results r on r.block_id = b.id and r.user_id = p_user_id
+  where (select auth.uid()) is not null
+    and (p_user_id = (select auth.uid()) or public.is_admin())
+  order by d.date desc, b.position;
+$$;
+
+revoke execute on function public.training_history(uuid) from public, anon;
+grant execute on function public.training_history(uuid) to authenticated;

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getViewer } from "@/lib/auth";
 import { getAdjacentPublished, getPublishedWeek } from "@/lib/program";
 import { getActivity, getWeekLeaderboard } from "@/lib/activity";
-import { DIVISIONS, SCORE_TYPES } from "@/lib/scores";
+import { DIVISIONS, SCORE_TYPES, hasBoard } from "@/lib/scores";
 import { DAY_NAMES, isIsoDate, mondayOf, shortDate, todayIso, weekDates, weekRangeShort } from "@/lib/dates";
 import { NoAccess } from "@/components/no-access";
 import { RankingRows } from "@/components/ranking-rows";
@@ -23,7 +23,7 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
     return <NoAccess name={viewer.profile.full_name.split(" ")[0]} pending={viewer.profile.access_status === "pending"} />;
   }
   const scoredOn = (date: string) =>
-    week?.days.find((d) => d.date === date)?.workout_blocks.filter((b) => b.score_type !== "none") ?? [];
+    week?.days.find((d) => d.date === date)?.workout_blocks.filter((b) => hasBoard(b.score_type)) ?? [];
 
   // Sin día elegido y hoy sin WOD con ranking: el último día de la semana que sí lo tenga.
   let day = requested;

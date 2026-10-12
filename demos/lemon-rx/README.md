@@ -54,6 +54,10 @@ demás atletas solo lo ven a través de `week_leaderboard()`).
 - **EMOM / intervalos**: el atleta dice si mantuvo todas las reps en todos los
   intervalos y, si no, escribe cuántas hizo por ronda. No hay posiciones: se ve
   una lista de quién lo hizo como estaba programado y quién lo adaptó.
+- **Fuerza: apuntar pesos** (los presets *Strength* y *Weightlifting* empiezan
+  así): cada atleta apunta su peso máximo y/o sus series. No hay ranking.
+- **Historial** (`/historial`, y para admins *Usuarios → atleta → Ver su
+  historial completo*): todo lo que ha registrado cada atleta, con buscador.
 - Al guardar su resultado el atleta elige **RX** o **Intermedio**; hay una
   clasificación por categoría y bloque (empates comparten posición).
 - Los admins ven en **Usuarios → Ver bloques hechos y notas** la ficha de cada

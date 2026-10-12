@@ -158,7 +158,8 @@ export function WeekEditor({ week, today }: { week: WeekWithDays; today: string 
     const id = newId();
     setFocusId(id);
     // El WOD suele puntuar: arranca "por tiempo" y el admin lo cambia si es un AMRAP, etc.
-    const score_type = title === "WOD" ? "time" : "none";
+    // En fuerza y halterofilia los atletas apuntan sus pesos.
+    const score_type = title === "WOD" ? "time" : title === "Strength" || title === "Weightlifting" ? "load" : "none";
     updateBlocks(active, (b) => [...b, { id, title, content: "", score_type }], true);
   }
 

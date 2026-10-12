@@ -121,10 +121,34 @@ select set_config('request.jwt.claims', json_build_object('sub',:'a3'::uuid,'rol
 select full_name, division, as_prescribed, reps_detail, position from week_leaderboard('00000000-0000-4000-8000-000000000001') where block_id = '00000000-0000-4000-8000-000000000024';
 rollback;
 
+\echo '== Fuerza: atleta2 apunta pesos (esperado INSERT 0 1) y no sale en el ranking (esperado 0)'
+update workout_blocks set score_type = 'load' where id = '00000000-0000-4000-8000-000000000022';
+begin;
+set local role authenticated;
+select set_config('request.jwt.claims', json_build_object('sub',:'a2'::uuid,'role','authenticated')::text, true);
+insert into block_results (user_id, block_id, division, kg, reps_detail) values (:'a2', '00000000-0000-4000-8000-000000000022', 'rx', 100, '5x5: 80-100');
+select count(*) from week_leaderboard('00000000-0000-4000-8000-000000000001') where block_id = '00000000-0000-4000-8000-000000000022';
+\echo '== atleta2: su historial (esperado incluye STRENGTH 100 kg con nota, WOD 2 EMOM, WOD 190 s)'
+select date, title, score_type, done, note, seconds, kg, as_prescribed, reps_detail from training_history(:'a2');
+\echo '== atleta2: historial de otro atleta (esperado 0 filas)'
+select count(*) from training_history(:'a3');
+rollback;
+begin;
+set local role authenticated;
+select set_config('request.jwt.claims', json_build_object('sub',:'adm'::uuid,'role','authenticated')::text, true);
+\echo '== admin: historial de atleta3 (esperado 2 filas más las que ya hubiera)'
+select count(*) from training_history(:'a3');
+rollback;
+
 begin;
 set local role anon;
 \echo '== anon: ranking (esperado ERROR permiso)'
 select count(*) from week_leaderboard('00000000-0000-4000-8000-000000000001');
+rollback;
+begin;
+set local role anon;
+\echo '== anon: historial (esperado ERROR permiso)'
+select count(*) from training_history(:'a2');
 rollback;
 
 delete from weeks where id in ('00000000-0000-4000-8000-000000000001', '00000000-0000-4000-8000-000000000002');

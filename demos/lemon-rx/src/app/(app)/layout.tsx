@@ -15,12 +15,20 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           </Link>
           {isAdmin && <AdminNav variant="top" />}
           {!isAdmin && (
-            <Link
-              href="/ranking"
-              className="press ml-auto flex h-11 items-center px-2 text-[15px] font-semibold text-chalk-2 hover:text-chalk"
-            >
-              Ranking
-            </Link>
+            <nav aria-label="Principal" className="ml-auto flex">
+              <Link
+                href="/ranking"
+                className="press flex h-11 items-center px-2 text-[15px] font-semibold text-chalk-2 hover:text-chalk"
+              >
+                Ranking
+              </Link>
+              <Link
+                href="/historial"
+                className="press flex h-11 items-center px-2 text-[15px] font-semibold text-chalk-2 hover:text-chalk"
+              >
+                Historial
+              </Link>
+            </nav>
           )}
           <Link
             href="/cuenta"

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { getViewer } from "@/lib/auth";
 import { formatJoined } from "@/lib/dates";
 import { NameForm } from "./name-form";
@@ -21,6 +22,12 @@ export default async function AccountPage() {
         <dt className="text-chalk-3">Programación</dt>
         <dd>{isAdmin ? "Administrador" : canViewProgram ? "Acceso activo" : "Sin acceso"}</dd>
       </dl>
+
+      {canViewProgram && (
+        <Link href="/historial" className="press mt-4 inline-flex h-11 items-center text-[16px] font-semibold text-lemon hover:text-chalk">
+          Mi historial: pesos, resultados y notas →
+        </Link>
+      )}
 
       <section className="mt-10">
         <NameForm name={profile.full_name} />

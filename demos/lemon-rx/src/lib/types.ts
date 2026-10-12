@@ -2,7 +2,7 @@ export type Role = "admin" | "athlete";
 export type PaymentStatus = "paid" | "pending";
 export type AccessStatus = "pending" | "active" | "blocked";
 export type WeekStatus = "draft" | "published";
-export type ScoreType = "none" | "time" | "rounds_reps" | "reps" | "weight" | "intervals";
+export type ScoreType = "none" | "time" | "rounds_reps" | "reps" | "weight" | "intervals" | "load";
 export type Division = "rx" | "intermediate";
 
 export type Profile = {
@@ -70,6 +70,18 @@ export type Score = {
 export type BlockResult = Score & {
   block_id: string;
   division: Division;
+};
+
+/** Una entrada del historial de un atleta: un bloque que marcó, comentó o puntuó. */
+export type HistoryEntry = Partial<Score> & {
+  block_id: string;
+  date: string;
+  title: string;
+  content: string;
+  score_type: ScoreType;
+  done: boolean;
+  note: string;
+  division: Division | null;
 };
 
 export type LeaderboardRow = BlockResult & {

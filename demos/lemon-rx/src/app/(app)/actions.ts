@@ -49,7 +49,6 @@ export async function saveBlockNote(blockId: string, note: string): Promise<Resu
 export async function saveBlockResult(blockId: string, division: Division, draft: ScoreDraft): Promise<Result> {
   const userId = await athlete(blockId);
   if (!userId) return { ok: false, error: "No se ha podido guardar el resultado." };
-  if (division !== "rx" && division !== "intermediate") return { ok: false, error: "Elige RX o Intermedio." };
 
   const supabase = await createClient();
   // El tipo de resultado lo marca el bloque (y la RLS confirma que puede verlo).
@@ -59,6 +58,9 @@ export async function saveBlockResult(blockId: string, division: Division, draft
     .eq("id", blockId)
     .maybeSingle<{ score_type: ScoreType }>();
   if (!block || block.score_type === "none") return { ok: false, error: "Este bloque no tiene ranking." };
+  // En fuerza no hay categorías: se guarda como RX.
+  if (block.score_type === "load") division = "rx";
+  if (division !== "rx" && division !== "intermediate") return { ok: false, error: "Elige RX o Intermedio." };
 
   const parsed = parseScore(block.score_type, {
     min: String(draft?.min ?? ""),
