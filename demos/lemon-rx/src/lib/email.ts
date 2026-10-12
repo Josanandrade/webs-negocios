@@ -34,14 +34,15 @@ function escapeHtml(value: string) {
   return value.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 }
 
-const CONDENSED = "'Barlow Condensed','Arial Narrow',Helvetica,Arial,sans-serif";
-
-/** Plantilla común: el mismo estilo negro que los emails de registro. */
-function layout(title: string, paragraphs: string[], button: { label: string; url: string }) {
-  const body = paragraphs
-    .map((p) => `<p style="margin:0 0 12px;font-size:17px;line-height:1.6;color:#b9b9b0;">${escapeHtml(p)}</p>`)
-    .join("\n          ");
-  return `<!doctype html>
+/** Aviso de semana publicada, con el mismo estilo que los emails de registro. */
+export function weekPublishedEmail(to: Recipient, range: string, url: string): Email {
+  const name = to.full_name.trim().split(/\s+/)[0] ?? "";
+  const hello = name ? `Hola ${name},` : "Hola,";
+  const subject = `Ya está la programación del ${range}`;
+  const body = `Ya tienes subida la programación de la semana del ${range}. Entra en la app para verla.`;
+  const text = `${hello}\n\n${body}\n\n${url}\n\nLemon RX · Programación de CrossFit`;
+  const condensed = "'Barlow Condensed','Arial Narrow',Helvetica,Arial,sans-serif";
+  const html = `<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
@@ -55,13 +56,14 @@ function layout(title: string, paragraphs: string[], button: { label: string; ur
     <tr><td align="center">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;font-family:Barlow,Helvetica,Arial,sans-serif;color:#f3f3ee;">
         <tr><td style="padding:0 0 32px;border-bottom:1px solid #2b2b27;">
-          <span style="font-family:${CONDENSED};font-size:34px;font-weight:800;font-style:italic;letter-spacing:0.5px;line-height:1;color:#f3f3ee;">LEMON<span style="color:#e3ef3f;"> RX</span></span>
+          <span style="font-family:${condensed};font-size:34px;font-weight:800;font-style:italic;letter-spacing:0.5px;line-height:1;color:#f3f3ee;">LEMON<span style="color:#e3ef3f;"> RX</span></span>
         </td></tr>
         <tr><td style="padding:32px 0 0;">
-          <h1 style="margin:0 0 16px;font-family:${CONDENSED};font-size:34px;font-weight:700;line-height:1;text-transform:uppercase;color:#f3f3ee;">${escapeHtml(title)}</h1>
-          ${body}
-          <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:16px;"><tr><td bgcolor="#e3ef3f" style="border-radius:4px;">
-            <a href="${escapeHtml(button.url)}" style="display:inline-block;padding:15px 26px;font-family:${CONDENSED};font-size:18px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;text-decoration:none;color:#171a00;">${escapeHtml(button.label)}</a>
+          <h1 style="margin:0 0 16px;font-family:${condensed};font-size:34px;font-weight:700;line-height:1;text-transform:uppercase;color:#f3f3ee;">Nueva semana publicada</h1>
+          <p style="margin:0 0 12px;font-size:17px;line-height:1.6;color:#b9b9b0;">${escapeHtml(hello)}</p>
+          <p style="margin:0 0 28px;font-size:17px;line-height:1.6;color:#b9b9b0;">${escapeHtml(body)}</p>
+          <table role="presentation" cellpadding="0" cellspacing="0"><tr><td bgcolor="#e3ef3f" style="border-radius:4px;">
+            <a href="${escapeHtml(url)}" style="display:inline-block;padding:15px 26px;font-family:${condensed};font-size:18px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;text-decoration:none;color:#171a00;">Ver la semana</a>
           </td></tr></table>
         </td></tr>
         <tr><td style="padding:40px 0 0;font-size:13px;color:#8a8a81;">Lemon RX · Programación de CrossFit</td></tr>
@@ -70,38 +72,5 @@ function layout(title: string, paragraphs: string[], button: { label: string; ur
   </table>
 </body>
 </html>`;
-}
-
-function greeting(fullName: string) {
-  const name = fullName.trim().split(/\s+/)[0] ?? "";
-  return name ? `Hola ${name},` : "Hola,";
-}
-
-/** Aviso de semana publicada. */
-export function weekPublishedEmail(to: Recipient, range: string, url: string): Email {
-  const hello = greeting(to.full_name);
-  const body = `Ya tienes subida la programación de la semana del ${range}. Entra en la app para verla.`;
-  return {
-    to: to.email,
-    subject: `Ya está la programación del ${range}`,
-    html: layout("Nueva semana publicada", [hello, body], { label: "Ver la semana", url }),
-    text: `${hello}\n\n${body}\n\n${url}\n\nLemon RX · Programación de CrossFit`,
-  };
-}
-
-/** Aviso a un admin de que alguien nuevo se ha registrado y espera acceso. */
-export function newSignupEmail(to: Recipient, user: { full_name: string; email: string }, url: string): Email {
-  const hello = greeting(to.full_name);
-  const who = user.full_name.trim() || user.email;
-  const lines = [
-    hello,
-    `${who} acaba de registrarse en Lemon RX con el email ${user.email}.`,
-    "Su acceso está pendiente: entra en su ficha para activarlo y marcar el pago.",
-  ];
-  return {
-    to: to.email,
-    subject: `Nuevo registro en Lemon RX: ${who}`,
-    html: layout("Nuevo registro", lines, { label: "Ver su ficha", url }),
-    text: `${lines.join("\n\n")}\n\n${url}\n\nLemon RX · Programación de CrossFit`,
-  };
+  return { to: to.email, subject, html, text };
 }

@@ -2,7 +2,6 @@ import { NextResponse, type NextRequest } from "next/server";
 import type { EmailOtpType } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
 import { siteOrigin } from "@/lib/site";
-import { notifyAdminsOfSignup } from "@/lib/signup-notice";
 
 // Destino de los enlaces de email (confirmación de registro y recuperación).
 // Soporta tanto el flujo PKCE (?code=) como token_hash (?token_hash=&type=).
@@ -25,7 +24,5 @@ export async function GET(request: NextRequest) {
   }
 
   if (!ok) return NextResponse.redirect(`${origin}/login?aviso=enlace-caducado`);
-  // Primera vez que entra tras confirmar su email: avisamos a los admins.
-  await notifyAdminsOfSignup(supabase, origin);
   return NextResponse.redirect(`${origin}${next}`);
 }
