@@ -53,6 +53,9 @@ public/assets/centro-jalis/README_ASSETS.md   qué fotos pedir y cómo cambiarla
 
 ## Preview
 
+**URL:** https://centro-jalis-web-preview.up.railway.app · proyecto Railway
+`centro-jalis-demo`, entorno `preview`, servicio `centro-jalis-web`.
+
 Servicio Railway independiente con *Root Directory* = `demos/centro-jalis`,
 rama `demo/centro-jalis`, build `npm run build`, start `npm start` (usa
 `PORT`). Sin dominio propio: solo el `*.up.railway.app` generado.
