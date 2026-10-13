@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Booking } from "@/components/Booking";
 import { CategoryLink } from "@/components/CategoryLink";
 import { Dock } from "@/components/Dock";
@@ -15,16 +14,16 @@ const STEPS = [
     text: "Eliges tratamiento y hueco desde el móvil, a cualquier hora. Sin llamadas ni esperas.",
   },
   {
-    title: "Miramos tu uña",
-    text: "Antes de esmaltar, revisamos cómo está. Si viene castigada, empezamos por cuidarla.",
+    title: "Te escuchamos",
+    text: "Antes de empezar vemos qué buscas y cómo están tu piel, tus uñas o tus cejas. Si algo pide otro enfoque, te lo decimos.",
   },
   {
-    title: "Trabajo de precisión",
-    text: "Técnica rusa, cutícula limpia y producto bien asentado para que el color aguante.",
+    title: "Trabajo con calma",
+    text: "Técnica, producto adecuado y el tiempo que necesita cada servicio. Sin prisas y con todo preparado.",
   },
   {
-    title: "Te vas con fecha",
-    text: "Mantenimiento cada 15 días: tus manos siempre a punto sin pensar en ello.",
+    title: "Te vas con plan",
+    text: "Si tu tratamiento lo pide, como el mantenimiento de uñas o las sesiones de láser, sales con la próxima cita pensada.",
   },
 ];
 
@@ -46,8 +45,7 @@ export default function Home() {
       <aside className="demo-bar" aria-label="Aviso de demo">
         <p>
           <span className="demo-bar__dot" aria-hidden="true" />
-          Propuesta de web para Helena García · demo privada, no oficial ·{" "}
-          <Link href="/propuesta">Ver propuesta</Link>
+          Propuesta de diseño para Helena García Beauty Salon · versión demo, no oficial
         </p>
       </aside>
 
@@ -79,8 +77,8 @@ export default function Home() {
               Look que se nota.
             </h1>
             <p className="hero__lead hero__in" style={{ "--i": 2 } as React.CSSProperties}>
-              Manicura rusa, semipermanente, pedicura, láser y lifting en el Edificio Cerro Colarte.
-              Para Helena, la belleza empieza por cuidar la uña.
+              Las uñas son nuestra firma, pero no lo único: también lifting y cejas, tratamientos
+              faciales y depilación láser o con cera. Todo en tu salón de Bormujos.
             </p>
             <div className="hero__ctas hero__in" style={{ "--i": 3 } as React.CSSProperties}>
               <a href="#reserva" className="btn btn--primary">
@@ -110,7 +108,7 @@ export default function Home() {
             </div>
             <span className="sticker sticker--float sticker--a">Manicura rusa</span>
             <span className="sticker sticker--float sticker--b">★ 5,0</span>
-            <span className="sticker sticker--float sticker--c">Láser · prueba gratis</span>
+            <span className="sticker sticker--float sticker--c">Cejas · facial · láser</span>
           </div>
         </section>
 
@@ -165,22 +163,22 @@ export default function Home() {
                 Belleza que empieza por <span className="hl">la salud</span>.
               </h2>
               <p className="lead">
-                Unas uñas bonitas aguantan mejor cuando están sanas. Por eso en el salón de Helena
-                no se trata solo de poner color: se trata de que tu uña llegue al siguiente
-                mantenimiento mejor de lo que estaba.
+                Uñas, piel o mirada: todo luce mejor cuando está cuidado. En el salón de Helena cada
+                servicio empieza por ver qué necesitas y termina con un resultado que se nota y que
+                dura.
               </p>
               <ul className="pillars">
                 <li className="pillar tone-cherry">
-                  <strong>Salud primero</strong>
-                  <span>Si tu uña necesita descanso o cuidado, te lo decimos.</span>
+                  <strong>Cuidado primero</strong>
+                  <span>Te asesoramos con sinceridad, aunque lo que toque sea dejar descansar.</span>
                 </li>
                 <li className="pillar tone-lilac">
                   <strong>Técnica actual</strong>
-                  <span>Manicura rusa, refuerzo y láser, en un mismo sitio.</span>
+                  <span>Manicura rusa, lifting, faciales y láser en un mismo salón.</span>
                 </li>
                 <li className="pillar tone-butter">
-                  <strong>Cita sin vueltas</strong>
-                  <span>Reserva online las 24 h, desde el móvil.</span>
+                  <strong>Higiene y calma</strong>
+                  <span>Un espacio cuidado y una cita con su tiempo, para que salgas a gusto.</span>
                 </li>
               </ul>
             </div>
@@ -254,9 +252,9 @@ export default function Home() {
             </a>
           </div>
           <ul className="feed" data-reveal tabIndex={0} aria-label="Galería del salón (desliza para ver más)">
-            {(["feed1", "feed2", "feed3", "feed4", "feed5"] as const).map((k) => (
+            {(["feed1", "feed3", "feed2", "feed4", "feed6", "feed5"] as const).map((k) => (
               <li key={k} className="feed__item">
-                <Photo slot={k} sizes="(min-width: 960px) 20vw, 62vw" />
+                <Photo slot={k} sizes="(min-width: 960px) 17vw, 62vw" />
               </li>
             ))}
           </ul>
@@ -307,14 +305,10 @@ export default function Home() {
                 <br />
                 {salon.address.city}
               </address>
-              <dl className="hours">
-                {salon.hours.map((h) => (
-                  <div key={h.days} className="hours__row">
-                    <dt>{h.days}</dt>
-                    <dd>{h.time}</dd>
-                  </div>
-                ))}
-              </dl>
+              <p className="place__note">
+                <strong>Atención con cita previa.</strong> Consulta los huecos libres en la reserva
+                online o llámanos.
+              </p>
               <div className="place__ctas">
                 <a className="btn btn--primary" href={salon.mapsUrl} target="_blank" rel="noopener noreferrer">
                   Cómo llegar
@@ -335,7 +329,7 @@ export default function Home() {
               <br />
               esta semana?
             </h2>
-            <p>Reserva online en un minuto. Tu manicura te está esperando.</p>
+            <p>Uñas, cejas, piel o láser: reserva online en un minuto.</p>
             <div className="final__ctas">
               <a href="#reserva" className="btn btn--light">
                 Reservar cita
@@ -354,8 +348,8 @@ export default function Home() {
           {salon.address.line1} · {salon.address.line2} · {salon.address.city}
         </p>
         <p className="footer__demo">
-          Demo de diseño privada, no es la web oficial del salón. Sin cookies ni analítica.{" "}
-          <Link href="/propuesta">Sobre esta propuesta</Link>
+          Propuesta de diseño en versión demo. No es la web oficial del salón. Sin cookies ni
+          analítica.
         </p>
       </footer>
 

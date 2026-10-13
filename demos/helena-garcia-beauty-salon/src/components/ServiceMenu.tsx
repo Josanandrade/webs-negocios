@@ -8,7 +8,7 @@ export const CATEGORY_EVENT = "hg:category";
 // Carta de servicios en pestañas. El indicador se desliza con transform
 // (solo compositor) y el panel cambia sin animar alturas.
 export function ServiceMenu() {
-  const [active, setActive] = useState<CategoryId>("manos");
+  const [active, setActive] = useState<CategoryId>("unas");
   const listRef = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 

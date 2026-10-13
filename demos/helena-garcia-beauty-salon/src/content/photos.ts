@@ -1,7 +1,7 @@
 // Huecos de fotografía de la demo. Si el archivo existe en
 // public/assets/helena-garcia-beauty-salon/ se muestra la foto real; si no,
 // una composición de marca con la misma proporción (sin saltos de layout).
-// Ver public/assets/helena-garcia-beauty-salon/README_ASSETS.md
+// Lista de fotos a pedir: docs/README_ASSETS.md (interno, no se publica).
 
 export type Tone = "cherry" | "lilac" | "butter" | "blush" | "ink";
 
@@ -52,7 +52,7 @@ export const photos = {
     width: 1080,
     height: 1920,
     alt: "Resultado de un lifting de pestañas",
-    tone: "blush",
+    tone: "lilac",
     label: "Lifting de pestañas · antes y después",
   },
   feed4: {
@@ -60,7 +60,7 @@ export const photos = {
     width: 1080,
     height: 1920,
     alt: "Pedicura terminada con semipermanente",
-    tone: "lilac",
+    tone: "cherry",
     label: "Pedicura terminada",
   },
   feed5: {
@@ -70,6 +70,14 @@ export const photos = {
     alt: "Carta de colores de semipermanente del salón",
     tone: "ink",
     label: "Carta de colores",
+  },
+  feed6: {
+    file: "feed-facial.jpg",
+    width: 1080,
+    height: 1920,
+    alt: "Cabina de tratamientos faciales del salón",
+    tone: "blush",
+    label: "Tratamiento facial · cabina",
   },
 } satisfies Record<string, Slot>;
 
