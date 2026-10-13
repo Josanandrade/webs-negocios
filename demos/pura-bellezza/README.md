@@ -8,6 +8,13 @@ No es la web oficial del negocio ni está afiliada a él.
 - `/propuesta` — notas internas: presencia digital encontrada, qué está
   verificado y qué no, y lo que habría que pedir al centro.
 
+## Preview (Railway, como el resto de demos)
+
+**URL:** https://pura-bellezza-web-preview.up.railway.app · proyecto Railway
+`pura-bellezza-demo`, entorno `preview`, servicio `pura-bellezza-web`, rama
+`demo/pura-bellezza`, directorio raíz `/demos/pura-bellezza`. Sin dominio
+propio ni entorno de producción.
+
 ## Stack
 
 Next.js 16 (App Router, todo estático) + React 19 + CSS propio. Sin Tailwind,
