@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getViewer } from "@/lib/auth";
 import { getAdjacentPublished, getPublishedWeek } from "@/lib/program";
 import { getActivity, getWeekLeaderboard } from "@/lib/activity";
-import { DIVISIONS, SCORE_TYPES, hasBoard, hasDivision } from "@/lib/scores";
+import { DIVISIONS, SCORE_TYPES, SEXES, hasBoard, hasDivision } from "@/lib/scores";
 import { DAY_NAMES, isIsoDate, mondayOf, shortDate, todayIso, weekDates, weekRangeShort } from "@/lib/dates";
 import { NoAccess } from "@/components/no-access";
 import { RankingRows } from "@/components/ranking-rows";
@@ -11,7 +11,7 @@ import { ResultButton } from "@/components/block-tracker";
 
 export const metadata: Metadata = { title: "Ranking" };
 
-/** Clasificaciones del día. Strength/Weightlifting usan un ranking único por kg. */
+/** Clasificaciones del día, siempre separadas entre hombres y mujeres. */
 export default async function RankingPage({ searchParams }: PageProps<"/ranking">) {
   const sp = await searchParams;
   const today = todayIso();
@@ -99,33 +99,44 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
                     <ResultButton block={{ ...b, log: activity.logs[b.id] ?? null, result: activity.results[b.id] ?? null, board: rows }} />
                   </div>
                 ) : (
-                  <p className="mt-3 text-[13px] text-chalk-3">El peso se registra y edita desde la programación del día.</p>
+                  <p className="mt-3 text-[13px] text-chalk-3">El peso se registra y edita desde la programación del día. El ranking usa los kilos totales movidos.</p>
                 )}
 
-                {divided ? (
-                  <div className="mt-4 grid gap-6 md:grid-cols-2">
-                    {DIVISIONS.map((d) => {
-                      const list = rows.filter((r) => r.division === d.value);
-                      return (
-                        <div key={d.value}>
-                          <h3 className="flex items-baseline justify-between border-b-2 border-line-strong pb-2 font-display text-[17px] font-bold uppercase tracking-[0.06em]">
-                            {d.label}
-                            <span className="text-[14px] font-semibold text-chalk-3">{list.length} {list.length === 1 ? "atleta" : "atletas"}</span>
-                          </h3>
-                          {list.length === 0 ? <p className="py-3 text-[15px] text-chalk-3">Sin resultados todavía.</p> : <RankingRows rows={list} type={b.score_type} meId={me} />}
-                        </div>
-                      );
-                    })}
-                  </div>
-                ) : (
-                  <div className="mt-4">
-                    <h3 className="flex items-baseline justify-between border-b-2 border-line-strong pb-2 font-display text-[17px] font-bold uppercase tracking-[0.06em]">
-                      Clasificación
-                      <span className="text-[14px] font-semibold text-chalk-3">{rows.length} {rows.length === 1 ? "atleta" : "atletas"}</span>
-                    </h3>
-                    {rows.length === 0 ? <p className="py-3 text-[15px] text-chalk-3">Sin resultados todavía.</p> : <RankingRows rows={rows} type={b.score_type} meId={me} />}
-                  </div>
-                )}
+                <div className="mt-5 space-y-8">
+                  {SEXES.map((sex) => {
+                    const sexRows = rows.filter((r) => r.sex === sex.value);
+                    return (
+                      <div key={sex.value}>
+                        <h3 className="border-b-2 border-lemon pb-2 font-display text-[20px] font-bold uppercase tracking-[0.08em]">
+                          {sex.label}
+                        </h3>
+                        {divided ? (
+                          <div className="mt-4 grid gap-6 md:grid-cols-2">
+                            {DIVISIONS.map((d) => {
+                              const list = sexRows.filter((r) => r.division === d.value);
+                              return (
+                                <div key={d.value}>
+                                  <h4 className="flex items-baseline justify-between border-b-2 border-line-strong pb-2 font-display text-[17px] font-bold uppercase tracking-[0.06em]">
+                                    {d.label}
+                                    <span className="text-[14px] font-semibold text-chalk-3">{list.length} {list.length === 1 ? "atleta" : "atletas"}</span>
+                                  </h4>
+                                  {list.length === 0 ? <p className="py-3 text-[15px] text-chalk-3">Sin resultados todavía.</p> : <RankingRows rows={list} type={b.score_type} meId={me} />}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        ) : (
+                          <div className="mt-3">
+                            <div className="flex justify-end border-b border-line pb-2">
+                              <span className="text-[14px] font-semibold text-chalk-3">{sexRows.length} {sexRows.length === 1 ? "atleta" : "atletas"}</span>
+                            </div>
+                            {sexRows.length === 0 ? <p className="py-3 text-[15px] text-chalk-3">Sin resultados todavía.</p> : <RankingRows rows={sexRows} type={b.score_type} meId={me} />}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               </section>
             );
           })}

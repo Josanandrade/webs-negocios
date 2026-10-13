@@ -34,22 +34,15 @@ function escapeHtml(value: string) {
   return value.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 }
 
-/** Aviso de semana publicada, con el mismo estilo que los emails de registro. */
-export function weekPublishedEmail(to: Recipient, range: string, url: string): Email {
-  const name = to.full_name.trim().split(/\s+/)[0] ?? "";
-  const hello = name ? `Hola ${name},` : "Hola,";
-  const subject = `Ya está la programación del ${range}`;
-  const body = `Ya tienes subida la programación de la semana del ${range}. Entra en la app para verla.`;
-  const text = `${hello}\n\n${body}\n\n${url}\n\nLemon RX · Programación de CrossFit`;
+function shell(title: string, body: string, buttonLabel: string, url: string) {
   const condensed = "'Barlow Condensed','Arial Narrow',Helvetica,Arial,sans-serif";
-  const html = `<!doctype html>
+  return `<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark">
 <meta name="supported-color-schemes" content="dark">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;1,800&family=Barlow:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body style="margin:0;padding:0;background:#0c0c0b;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#0c0c0b" style="background:#0c0c0b;padding:40px 20px;">
@@ -59,11 +52,10 @@ export function weekPublishedEmail(to: Recipient, range: string, url: string): E
           <span style="font-family:${condensed};font-size:34px;font-weight:800;font-style:italic;letter-spacing:0.5px;line-height:1;color:#f3f3ee;">LEMON<span style="color:#e3ef3f;"> RX</span></span>
         </td></tr>
         <tr><td style="padding:32px 0 0;">
-          <h1 style="margin:0 0 16px;font-family:${condensed};font-size:34px;font-weight:700;line-height:1;text-transform:uppercase;color:#f3f3ee;">Nueva semana publicada</h1>
-          <p style="margin:0 0 12px;font-size:17px;line-height:1.6;color:#b9b9b0;">${escapeHtml(hello)}</p>
+          <h1 style="margin:0 0 16px;font-family:${condensed};font-size:34px;font-weight:700;line-height:1;text-transform:uppercase;color:#f3f3ee;">${escapeHtml(title)}</h1>
           <p style="margin:0 0 28px;font-size:17px;line-height:1.6;color:#b9b9b0;">${escapeHtml(body)}</p>
           <table role="presentation" cellpadding="0" cellspacing="0"><tr><td bgcolor="#e3ef3f" style="border-radius:4px;">
-            <a href="${escapeHtml(url)}" style="display:inline-block;padding:15px 26px;font-family:${condensed};font-size:18px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;text-decoration:none;color:#171a00;">Ver la semana</a>
+            <a href="${escapeHtml(url)}" style="display:inline-block;padding:15px 26px;font-family:${condensed};font-size:18px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;text-decoration:none;color:#171a00;">${escapeHtml(buttonLabel)}</a>
           </td></tr></table>
         </td></tr>
         <tr><td style="padding:40px 0 0;font-size:13px;color:#8a8a81;">Lemon RX · Programación de CrossFit</td></tr>
@@ -72,5 +64,30 @@ export function weekPublishedEmail(to: Recipient, range: string, url: string): E
   </table>
 </body>
 </html>`;
-  return { to: to.email, subject, html, text };
+}
+
+export function invitationEmail(email: string, url: string): Email {
+  const subject = "Te han invitado a Lemon RX";
+  const body = "Te han invitado a unirte a Lemon RX. Crea tu cuenta con este email y, cuando la confirmes, un administrador activará tu acceso a la programación.";
+  return {
+    to: email,
+    subject,
+    text: `${body}\n\n${url}\n\nLemon RX · Programación de CrossFit`,
+    html: shell("Te han invitado a Lemon RX", body, "Crear cuenta", url),
+  };
+}
+
+/** Aviso de semana publicada, con el mismo estilo que los emails de registro. */
+export function weekPublishedEmail(to: Recipient, range: string, url: string): Email {
+  const name = to.full_name.trim().split(/\s+/)[0] ?? "";
+  const hello = name ? `Hola ${name},` : "Hola,";
+  const subject = `Ya está la programación del ${range}`;
+  const body = `Ya tienes subida la programación de la semana del ${range}. Entra en la app para verla.`;
+  const text = `${hello}\n\n${body}\n\n${url}\n\nLemon RX · Programación de CrossFit`;
+  return {
+    to: to.email,
+    subject,
+    text,
+    html: shell("Nueva semana publicada", `${hello} ${body}`, "Ver la semana", url),
+  };
 }

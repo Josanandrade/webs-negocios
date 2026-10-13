@@ -9,6 +9,7 @@ import { getActivity, getUserNotes, getWeekLeaderboard } from "@/lib/activity";
 import { divisionLabel, formatScore, hasDivision, isRanked } from "@/lib/scores";
 import { DAY_NAMES, currentWeekStart, isIsoDate, isoDayOfWeek, mondayOf, shortDate, weekDates, weekRangeShort } from "@/lib/dates";
 import type { Profile } from "@/lib/types";
+import { SexForm } from "./sex-form";
 
 export const metadata: Metadata = { title: "Atleta" };
 
@@ -57,6 +58,7 @@ export default async function AthletePage({ params, searchParams }: PageProps<"/
 
       <h1 className="mt-2 font-display text-[36px] font-extrabold uppercase leading-[0.95] md:text-[44px]">{name}</h1>
       <p className="mt-1 truncate text-[15px] text-chalk-3">{athlete.email}</p>
+      <SexForm userId={athlete.id} initialSex={athlete.sex} />
       <Link
         href={`${base}/historial`}
         className="press mt-2 inline-flex h-11 items-center text-[15px] font-semibold text-lemon hover:text-chalk"
