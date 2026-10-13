@@ -20,6 +20,17 @@ export type Settings = {
   show_past_weeks: boolean;
 };
 
+export type StrengthSchemeRow = {
+  sets: number;
+  reps: number;
+  percentage: number;
+};
+
+export type MovementRef = {
+  id: string;
+  name: string;
+};
+
 export type Block = {
   id: string;
   title: string;
@@ -28,6 +39,10 @@ export type Block = {
   score_type: ScoreType;
   sets_count: number | null;
   reps_per_set: number | null;
+  movement_id: string | null;
+  strength_scheme: StrengthSchemeRow[] | null;
+  is_complex: boolean;
+  movement?: MovementRef | null;
 };
 
 export type Day = {
@@ -63,9 +78,7 @@ export type Score = {
   rounds: number | null;
   reps: number | null;
   kg: number | null;
-  /** EMOM / intervalos: true si mantuvo todas las reps en todos los intervalos. */
   as_prescribed: boolean | null;
-  /** EMOM: detalle libre. Fuerza: kilos por serie serializados. */
   reps_detail: string;
 };
 
@@ -74,7 +87,6 @@ export type BlockResult = Score & {
   division: Division;
 };
 
-/** Una entrada del historial de un atleta: un bloque que marcó, comentó o puntuó. */
 export type HistoryEntry = Partial<Score> & {
   block_id: string;
   date: string;
