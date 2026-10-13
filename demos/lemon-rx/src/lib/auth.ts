@@ -22,7 +22,7 @@ export const getViewer = cache(async (): Promise<Viewer> => {
   const [{ data: profile }, { data: settings }] = await Promise.all([
     supabase
       .from("profiles")
-      .select("id, full_name, email, role, payment_status, access_status, created_at")
+      .select("id, full_name, email, role, payment_status, access_status, sex, created_at")
       .eq("id", userId)
       .single<Profile>(),
     supabase.from("app_settings").select("auto_block_unpaid, show_past_weeks").single<Settings>(),
