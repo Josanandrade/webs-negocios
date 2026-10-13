@@ -12,7 +12,7 @@ const NAV = [
 export function Layout() {
   const { me, logout } = useAuth();
   return (
-    <div className="min-h-dvh md:flex">
+    <div className="min-h-dvh overflow-x-hidden md:flex">
       {/* Barra lateral (PC / tableta) */}
       <aside className="sticky top-0 hidden h-dvh w-56 shrink-0 flex-col border-r border-slate-200 bg-white px-3 py-5 md:flex dark:border-slate-800 dark:bg-slate-900">
         <div className="mb-6 flex items-center gap-2 px-2">
@@ -49,16 +49,16 @@ export function Layout() {
 
       {/* Cabecera (móvil) */}
       <header className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-200 bg-white/90 px-4 py-3 backdrop-blur md:hidden dark:border-slate-800 dark:bg-slate-900/90">
-        <div className="flex items-center gap-2">
-          <img src="/icons/icon.svg" alt="" className="h-7 w-7" />
-          <span className="font-semibold">Banco de preguntas</span>
+        <div className="flex min-w-0 items-center gap-2">
+          <img src="/icons/icon.svg" alt="" className="h-7 w-7 shrink-0" />
+          <span className="truncate font-semibold">Banco de preguntas</span>
         </div>
-        <button onClick={logout} aria-label="Cerrar sesión" className="rounded-lg p-2 text-slate-600 dark:text-slate-300">
+        <button onClick={logout} aria-label="Cerrar sesión" className="shrink-0 rounded-lg p-2 text-slate-600 dark:text-slate-300">
           <IconLogout />
         </button>
       </header>
 
-      <main className="pb-safe mx-auto w-full max-w-5xl px-4 pt-5 md:px-8 md:pt-8">
+      <main className="pb-safe mx-auto min-w-0 w-full max-w-5xl px-4 pt-5 md:w-auto md:flex-1 md:px-8 md:pt-8">
         <Outlet />
       </main>
 
@@ -72,13 +72,13 @@ export function Layout() {
             key={to}
             to={to}
             className={({ isActive }) =>
-              `flex flex-col items-center gap-0.5 py-2 text-[11px] font-medium ${
+              `flex min-w-0 flex-col items-center gap-0.5 py-2 text-[11px] font-medium ${
                 isActive ? "text-brand-600 dark:text-brand-200" : "text-slate-500 dark:text-slate-400"
               }`
             }
           >
             <Icon />
-            {label}
+            <span className="max-w-full truncate px-1">{label}</span>
           </NavLink>
         ))}
       </nav>
