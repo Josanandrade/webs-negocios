@@ -36,13 +36,23 @@ function initialState(week: WeekWithDays): DaysState {
       movement_id: b.movement_id,
       strength_scheme: b.strength_scheme,
       is_complex: b.is_complex,
+      complex_movements: b.complex_movements,
+      rm_reference_movement_id: b.rm_reference_movement_id,
+      is_emom: b.is_emom,
+      emom_reps: b.emom_reps,
+      emom_interval_seconds: b.emom_interval_seconds,
+      emom_rounds: b.emom_rounds,
+      emom_percentage: b.emom_percentage,
     }));
   }
   return state;
 }
 
 function snapshot(days: DaysState) {
-  return JSON.stringify(Object.entries(days).map(([date, blocks]) => [date, blocks.filter((b) => b.title.trim() || b.content.trim() || b.score_type === "load").map((b) => [b.id, b.title, b.content, b.score_type, b.movement_id ?? null, b.strength_scheme ?? null, Boolean(b.is_complex)])]));
+  return JSON.stringify(Object.entries(days).map(([date, blocks]) => [date, blocks.filter((b) => b.title.trim() || b.content.trim() || b.score_type === "load").map((b) => [
+    b.id, b.title, b.content, b.score_type, b.movement_id ?? null, b.strength_scheme ?? null, Boolean(b.is_complex), b.complex_movements ?? null,
+    b.rm_reference_movement_id ?? null, Boolean(b.is_emom), b.emom_reps ?? null, b.emom_interval_seconds ?? null, b.emom_rounds ?? null, b.emom_percentage ?? null,
+  ])]));
 }
 
 function withViewTransition(update: () => void) {
@@ -84,6 +94,13 @@ export function WeekEditor({ week, today, movements }: { week: WeekWithDays; tod
         movement_id: b.movement_id ?? null,
         strength_scheme: b.strength_scheme ?? null,
         is_complex: Boolean(b.is_complex),
+        complex_movements: b.complex_movements ?? null,
+        rm_reference_movement_id: b.rm_reference_movement_id ?? null,
+        is_emom: Boolean(b.is_emom),
+        emom_reps: b.emom_reps ?? null,
+        emom_interval_seconds: b.emom_interval_seconds ?? null,
+        emom_rounds: b.emom_rounds ?? null,
+        emom_percentage: b.emom_percentage ?? null,
       })),
     }));
     const result = await saveProgramWeek(week.id, payload);
@@ -117,7 +134,12 @@ export function WeekEditor({ week, today, movements }: { week: WeekWithDays; tod
   function addBlock(title: string) {
     const id = newId(); setFocusId(id);
     const score_type = title === "WOD" ? "time" : title === "Strength" || title === "Weightlifting" ? "load" : "none";
-    updateBlocks(active, (b) => [...b, { id, title, content: "", score_type, movement_id: null, strength_scheme: score_type === "load" ? [{ sets: 1, reps: 1, percentage: 70 }] : null, is_complex: false }], true);
+    updateBlocks(active, (b) => [...b, {
+      id, title, content: "", score_type, movement_id: null,
+      strength_scheme: score_type === "load" ? [{ sets: 1, reps: 1, percentage: 70 }] : null,
+      is_complex: false, complex_movements: null, rm_reference_movement_id: null,
+      is_emom: false, emom_reps: null, emom_interval_seconds: null, emom_rounds: null, emom_percentage: null,
+    }], true);
   }
   function move(index: number, delta: -1 | 1) { updateBlocks(active, (b) => { const target = index + delta; if (target < 0 || target >= b.length) return b; const next = [...b]; [next[index], next[target]] = [next[target], next[index]]; return next; }, true); }
 
