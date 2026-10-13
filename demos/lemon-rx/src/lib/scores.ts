@@ -7,15 +7,15 @@ export const SCORE_TYPES: { value: ScoreType; label: string; hint: string }[] = 
   { value: "reps", label: "Reps o calorías", hint: "Más, mejor" },
   { value: "weight", label: "Peso (kg)", hint: "Más kilos, mejor" },
   { value: "intervals", label: "EMOM / intervalos", hint: "Sin posiciones: lista de quién lo hizo como estaba programado y quién lo adaptó" },
-  { value: "load", label: "Fuerza / Weightlifting", hint: "Sin ranking ni categorías: cada atleta apunta los kilos de cada serie" },
+  { value: "load", label: "Fuerza / Weightlifting", hint: "Ranking único por peso: más kilos, mejor. Sin RX/Intermedio" },
 ];
 
 export function isRanked(type: ScoreType) {
-  return type !== "none" && type !== "intervals" && type !== "load";
+  return type !== "none" && type !== "intervals";
 }
 
 export function hasBoard(type: ScoreType) {
-  return type !== "none" && type !== "load";
+  return type !== "none";
 }
 
 export function hasDivision(type: ScoreType) {
@@ -69,11 +69,8 @@ export function formatScore(type: ScoreType, s: Score) {
       return s.kg != null ? `${formatKg(s.kg)} kg` : "—";
     case "intervals":
       return s.as_prescribed ? "Como estaba programado" : "Adaptado";
-    case "load": {
-      const sets = loadSetWeights(s.reps_detail);
-      if (sets?.length) return `${sets.length} ${sets.length === 1 ? "serie" : "series"}`;
-      return s.kg != null ? `${formatKg(s.kg)} kg` : "Pesos apuntados";
-    }
+    case "load":
+      return s.kg != null ? `${formatKg(s.kg)} kg` : "—";
     default:
       return "";
   }

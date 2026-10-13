@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getViewer } from "@/lib/auth";
 import { getAdjacentPublished, getPublishedWeek } from "@/lib/program";
 import { getActivity, getWeekLeaderboard } from "@/lib/activity";
-import { DIVISIONS, SCORE_TYPES, hasBoard } from "@/lib/scores";
+import { DIVISIONS, SCORE_TYPES, hasBoard, hasDivision } from "@/lib/scores";
 import { DAY_NAMES, isIsoDate, mondayOf, shortDate, todayIso, weekDates, weekRangeShort } from "@/lib/dates";
 import { NoAccess } from "@/components/no-access";
 import { RankingRows } from "@/components/ranking-rows";
@@ -11,7 +11,7 @@ import { ResultButton } from "@/components/block-tracker";
 
 export const metadata: Metadata = { title: "Ranking" };
 
-/** Clasificaciones del día: una por cada bloque con ranking, separadas en RX e Intermedio. */
+/** Clasificaciones del día. Strength/Weightlifting usan un ranking único por kg. */
 export default async function RankingPage({ searchParams }: PageProps<"/ranking">) {
   const sp = await searchParams;
   const today = todayIso();
@@ -25,7 +25,6 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
   const scoredOn = (date: string) =>
     week?.days.find((d) => d.date === date)?.workout_blocks.filter((b) => hasBoard(b.score_type)) ?? [];
 
-  // Sin día elegido y hoy sin WOD con ranking: el último día de la semana que sí lo tenga.
   let day = requested;
   if (!isIsoDate(sp.dia) && scoredOn(day).length === 0) {
     const days = weekDates(start).filter((d) => scoredOn(d).length > 0);
@@ -70,10 +69,7 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
             >
               <span className="font-display text-[15px] font-bold uppercase tracking-[0.06em]">{DAY_NAMES[i].slice(0, 2)}</span>
               <span className="font-display text-[20px] font-semibold leading-none">{Number(date.slice(8))}</span>
-              <span
-                aria-hidden
-                className={`absolute right-1/2 top-2 h-1.5 w-1.5 translate-x-[1.1rem] rounded-full ${has ? "bg-lemon" : "bg-transparent"}`}
-              />
+              <span aria-hidden className={`absolute right-1/2 top-2 h-1.5 w-1.5 translate-x-[1.1rem] rounded-full ${has ? "bg-lemon" : "bg-transparent"}`} />
               <span className="sr-only">{has ? ", con ranking" : ", sin ranking"}</span>
               {active && <span aria-hidden className="absolute inset-x-1 -bottom-px h-[3px] bg-lemon" />}
             </Link>
@@ -83,46 +79,53 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
 
       {blocks.length === 0 ? (
         <p className="mt-8 text-[17px] text-chalk-3">
-          {week ? "Este día no hay ningún WOD con ranking." : "No hay programación publicada esta semana."}
+          {week ? "Este día no hay ningún bloque con ranking." : "No hay programación publicada esta semana."}
         </p>
       ) : (
         <div className="mt-8 space-y-10">
           {blocks.map((b) => {
             const rows = board[b.id] ?? [];
+            const divided = hasDivision(b.score_type);
             return (
               <section key={b.id} aria-labelledby={`r-${b.id}`}>
                 <h2 id={`r-${b.id}`} className="font-display text-[22px] font-bold uppercase tracking-[0.06em] text-lemon">
                   {b.title || "Bloque"}
                 </h2>
                 <p className="text-[14px] text-chalk-3">{label(b.score_type)}</p>
-                {b.content && (
-                  <p className="workout-text mt-2 line-clamp-4 text-[16px] leading-[1.5] text-chalk-2">{b.content}</p>
+                {b.content && <p className="workout-text mt-2 line-clamp-4 text-[16px] leading-[1.5] text-chalk-2">{b.content}</p>}
+
+                {b.score_type !== "load" ? (
+                  <div className="mt-4">
+                    <ResultButton block={{ ...b, log: activity.logs[b.id] ?? null, result: activity.results[b.id] ?? null, board: rows }} />
+                  </div>
+                ) : (
+                  <p className="mt-3 text-[13px] text-chalk-3">El peso se registra y edita desde la programación del día.</p>
                 )}
-                <div className="mt-4">
-                  <ResultButton
-                    block={{ ...b, log: activity.logs[b.id] ?? null, result: activity.results[b.id] ?? null, board: rows }}
-                  />
-                </div>
-                <div className="mt-4 grid gap-6 md:grid-cols-2">
-                  {DIVISIONS.map((d) => {
-                    const list = rows.filter((r) => r.division === d.value);
-                    return (
-                      <div key={d.value}>
-                        <h3 className="flex items-baseline justify-between border-b-2 border-line-strong pb-2 font-display text-[17px] font-bold uppercase tracking-[0.06em]">
-                          {d.label}
-                          <span className="text-[14px] font-semibold text-chalk-3">
-                            {list.length} {list.length === 1 ? "atleta" : "atletas"}
-                          </span>
-                        </h3>
-                        {list.length === 0 ? (
-                          <p className="py-3 text-[15px] text-chalk-3">Sin resultados todavía.</p>
-                        ) : (
-                          <RankingRows rows={list} type={b.score_type} meId={me} />
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
+
+                {divided ? (
+                  <div className="mt-4 grid gap-6 md:grid-cols-2">
+                    {DIVISIONS.map((d) => {
+                      const list = rows.filter((r) => r.division === d.value);
+                      return (
+                        <div key={d.value}>
+                          <h3 className="flex items-baseline justify-between border-b-2 border-line-strong pb-2 font-display text-[17px] font-bold uppercase tracking-[0.06em]">
+                            {d.label}
+                            <span className="text-[14px] font-semibold text-chalk-3">{list.length} {list.length === 1 ? "atleta" : "atletas"}</span>
+                          </h3>
+                          {list.length === 0 ? <p className="py-3 text-[15px] text-chalk-3">Sin resultados todavía.</p> : <RankingRows rows={list} type={b.score_type} meId={me} />}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="mt-4">
+                    <h3 className="flex items-baseline justify-between border-b-2 border-line-strong pb-2 font-display text-[17px] font-bold uppercase tracking-[0.06em]">
+                      Clasificación
+                      <span className="text-[14px] font-semibold text-chalk-3">{rows.length} {rows.length === 1 ? "atleta" : "atletas"}</span>
+                    </h3>
+                    {rows.length === 0 ? <p className="py-3 text-[15px] text-chalk-3">Sin resultados todavía.</p> : <RankingRows rows={rows} type={b.score_type} meId={me} />}
+                  </div>
+                )}
               </section>
             );
           })}
@@ -144,15 +147,6 @@ function WeekLink({ to, label, dir }: { to: string | null; label: string; dir: "
       <path d={dir === "left" ? "M15 5l-7 7 7 7" : "M9 5l7 7-7 7"} fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="square" />
     </svg>
   );
-  if (!to)
-    return (
-      <span aria-hidden className="flex h-12 w-12 items-center justify-center rounded-sm border border-line text-chalk-3/40">
-        {icon}
-      </span>
-    );
-  return (
-    <Link href={`/ranking?dia=${to}`} aria-label={label} scroll={false} className="press flex h-12 w-12 items-center justify-center rounded-sm border border-line-strong text-chalk">
-      {icon}
-    </Link>
-  );
+  if (!to) return <span aria-hidden className="flex h-12 w-12 items-center justify-center rounded-sm border border-line text-chalk-3/40">{icon}</span>;
+  return <Link href={`/ranking?dia=${to}`} aria-label={label} scroll={false} className="press flex h-12 w-12 items-center justify-center rounded-sm border border-line-strong text-chalk">{icon}</Link>;
 }

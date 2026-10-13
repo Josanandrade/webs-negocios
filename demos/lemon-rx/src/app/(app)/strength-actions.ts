@@ -42,5 +42,6 @@ export async function saveStrengthResult(blockId: string, draft: ScoreDraft): Pr
   if (error) return { ok: false, error: "No se ha podido guardar el resultado. Revisa tu conexión." };
   await supabase.from("block_logs").upsert({ user_id: viewer.profile.id, block_id: blockId, done: true }, { onConflict: "user_id,block_id" });
   revalidatePath("/", "layout");
+  revalidatePath("/ranking");
   return { ok: true };
 }
