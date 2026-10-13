@@ -1,0 +1,68 @@
+.arch {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--radius-arch);
+  aspect-ratio: 4 / 5;
+  background: var(--olive);
+}
+
+.photo {
+  object-fit: cover;
+}
+
+.art {
+  position: absolute;
+  inset: 0;
+}
+
+.olive {
+  background: linear-gradient(170deg, #3f6150 0%, var(--olive) 46%, var(--olive-deep) 100%);
+  color: rgba(244, 239, 229, 0.55);
+}
+
+.sand {
+  background: linear-gradient(170deg, #eadcc6 0%, var(--sand) 60%, #c9ad85 100%);
+  color: rgba(47, 74, 58, 0.45);
+}
+
+.clay {
+  background: linear-gradient(170deg, #c47450 0%, var(--clay) 55%, #7d3a1e 100%);
+  color: rgba(247, 242, 234, 0.5);
+}
+
+.glow {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  width: 70%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(233, 201, 178, 0.55) 0%, rgba(233, 201, 178, 0) 68%);
+}
+
+.sand .glow {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 68%);
+}
+
+.lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.content {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+}

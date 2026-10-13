@@ -1,0 +1,149 @@
+.section {
+  background: var(--olive-deep);
+  color: var(--on-dark);
+  padding-block: var(--section-y);
+  position: relative;
+  overflow: hidden;
+}
+
+.section::after {
+  content: "";
+  position: absolute;
+  right: -12%;
+  bottom: -30%;
+  width: 60vw;
+  max-width: 760px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(62, 93, 74, 0.7) 0%, rgba(62, 93, 74, 0) 65%);
+  pointer-events: none;
+}
+
+.grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 48px;
+  align-items: center;
+}
+
+.visual {
+  position: relative;
+  width: min(100%, 360px);
+  margin-inline: auto;
+}
+
+.monogram {
+  display: grid;
+  justify-items: center;
+  padding-bottom: 30%;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(2.4rem, 9vw, 3.4rem);
+  line-height: 1;
+  font-variation-settings: "opsz" 144;
+  letter-spacing: -0.02em;
+  color: var(--olive-deep);
+}
+
+.monogram span + span {
+  margin-top: 4px;
+  color: var(--olive-2);
+}
+
+.badge {
+  position: absolute;
+  top: 10%;
+  right: -8px;
+  display: grid;
+  place-items: center;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  background: var(--clay);
+  color: #fff;
+  text-align: center;
+  line-height: 1.15;
+  rotate: -8deg;
+  box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.6);
+}
+
+.badge span {
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  align-self: end;
+}
+
+.badge strong {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 1.35rem;
+  align-self: start;
+}
+
+.eyebrow {
+  color: var(--clay-soft);
+}
+
+.title {
+  margin-top: 16px;
+}
+
+.title em {
+  color: var(--sage);
+}
+
+.text {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+  color: var(--on-dark-2);
+  font-size: 1.0625rem;
+  max-width: 60ch;
+}
+
+.points {
+  display: grid;
+  gap: 0;
+  margin-top: 32px;
+  border-top: 1px solid rgba(244, 239, 229, 0.16);
+}
+
+.points li {
+  display: grid;
+  gap: 2px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(244, 239, 229, 0.16);
+}
+
+.points strong {
+  font-weight: 600;
+}
+
+.points span {
+  color: var(--on-dark-2);
+  font-size: 0.975rem;
+}
+
+.cta {
+  margin-top: 32px;
+}
+
+@media (min-width: 640px) {
+  .points li {
+    grid-template-columns: 180px 1fr;
+    gap: 16px;
+  }
+}
+
+@media (min-width: 960px) {
+  .visual {
+    width: min(100%, 420px);
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(48px, 8vw, 120px);
+  }
+}

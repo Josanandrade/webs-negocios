@@ -1,0 +1,101 @@
+.grid {
+  display: grid;
+  gap: 40px;
+}
+
+.grid header :global(.h2) {
+  margin-top: 14px;
+}
+
+.sub {
+  margin-top: 16px;
+  color: var(--ink-2);
+  max-width: 36ch;
+}
+
+.list {
+  border-top: 1px solid var(--line-strong);
+}
+
+.item {
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 64px;
+  padding: 18px 0;
+  cursor: pointer;
+  list-style: none;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.item summary::-webkit-details-marker {
+  display: none;
+}
+
+.item summary:hover {
+  color: var(--olive);
+}
+
+.icon {
+  position: relative;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line-strong);
+  transition: background-color 200ms var(--ease-out), border-color 200ms var(--ease-out);
+}
+
+.icon::before,
+.icon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 1.6px;
+  border-radius: 2px;
+  background: currentColor;
+  translate: -50% -50%;
+  transition: rotate 250ms var(--ease-out);
+}
+
+.icon::after {
+  rotate: 90deg;
+}
+
+.item[open] .icon {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.item[open] .icon::after {
+  rotate: 0deg;
+}
+
+.item p {
+  padding: 0 48px 24px 0;
+  color: var(--ink-2);
+  max-width: 64ch;
+}
+
+@media (min-width: 960px) {
+  .grid {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 96px;
+    align-items: start;
+  }
+
+  .grid header {
+    position: sticky;
+    top: 120px;
+  }
+}

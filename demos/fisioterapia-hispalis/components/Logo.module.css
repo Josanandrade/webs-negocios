@@ -1,0 +1,56 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--olive);
+  line-height: 1;
+}
+
+.mark {
+  width: 34px;
+  height: 34px;
+  flex: none;
+}
+
+.dot {
+  fill: var(--clay);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.top {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.name {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-style: italic;
+  font-variation-settings: "opsz" 48;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.light {
+  color: var(--on-dark);
+}
+
+.light .top {
+  color: var(--on-dark-2);
+}
+
+.light .name {
+  color: var(--on-dark);
+}
+
+.light .dot {
+  fill: var(--clay-soft);
+}

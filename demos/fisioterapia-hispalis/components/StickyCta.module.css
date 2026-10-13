@@ -1,0 +1,42 @@
+.bar {
+  position: fixed;
+  z-index: 40;
+  left: 12px;
+  right: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 999px;
+  background: rgba(247, 242, 234, 0.94);
+  backdrop-filter: saturate(1.4) blur(14px);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  box-shadow: 0 1px 0 var(--line), 0 18px 40px -16px rgba(29, 39, 33, 0.45);
+  transform: translateY(calc(100% + 24px));
+  opacity: 0;
+  transition:
+    transform 400ms var(--ease-out),
+    opacity 300ms var(--ease-out);
+}
+
+.bar[data-visible="true"] {
+  transform: none;
+  opacity: 1;
+}
+
+.primary,
+.call {
+  min-height: 48px;
+  padding: 0 14px;
+}
+
+.call {
+  background: var(--paper);
+}
+
+@media (min-width: 960px) {
+  .bar {
+    display: none;
+  }
+}
