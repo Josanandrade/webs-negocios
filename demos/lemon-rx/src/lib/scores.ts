@@ -1,4 +1,4 @@
-import type { Division, Score, ScoreType } from "@/lib/types";
+import type { Division, Score, ScoreType, Sex } from "@/lib/types";
 
 export const SCORE_TYPES: { value: ScoreType; label: string; hint: string }[] = [
   { value: "none", label: "Sin ranking", hint: "Los atletas solo lo marcan como hecho" },
@@ -7,7 +7,7 @@ export const SCORE_TYPES: { value: ScoreType; label: string; hint: string }[] = 
   { value: "reps", label: "Reps o calorías", hint: "Más, mejor" },
   { value: "weight", label: "Peso (kg)", hint: "Más kilos, mejor" },
   { value: "intervals", label: "EMOM / intervalos", hint: "Sin posiciones: lista de quién lo hizo como estaba programado y quién lo adaptó" },
-  { value: "load", label: "Fuerza / Weightlifting", hint: "Ranking único por peso: más kilos, mejor. Sin RX/Intermedio" },
+  { value: "load", label: "Fuerza / Weightlifting", hint: "Ranking por carga total movida. Sin RX/Intermedio" },
 ];
 
 export function isRanked(type: ScoreType) {
@@ -29,12 +29,21 @@ export const DIVISIONS: { value: Division; label: string }[] = [
   { value: "intermediate", label: "Intermedio" },
 ];
 
+export const SEXES: { value: Sex; label: string }[] = [
+  { value: "male", label: "Hombres" },
+  { value: "female", label: "Mujeres" },
+];
+
 export function divisionLabel(d: Division) {
   return d === "rx" ? "RX" : "Intermedio";
 }
 
+export function sexLabel(s: Sex) {
+  return s === "male" ? "Hombre" : "Mujer";
+}
+
 export function formatKg(value: number) {
-  return String(Number(value)).replace(".", ",");
+  return Number(value).toLocaleString("es-ES", { maximumFractionDigits: 2 });
 }
 
 export function loadSetWeights(detail: string): number[] | null {
@@ -69,8 +78,10 @@ export function formatScore(type: ScoreType, s: Score) {
       return s.kg != null ? `${formatKg(s.kg)} kg` : "—";
     case "intervals":
       return s.as_prescribed ? "Como estaba programado" : "Adaptado";
-    case "load":
-      return s.kg != null ? `${formatKg(s.kg)} kg` : "—";
+    case "load": {
+      const load = s.total_load ?? s.kg;
+      return load != null ? `${formatKg(load)} kg` : "—";
+    }
     default:
       return "";
   }
@@ -132,7 +143,16 @@ export function parseScore(
   d: ScoreInput,
   expectedSets?: number | null,
 ): { ok: true; score: Score } | { ok: false; error: string } {
-  const empty: Score = { seconds: null, capped: false, rounds: null, reps: null, kg: null, as_prescribed: null, reps_detail: "" };
+  const empty: Score = {
+    seconds: null,
+    capped: false,
+    rounds: null,
+    reps: null,
+    kg: null,
+    total_load: null,
+    as_prescribed: null,
+    reps_detail: "",
+  };
   switch (type) {
     case "time": {
       if (d.capped) {
@@ -175,10 +195,10 @@ export function parseScore(
     case "load": {
       if (expectedSets && expectedSets > 0) {
         const series = d.setKgs ?? [];
-        if (series.length !== expectedSets) return { ok: false, error: "Faltan series por completar." };
+        if (series.length !== expectedSets) return { ok: false, error: "Faltan series o rondas por completar." };
         const values = series.map(kilos);
         const missing = values.findIndex((v) => v == null);
-        if (missing >= 0) return { ok: false, error: `Escribe los kilos de la serie ${missing + 1}.` };
+        if (missing >= 0) return { ok: false, error: `Escribe los kilos de la serie o ronda ${missing + 1}.` };
         const kgValues = values as number[];
         return { ok: true, score: { ...empty, kg: Math.max(...kgValues), reps_detail: JSON.stringify(kgValues) } };
       }
@@ -186,7 +206,7 @@ export function parseScore(
       const detail = d.detail.trim();
       if (d.kg.trim() && kg == null) return { ok: false, error: "Escribe los kilos (por ejemplo 102,5)." };
       if (detail.length > 500) return { ok: false, error: "Las series son demasiado largas (máximo 500 caracteres)." };
-      if (kg == null && !detail) return { ok: false, error: "Apunta el peso máximo o tus series." };
+      if (kg == null && !detail) return { ok: false, error: "Apunta el peso utilizado." };
       return { ok: true, score: { ...empty, kg, reps_detail: detail } };
     }
     default:
