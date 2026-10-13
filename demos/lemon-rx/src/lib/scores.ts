@@ -12,7 +12,7 @@ export const SCORE_TYPES: { value: ScoreType; label: string; hint: string }[] = 
     label: "EMOM / intervalos",
     hint: "Sin posiciones: lista de quién lo hizo como estaba programado y quién lo adaptó",
   },
-  { value: "load", label: "Fuerza: apuntar pesos", hint: "Sin ranking: cada atleta apunta sus kilos y quedan en su historial" },
+  { value: "load", label: "Fuerza / Weightlifting", hint: "Sin ranking ni categorías: cada atleta apunta los kilos de cada serie" },
 ];
 
 /** Tipos con clasificación por posiciones (el resto, como EMOM, es una lista). */
@@ -41,6 +41,30 @@ export function divisionLabel(d: Division) {
   return d === "rx" ? "RX" : "Intermedio";
 }
 
+export function formatKg(value: number) {
+  return String(Number(value)).replace(".", ",");
+}
+
+/** Devuelve los pesos estructurados de fuerza. Los resultados antiguos siguen usando texto libre. */
+export function loadSetWeights(detail: string): number[] | null {
+  if (!detail) return null;
+  try {
+    const parsed: unknown = JSON.parse(detail);
+    if (!Array.isArray(parsed) || parsed.length === 0) return null;
+    const values = parsed.map(Number);
+    if (values.some((v) => !Number.isFinite(v) || v <= 0 || v >= 10000)) return null;
+    return values;
+  } catch {
+    return null;
+  }
+}
+
+export function formatLoadWeights(detail: string) {
+  const values = loadSetWeights(detail);
+  if (!values) return null;
+  return values.map((kg, i) => `Serie ${i + 1}: ${formatKg(kg)} kg`);
+}
+
 /** Texto corto del resultado: "8:05", "CAP · 145 reps", "5 + 12", "150 reps", "102,5 kg". */
 export function formatScore(type: ScoreType, s: Score) {
   switch (type) {
@@ -52,11 +76,14 @@ export function formatScore(type: ScoreType, s: Score) {
     case "reps":
       return `${s.reps ?? 0} reps`;
     case "weight":
-      return s.kg != null ? `${String(Number(s.kg)).replace(".", ",")} kg` : "—";
+      return s.kg != null ? `${formatKg(s.kg)} kg` : "—";
     case "intervals":
       return s.as_prescribed ? "Como estaba programado" : "Adaptado";
-    case "load":
-      return s.kg != null ? `${String(Number(s.kg)).replace(".", ",")} kg` : "Pesos apuntados";
+    case "load": {
+      const sets = loadSetWeights(s.reps_detail);
+      if (sets?.length) return `${sets.length} ${sets.length === 1 ? "serie" : "series"}`;
+      return s.kg != null ? `${formatKg(s.kg)} kg` : "Pesos apuntados";
+    }
     default:
       return "";
   }
@@ -78,12 +105,16 @@ export type ScoreDraft = {
   rounds: string;
   reps: string;
   kg: string;
+  /** Fuerza: un campo de kilos por cada serie programada. */
+  setKgs: string[];
   /** EMOM: "yes" si mantuvo todas las reps, "no" si tuvo que adaptar. */
   prescribed: "" | "yes" | "no";
   detail: string;
 };
 
-export function emptyDraft(s?: Score | null): ScoreDraft {
+export function emptyDraft(s?: Score | null, setsCount?: number | null): ScoreDraft {
+  const savedSets = loadSetWeights(s?.reps_detail ?? "");
+  const count = setsCount && setsCount > 0 ? setsCount : savedSets?.length ?? 0;
   return {
     min: s?.seconds != null ? String(Math.floor(s.seconds / 60)) : "",
     sec: s?.seconds != null ? String(s.seconds % 60) : "",
@@ -91,8 +122,11 @@ export function emptyDraft(s?: Score | null): ScoreDraft {
     rounds: s?.rounds != null ? String(s.rounds) : "",
     reps: s?.reps != null ? String(s.reps) : "",
     kg: s?.kg != null ? String(Number(s.kg)).replace(".", ",") : "",
+    setKgs: Array.from({ length: count }, (_, i) =>
+      savedSets?.[i] != null ? formatKg(savedSets[i]) : "",
+    ),
     prescribed: s?.as_prescribed == null ? "" : s.as_prescribed ? "yes" : "no",
-    detail: s?.reps_detail ?? "",
+    detail: savedSets ? "" : s?.reps_detail ?? "",
   };
 }
 
@@ -102,12 +136,23 @@ function int(v: string) {
   return Number(t);
 }
 
+function kilos(v: string) {
+  const t = v.trim().replace(",", ".");
+  if (!/^\d+(\.\d{1,2})?$/.test(t)) return null;
+  const kg = Number(t);
+  return kg > 0 && kg < 10000 ? kg : null;
+}
+
 /**
  * Convierte el borrador en un resultado válido para el tipo de bloque, o
  * devuelve el mensaje de error que verá el atleta. Se usa en el navegador y
  * otra vez en el servidor (nunca se confía en lo que llega del cliente).
  */
-export function parseScore(type: ScoreType, d: ScoreDraft): { ok: true; score: Score } | { ok: false; error: string } {
+export function parseScore(
+  type: ScoreType,
+  d: ScoreDraft,
+  expectedSets?: number | null,
+): { ok: true; score: Score } | { ok: false; error: string } {
   const empty: Score = { seconds: null, capped: false, rounds: null, reps: null, kg: null, as_prescribed: null, reps_detail: "" };
   switch (type) {
     case "time": {
@@ -136,10 +181,8 @@ export function parseScore(type: ScoreType, d: ScoreDraft): { ok: true; score: S
       return { ok: true, score: { ...empty, reps } };
     }
     case "weight": {
-      const t = d.kg.trim().replace(",", ".");
-      if (!/^\d+(\.\d{1,2})?$/.test(t)) return { ok: false, error: "Escribe los kilos (por ejemplo 102,5)." };
-      const kg = Number(t);
-      if (kg <= 0 || kg >= 10000) return { ok: false, error: "Escribe los kilos (por ejemplo 102,5)." };
+      const kg = kilos(d.kg);
+      if (kg == null) return { ok: false, error: "Escribe los kilos (por ejemplo 102,5)." };
       return { ok: true, score: { ...empty, kg } };
     }
     case "intervals": {
@@ -151,16 +194,24 @@ export function parseScore(type: ScoreType, d: ScoreDraft): { ok: true; score: S
       return { ok: true, score: { ...empty, as_prescribed: false, reps_detail: detail } };
     }
     case "load": {
-      const t = d.kg.trim().replace(",", ".");
-      const detail = d.detail.trim();
-      if (!t && !detail) return { ok: false, error: "Apunta el peso máximo o tus series." };
-      if (detail.length > 500) return { ok: false, error: "Las series son demasiado largas (máximo 500 caracteres)." };
-      let kg: number | null = null;
-      if (t) {
-        if (!/^\d+(\.\d{1,2})?$/.test(t) || Number(t) <= 0 || Number(t) >= 10000)
-          return { ok: false, error: "Escribe los kilos (por ejemplo 102,5)." };
-        kg = Number(t);
+      if (expectedSets && expectedSets > 0) {
+        if (d.setKgs.length !== expectedSets) return { ok: false, error: "Faltan series por completar." };
+        const values = d.setKgs.map(kilos);
+        const missing = values.findIndex((v) => v == null);
+        if (missing >= 0) return { ok: false, error: `Escribe los kilos de la serie ${missing + 1}.` };
+        const kgValues = values as number[];
+        return {
+          ok: true,
+          score: { ...empty, kg: Math.max(...kgValues), reps_detail: JSON.stringify(kgValues) },
+        };
       }
+
+      // Compatibilidad con bloques de fuerza antiguos que aún no tienen series configuradas.
+      const kg = d.kg.trim() ? kilos(d.kg) : null;
+      const detail = d.detail.trim();
+      if (d.kg.trim() && kg == null) return { ok: false, error: "Escribe los kilos (por ejemplo 102,5)." };
+      if (detail.length > 500) return { ok: false, error: "Las series son demasiado largas (máximo 500 caracteres)." };
+      if (kg == null && !detail) return { ok: false, error: "Apunta el peso máximo o tus series." };
       return { ok: true, score: { ...empty, kg, reps_detail: detail } };
     }
     default:
