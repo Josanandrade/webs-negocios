@@ -14,11 +14,30 @@
 }
 
 @layer base {
+  html,
+  body,
+  #root {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
   html {
     -webkit-tap-highlight-color: transparent;
   }
   body {
     @apply bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100;
+  }
+  img,
+  svg,
+  canvas,
+  video {
+    max-width: 100%;
+  }
+  input,
+  select,
+  textarea,
+  button {
+    max-width: 100%;
   }
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-brand-500;
