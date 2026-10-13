@@ -2,14 +2,27 @@
 
 import { useEffect, useId, useOptimistic, useRef, useState, useTransition } from "react";
 import { deleteBlockResult, saveBlockNote, saveBlockResult, setBlockDone } from "@/app/(app)/actions";
+import { saveStrengthResult } from "@/app/(app)/strength-actions";
 import { Segmented } from "@/components/segmented";
 import { RankingRows, ordinal } from "@/components/ranking-rows";
 import { Toast, useToast } from "@/components/toast";
 import Link from "next/link";
-import { DIVISIONS, SCORE_TYPES, divisionLabel, emptyDraft, formatScore, hasBoard, hasDivision, isRanked, parseScore, type ScoreDraft } from "@/lib/scores";
+import {
+  DIVISIONS,
+  SCORE_TYPES,
+  divisionLabel,
+  emptyDraft,
+  formatLoadWeights,
+  formatScore,
+  hasBoard,
+  hasDivision,
+  isRanked,
+  parseScore,
+  type ScoreDraft,
+} from "@/lib/scores";
+import type { Block, BlockLog, BlockResult, Division, LeaderboardRow } from "@/lib/types";
 
 const SCORE_LABEL = Object.fromEntries(SCORE_TYPES.map((t) => [t.value, t.label]));
-import type { Block, BlockLog, BlockResult, Division, LeaderboardRow } from "@/lib/types";
 
 export type BlockView = Block & {
   log: BlockLog | null;
@@ -19,7 +32,6 @@ export type BlockView = Block & {
 
 type Notify = (text: string, tone?: "ok" | "error") => void;
 
-/** Seguimiento de un bloque por el atleta: hecho/pendiente, resultado con ranking y nota privada. */
 export function BlockTracker({ block, meId, notify }: { block: BlockView; meId: string; notify: Notify }) {
   const scored = block.score_type !== "none";
   const [resultOpen, setResultOpen] = useState(false);
@@ -38,12 +50,16 @@ export function BlockTracker({ block, meId, notify }: { block: BlockView; meId: 
           done={done}
           label={block.title || "este bloque"}
           notify={notify}
-          // En un bloque con ranking, marcarlo como hecho abre la ventana del resultado.
           onBeforeDone={scored && !block.result ? () => setResultOpen(true) : undefined}
         />
       </div>
       {block.content && (
         <p className="workout-text mt-2 text-[19px] leading-[1.55] text-chalk sm:text-[20px]">{block.content}</p>
+      )}
+      {block.score_type === "load" && block.sets_count && block.reps_per_set && (
+        <p className="mt-2 font-display text-[17px] font-bold uppercase tracking-[0.04em] text-chalk-2">
+          {block.sets_count} series × {block.reps_per_set} reps
+        </p>
       )}
       {scored && <ResultPanel block={block} meId={meId} onEdit={() => setResultOpen(true)} />}
       <NotePanel blockId={block.id} note={block.log?.note ?? ""} notify={notify} />
@@ -53,8 +69,6 @@ export function BlockTracker({ block, meId, notify }: { block: BlockView; meId: 
     </section>
   );
 }
-
-// ------------------------------------------------------------------ hecho
 
 function DoneToggle({
   blockId,
@@ -109,24 +123,29 @@ function DoneToggle({
   );
 }
 
-// ------------------------------------------------------------------ resultado y ranking
-
 function ResultPanel({ block, meId, onEdit }: { block: BlockView; meId: string; onEdit: () => void }) {
   const [showBoard, setShowBoard] = useState(false);
   const mine = block.board.find((r) => r.user_id === meId);
   const result = block.result;
   const ranked = isRanked(block.score_type);
+  const strengthLines = result && block.score_type === "load" ? formatLoadWeights(result.reps_detail) : null;
 
   return (
     <div className="mt-5 rounded-sm border border-line bg-ink-2">
       {result ? (
         <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3">
-          <div>
+          <div className="min-w-0">
             <p className="eyebrow">{hasDivision(block.score_type) ? `Tu resultado · ${divisionLabel(result.division)}` : "Tus pesos"}</p>
             <p className={`mt-1 font-display font-bold leading-none ${ranked ? "text-[28px]" : "text-[22px] uppercase"}`}>
               {formatScore(block.score_type, result)}
             </p>
-            {result.reps_detail && <p className="mt-1.5 whitespace-pre-wrap text-[15px] text-chalk-2">{result.reps_detail}</p>}
+            {strengthLines ? (
+              <div className="mt-2 grid grid-cols-2 gap-x-5 gap-y-1 text-[15px] text-chalk-2 sm:grid-cols-3">
+                {strengthLines.map((line) => <span key={line}>{line}</span>)}
+              </div>
+            ) : result.reps_detail ? (
+              <p className="mt-1.5 whitespace-pre-wrap text-[15px] text-chalk-2">{result.reps_detail}</p>
+            ) : null}
           </div>
           <div className="flex items-center gap-4">
             {mine && ranked && (
@@ -135,9 +154,7 @@ function ResultPanel({ block, meId, onEdit }: { block: BlockView; meId: string; 
                 <span className="text-[13px] text-chalk-3">de {mine.total}</span>
               </p>
             )}
-            <button type="button" onClick={onEdit} className="press h-11 px-1 text-[15px] font-semibold text-chalk-2 hover:text-chalk">
-              Editar
-            </button>
+            <button type="button" onClick={onEdit} className="press h-11 px-1 text-[15px] font-semibold text-chalk-2 hover:text-chalk">Editar</button>
           </div>
         </div>
       ) : (
@@ -150,29 +167,26 @@ function ResultPanel({ block, meId, onEdit }: { block: BlockView; meId: string; 
 
       {!hasBoard(block.score_type) ? (
         <div className="border-t border-line px-4">
-          <Link href="/historial" className="press flex h-12 items-center text-[15px] font-semibold text-chalk-2 hover:text-chalk">
-            Ver mi historial →
-          </Link>
+          <Link href="/historial" className="press flex h-12 items-center text-[15px] font-semibold text-chalk-2 hover:text-chalk">Ver mi historial →</Link>
         </div>
       ) : (
-      <div className="border-t border-line">
-        <button
-          type="button"
-          aria-expanded={showBoard}
-          onClick={() => setShowBoard((v) => !v)}
-          className="day-trigger flex h-12 w-full items-center justify-between px-4 text-left text-[15px] font-semibold text-chalk-2"
-        >
-          <span>
-            {ranked ? "Clasificación del día" : "Resultados del día"}{" "}
-            <span className="ml-1 text-chalk-3">
-              {block.board.length}
-              <span className="sr-only"> {block.board.length === 1 ? "resultado" : "resultados"}</span>
+        <div className="border-t border-line">
+          <button
+            type="button"
+            aria-expanded={showBoard}
+            onClick={() => setShowBoard((v) => !v)}
+            className="day-trigger flex h-12 w-full items-center justify-between px-4 text-left text-[15px] font-semibold text-chalk-2"
+          >
+            <span>
+              {ranked ? "Clasificación del día" : "Resultados del día"}{" "}
+              <span className="ml-1 text-chalk-3">
+                {block.board.length}<span className="sr-only"> {block.board.length === 1 ? "resultado" : "resultados"}</span>
+              </span>
             </span>
-          </span>
-          <span aria-hidden className="text-chalk-3">{showBoard ? "Ocultar" : "Ver"}</span>
-        </button>
-        {showBoard && <Leaderboard block={block} meId={meId} initial={result?.division ?? "rx"} />}
-      </div>
+            <span aria-hidden className="text-chalk-3">{showBoard ? "Ocultar" : "Ver"}</span>
+          </button>
+          {showBoard && <Leaderboard block={block} meId={meId} initial={result?.division ?? "rx"} />}
+        </div>
       )}
     </div>
   );
@@ -195,9 +209,7 @@ function Leaderboard({ block, meId, initial }: { block: BlockView; meId: string;
               type="button"
               aria-selected={active}
               onClick={() => setDivision(d.value)}
-              className={`press relative h-11 font-display text-[15px] font-bold uppercase tracking-[0.06em] ${
-                active ? "text-chalk" : "text-chalk-3 hover:text-chalk-2"
-              }`}
+              className={`press relative h-11 font-display text-[15px] font-bold uppercase tracking-[0.06em] ${active ? "text-chalk" : "text-chalk-3 hover:text-chalk-2"}`}
             >
               {d.label} <span className="font-semibold text-chalk-3">{count(d.value)}</span>
               {active && <span aria-hidden className="absolute inset-x-2 -bottom-px h-[3px] bg-lemon" />}
@@ -214,7 +226,6 @@ function Leaderboard({ block, meId, initial }: { block: BlockView; meId: string;
   );
 }
 
-/** Ventana emergente para subir o editar el resultado de un bloque con ranking. */
 function ResultDialog({
   open,
   block,
@@ -238,7 +249,6 @@ function ResultDialog({
     if (!open && dialog.open) dialog.close();
   }, [open]);
 
-  // "Hecho" sin resultado: para quien no quiere entrar en la clasificación.
   async function skip() {
     setBusy(true);
     const r = await setBlockDone(block.id, true);
@@ -269,7 +279,7 @@ function ResultDialog({
               {block.score_type === "load"
                 ? block.result
                   ? "Editar tus pesos"
-                  : "¡Hecho! ¿Qué peso has cogido?"
+                  : "¡Hecho! ¿Qué peso has usado en cada serie?"
                 : block.result
                   ? "Editar tu resultado"
                   : "¡Hecho! ¿Cuál ha sido tu resultado?"}
@@ -278,12 +288,7 @@ function ResultDialog({
           <ResultForm block={block} onDone={onClose} notify={notify} />
           {!done && !block.result && (
             <div className="border-t border-line px-4 py-3">
-              <button
-                type="button"
-                onClick={skip}
-                disabled={busy}
-                className="press h-11 text-[15px] font-semibold text-chalk-3 hover:text-chalk"
-              >
+              <button type="button" onClick={skip} disabled={busy} className="press h-11 text-[15px] font-semibold text-chalk-3 hover:text-chalk">
                 {busy ? "Un momento…" : "Marcar como hecho sin resultado"}
               </button>
             </div>
@@ -298,22 +303,32 @@ function ResultForm({ block, onDone, notify }: { block: BlockView; onDone: () =>
   const id = useId();
   const withDivision = hasDivision(block.score_type);
   const [division, setDivision] = useState<Division | null>(block.result?.division ?? (withDivision ? null : "rx"));
-  const [draft, setDraft] = useState<ScoreDraft>(() => emptyDraft(block.result));
+  const [draft, setDraft] = useState<ScoreDraft>(() => emptyDraft(block.result, block.sets_count));
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const set = (patch: Partial<ScoreDraft>) => {
     setDraft((d) => ({ ...d, ...patch }));
     setError(null);
   };
+  const setSeriesKg = (index: number, value: string) => {
+    setDraft((d) => {
+      const setKgs = [...d.setKgs];
+      setKgs[index] = value;
+      return { ...d, setKgs };
+    });
+    setError(null);
+  };
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!division) return setError("Elige si lo hiciste en RX o en Intermedio.");
-    const parsed = parseScore(block.score_type, draft);
+    const parsed = parseScore(block.score_type, draft, block.score_type === "load" ? block.sets_count : null);
     if (!parsed.ok) return setError(parsed.error);
     setError(null);
     startTransition(async () => {
-      const r = await saveBlockResult(block.id, division, draft);
+      const r = block.score_type === "load"
+        ? await saveStrengthResult(block.id, draft)
+        : await saveBlockResult(block.id, division, draft);
       if (!r.ok) return setError(r.error);
       notify("Resultado guardado");
       onDone();
@@ -334,40 +349,53 @@ function ResultForm({ block, onDone, notify }: { block: BlockView; onDone: () =>
   return (
     <form onSubmit={submit} className="space-y-4 px-4 py-4" noValidate>
       {withDivision && (
-      <div>
-        <p className="label">¿Cómo lo hiciste?</p>
-        <Segmented
-          label="Categoría"
-          value={division}
-          onChange={setDivision}
-          options={[
-            { value: "rx", label: "RX", tone: "ok" },
-            { value: "intermediate", label: "Intermedio", tone: "ok" },
-          ]}
-        />
-        <p className="mt-1.5 text-[13px] text-chalk-3">Intermedio si adaptaste algún movimiento, repeticiones o peso.</p>
-      </div>
+        <div>
+          <p className="label">¿Cómo lo hiciste?</p>
+          <Segmented
+            label="Categoría"
+            value={division}
+            onChange={setDivision}
+            options={[
+              { value: "rx", label: "RX", tone: "ok" },
+              { value: "intermediate", label: "Intermedio", tone: "ok" },
+            ]}
+          />
+          <p className="mt-1.5 text-[13px] text-chalk-3">Intermedio si adaptaste algún movimiento, repeticiones o peso.</p>
+        </div>
       )}
 
-      {block.score_type === "load" && (
+      {block.score_type === "load" && block.sets_count && block.reps_per_set && (
+        <div>
+          <p className="label">Peso usado en cada serie</p>
+          <p className="mb-3 text-[14px] text-chalk-3">{block.sets_count} series × {block.reps_per_set} reps · sin RX ni Intermedio</p>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {Array.from({ length: block.sets_count }, (_, i) => (
+              <div key={i}>
+                <p className="mb-1 text-[13px] font-semibold text-chalk-3">Serie {i + 1}</p>
+                <NumberField
+                  id={`${id}-set-${i}`}
+                  label="kg"
+                  name={`Kilos serie ${i + 1}`}
+                  value={draft.setKgs[i] ?? ""}
+                  onChange={(v) => setSeriesKg(i, v)}
+                  decimal
+                  autoFocus={i === 0}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {block.score_type === "load" && (!block.sets_count || !block.reps_per_set) && (
         <>
           <div>
             <p className="label">Peso máximo</p>
             <NumberField id={`${id}-kg`} label="kg" name="Kilos" value={draft.kg} onChange={(v) => set({ kg: v })} decimal autoFocus />
           </div>
           <div>
-            <label htmlFor={`${id}-sets`} className="label">
-              Series y pesos <span className="normal-case tracking-normal text-chalk-3">(opcional)</span>
-            </label>
-            <textarea
-              id={`${id}-sets`}
-              value={draft.detail}
-              onChange={(e) => set({ detail: e.target.value })}
-              rows={3}
-              maxLength={500}
-              placeholder="Ej.: Back squat 5x5: 80, 85, 90, 90, 95 kg"
-              className="field min-h-24 py-3"
-            />
+            <label htmlFor={`${id}-sets`} className="label">Series y pesos <span className="normal-case tracking-normal text-chalk-3">(opcional)</span></label>
+            <textarea id={`${id}-sets`} value={draft.detail} onChange={(e) => set({ detail: e.target.value })} rows={3} maxLength={500} placeholder="Ej.: 80, 85, 90, 90, 95 kg" className="field min-h-24 py-3" />
           </div>
         </>
       )}
@@ -385,12 +413,7 @@ function ResultForm({ block, onDone, notify }: { block: BlockView; onDone: () =>
             </div>
           )}
           <label className="flex min-h-11 items-center gap-3 text-[16px]">
-            <input
-              type="checkbox"
-              checked={draft.capped}
-              onChange={(e) => set({ capped: e.target.checked })}
-              className="h-5 w-5 accent-[var(--color-lemon)]"
-            />
+            <input type="checkbox" checked={draft.capped} onChange={(e) => set({ capped: e.target.checked })} className="h-5 w-5 accent-[var(--color-lemon)]" />
             No terminé dentro del time cap
           </label>
           {draft.capped && (
@@ -436,19 +459,8 @@ function ResultForm({ block, onDone, notify }: { block: BlockView; onDone: () =>
           </div>
           {draft.prescribed === "no" && (
             <div>
-              <label htmlFor={`${id}-detail`} className="label">
-                ¿Cuántas repeticiones hiciste por ronda?
-              </label>
-              <textarea
-                id={`${id}-detail`}
-                value={draft.detail}
-                onChange={(e) => set({ detail: e.target.value })}
-                rows={3}
-                maxLength={500}
-                autoFocus
-                placeholder="Ej.: rondas 1-4 todas; rondas 5-8, 10 reps en vez de 12"
-                className="field min-h-24 py-3"
-              />
+              <label htmlFor={`${id}-detail`} className="label">¿Cuántas repeticiones hiciste por ronda?</label>
+              <textarea id={`${id}-detail`} value={draft.detail} onChange={(e) => set({ detail: e.target.value })} rows={3} maxLength={500} autoFocus placeholder="Ej.: rondas 1-4 todas; rondas 5-8, 10 reps en vez de 12" className="field min-h-24 py-3" />
             </div>
           )}
         </>
@@ -461,24 +473,12 @@ function ResultForm({ block, onDone, notify }: { block: BlockView; onDone: () =>
         </div>
       )}
 
-      {error && (
-        <p role="alert" className="border-l-2 border-danger pl-3 text-[15px] text-danger">
-          {error}
-        </p>
-      )}
+      {error && <p role="alert" className="border-l-2 border-danger pl-3 text-[15px] text-danger">{error}</p>}
 
       <div className="flex flex-wrap items-center gap-3">
-        <button type="submit" className="btn-primary" disabled={pending}>
-          {pending ? "Guardando…" : "Guardar resultado"}
-        </button>
-        <button type="button" className="btn-ghost" onClick={onDone} disabled={pending}>
-          Cancelar
-        </button>
-        {block.result && (
-          <button type="button" onClick={remove} disabled={pending} className="press ml-auto h-11 text-[14px] font-semibold text-danger/80 hover:text-danger">
-            Borrar
-          </button>
-        )}
+        <button type="submit" className="btn-primary" disabled={pending}>{pending ? "Guardando…" : "Guardar resultado"}</button>
+        <button type="button" className="btn-ghost" onClick={onDone} disabled={pending}>Cancelar</button>
+        {block.result && <button type="button" onClick={remove} disabled={pending} className="press ml-auto h-11 text-[14px] font-semibold text-danger/80 hover:text-danger">Borrar</button>}
       </div>
     </form>
   );
@@ -514,14 +514,10 @@ function NumberField({
         maxLength={decimal ? 8 : 6}
         className="field pr-14 font-display text-[22px] font-bold"
       />
-      <span aria-hidden className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[14px] text-chalk-3">
-        {label}
-      </span>
+      <span aria-hidden className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[14px] text-chalk-3">{label}</span>
     </div>
   );
 }
-
-// ------------------------------------------------------------------ nota
 
 function NotePanel({ blockId, note, notify }: { blockId: string; note: string; notify: Notify }) {
   const id = useId();
@@ -548,32 +544,13 @@ function NotePanel({ blockId, note, notify }: { blockId: string; note: string; n
   if (editing) {
     return (
       <div className="mt-4">
-        <label htmlFor={id} className="label">
-          Tu nota
-        </label>
-        <textarea
-          id={id}
-          value={draft}
-          onChange={(e) => setDraft(e.target.value)}
-          rows={3}
-          maxLength={2000}
-          autoFocus
-          placeholder="¿Cómo te ha ido? Sensaciones, pesos, qué adaptaste…"
-          className="field resize-y py-3 leading-[1.5]"
-        />
+        <label htmlFor={id} className="label">Tu nota</label>
+        <textarea id={id} value={draft} onChange={(e) => setDraft(e.target.value)} rows={3} maxLength={2000} autoFocus placeholder="¿Cómo te ha ido? Sensaciones, pesos, qué adaptaste…" className="field resize-y py-3 leading-[1.5]" />
         <p className="mt-1.5 text-[13px] text-chalk-3">Solo la ves tú y los coaches.</p>
-        {error && (
-          <p role="alert" className="mt-2 border-l-2 border-danger pl-3 text-[15px] text-danger">
-            {error}
-          </p>
-        )}
+        {error && <p role="alert" className="mt-2 border-l-2 border-danger pl-3 text-[15px] text-danger">{error}</p>}
         <div className="mt-3 flex gap-3">
-          <button type="button" className="btn-secondary" onClick={save} disabled={pending}>
-            {pending ? "Guardando…" : "Guardar nota"}
-          </button>
-          <button type="button" className="btn-ghost" onClick={() => setEditing(false)} disabled={pending}>
-            Cancelar
-          </button>
+          <button type="button" className="btn-secondary" onClick={save} disabled={pending}>{pending ? "Guardando…" : "Guardar nota"}</button>
+          <button type="button" className="btn-ghost" onClick={() => setEditing(false)} disabled={pending}>Cancelar</button>
         </div>
       </div>
     );
@@ -584,21 +561,14 @@ function NotePanel({ blockId, note, notify }: { blockId: string; note: string; n
       <div className="mt-4 border-l-2 border-line-strong pl-3">
         <p className="eyebrow">Tu nota</p>
         <p className="mt-1 whitespace-pre-wrap text-[16px] leading-[1.5] text-chalk-2">{note}</p>
-        <button type="button" onClick={open} className="press -ml-1 mt-1 h-11 px-1 text-[15px] font-semibold text-chalk-3 hover:text-chalk">
-          Editar nota
-        </button>
+        <button type="button" onClick={open} className="press -ml-1 mt-1 h-11 px-1 text-[15px] font-semibold text-chalk-3 hover:text-chalk">Editar nota</button>
       </div>
     );
   }
 
-  return (
-    <button type="button" onClick={open} className="press -ml-1 mt-3 h-11 px-1 text-[15px] font-semibold text-chalk-3 hover:text-chalk">
-      + Añadir nota
-    </button>
-  );
+  return <button type="button" onClick={open} className="press -ml-1 mt-3 h-11 px-1 text-[15px] font-semibold text-chalk-3 hover:text-chalk">+ Añadir nota</button>;
 }
 
-/** Botón "Poner mi resultado" para la pantalla de Ranking: abre la misma ventana que el bloque. */
 export function ResultButton({ block }: { block: BlockView }) {
   const [open, setOpen] = useState(false);
   const { toast, show } = useToast();

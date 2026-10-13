@@ -4,7 +4,14 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { SCORE_TYPES } from "@/lib/scores";
 import type { ScoreType } from "@/lib/types";
 
-export type EditableBlock = { id: string; title: string; content: string; score_type: ScoreType };
+export type EditableBlock = {
+  id: string;
+  title: string;
+  content: string;
+  score_type: ScoreType;
+  sets_count?: number | null;
+  reps_per_set?: number | null;
+};
 
 export const BLOCK_PRESETS = [
   "Warm Up",
@@ -22,14 +29,18 @@ export const BLOCK_PRESETS = [
   "Notes",
 ];
 
-// Ajusta la altura al contenido sin mover la página: al poner height:auto el
-// documento encoge un instante y el navegador recoloca el scroll (salto hacia arriba).
 function autosize(el: HTMLTextAreaElement | null) {
   if (!el) return;
   const scrollY = window.scrollY;
   el.style.height = "auto";
   el.style.height = `${el.scrollHeight + 2}px`;
   if (window.scrollY !== scrollY) window.scrollTo({ top: scrollY, behavior: "instant" });
+}
+
+function positiveInt(value: string, max: number) {
+  if (value === "") return null;
+  const n = Number(value);
+  return Number.isInteger(n) && n >= 1 && n <= max ? n : null;
 }
 
 export function BlockEditor({
@@ -56,7 +67,6 @@ export function BlockEditor({
 
   useEffect(() => {
     if (autoFocus) textRef.current?.focus({ preventScroll: false });
-    // Solo al montar el bloque nuevo.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -67,12 +77,10 @@ export function BlockEditor({
   }, [confirmDelete]);
 
   const label = block.title.trim() || `Bloque ${index + 1}`;
+  const isLoad = block.score_type === "load";
 
   return (
-    <li
-      className="rounded-sm border border-line bg-ink-2"
-      style={{ viewTransitionName: `block-${block.id}` }}
-    >
+    <li className="rounded-sm border border-line bg-ink-2" style={{ viewTransitionName: `block-${block.id}` }}>
       <div className="flex items-center gap-1 border-b border-line pl-3">
         <input
           value={block.title}
@@ -104,6 +112,7 @@ export function BlockEditor({
           </IconButton>
         )}
       </div>
+
       <textarea
         ref={textRef}
         value={block.content}
@@ -111,13 +120,14 @@ export function BlockEditor({
           onChange({ content: e.target.value });
           autosize(e.target);
         }}
-        placeholder={"Back Squat\n5 x 5 @ 75%\nRest 2'"}
+        placeholder={"Back Squat\n75% RM\nRest 2'"}
         aria-label={`Contenido de ${label}`}
         rows={4}
         spellCheck={false}
         autoCapitalize="sentences"
         className="workout-text block min-h-32 w-full resize-none bg-transparent px-3 py-3 text-[17px] leading-[1.55] text-chalk placeholder:text-chalk-3/60 focus:outline-none"
       />
+
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-line px-3 py-2">
         <label htmlFor={`score-${block.id}`} className="text-[13px] font-semibold uppercase tracking-[0.08em] text-chalk-3">
           Resultado
@@ -125,14 +135,21 @@ export function BlockEditor({
         <select
           id={`score-${block.id}`}
           value={block.score_type}
-          onChange={(e) => onChange({ score_type: e.target.value as ScoreType })}
+          onChange={(e) => {
+            const score_type = e.target.value as ScoreType;
+            onChange(
+              score_type === "load"
+                ? { score_type }
+                : { score_type, sets_count: null, reps_per_set: null },
+            );
+          }}
           className={`h-11 min-w-0 flex-1 rounded-sm border border-line-strong bg-ink px-2 text-[15px] focus:border-lemon focus:outline-none sm:flex-none ${
             block.score_type === "none" ? "text-chalk-2" : "text-lemon"
           }`}
         >
           {SCORE_TYPES.map((t) => (
             <option key={t.value} value={t.value}>
-              {t.value === "none" ? "Sin ranking" : `Ranking · ${t.label}`}
+              {t.value === "none" ? "Sin ranking" : t.value === "load" ? t.label : `Ranking · ${t.label}`}
             </option>
           ))}
         </select>
@@ -140,6 +157,42 @@ export function BlockEditor({
           {SCORE_TYPES.find((t) => t.value === block.score_type)?.hint}
         </p>
       </div>
+
+      {isLoad && (
+        <div className="grid gap-3 border-t border-line px-3 py-3 sm:grid-cols-2">
+          <label className="block">
+            <span className="label">Nº de series</span>
+            <input
+              type="number"
+              inputMode="numeric"
+              min={1}
+              max={50}
+              value={block.sets_count ?? ""}
+              onChange={(e) => onChange({ sets_count: positiveInt(e.target.value, 50) })}
+              placeholder="5"
+              className="field mt-1 w-full font-display text-[20px] font-bold"
+            />
+          </label>
+          <label className="block">
+            <span className="label">Repeticiones por serie</span>
+            <input
+              type="number"
+              inputMode="numeric"
+              min={1}
+              max={1000}
+              value={block.reps_per_set ?? ""}
+              onChange={(e) => onChange({ reps_per_set: positiveInt(e.target.value, 1000) })}
+              placeholder="3"
+              className="field mt-1 w-full font-display text-[20px] font-bold"
+            />
+          </label>
+          <p className="text-[13px] text-chalk-3 sm:col-span-2">
+            {block.sets_count && block.reps_per_set
+              ? `${block.sets_count} series × ${block.reps_per_set} reps. Cada atleta apuntará los kg usados en cada serie.`
+              : "Indica series y repeticiones para que cada atleta pueda registrar el peso de cada serie."}
+          </p>
+        </div>
+      )}
     </li>
   );
 }

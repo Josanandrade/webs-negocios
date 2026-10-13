@@ -26,6 +26,8 @@ export type Block = {
   content: string;
   position: number;
   score_type: ScoreType;
+  sets_count: number | null;
+  reps_per_set: number | null;
 };
 
 export type Day = {
@@ -63,7 +65,7 @@ export type Score = {
   kg: number | null;
   /** EMOM / intervalos: true si mantuvo todas las reps en todos los intervalos. */
   as_prescribed: boolean | null;
-  /** EMOM / intervalos adaptado: reps por ronda, escritas libremente. */
+  /** EMOM: detalle libre. Fuerza: kilos por serie serializados. */
   reps_detail: string;
 };
 
