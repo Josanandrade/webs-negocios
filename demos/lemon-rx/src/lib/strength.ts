@@ -23,8 +23,7 @@ export async function getMovements(): Promise<Movement[]> {
     .from("movements")
     .select("id, name, group_name, sort_order")
     .eq("is_active", true)
-    .order("sort_order")
-    .order("name");
+    .order("name", { ascending: true });
   return (data ?? []) as Movement[];
 }
 
