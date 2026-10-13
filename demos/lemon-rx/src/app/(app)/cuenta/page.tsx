@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getViewer } from "@/lib/auth";
 import { formatJoined } from "@/lib/dates";
-import { NameForm } from "./name-form";
+import { ProfileForm } from "./profile-form";
 import { PasswordForm } from "@/components/password-form";
 
 export const metadata: Metadata = { title: "Mi cuenta" };
@@ -15,8 +15,6 @@ export default async function AccountPage() {
       <h1 className="font-display text-[40px] font-extrabold uppercase leading-none">Mi cuenta</h1>
 
       <dl className="mt-8 grid grid-cols-[auto_1fr] gap-x-6 gap-y-3 border-y border-line py-5 text-[16px]">
-        <dt className="text-chalk-3">Email</dt>
-        <dd className="min-w-0 truncate">{profile.email}</dd>
         <dt className="text-chalk-3">Alta</dt>
         <dd>{formatJoined(profile.created_at)}</dd>
         <dt className="text-chalk-3">Programación</dt>
@@ -29,9 +27,7 @@ export default async function AccountPage() {
         </Link>
       )}
 
-      <section className="mt-10">
-        <NameForm name={profile.full_name} />
-      </section>
+      <ProfileForm profile={profile} />
 
       <section className="mt-12 border-t border-line pt-10">
         <h2 className="font-display text-[22px] font-bold uppercase">Contraseña</h2>
