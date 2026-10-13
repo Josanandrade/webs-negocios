@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="description" content="Estudio de tatuaje en Sevilla con varios artistas, cada uno especializado en un estilo. Concepto de web no oficial." />
+    <title>Factoría Tattoo Sevilla</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin />
+  </head>
+  <body>
+    <a class="skip" href="#contenido">Saltar al contenido</a>
+
+    <aside class="demo-note" aria-label="Aviso"><p>Concepto de web no oficial, preparado como demostración de diseño.</p></aside>
+
+    <header class="site-header" data-header>
+      <div class="site-header__inner">
+        <a class="wordmark" href="#inicio">
+          <span class="wordmark__main">Factoría</span>
+          <span class="wordmark__sub">Tattoo Sevilla</span><span class="sr-only">, ir al inicio</span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+          <span class="menu-toggle__label">Menú</span>
+          <span class="menu-toggle__bars" aria-hidden="true"></span>
+        </button>
+
+        <nav class="site-nav" id="menu" aria-label="Principal" data-menu>
+          <ul>
+            <li><a href="#estilos">Estilos</a></li>
+            <li><a href="#equipo">Equipo</a></li>
+            <li><a href="#trabajos">Trabajos</a></li>
+            <li><a href="#proceso">Cómo trabajamos</a></li>
+            <li><a href="#estudio">Estudio</a></li>
+          </ul>
+          <a class="btn btn--ink site-nav__cta" href="#cita">Pedir cita</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenido">
+      <!-- HERO + BUSCADOR DE ESTILO -->
+      <section class="hero" id="inicio" aria-labelledby="hero-title">
+        <h1 class="hero__title" id="hero-title">
+          <span class="stencil" data-stencil>
+            <span class="stencil__ink">Factoría</span>
+            <span class="stencil__transfer" aria-hidden="true">Factoría</span>
+          </span>
+          <span class="hero__subtitle">Tattoo Sevilla</span>
+        </h1>
+
+        <div class="hero__grid">
+          <p class="hero__lead">
+            Varios artistas, cada uno especializado en su estilo.
+            Diseños exclusivos, dibujados para tu piel y no sacados de catálogo.
+          </p>
+
+          <form class="finder" aria-labelledby="finder-title" data-finder>
+            <fieldset>
+              <legend class="finder__title" id="finder-title">¿Qué te quieres tatuar?</legend>
+              <div class="chips" role="radiogroup" aria-label="Estilo" data-finder-chips></div>
+            </fieldset>
+            <div class="finder__result" aria-live="polite" data-finder-result>
+              <p class="finder__hint">Elige un estilo y te decimos con quién encaja.</p>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ESTILOS -->
+      <section class="section styles" id="estilos" aria-labelledby="estilos-title">
+        <div class="section__head">
+          <h2 class="display" id="estilos-title">Un estilo, un artista</h2>
+          <p class="section__intro">
+            En Factoría cada artista se especializa en un estilo. Empieza por el que
+            buscas y te llevamos a quien lo trabaja a diario.
+          </p>
+        </div>
+        <ol class="style-index" data-style-index></ol>
+        <p class="styles__more">
+          ¿Buscas otro estilo? Se diseña en todos los estilos: cuéntanos la idea y
+          te decimos quién la trabaja.
+        </p>
+      </section>
+
+      <!-- EQUIPO -->
+      <section class="section team" id="equipo" aria-labelledby="equipo-title">
+        <div class="section__head">
+          <h2 class="display" id="equipo-title">El equipo</h2>
+          <p class="section__intro">
+            Detrás de cada pieza hay un nombre propio. Conoce a quien te va a tatuar
+            antes de sentarte en la camilla.
+          </p>
+        </div>
+        <div data-artists></div>
+        <aside class="team__rest">
+          <p>
+            El resto del equipo cubre tradicional, fine line, realismo y más estilos.
+            Sus trabajos están en <a href="https://www.instagram.com/factoriatattoo_/" rel="noopener" target="_blank">@factoriatattoo_<span class="sr-only"> (se abre en una pestaña nueva)</span></a>.
+          </p>
+        </aside>
+      </section>
+
+      <!-- TRABAJOS -->
+      <section class="section works" id="trabajos" aria-labelledby="trabajos-title">
+        <div class="section__head">
+          <h2 class="display display--light" id="trabajos-title">Trabajos</h2>
+          <p class="section__intro">
+            Filtra por estilo y abre cada pieza para ver quién la firma.
+          </p>
+        </div>
+        <div class="filters" role="group" aria-label="Filtrar trabajos por estilo" data-filters></div>
+        <p class="sr-only" aria-live="polite" data-works-status></p>
+        <ul class="works__grid" data-works></ul>
+        <p class="works__more">
+          <a class="btn btn--paper" href="https://www.instagram.com/factoriatattoo_/" rel="noopener" target="_blank">
+            Ver más en Instagram<span class="sr-only"> (se abre en una pestaña nueva)</span>
+          </a>
+        </p>
+      </section>
+
+      <!-- PROCESO -->
+      <section class="section process" id="proceso" aria-labelledby="proceso-title">
+        <div class="section__head">
+          <h2 class="display" id="proceso-title">De la idea a la piel</h2>
+          <p class="section__intro">Así funciona una primera consulta en el estudio.</p>
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <h3 class="step__title">Cuéntanos la idea</h3>
+            <p>Qué quieres, dónde y de qué tamaño. Las referencias, fotos o bocetos ayudan mucho.</p>
+          </li>
+          <li class="step">
+            <h3 class="step__title">Te ponemos con tu artista</h3>
+            <p>Según el estilo, la consulta pasa a quien mejor lo trabaja dentro del equipo.</p>
+          </li>
+          <li class="step">
+            <h3 class="step__title">Diseño exclusivo</h3>
+            <p>El artista dibuja la pieza para ti y la ajusta contigo antes de la sesión.</p>
+          </li>
+          <li class="step">
+            <h3 class="step__title">Sesión y cuidados</h3>
+            <p>Tatuamos y te explicamos cómo cuidar la pieza mientras cicatriza.</p>
+          </li>
+        </ol>
+      </section>
+
+      <!-- PRIMERA CONSULTA -->
+      <section class="section consult" id="cita" aria-labelledby="cita-title">
+        <div class="consult__intro">
+          <h2 class="display" id="cita-title">Prepara tu consulta</h2>
+          <p>
+            Rellena lo que tengas claro y te montamos el mensaje. Lo copias y lo
+            envías por Instagram o lo cuentas por teléfono. La web no guarda ni
+            envía ningún dato.
+          </p>
+        </div>
+
+        <form class="consult__form" data-consult novalidate>
+          <div class="field">
+            <label for="c-style">Estilo</label>
+            <select id="c-style" name="style" data-consult-style>
+              <option value="">Aún no lo tengo claro</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="c-zone">Zona del cuerpo</label>
+            <input id="c-zone" name="zone" type="text" autocomplete="off" placeholder="Antebrazo, costado, tobillo…" />
+          </div>
+
+          <fieldset class="field field--options">
+            <legend>Tamaño aproximado</legend>
+            <label class="option"><input type="radio" name="size" value="pequeño (menos de 10 cm)" /><span>Pequeño</span><small>Menos de 10 cm</small></label>
+            <label class="option"><input type="radio" name="size" value="mediano (10 a 20 cm)" /><span>Mediano</span><small>10 a 20 cm</small></label>
+            <label class="option"><input type="radio" name="size" value="grande (más de 20 cm)" /><span>Grande</span><small>Más de 20 cm</small></label>
+            <label class="option"><input type="radio" name="size" value="un proyecto de varias sesiones" /><span>Proyecto</span><small>Varias sesiones</small></label>
+          </fieldset>
+
+          <fieldset class="field field--options">
+            <legend>Color</legend>
+            <label class="option"><input type="radio" name="color" value="a color" /><span>A color</span></label>
+            <label class="option"><input type="radio" name="color" value="en negro y grises" /><span>Negro y grises</span></label>
+            <label class="option"><input type="radio" name="color" value="lo que recomiende el artista" /><span>Que me aconsejen</span></label>
+          </fieldset>
+
+          <div class="field field--wide">
+            <label for="c-idea">Tu idea</label>
+            <textarea id="c-idea" name="idea" rows="3" placeholder="Una golondrina con una rosa, para un recuerdo familiar…"></textarea>
+          </div>
+
+          <div class="consult__output field--wide">
+            <p class="consult__label" id="c-preview-label">Tu mensaje</p>
+            <output class="consult__preview" for="c-style c-zone c-idea" aria-labelledby="c-preview-label" data-consult-preview></output>
+            <div class="consult__actions">
+              <button class="btn btn--ink" type="button" data-copy>Copiar mensaje</button>
+              <a class="btn btn--line" href="https://ig.me/m/factoriatattoo_" rel="noopener" target="_blank">
+                Abrir Instagram<span class="sr-only"> (se abre en una pestaña nueva)</span>
+              </a>
+              <a class="btn btn--line" href="tel:+34604902057">Llamar al 604 90 20 57</a>
+            </div>
+            <p class="consult__status" role="status" data-copy-status></p>
+          </div>
+        </form>
+      </section>
+
+      <!-- CUIDADOS + FAQ -->
+      <section class="section care" id="cuidados" aria-labelledby="cuidados-title">
+        <div class="care__col">
+          <h2 class="display" id="cuidados-title">Cuidados</h2>
+          <p class="section__intro">
+            Pautas generales para las primeras semanas. Tu artista te dará las
+            indicaciones concretas para tu pieza: esas mandan.
+          </p>
+          <ul class="care__list">
+            <li>Mantén el apósito o film el tiempo que te indiquen.</li>
+            <li>Lava con agua tibia y jabón neutro, siempre con las manos limpias, y seca a toques.</li>
+            <li>Aplica una capa fina de la crema recomendada, sin saturar.</li>
+            <li>No rasques ni arranques las costras, aunque pique.</li>
+            <li>Evita sol directo, piscina, mar y sauna hasta que cicatrice.</li>
+            <li>Si notas calor, dolor que aumenta o supuración, consulta con un profesional sanitario.</li>
+          </ul>
+        </div>
+
+        <div class="care__col" id="preguntas">
+          <h2 class="display" id="faq-title">Preguntas</h2>
+          <div class="faq" aria-labelledby="faq-title">
+            <details>
+              <summary>¿Hacéis diseños personalizados?</summary>
+              <p>Sí. Cada pieza se dibuja a partir de tu idea. Trae referencias, fotos o bocetos y el artista los convierte en un diseño propio.</p>
+            </details>
+            <details>
+              <summary>¿Cómo sé qué artista me toca?</summary>
+              <p>Depende del estilo que buscas. Usa el buscador de arriba o cuéntanos la idea y te ponemos con quien lo trabaja.</p>
+            </details>
+            <details>
+              <summary>¿Cuánto cuesta un tatuaje?</summary>
+              <p>Depende del tamaño, la zona, el nivel de detalle y las horas de sesión. Te damos presupuesto cuando vemos tu idea.</p>
+            </details>
+            <details>
+              <summary>¿Puedo tatuarme si soy menor de edad?</summary>
+              <p>Necesitas autorización de tu madre, padre o tutor legal. Pregúntanos qué documentación hace falta antes de venir.</p>
+            </details>
+            <details>
+              <summary>¿Hacéis piercing?</summary>
+              <p>Sí. Escríbenos o llámanos para consultar disponibilidad.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- ESTUDIO -->
+      <section class="section studio" id="estudio" aria-labelledby="estudio-title">
+        <h2 class="display display--light" id="estudio-title">Ven al estudio</h2>
+        <div class="studio__grid">
+          <ul class="locations" data-locations></ul>
+          <div class="studio__contact">
+            <p class="studio__label">Teléfono</p>
+            <p><a class="studio__big" href="tel:+34604902057">604 90 20 57</a></p>
+            <p class="studio__label">Instagram</p>
+            <p>
+              <a class="studio__big" href="https://www.instagram.com/factoriatattoo_/" rel="noopener" target="_blank">@factoriatattoo_<span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+            </p>
+            <p class="studio__note">Se trabaja con cita previa. Escríbenos para confirmar horario.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p class="site-footer__mark">Factoría</p>
+        <nav aria-label="Pie de página">
+          <ul>
+            <li><a href="#estilos">Estilos</a></li>
+            <li><a href="#equipo">Equipo</a></li>
+            <li><a href="#trabajos">Trabajos</a></li>
+            <li><a href="#cita">Pedir cita</a></li>
+            <li><a href="#cuidados">Cuidados</a></li>
+            <li><a href="https://linktr.ee/factoriatattoo_" rel="noopener" target="_blank">Todos los enlaces<span class="sr-only"> (se abre en una pestaña nueva)</span></a></li>
+          </ul>
+        </nav>
+        <p class="site-footer__legal">
+          Concepto de web no oficial para Factoría Tattoo, Sevilla. Esta página no
+          gestiona citas, no usa cookies y no recoge datos.
+        </p>
+      </div>
+    </footer>
+
+    <dialog class="lightbox" aria-labelledby="lightbox-title" data-lightbox>
+      <div class="lightbox__frame" data-lightbox-media></div>
+      <div class="lightbox__info">
+        <h2 class="lightbox__title" id="lightbox-title" data-lightbox-title></h2>
+        <p data-lightbox-text></p>
+        <div class="lightbox__actions" data-lightbox-actions></div>
+      </div>
+      <button class="lightbox__close" type="button" data-lightbox-close>Cerrar</button>
+    </dialog>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
