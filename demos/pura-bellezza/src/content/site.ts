@@ -1,8 +1,7 @@
 /*
   Pura Bellezza — datos de la demo.
 
-  Regla: aquí solo entra información pública y verificable (ver
-  /propuesta y README). Los textos están redactados desde cero; no se copian
+  Regla: aquí solo entra información pública y verificable (ver README). Los textos están redactados desde cero; no se copian
   descripciones de directorios ni de plataformas.
 */
 

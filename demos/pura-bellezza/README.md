@@ -4,9 +4,8 @@ Propuesta de web **no solicitada** para Pura Bellezza, centro de estética y
 bienestar en Av. de la Constitución, 9, local A · 41930 Bormujos (Sevilla).
 No es la web oficial del negocio ni está afiliada a él.
 
-- `/` — la web propuesta.
-- `/propuesta` — notas internas: presencia digital encontrada, qué está
-  verificado y qué no, y lo que habría que pedir al centro.
+La web se sirve en `/`. Las notas internas de la investigación están en este
+README (sección «Investigación») y no se publican.
 
 ## Preview (Railway, como el resto de demos)
 
@@ -68,6 +67,34 @@ fino, y `prefers-reduced-motion` desactiva todo.
 
 1. Validar servicios, horario, canal de reserva y WhatsApp con el centro.
 2. Sustituir las composiciones por las 6 fotos pedidas.
-3. Quitar la barra de demo, `/propuesta` y el bloqueo a buscadores; añadir
+3. Quitar la barra de demo y el bloqueo a buscadores; añadir
    metadatos locales (LocalBusiness), aviso legal y política de privacidad.
 4. Migrar a `client-pura-bellezza-web` según el flujo del repositorio.
+
+## Investigación (octubre 2026)
+
+**Presencia digital.** Sin web propia: ningún directorio enlaza a un dominio del
+centro. Reserva online en Booksy (5,0 con más de 500 reseñas; la cifra exacta
+varía entre 549 y 664 según la página). Ficha en Fresha marcada por Fresha como
+no afiliada. Instagram @purabellezza, enlazado desde su ficha de reservas.
+
+**Verificado y pendiente.**
+
+| Dato | Estado |
+| --- | --- |
+| Dirección y teléfono | Coinciden en varias fuentes. |
+| Horario L–V 9:00–20:00 | Publicado en directorios. Confirmar con el centro. |
+| Servicios | Solo los que aparecen en su agenda online y directorios. |
+| Precios | No se muestran: no se ha podido comprobar que estén al día. |
+| Equipo y años de experiencia | Sin fuente oficial. No se mencionan. |
+| WhatsApp | Desactivado hasta que el centro confirme que lo usa. |
+| Reseñas literales | Solo se resumen temas. Citar textos requiere permiso. |
+
+**Descartado por no verificable:** Google 4,8 / 133 reseñas (directorio
+antiguo), «desde 2014» y nombre de la gerente (perfil personal de Facebook),
+cuenta @salon_purabellezza, Facebook /purabellezza88, maderoterapia y
+Mesoboost.
+
+**Qué pedir al centro:** seis fotos propias (ver `README_ASSETS.md`), logotipo
+en vector, confirmación de horario, servicios estrella y WhatsApp, y nombre y
+foto de la responsable o del equipo si quieren aparecer.

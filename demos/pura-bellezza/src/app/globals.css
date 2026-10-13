@@ -206,11 +206,6 @@ button {
   padding: 0.5rem var(--gutter);
 }
 
-.demo-bar a {
-  color: var(--berry);
-  text-underline-offset: 0.2em;
-}
-
 /* ---------- Cabecera ---------- */
 
 .header {
@@ -1064,10 +1059,6 @@ button {
   font-size: 1.6rem;
 }
 
-.footer__demo a {
-  color: var(--berry);
-}
-
 @media (min-width: 960px) {
   .footer {
     padding-bottom: 2.5rem;
@@ -1327,73 +1318,6 @@ button {
       }
     }
   }
-}
-
-/* ---------- Propuesta (notas internas) ---------- */
-
-.notes {
-  max-width: 46rem;
-  margin: 0 auto;
-  padding: clamp(2.5rem, 8vw, 5rem) var(--gutter) 5rem;
-}
-
-.notes h1 {
-  font-family: var(--display);
-  font-weight: 400;
-  font-size: clamp(2.4rem, 9vw, 3.6rem);
-  line-height: 1.05;
-  margin-top: 1.5rem;
-}
-
-.notes h2 {
-  font-family: var(--display);
-  font-weight: 400;
-  font-size: 1.75rem;
-  margin-top: 3rem;
-}
-
-.notes p,
-.notes li {
-  margin-top: 0.8rem;
-  color: var(--ink-soft);
-}
-
-.notes ul {
-  list-style: disc;
-  padding-left: 1.2rem;
-}
-
-.notes strong {
-  color: var(--ink);
-  font-weight: 500;
-}
-
-.notes a {
-  color: var(--berry);
-  text-underline-offset: 0.2em;
-}
-
-.notes table {
-  width: 100%;
-  margin-top: 1rem;
-  border-collapse: collapse;
-  font-size: 0.9375rem;
-}
-
-.notes th,
-.notes td {
-  text-align: left;
-  vertical-align: top;
-  padding: 0.6rem 0.5rem 0.6rem 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.notes th {
-  font-weight: 500;
-}
-
-.notes__table {
-  overflow-x: auto;
 }
 
 /* ---------- Movimiento reducido ---------- */
