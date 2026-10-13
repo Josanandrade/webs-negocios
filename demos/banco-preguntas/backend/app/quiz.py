@@ -2,9 +2,11 @@
 
 Selección:
   * solo preguntas aprobadas (auto_validated / manually_reviewed), nunca descartadas;
-  * modos: 'random' (prefiere las menos vistas, sin quedarse corto), 'unseen' (nunca respondidas), 'failed' (la última vez se fallaron o
-    se dejaron en blanco) y 'weak' (primero las falladas, luego las de peor porcentaje y
-    las menos vistas);
+  * modos: 'random' (prefiere las que menos han aparecido en tests, sin quedarse corto),
+    'unseen' (nunca respondidas), 'failed' (la última vez se fallaron o se dejaron en blanco)
+    y 'weak' (primero las falladas, luego las de peor porcentaje y las menos vistas);
+  * una misma pregunta solo puede aparecer una vez dentro del mismo test;
+  * entre tests se intenta rotar al máximo y solo se repite cuando hace falta;
   * reparto equilibrado: turnos entre temas principales para que ninguno acapare el test
     (salvo en 'weak', donde manda la urgencia de repaso).
 
@@ -49,7 +51,7 @@ def scope_for_sections(db: Session, user_id: UUID, section_ids: list[UUID]) -> l
 
 
 def candidate_rows(db: Session, user_id: UUID, f: Filters, scope: list[UUID] | None) -> list[dict[str, Any]]:
-    """Preguntas que cumplen los filtros, con su historial de intentos."""
+    """Preguntas que cumplen los filtros, con su historial de respuestas y apariciones."""
     statuses = ["manually_reviewed"] if f.only_reviewed else list(ACTIVE_STATUSES)
     return [dict(r) for r in db.execute(text("""
         with hist as (
@@ -57,10 +59,16 @@ def candidate_rows(db: Session, user_id: UUID, f: Filters, scope: list[UUID] | N
                  count(*) filter (where result = 'correct') as right_n,
                  (array_agg(result order by attempted_at desc))[1] as last_result
           from quiz_attempts where question_id is not null group by question_id
+        ), shown as (
+          select question_id, count(*) as shown_n
+          from quiz_questions where question_id is not null group by question_id
         )
-        select q.id, q.document_id, q.section_id, coalesce(h.seen, 0) as seen, coalesce(h.right_n, 0) as right_n,
-               h.last_result
-        from questions q left join hist h on h.question_id = q.id
+        select q.id, q.document_id, q.section_id,
+               coalesce(h.seen, 0) as seen, coalesce(h.right_n, 0) as right_n,
+               h.last_result, coalesce(s.shown_n, 0) as shown_n
+        from questions q
+        left join hist h on h.question_id = q.id
+        left join shown s on s.question_id = q.id
         where q.user_id = :u and q.status = any(cast(:st as text[]))
           and (cast(:docs as uuid[]) is null or q.document_id = any(cast(:docs as uuid[])))
           and (cast(:scope as uuid[]) is null or q.section_id = any(cast(:scope as uuid[])))
@@ -86,13 +94,15 @@ def choose(rows: list[dict[str, Any]], mode: str, count: int, tops: dict[UUID, U
         def priority(r):
             failed_last = r["last_result"] in ("wrong", "blank")
             accuracy = r["right_n"] / r["seen"] if r["seen"] else 0.5
-            return (not failed_last, accuracy, r["seen"])
+            return (not failed_last, accuracy, r["seen"], r["shown_n"])
         rows.sort(key=priority)            # sort estable: conserva el desempate aleatorio
         return rows[:count]
 
-    # Por niveles de uso: primero, en turnos entre temas, las que menos veces has visto (las
-    # nunca vistas antes que ninguna); solo si no llegan se pasa al siguiente nivel. Así un test
-    # nuevo no repite el anterior mientras queden preguntas sin ver, y nunca se queda corto.
+    # Por niveles de aparición: primero, en turnos entre temas, las preguntas que menos veces
+    # han salido en cualquier test. Así se evita repetir entre baterías mientras existan otras
+    # disponibles, pero se permite reutilizar preguntas cuando el banco ya no da para más.
+    # 'unseen' conserva su significado: filtra por preguntas nunca RESPONDIDAS antes de ordenar
+    # por apariciones.
     order: list[Any] = []
     for r in rows:
         key = tops.get(r["section_id"], r["section_id"])
@@ -100,10 +110,10 @@ def choose(rows: list[dict[str, Any]], mode: str, count: int, tops: dict[UUID, U
             order.append(key)
     rng.shuffle(order)
     chosen: list[dict[str, Any]] = []
-    for level in sorted({r["seen"] for r in rows}):
+    for level in sorted({r["shown_n"] for r in rows}):
         groups: dict[Any, list[dict[str, Any]]] = defaultdict(list)
         for r in rows:
-            if r["seen"] == level:
+            if r["shown_n"] == level:
                 groups[tops.get(r["section_id"], r["section_id"])].append(r)
         while len(chosen) < count and any(groups.values()):
             for g in order:
