@@ -16,12 +16,12 @@ export async function saveStrengthResult(blockId: string, draft: ScoreDraft): Pr
   const supabase = await createClient();
   const { data: block } = await supabase
     .from("workout_blocks")
-    .select("score_type, sets_count, strength_scheme, is_complex")
+    .select("score_type, strength_scheme, is_complex")
     .eq("id", blockId)
-    .maybeSingle<{ score_type: string; sets_count: number | null; strength_scheme: StrengthSchemeRow[] | null; is_complex: boolean }>();
+    .maybeSingle<{ score_type: string; strength_scheme: StrengthSchemeRow[] | null; is_complex: boolean }>();
 
   if (!block || block.score_type !== "load") return { ok: false, error: "Este bloque no es de fuerza." };
-  const expectedSets = block.is_complex ? null : block.strength_scheme?.reduce((sum, row) => sum + Number(row.sets || 0), 0) || block.sets_count;
+  const expectedSets = block.is_complex ? null : block.strength_scheme?.reduce((sum, row) => sum + Number(row.sets || 0), 0) || null;
 
   const safeDraft: ScoreDraft = {
     min: "", sec: "", capped: false, rounds: "", reps: "",
