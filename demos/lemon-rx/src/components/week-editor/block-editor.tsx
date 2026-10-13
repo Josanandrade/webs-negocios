@@ -56,9 +56,22 @@ export function BlockEditor({ block, index, total, autoFocus, movements, onChang
   const isLoad = block.score_type === "load";
   const scheme = block.strength_scheme ?? [];
   const complex = Boolean(block.is_complex);
+  const normalizedTitle = block.title.trim().toLowerCase();
+  const isLegacyStrength = !isLoad && (normalizedTitle === "strength" || normalizedTitle === "weightlifting");
 
   function patchRow(i: number, patch: Partial<StrengthSchemeRow>) {
     onChange({ strength_scheme: scheme.map((r, idx) => idx === i ? { ...r, ...patch } : r) });
+  }
+
+  function convertLegacyStrength() {
+    onChange({
+      score_type: "load",
+      movement_id: null,
+      strength_scheme: [{ sets: 1, reps: 1, percentage: 70 }],
+      is_complex: false,
+      sets_count: null,
+      reps_per_set: null,
+    });
   }
 
   return (
@@ -72,6 +85,14 @@ export function BlockEditor({ block, index, total, autoFocus, movements, onChang
 
       {(!isLoad || complex) && (
         <textarea ref={textRef} value={block.content} onChange={(e) => { onChange({ content: e.target.value }); autosize(e.target); }} placeholder={complex ? "Ej.: 1 Power Clean + 1 Hang Squat Clean + 1 Front Squat + 1 Split Jerk\nSin soltar la barra" : "Escribe el contenido del bloque"} aria-label={`Contenido de ${label}`} rows={4} spellCheck={false} autoCapitalize="sentences" className="workout-text block min-h-32 w-full resize-none bg-transparent px-3 py-3 text-[17px] leading-[1.55] text-chalk placeholder:text-chalk-3/60 focus:outline-none" />
+      )}
+
+      {isLegacyStrength && (
+        <div className="border-t border-line bg-ink px-3 py-3">
+          <p className="text-[14px] font-semibold text-chalk">Este bloque usa el formato antiguo de {block.title.trim()}.</p>
+          <p className="mt-1 text-[13px] text-chalk-3">Puedes pasarlo al modelo de movimiento + series/reps/%1RM manteniendo este mismo bloque y su histórico.</p>
+          <button type="button" onClick={convertLegacyStrength} className="btn-primary mt-3">Pasar al nuevo modelo</button>
+        </div>
       )}
 
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-line px-3 py-2">
