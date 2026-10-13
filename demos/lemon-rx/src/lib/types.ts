@@ -20,6 +20,17 @@ export type Settings = {
   show_past_weeks: boolean;
 };
 
+export type StrengthSchemeRow = {
+  sets: number;
+  reps: number;
+  percentage: number;
+};
+
+export type MovementRef = {
+  id: string;
+  name: string;
+};
+
 export type Block = {
   id: string;
   title: string;
@@ -28,6 +39,9 @@ export type Block = {
   score_type: ScoreType;
   sets_count: number | null;
   reps_per_set: number | null;
+  movement_id: string | null;
+  strength_scheme: StrengthSchemeRow[] | null;
+  movement?: MovementRef | null;
 };
 
 export type Day = {
