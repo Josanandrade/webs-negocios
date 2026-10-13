@@ -6,7 +6,7 @@ import { after } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { notifyAdminsOfSignup } from "@/lib/push";
 
-export type AuthState = { error?: string; notice?: string; email?: string } | null;
+export type AuthState = { error?: string; notice?: string; email?: string; sex?: "male" | "female" } | null;
 
 function str(form: FormData, key: string) {
   const v = form.get(key);
@@ -44,40 +44,42 @@ export async function signUp(_: AuthState, form: FormData): Promise<AuthState> {
   const fullName = str(form, "full_name");
   const email = str(form, "email").toLowerCase();
   const password = (form.get("password") as string) ?? "";
+  const rawSex = str(form, "sex");
+  const sex = rawSex === "male" || rawSex === "female" ? rawSex : undefined;
 
-  if (fullName.length < 2) return { error: "Escribe tu nombre.", email };
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { error: "Ese email no parece válido.", email };
-  if (password.length < 8) return { error: "La contraseña debe tener al menos 8 caracteres.", email };
+  if (fullName.length < 2) return { error: "Escribe tu nombre.", email, sex };
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { error: "Ese email no parece válido.", email, sex };
+  if (!sex) return { error: "Indica si eres hombre o mujer.", email };
+  if (password.length < 8) return { error: "La contraseña debe tener al menos 8 caracteres.", email, sex };
 
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
-      data: { full_name: fullName.slice(0, 120) },
+      data: { full_name: fullName.slice(0, 120), sex },
       emailRedirectTo: `${await origin()}/auth/callback`,
     },
   });
 
   if (error) {
     if (error.code === "user_already_exists")
-      return { error: "Ya existe una cuenta con ese email. Inicia sesión.", email };
+      return { error: "Ya existe una cuenta con ese email. Inicia sesión.", email, sex };
     if (error.code === "weak_password")
-      return { error: "Esa contraseña es demasiado débil. Prueba con otra más larga.", email };
+      return { error: "Esa contraseña es demasiado débil. Prueba con otra más larga.", email, sex };
     if (error.status === 429)
-      return { error: "Demasiados intentos. Espera unos minutos y vuelve a probar.", email };
-    return { error: "No hemos podido crear la cuenta. Inténtalo de nuevo.", email };
+      return { error: "Demasiados intentos. Espera unos minutos y vuelve a probar.", email, sex };
+    return { error: "No hemos podido crear la cuenta. Inténtalo de nuevo.", email, sex };
   }
 
-  // Notificación al móvil de los admins, sin hacer esperar al usuario.
   const newUserId = data.user?.id;
   if (newUserId) after(() => notifyAdminsOfSignup(newUserId));
 
-  // Con confirmación de email activada no hay sesión todavía.
   if (!data.session) {
     return {
       notice: `Te hemos enviado un email a ${email}. Ábrelo para confirmar tu cuenta y después inicia sesión.`,
       email,
+      sex,
     };
   }
   redirect("/");
@@ -94,7 +96,6 @@ export async function requestPasswordReset(_: AuthState, form: FormData): Promis
   if (error?.status === 429)
     return { error: "Demasiados intentos. Espera unos minutos y vuelve a probar.", email };
 
-  // Mismo mensaje exista o no la cuenta: no revelamos qué emails están registrados.
   return {
     notice: "Si existe una cuenta con ese email, te llegará un enlace para crear una contraseña nueva.",
     email,
