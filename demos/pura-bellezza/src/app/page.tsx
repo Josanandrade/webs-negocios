@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { BookButton, BookingProvider } from "@/components/Booking";
 import { MobileDock } from "@/components/MobileDock";
 import { Photo } from "@/components/Photo";
@@ -298,7 +297,7 @@ export default function Home() {
           </p>
           <p className="footer__demo">
             Propuesta de diseño no solicitada, sin relación oficial con {site.name}.
-            Sin cookies ni analítica. <Link href="/propuesta">Notas de la propuesta</Link>
+            Sin cookies ni analítica.
           </p>
         </div>
       </footer>
