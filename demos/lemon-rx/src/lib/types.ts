@@ -4,6 +4,7 @@ export type AccessStatus = "pending" | "active" | "blocked";
 export type WeekStatus = "draft" | "published";
 export type ScoreType = "none" | "time" | "rounds_reps" | "reps" | "weight" | "intervals" | "load";
 export type Division = "rx" | "intermediate";
+export type Sex = "male" | "female";
 
 export type Profile = {
   id: string;
@@ -12,6 +13,7 @@ export type Profile = {
   role: Role;
   payment_status: PaymentStatus;
   access_status: AccessStatus;
+  sex: Sex | null;
   created_at: string;
 };
 
@@ -91,6 +93,8 @@ export type Score = {
   rounds: number | null;
   reps: number | null;
   kg: number | null;
+  /** Carga total movida en un bloque de fuerza: suma de kg × reps de todas las series/rondas. */
+  total_load: number | null;
   as_prescribed: boolean | null;
   reps_detail: string;
 };
@@ -114,6 +118,7 @@ export type HistoryEntry = Partial<Score> & {
 export type LeaderboardRow = BlockResult & {
   user_id: string;
   full_name: string;
+  sex: Sex;
   position: number;
   total: number;
 };
