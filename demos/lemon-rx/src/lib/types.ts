@@ -14,6 +14,8 @@ export type Profile = {
   payment_status: PaymentStatus;
   access_status: AccessStatus;
   sex: Sex | null;
+  phone: string | null;
+  avatar_url: string | null;
   created_at: string;
 };
 
@@ -118,6 +120,7 @@ export type HistoryEntry = Partial<Score> & {
 export type LeaderboardRow = BlockResult & {
   user_id: string;
   full_name: string;
+  avatar_url: string | null;
   sex: Sex;
   position: number;
   total: number;
