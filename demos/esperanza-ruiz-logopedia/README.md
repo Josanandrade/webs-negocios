@@ -39,6 +39,9 @@ npm run typecheck
 
 ## Preview (Railway, igual que el resto de demos)
 
+**URL:** https://web-preview-728e.up.railway.app · proyecto Railway
+`esperanza-ruiz-logopedia-demo`, entorno `preview`, servicio `web`.
+
 Servicio independiente conectado a este repo con *Root Directory* =
 `demos/esperanza-ruiz-logopedia` y rama `demo/esperanza-ruiz-logopedia`.
 Build `npm run build`, start `npm start` (usa `PORT`). Variable opcional
