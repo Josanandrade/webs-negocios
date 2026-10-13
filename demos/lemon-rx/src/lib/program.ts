@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import type { WeekWithDays } from "@/lib/types";
 
 const WEEK_SELECT =
-  "id, start_date, end_date, status, published_at, updated_at, days(id, date, day_of_week, workout_blocks(id, title, content, position, score_type, sets_count, reps_per_set, movement_id, strength_scheme, is_complex, movement:movements(id,name)))";
+  "id, start_date, end_date, status, published_at, updated_at, days(id, date, day_of_week, workout_blocks(id, title, content, position, score_type, sets_count, reps_per_set, movement_id, strength_scheme, is_complex, complex_movements, rm_reference_movement_id, is_emom, emom_reps, emom_interval_seconds, emom_rounds, emom_percentage, movement:movements!workout_blocks_movement_id_fkey(id,name), rm_reference_movement:movements!workout_blocks_rm_reference_movement_id_fkey(id,name)))";
 
 function sortWeek(week: WeekWithDays): WeekWithDays {
   week.days.sort((a, b) => a.day_of_week - b.day_of_week);

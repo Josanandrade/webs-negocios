@@ -26,6 +26,11 @@ export type StrengthSchemeRow = {
   percentage: number;
 };
 
+export type ComplexMovementRow = {
+  movement_id: string;
+  reps: number;
+};
+
 export type MovementRef = {
   id: string;
   name: string;
@@ -42,7 +47,15 @@ export type Block = {
   movement_id: string | null;
   strength_scheme: StrengthSchemeRow[] | null;
   is_complex: boolean;
+  complex_movements: ComplexMovementRow[] | null;
+  rm_reference_movement_id: string | null;
+  is_emom: boolean;
+  emom_reps: number | null;
+  emom_interval_seconds: number | null;
+  emom_rounds: number | null;
+  emom_percentage: number | null;
   movement?: MovementRef | null;
+  rm_reference_movement?: MovementRef | null;
 };
 
 export type Day = {

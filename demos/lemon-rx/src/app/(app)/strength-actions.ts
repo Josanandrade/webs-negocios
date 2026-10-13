@@ -16,19 +16,24 @@ export async function saveStrengthResult(blockId: string, draft: ScoreDraft): Pr
   const supabase = await createClient();
   const { data: block } = await supabase
     .from("workout_blocks")
-    .select("score_type, strength_scheme, is_complex")
+    .select("score_type, strength_scheme, is_emom, emom_rounds")
     .eq("id", blockId)
-    .maybeSingle<{ score_type: string; strength_scheme: StrengthSchemeRow[] | null; is_complex: boolean }>();
+    .maybeSingle<{ score_type: string; strength_scheme: StrengthSchemeRow[] | null; is_emom: boolean; emom_rounds: number | null }>();
 
   if (!block || block.score_type !== "load") return { ok: false, error: "Este bloque no es de fuerza." };
-  const expectedSets = block.is_complex ? null : block.strength_scheme?.reduce((sum, row) => sum + Number(row.sets || 0), 0) || null;
+
+  const roundWeights = Array.isArray(draft?.setKgs) ? draft.setKgs.map((v) => String(v ?? "")) : [];
+  const hasRoundWeights = block.is_emom && roundWeights.some((v) => v.trim() !== "");
+  const expectedSets = block.is_emom
+    ? (hasRoundWeights ? block.emom_rounds : null)
+    : block.strength_scheme?.reduce((sum, row) => sum + Number(row.sets || 0), 0) || null;
 
   const safeDraft: ScoreDraft = {
     min: "", sec: "", capped: false, rounds: "", reps: "",
     kg: String(draft?.kg ?? ""),
-    setKgs: Array.isArray(draft?.setKgs) ? draft.setKgs.slice(0, 100).map((v) => String(v ?? "")) : [],
+    setKgs: roundWeights.slice(0, 100),
     prescribed: "",
-    detail: block.is_complex ? "" : String(draft?.detail ?? "").slice(0, 500),
+    detail: "",
   };
 
   const parsed = parseScore("load", safeDraft, expectedSets);

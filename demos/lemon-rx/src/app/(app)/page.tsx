@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getViewer } from "@/lib/auth";
 import { getAdjacentPublished, getPublishedWeek } from "@/lib/program";
 import { getActivity, getWeekLeaderboard } from "@/lib/activity";
-import { getUserRm1Map } from "@/lib/strength";
+import { getMovements, getUserRm1Map } from "@/lib/strength";
 import { DAY_NAMES, currentWeekStart, isIsoDate, mondayOf, shortDate, todayIso, weekDates, weekRangeShort } from "@/lib/dates";
 import { NoAccess } from "@/components/no-access";
 import { WeekDays, type DayView } from "@/components/day-accordion";
@@ -21,8 +21,9 @@ export default async function ProgramPage({ searchParams }: PageProps<"/">) {
   const me = viewer.profile.id;
   const blocks = week?.days.flatMap((d) => d.workout_blocks) ?? [];
   const blockIds = blocks.map((b) => b.id);
-  const movementIds = blocks.filter((b) => b.score_type === "load" && !b.is_complex && b.movement_id).map((b) => b.movement_id as string);
-  const [activity, board, rm1Map] = await Promise.all([getActivity(me, blockIds), getWeekLeaderboard(week?.id ?? null), getUserRm1Map(me, movementIds)]);
+  const rmMovementIds = blocks.filter((b) => b.score_type === "load").map((b) => b.is_complex ? b.rm_reference_movement_id : b.movement_id).filter((id): id is string => Boolean(id));
+  const [activity, board, rm1Map, movements] = await Promise.all([getActivity(me, blockIds), getWeekLeaderboard(week?.id ?? null), getUserRm1Map(me, rmMovementIds), getMovements()]);
+  const movementMap = Object.fromEntries(movements.map((m) => [m.id, m.name]));
 
   const days: DayView[] = weekDates(start).map((date, i) => {
     const day = week?.days.find((d) => d.date === date);
@@ -32,9 +33,14 @@ export default async function ProgramPage({ searchParams }: PageProps<"/">) {
       short: shortDate(date),
       isToday: date === today,
       blocks: (day?.workout_blocks ?? []).filter((b) => b.title.trim() || b.content.trim() || b.score_type === "load").map((b) => {
-        const rm1 = b.movement_id ? rm1Map[b.movement_id] : undefined;
-        const suggestedSets = !b.is_complex && rm1 && b.strength_scheme?.length ? b.strength_scheme.flatMap((row) => Array.from({ length: row.sets }, () => ({ reps: row.reps, percentage: row.percentage, kg: Math.round((rm1 * row.percentage / 100) * 100) / 100 }))) : [];
-        return { ...b, suggestedSets, log: activity.logs[b.id] ?? null, result: activity.results[b.id] ?? null, board: board[b.id] ?? [] };
+        const rmId = b.is_complex ? b.rm_reference_movement_id : b.movement_id;
+        const rm1 = rmId ? rm1Map[rmId] : undefined;
+        const suggestedSets = !b.is_emom && rm1 && b.strength_scheme?.length
+          ? b.strength_scheme.flatMap((row) => Array.from({ length: row.sets }, () => ({ reps: b.is_complex ? 1 : row.reps, percentage: row.percentage, kg: Math.round((rm1 * row.percentage / 100) * 100) / 100 })))
+          : [];
+        const suggestedEmomKg = b.is_emom && rm1 && b.emom_percentage ? Math.round((rm1 * b.emom_percentage / 100) * 100) / 100 : undefined;
+        const complexMovementDetails = b.is_complex ? (b.complex_movements ?? []).map((row) => ({ ...row, name: movementMap[row.movement_id] ?? "Movimiento" })) : [];
+        return { ...b, suggestedSets, suggestedEmomKg, complexMovementDetails, log: activity.logs[b.id] ?? null, result: activity.results[b.id] ?? null, board: board[b.id] ?? [] };
       }),
     };
   });
