@@ -2,7 +2,7 @@ import "server-only";
 import { createClient } from "@/lib/supabase/server";
 import type { Profile, Settings } from "@/lib/types";
 
-export const PROFILE_COLUMNS = "id, full_name, email, role, payment_status, access_status, sex, created_at";
+export const PROFILE_COLUMNS = "id, full_name, email, role, payment_status, access_status, sex, phone, avatar_url, created_at";
 
 export function canSeeProgram(p: Profile, s: Settings) {
   return (
