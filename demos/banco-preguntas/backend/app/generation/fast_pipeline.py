@@ -1,13 +1,11 @@
 """Perfil de producción orientado a reducir la latencia de generación.
 
-Mantiene exactamente el pipeline y los filtros de :mod:`app.generation.pipeline`,
-pero ajusta únicamente parámetros de rendimiento:
+Mantiene exactamente el pipeline y sus filtros de calidad, con dos ajustes de producción:
 
-* 12 hechos por llamada al generador (antes 8).
-* 12 preguntas por llamada al verificador (antes 8).
-* Ventana de contexto de redacción limitada a 500 caracteres por lado.
-* El verificador añade como máximo 2 fragmentos de búsqueda extra; conserva además
-  las evidencias literales de las cuatro opciones.
+* 12 hechos por llamada al generador y 12 preguntas por llamada al verificador.
+* Ventanas de contexto más pequeñas para evitar texto redundante.
+* Los hechos descartados por una mala redacción o verificación pueden volver a intentarse
+  en generaciones posteriores (hasta tres veces); antes quedaban bloqueados para siempre.
 * Registra la duración real de cada lote para poder medir producción sin adivinar.
 
 El generador y el verificador siguen siendo modelos distintos y todas las validaciones,
@@ -20,6 +18,7 @@ import time
 from collections import Counter
 
 from app.generation import pipeline as base
+from app.generation.retry_plan import plan_with_retries
 from app.generation.validation import DocumentContext
 from app.jobs.runner import JobContext
 
@@ -72,6 +71,7 @@ def _timed_verify_batch(ctx: JobContext, survivors, counters: Counter):
 
 # Las funciones originales resuelven estos nombres en el módulo ``base`` en tiempo de
 # ejecución, así que los ajustes se aplican también a los lotes lanzados por su executor.
+base._plan = plan_with_retries
 base._context_window = _fast_context_window
 base.search_chunks = _fast_search_chunks
 base._draft_batch = _timed_draft_batch
