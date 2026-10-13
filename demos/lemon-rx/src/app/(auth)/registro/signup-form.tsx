@@ -41,6 +41,19 @@ export function SignupForm() {
         />
       </div>
       <div>
+        <label htmlFor="sex" className="label">
+          Sexo
+        </label>
+        <select id="sex" name="sex" required defaultValue={state?.sex ?? ""} className="field">
+          <option value="" disabled>
+            Selecciona una opción
+          </option>
+          <option value="male">Hombre</option>
+          <option value="female">Mujer</option>
+        </select>
+        <p className="mt-2 text-[14px] text-chalk-3">Se usa para separar correctamente los rankings de hombres y mujeres.</p>
+      </div>
+      <div>
         <label htmlFor="password" className="label">
           Contraseña
         </label>
