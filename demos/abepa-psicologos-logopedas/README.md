@@ -89,7 +89,13 @@ public/assets/abepa-psicologos-logopedas/README_ASSETS.md   qué pedir
 Los textos del proceso de «Primera cita» y las preguntas frecuentes son
 redacción comercial genérica: validar con el centro antes de publicar.
 
-## Preview
+## Preview (Railway, igual que el resto de demos)
 
-Ver la sección «Preview» del mensaje de entrega / Railway. No asignar dominio
-propio ni publicar en producción.
+**URL:** https://web-preview-959d.up.railway.app · proyecto Railway
+`abepa-psicologos-logopedas-demo`, entorno `preview`, servicio `web`.
+
+Servicio independiente conectado a este repo con *Root Directory* =
+`demos/abepa-psicologos-logopedas`, rama `demo/abepa-psicologos-logopedas` y
+*watch pattern* limitado a esta carpeta (no se redepliega por cambios en otras
+demos). Build `npm run build`, start `npm start` (usa `PORT`).
+No asignar dominio propio ni publicar en producción.
