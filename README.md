@@ -12,7 +12,8 @@ Este repositorio agrupa las webs demo creadas para negocios potenciales. Las dem
 webs-negocios/
 ├── demos/                  # Una aplicación independiente por negocio
 │   ├── eferos/             # Primera demo
-│   └── lemon-rx/           # Programación de CrossFit Lemon RX (Next.js + Supabase)
+│   ├── lemon-rx/           # Programación de CrossFit Lemon RX (Next.js + Supabase)
+│   └── boutique-mgi/       # Demo privada Boutique de belleza MG&I, Sevilla (Next.js)
 ├── starters/               # Bases reutilizables por tipo de negocio
 ├── shared/                 # Recursos reutilizables no sensibles
 └── README.md
