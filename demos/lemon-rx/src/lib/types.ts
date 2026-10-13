@@ -41,6 +41,7 @@ export type Block = {
   reps_per_set: number | null;
   movement_id: string | null;
   strength_scheme: StrengthSchemeRow[] | null;
+  is_complex: boolean;
   movement?: MovementRef | null;
 };
 
@@ -77,9 +78,7 @@ export type Score = {
   rounds: number | null;
   reps: number | null;
   kg: number | null;
-  /** EMOM / intervalos: true si mantuvo todas las reps en todos los intervalos. */
   as_prescribed: boolean | null;
-  /** EMOM: detalle libre. Fuerza: kilos por serie serializados. */
   reps_detail: string;
 };
 
@@ -88,7 +87,6 @@ export type BlockResult = Score & {
   division: Division;
 };
 
-/** Una entrada del historial de un atleta: un bloque que marcó, comentó o puntuó. */
 export type HistoryEntry = Partial<Score> & {
   block_id: string;
   date: string;
