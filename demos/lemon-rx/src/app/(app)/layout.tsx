@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getViewer } from "@/lib/auth";
 import { Wordmark } from "@/components/wordmark";
 import { AdminNav } from "@/components/admin-nav";
+import { Avatar } from "@/components/avatar";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const { isAdmin, profile } = await getViewer();
@@ -12,7 +13,10 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           <Link href={isAdmin ? "/admin" : "/"} className="press -mx-1 shrink-0 px-1 py-2" aria-label="Lemon RX, inicio"><Wordmark className="text-[26px] md:text-[28px]" /></Link>
           {isAdmin && <AdminNav variant="top" />}
           {!isAdmin && <nav aria-label="Principal" className="ml-auto flex min-w-0 overflow-x-auto"><Link href="/ranking" className="press flex h-11 shrink-0 items-center px-2 text-[14px] font-semibold text-chalk-2 hover:text-chalk">Ranking</Link><Link href="/rms" className="press flex h-11 shrink-0 items-center px-2 text-[14px] font-semibold text-chalk-2 hover:text-chalk">RM's</Link><Link href="/historial" className="press flex h-11 shrink-0 items-center px-2 text-[14px] font-semibold text-chalk-2 hover:text-chalk">Historial</Link></nav>}
-          <Link href="/cuenta" className="press -mr-2 flex h-11 shrink-0 items-center px-2 text-[14px] font-semibold text-chalk-2 hover:text-chalk"><span className="max-w-[7rem] truncate">{isAdmin ? "Cuenta" : "Mi cuenta"}</span></Link>
+          <Link href="/cuenta" className="press -mr-2 flex h-11 shrink-0 items-center gap-2 px-2 text-[14px] font-semibold text-chalk-2 hover:text-chalk">
+            <Avatar url={profile.avatar_url} name={profile.full_name} size="sm" />
+            <span className="max-w-[7rem] truncate">{isAdmin ? "Cuenta" : "Mi cuenta"}</span>
+          </Link>
         </div>
       </header>
       {children}
