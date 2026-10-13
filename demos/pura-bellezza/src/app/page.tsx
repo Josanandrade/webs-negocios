@@ -10,8 +10,7 @@ export default function Home() {
     <BookingProvider>
       <div className="demo-bar" role="note">
         <p>
-          Propuesta de diseño para {site.name}. No es su web oficial.{" "}
-          <Link href="/propuesta">Ver notas</Link>
+          Propuesta de diseño para {site.name}. No es su web oficial.
         </p>
       </div>
 
