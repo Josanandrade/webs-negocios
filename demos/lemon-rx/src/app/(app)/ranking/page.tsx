@@ -11,6 +11,11 @@ import { ResultButton } from "@/components/block-tracker";
 
 export const metadata: Metadata = { title: "Ranking" };
 
+const SEX_RANKING_LABELS: Record<string, string> = {
+  male: "Clasificación masculina",
+  female: "Clasificación femenina",
+};
+
 /** Clasificaciones del día, siempre separadas entre hombres y mujeres. */
 export default async function RankingPage({ searchParams }: PageProps<"/ranking">) {
   const sp = await searchParams;
@@ -108,7 +113,7 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
                     return (
                       <div key={sex.value}>
                         <h3 className="border-b-2 border-lemon pb-2 font-display text-[20px] font-bold uppercase tracking-[0.08em]">
-                          {sex.label}
+                          {SEX_RANKING_LABELS[sex.value] ?? sex.label}
                         </h3>
                         {divided ? (
                           <div className="mt-4 grid gap-6 md:grid-cols-2">
