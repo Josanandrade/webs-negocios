@@ -66,6 +66,7 @@ function HistoryRow({ e }: { e: HistoryEntry }) {
     rounds: e.rounds ?? null,
     reps: e.reps ?? null,
     kg: e.kg ?? null,
+    total_load: e.total_load ?? null,
     as_prescribed: e.as_prescribed ?? null,
     reps_detail: e.reps_detail ?? "",
   };
