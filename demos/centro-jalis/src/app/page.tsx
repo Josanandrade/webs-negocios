@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { RoundSeal, Seal, Wordmark } from "@/components/Brand";
 import { Dock } from "@/components/Dock";
 import { Header } from "@/components/Header";
@@ -20,7 +19,6 @@ export default function Home() {
         <span>
           Propuesta privada<span className="demobar__long"> de diseño</span> · no es la web oficial
         </span>
-        <Link href="/propuesta">Ver propuesta</Link>
       </aside>
 
       <Header />
