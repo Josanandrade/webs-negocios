@@ -6,6 +6,13 @@ Tomares (Sevilla). No es la web oficial del negocio ni está afiliada a él.
 La web se sirve en `/` y es la única ruta pública. La investigación y las notas
 de trabajo están en `docs/INTERNAL_AUDIT.md`, que no se despliega como página.
 
+## Preview (Railway)
+
+**URL:** https://el-caniche-rosa-web-preview.up.railway.app · proyecto Railway
+`el-caniche-rosa-demo`, entorno `preview`, servicio `el-caniche-rosa-web`, rama
+`demo/el-caniche-rosa`, directorio raíz `/demos/el-caniche-rosa`. Sin dominio
+propio ni entorno de producción.
+
 ## Stack
 
 Next.js 16 (App Router, todo estático) + React 19 + CSS propio. Sin Tailwind,
