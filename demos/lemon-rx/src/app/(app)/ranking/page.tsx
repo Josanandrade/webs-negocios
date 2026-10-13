@@ -3,7 +3,8 @@ import Link from "next/link";
 import { getViewer } from "@/lib/auth";
 import { getAdjacentPublished, getPublishedWeek } from "@/lib/program";
 import { getActivity, getWeekLeaderboard } from "@/lib/activity";
-import { DIVISIONS, SCORE_TYPES, SEXES, hasBoard, hasDivision } from "@/lib/scores";
+import { DIVISIONS, SCORE_TYPES, hasBoard, hasDivision } from "@/lib/scores";
+import type { LeaderboardRow, ScoreType, Sex } from "@/lib/types";
 import { DAY_NAMES, isIsoDate, mondayOf, shortDate, todayIso, weekDates, weekRangeShort } from "@/lib/dates";
 import { NoAccess } from "@/components/no-access";
 import { RankingRows } from "@/components/ranking-rows";
@@ -11,17 +12,21 @@ import { ResultButton } from "@/components/block-tracker";
 
 export const metadata: Metadata = { title: "Ranking" };
 
-const SEX_RANKING_LABELS: Record<string, string> = {
-  male: "Clasificación masculina",
-  female: "Clasificación femenina",
-};
+type RankingFilter = "all" | Sex;
 
-/** Clasificaciones del día, siempre separadas entre hombres y mujeres. */
+const FILTERS: { value: RankingFilter; label: string; heading: string }[] = [
+  { value: "all", label: "General", heading: "Clasificación general" },
+  { value: "male", label: "Masculina", heading: "Clasificación masculina" },
+  { value: "female", label: "Femenina", heading: "Clasificación femenina" },
+];
+
+/** Clasificaciones del día con vista general por defecto y filtro opcional por género. */
 export default async function RankingPage({ searchParams }: PageProps<"/ranking">) {
   const sp = await searchParams;
   const today = todayIso();
   const requested = isIsoDate(sp.dia) ? sp.dia : today;
   const start = mondayOf(requested);
+  const filter = parseRankingFilter(sp.genero);
 
   const [viewer, week, adjacent] = await Promise.all([getViewer(), getPublishedWeek(start), getAdjacentPublished(start)]);
   if (!viewer.canViewProgram) {
@@ -42,6 +47,7 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
   const blocks = scoredOn(day);
   const dates = weekDates(start);
   const label = (t: string) => SCORE_TYPES.find((s) => s.value === t)?.label ?? "";
+  const activeFilter = FILTERS.find((f) => f.value === filter) ?? FILTERS[0];
 
   return (
     <main className="mx-auto max-w-3xl px-4 pb-16 pt-6 md:px-6 md:pt-10">
@@ -53,8 +59,8 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
           </h1>
         </div>
         <nav aria-label="Cambiar de semana" className="flex shrink-0 gap-2 pb-1">
-          <WeekLink to={adjacent.prev} label="Semana anterior" dir="left" />
-          <WeekLink to={adjacent.next} label="Semana siguiente" dir="right" />
+          <WeekLink to={adjacent.prev} label="Semana anterior" dir="left" filter={filter} />
+          <WeekLink to={adjacent.next} label="Semana siguiente" dir="right" filter={filter} />
         </nav>
       </div>
 
@@ -65,7 +71,7 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
           return (
             <Link
               key={date}
-              href={`/ranking?dia=${date}`}
+              href={rankingHref(date, filter)}
               scroll={false}
               aria-current={active ? "page" : undefined}
               className={`press relative flex h-16 flex-col items-center justify-center gap-0.5 ${
@@ -82,6 +88,26 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
         })}
       </nav>
 
+      <nav aria-label="Filtrar clasificación por género" className="mt-6 grid grid-cols-3 overflow-hidden rounded-sm border border-line-strong">
+        {FILTERS.map((option) => {
+          const active = option.value === filter;
+          return (
+            <Link
+              key={option.value}
+              href={rankingHref(day, option.value)}
+              scroll={false}
+              aria-current={active ? "page" : undefined}
+              className={`press flex min-h-12 items-center justify-center px-2 text-center font-display text-[14px] font-bold uppercase tracking-[0.05em] sm:text-[15px] ${
+                active ? "bg-lemon text-ink" : "border-l border-line first:border-l-0 text-chalk-3 hover:text-chalk"
+              }`}
+            >
+              {option.label}
+            </Link>
+          );
+        })}
+      </nav>
+      <p className="mt-2 text-[13px] text-chalk-3">{activeFilter.heading}</p>
+
       {blocks.length === 0 ? (
         <p className="mt-8 text-[17px] text-chalk-3">
           {week ? "Este día no hay ningún bloque con ranking." : "No hay programación publicada esta semana."}
@@ -90,6 +116,7 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
         <div className="mt-8 space-y-10">
           {blocks.map((b) => {
             const rows = board[b.id] ?? [];
+            const visibleRows = filter === "all" ? rows : rows.filter((r) => r.sex === filter);
             const divided = hasDivision(b.score_type);
             return (
               <section key={b.id} aria-labelledby={`r-${b.id}`}>
@@ -107,41 +134,37 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
                   <p className="mt-3 text-[13px] text-chalk-3">El peso se registra y edita desde la programación del día. El ranking usa los kilos totales movidos.</p>
                 )}
 
-                <div className="mt-5 space-y-8">
-                  {SEXES.map((sex) => {
-                    const sexRows = rows.filter((r) => r.sex === sex.value);
-                    return (
-                      <div key={sex.value}>
-                        <h3 className="border-b-2 border-lemon pb-2 font-display text-[20px] font-bold uppercase tracking-[0.08em]">
-                          {SEX_RANKING_LABELS[sex.value] ?? sex.label}
-                        </h3>
-                        {divided ? (
-                          <div className="mt-4 grid gap-6 md:grid-cols-2">
-                            {DIVISIONS.map((d) => {
-                              const list = sexRows.filter((r) => r.division === d.value);
-                              return (
-                                <div key={d.value}>
-                                  <h4 className="flex items-baseline justify-between border-b-2 border-line-strong pb-2 font-display text-[17px] font-bold uppercase tracking-[0.06em]">
-                                    {d.label}
-                                    <span className="text-[14px] font-semibold text-chalk-3">{list.length} {list.length === 1 ? "atleta" : "atletas"}</span>
-                                  </h4>
-                                  {list.length === 0 ? <p className="py-3 text-[15px] text-chalk-3">Sin resultados todavía.</p> : <RankingRows rows={list} type={b.score_type} meId={me} />}
-                                </div>
-                              );
-                            })}
+                {divided ? (
+                  <div className="mt-5 grid gap-6 md:grid-cols-2">
+                    {DIVISIONS.map((d) => {
+                      const list = rerankRows(visibleRows.filter((r) => r.division === d.value), b.score_type);
+                      return (
+                        <div key={d.value}>
+                          <h3 className="flex items-baseline justify-between border-b-2 border-line-strong pb-2 font-display text-[17px] font-bold uppercase tracking-[0.06em]">
+                            {d.label}
+                            <span className="text-[14px] font-semibold text-chalk-3">{list.length} {list.length === 1 ? "atleta" : "atletas"}</span>
+                          </h3>
+                          {list.length === 0 ? <p className="py-3 text-[15px] text-chalk-3">Sin resultados todavía.</p> : <RankingRows rows={list} type={b.score_type} meId={me} />}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="mt-5">
+                    {(() => {
+                      const list = rerankRows(visibleRows, b.score_type);
+                      return (
+                        <>
+                          <div className="flex items-baseline justify-between border-b-2 border-line-strong pb-2">
+                            <h3 className="font-display text-[17px] font-bold uppercase tracking-[0.06em]">{activeFilter.heading}</h3>
+                            <span className="text-[14px] font-semibold text-chalk-3">{list.length} {list.length === 1 ? "atleta" : "atletas"}</span>
                           </div>
-                        ) : (
-                          <div className="mt-3">
-                            <div className="flex justify-end border-b border-line pb-2">
-                              <span className="text-[14px] font-semibold text-chalk-3">{sexRows.length} {sexRows.length === 1 ? "atleta" : "atletas"}</span>
-                            </div>
-                            {sexRows.length === 0 ? <p className="py-3 text-[15px] text-chalk-3">Sin resultados todavía.</p> : <RankingRows rows={sexRows} type={b.score_type} meId={me} />}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
+                          {list.length === 0 ? <p className="py-3 text-[15px] text-chalk-3">Sin resultados todavía.</p> : <RankingRows rows={list} type={b.score_type} meId={me} />}
+                        </>
+                      );
+                    })()}
+                  </div>
+                )}
               </section>
             );
           })}
@@ -157,12 +180,61 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
   );
 }
 
-function WeekLink({ to, label, dir }: { to: string | null; label: string; dir: "left" | "right" }) {
+function parseRankingFilter(value: string | string[] | undefined): RankingFilter {
+  const candidate = Array.isArray(value) ? value[0] : value;
+  return candidate === "male" || candidate === "female" ? candidate : "all";
+}
+
+function rankingHref(day: string, filter: RankingFilter) {
+  const params = new URLSearchParams({ dia: day });
+  if (filter !== "all") params.set("genero", filter);
+  return `/ranking?${params.toString()}`;
+}
+
+function scoreSortKey(type: ScoreType, row: LeaderboardRow) {
+  switch (type) {
+    case "time":
+      if (!row.capped && row.seconds != null) return row.seconds;
+      if (row.capped && row.reps != null) return 1_000_000 - row.reps;
+      return Number.POSITIVE_INFINITY;
+    case "rounds_reps":
+      return row.rounds != null ? -(row.rounds * 1_000_000 + (row.reps ?? 0)) : Number.POSITIVE_INFINITY;
+    case "reps":
+      return row.reps != null ? -row.reps : Number.POSITIVE_INFINITY;
+    case "weight":
+      return row.kg != null ? -row.kg : Number.POSITIVE_INFINITY;
+    case "load": {
+      const load = row.total_load ?? row.kg;
+      return load != null ? -load : Number.POSITIVE_INFINITY;
+    }
+    case "intervals":
+      return row.as_prescribed == null ? Number.POSITIVE_INFINITY : row.as_prescribed ? 0 : 1;
+    default:
+      return Number.POSITIVE_INFINITY;
+  }
+}
+
+function rerankRows(rows: LeaderboardRow[], type: ScoreType): LeaderboardRow[] {
+  const sorted = rows
+    .map((row) => ({ row, key: scoreSortKey(type, row) }))
+    .filter((entry) => Number.isFinite(entry.key))
+    .sort((a, b) => a.key - b.key || a.row.full_name.localeCompare(b.row.full_name, "es"));
+
+  let position = 0;
+  let previousKey: number | null = null;
+  return sorted.map(({ row, key }, index) => {
+    if (previousKey === null || key !== previousKey) position = index + 1;
+    previousKey = key;
+    return { ...row, position, total: sorted.length };
+  });
+}
+
+function WeekLink({ to, label, dir, filter }: { to: string | null; label: string; dir: "left" | "right"; filter: RankingFilter }) {
   const icon = (
     <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden>
       <path d={dir === "left" ? "M15 5l-7 7 7 7" : "M9 5l7 7-7 7"} fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="square" />
     </svg>
   );
   if (!to) return <span aria-hidden className="flex h-12 w-12 items-center justify-center rounded-sm border border-line text-chalk-3/40">{icon}</span>;
-  return <Link href={`/ranking?dia=${to}`} aria-label={label} scroll={false} className="press flex h-12 w-12 items-center justify-center rounded-sm border border-line-strong text-chalk">{icon}</Link>;
+  return <Link href={rankingHref(to, filter)} aria-label={label} scroll={false} className="press flex h-12 w-12 items-center justify-center rounded-sm border border-line-strong text-chalk">{icon}</Link>;
 }
