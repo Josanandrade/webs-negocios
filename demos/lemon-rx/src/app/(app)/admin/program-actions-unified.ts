@@ -51,7 +51,7 @@ function cleanUnifiedBuilder(value: unknown): BuilderSection[] | null {
     const countMax = format === "free" ? 1 : Number(section.count_max);
     if (!Number.isInteger(countMin) || !Number.isInteger(countMax) || countMin < 1 || countMax < countMin || countMax > 100) return null;
     const emomInterval = format === "emom" ? Number(section.emom_interval_seconds) : null;
-    if (format === "emom" && (!Number.isInteger(emomInterval) || emomInterval < 1 || emomInterval > 3600)) return null;
+    if (format === "emom" && (emomInterval == null || !Number.isInteger(emomInterval) || emomInterval < 1 || emomInterval > 3600)) return null;
 
     const items: BuilderItem[] = [];
     for (const rawItem of section.items) {
