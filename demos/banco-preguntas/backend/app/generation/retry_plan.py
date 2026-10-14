@@ -1,8 +1,8 @@
 """Planificador de hechos reutilizables entre generaciones.
 
 Un hecho aceptado no se vuelve a usar porque ya existe una pregunta sobre él. Los descartes
-que pueden mejorar con otra redacción/verificación se pueden reintentar en trabajos futuros,
-con un límite prudente de tres intentos. Los descartes permanentes no se vuelven a probar.
+que pueden mejorar con otra redacción, verificación o con un catálogo de alternativas más
+rico se pueden reintentar en trabajos futuros. Los duplicados reales sí son permanentes.
 """
 from collections import Counter, defaultdict
 from typing import Any
@@ -13,7 +13,7 @@ from sqlalchemy import text
 from app.facts.distractors import _top_sections
 from app.jobs.runner import JobContext
 
-MAX_RETRYABLE_ATTEMPTS = 3
+MAX_RETRYABLE_ATTEMPTS = 4
 
 
 def plan_with_retries(ctx: JobContext, scope: list[UUID] | None, target: int | None):
@@ -30,13 +30,13 @@ def plan_with_retries(ctx: JobContext, scope: list[UUID] | None, target: int | N
               )
               and not exists (
                 select 1 from question_candidates c
-                where c.fact_id = f.id
-                  and c.status in ('rejected_duplicate', 'rejected_no_distractors')
+                where c.fact_id = f.id and c.status = 'rejected_duplicate'
               )
               and (
                 select count(*) from question_candidates c
                 where c.fact_id = f.id
-                  and c.status in ('rejected_generation', 'rejected_deterministic', 'rejected_verification')
+                  and c.status in ('rejected_no_distractors', 'rejected_generation',
+                                   'rejected_deterministic', 'rejected_verification')
               ) < :max_attempts
             order by f.page_number, f.char_start"""),
             {
