@@ -46,6 +46,20 @@ export type BuilderExerciseItem = {
   /** Porcentaje mínimo/máximo del 1RM del propio movimiento. Null = sin prescripción por porcentaje. */
   percentage_min: number | null;
   percentage_max: number | null;
+  /** Tramos opcionales series × reps × %1RM. Si existen sustituyen reps/% simples para el registro de carga. */
+  scheme?: StrengthSchemeRow[] | null;
+};
+
+export type BuilderComplexItem = {
+  id: string;
+  type: "complex";
+  movements: ComplexMovementRow[];
+  rm_reference_movement_id: string | null;
+  instruction: string;
+  track_load: boolean;
+  percentage_min: number | null;
+  percentage_max: number | null;
+  scheme?: StrengthSchemeRow[] | null;
 };
 
 export type BuilderRestItem = {
@@ -61,24 +75,43 @@ export type BuilderNoteItem = {
   text: string;
 };
 
-export type BuilderItem = BuilderExerciseItem | BuilderRestItem | BuilderNoteItem;
+export type BuilderItem = BuilderExerciseItem | BuilderComplexItem | BuilderRestItem | BuilderNoteItem;
+export type BuilderSectionFormat = "sets" | "rounds" | "emom" | "free";
 
 export type BuilderSection = {
   id: string;
   label: string;
+  /** Compatibilidad con bloques ya guardados. */
   count_type: "sets" | "rounds";
   count_min: number;
   count_max: number;
+  /** Formato del bloque dentro del constructor unificado. Ausente = se infiere de count_type. */
+  format?: BuilderSectionFormat;
+  /** Solo se usa con format=emom. */
+  emom_interval_seconds?: number | null;
   items: BuilderItem[];
 };
+
+export type BuilderSchemeTargetRow = StrengthSchemeRow & { kg: number | null };
 
 export type BuilderExerciseView = BuilderExerciseItem & {
   movement_name: string;
   rm_1: number | null;
   suggested_kg_min: number | null;
   suggested_kg_max: number | null;
+  scheme_targets?: BuilderSchemeTargetRow[];
 };
-export type BuilderItemView = BuilderExerciseView | BuilderRestItem | BuilderNoteItem;
+
+export type BuilderComplexView = BuilderComplexItem & {
+  movement_details: Array<ComplexMovementRow & { name: string }>;
+  rm_reference_name: string | null;
+  rm_1: number | null;
+  suggested_kg_min: number | null;
+  suggested_kg_max: number | null;
+  scheme_targets?: BuilderSchemeTargetRow[];
+};
+
+export type BuilderItemView = BuilderExerciseView | BuilderComplexView | BuilderRestItem | BuilderNoteItem;
 export type BuilderSectionView = Omit<BuilderSection, "items"> & { items: BuilderItemView[] };
 
 export type MovementRef = {
@@ -104,7 +137,7 @@ export type Block = {
   emom_interval_seconds: number | null;
   emom_rounds: number | null;
   emom_percentage: number | null;
-  /** Constructor libre. Null significa que el bloque usa el modelo clásico. */
+  /** Constructor unificado. Null significa bloque histórico con el modelo anterior. */
   builder_sections: BuilderSection[] | null;
   movement?: MovementRef | null;
   rm_reference_movement?: MovementRef | null;
