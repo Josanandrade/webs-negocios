@@ -6,6 +6,7 @@ export type Movement = {
   name: string;
   group_name: string;
   sort_order: number;
+  is_rm_eligible: boolean;
 };
 
 export type UserRm = {
@@ -21,7 +22,7 @@ export async function getMovements(): Promise<Movement[]> {
   const supabase = await createClient();
   const { data } = await supabase
     .from("movements")
-    .select("id, name, group_name, sort_order")
+    .select("id, name, group_name, sort_order, is_rm_eligible")
     .eq("is_active", true)
     .order("name", { ascending: true });
   return (data ?? []) as Movement[];
