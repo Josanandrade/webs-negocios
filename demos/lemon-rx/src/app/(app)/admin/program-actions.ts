@@ -162,6 +162,15 @@ export async function saveProgramWeek(weekId: string, days: ProgramDayInput[]): 
   const supabase = await createClient();
   const { error } = await supabase.rpc("save_week_content", { p_week_id: weekId, p_days: clean });
   if (error) return { ok: false, error: "No se ha podido guardar. Revisa la programación y vuelve a intentarlo." };
+
+  const builderWrites = clean.flatMap((day) => day.blocks).map((block) =>
+    supabase.from("workout_blocks").update({ builder_sections: block.builder_sections }).eq("id", block.id),
+  );
+  const builderResults = await Promise.all(builderWrites);
+  if (builderResults.some((result) => result.error)) {
+    return { ok: false, error: "La programación se ha guardado, pero no se ha podido guardar el constructor de fuerza. Vuelve a intentarlo." };
+  }
+
   revalidatePath("/", "layout");
   return { ok: true, at: new Date().toISOString() };
 }
