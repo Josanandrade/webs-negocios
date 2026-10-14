@@ -11,7 +11,9 @@ nunca se sirven: `next.config.ts` los reescribe a 404).
 
 ## Preview
 
-Railway, proyecto aislado `peluqueria-estetica-los-angeles-demo`, entorno
+**URL:** https://los-angeles-web-preview.up.railway.app
+
+Railway, proyecto aislado `los-angeles-peluqueria-demo` (servicio `los-angeles-web`), entorno
 `preview`, rama `demo/peluqueria-estetica-los-angeles`, directorio raíz
 `/demos/peluqueria-estetica-los-angeles`. Sin dominio propio ni producción.
 
