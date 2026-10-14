@@ -8,7 +8,7 @@ de trabajo están en `docs/INTERNAL_AUDIT.md`, que no se despliega como página.
 
 ## Preview (Railway)
 
-Proyecto Railway `animalex-demo`, entorno `preview`, servicio `animalex-web`,
+**URL:** https://animalex-web-preview.up.railway.app · proyecto Railway `animalex-demo`, entorno `preview`, servicio `animalex-web`,
 rama `demo/animalex-wnwgs3`, directorio raíz `/demos/animalex`. Sin dominio
 propio ni entorno de producción.
 
