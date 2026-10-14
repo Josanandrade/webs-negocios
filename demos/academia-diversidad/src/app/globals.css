@@ -325,7 +325,7 @@ section {
   max-width: 760px;
 }
 .h2 {
-  font: 800 clamp(1.9rem, 3.6vw, 2.9rem) / 1.05 var(--display);
+  font: 800 clamp(1.9rem, 3.6vw, 2.9rem) / 1.1 var(--display);
   letter-spacing: -0.03em;
 }
 

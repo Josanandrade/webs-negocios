@@ -65,7 +65,7 @@ Todos. No hay ninguna oferta formativa confirmada.
 
 - **Concepto**: «caminos distintos, mismo destino». El nombre Diversidad se traduce en cuatro trazos de colores que salen de puntos diferentes y convergen en «Tu siguiente paso». El mismo degradado reaparece en el recorrido de «Cómo empezar», en la barra de progreso del formulario y en el logotipo (cuatro puntos). Sensación de acompañamiento y progreso sin lápices, libros ni birretes.
 - **Paleta**: papel cálido `#F4F2EC`, tinta azul noche `#1C2340`, mandarina `#F26B3A` para acciones; acentos suaves cielo `#7FA7E8`, lima `#B9D36C`, lila `#B79CE6`, arena `#F2C46D`. Colores optimistas pero apagados, no chillones ni infantiles.
-- **Tipografía**: Gabarito (geométrica, redonda, pesos 800–900) para titulares; Rethink Sans para lectura. Ninguna se ha usado en otras demos del repo.
+- **Tipografía**: Lexend (familia diseñada para mejorar la fluidez lectora, guiño al mundo educativo sin caer en lo infantil) en pesos 700–900 para titulares; Rethink Sans para lectura. Ninguna se ha usado en otras demos del repo (Gabarito se descartó porque ya la usa Clínica Veterinaria Camas).
 - **Composición**: secciones con fondos distintos (papel, blanco, mandarina a sangre, tinta) para que cada bloque se reconozca; selector «Soy familia / Soy alumno/a» que cambia contenido y color; recorrido de pasos horizontal en escritorio y vertical en móvil; contacto con el nombre del pueblo en grande.
 - **Sin fotos**: no hay material gráfico verificable de la academia; no se usan imágenes de banco que puedan pasar por el negocio.
 - **Privacidad técnica**: `noindex, nofollow` en meta, `robots.txt` y cabecera `X-Robots-Tag`; fuentes locales; sin analytics.
@@ -74,7 +74,7 @@ Todos. No hay ninguna oferta formativa confirmada.
 
 - Frente a clínicas y psicología (Pérez Bilbao, Mapi de Paz, podologías, veterinarias): no hay reserva de cita, agenda, huecos ni horarios; el objetivo es una solicitud de información/matrícula. Nada de tonos sanitarios (blancos fríos, azules clínicos, verdes menta) ni serifas sobrias.
 - Frente a peluquerías y estética: sin fotografía, sin carta de precios, sin estética de salón.
-- Identidad propia: ilustración de caminos que convergen, logotipo de cuatro puntos, Gabarito + Rethink Sans, mandarina + tinta azul noche, botones con «escalón» inferior, selector familia/alumno y formulario por pasos con barra de progreso. Ninguno de estos recursos se repite en otra demo.
+- Identidad propia: ilustración de caminos que convergen, logotipo de cuatro puntos, Lexend + Rethink Sans, mandarina + tinta azul noche, botones con «escalón» inferior, selector familia/alumno y formulario por pasos con barra de progreso. Ninguno de estos recursos se repite en otra demo.
 
 ## 9. Pendiente de confirmar con la academia (si avanza)
 

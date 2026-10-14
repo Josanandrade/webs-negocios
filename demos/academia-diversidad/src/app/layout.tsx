@@ -3,11 +3,11 @@ import localFont from "next/font/local";
 import { academy } from "@/content/site";
 import "./globals.css";
 
-// Gabarito (geométrica, redonda y con peso) para titulares; Rethink Sans para lectura e interfaz.
+// Lexend (pensada para facilitar la lectura) en pesos altos para titulares; Rethink Sans para lectura e interfaz.
 const display = localFont({
-  src: "../../node_modules/@fontsource-variable/gabarito/files/gabarito-latin-wght-normal.woff2",
+  src: "../../node_modules/@fontsource-variable/lexend/files/lexend-latin-wght-normal.woff2",
   variable: "--font-display",
-  weight: "400 900",
+  weight: "100 900",
   display: "swap",
 });
 
