@@ -7,10 +7,9 @@ atributo y unidad). Cada candidato conserva su cita y su página.
 Se descarta un candidato si podría ser también correcto:
   * el sujeto de la pregunta tiene ese mismo valor en algún hecho;
   * el sujeto y el valor aparecen juntos en una misma frase en cualquier parte del documento.
-Para respuestas abiertas se prioriza el MISMO tema principal, pero si el tema es pequeño se
-pueden usar valores del mismo tipo procedentes de otros temas del mismo documento. Esto evita
-bloquear preguntas fiables solo por falta de tres alternativas locales; el generador sigue
-eligiendo las alternativas y el verificador independiente revisa la pregunta completa.
+Las respuestas abiertas priorizan y, por defecto, limitan las alternativas al mismo tema
+principal. La generación puede activar un fallback explícito para completar con valores del
+mismo tipo de otros temas cuando un tema pequeño no tenga tres alternativas locales.
 """
 import math
 import re
@@ -68,7 +67,7 @@ def _top_sections(session: Session, document_id: UUID) -> dict[UUID, UUID]:
 
 
 def distractor_candidates(session: Session, fact_id: UUID, *, difficulty: str = "medium",
-                          limit: int = 8) -> list[Candidate]:
+                          limit: int = 8, allow_cross_topic: bool = False) -> list[Candidate]:
     target = session.execute(text("select * from facts where id = :id"), {"id": fact_id}).mappings().one()
     doc = target["document_id"]
     tops = _top_sections(session, doc)
@@ -105,8 +104,10 @@ def distractor_candidates(session: Session, fact_id: UUID, *, difficulty: str = 
 
         same_section = bool(f["section_id"] and f["section_id"] == target["section_id"])
         same_top = bool(target_top and tops.get(f["section_id"]) == target_top)
-        proximity = 1.0 if same_section else 0.6 if same_top else -0.35 if target["kind"] in OPEN_KINDS else 0.0
+        if target["kind"] in OPEN_KINDS and target_top and not same_top and not allow_cross_topic:
+            continue
 
+        proximity = 1.0 if same_section else 0.6 if same_top else -0.35 if target["kind"] in OPEN_KINDS else 0.0
         closeness = 0.0
         if target["kind"] in NUMERIC_KINDS and target["value_number"] and f["value_number"]:
             ratio = abs(math.log(abs(float(f["value_number"])) + 1e-9) - math.log(abs(float(target["value_number"])) + 1e-9))
@@ -120,8 +121,7 @@ def distractor_candidates(session: Session, fact_id: UUID, *, difficulty: str = 
         if cand.value_norm not in best or best[cand.value_norm].score < cand.score:
             best[cand.value_norm] = cand
 
-    # Siempre se priorizan alternativas del propio tema; las de otros temas solo rellenan
-    # cuando hacen falta. La validación posterior puede descartar cualquiera que dé pistas.
+    # Incluso en el fallback se prioriza el propio tema; otros temas solo rellenan huecos.
     return sorted(
         best.values(),
         key=lambda c: (
