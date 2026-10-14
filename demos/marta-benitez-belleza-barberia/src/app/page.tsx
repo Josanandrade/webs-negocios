@@ -6,10 +6,10 @@ import ServiceMenu from "@/components/ServiceMenu";
 import { areas, business, reputation } from "@/content/site";
 
 const tileDetail: Record<string, string> = {
-  cabello: "Corte · color · mechas · alisado · recogidos",
-  barberia: "Corte caballero · cejas · depilación · barba con láser",
+  cabello: "Corte · peinado · alisado · recogidos",
+  color: "Tinte · mechas · matizadores · contorno",
   estetica: "Cejas a hilo · pestañas · uñas · facial · cera",
-  laser: "Láser médico · tatuajes · micropigmentación",
+  laser: "Depilación láser · tatuajes · micropigmentación",
 };
 
 function Wordmark() {
@@ -23,7 +23,7 @@ function Wordmark() {
 
 const heroWords = [
   ["Corte.", "narrow"],
-  ["Barba.", "wide"],
+  ["Color.", "wide"],
   ["Piel.", "narrow"],
   ["Láser.", "wide"],
 ] as const;
@@ -95,8 +95,8 @@ export default function Home() {
 
             <div className="hero__foot">
               <p className="hero__lead">
-                Peluquería, barbería especializada, estética y láser médico bajo el mismo techo. Un salón para quien viene a
-                cortarse el pelo, a perfilarse la barba, a hacerse las cejas o a quitarse un tatuaje.
+                Peluquería, estética, tratamientos faciales y láser bajo el mismo techo. Un salón para cortarte o colorearte el
+                pelo, cuidar la piel, definir la mirada o consultar depilación láser, micropigmentación y eliminación de tatuajes.
               </p>
               <div className="hero__actions">
                 <a className="btn btn--accent" href={business.booking} target="_blank" rel="noopener noreferrer">
@@ -178,12 +178,12 @@ export default function Home() {
                 estética y maquillaje profesional y como técnico de láser IPL y de diodo.
               </p>
               <p>
-                Esa formación explica la parte menos habitual de la casa: depilación láser médica por zonas, eliminación de
-                tatuajes y micropigmentación, junto a la peluquería, la barbería y la estética de siempre.
+                Esa formación explica la parte menos habitual de la casa: depilación láser por zonas, eliminación de tatuajes y
+                micropigmentación, junto a la peluquería, los tratamientos faciales y la estética de siempre.
               </p>
               <ul className="craft__list">
                 <li>
-                  <span>01</span>Depilación láser médica
+                  <span>01</span>Depilación láser
                 </li>
                 <li>
                   <span>02</span>Eliminación de tatuajes
