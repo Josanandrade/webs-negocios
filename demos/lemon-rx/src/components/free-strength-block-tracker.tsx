@@ -1,0 +1,176 @@
+"use client";
+
+import { useEffect, useId, useOptimistic, useRef, useState, useTransition } from "react";
+import { deleteBlockResult, saveBlockNote, setBlockDone } from "@/app/(app)/actions";
+import { saveFreeStrengthResult, type FreeStrengthDraft } from "@/app/(app)/strength-actions";
+import { formatKg } from "@/lib/scores";
+import type { Block, BlockLog, BlockResult, BuilderExerciseView, BuilderSectionView } from "@/lib/types";
+
+type Notify = (text: string, tone?: "ok" | "error") => void;
+export type FreeStrengthBlockView = Block & {
+  log: BlockLog | null;
+  result: BlockResult | null;
+  builderSectionsView?: BuilderSectionView[];
+};
+
+type SavedFreeResult = {
+  version: 2;
+  sections: Array<{
+    section_id: string;
+    count: number;
+    exercises: Array<{ item_id: string; weights: number[] }>;
+  }>;
+};
+
+function readSaved(value: string | null | undefined): SavedFreeResult | null {
+  if (!value) return null;
+  try {
+    const parsed = JSON.parse(value) as Partial<SavedFreeResult>;
+    if (parsed.version !== 2 || !Array.isArray(parsed.sections)) return null;
+    return parsed as SavedFreeResult;
+  } catch { return null; }
+}
+
+function trackedExercises(section: BuilderSectionView) {
+  return section.items.filter((item): item is BuilderExerciseView => item.type === "exercise" && item.track_load);
+}
+
+export function FreeStrengthBlockTracker({ block, notify }: { block: FreeStrengthBlockView; notify: Notify }) {
+  const [open, setOpen] = useState(false);
+  const sections = block.builderSectionsView ?? [];
+  const done = block.log?.done ?? false;
+  return <section>
+    <div className="flex items-start justify-between gap-3">
+      <div className="min-w-0 pt-3"><h3 className="font-display text-[15px] font-bold uppercase tracking-[0.12em] text-lemon">{block.title || "Strength"}</h3></div>
+      <DoneToggle block={block} notify={notify} onResult={() => setOpen(true)} />
+    </div>
+
+    <div className="mt-3 space-y-3">{sections.map((section) => <div key={section.id} className="rounded-sm border border-line bg-ink-2 p-3">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <p className="font-display text-[20px] font-bold uppercase text-chalk">{section.label || "Sección"}</p>
+        <p className="font-display text-[14px] font-bold uppercase tracking-[0.05em] text-chalk-3">{section.count_min === section.count_max ? section.count_min : `${section.count_min}–${section.count_max}`} {section.count_type}</p>
+      </div>
+      <div className="mt-3 space-y-2">{section.items.map((item) => {
+        if (item.type === "exercise") return <div key={item.id} className="flex items-start gap-3 text-[17px] leading-snug"><span className="w-8 shrink-0 text-right font-display text-[18px] font-bold text-lemon">{item.reps}</span><p className="min-w-0 flex-1"><strong className="font-semibold text-chalk">{item.movement_name}</strong>{item.instruction && <span className="ml-2 text-chalk-2">· {item.instruction}</span>}{item.track_load && <span className="ml-2 whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.06em] text-chalk-3">carga</span>}</p></div>;
+        if (item.type === "rest") return <div key={item.id} className="py-1"><span className="inline-flex rounded-full border border-lemon/50 bg-lemon/10 px-3 py-1.5 font-display text-[14px] font-bold uppercase tracking-[0.08em] text-lemon">Rest · {item.duration}</span></div>;
+        return <p key={item.id} className="border-l-2 border-line-strong pl-3 text-[15px] italic text-chalk-2">{item.text}</p>;
+      })}</div>
+    </div>)}</div>
+
+    {block.content && <p className="workout-text mt-3 whitespace-pre-wrap text-[17px] leading-[1.55] text-chalk-2">{block.content}</p>}
+    <ResultCard block={block} onEdit={() => setOpen(true)} />
+    <NotePanel blockId={block.id} note={block.log?.note ?? ""} notify={notify} />
+    <ResultDialog open={open} block={block} done={done} notify={notify} onClose={() => setOpen(false)} />
+  </section>;
+}
+
+function DoneToggle({ block, notify, onResult }: { block: FreeStrengthBlockView; notify: Notify; onResult: () => void }) {
+  const [optimistic, setOptimistic] = useOptimistic(block.log?.done ?? false);
+  const [, startTransition] = useTransition();
+  function toggle() {
+    const next = !optimistic;
+    if (next && !block.result) return onResult();
+    startTransition(async () => { setOptimistic(next); const result = await setBlockDone(block.id, next); if (!result.ok) notify(result.error, "error"); });
+  }
+  return <button type="button" aria-pressed={optimistic} onClick={toggle} className={`press flex h-11 shrink-0 items-center gap-2 rounded-sm px-3 font-display text-[14px] font-bold uppercase tracking-[0.06em] ${optimistic ? "bg-lemon text-lemon-ink" : "border border-line-strong text-chalk-2 hover:text-chalk"}`}><span aria-hidden className={`flex h-[18px] w-[18px] items-center justify-center rounded-[3px] ${optimistic ? "bg-lemon-ink text-lemon" : "border-2 border-chalk-3"}`}>{optimistic ? "✓" : ""}</span>{optimistic ? "Hecho" : "Marcar hecho"}</button>;
+}
+
+function ResultCard({ block, onEdit }: { block: FreeStrengthBlockView; onEdit: () => void }) {
+  const result = block.result;
+  if (!result) return <div className="mt-5 rounded-sm border border-line bg-ink-2 px-4 py-3"><button type="button" onClick={onEdit} className="btn-primary w-full sm:w-auto">Apuntar mis pesos</button></div>;
+  const saved = readSaved(result.reps_detail);
+  const sectionMap = new Map((block.builderSectionsView ?? []).map((section) => [section.id, section]));
+  return <div className="mt-5 rounded-sm border border-line bg-ink-2 px-4 py-3">
+    <div className="flex flex-wrap items-start justify-between gap-3"><div className="min-w-0 flex-1"><p className="eyebrow">Tu resultado</p>
+      {result.total_load != null && <p className="mt-1 font-display text-[30px] font-bold text-lemon">{formatKg(result.total_load)} kg <span className="text-[14px] text-chalk-3">totales</span></p>}
+      {saved && <div className="mt-3 space-y-2">{saved.sections.map((savedSection) => {
+        const section = sectionMap.get(savedSection.section_id);
+        if (!section) return null;
+        return <div key={savedSection.section_id}><p className="text-[13px] font-semibold uppercase tracking-[0.06em] text-chalk-3">{section.label} · {savedSection.count} {section.count_type}</p>{savedSection.exercises.map((exercise) => {
+          const item = section.items.find((row) => row.type === "exercise" && row.id === exercise.item_id) as BuilderExerciseView | undefined;
+          return item ? <p key={exercise.item_id} className="mt-1 text-[14px] text-chalk-2"><span className="font-semibold text-chalk">{item.movement_name}:</span> {exercise.weights.map((kg) => `${formatKg(kg)} kg`).join(" · ")}</p> : null;
+        })}</div>;
+      })}</div>}
+      {!saved && result.kg != null && <p className="mt-2 text-[14px] text-chalk-2">Peso máximo registrado: <strong className="text-chalk">{formatKg(result.kg)} kg</strong></p>}
+    </div><button type="button" onClick={onEdit} className="press h-11 px-1 text-[15px] font-semibold text-chalk-2 hover:text-chalk">Editar</button></div>
+  </div>;
+}
+
+function ResultDialog({ open, block, done, notify, onClose }: { open: boolean; block: FreeStrengthBlockView; done: boolean; notify: Notify; onClose: () => void }) {
+  const ref = useRef<HTMLDialogElement>(null);
+  const [busy, setBusy] = useState(false);
+  useEffect(() => { const dialog = ref.current; if (!dialog) return; if (open && !dialog.open) dialog.showModal(); if (!open && dialog.open) dialog.close(); }, [open]);
+  async function skip() { setBusy(true); const result = await setBlockDone(block.id, true); setBusy(false); if (!result.ok) return notify(result.error, "error"); notify("Marcado como hecho"); onClose(); }
+  return <dialog ref={ref} onCancel={(e) => { e.preventDefault(); if (!busy) onClose(); }} onClick={(e) => { if (e.target === ref.current && !busy) onClose(); }} className="confirm-dialog m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-xl overflow-y-auto rounded-md border border-line-strong bg-ink-2 p-0 text-chalk">{open && <div className="pt-5"><div className="px-4"><p className="eyebrow">{block.title}</p><h2 className="mt-1 font-display text-[26px] font-bold uppercase leading-tight">{block.result ? "Editar resultado" : "¿Qué pesos has usado?"}</h2><p className="mt-2 text-[14px] text-chalk-3">Informa de cada set o ronda. Si repetiste el mismo peso puedes marcarlo en ese ejercicio.</p></div><ResultForm block={block} onDone={onClose} notify={notify} />{!done && !block.result && <div className="border-t border-line px-4 py-3"><button type="button" onClick={skip} disabled={busy} className="press h-11 text-[15px] font-semibold text-chalk-3 hover:text-chalk">{busy ? "Un momento…" : "Marcar como hecho sin resultado"}</button></div>}</div>}</dialog>;
+}
+
+function ResultForm({ block, onDone, notify }: { block: FreeStrengthBlockView; onDone: () => void; notify: Notify }) {
+  const id = useId();
+  const sections = block.builderSectionsView ?? [];
+  const saved = readSaved(block.result?.reps_detail);
+  const [counts, setCounts] = useState<Record<string, number>>(() => Object.fromEntries(sections.map((section) => {
+    const previous = saved?.sections.find((row) => row.section_id === section.id)?.count;
+    return [section.id, previous && previous >= section.count_min && previous <= section.count_max ? previous : section.count_min];
+  })));
+  const [weights, setWeights] = useState<Record<string, string[]>>(() => {
+    const entries: Array<[string, string[]]> = [];
+    for (const section of sections) {
+      const previousSection = saved?.sections.find((row) => row.section_id === section.id);
+      for (const item of trackedExercises(section)) {
+        const previous = previousSection?.exercises.find((row) => row.item_id === item.id)?.weights ?? [];
+        entries.push([item.id, previous.map(String)]);
+      }
+    }
+    return Object.fromEntries(entries);
+  });
+  const [sameWeight, setSameWeight] = useState<Record<string, boolean>>({});
+  const [error, setError] = useState<string | null>(null);
+  const [pending, startTransition] = useTransition();
+
+  function setCount(sectionId: string, next: number) { setCounts((current) => ({ ...current, [sectionId]: next })); setError(null); }
+  function setWeight(itemId: string, index: number, value: string) { setWeights((current) => { const next = [...(current[itemId] ?? [])]; next[index] = value; return { ...current, [itemId]: next }; }); setError(null); }
+  function toggleSame(itemId: string, next: boolean) { setSameWeight((current) => ({ ...current, [itemId]: next })); setError(null); }
+
+  function submit(e: React.FormEvent) {
+    e.preventDefault(); setError(null);
+    const draft: FreeStrengthDraft = { sections: sections.map((section) => {
+      const count = counts[section.id] ?? section.count_min;
+      return { section_id: section.id, count, exercises: trackedExercises(section).map((item) => {
+        const values = weights[item.id] ?? [];
+        const normalized = sameWeight[item.id]
+          ? Array.from({ length: count }, () => values[0] ?? "")
+          : Array.from({ length: count }, (_, i) => values[i] ?? "");
+        return { item_id: item.id, weights: normalized };
+      }) };
+    }) };
+    startTransition(async () => { const result = await saveFreeStrengthResult(block.id, draft); if (!result.ok) return setError(result.error); notify("Resultado guardado"); onDone(); });
+  }
+  function remove() { if (!window.confirm("¿Borrar tu resultado de este bloque?")) return; startTransition(async () => { const result = await deleteBlockResult(block.id); if (!result.ok) return setError(result.error); notify("Resultado borrado"); onDone(); }); }
+
+  return <form onSubmit={submit} className="space-y-5 px-4 py-4" noValidate>
+    {sections.map((section) => {
+      const count = counts[section.id] ?? section.count_min;
+      const exercises = trackedExercises(section);
+      if (!exercises.length) return null;
+      return <section key={section.id} className="rounded-sm border border-line bg-ink p-3"><div className="flex flex-wrap items-center justify-between gap-3"><p className="font-display text-[18px] font-bold uppercase text-chalk">{section.label}</p>{section.count_min !== section.count_max ? <label className="flex items-center gap-2 text-[13px] text-chalk-3">He hecho <select value={count} onChange={(e) => setCount(section.id, Number(e.target.value))} className="field h-10 w-20">{Array.from({ length: section.count_max - section.count_min + 1 }, (_, i) => section.count_min + i).map((n) => <option key={n} value={n}>{n}</option>)}</select> {section.count_type}</label> : <span className="text-[13px] text-chalk-3">{count} {section.count_type}</span>}</div>
+        <div className="mt-4 space-y-5">{exercises.map((item) => <div key={item.id}><div className="flex flex-wrap items-center justify-between gap-2"><p className="text-[15px] font-semibold text-chalk">{item.reps} {item.movement_name}</p><label className="flex items-center gap-2 text-[13px] font-semibold text-chalk-3"><input type="checkbox" checked={Boolean(sameWeight[item.id])} onChange={(e) => toggleSame(item.id, e.target.checked)} className="h-4 w-4 accent-[var(--color-lemon)]" />Mismo peso en todos</label></div>
+          {sameWeight[item.id] ? <div className="mt-2 max-w-40"><NumberField id={`${id}-${item.id}-same`} value={(weights[item.id] ?? [])[0] ?? ""} onChange={(value) => setWeight(item.id, 0, value)} /></div> : <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">{Array.from({ length: count }, (_, i) => <label key={i}><span className="mb-1 block text-[11px] font-semibold uppercase text-chalk-3">{section.count_type === "rounds" ? "Ronda" : "Set"} {i + 1}</span><NumberField id={`${id}-${item.id}-${i}`} value={(weights[item.id] ?? [])[i] ?? ""} onChange={(value) => setWeight(item.id, i, value)} /></label>)}</div>}
+        </div>)}</div>
+      </section>;
+    })}
+    {error && <p role="alert" className="text-[14px] font-semibold text-danger">{error}</p>}
+    <div className="flex flex-wrap gap-2"><button type="submit" disabled={pending} className="btn-primary flex-1 sm:flex-none">{pending ? "Guardando…" : "Guardar resultado"}</button>{block.result && <button type="button" disabled={pending} onClick={remove} className="btn-ghost text-danger">Borrar resultado</button>}</div>
+  </form>;
+}
+
+function NumberField({ id, value, onChange }: { id: string; value: string; onChange: (value: string) => void }) {
+  return <div className="relative"><input id={id} type="text" inputMode="decimal" value={value} onChange={(e) => onChange(e.target.value.replace(/[^0-9.,]/g, "").slice(0, 8))} placeholder="0" className="field w-full pr-9 text-right font-display text-[20px] font-bold" /><span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[12px] text-chalk-3">kg</span></div>;
+}
+
+function NotePanel({ blockId, note, notify }: { blockId: string; note: string; notify: Notify }) {
+  const [value, setValue] = useState(note);
+  const [pending, startTransition] = useTransition();
+  useEffect(() => setValue(note), [note]);
+  function save() { startTransition(async () => { const result = await saveBlockNote(blockId, value); if (!result.ok) return notify(result.error, "error"); notify("Nota guardada"); }); }
+  return <div className="mt-5"><label className="label" htmlFor={`note-${blockId}`}>Mi nota</label><textarea id={`note-${blockId}`} value={value} onChange={(e) => setValue(e.target.value)} placeholder="Sensaciones, técnica, molestias…" rows={2} className="field mt-1 min-h-20 w-full resize-y py-2.5" /><div className="mt-2 flex justify-end"><button type="button" disabled={pending || value === note} onClick={save} className="btn-ghost h-10">{pending ? "Guardando…" : "Guardar nota"}</button></div></div>;
+}
