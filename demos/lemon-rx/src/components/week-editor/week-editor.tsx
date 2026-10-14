@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { flushSync } from "react-dom";
 import { deleteWeek, setWeekStatus } from "@/app/(app)/admin/actions";
-import { saveProgramWeek, type ProgramDayInput } from "@/app/(app)/admin/program-actions";
+import { saveUnifiedProgramWeek } from "@/app/(app)/admin/program-actions-unified";
+import type { ProgramDayInput } from "@/app/(app)/admin/program-actions";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { Toast, useToast } from "@/components/toast";
 import { WeekStatusLabel } from "@/components/status-dot";
@@ -14,7 +15,7 @@ import type { Movement } from "@/lib/strength";
 import type { BuilderSection, WeekStatus, WeekWithDays } from "@/lib/types";
 import { BlockEditor, type EditableBlock } from "./block-editor";
 import { FreeStrengthBlockEditor, type FreeEditableBlock } from "./free-strength-block-editor";
-import { newBuilderSection } from "./free-strength-editor";
+import { legacyStrengthToBuilderSections, newBuilderSection } from "./free-strength-editor";
 import { AddBlock } from "./add-block";
 
 type ProgramEditableBlock = EditableBlock & { builder_sections?: BuilderSection[] | null };
@@ -46,7 +47,9 @@ function initialState(week: WeekWithDays): DaysState {
       emom_interval_seconds: b.emom_interval_seconds,
       emom_rounds: b.emom_rounds,
       emom_percentage: b.emom_percentage,
-      builder_sections: b.builder_sections,
+      builder_sections: b.score_type === "load"
+        ? (Array.isArray(b.builder_sections) ? b.builder_sections : legacyStrengthToBuilderSections(b))
+        : b.builder_sections,
     }));
   }
   return state;
@@ -109,7 +112,7 @@ export function WeekEditor({ week, today, movements }: { week: WeekWithDays; tod
         builder_sections: b.builder_sections ?? null,
       })),
     }));
-    const result = await saveProgramWeek(week.id, payload);
+    const result = await saveUnifiedProgramWeek(week.id, payload);
     if (result.ok) setSavedSnapshot(snapshot(current));
     return result;
   }, [week.id]);
@@ -140,13 +143,13 @@ export function WeekEditor({ week, today, movements }: { week: WeekWithDays; tod
   function addBlock(title: string) {
     const id = newId(); setFocusId(id);
     const score_type = title === "WOD" ? "time" : title === "Strength" || title === "Weightlifting" ? "load" : "none";
-    const useFreeBuilder = title === "Strength" || title === "Weightlifting";
+    const useUnifiedBuilder = title === "Strength" || title === "Weightlifting";
     updateBlocks(active, (b) => [...b, {
       id, title, content: "", score_type, movement_id: null,
-      strength_scheme: score_type === "load" && !useFreeBuilder ? [{ sets: 1, reps: 1, percentage: 70 }] : null,
+      strength_scheme: null,
       is_complex: false, complex_movements: null, rm_reference_movement_id: null,
       is_emom: false, emom_reps: null, emom_interval_seconds: null, emom_rounds: null, emom_percentage: null,
-      builder_sections: useFreeBuilder ? [newBuilderSection()] : null,
+      builder_sections: useUnifiedBuilder ? [newBuilderSection()] : null,
     }], true);
   }
   function moveBlock(index: number, delta: -1 | 1) { updateBlocks(active, (b) => { const target = index + delta; if (target < 0 || target >= b.length) return b; const next = [...b]; [next[index], next[target]] = [next[target], next[index]]; return next; }, true); }
@@ -165,11 +168,19 @@ export function WeekEditor({ week, today, movements }: { week: WeekWithDays; tod
         <h2 className="font-display text-[28px] font-bold uppercase leading-none">{DAY_NAMES[dates.indexOf(active)]} <span className="text-chalk-3">{shortDate(active)}</span></h2>
         {blocks.length === 0 && <p className="mt-4 text-[16px] text-chalk-3">Sin sesión. Añade un bloque para empezar; los días vacíos no se muestran como entrenamiento.</p>}
         <ol className="mt-6 space-y-4">{blocks.map((block, index) => {
-          const change = (patch: Partial<ProgramEditableBlock>) => updateBlocks(active, (rows) => rows.map((x) => x.id === block.id ? { ...x, ...patch } : x));
-          if (block.score_type === "load" && Array.isArray(block.builder_sections)) {
-            return <FreeStrengthBlockEditor key={block.id} block={block as FreeEditableBlock} index={index} total={blocks.length} movements={movements} onChange={change} onMove={(delta) => moveBlock(index, delta)} onDelete={() => updateBlocks(active, (rows) => rows.filter((x) => x.id !== block.id), true)} onUseClassic={() => change({ builder_sections: null, movement_id: block.movement_id ?? null, strength_scheme: block.strength_scheme?.length ? block.strength_scheme : [{ sets: 1, reps: 1, percentage: 70 }], is_complex: Boolean(block.is_complex), is_emom: Boolean(block.is_emom) })} />;
+          const change = (patch: Partial<ProgramEditableBlock>) => {
+            const nextPatch = patch.score_type === "load" && !Array.isArray(block.builder_sections)
+              ? { ...patch, builder_sections: [newBuilderSection()] }
+              : patch.score_type && patch.score_type !== "load"
+                ? { ...patch, builder_sections: null }
+                : patch;
+            updateBlocks(active, (rows) => rows.map((x) => x.id === block.id ? { ...x, ...nextPatch } : x));
+          };
+          if (block.score_type === "load") {
+            const unified = { ...block, builder_sections: Array.isArray(block.builder_sections) ? block.builder_sections : legacyStrengthToBuilderSections(block) } as FreeEditableBlock;
+            return <FreeStrengthBlockEditor key={block.id} block={unified} index={index} total={blocks.length} movements={movements} onChange={change} onMove={(delta) => moveBlock(index, delta)} onDelete={() => updateBlocks(active, (rows) => rows.filter((x) => x.id !== block.id), true)} />;
           }
-          return <div key={block.id}><BlockEditor block={block} index={index} total={blocks.length} autoFocus={block.id === focusId} movements={movements} onChange={change} onMove={(delta) => moveBlock(index, delta)} onDelete={() => updateBlocks(active, (rows) => rows.filter((x) => x.id !== block.id), true)} />{block.score_type === "load" && <div className="-mt-px rounded-b-sm border border-line bg-ink px-3 py-3"><button type="button" className="btn-secondary w-full sm:w-auto" onClick={() => change({ builder_sections: [newBuilderSection()], movement_id: block.movement_id ?? null, strength_scheme: block.strength_scheme ?? null })}>Usar constructor libre</button><p className="mt-2 text-[12px] text-chalk-3">Mantiene el bloque y su histórico; podrás añadir secciones, ejercicios y descansos libremente.</p></div>}</div>;
+          return <BlockEditor key={block.id} block={block} index={index} total={blocks.length} autoFocus={block.id === focusId} movements={movements} onChange={change} onMove={(delta) => moveBlock(index, delta)} onDelete={() => updateBlocks(active, (rows) => rows.filter((x) => x.id !== block.id), true)} />;
         })}</ol>
         <AddBlock onAdd={addBlock} />
       </section>
