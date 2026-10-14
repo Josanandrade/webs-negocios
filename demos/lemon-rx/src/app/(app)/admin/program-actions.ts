@@ -51,9 +51,15 @@ function cleanComplex(value: unknown): ComplexMovementRow[] | null {
   return rows;
 }
 
+function cleanPct(value: unknown) {
+  if (value == null || value === "") return null;
+  const n = Number(value);
+  return Number.isFinite(n) && n > 0 && n <= 200 ? Math.round(n * 100) / 100 : null;
+}
+
 function cleanBuilder(value: unknown): BuilderSection[] | null {
   if (value == null) return null;
-  if (!Array.isArray(value) || value.length < 1 || value.length > 50) return null;
+  if (!Array.isArray(value) || value.length < 1 || value.length > 100) return null;
   const sections: BuilderSection[] = [];
   for (const rawSection of value) {
     const s = rawSection as Partial<BuilderSection>;
@@ -72,7 +78,21 @@ function cleanBuilder(value: unknown): BuilderSection[] | null {
         const movementId = String(item.movement_id ?? "");
         const reps = Number(item.reps);
         if (!UUID.test(movementId) || !Number.isInteger(reps) || reps < 1 || reps > 500) return null;
-        items.push({ id, type: "exercise", movement_id: movementId, reps, instruction: String(item.instruction ?? "").trim().slice(0, 120), track_load: Boolean(item.track_load) });
+        const rawMin = cleanPct(item.percentage_min);
+        const rawMax = cleanPct(item.percentage_max);
+        const percentageMin = rawMin ?? rawMax;
+        const percentageMax = rawMax ?? rawMin;
+        if (percentageMin != null && percentageMax != null && percentageMax < percentageMin) return null;
+        items.push({
+          id,
+          type: "exercise",
+          movement_id: movementId,
+          reps,
+          instruction: String(item.instruction ?? "").trim().slice(0, 120),
+          track_load: Boolean(item.track_load),
+          percentage_min: Boolean(item.track_load) ? percentageMin : null,
+          percentage_max: Boolean(item.track_load) ? percentageMax : null,
+        });
       } else if (item.type === "rest") {
         const duration = String(item.duration ?? "").trim().slice(0, 40);
         if (!duration) return null;
@@ -91,10 +111,6 @@ function cleanBuilder(value: unknown): BuilderSection[] | null {
 function cleanInt(value: unknown, min: number, max: number) {
   const n = Number(value);
   return Number.isInteger(n) && n >= min && n <= max ? n : null;
-}
-function cleanPct(value: unknown) {
-  const n = Number(value);
-  return Number.isFinite(n) && n > 0 && n <= 200 ? n : null;
 }
 
 export async function saveProgramWeek(weekId: string, days: ProgramDayInput[]): Promise<Result> {
@@ -144,7 +160,7 @@ export async function saveProgramWeek(weekId: string, days: ProgramDayInput[]): 
     for (const b of blocks) {
       if (b.score_type !== "load") continue;
       if (Array.isArray(b.builder_sections)) {
-        if (!b.builder_sections.length) return { ok: false, error: `Añade al menos una sección en ${b.title || "fuerza"}.` };
+        if (!b.builder_sections.length) return { ok: false, error: `Añade al menos un bloque en ${b.title || "fuerza"}.` };
         const exercises = b.builder_sections.flatMap((section) => section.items.filter((item) => item.type === "exercise"));
         if (!exercises.length) return { ok: false, error: `Añade al menos un ejercicio en ${b.title || "fuerza"}.` };
         if (!exercises.some((item) => item.type === "exercise" && item.track_load)) return { ok: false, error: `Marca al menos un ejercicio como “Registrar carga” en ${b.title || "fuerza"} para poder calcular el ranking.` };
