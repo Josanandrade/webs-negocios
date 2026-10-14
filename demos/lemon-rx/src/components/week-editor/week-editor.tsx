@@ -11,11 +11,14 @@ import { Toast, useToast } from "@/components/toast";
 import { WeekStatusLabel } from "@/components/status-dot";
 import { DAY_NAMES, shortDate, weekDates, weekRangeLong, weekRangeSentence } from "@/lib/dates";
 import type { Movement } from "@/lib/strength";
-import type { WeekStatus, WeekWithDays } from "@/lib/types";
+import type { BuilderSection, WeekStatus, WeekWithDays } from "@/lib/types";
 import { BlockEditor, type EditableBlock } from "./block-editor";
+import { FreeStrengthBlockEditor, type FreeEditableBlock } from "./free-strength-block-editor";
+import { newBuilderSection } from "./free-strength-editor";
 import { AddBlock } from "./add-block";
 
-type DaysState = Record<string, EditableBlock[]>;
+type ProgramEditableBlock = EditableBlock & { builder_sections?: BuilderSection[] | null };
+type DaysState = Record<string, ProgramEditableBlock[]>;
 
 function newId() {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) return crypto.randomUUID();
@@ -43,6 +46,7 @@ function initialState(week: WeekWithDays): DaysState {
       emom_interval_seconds: b.emom_interval_seconds,
       emom_rounds: b.emom_rounds,
       emom_percentage: b.emom_percentage,
+      builder_sections: b.builder_sections,
     }));
   }
   return state;
@@ -52,6 +56,7 @@ function snapshot(days: DaysState) {
   return JSON.stringify(Object.entries(days).map(([date, blocks]) => [date, blocks.filter((b) => b.title.trim() || b.content.trim() || b.score_type === "load").map((b) => [
     b.id, b.title, b.content, b.score_type, b.movement_id ?? null, b.strength_scheme ?? null, Boolean(b.is_complex), b.complex_movements ?? null,
     b.rm_reference_movement_id ?? null, Boolean(b.is_emom), b.emom_reps ?? null, b.emom_interval_seconds ?? null, b.emom_rounds ?? null, b.emom_percentage ?? null,
+    b.builder_sections ?? null,
   ])]));
 }
 
@@ -101,6 +106,7 @@ export function WeekEditor({ week, today, movements }: { week: WeekWithDays; tod
         emom_interval_seconds: b.emom_interval_seconds ?? null,
         emom_rounds: b.emom_rounds ?? null,
         emom_percentage: b.emom_percentage ?? null,
+        builder_sections: b.builder_sections ?? null,
       })),
     }));
     const result = await saveProgramWeek(week.id, payload);
@@ -130,18 +136,20 @@ export function WeekEditor({ week, today, movements }: { week: WeekWithDays; tod
   }
 
   const blocks = days[active] ?? [];
-  function updateBlocks(date: string, fn: (b: EditableBlock[]) => EditableBlock[], animate = false) { const apply = () => setDays((prev) => ({ ...prev, [date]: fn(prev[date] ?? []) })); if (animate) withViewTransition(apply); else apply(); }
+  function updateBlocks(date: string, fn: (b: ProgramEditableBlock[]) => ProgramEditableBlock[], animate = false) { const apply = () => setDays((prev) => ({ ...prev, [date]: fn(prev[date] ?? []) })); if (animate) withViewTransition(apply); else apply(); }
   function addBlock(title: string) {
     const id = newId(); setFocusId(id);
     const score_type = title === "WOD" ? "time" : title === "Strength" || title === "Weightlifting" ? "load" : "none";
+    const useFreeBuilder = title === "Strength" || title === "Weightlifting";
     updateBlocks(active, (b) => [...b, {
       id, title, content: "", score_type, movement_id: null,
-      strength_scheme: score_type === "load" ? [{ sets: 1, reps: 1, percentage: 70 }] : null,
+      strength_scheme: score_type === "load" && !useFreeBuilder ? [{ sets: 1, reps: 1, percentage: 70 }] : null,
       is_complex: false, complex_movements: null, rm_reference_movement_id: null,
       is_emom: false, emom_reps: null, emom_interval_seconds: null, emom_rounds: null, emom_percentage: null,
+      builder_sections: useFreeBuilder ? [newBuilderSection()] : null,
     }], true);
   }
-  function move(index: number, delta: -1 | 1) { updateBlocks(active, (b) => { const target = index + delta; if (target < 0 || target >= b.length) return b; const next = [...b]; [next[index], next[target]] = [next[target], next[index]]; return next; }, true); }
+  function moveBlock(index: number, delta: -1 | 1) { updateBlocks(active, (b) => { const target = index + delta; if (target < 0 || target >= b.length) return b; const next = [...b]; [next[index], next[target]] = [next[target], next[index]]; return next; }, true); }
 
   const range = weekRangeSentence(week.start_date);
   const filledDays = dates.filter((d) => (days[d] ?? []).some((b) => b.title.trim() || b.content.trim() || b.score_type === "load")).length;
@@ -156,7 +164,13 @@ export function WeekEditor({ week, today, movements }: { week: WeekWithDays; tod
       <section id="panel-dia" role="tabpanel" aria-labelledby={`tab-${active}`} className="pt-6">
         <h2 className="font-display text-[28px] font-bold uppercase leading-none">{DAY_NAMES[dates.indexOf(active)]} <span className="text-chalk-3">{shortDate(active)}</span></h2>
         {blocks.length === 0 && <p className="mt-4 text-[16px] text-chalk-3">Sin sesión. Añade un bloque para empezar; los días vacíos no se muestran como entrenamiento.</p>}
-        <ol className="mt-6 space-y-4">{blocks.map((block, index) => <BlockEditor key={block.id} block={block} index={index} total={blocks.length} autoFocus={block.id === focusId} movements={movements} onChange={(patch) => updateBlocks(active, (b) => b.map((x) => x.id === block.id ? { ...x, ...patch } : x))} onMove={(delta) => move(index, delta)} onDelete={() => updateBlocks(active, (b) => b.filter((x) => x.id !== block.id), true)} />)}</ol>
+        <ol className="mt-6 space-y-4">{blocks.map((block, index) => {
+          const change = (patch: Partial<ProgramEditableBlock>) => updateBlocks(active, (rows) => rows.map((x) => x.id === block.id ? { ...x, ...patch } : x));
+          if (block.score_type === "load" && Array.isArray(block.builder_sections)) {
+            return <FreeStrengthBlockEditor key={block.id} block={block as FreeEditableBlock} index={index} total={blocks.length} movements={movements} onChange={change} onMove={(delta) => moveBlock(index, delta)} onDelete={() => updateBlocks(active, (rows) => rows.filter((x) => x.id !== block.id), true)} onUseClassic={() => change({ builder_sections: null, movement_id: block.movement_id ?? null, strength_scheme: block.strength_scheme?.length ? block.strength_scheme : [{ sets: 1, reps: 1, percentage: 70 }], is_complex: Boolean(block.is_complex), is_emom: Boolean(block.is_emom) })} />;
+          }
+          return <div key={block.id}><BlockEditor block={block} index={index} total={blocks.length} autoFocus={block.id === focusId} movements={movements} onChange={change} onMove={(delta) => moveBlock(index, delta)} onDelete={() => updateBlocks(active, (rows) => rows.filter((x) => x.id !== block.id), true)} />{block.score_type === "load" && <div className="-mt-px rounded-b-sm border border-line bg-ink px-3 py-3"><button type="button" className="btn-secondary w-full sm:w-auto" onClick={() => change({ builder_sections: [newBuilderSection()], movement_id: block.movement_id ?? null, strength_scheme: block.strength_scheme ?? null })}>Usar constructor libre</button><p className="mt-2 text-[12px] text-chalk-3">Mantiene el bloque y su histórico; podrás añadir secciones, ejercicios y descansos libremente.</p></div>}</div>;
+        })}</ol>
         <AddBlock onAdd={addBlock} />
       </section>
       <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-20 border-t border-line bg-ink md:bottom-0 md:pb-[env(safe-area-inset-bottom)]"><div className="mx-auto grid max-w-3xl grid-cols-2 items-center gap-x-3 gap-y-2 px-4 py-3 md:flex md:px-6"><p className="col-span-2 min-w-0 text-[14px] leading-tight text-chalk-3 md:mr-auto" aria-live="polite">{saving ? "Guardando…" : dirty ? <span className="text-chalk">● Cambios sin guardar</span> : <>{filledDays} {filledDays === 1 ? "día" : "días"} con sesión · {status === "published" ? "visible para los usuarios" : "solo lo veis los admins"}</>}</p><button type="button" className="btn-secondary whitespace-nowrap px-4" onClick={save} disabled={saving || busy || !dirty}>Guardar</button>{status === "draft" ? <button type="button" className="btn-primary whitespace-nowrap px-4" onClick={() => setConfirm("publish")} disabled={saving || busy || filledDays === 0}>Publicar semana</button> : <button type="button" className="btn-secondary whitespace-nowrap px-4" onClick={() => setConfirm("unpublish")} disabled={saving || busy}>Despublicar</button>}</div></div>
