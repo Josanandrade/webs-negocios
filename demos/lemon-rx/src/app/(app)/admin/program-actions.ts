@@ -176,7 +176,27 @@ export async function saveProgramWeek(weekId: string, days: ProgramDayInput[]): 
   }
 
   const supabase = await createClient();
-  const { error } = await supabase.rpc("save_week_content", { p_week_id: weekId, p_days: clean });
+  const rpcDays = clean.map((day) => ({
+    date: day.date,
+    blocks: day.blocks.map((block) => Array.isArray(block.builder_sections) ? {
+      id: block.id,
+      title: block.title,
+      content: block.content,
+      score_type: block.score_type,
+      sets_count: block.sets_count,
+      reps_per_set: block.reps_per_set,
+      movement_id: block.movement_id,
+      is_complex: false,
+      complex_movements: null,
+      rm_reference_movement_id: null,
+      is_emom: false,
+      emom_reps: null,
+      emom_interval_seconds: null,
+      emom_rounds: null,
+      emom_percentage: null,
+    } : block),
+  }));
+  const { error } = await supabase.rpc("save_week_content", { p_week_id: weekId, p_days: rpcDays });
   if (error) return { ok: false, error: "No se ha podido guardar. Revisa la programación y vuelve a intentarlo." };
 
   const builderWrites = clean.flatMap((day) => day.blocks).map((block) =>
