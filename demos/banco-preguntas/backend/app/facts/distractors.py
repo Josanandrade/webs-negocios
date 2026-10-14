@@ -7,10 +7,10 @@ atributo y unidad). Cada candidato conserva su cita y su página.
 Se descarta un candidato si podría ser también correcto:
   * el sujeto de la pregunta tiene ese mismo valor en algún hecho;
   * el sujeto y el valor aparecen juntos en una misma frase en cualquier parte del documento.
-Las respuestas abiertas (definiciones, características, pasos...) solo se toman del MISMO
-tema principal: una definición de hardware como alternativa en una pregunta de Excel se
-descarta a simple vista y regala la respuesta.
-Si al final no hay al menos 3 candidatos, la pregunta no se generará.
+Para respuestas abiertas se prioriza el MISMO tema principal, pero si el tema es pequeño se
+pueden usar valores del mismo tipo procedentes de otros temas del mismo documento. Esto evita
+bloquear preguntas fiables solo por falta de tres alternativas locales; el generador sigue
+eligiendo las alternativas y el verificador independiente revisa la pregunta completa.
 """
 import math
 import re
@@ -102,17 +102,16 @@ def distractor_candidates(session: Session, fact_id: UUID, *, difficulty: str = 
         same_slot = f["slot"] == target["slot"]
         if not same_slot and target["kind"] not in OPEN_KINDS and target["kind"] not in NUMERIC_KINDS:
             continue
-        if target["kind"] in OPEN_KINDS and target_top and tops.get(f["section_id"]) != target_top:
-            continue   # respuesta abierta de otro tema: alternativa evidente
-        proximity = 0.0
-        if f["section_id"] and f["section_id"] == target["section_id"]:
-            proximity = 1.0
-        elif target_top and tops.get(f["section_id"]) == target_top:
-            proximity = 0.6
+
+        same_section = bool(f["section_id"] and f["section_id"] == target["section_id"])
+        same_top = bool(target_top and tops.get(f["section_id"]) == target_top)
+        proximity = 1.0 if same_section else 0.6 if same_top else -0.35 if target["kind"] in OPEN_KINDS else 0.0
+
         closeness = 0.0
         if target["kind"] in NUMERIC_KINDS and target["value_number"] and f["value_number"]:
             ratio = abs(math.log(abs(float(f["value_number"])) + 1e-9) - math.log(abs(float(target["value_number"])) + 1e-9))
             closeness = 1 / (1 + ratio)
+
         similarity = (2.0 if same_slot else 0.0) + proximity + closeness
         score = {"easy": -proximity - closeness + (2.0 if same_slot else 0.0),
                  "hard": similarity * 1.5}.get(difficulty, similarity)
@@ -121,4 +120,14 @@ def distractor_candidates(session: Session, fact_id: UUID, *, difficulty: str = 
         if cand.value_norm not in best or best[cand.value_norm].score < cand.score:
             best[cand.value_norm] = cand
 
-    return sorted(best.values(), key=lambda c: (-c.score, c.page_number))[:limit]
+    # Siempre se priorizan alternativas del propio tema; las de otros temas solo rellenan
+    # cuando hacen falta. La validación posterior puede descartar cualquiera que dé pistas.
+    return sorted(
+        best.values(),
+        key=lambda c: (
+            0 if c.section_id == target["section_id"] else
+            1 if target_top and tops.get(c.section_id) == target_top else 2,
+            -c.score,
+            c.page_number,
+        ),
+    )[:limit]
