@@ -8,6 +8,9 @@ Mantiene el pipeline y sus filtros de calidad, con ajustes de producción:
   verificación pueden volver a intentarse con límite prudente.
 * Si el tema seleccionado tiene pocos hechos disponibles, se vuelve a leer su texto de
   forma exhaustiva para extraer hechos adicionales antes de empezar a redactar preguntas.
+* Si un tema pequeño no aporta tres alternativas locales, la generación puede completar
+  con valores del mismo tipo de otros temas del MISMO documento; siguen pasando todos los
+  filtros y la verificación independiente.
 * Registra la duración real de cada lote para poder medir producción sin adivinar.
 
 El generador y el verificador siguen siendo modelos distintos y todas las validaciones,
@@ -34,6 +37,7 @@ base.VER_BATCH = 12
 
 _original_context_window = base._context_window
 _original_search_chunks = base.search_chunks
+_original_distractor_candidates = base.distractor_candidates
 _original_draft_batch = base._draft_batch
 _original_verify_batch = base._verify_batch
 _original_extract_facts_for_scope = base.extract_facts_for_scope
@@ -47,6 +51,17 @@ def _fast_context_window(page_text: str, start: int, end: int, radius: int = 500
 def _fast_search_chunks(session, document_id, query: str, limit: int = 3):
     """Dos apoyos extra son suficientes: las cuatro opciones ya aportan sus propias citas."""
     return _original_search_chunks(session, document_id, query, limit=min(limit, 2))
+
+
+def _generation_distractors(session, fact_id, *, difficulty: str = "medium", limit: int = 8):
+    """Fallback de generación: permite completar alternativas con otros temas del documento."""
+    return _original_distractor_candidates(
+        session,
+        fact_id,
+        difficulty=difficulty,
+        limit=limit,
+        allow_cross_topic=True,
+    )
 
 
 def _extract_with_coverage(ctx: JobContext, scope) -> None:
@@ -96,6 +111,7 @@ def _timed_verify_batch(ctx: JobContext, survivors, counters: Counter):
 base._plan = plan_with_retries
 base._context_window = _fast_context_window
 base.search_chunks = _fast_search_chunks
+base.distractor_candidates = _generation_distractors
 base.extract_facts_for_scope = _extract_with_coverage
 base._draft_batch = _timed_draft_batch
 base._verify_batch = _timed_verify_batch
