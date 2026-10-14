@@ -99,7 +99,6 @@ function cleanUnifiedBuilder(value: unknown): BuilderSection[] | null {
         items.push({ id: itemId, type: "note", text });
       } else return null;
     }
-    if (!items.some((item) => (item.type === "exercise" || item.type === "complex") && item.track_load)) return null;
     sections.push({ id, label: String(section.label ?? "").trim().slice(0, 30), count_type: countType, count_min: countMin, count_max: countMax, format, emom_interval_seconds: format === "emom" ? emomInterval : null, items });
   }
   return sections;
@@ -137,6 +136,11 @@ function shadowBuilder(sections: BuilderSection[]): BuilderSection[] {
   }));
 }
 
+function shortDay(date: string) {
+  const [, month, day] = date.split("-");
+  return day && month ? `${day}/${month}` : date;
+}
+
 export async function saveUnifiedProgramWeek(weekId: string, days: ProgramDayInput[]): Promise<Result> {
   await requireAdmin();
   const cleanedDays: ProgramDayInput[] = [];
@@ -145,7 +149,7 @@ export async function saveUnifiedProgramWeek(weekId: string, days: ProgramDayInp
     for (const block of day.blocks) {
       if (Array.isArray(block.builder_sections)) {
         const cleaned = cleanUnifiedBuilder(block.builder_sections);
-        if (!cleaned) return { ok: false, error: `Revisa el constructor de ${block.title || "Strength / Weightlifting"}. Comprueba ejercicios, tramos, Complex, EMOM y descansos.` };
+        if (!cleaned) return { ok: false, error: `Revisa ${shortDay(day.date)} · ${block.title || "Strength / Weightlifting"}. Comprueba ejercicios, tramos, Complex, EMOM y descansos.` };
         blocks.push({ ...block, builder_sections: cleaned });
       } else blocks.push(block);
     }
