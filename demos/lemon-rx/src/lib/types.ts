@@ -35,6 +35,44 @@ export type ComplexMovementRow = {
   reps: number;
 };
 
+export type BuilderExerciseItem = {
+  id: string;
+  type: "exercise";
+  movement_id: string;
+  reps: number;
+  instruction: string;
+  /** Si es true, el atleta informa de los kg y este ejercicio suma al volumen total. */
+  track_load: boolean;
+};
+
+export type BuilderRestItem = {
+  id: string;
+  type: "rest";
+  /** Texto libre: 30\", 90\", 2 min, 2–3 min, etc. Nunca se rellena por defecto. */
+  duration: string;
+};
+
+export type BuilderNoteItem = {
+  id: string;
+  type: "note";
+  text: string;
+};
+
+export type BuilderItem = BuilderExerciseItem | BuilderRestItem | BuilderNoteItem;
+
+export type BuilderSection = {
+  id: string;
+  label: string;
+  count_type: "sets" | "rounds";
+  count_min: number;
+  count_max: number;
+  items: BuilderItem[];
+};
+
+export type BuilderExerciseView = BuilderExerciseItem & { movement_name: string };
+export type BuilderItemView = BuilderExerciseView | BuilderRestItem | BuilderNoteItem;
+export type BuilderSectionView = Omit<BuilderSection, "items"> & { items: BuilderItemView[] };
+
 export type MovementRef = {
   id: string;
   name: string;
@@ -58,6 +96,8 @@ export type Block = {
   emom_interval_seconds: number | null;
   emom_rounds: number | null;
   emom_percentage: number | null;
+  /** Constructor libre. Null significa que el bloque usa el modelo clásico. */
+  builder_sections: BuilderSection[] | null;
   movement?: MovementRef | null;
   rm_reference_movement?: MovementRef | null;
 };
