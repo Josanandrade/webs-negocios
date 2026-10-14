@@ -26,6 +26,11 @@ function newId() {
   return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, (c) => (Number(c) ^ ((Math.random() * 16) >> (Number(c) / 4))).toString(16));
 }
 
+function isUnifiedStrengthBlock(block: { title: string; score_type?: string }) {
+  const title = block.title.trim().toUpperCase();
+  return block.score_type === "load" || title === "STRENGTH" || title === "WEIGHTLIFTING";
+}
+
 function initialState(week: WeekWithDays): DaysState {
   const state: DaysState = {};
   for (const date of weekDates(week.start_date)) {
@@ -47,7 +52,7 @@ function initialState(week: WeekWithDays): DaysState {
       emom_interval_seconds: b.emom_interval_seconds,
       emom_rounds: b.emom_rounds,
       emom_percentage: b.emom_percentage,
-      builder_sections: b.score_type === "load"
+      builder_sections: isUnifiedStrengthBlock(b)
         ? (Array.isArray(b.builder_sections) ? b.builder_sections : legacyStrengthToBuilderSections(b))
         : b.builder_sections,
     }));
@@ -96,7 +101,7 @@ export function WeekEditor({ week, today, movements }: { week: WeekWithDays; tod
         id: b.id,
         title: b.title,
         content: b.content,
-        score_type: b.score_type,
+        score_type: isUnifiedStrengthBlock(b) ? "load" : b.score_type,
         sets_count: null,
         reps_per_set: null,
         movement_id: b.movement_id ?? null,
@@ -171,13 +176,13 @@ export function WeekEditor({ week, today, movements }: { week: WeekWithDays; tod
           const change = (patch: Partial<ProgramEditableBlock>) => {
             const nextPatch = patch.score_type === "load" && !Array.isArray(block.builder_sections)
               ? { ...patch, builder_sections: [newBuilderSection()] }
-              : patch.score_type && patch.score_type !== "load"
+              : patch.score_type && patch.score_type !== "load" && !isUnifiedStrengthBlock({ ...block, ...patch })
                 ? { ...patch, builder_sections: null }
                 : patch;
             updateBlocks(active, (rows) => rows.map((x) => x.id === block.id ? { ...x, ...nextPatch } : x));
           };
-          if (block.score_type === "load") {
-            const unified = { ...block, builder_sections: Array.isArray(block.builder_sections) ? block.builder_sections : legacyStrengthToBuilderSections(block) } as FreeEditableBlock;
+          if (isUnifiedStrengthBlock(block)) {
+            const unified = { ...block, score_type: "load", builder_sections: Array.isArray(block.builder_sections) ? block.builder_sections : legacyStrengthToBuilderSections(block) } as FreeEditableBlock;
             return <FreeStrengthBlockEditor key={block.id} block={unified} index={index} total={blocks.length} movements={movements} onChange={change} onMove={(delta) => moveBlock(index, delta)} onDelete={() => updateBlocks(active, (rows) => rows.filter((x) => x.id !== block.id), true)} />;
           }
           return <BlockEditor key={block.id} block={block} index={index} total={blocks.length} autoFocus={block.id === focusId} movements={movements} onChange={change} onMove={(delta) => moveBlock(index, delta)} onDelete={() => updateBlocks(active, (rows) => rows.filter((x) => x.id !== block.id), true)} />;
