@@ -99,11 +99,26 @@ Valor que debemos transmitir según sector:
 
 ## Seguimiento
 
-- No hacer seguimiento inmediato tras enviar el primer mensaje.
-- Si responden con un saludo pero no entran en la propuesta, dejar respirar la conversación antes de insistir.
+Regla base de seguimiento:
+
+- **Contacto frío sin respuesta:** primer seguimiento a los **2 días**.
+- **Respondió y la conversación quedó a medias:** seguimiento al **día siguiente**.
+- **Lead pendiente de llamada:** fijar fecha de acción para el **siguiente día hábil**.
+- **Puerta abierta pero no interesado ahora:** seguimiento largo, aproximadamente **90 días**, salvo que la conversación indique otra cosa.
+- **Rechazo claro / solución actual les funciona bien:** marcar `lost` y **sin seguimiento**.
 - Si leen y no responden, no interpretar automáticamente como rechazo.
-- Si dicen claramente que no están interesados ahora pero dejan puerta abierta, conservar como `contacted` con nota y no insistir a corto plazo.
-- Si dicen que su solución actual les va bien y no necesitan cambio, marcar `lost`.
+- No hacer seguimiento inmediato tras enviar el primer mensaje.
+
+Tras un primer seguimiento sin respuesta:
+
+- dejar otros **5–7 días** antes de un último intento;
+- si tampoco responde, archivar o marcar como perdido por falta de respuesta según el caso;
+- evitar cadenas de mensajes insistentes.
+
+Casos actuales con seguimiento acortado:
+
+- **Salón de Belleza Marta Benítez:** respondió inicialmente, revisó la demo y después dejó de contestar → seguimiento al día siguiente.
+- **Centro de Belleza Carmen:** respondió al saludo pero no avanzó en la propuesta → seguimiento al día siguiente.
 
 ## Aprendizajes concretos
 
@@ -126,12 +141,13 @@ Decisión:
 - Lleva 23 años con su sistema actual y dice que le funciona bien.
 - Valora la propuesta y deja la puerta abierta para el futuro.
 - No marcar como perdido definitivo; mantener como `contacted` con nota “puerta abierta”.
-- No insistir a corto plazo.
+- Seguimiento largo: aproximadamente 90 días.
 
 ## Regla operativa a partir de ahora
 
 Cada vez que ocurra algo relevante con un lead:
 
 1. actualizar AvanttAI;
-2. si el caso deja un aprendizaje reutilizable, añadirlo a este documento;
-3. usar estos criterios en las siguientes búsquedas antes de proponer nuevos negocios o crear demos.
+2. asignar o revisar `next_follow_up_at` cuando corresponda;
+3. si el caso deja un aprendizaje reutilizable, añadirlo a este documento;
+4. usar estos criterios en las siguientes búsquedas antes de proponer nuevos negocios o crear demos.
