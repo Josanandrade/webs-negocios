@@ -13,9 +13,9 @@ const archivo = localFont({
 });
 
 export const metadata: Metadata = {
-  title: `${business.name} · Belleza & Barbería en Dos Hermanas`,
+  title: `${business.name} · Belleza & Peluquería en Dos Hermanas`,
   description:
-    "Peluquería, barbería especializada, estética y láser médico en la calle Alarcón, Dos Hermanas (Sevilla). Corte, color, cejas, uñas, depilación láser, eliminación de tatuajes y micropigmentación.",
+    "Peluquería, estética, tratamientos faciales, depilación láser, micropigmentación y eliminación de tatuajes en la calle Alarcón, Dos Hermanas (Sevilla).",
   // Demo privada: nunca indexable.
   robots: { index: false, follow: false, nocache: true, googleBot: { index: false, follow: false } },
   icons: { icon: "/icon.svg" },
