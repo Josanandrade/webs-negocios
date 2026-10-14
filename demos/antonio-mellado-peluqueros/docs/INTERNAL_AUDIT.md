@@ -1,0 +1,2 @@
+# Auditoría interna
+Datos verificados el 14/10/2026: Antonio mellado peluqueros, C. Larga 76, Bollullos de la Mitación, teléfono 635 091 142, valoración 4,9 con 76 reseñas. No se muestran precios. Los nombres de categorías de servicio son genéricos de peluquería y no implican una carta oficial. Reserva simulada.

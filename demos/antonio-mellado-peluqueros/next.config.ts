@@ -1,0 +1,1 @@
+import type { NextConfig } from 'next'; const c:NextConfig={output:'export',poweredByHeader:false,images:{unoptimized:true}}; export default c;
