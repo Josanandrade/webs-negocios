@@ -25,8 +25,7 @@ export function expectedWeightCount(item: TrackedBuilderItem, sectionCount: numb
 
 export function repsPerWeight(item: TrackedBuilderItem, sectionCount: number) {
   if (item.scheme?.length) {
-    const reps = item.type === "complex" ? complexReps(item) : null;
-    return item.scheme.flatMap((row) => Array.from({ length: row.sets }, () => reps ?? row.reps));
+    return item.scheme.flatMap((row) => Array.from({ length: row.sets }, () => item.type === "complex" ? complexReps(item) * row.reps : row.reps));
   }
   const reps = item.type === "complex" ? complexReps(item) : item.reps;
   return Array.from({ length: sectionCount }, () => reps);
