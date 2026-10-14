@@ -9,7 +9,10 @@ Dos Hermanas, Sevilla). No es la web oficial del salón ni está afiliada a él.
 
 ## Preview (Railway)
 
-Ver al final de este fichero (proyecto aislado, entorno `preview`).
+**URL:** https://la-pelu-de-maca-web-preview.up.railway.app · proyecto Railway
+`la-pelu-de-maca-demo`, entorno `preview`, servicio `la-pelu-de-maca-web`, rama
+`demo/la-pelu-de-maca`, directorio raíz `/demos/la-pelu-de-maca`. Sin dominio
+propio ni entorno de producción.
 
 ## Stack
 
