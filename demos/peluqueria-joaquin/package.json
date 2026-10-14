@@ -1,0 +1,1 @@
+{"name":"peluqueria-joaquin-demo","private":true,"scripts":{"build":"next build","start":"serve out -l ${PORT:-3000} --no-port-switching"},"dependencies":{"next":"16.4.0","react":"19.3.0","react-dom":"19.3.0","serve":"^14.2.4"},"devDependencies":{"@types/node":"^20","@types/react":"^19","@types/react-dom":"^19","typescript":"^5"},"engines":{"node":">=20.9"}}

@@ -1,0 +1,2 @@
+# Auditoría interna
+Datos verificados el 14/10/2026: Peluquería Joaquín, Calle Ote. 10, Bollullos de la Mitación, teléfono 615 980 581, 4,9/5 y 26 reseñas. Una reseña pública lo describe como barbero tradicional. Horario público L-V 09:00-13:30 y 16:30-20:00. Categorías de servicio orientativas, sin precios. Reserva simulada.
