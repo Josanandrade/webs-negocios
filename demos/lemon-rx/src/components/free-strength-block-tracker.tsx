@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useId, useOptimistic, useRef, useState, useTransition } from "react";
 import { deleteBlockResult, saveBlockNote, setBlockDone } from "@/app/(app)/actions";
 import { saveFreeStrengthResult, type FreeStrengthDraft } from "@/app/(app)/strength-actions";
@@ -35,6 +36,30 @@ function trackedExercises(section: BuilderSectionView) {
   return section.items.filter((item): item is BuilderExerciseView => item.type === "exercise" && item.track_load);
 }
 
+function fmtPct(value: number) {
+  return Number.isInteger(value) ? String(value) : String(value).replace(".", ",");
+}
+
+function prescription(item: BuilderExerciseView) {
+  const min = item.percentage_min;
+  const max = item.percentage_max ?? min;
+  if (min == null || max == null) return null;
+  const pct = min === max ? `${fmtPct(min)}% 1RM` : `${fmtPct(min)}–${fmtPct(max)}% 1RM`;
+  const minKg = item.suggested_kg_min;
+  const maxKg = item.suggested_kg_max ?? minKg;
+  const kg = minKg != null && maxKg != null
+    ? minKg === maxKg ? `${formatKg(minKg)} kg` : `${formatKg(minKg)}–${formatKg(maxKg)} kg`
+    : null;
+  return { pct, kg };
+}
+
+function LoadTarget({ item, compact = false }: { item: BuilderExerciseView; compact?: boolean }) {
+  const target = prescription(item);
+  if (!target) return null;
+  if (!target.kg) return <p className={`${compact ? "mt-1 text-[12px]" : "mt-1.5 text-[13px]"} text-chalk-3`}><span className="font-semibold text-chalk-2">{target.pct}</span> · <Link href="/rms" className="underline decoration-line-strong underline-offset-2 hover:text-chalk">Añade tu 1RM para calcular los kg</Link></p>;
+  return <p className={`${compact ? "mt-1 text-[12px]" : "mt-1.5 text-[13px]"} font-semibold text-lemon`}>{target.pct} → {target.kg}{item.rm_1 != null && <span className="font-normal text-chalk-3"> · RM {formatKg(item.rm_1)} kg</span>}</p>;
+}
+
 export function FreeStrengthBlockTracker({ block, notify }: { block: FreeStrengthBlockView; notify: Notify }) {
   const [open, setOpen] = useState(false);
   const sections = block.builderSectionsView ?? [];
@@ -47,11 +72,11 @@ export function FreeStrengthBlockTracker({ block, notify }: { block: FreeStrengt
 
     <div className="mt-3 space-y-3">{sections.map((section) => <div key={section.id} className="rounded-sm border border-line bg-ink-2 p-3">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <p className="font-display text-[20px] font-bold uppercase text-chalk">{section.label || "Sección"}</p>
+        <p className="font-display text-[20px] font-bold uppercase text-chalk">{section.label || "Bloque"}</p>
         <p className="font-display text-[14px] font-bold uppercase tracking-[0.05em] text-chalk-3">{section.count_min === section.count_max ? section.count_min : `${section.count_min}–${section.count_max}`} {section.count_type}</p>
       </div>
       <div className="mt-3 space-y-2">{section.items.map((item) => {
-        if (item.type === "exercise") return <div key={item.id} className="flex items-start gap-3 text-[17px] leading-snug"><span className="w-8 shrink-0 text-right font-display text-[18px] font-bold text-lemon">{item.reps}</span><p className="min-w-0 flex-1"><strong className="font-semibold text-chalk">{item.movement_name}</strong>{item.instruction && <span className="ml-2 text-chalk-2">· {item.instruction}</span>}{item.track_load && <span className="ml-2 whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.06em] text-chalk-3">carga</span>}</p></div>;
+        if (item.type === "exercise") return <div key={item.id} className="flex items-start gap-3 text-[17px] leading-snug"><span className="w-8 shrink-0 text-right font-display text-[18px] font-bold text-lemon">{item.reps}</span><div className="min-w-0 flex-1"><p><strong className="font-semibold text-chalk">{item.movement_name}</strong>{item.instruction && <span className="ml-2 text-chalk-2">· {item.instruction}</span>}{item.track_load && <span className="ml-2 whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.06em] text-chalk-3">carga</span>}</p><LoadTarget item={item} compact /></div></div>;
         if (item.type === "rest") return <div key={item.id} className="py-1"><span className="inline-flex rounded-full border border-lemon/50 bg-lemon/10 px-3 py-1.5 font-display text-[14px] font-bold uppercase tracking-[0.08em] text-lemon">Rest · {item.duration}</span></div>;
         return <p key={item.id} className="border-l-2 border-line-strong pl-3 text-[15px] italic text-chalk-2">{item.text}</p>;
       })}</div>
@@ -101,7 +126,7 @@ function ResultDialog({ open, block, done, notify, onClose }: { open: boolean; b
   const [busy, setBusy] = useState(false);
   useEffect(() => { const dialog = ref.current; if (!dialog) return; if (open && !dialog.open) dialog.showModal(); if (!open && dialog.open) dialog.close(); }, [open]);
   async function skip() { setBusy(true); const result = await setBlockDone(block.id, true); setBusy(false); if (!result.ok) return notify(result.error, "error"); notify("Marcado como hecho"); onClose(); }
-  return <dialog ref={ref} onCancel={(e) => { e.preventDefault(); if (!busy) onClose(); }} onClick={(e) => { if (e.target === ref.current && !busy) onClose(); }} className="confirm-dialog m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-xl overflow-y-auto rounded-md border border-line-strong bg-ink-2 p-0 text-chalk">{open && <div className="pt-5"><div className="px-4"><p className="eyebrow">{block.title}</p><h2 className="mt-1 font-display text-[26px] font-bold uppercase leading-tight">{block.result ? "Editar resultado" : "¿Qué pesos has usado?"}</h2><p className="mt-2 text-[14px] text-chalk-3">Informa de cada set o ronda. Si repetiste el mismo peso puedes marcarlo en ese ejercicio.</p></div><ResultForm block={block} onDone={onClose} notify={notify} />{!done && !block.result && <div className="border-t border-line px-4 py-3"><button type="button" onClick={skip} disabled={busy} className="press h-11 text-[15px] font-semibold text-chalk-3 hover:text-chalk">{busy ? "Un momento…" : "Marcar como hecho sin resultado"}</button></div>}</div>}</dialog>;
+  return <dialog ref={ref} onCancel={(e) => { e.preventDefault(); if (!busy) onClose(); }} onClick={(e) => { if (e.target === ref.current && !busy) onClose(); }} className="confirm-dialog m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-xl overflow-y-auto rounded-md border border-line-strong bg-ink-2 p-0 text-chalk">{open && <div className="pt-5"><div className="px-4"><p className="eyebrow">{block.title}</p><h2 className="mt-1 font-display text-[26px] font-bold uppercase leading-tight">{block.result ? "Editar resultado" : "¿Qué pesos has usado?"}</h2><p className="mt-2 text-[14px] text-chalk-3">Informa de cada set o ronda. El objetivo calculado con tu 1RM aparece debajo de cada ejercicio.</p></div><ResultForm block={block} onDone={onClose} notify={notify} />{!done && !block.result && <div className="border-t border-line px-4 py-3"><button type="button" onClick={skip} disabled={busy} className="press h-11 text-[15px] font-semibold text-chalk-3 hover:text-chalk">{busy ? "Un momento…" : "Marcar como hecho sin resultado"}</button></div>}</div>}</dialog>;
 }
 
 function ResultForm({ block, onDone, notify }: { block: FreeStrengthBlockView; onDone: () => void; notify: Notify }) {
@@ -153,7 +178,7 @@ function ResultForm({ block, onDone, notify }: { block: FreeStrengthBlockView; o
       const exercises = trackedExercises(section);
       if (!exercises.length) return null;
       return <section key={section.id} className="rounded-sm border border-line bg-ink p-3"><div className="flex flex-wrap items-center justify-between gap-3"><p className="font-display text-[18px] font-bold uppercase text-chalk">{section.label}</p>{section.count_min !== section.count_max ? <label className="flex items-center gap-2 text-[13px] text-chalk-3">He hecho <select value={count} onChange={(e) => setCount(section.id, Number(e.target.value))} className="field h-10 w-20">{Array.from({ length: section.count_max - section.count_min + 1 }, (_, i) => section.count_min + i).map((n) => <option key={n} value={n}>{n}</option>)}</select> {section.count_type}</label> : <span className="text-[13px] text-chalk-3">{count} {section.count_type}</span>}</div>
-        <div className="mt-4 space-y-5">{exercises.map((item) => <div key={item.id}><div className="flex flex-wrap items-center justify-between gap-2"><p className="text-[15px] font-semibold text-chalk">{item.reps} {item.movement_name}</p><label className="flex items-center gap-2 text-[13px] font-semibold text-chalk-3"><input type="checkbox" checked={Boolean(sameWeight[item.id])} onChange={(e) => toggleSame(item.id, e.target.checked)} className="h-4 w-4 accent-[var(--color-lemon)]" />Mismo peso en todos</label></div>
+        <div className="mt-4 space-y-5">{exercises.map((item) => <div key={item.id}><div className="flex flex-wrap items-center justify-between gap-2"><div><p className="text-[15px] font-semibold text-chalk">{item.reps} {item.movement_name}</p><LoadTarget item={item} /></div><label className="flex items-center gap-2 text-[13px] font-semibold text-chalk-3"><input type="checkbox" checked={Boolean(sameWeight[item.id])} onChange={(e) => toggleSame(item.id, e.target.checked)} className="h-4 w-4 accent-[var(--color-lemon)]" />Mismo peso en todos</label></div>
           {sameWeight[item.id] ? <div className="mt-2 max-w-40"><NumberField id={`${id}-${item.id}-same`} value={(weights[item.id] ?? [])[0] ?? ""} onChange={(value) => setWeight(item.id, 0, value)} /></div> : <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">{Array.from({ length: count }, (_, i) => <label key={i}><span className="mb-1 block text-[11px] font-semibold uppercase text-chalk-3">{section.count_type === "rounds" ? "Ronda" : "Set"} {i + 1}</span><NumberField id={`${id}-${item.id}-${i}`} value={(weights[item.id] ?? [])[i] ?? ""} onChange={(value) => setWeight(item.id, i, value)} /></label>)}</div>}
         </div>)}</div>
       </section>;
