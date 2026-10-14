@@ -36,7 +36,6 @@ export function RmEditor({ movements, rms, isAdmin }: Props) {
 
   return (
     <>
-      {isAdmin && <MovementAdmin movements={movements} notify={show} onRefresh={() => router.refresh()} />}
       <div className="mt-6 rounded-sm border border-line bg-ink-2 p-4">
         <label className="block">
           <span className="label">Movimiento</span>
@@ -54,6 +53,7 @@ export function RmEditor({ movements, rms, isAdmin }: Props) {
           </div>
         )}
       </div>
+      {isAdmin && <div className="mt-6"><MovementAdmin movements={movements} notify={show} onRefresh={() => router.refresh()} /></div>}
       <Toast toast={toast} />
     </>
   );
