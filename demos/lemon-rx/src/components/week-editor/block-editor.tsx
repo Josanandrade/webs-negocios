@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { SCORE_TYPES } from "@/lib/scores";
 import type { ComplexMovementRow, ScoreType, StrengthSchemeRow } from "@/lib/types";
 import type { Movement } from "@/lib/strength";
+import { MovementPicker } from "@/components/movement-picker";
 
 export type EditableBlock = {
   id: string;
@@ -67,6 +68,8 @@ export function BlockEditor({ block, index, total, autoFocus, movements, onChang
   const normalizedTitle = block.title.trim().toLowerCase();
   const isLegacyStrength = !isLoad && (normalizedTitle === "strength" || normalizedTitle === "weightlifting");
   const selectedComplexIds = Array.from(new Set(complexRows.map((r) => r.movement_id).filter(Boolean)));
+  const rmMovements = movements.filter((movement) => movement.is_rm_eligible || movement.id === block.movement_id || movement.id === block.rm_reference_movement_id);
+  const complexRmMovements = movements.filter((movement) => selectedComplexIds.includes(movement.id) && (movement.is_rm_eligible || movement.id === block.rm_reference_movement_id));
 
   function patchRow(i: number, patch: Partial<StrengthSchemeRow>) {
     onChange({ strength_scheme: scheme.map((r, idx) => idx === i ? { ...r, ...patch } : r) });
@@ -124,9 +127,9 @@ export function BlockEditor({ block, index, total, autoFocus, movements, onChang
 
         {complex ? <div>
           <div className="flex items-center justify-between gap-3"><p className="label">Movimientos del Complex</p><button type="button" className="btn-ghost h-10" onClick={() => onChange({ complex_movements: [...complexRows, { movement_id: "", reps: 1 }] })}>+ Movimiento</button></div>
-          <div className="mt-2 space-y-2">{complexRows.map((row, i) => <div key={i} className="grid grid-cols-[minmax(0,1fr)_82px_36px] gap-2 rounded-sm border border-line bg-ink p-2"><select value={row.movement_id} onChange={(e) => patchComplexRow(i, { movement_id: e.target.value })} aria-label={`Movimiento ${i + 1} del Complex`} className="field min-w-0"><option value="">Elige movimiento</option>{movements.map((m) => <option key={m.id} value={m.id}>{m.name}</option>)}</select><div className="relative"><input type="number" min={1} max={100} value={row.reps} onChange={(e) => patchComplexRow(i, { reps: intOr(e.target.value, 1) })} aria-label={`Repeticiones del movimiento ${i + 1}`} className="field w-full pr-8 text-center" /><span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[12px] text-chalk-3">rep</span></div><button type="button" aria-label={`Eliminar movimiento ${i + 1}`} onClick={() => onChange({ complex_movements: complexRows.filter((_, idx) => idx !== i), rm_reference_movement_id: null })} disabled={complexRows.length === 1} className="press h-11 text-danger disabled:opacity-30">×</button></div>)}</div>
-          <label className="mt-3 block"><span className="label">RM de referencia</span><select value={block.rm_reference_movement_id ?? ""} onChange={(e) => onChange({ rm_reference_movement_id: e.target.value || null })} className="field mt-1 w-full"><option value="">Elige qué 1RM usa el porcentaje</option>{selectedComplexIds.map((id) => { const m = movements.find((x) => x.id === id); return m ? <option key={id} value={id}>{m.name}</option> : null; })}</select><span className="mt-1 block text-[12px] text-chalk-3">Todos los porcentajes del Complex se calculan sobre este 1RM.</span></label>
-        </div> : <label className="block"><span className="label">Movimiento</span><select value={block.movement_id ?? ""} onChange={(e) => onChange({ movement_id: e.target.value || null })} className="field mt-1 w-full"><option value="">Elige un movimiento</option>{movements.map((m) => <option key={m.id} value={m.id}>{m.name}</option>)}</select></label>}
+          <div className="mt-2 space-y-2">{complexRows.map((row, i) => <div key={i} className="grid grid-cols-[minmax(0,1fr)_82px_36px] gap-2 rounded-sm border border-line bg-ink p-2"><MovementPicker movements={movements} value={row.movement_id} onChange={(movement_id) => patchComplexRow(i, { movement_id })} ariaLabel={`Movimiento ${i + 1} del Complex`} placeholder="Buscar movimiento…" className="min-w-0" /><div className="relative"><input type="number" min={1} max={100} value={row.reps} onChange={(e) => patchComplexRow(i, { reps: intOr(e.target.value, 1) })} aria-label={`Repeticiones del movimiento ${i + 1}`} className="field w-full pr-8 text-center" /><span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[12px] text-chalk-3">rep</span></div><button type="button" aria-label={`Eliminar movimiento ${i + 1}`} onClick={() => onChange({ complex_movements: complexRows.filter((_, idx) => idx !== i), rm_reference_movement_id: null })} disabled={complexRows.length === 1} className="press h-11 text-danger disabled:opacity-30">×</button></div>)}</div>
+          <label className="mt-3 block"><span className="label">RM de referencia</span><MovementPicker movements={complexRmMovements} value={block.rm_reference_movement_id ?? ""} onChange={(rm_reference_movement_id) => onChange({ rm_reference_movement_id })} placeholder="Buscar RM de referencia…" ariaLabel="RM de referencia del Complex" className="mt-1" /><span className="mt-1 block text-[12px] text-chalk-3">Solo aparecen como referencia los movimientos del Complex habilitados para RM.</span></label>
+        </div> : <label className="block"><span className="label">Movimiento</span><MovementPicker movements={rmMovements} value={block.movement_id ?? ""} onChange={(movement_id) => onChange({ movement_id })} placeholder="Buscar movimiento…" ariaLabel="Movimiento de fuerza" className="mt-1" /></label>}
 
         {emom ? <div className="rounded-sm border border-line bg-ink p-3">
           <p className="label">Configuración del EMOM</p>
