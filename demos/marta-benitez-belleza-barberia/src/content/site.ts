@@ -4,8 +4,8 @@
 
 export const business = {
   name: "Marta Benítez",
-  descriptor: "Belleza & Barbería",
-  legalLine: "Salón de belleza Marta Benítez & Barbería especializada",
+  descriptor: "Belleza & Peluquería",
+  legalLine: "Salón de belleza Marta Benítez",
   since: 2016,
   street: "C/ Alarcón, 7, Local A",
   corner: "Esquina con C/ Zurbarán",
@@ -46,11 +46,6 @@ export const reputation = {
       service: "Tinte + marcado + corte",
     },
     {
-      quote: "Puntuales, y realizan su trabajo excelente, muy recomendable!",
-      author: "Arnold",
-      service: "Corte caballero",
-    },
-    {
       quote: "Todo perfecto muchísimas gracias ❤️",
       author: "Laura",
       service: "Cejas y esmalte permanente",
@@ -61,7 +56,7 @@ export const reputation = {
 export type Service = { name: string; price?: string; time?: string; note?: string };
 export type Group = { title: string; items: Service[] };
 export type Area = {
-  id: "cabello" | "barberia" | "estetica" | "laser";
+  id: "cabello" | "color" | "estetica" | "laser";
   index: string;
   label: string;
   kicker: string;
@@ -75,8 +70,8 @@ export const areas: Area[] = [
     id: "cabello",
     index: "01",
     label: "Cabello",
-    kicker: "Corte, color y peinado",
-    lead: "Del corte de diario a las mechas completas, el alisado o el recogido de un día grande.",
+    kicker: "Corte, peinado y forma",
+    lead: "Del corte de diario al alisado, la permanente o el recogido de un día grande.",
     groups: [
       {
         title: "Corte y peinado",
@@ -89,18 +84,6 @@ export const areas: Area[] = [
           { name: "Peinado pelo corto", price: "12 €", time: "15 min" },
           { name: "Peinado media melena", price: "15 €", time: "20 min" },
           { name: "Peinado con ondas", price: "25 €", time: "35 min" },
-        ],
-      },
-      {
-        title: "Color",
-        items: [
-          { name: "Tinte", price: "27 €", time: "30 min" },
-          { name: "Tinte + marcado", price: "47 €", time: "40 min" },
-          { name: "Tinte + marcado + corte", price: "62 €", time: "45 min" },
-          { name: "Contorno", price: "15 €", time: "25 min" },
-          { name: "Matizadores", price: "15 €", time: "25 min" },
-          { name: "Mechas, solo contorno", price: "42 €", time: "2 h" },
-          { name: "Mechas completas", price: "85 €", time: "3 h" },
         ],
       },
       {
@@ -122,30 +105,23 @@ export const areas: Area[] = [
     ],
   },
   {
-    id: "barberia",
+    id: "color",
     index: "02",
-    label: "Barbería",
-    kicker: "Corte caballero y cuidado masculino",
-    lead: "Barbería especializada dentro del mismo salón: corte, cejas, depilación y láser pensados para hombre.",
+    label: "Color",
+    kicker: "Tintes, mechas y matices",
+    lead: "Coloración, contorno, matizadores y mechas para renovar el tono sin perder de vista el estado del cabello.",
     groups: [
       {
-        title: "Barbería",
-        items: [{ name: "Corte caballero", note: "Precio en el salón" }],
-      },
-      {
-        title: "Cuidado masculino",
+        title: "Color",
         items: [
-          { name: "Cejas hombre", price: "8 €", time: "15 min" },
-          { name: "Axilas hombre", price: "10 €", time: "15 min" },
-          { name: "Brazos hombre", price: "18 €", time: "25 min" },
-          { name: "Espalda hombre", price: "20 €", time: "20 min" },
-          { name: "Pecho hombre", price: "20 €", time: "25 min" },
-          { name: "Piernas completas hombre", price: "25 €", time: "50 min" },
+          { name: "Tinte", price: "27 €", time: "30 min" },
+          { name: "Tinte + marcado", price: "47 €", time: "40 min" },
+          { name: "Tinte + marcado + corte", price: "62 €", time: "45 min" },
+          { name: "Contorno", price: "15 €", time: "25 min" },
+          { name: "Matizadores", price: "15 €", time: "25 min" },
+          { name: "Mechas, solo contorno", price: "42 €", time: "2 h" },
+          { name: "Mechas completas", price: "85 €", time: "3 h" },
         ],
-      },
-      {
-        title: "Láser",
-        items: [{ name: "Perfilado de barba con láser", note: "Por zona · consulta" }],
       },
     ],
   },
@@ -154,7 +130,7 @@ export const areas: Area[] = [
     index: "03",
     label: "Estética",
     kicker: "Mirada, manos y piel",
-    lead: "Cejas a hilo, laminado, lifting de pestañas, uñas, depilación y cuidado facial.",
+    lead: "Cejas a hilo, laminado, lifting de pestañas, uñas, depilación y tratamientos faciales.",
     groups: [
       {
         title: "Cejas y pestañas",
@@ -207,14 +183,14 @@ export const areas: Area[] = [
     id: "laser",
     index: "04",
     label: "Láser",
-    kicker: "Técnica avanzada",
-    lead: "Depilación láser médica por zonas, eliminación de tatuajes y micropigmentación.",
+    kicker: "Tratamientos avanzados",
+    lead: "Depilación láser por zonas, eliminación de tatuajes y micropigmentación.",
     groups: [
       {
-        title: "Depilación láser médica",
+        title: "Depilación láser",
         items: [
           { name: "Zonas pequeñas", note: "Bozo, mentón, patilla, entrecejo, manos, pies" },
-          { name: "Zonas medias", note: "Axilas, ingles, cuello, hombros, perfilado de barba" },
+          { name: "Zonas medias", note: "Axilas, ingles, cuello, hombros" },
           { name: "Zonas amplias", note: "Pecho, abdomen, medias piernas, cara completa" },
           { name: "Zonas completas", note: "Piernas completas, espalda, pecho y abdomen" },
         ],
