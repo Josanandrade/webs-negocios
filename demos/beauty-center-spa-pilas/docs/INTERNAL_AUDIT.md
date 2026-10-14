@@ -1,0 +1,2 @@
+# Auditoría interna
+Datos públicos verificados el 14/10/2026: Beauty center Spa, José Manuel/Bolaños Custodio 17, 41840 Pilas, teléfono 663 159 416, valoración 5,0 con 45 reseñas, categoría pública tienda de belleza y salud, horario L-V 10:00-14:00 y 16:00-20:00. No se han añadido tratamientos ni precios específicos no verificados; las categorías son descriptivas y genéricas. Reserva simulada.
