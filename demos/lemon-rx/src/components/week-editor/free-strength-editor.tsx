@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import type { Movement } from "@/lib/strength";
 import type { BuilderItem, BuilderSection } from "@/lib/types";
 
@@ -28,9 +27,9 @@ function move<T>(rows: T[], index: number, delta: -1 | 1) {
   return next;
 }
 
-function positiveInt(value: string, fallback: number) {
+function positiveInt(value: string, fallback: number, max = 100) {
   const n = Number(value);
-  return Number.isInteger(n) && n > 0 ? Math.min(n, 100) : fallback;
+  return Number.isInteger(n) && n > 0 ? Math.min(n, max) : fallback;
 }
 
 export function FreeStrengthEditor({ sections, movements, onChange }: {
@@ -41,7 +40,7 @@ export function FreeStrengthEditor({ sections, movements, onChange }: {
   function patchSection(index: number, patch: Partial<BuilderSection>) {
     onChange(sections.map((section, i) => i === index ? { ...section, ...patch } : section));
   }
-  function patchItem(sectionIndex: number, itemIndex: number, patch: Partial<BuilderItem>) {
+  function patchItem(sectionIndex: number, itemIndex: number, patch: Record<string, unknown>) {
     const section = sections[sectionIndex];
     patchSection(sectionIndex, { items: section.items.map((item, i) => i === itemIndex ? { ...item, ...patch } as BuilderItem : item) });
   }
@@ -85,7 +84,7 @@ export function FreeStrengthEditor({ sections, movements, onChange }: {
           {item.type === "exercise" && <div className="space-y-2">
             <div className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_84px_auto]">
               <select value={item.movement_id} onChange={(e) => patchItem(sectionIndex, itemIndex, { movement_id: e.target.value })} className="field min-w-0"><option value="">Elige ejercicio</option>{movements.map((movement) => <option key={movement.id} value={movement.id}>{movement.name}</option>)}</select>
-              <div className="relative"><input type="number" min={1} max={500} value={item.reps} onChange={(e) => patchItem(sectionIndex, itemIndex, { reps: positiveInt(e.target.value, item.reps) })} aria-label="Repeticiones" className="field w-full pr-9 text-center" /><span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[11px] text-chalk-3">reps</span></div>
+              <div className="relative"><input type="number" min={1} max={500} value={item.reps} onChange={(e) => patchItem(sectionIndex, itemIndex, { reps: positiveInt(e.target.value, item.reps, 500) })} aria-label="Repeticiones" className="field w-full pr-9 text-center" /><span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[11px] text-chalk-3">reps</span></div>
               <label className="flex min-h-11 items-center gap-2 whitespace-nowrap px-1 text-[13px] font-semibold text-chalk-2"><input type="checkbox" checked={item.track_load} onChange={(e) => patchItem(sectionIndex, itemIndex, { track_load: e.target.checked })} className="h-4 w-4 accent-[var(--color-lemon)]" />Registrar carga</label>
             </div>
             <input value={item.instruction} onChange={(e) => patchItem(sectionIndex, itemIndex, { instruction: e.target.value.slice(0, 120) })} placeholder="Indicación opcional: 85–90%, 3030, RPE 8, pesado…" className="field w-full" />
