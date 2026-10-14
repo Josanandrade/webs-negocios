@@ -10,6 +10,11 @@ import { WeekDays, type DayView } from "@/components/day-accordion";
 
 export const metadata: Metadata = { title: "Programación" };
 
+function suggestedKg(rm1: number | undefined, pct: number | null | undefined) {
+  if (!rm1 || !pct) return null;
+  return Math.round((rm1 * pct / 100) * 100) / 100;
+}
+
 export default async function ProgramPage({ searchParams }: PageProps<"/">) {
   const sp = await searchParams;
   const thisWeek = currentWeekStart();
@@ -21,7 +26,14 @@ export default async function ProgramPage({ searchParams }: PageProps<"/">) {
   const me = viewer.profile.id;
   const blocks = week?.days.flatMap((d) => d.workout_blocks) ?? [];
   const blockIds = blocks.map((b) => b.id);
-  const rmMovementIds = blocks.filter((b) => b.score_type === "load" && !Array.isArray(b.builder_sections)).map((b) => b.is_complex ? b.rm_reference_movement_id : b.movement_id).filter((id): id is string => Boolean(id));
+  const classicRmMovementIds = blocks
+    .filter((b) => b.score_type === "load" && !Array.isArray(b.builder_sections))
+    .map((b) => b.is_complex ? b.rm_reference_movement_id : b.movement_id)
+    .filter((id): id is string => Boolean(id));
+  const builderRmMovementIds = blocks.flatMap((b) => (b.builder_sections ?? []).flatMap((section) =>
+    section.items.filter((item) => item.type === "exercise" && item.track_load).map((item) => item.movement_id),
+  ));
+  const rmMovementIds = [...classicRmMovementIds, ...builderRmMovementIds];
   const [activity, board, rm1Map, movements] = await Promise.all([getActivity(me, blockIds), getWeekLeaderboard(week?.id ?? null), getUserRm1Map(me, rmMovementIds), getMovements()]);
   const movementMap = Object.fromEntries(movements.map((m) => [m.id, m.name]));
 
@@ -42,7 +54,17 @@ export default async function ProgramPage({ searchParams }: PageProps<"/">) {
         const complexMovementDetails = !b.builder_sections && b.is_complex ? (b.complex_movements ?? []).map((row) => ({ ...row, name: movementMap[row.movement_id] ?? "Movimiento" })) : [];
         const builderSectionsView = b.builder_sections?.map((section) => ({
           ...section,
-          items: section.items.map((item) => item.type === "exercise" ? { ...item, movement_name: movementMap[item.movement_id] ?? "Movimiento" } : item),
+          items: section.items.map((item) => {
+            if (item.type !== "exercise") return item;
+            const itemRm1 = rm1Map[item.movement_id];
+            return {
+              ...item,
+              movement_name: movementMap[item.movement_id] ?? "Movimiento",
+              rm_1: itemRm1 ?? null,
+              suggested_kg_min: suggestedKg(itemRm1, item.percentage_min),
+              suggested_kg_max: suggestedKg(itemRm1, item.percentage_max),
+            };
+          }),
         })) ?? undefined;
         return { ...b, suggestedSets, suggestedEmomKg, complexMovementDetails, builderSectionsView, log: activity.logs[b.id] ?? null, result: activity.results[b.id] ?? null, board: board[b.id] ?? [] };
       }),
