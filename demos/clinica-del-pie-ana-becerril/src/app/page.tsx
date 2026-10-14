@@ -56,11 +56,11 @@ export default function Home() {
         <section className="hero">
           <div className="hero__in">
             <div className="hero__copy">
-              <p className="kicker">Consulta de podología en {practice.town}</p>
-              <h1>Pida su cita con la podóloga sin esperar al teléfono.</h1>
+              <p className="kicker">Podología en {practice.town}</p>
+              <h1>Pida su cita de podología en tres pasos, a cualquier hora.</h1>
               <p className="lead">
-                Elija el día y la hora que le vengan bien, deje su nombre y su teléfono, y listo.
-                Y si lo prefiere, puede seguir llamando como siempre.
+                Consulta de {practice.professional}. Elija el día y la hora que le vengan bien y deje su nombre y su teléfono.
+                Si lo prefiere, puede seguir llamando como siempre.
               </p>
               <div className="hero__cta">
                 <a className="btn btn--primary btn--lg" href="#cita">Pedir cita ahora</a>
@@ -97,7 +97,7 @@ export default function Home() {
               <p className="kicker">La consulta</p>
               <h2 id="consulta-t">{practice.professional}, podóloga en {practice.town}.</h2>
               <p className="prose">
-                La {practice.name} de {practice.town} es la consulta de podología de {practice.professional}.
+                La {practice.name} es la consulta de podología de {practice.professional} en {practice.town}.
                 Desde esta página puede pedir su cita, ver cómo llegar y resolver las dudas más habituales antes de venir.
               </p>
               <p className="prose">

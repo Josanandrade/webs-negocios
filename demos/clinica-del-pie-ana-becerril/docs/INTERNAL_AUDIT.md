@@ -51,17 +51,17 @@ Fecha de la investigación: 14/10/2026. Demo no solicitada por el negocio (campa
 
 ## 6. Decisiones de diseño (y por qué es distinta de las otras dos demos de podología)
 
-Comparación hecha con capturas de las tres demos en escritorio y móvil. No existe en el repo ninguna demo «María del Carmen Espinosa»; la otra demo de podología de Pilas es **María Campos Rodríguez**, y esa es la que se ha comparado.
+Comparación hecha con capturas en escritorio y móvil de las cuatro demos de podología. La de **María del Carmen Espinosa** (Benacazón, rama `demo/maria-del-carmen-espinosa-podologia-9wss9c`) se construyó en paralelo; se comparó con su primer commit (5e71130). Al verla, esta demo dejó el verde (Espinosa usa una puerta verde con placa «MC» y el lema «sin esperar al teléfono») y pasó a pizarra + latón, con otro titular.
 
-| | Ana Mª Becerril (esta) | Clínica del Pie Alquería | María Campos |
-|---|---|---|---|
-| Línea | Consulta clásica, tranquila, de toda la vida | Clínica moderna/corporativa | Boutique personal |
-| Paleta | Verde botica #23473A, blanco salvia #F3F5F0, latón #B38B45 | Blanco + azul acción #1A5FD0 + marino, menta para disponible | Avena #F2ECE1, café #2B231E, miel #C98A2B |
-| Tipos | Literata (serif de lectura) + Lexend | IBM Plex Sans + Plex Mono | Young Serif + Atkinson Hyperlegible |
-| Hero | Banda verde con titular de acción y **placa de latón** de la puerta + 3 pasos | Lista de «Próximas horas libres» sobre rejilla | Nombre enorme + tarjeta de visita y tarjetita de cita |
-| Navegación | Barra superior fija con Llamar / Pedir cita + fila de secciones con texto visible y botón «Letra más grande» | Menú hamburguesa + barra inferior fija en móvil | Navegación mínima + barra inferior fija en móvil |
-| Reserva | Formulario vertical de 4 preguntas numeradas con **calendario mensual** (estilo almanaque) y resumen «Su cita» al lado | Asistente de 4 pasos | Frase a completar con tira de días |
-| Confirmación | Resguardo imprimible con sello | Agenda «Para la clínica» | Tarjeta + «Así le llega a María» |
+| | Ana Mª Becerril (esta) | Clínica del Pie Alquería | María Campos | Mª del Carmen Espinosa |
+|---|---|---|---|---|
+| Línea | Consulta clásica, tranquila, de toda la vida | Clínica moderna/corporativa | Boutique personal | Consulta de barrio, cercana |
+| Paleta | Pizarra #2B3A44, marfil #F4F3EF, latón #B38B45 | Blanco + azul acción #1A5FD0 + marino, menta para disponible | Avena #F2ECE1, café #2B231E, miel #C98A2B | Crema, verde puerta, frambuesa en botones |
+| Tipos | Literata (serif de lectura) + Lexend | IBM Plex Sans + Plex Mono | Young Serif + Atkinson Hyperlegible | Serif con cursiva |
+| Hero | Banda pizarra con titular de acción y **placa de latón** de la puerta + 3 pasos | Lista de «Próximas horas libres» sobre rejilla | Nombre enorme + tarjeta de visita y tarjetita de cita | Titular claro + ilustración de puerta con placa y maceta |
+| Navegación | Barra superior fija con Llamar / Pedir cita + fila de secciones con texto visible y botón «Letra más grande» | Menú hamburguesa + barra inferior fija en móvil | Navegación mínima + barra inferior fija en móvil | Mínima, botón frambuesa |
+| Reserva | Formulario vertical de 4 preguntas numeradas con **calendario mensual** (estilo almanaque) y resumen «Su cita» al lado | Asistente de 4 pasos | Frase a completar con tira de días | Huecos libres |
+| Confirmación | Resguardo imprimible con sello | Agenda «Para la clínica» | Tarjeta + «Así le llega a María» | (ver su rama) |
 
 Accesibilidad: base de 18 px (21 px con «Letra más grande», recordado en el navegador si se puede), botones de 48–58 px de alto, contraste alto, foco visible en latón, enlaces de salto, al enviar con errores la página baja al primer paso pendiente.
 

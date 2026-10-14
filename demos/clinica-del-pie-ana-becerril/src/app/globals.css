@@ -1,19 +1,19 @@
 /* Clínica del Pie · Ana Mª Becerril
-   Verde botica profundo, blanco salvia y detalles en latón (como la placa de
-   la puerta). Letra grande, botones grandes y contraste alto para público adulto. */
+   Pizarra profunda, marfil cálido y detalles en latón (como la placa de la
+   puerta de una consulta de siempre). Letra grande, botones grandes y contraste alto para público adulto. */
 
 :root {
-  --paper: #f3f5f0;
-  --paper-2: #e6ebe3;
+  --paper: #f4f3ef;
+  --paper-2: #e9e7e0;
   --card: #ffffff;
-  --ink: #1c2521;
-  --ink-2: #47524d;
-  --green: #23473a;
-  --green-2: #2f5d4c;
-  --green-soft: #e1eae3;
+  --ink: #1e2328;
+  --ink-2: #4a525a;
+  --green: #2b3a44;
+  --green-2: #3c4f5c;
+  --green-soft: #e4e8ea;
   --brass: #b38b45;
   --brass-ink: #6e521f;
-  --line: #cfd6cb;
+  --line: #d4d1c7;
   --err: #a12a1f;
   --radius: 10px;
   --serif: var(--font-serif), Georgia, "Times New Roman", serif;
@@ -413,7 +413,7 @@ strong {
 }
 
 .hero .lead {
-  color: #d3dfd6;
+  color: #d5dbdf;
 }
 
 .hero .btn--primary {
@@ -428,7 +428,7 @@ strong {
 .hero .btn--ghost {
   background: transparent;
   color: #f6f3ea;
-  border-color: #c9d6cc;
+  border-color: #c8d0d5;
 }
 
 .hero .btn--ghost:hover {
@@ -1394,7 +1394,7 @@ strong {
 
 .foot {
   background: var(--green);
-  color: #e9efe9;
+  color: #e8ecee;
   padding: 2.5rem 0 3rem;
 }
 
@@ -1420,7 +1420,7 @@ strong {
 
 .foot__demo {
   font-size: 0.85rem;
-  color: #c9d6cd;
+  color: #c6ced3;
   max-width: 34rem;
 }
 
