@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { RankingRows } from "@/components/ranking-rows";
-import { SEXES } from "@/lib/scores";
 import type { LeaderboardRow } from "@/lib/types";
 
 export function StrengthRankingPanel({ rows, meId }: { rows: LeaderboardRow[]; meId: string }) {
@@ -22,22 +21,12 @@ export function StrengthRankingPanel({ rows, meId }: { rows: LeaderboardRow[]; m
         <span aria-hidden className="text-chalk-3">{open ? "Ocultar" : "Ver"}</span>
       </button>
       {open && (
-        <div className="enter space-y-5 border-t border-line px-4 pb-4 pt-3">
-          {SEXES.map((sex) => {
-            const list = rows.filter((row) => row.sex === sex.value);
-            return (
-              <div key={sex.value}>
-                <h4 className="border-b border-line pb-2 font-display text-[16px] font-bold uppercase tracking-[0.08em] text-lemon">
-                  {sex.label}
-                </h4>
-                {list.length === 0 ? (
-                  <p className="py-3 text-[15px] text-chalk-3">Sin resultados todavía.</p>
-                ) : (
-                  <RankingRows rows={list} type="load" meId={meId} />
-                )}
-              </div>
-            );
-          })}
+        <div className="enter border-t border-line px-4 pb-4 pt-3">
+          {rows.length === 0 ? (
+            <p className="py-3 text-[15px] text-chalk-3">Sin resultados todavía.</p>
+          ) : (
+            <RankingRows rows={rows} type="load" meId={meId} />
+          )}
         </div>
       )}
     </div>
