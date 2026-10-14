@@ -8,9 +8,9 @@ Mantiene el pipeline y sus filtros de calidad, con ajustes de producción:
   verificación pueden volver a intentarse con límite prudente.
 * Si el tema seleccionado tiene pocos hechos disponibles, se vuelve a leer su texto de
   forma exhaustiva para extraer hechos adicionales antes de empezar a redactar preguntas.
-* Si un tema pequeño no aporta tres alternativas locales, la generación puede completar
-  con valores del mismo tipo de otros temas del MISMO documento; siguen pasando todos los
-  filtros y la verificación independiente.
+* Cuando se selecciona un tema, tanto la pregunta como sus alternativas se mantienen dentro
+  de ese tema principal. Si no hay material suficiente, se generan menos preguntas antes que
+  completar con contenido de otro tema.
 * Registra la duración real de cada lote para poder medir producción sin adivinar.
 
 El generador y el verificador siguen siendo modelos distintos y todas las validaciones,
@@ -21,6 +21,8 @@ from __future__ import annotations
 import logging
 import time
 from collections import Counter
+
+from sqlalchemy import text
 
 from app.facts.augment import augment_facts_for_scope
 from app.generation import pipeline as base
@@ -54,14 +56,30 @@ def _fast_search_chunks(session, document_id, query: str, limit: int = 3):
 
 
 def _generation_distractors(session, fact_id, *, difficulty: str = "medium", limit: int = 8):
-    """Fallback de generación: permite completar alternativas con otros temas del documento."""
-    return _original_distractor_candidates(
+    """Genera alternativas sin salir del tema principal al que pertenece la pregunta."""
+    target = session.execute(
+        text("select document_id, section_id from facts where id = :id"),
+        {"id": fact_id},
+    ).mappings().one()
+    tops = base._top_sections(session, target["document_id"])
+    target_section = target["section_id"]
+    target_top = tops.get(target_section)
+
+    # Se pide un pool holgado y después se filtra. Para definiciones y otros tipos abiertos
+    # el catálogo ya limita por tema; este filtro adicional evita que cifras, fechas o plazos
+    # puedan venir de otro tema del documento.
+    pool = _original_distractor_candidates(
         session,
         fact_id,
         difficulty=difficulty,
-        limit=limit,
-        allow_cross_topic=True,
+        limit=max(limit * 3, 24),
+        allow_cross_topic=False,
     )
+    if target_top is None:
+        same_topic = [c for c in pool if c.section_id == target_section]
+    else:
+        same_topic = [c for c in pool if c.section_id is not None and tops.get(c.section_id) == target_top]
+    return same_topic[:limit]
 
 
 def _extract_with_coverage(ctx: JobContext, scope) -> None:
@@ -106,6 +124,31 @@ def _timed_verify_batch(ctx: JobContext, survivors, counters: Counter):
     return accepted
 
 
+def _rewrite_topic_shortfall_message(ctx: JobContext) -> None:
+    """Explica de forma legible por qué un tema entrega menos preguntas que las pedidas."""
+    target = ctx.payload.get("count")
+    selected = ctx.payload.get("section_ids") or []
+    if not selected or not isinstance(target, int) or target <= 0:
+        return
+    with ctx.session() as s:
+        accepted = int(s.execute(
+            text("select count(*) from question_candidates where job_id = :j and status = 'accepted'"),
+            {"j": ctx.job_id},
+        ).scalar_one())
+    if accepted >= target:
+        return
+
+    subject = "El tema seleccionado" if len(selected) == 1 else "Los temas seleccionados"
+    noun = "pregunta" if accepted == 1 else "preguntas"
+    ctx.update(
+        message=(
+            f"Se han añadido {accepted} {noun} verificadas de las {target} solicitadas. "
+            f"{subject} solo permite generar {accepted} {noun} que superan todos los controles de fiabilidad. "
+            "No se ha utilizado contenido de otros temas para completar la generación."
+        )
+    )
+
+
 # Las funciones originales resuelven estos nombres en el módulo ``base`` en tiempo de
 # ejecución, así que los ajustes se aplican también a los lotes lanzados por su executor.
 base._plan = plan_with_retries
@@ -122,6 +165,7 @@ def run_generate(ctx: JobContext) -> None:
     started = time.monotonic()
     try:
         base.run_generate(ctx)
+        _rewrite_topic_shortfall_message(ctx)
     finally:
         log.info(
             "generation_job job_id=%s elapsed_ms=%s",
