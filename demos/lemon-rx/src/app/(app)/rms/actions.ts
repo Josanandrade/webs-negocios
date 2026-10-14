@@ -20,6 +20,8 @@ export async function saveMovementRms(movementId: string, values: { rm_1?: strin
   const parsed = { rm_1: kg(values.rm_1), rm_2: kg(values.rm_2), rm_3: kg(values.rm_3), rm_4: kg(values.rm_4), rm_5: kg(values.rm_5) };
   if (Object.values(parsed).some((v) => Number.isNaN(v))) return { ok: false, error: "Revisa los kilos introducidos." };
   const supabase = await createClient();
+  const { data: movement } = await supabase.from("movements").select("id").eq("id", movementId).eq("is_active", true).eq("is_rm_eligible", true).maybeSingle();
+  if (!movement) return { ok: false, error: "Este movimiento no está habilitado para registrar RM." };
   const allEmpty = Object.values(parsed).every((v) => v == null);
   if (allEmpty) {
     const { error } = await supabase.from("user_rms").delete().eq("user_id", viewer.profile.id).eq("movement_id", movementId);
@@ -39,10 +41,22 @@ export async function addMovement(name: string, groupName = "Other"): Promise<Re
   const clean = name.trim().replace(/\s+/g, " ");
   if (clean.length < 2 || clean.length > 80) return { ok: false, error: "Escribe un nombre válido." };
   const supabase = await createClient();
-  const { error } = await supabase.from("movements").insert({ name: clean, group_name: groupName.trim() || "Other", created_by: viewer.profile.id, sort_order: 9999 });
+  const { error } = await supabase.from("movements").insert({ name: clean, group_name: groupName.trim() || "Other", created_by: viewer.profile.id, sort_order: 9999, is_rm_eligible: true });
   if (error) return { ok: false, error: error.code === "23505" ? "Ese movimiento ya existe." : "No se ha podido añadir el movimiento." };
   revalidatePath("/rms");
   revalidatePath("/admin/programacion", "layout");
+  return { ok: true };
+}
+
+export async function setMovementRmEligibility(movementId: string, enabled: boolean): Promise<Result> {
+  const viewer = await getViewer();
+  if (!viewer.isAdmin) return { ok: false, error: "Solo un admin puede cambiar los movimientos de RM." };
+  if (!UUID.test(movementId)) return { ok: false, error: "Movimiento no válido." };
+  const supabase = await createClient();
+  const { error } = await supabase.from("movements").update({ is_rm_eligible: Boolean(enabled), updated_at: new Date().toISOString() }).eq("id", movementId).eq("is_active", true);
+  if (error) return { ok: false, error: "No se ha podido actualizar el movimiento." };
+  revalidatePath("/rms");
+  revalidatePath("/");
   return { ok: true };
 }
 
