@@ -21,7 +21,7 @@ export default async function ProgramPage({ searchParams }: PageProps<"/">) {
   const me = viewer.profile.id;
   const blocks = week?.days.flatMap((d) => d.workout_blocks) ?? [];
   const blockIds = blocks.map((b) => b.id);
-  const rmMovementIds = blocks.filter((b) => b.score_type === "load").map((b) => b.is_complex ? b.rm_reference_movement_id : b.movement_id).filter((id): id is string => Boolean(id));
+  const rmMovementIds = blocks.filter((b) => b.score_type === "load" && !Array.isArray(b.builder_sections)).map((b) => b.is_complex ? b.rm_reference_movement_id : b.movement_id).filter((id): id is string => Boolean(id));
   const [activity, board, rm1Map, movements] = await Promise.all([getActivity(me, blockIds), getWeekLeaderboard(week?.id ?? null), getUserRm1Map(me, rmMovementIds), getMovements()]);
   const movementMap = Object.fromEntries(movements.map((m) => [m.id, m.name]));
 
@@ -35,12 +35,16 @@ export default async function ProgramPage({ searchParams }: PageProps<"/">) {
       blocks: (day?.workout_blocks ?? []).filter((b) => b.title.trim() || b.content.trim() || b.score_type === "load").map((b) => {
         const rmId = b.is_complex ? b.rm_reference_movement_id : b.movement_id;
         const rm1 = rmId ? rm1Map[rmId] : undefined;
-        const suggestedSets = !b.is_emom && rm1 && b.strength_scheme?.length
+        const suggestedSets = !b.builder_sections && !b.is_emom && rm1 && b.strength_scheme?.length
           ? b.strength_scheme.flatMap((row) => Array.from({ length: row.sets }, () => ({ reps: b.is_complex ? 1 : row.reps, percentage: row.percentage, kg: Math.round((rm1 * row.percentage / 100) * 100) / 100 })))
           : [];
-        const suggestedEmomKg = b.is_emom && rm1 && b.emom_percentage ? Math.round((rm1 * b.emom_percentage / 100) * 100) / 100 : undefined;
-        const complexMovementDetails = b.is_complex ? (b.complex_movements ?? []).map((row) => ({ ...row, name: movementMap[row.movement_id] ?? "Movimiento" })) : [];
-        return { ...b, suggestedSets, suggestedEmomKg, complexMovementDetails, log: activity.logs[b.id] ?? null, result: activity.results[b.id] ?? null, board: board[b.id] ?? [] };
+        const suggestedEmomKg = !b.builder_sections && b.is_emom && rm1 && b.emom_percentage ? Math.round((rm1 * b.emom_percentage / 100) * 100) / 100 : undefined;
+        const complexMovementDetails = !b.builder_sections && b.is_complex ? (b.complex_movements ?? []).map((row) => ({ ...row, name: movementMap[row.movement_id] ?? "Movimiento" })) : [];
+        const builderSectionsView = b.builder_sections?.map((section) => ({
+          ...section,
+          items: section.items.map((item) => item.type === "exercise" ? { ...item, movement_name: movementMap[item.movement_id] ?? "Movimiento" } : item),
+        })) ?? undefined;
+        return { ...b, suggestedSets, suggestedEmomKg, complexMovementDetails, builderSectionsView, log: activity.logs[b.id] ?? null, result: activity.results[b.id] ?? null, board: board[b.id] ?? [] };
       }),
     };
   });
