@@ -37,6 +37,12 @@ export function MovementPicker({ movements, value, onChange, placeholder = "Busc
     setOpen(false);
   }
 
+  function clear() {
+    onChange("");
+    setQuery("");
+    setOpen(true);
+  }
+
   return (
     <div className={`relative ${className}`}>
       <div className="relative">
@@ -57,7 +63,7 @@ export function MovementPicker({ movements, value, onChange, placeholder = "Busc
           autoComplete="off"
           className="field w-full pr-10"
         />
-        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[14px] text-chalk-3">⌕</span>
+        {value ? <button type="button" aria-label="Quitar movimiento" title="Quitar movimiento" onMouseDown={(event) => event.preventDefault()} onClick={clear} className="press absolute right-0 top-0 flex h-full w-10 items-center justify-center text-[18px] text-chalk-3 hover:text-chalk">×</button> : <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[14px] text-chalk-3">⌕</span>}
       </div>
       {open && (
         <div className="absolute z-50 mt-1 max-h-64 w-full overflow-y-auto rounded-sm border border-line-strong bg-ink-2 shadow-2xl">
