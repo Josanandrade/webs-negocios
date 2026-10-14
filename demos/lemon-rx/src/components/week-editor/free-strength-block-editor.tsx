@@ -14,7 +14,7 @@ function autosize(el: HTMLTextAreaElement | null) {
   el.style.height = `${el.scrollHeight + 2}px`;
 }
 
-export function FreeStrengthBlockEditor({ block, index, total, movements, onChange, onMove, onDelete, onUseClassic }: {
+export function FreeStrengthBlockEditor({ block, index, total, movements, onChange, onMove, onDelete }: {
   block: FreeEditableBlock;
   index: number;
   total: number;
@@ -22,7 +22,6 @@ export function FreeStrengthBlockEditor({ block, index, total, movements, onChan
   onChange: (patch: Partial<FreeEditableBlock>) => void;
   onMove: (delta: -1 | 1) => void;
   onDelete: () => void;
-  onUseClassic: () => void;
 }) {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const textRef = useRef<HTMLTextAreaElement>(null);
@@ -37,9 +36,9 @@ export function FreeStrengthBlockEditor({ block, index, total, movements, onChan
       {confirmDelete ? <button type="button" onClick={onDelete} className="press h-12 shrink-0 px-3 font-display text-[15px] font-bold uppercase tracking-[0.04em] text-danger">Eliminar</button> : <IconButton label={`Eliminar ${label}`} onClick={() => setConfirmDelete(true)}>×</IconButton>}
     </div>
 
-    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-3 py-2">
-      <div><p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-chalk-3">Resultado</p><p className="mt-0.5 text-[14px] font-semibold text-lemon">Ranking · kilos totales movidos</p></div>
-      <button type="button" onClick={onUseClassic} className="press min-h-10 text-[13px] font-semibold text-chalk-3 hover:text-chalk">Usar editor clásico</button>
+    <div className="border-b border-line px-3 py-2">
+      <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-chalk-3">Resultado</p>
+      <p className="mt-0.5 text-[14px] font-semibold text-lemon">Ranking · kilos totales movidos</p>
     </div>
 
     <div className="border-b border-line px-3 py-4">
