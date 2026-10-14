@@ -1,0 +1,2 @@
+# Auditoría interna
+Datos verificados el 14/10/2026: Peluquería y estética María José, C. Larga 43, Bollullos de la Mitación, 665 283 780, 4,7/5 con 21 reseñas, horario L-V 10:00-20:30 y sábado 10:00-15:00. No hay precios ni tratamientos concretos inventados. Reserva visual simulada.
