@@ -1,0 +1,2 @@
+# Auditoría interna
+Fuentes consultadas 14/10/2026: Treatwell y ficha pública. Treatwell indica actualmente que Rocío Suárez Peluquería no acepta reservas a través de su plataforma. Dirección C/ Ntra. Sra. de Fátima 9, Pilas. Teléfono 607 911 984. Treatwell muestra 4,9 con 50 opiniones y menciona cortes clásicos y modernos, peinados unisex, tintes, mechas, tratamientos capilares y marca Wella. También aparecen Rocío Rodriguez y Loli Rodríguez Suárez en reseñas verificadas. Las fotos usadas proceden de la ficha pública de Treatwell. Reserva de la demo simulada.
