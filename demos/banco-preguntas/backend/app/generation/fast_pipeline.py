@@ -1,11 +1,13 @@
-"""Perfil de producción orientado a reducir la latencia de generación.
+"""Perfil de producción orientado a reducir la latencia sin sacrificar cobertura ni calidad.
 
-Mantiene exactamente el pipeline y sus filtros de calidad, con dos ajustes de producción:
+Mantiene el pipeline y sus filtros de calidad, con ajustes de producción:
 
 * 12 hechos por llamada al generador y 12 preguntas por llamada al verificador.
 * Ventanas de contexto más pequeñas para evitar texto redundante.
-* Los hechos descartados por una mala redacción o verificación pueden volver a intentarse
-  en generaciones posteriores (hasta tres veces); antes quedaban bloqueados para siempre.
+* Los hechos descartados por una mala redacción, falta temporal de distractores o
+  verificación pueden volver a intentarse con límite prudente.
+* Si el tema seleccionado tiene pocos hechos disponibles, se vuelve a leer su texto de
+  forma exhaustiva para extraer hechos adicionales antes de empezar a redactar preguntas.
 * Registra la duración real de cada lote para poder medir producción sin adivinar.
 
 El generador y el verificador siguen siendo modelos distintos y todas las validaciones,
@@ -17,6 +19,7 @@ import logging
 import time
 from collections import Counter
 
+from app.facts.augment import augment_facts_for_scope
 from app.generation import pipeline as base
 from app.generation.retry_plan import plan_with_retries
 from app.generation.validation import DocumentContext
@@ -33,6 +36,7 @@ _original_context_window = base._context_window
 _original_search_chunks = base.search_chunks
 _original_draft_batch = base._draft_batch
 _original_verify_batch = base._verify_batch
+_original_extract_facts_for_scope = base.extract_facts_for_scope
 
 
 def _fast_context_window(page_text: str, start: int, end: int, radius: int = 500) -> str:
@@ -43,6 +47,24 @@ def _fast_context_window(page_text: str, start: int, end: int, radius: int = 500
 def _fast_search_chunks(session, document_id, query: str, limit: int = 3):
     """Dos apoyos extra son suficientes: las cuatro opciones ya aportan sus propias citas."""
     return _original_search_chunks(session, document_id, query, limit=min(limit, 2))
+
+
+def _extract_with_coverage(ctx: JobContext, scope) -> None:
+    """Extracción normal + refuerzo solo cuando el tema no tiene margen para lo pedido."""
+    _original_extract_facts_for_scope(ctx, scope)
+    target = ctx.payload.get("count")
+    if not isinstance(target, int) or target <= 0:
+        return
+    started = time.monotonic()
+    added = augment_facts_for_scope(ctx, scope, target)
+    if added:
+        log.info(
+            "fact_augmentation job_id=%s target=%s added=%s elapsed_ms=%s",
+            ctx.job_id,
+            target,
+            added,
+            int((time.monotonic() - started) * 1000),
+        )
 
 
 def _timed_draft_batch(ctx: JobContext, batch, doc: DocumentContext, counters: Counter):
@@ -74,6 +96,7 @@ def _timed_verify_batch(ctx: JobContext, survivors, counters: Counter):
 base._plan = plan_with_retries
 base._context_window = _fast_context_window
 base.search_chunks = _fast_search_chunks
+base.extract_facts_for_scope = _extract_with_coverage
 base._draft_batch = _timed_draft_batch
 base._verify_batch = _timed_verify_batch
 
