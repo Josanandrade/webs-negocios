@@ -12,7 +12,7 @@ export default async function RmsPage() {
     <main className="mx-auto max-w-3xl px-4 pb-24 pt-6 md:px-6 md:pt-10">
       <p className="eyebrow">Tus marcas</p>
       <h1 className="mt-1 font-display text-[42px] font-extrabold uppercase leading-none">RM's</h1>
-      <p className="mt-3 max-w-2xl text-[16px] text-chalk-2">Guarda y actualiza tus mejores marcas de 1 a 5 repeticiones. Lemon RX usará únicamente tu 1RM para calcular automáticamente los kilos de los bloques programados por porcentaje.</p>
+      <p className="mt-3 max-w-2xl text-[16px] text-chalk-2">Guarda y actualiza tus mejores marcas de 1 a 5 repeticiones en los movimientos habilitados para RM. Lemon RX usará únicamente tu 1RM para calcular automáticamente los kilos de los bloques programados por porcentaje.</p>
       <RmEditor movements={movements} rms={rms} isAdmin={viewer.isAdmin} />
     </main>
   );
