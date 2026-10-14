@@ -7,7 +7,7 @@ type Id = Area["id"];
 const ids = areas.map((a) => a.id) as Id[];
 const isId = (v: string): v is Id => (ids as string[]).includes(v);
 
-// La pestaña activa vive en el hash (#cabello, #barberia…), así los accesos
+// La pestaña activa vive en el hash (#cabello, #color…), así los accesos
 // de la portada y cualquier enlace compartido abren directamente su área.
 const TAB_EVENT = "mb:tab";
 function subscribeHash(cb: () => void) {
@@ -130,7 +130,7 @@ export default function ServiceMenu() {
             ))}
           </div>
           <div className="menu__cta">
-            {a.id === "barberia" || a.id === "laser" ? (
+            {a.id === "laser" ? (
               <>
                 <a className="btn btn--accent" href={business.whatsapp.href} target="_blank" rel="noopener noreferrer">
                   Consultar por WhatsApp
