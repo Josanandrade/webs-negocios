@@ -43,6 +43,9 @@ export type BuilderExerciseItem = {
   instruction: string;
   /** Si es true, el atleta informa de los kg y este ejercicio suma al volumen total. */
   track_load: boolean;
+  /** Porcentaje mínimo/máximo del 1RM del propio movimiento. Null = sin prescripción por porcentaje. */
+  percentage_min: number | null;
+  percentage_max: number | null;
 };
 
 export type BuilderRestItem = {
@@ -69,7 +72,12 @@ export type BuilderSection = {
   items: BuilderItem[];
 };
 
-export type BuilderExerciseView = BuilderExerciseItem & { movement_name: string };
+export type BuilderExerciseView = BuilderExerciseItem & {
+  movement_name: string;
+  rm_1: number | null;
+  suggested_kg_min: number | null;
+  suggested_kg_max: number | null;
+};
 export type BuilderItemView = BuilderExerciseView | BuilderRestItem | BuilderNoteItem;
 export type BuilderSectionView = Omit<BuilderSection, "items"> & { items: BuilderItemView[] };
 
