@@ -31,7 +31,7 @@ export default async function ProgramPage({ searchParams }: PageProps<"/">) {
     .map((b) => b.is_complex ? b.rm_reference_movement_id : b.movement_id)
     .filter((id): id is string => Boolean(id));
   const builderRmMovementIds = blocks.flatMap((b) => (b.builder_sections ?? []).flatMap((section) =>
-    section.items.filter((item) => item.type === "exercise" && item.track_load).map((item) => item.movement_id),
+    section.items.flatMap((item) => item.type === "exercise" && item.track_load ? [item.movement_id] : []),
   ));
   const rmMovementIds = [...classicRmMovementIds, ...builderRmMovementIds];
   const [activity, board, rm1Map, movements] = await Promise.all([getActivity(me, blockIds), getWeekLeaderboard(week?.id ?? null), getUserRm1Map(me, rmMovementIds), getMovements()]);
