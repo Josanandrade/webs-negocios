@@ -2,6 +2,7 @@
 
 import type { Movement } from "@/lib/strength";
 import type { BuilderItem, BuilderSection } from "@/lib/types";
+import { MovementPicker } from "@/components/movement-picker";
 
 function newId() {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) return crypto.randomUUID();
@@ -101,7 +102,7 @@ export function FreeStrengthEditor({ sections, movements, onChange }: {
         {section.items.map((item, itemIndex) => <div key={item.id} className="rounded-sm border border-line bg-ink-2 p-2">
           {item.type === "exercise" && <div className="space-y-2">
             <div className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_84px_auto]">
-              <select value={item.movement_id} onChange={(e) => patchItem(sectionIndex, itemIndex, { movement_id: e.target.value })} className="field min-w-0"><option value="">Elige ejercicio</option>{movements.map((movement) => <option key={movement.id} value={movement.id}>{movement.name}</option>)}</select>
+              <MovementPicker movements={movements} value={item.movement_id} onChange={(movement_id) => patchItem(sectionIndex, itemIndex, { movement_id })} placeholder="Buscar ejercicio…" ariaLabel={`Ejercicio de ${section.label}`} className="min-w-0" />
               <div className="relative"><input type="number" min={1} max={500} value={item.reps} onChange={(e) => patchItem(sectionIndex, itemIndex, { reps: positiveInt(e.target.value, item.reps, 500) })} aria-label="Repeticiones" className="field w-full pr-9 text-center" /><span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[11px] text-chalk-3">reps</span></div>
               <label className="flex min-h-11 items-center gap-2 whitespace-nowrap px-1 text-[13px] font-semibold text-chalk-2"><input type="checkbox" checked={item.track_load} onChange={(e) => patchItem(sectionIndex, itemIndex, { track_load: e.target.checked, ...(e.target.checked ? {} : { percentage_min: null, percentage_max: null }) })} className="h-4 w-4 accent-[var(--color-lemon)]" />Registrar carga</label>
             </div>
