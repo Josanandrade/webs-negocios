@@ -31,7 +31,11 @@ export default async function ProgramPage({ searchParams }: PageProps<"/">) {
     .map((b) => b.is_complex ? b.rm_reference_movement_id : b.movement_id)
     .filter((id): id is string => Boolean(id));
   const builderRmMovementIds = blocks.flatMap((b) => (b.builder_sections ?? []).flatMap((section) =>
-    section.items.flatMap((item) => item.type === "exercise" && item.track_load ? [item.movement_id] : []),
+    section.items.flatMap((item) => {
+      if (item.type === "exercise" && item.track_load) return [item.movement_id];
+      if (item.type === "complex" && item.track_load && item.rm_reference_movement_id) return [item.rm_reference_movement_id];
+      return [];
+    }),
   ));
   const rmMovementIds = [...classicRmMovementIds, ...builderRmMovementIds];
   const [activity, board, rm1Map, movements] = await Promise.all([getActivity(me, blockIds), getWeekLeaderboard(week?.id ?? null), getUserRm1Map(me, rmMovementIds), getMovements()]);
@@ -55,15 +59,31 @@ export default async function ProgramPage({ searchParams }: PageProps<"/">) {
         const builderSectionsView = b.builder_sections?.map((section) => ({
           ...section,
           items: section.items.map((item) => {
-            if (item.type !== "exercise") return item;
-            const itemRm1 = rm1Map[item.movement_id];
-            return {
-              ...item,
-              movement_name: movementMap[item.movement_id] ?? "Movimiento",
-              rm_1: itemRm1 ?? null,
-              suggested_kg_min: suggestedKg(itemRm1, item.percentage_min),
-              suggested_kg_max: suggestedKg(itemRm1, item.percentage_max),
-            };
+            if (item.type === "exercise") {
+              const itemRm1 = rm1Map[item.movement_id];
+              return {
+                ...item,
+                movement_name: movementMap[item.movement_id] ?? "Movimiento",
+                rm_1: itemRm1 ?? null,
+                suggested_kg_min: suggestedKg(itemRm1, item.percentage_min),
+                suggested_kg_max: suggestedKg(itemRm1, item.percentage_max),
+                scheme_targets: item.scheme?.map((row) => ({ ...row, kg: suggestedKg(itemRm1, row.percentage) })) ?? undefined,
+              };
+            }
+            if (item.type === "complex") {
+              const refId = item.rm_reference_movement_id;
+              const itemRm1 = refId ? rm1Map[refId] : undefined;
+              return {
+                ...item,
+                movement_details: item.movements.map((row) => ({ ...row, name: movementMap[row.movement_id] ?? "Movimiento" })),
+                rm_reference_name: refId ? movementMap[refId] ?? "Movimiento" : null,
+                rm_1: itemRm1 ?? null,
+                suggested_kg_min: suggestedKg(itemRm1, item.percentage_min),
+                suggested_kg_max: suggestedKg(itemRm1, item.percentage_max),
+                scheme_targets: item.scheme?.map((row) => ({ ...row, kg: suggestedKg(itemRm1, row.percentage) })) ?? undefined,
+              };
+            }
+            return item;
           }),
         })) ?? undefined;
         return { ...b, suggestedSets, suggestedEmomKg, complexMovementDetails, builderSectionsView, log: activity.logs[b.id] ?? null, result: activity.results[b.id] ?? null, board: board[b.id] ?? [] };
