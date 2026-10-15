@@ -1,6 +1,6 @@
 # Lemon RX — Técnico
 
-> Documento vivo de arquitectura, infraestructura, datos, seguridad e incidencias técnicas. Debe reflejar el estado real validado del sistema y evitar que futuros cambios contradigan decisiones anteriores.
+> Documento vivo de arquitectura, infraestructura, datos, seguridad e incidencias técnicas. Debe reflejar el estado real conocido del sistema y diferenciar claramente lo implementado de lo que solo es una dirección futura.
 
 ## 1. Línea base técnica
 
@@ -9,7 +9,7 @@ Auditoría inicial: 13/10/2026.
 - Repo: `Josanandrade/webs-negocios`
 - Ruta app: `demos/lemon-rx`
 - Producción: rama `main`
-- Commit auditado: `f82fc4d6a04782f3f1a5514a659e1041b2bf3b7f`
+- Rama documental: `docs/lemon-rx-continuidad`
 - Framework: Next.js 16.4.0 App Router
 - React: 19.3.0
 - TypeScript: 5.x
@@ -17,48 +17,46 @@ Auditoría inicial: 13/10/2026.
 - Supabase JS: 2.117.3
 - Supabase SSR: 0.12.7
 - Web Push: 3.6.7
-- Runtime configurado por paquete: Node `>=20.9`
-- Runtime observado en Railway: Node `20.20.2`
+- Runtime observado en auditoría: Node 20.20.2
 
 ## 2. Infraestructura
 
 ### Railway
 
 Proyecto:
-- Nombre: `terrific-compassion`
-- Project ID: `0cff50b7-f65e-49ba-b2cc-aea085be92d5`
+- `terrific-compassion`
 
 Servicio:
-- Nombre: `Lemon Rx`
-- Service ID: `342db4d0-96f6-4886-b980-6a2ef94f7f5c`
+- `Lemon Rx`
 
 Entorno:
-- `production`
-- Environment ID: `a6a02381-1c35-4d39-ac41-9e15caaa4122`
+- production
 
 Fuente:
-- GitHub repo: `Josanandrade/webs-negocios`
-- Branch: `main`
-- Root Directory: `/demos/lemon-rx`
+- GitHub `Josanandrade/webs-negocios`
+- branch `main`
+- root `/demos/lemon-rx`
 
-Despliegue:
-- Builder: Railpack
-- Build: `npm run build`
-- Start: `npm start`
-- Healthcheck: `/login`
-- Réplicas: 1
-- Región observada: `europe-west4-drams3a`
-- Dominio: `lemon-rx-production.up.railway.app`
+Dominio:
+- `lemon-rx-production.up.railway.app`
 
-Estado inicial observado:
-- Servicio online.
-- Último despliegue `b1dc875c-5a87-4cf0-878b-3d1218fd258b`: SUCCESS.
-- Sin staged changes pendientes.
+### Supabase
 
-## 3. Variables de entorno esperadas
+La conexión `Lemon RX` quedó disponible y verificada el 13/10/2026.
 
-Railway muestra configuradas por nombre:
+Por tanto, queda obsoleta la limitación de la auditoría inicial que indicaba que el proyecto real de Supabase no podía consultarse desde ChatGPT.
 
+Regla:
+- cualquier cambio de esquema/RLS debe verificarse contra el proyecto Lemon RX correcto;
+- no reutilizar proyectos de AvanttAI.
+
+### Resend
+
+La aplicación utiliza Resend para comunicaciones propias cuando está configurado.
+
+## 3. Variables de entorno sensibles
+
+Esperadas:
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 - `SITE_URL`
@@ -69,18 +67,14 @@ Railway muestra configuradas por nombre:
 - `PUSH_SECRET`
 - `NEXT_TELEMETRY_DISABLED`
 
-Más variables automáticas de Railway.
-
 Reglas:
-- No guardar valores secretos en este documento.
-- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` es publicable; la seguridad depende de RLS.
-- `RESEND_API_KEY`, `VAPID_PRIVATE_KEY` y `PUSH_SECRET` deben permanecer solo en servidor.
-- Nunca introducir `service_role` en cliente.
+- no documentar valores secretos;
+- no introducir `service_role` en cliente;
+- mantener secretos de Resend/Push solo en servidor.
 
-## 4. Arquitectura de aplicación
+## 4. Arquitectura funcional
 
-### Rutas públicas/auth
-
+Rutas públicas/auth:
 - `/login`
 - `/registro`
 - `/recuperar`
@@ -88,15 +82,13 @@ Reglas:
 - `/auth/signout`
 - `/nueva-contrasena`
 
-### Zona autenticada
+Zona atleta:
+- `/`
+- `/ranking`
+- `/historial`
+- `/cuenta`
 
-- `/` — programación del atleta
-- `/ranking` — ranking
-- `/historial` — historial del atleta
-- `/cuenta` — cuenta
-
-### Administración
-
+Administración:
 - `/admin`
 - `/admin/programacion`
 - `/admin/programacion/[id]`
@@ -105,338 +97,214 @@ Reglas:
 - `/admin/usuarios/[id]/historial`
 - `/admin/ajustes`
 
-## 5. Autenticación y sesión
+## 5. Autenticación y autorización
 
-Supabase Auth se consume mediante `@supabase/ssr`.
+- Supabase Auth mediante `@supabase/ssr`.
+- El proxy/session middleware no sustituye la autorización real.
+- Páginas y acciones servidor validan usuario/rol.
+- RLS sigue siendo parte central del modelo de seguridad.
+- Los atletas solo modifican su propia actividad/resultados.
+- Los admins tienen acceso ampliado mediante funciones/policies controladas.
 
-### Flujo
+No mover la seguridad exclusivamente a frontend.
 
-- El registro crea usuario en Supabase Auth.
-- Un trigger crea automáticamente `public.profiles`.
-- Login con email/password.
-- Confirmación de email antes de entrar si Supabase la exige.
-- Recuperación de contraseña mediante callback.
-- `proxy.ts` ejecuta `updateSession()` para refrescar sesión y redirigir según autenticación.
-- En servidor se usa `getClaims()` para obtener el `sub` del usuario.
-
-### Seguridad de navegación
-
-El proxy solo hace una comprobación optimista de sesión. La autorización de negocio no depende del proxy:
-- páginas/acciones servidor usan `getViewer()` / `requireAdmin()`;
-- la base de datos vuelve a aplicar RLS y funciones de autorización.
-
-Esto debe conservarse.
-
-## 6. Modelo de datos
+## 6. Modelo de datos — evolución conocida
 
 ### `profiles`
 
-1:1 con `auth.users`.
-
-Campos principales:
+Base conocida:
 - `id`
 - `full_name`
 - `email`
-- `role`: `admin | athlete`
-- `payment_status`: `paid | pending`
-- `access_status`: `pending | active | blocked`
+- `role`
+- `payment_status`
+- `access_status`
 - timestamps
 
-Protección:
-- atleta lee su perfil;
-- admin lee perfiles;
-- atleta puede editar solo datos permitidos;
-- trigger `guard_profile_update()` impide que un atleta cambie rol, pago, acceso, email, id o fecha de alta.
+Evolución desplegada 13/10/2026:
+- dato de sexo Hombre/Mujer asociado al perfil;
+- obligatorio en registro para nuevos usuarios;
+- editable por admin;
+- utilizado por la lógica de ranking.
 
-### `app_settings`
-
-Fila única:
-- `auto_block_unpaid`
-- `show_past_weeks`
-- auditoría `updated_by`
-
-### `weeks`
-
-- `start_date`
-- `end_date` generado
-- `status`: `draft | published`
-- `published_at`
-- `notified_at`
-- created/updated by
-
-### `days`
-
-Pertenece a `weeks`.
-
-### `workout_blocks`
-
-Pertenece a `days`.
-
-Campos relevantes:
-- `id`
-- `title`
-- `content`
-- `position`
-- `score_type`
-
-Tipos de resultado actuales:
-- `none`
-- `time`
-- `rounds_reps`
-- `reps`
-- `weight`
-- `intervals`
-- `load`
-
-### `block_logs`
-
-Por atleta + bloque:
-- `done`
-- `note`
-
-PK compuesta `(user_id, block_id)`.
-
-### `block_results`
-
-Por atleta + bloque:
-- `division`: `rx | intermediate`
-- segundos
-- capped
-- rondas
-- reps
-- kg
-- `as_prescribed`
-- `reps_detail`
-
-PK compuesta `(user_id, block_id)`.
-
-### `push_subscriptions`
-
-Suscripciones Web Push de admins.
-
-### Esquema `private`
-
-No expuesto a API pública:
-- `private.push_secret`
-- `private.signup_push_sent`
-
-## 7. Funciones de base de datos relevantes
-
-### Seguridad/acceso
-
-- `is_admin()`
-- `has_program_access()`
-- `can_view_week()`
-- `local_today()` con `Europe/Madrid`
+La protección de campos sensibles de perfil debe mantenerse en servidor/RLS.
 
 ### Programación
 
-- `save_week_content(p_week_id, p_days)`
+Entidades base:
+- `weeks`
+- `days`
+- `workout_blocks`
 
-Características protegidas:
-- solo admin;
-- guardado atómico;
-- bloquea fila de semana durante la operación;
-- preserva IDs de bloques;
-- limpia días/bloques que ya no se mantienen.
+Regla técnica crítica:
+- preservar IDs de `workout_blocks` al editar para no romper resultados e historial.
 
-### Ranking/historial
+### Actividad y resultados
 
-- `week_leaderboard(p_week_id)`
-- `training_history(p_user_id)`
+Entidades base:
+- `block_logs`
+- `block_results`
 
-### Email publicación
+El modelo de resultados ha evolucionado para cubrir:
+- tiempo;
+- rondas/reps;
+- reps/calorías;
+- peso;
+- intervalos;
+- cargas de Strength/Weightlifting;
+- detalle estructurado de series cuando corresponde.
 
-- `claim_week_notification(p_week_id)`
+### Strength / Weightlifting
 
-Marca `notified_at` antes del envío para impedir duplicados concurrentes. Si la capa app detecta fallo de envío, vuelve a poner `notified_at = null` para permitir un reintento futuro.
+Migraciones presentes en `main` desde 13/10/2026 incluyen evolución específica para:
+- ranking de fuerza/halterofilia;
+- series estructuradas;
+- catálogo de movimientos;
+- RM y porcentajes;
+- Complex;
+- EMOM estructurado de fuerza.
 
-### Push
+Regla:
+- preservar compatibilidad con resultados existentes al cambiar estructura.
 
-- `save_push_subscription(...)`
-- `signup_push_targets(...)`
-- `forget_push_subscriptions(...)`
+### Peso por ronda / total
 
-El acceso servidor usa `PUSH_SECRET`, cuyo hash se guarda en `private.push_secret`.
+Desde 13/10/2026 se desplegó un modelo donde el resultado competitivo de peso puede almacenar el detalle necesario para representar diferentes pesos por ronda/serie y calcular el total de kilos movidos.
 
-## 8. RLS
+Regla técnica:
+- el total usado por ranking debe derivarse de los datos estructurados y no confiar en un valor manipulable enviado sin validación desde cliente;
+- migraciones/recalculos deben conservar resultados previos.
 
-RLS está diseñada como parte central del sistema.
+## 7. Ranking
 
-Patrón actual:
-- `anon`: sin acceso a tablas funcionales.
-- `authenticated`: acceso limitado por propietario/rol/visibilidad.
-- admin: acceso ampliado vía `is_admin()`.
-- atleta: solo escribe sus propios logs/resultados.
-- semanas/días/bloques: lectura condicionada a la semana visible.
+Funciones de ranking deben seguir evitando exponer directamente la tabla privada de resultados.
 
-El repositorio incluye `supabase/tests/rls.sql` con pruebas manuales de permisos contra una base local.
+Comportamiento técnico actual/evolucionado:
+- ranking por bloque;
+- RX/Intermedio donde aplica;
+- ranking específico de Strength/Weightlifting por carga;
+- separación por sexo para rankings competitivos;
+- clasificación diaria recalculada por resultado real;
+- empates gestionados de forma consistente.
 
-## 9. Frontend/servidor
+Cualquier cambio en scoring debe probarse contra datos existentes antes de producción.
 
-### Acciones admin
+## 8. Comunicaciones
 
-`src/app/(app)/admin/actions.ts`
+### Publicación de semana
 
-Protecciones:
-- `requireAdmin()` antes de mutaciones.
-- validación básica de UUID/fechas/enum.
-- RLS vuelve a validar en DB.
-- `revalidatePath()` tras cambios.
+- Resend para email de publicación.
+- Evitar duplicados con estado persistido.
+- El fallo del correo no debe tumbar la publicación principal.
 
-### Acciones atleta
+### Invitaciones
 
-`src/app/(app)/actions.ts`
+Desde 13/10/2026 existe flujo de invitación por email.
 
-Protecciones:
-- usuario autenticado.
-- `viewer.canViewProgram`.
-- validación de bloque.
-- DB impide escribir actividad de otros atletas.
+Debe mantenerse separada la acción de invitar de la aprobación efectiva del acceso cuando el flujo de negocio siga requiriendo validación manual.
 
-### Caché
+### Web Push
 
-`next.config.ts` mantiene Cache Components desactivado y usa `experimental.staleTimes.dynamic = 30` para navegación reciente, con invalidaciones mediante `revalidatePath`.
-
-### Service worker
-
-`/sw.js` se sirve con `Cache-Control: no-cache, no-store, must-revalidate` para evitar quedarse con una versión antigua de la lógica Push.
-
-## 10. Email / Resend
-
-Archivo: `src/lib/email.ts`.
-
-Uso actual:
-- solo emails propios de la app, no necesariamente los de Supabase Auth;
-- API Resend Batch;
-- hasta 100 emails por llamada;
-- un email individual por destinatario para no exponer direcciones de terceros;
-- plantilla HTML + texto plano;
-- si faltan `RESEND_API_KEY` o `EMAIL_FROM`, el envío de publicación queda desactivado sin tumbar la app.
-
-Flujo de publicación:
-1. Admin cambia semana a `published`.
-2. DB devuelve destinatarios mediante `claim_week_notification`.
-3. Respuesta principal no espera al correo: se usa `after()`.
-4. Se envía por lotes.
-5. Si falla, se registra error y se libera `notified_at` para permitir reintento.
-
-Pendiente de auditoría externa:
-- dominio verificado;
-- entregabilidad;
-- bounces;
-- logs reales;
-- API key concreta y permisos;
-- configuración SMTP de Supabase Auth.
-
-La conexión Resend figura instalada en ChatGPT, pero durante esta auditoría inicial sus acciones aún no estaban expuestas como herramientas invocables en esta conversación.
-
-## 11. Web Push
-
-Uso actual:
-- admins pueden activar/desactivar notificaciones desde Ajustes;
-- prueba manual desde admin;
-- aviso tras nuevo registro;
-- elimina endpoints expirados cuando corresponde;
-- usa VAPID + service worker.
-
-Puntos a proteger:
+- admins pueden activar suscripción;
+- avisos por nuevos registros;
 - `PUSH_SECRET` nunca en cliente;
-- endpoint Push debe ser HTTPS;
-- solo admins pueden registrar suscripciones vía función protegida;
-- la consulta anónima para aviso de alta exige token servidor y limita registros recientes/duplicados.
+- limpiar endpoints expirados.
 
-## 12. Observaciones de producción
+## 9. RLS y seguridad
 
-### Build
+Patrón protegido:
+- `anon`: sin acceso funcional sensible;
+- `authenticated`: propietario/rol/visibilidad;
+- admin: acceso ampliado controlado;
+- atleta: actividad propia;
+- programación: lectura condicionada a visibilidad/acceso.
 
-El último build auditado:
-- compiló correctamente;
-- TypeScript terminó correctamente;
-- healthcheck `/login` pasó.
+No introducir atajos administrativos desde cliente.
 
-### Incidencia T1 — Node 20 vs Supabase >=22
+## 10. Incidencias técnicas abiertas
 
-Railway usa Node `20.20.2`.
-Las dependencias `@supabase/* 2.117.3` anuncian engine `>=22.0.0`.
+### T1 — Node 20 vs dependencias Supabase
 
-Efecto actual:
-- build sigue terminando;
-- aparecen warnings repetidos;
-- existe riesgo de incompatibilidad futura o comportamiento no soportado.
+En auditoría, Railway usaba Node 20.20.2 mientras paquetes Supabase declaraban Node >=22.
 
-Plan recomendado, no ejecutado:
-1. fijar Node 22 de forma explícita;
-2. construir en rama;
-3. ejecutar smoke tests de auth, programación, admin, ranking, historial, Resend y Push;
-4. solo después llevar a producción.
+Pendiente:
+- fijar/validar Node 22 en entorno seguro;
+- build;
+- smoke tests de auth, programación, admin, ranking, historial, email y Push;
+- solo después producción.
 
-### Incidencia T2 — `refresh_token_already_used`
+### T2 — `refresh_token_already_used`
 
-Logs de runtime muestran:
-- `Invalid Refresh Token: Already Used`
-- código `refresh_token_already_used`
+Se observaron errores puntuales de refresh token.
 
-Hipótesis a investigar, sin concluir todavía:
-- solicitudes simultáneas intentando refrescar la misma sesión;
-- comportamiento entre proxy + Server Components;
-- cookie antigua/duplicada;
-- condición específica de cliente/pestañas.
+No corregir sin reproducir/entender flujo de cookies y solicitudes concurrentes.
 
-No corregir a ciegas.
+### T3 — vulnerabilidades npm
 
-### Incidencia T3 — npm reporta 5 vulnerabilidades high
-
-El build muestra `5 high severity vulnerabilities`.
+Se reportaron vulnerabilidades high.
 
 No ejecutar `npm audit fix --force` automáticamente.
-Primero identificar:
-- paquete afectado;
-- si es dependencia runtime o dev;
-- si existe exploit relevante para esta app;
-- upgrade mínimo compatible.
 
-### Incidencia T4 — Tests RLS manuales
+### T4 — pruebas RLS
 
-Existe cobertura manual en SQL, pero no se ha constatado un pipeline que ejecute esas pruebas automáticamente antes de merge/deploy.
+Mejorar automatización de pruebas de permisos antes de cambios de esquema relevantes.
 
-## 13. Limitaciones de acceso actuales
+## 11. Dirección técnica futura — comercialización / white-label
 
-### Supabase Lemon RX
+Decisión estratégica registrada 15/10/2026, NO implementada todavía.
 
-No accesible desde las conexiones actuales.
-Esto impide verificar directamente:
-- tablas reales;
-- migraciones aplicadas;
-- políticas RLS activas;
-- datos reales;
-- Auth settings;
-- URL redirects;
-- SMTP;
-- logs;
-- security/performance advisors.
+Lemon RX podría evolucionar desde una única programación a una plataforma para múltiples empresas/programaciones de CrossFit/CrossTraining.
 
-Hasta conectar la cuenta correcta, GitHub es la fuente de verdad del diseño esperado, no prueba absoluta del estado real de producción.
+La arquitectura futura, si se valida esta línea, probablemente necesite representar explícitamente:
 
-## 14. Checklist técnico obligatorio antes de cada cambio
+`organization/programming -> boxes -> athletes`
 
-- ¿Qué ruta/flujo toca?
-- ¿Qué tablas/RPC/RLS toca?
-- ¿Puede romper historial o IDs existentes?
-- ¿Puede alterar auth/cookies?
-- ¿Puede afectar usuarios ya registrados?
-- ¿Puede duplicar emails o Push?
-- ¿Necesita migración?
-- ¿Es reversible?
-- ¿Build correcto?
-- ¿TypeScript correcto?
-- ¿Prueba manual del flujo afectado?
-- ¿Prueba de regresión de login + programación + admin?
-- ¿Jose lo ha validado?
+Posibles entidades/campos futuros:
+- organización/tenant;
+- branding de organización;
+- boxes/sedes;
+- membresía de usuario en organización/box;
+- roles por organización;
+- programas/niveles;
+- medición de atletas activos por ciclo de facturación.
 
-## 15. Cambios técnicos validados
+Regla desde ahora:
+- NO construir multi-tenancy todavía;
+- evitar nuevas decisiones que hagan extremadamente costosa esa migración futura;
+- no mezclar datos de clientes mediante simples filtros de frontend: si llega el momento, el aislamiento debe diseñarse en DB/RLS.
 
-### 13/10/2026 — Línea base
+## 12. Implicación técnica de la hipótesis de precios
 
-Sin cambios funcionales ni de infraestructura.
-Solo creación de documentación en rama aislada `docs/lemon-rx-continuidad` para no disparar producción.
+Hipótesis comercial registrada:
+- 35 €/mes hasta 70 atletas activos;
+- desde el atleta 71, +0,50 €/mes por atleta activo adicional;
+- coaches/admins no computan.
+
+Si se comercializa, será necesario definir técnicamente qué significa **atleta activo** de manera auditable. La recomendación para futura implementación es basarlo en una membresía/estado de suscripción vigente durante el ciclo de facturación, no simplemente en haber iniciado sesión una vez ni en el número histórico de cuentas.
+
+Todavía no implementar billing sobre esta hipótesis.
+
+## 13. Checklist técnico obligatorio
+
+Antes de cada cambio:
+- ¿qué flujo toca?
+- ¿qué tabla/RPC/RLS toca?
+- ¿puede romper IDs/histórico?
+- ¿afecta auth/cookies?
+- ¿afecta usuarios existentes?
+- ¿puede duplicar emails/Push?
+- ¿necesita migración?
+- ¿es reversible?
+- ¿build y TypeScript correctos?
+- ¿prueba manual del flujo?
+- ¿regresión login + programación + admin?
+- ¿queda DESPLEGADO/PENDIENTE o VALIDADO por Jose?
+
+## 14. Regla documental
+
+Tras cada bloque relevante:
+- `CONTINUIDAD.md`: estado, decisiones, prioridades y memoria del proyecto.
+- `FUNCIONAL.md`: reglas de negocio y comportamiento visible.
+- `TECNICO.md`: arquitectura, datos, seguridad, infraestructura e incidencias.
+
+No documentar como VALIDADO algo que solo haya sido desplegado para probar.
