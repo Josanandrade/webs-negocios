@@ -1,6 +1,6 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
-import type { BlockLog, BlockResult, HistoryEntry, LeaderboardRow } from "@/lib/types";
+import type { BlockLog, BlockResult, HistoryEntry, LeaderboardRow, RankingDayActivityRow } from "@/lib/types";
 
 export type Activity = {
   logs: Record<string, BlockLog>;
@@ -56,6 +56,22 @@ export async function getWeekLeaderboard(weekId: string | null): Promise<Record<
     });
   }
   return byBlock;
+}
+
+/**
+ * Actividad de todos los atletas en un día visible para el usuario actual.
+ * La función SQL solo devuelve datos si la semana se puede consultar.
+ */
+export async function getRankingDayAthleteActivity(weekId: string | null, date: string): Promise<RankingDayActivityRow[]> {
+  if (!weekId) return [];
+  const supabase = await createClient();
+  const { data } = await supabase.rpc("ranking_day_athlete_activity", { p_week_id: weekId, p_date: date });
+  return ((data ?? []) as RankingDayActivityRow[]).map((row) => ({
+    ...row,
+    block_position: Number(row.block_position),
+    kg: row.kg == null ? null : Number(row.kg),
+    total_load: row.total_load == null ? null : Number(row.total_load),
+  }));
 }
 
 export type RecentNote = {
