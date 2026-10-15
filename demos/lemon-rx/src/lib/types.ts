@@ -206,3 +206,26 @@ export type LeaderboardRow = BlockResult & {
   position: number;
   total: number;
 };
+
+/** Actividad pública de ranking de un atleta en un bloque de un día visible. */
+export type RankingDayActivityRow = {
+  user_id: string;
+  block_id: string;
+  block_title: string;
+  block_content: string;
+  block_position: number;
+  score_type: ScoreType;
+  builder_sections: BuilderSection[] | null;
+  done: boolean;
+  note: string;
+  has_result: boolean;
+  division: Division | null;
+  seconds: number | null;
+  capped: boolean | null;
+  rounds: number | null;
+  reps: number | null;
+  kg: number | null;
+  total_load: number | null;
+  as_prescribed: boolean | null;
+  reps_detail: string | null;
+};
