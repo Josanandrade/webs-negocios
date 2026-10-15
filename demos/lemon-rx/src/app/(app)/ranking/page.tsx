@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getViewer } from "@/lib/auth";
 import { getAdjacentPublished, getPublishedWeek } from "@/lib/program";
-import { getActivity, getWeekLeaderboard } from "@/lib/activity";
+import { getActivity, getRankingDayAthleteActivity, getWeekLeaderboard } from "@/lib/activity";
+import { getMovements } from "@/lib/strength";
 import { DIVISIONS, SCORE_TYPES, hasBoard, hasDivision } from "@/lib/scores";
-import type { LeaderboardRow, ScoreType, Sex } from "@/lib/types";
+import type { LeaderboardRow, RankingDayActivityRow, ScoreType, Sex } from "@/lib/types";
 import { DAY_NAMES, isIsoDate, mondayOf, shortDate, todayIso, weekDates, weekRangeShort } from "@/lib/dates";
 import { NoAccess } from "@/components/no-access";
 import { RankingRows } from "@/components/ranking-rows";
@@ -20,7 +21,7 @@ const FILTERS: { value: RankingFilter; label: string; heading: string }[] = [
   { value: "female", label: "Femenina", heading: "Clasificación femenina" },
 ];
 
-/** Clasificaciones del día con vista general por defecto y filtro opcional por género. */
+/** Clasificaciones del día con vista general por defecto y detalle desplegable por atleta. */
 export default async function RankingPage({ searchParams }: PageProps<"/ranking">) {
   const sp = await searchParams;
   const today = todayIso();
@@ -32,8 +33,8 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
   if (!viewer.canViewProgram) {
     return <NoAccess name={viewer.profile.full_name.split(" ")[0]} pending={viewer.profile.access_status === "pending"} />;
   }
-  const scoredOn = (date: string) =>
-    week?.days.find((d) => d.date === date)?.workout_blocks.filter((b) => hasBoard(b.score_type)) ?? [];
+  const allOn = (date: string) => week?.days.find((d) => d.date === date)?.workout_blocks ?? [];
+  const scoredOn = (date: string) => allOn(date).filter((b) => hasBoard(b.score_type));
 
   let day = requested;
   if (!isIsoDate(sp.dia) && scoredOn(day).length === 0) {
@@ -42,9 +43,17 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
   }
 
   const me = viewer.profile.id;
-  const ids = scoredOn(day).map((b) => b.id);
-  const [board, activity] = await Promise.all([getWeekLeaderboard(week?.id ?? null), getActivity(me, ids)]);
   const blocks = scoredOn(day);
+  const dayBlocks = allOn(day);
+  const ids = blocks.map((b) => b.id);
+  const [board, activity, dayActivity, movements] = await Promise.all([
+    getWeekLeaderboard(week?.id ?? null),
+    getActivity(me, ids),
+    getRankingDayAthleteActivity(week?.id ?? null, day),
+    getMovements(),
+  ]);
+  const detailsByUser = groupActivity(dayActivity);
+  const movementNames = Object.fromEntries(movements.map((movement) => [movement.id, movement.name]));
   const dates = weekDates(start);
   const label = (t: string) => SCORE_TYPES.find((s) => s.value === t)?.label ?? "";
   const activeFilter = FILTERS.find((f) => f.value === filter) ?? FILTERS[0];
@@ -106,7 +115,7 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
           );
         })}
       </nav>
-      <p className="mt-2 text-[13px] text-chalk-3">{activeFilter.heading}</p>
+      <p className="mt-2 text-[13px] text-chalk-3">{activeFilter.heading} · Pulsa en un atleta para ver su sesión completa.</p>
 
       {blocks.length === 0 ? (
         <p className="mt-8 text-[17px] text-chalk-3">
@@ -118,6 +127,7 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
             const rows = board[b.id] ?? [];
             const visibleRows = filter === "all" ? rows : rows.filter((r) => r.sex === filter);
             const divided = hasDivision(b.score_type);
+            const rankingProps = { dayBlocks, detailsByUser, movementNames };
             return (
               <section key={b.id} aria-labelledby={`r-${b.id}`}>
                 <h2 id={`r-${b.id}`} className="font-display text-[22px] font-bold uppercase tracking-[0.06em] text-lemon">
@@ -144,7 +154,7 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
                             {d.label}
                             <span className="text-[14px] font-semibold text-chalk-3">{list.length} {list.length === 1 ? "atleta" : "atletas"}</span>
                           </h3>
-                          {list.length === 0 ? <p className="py-3 text-[15px] text-chalk-3">Sin resultados todavía.</p> : <RankingRows rows={list} type={b.score_type} meId={me} />}
+                          {list.length === 0 ? <p className="py-3 text-[15px] text-chalk-3">Sin resultados todavía.</p> : <RankingRows rows={list} type={b.score_type} meId={me} {...rankingProps} />}
                         </div>
                       );
                     })}
@@ -159,7 +169,7 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
                             <h3 className="font-display text-[17px] font-bold uppercase tracking-[0.06em]">{activeFilter.heading}</h3>
                             <span className="text-[14px] font-semibold text-chalk-3">{list.length} {list.length === 1 ? "atleta" : "atletas"}</span>
                           </div>
-                          {list.length === 0 ? <p className="py-3 text-[15px] text-chalk-3">Sin resultados todavía.</p> : <RankingRows rows={list} type={b.score_type} meId={me} />}
+                          {list.length === 0 ? <p className="py-3 text-[15px] text-chalk-3">Sin resultados todavía.</p> : <RankingRows rows={list} type={b.score_type} meId={me} {...rankingProps} />}
                         </>
                       );
                     })()}
@@ -178,6 +188,12 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
       </p>
     </main>
   );
+}
+
+function groupActivity(rows: RankingDayActivityRow[]) {
+  const grouped: Record<string, RankingDayActivityRow[]> = {};
+  for (const row of rows) (grouped[row.user_id] ??= []).push(row);
+  return grouped;
 }
 
 function parseRankingFilter(value: string | string[] | undefined): RankingFilter {
