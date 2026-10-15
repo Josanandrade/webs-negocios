@@ -1,10 +1,10 @@
 # Lemon RX — Funcional
 
-> Documento vivo de comportamiento funcional. Aquí se describe qué debe poder hacer cada tipo de usuario y qué reglas de negocio están validadas. Cuando una funcionalidad cambie y Jose la valide, este documento debe actualizarse.
+> Documento vivo de comportamiento funcional. Describe qué puede hacer cada tipo de usuario y qué reglas de negocio están vigentes. Se distingue entre funcionalidad validada y funcionalidad desplegada pendiente de validación.
 
 ## 1. Propósito
 
-Lemon RX permite publicar y consumir programación semanal de CrossFit de forma privada, controlando acceso, pagos, actividad de atletas, resultados, ranking e historial.
+Lemon RX permite publicar y consumir programación semanal de CrossFit de forma privada, controlando acceso, pagos, actividad, resultados, rankings e historial.
 
 Usuarios principales:
 - Administrador/coach.
@@ -14,363 +14,281 @@ Usuarios principales:
 
 ### Registro
 
-El usuario puede:
-- introducir nombre;
+El usuario introduce:
+- nombre;
 - email;
-- contraseña de mínimo 8 caracteres.
+- contraseña de mínimo 8 caracteres;
+- sexo: **Hombre o Mujer**.
 
-Comportamiento esperado:
+Comportamiento:
 - se crea usuario en Supabase Auth;
-- se crea perfil automáticamente;
+- se crea perfil;
 - entra como `athlete`;
-- `access_status = pending`;
-- `payment_status = pending`;
+- queda pendiente de acceso/aprobación según el flujo vigente;
 - si la confirmación de email está activa, debe confirmar antes de iniciar sesión;
-- tras registrarse, los admins pueden recibir Web Push si la tienen activada.
+- los admins pueden recibir Web Push por nuevo registro;
+- el usuario puede llegar también mediante invitación por email, sin eliminar la aprobación manual del admin.
 
-### Login
+Estado del campo sexo: DESPLEGADO PARA VALIDACIÓN.
+
+### Login y recuperación
 
 - email + contraseña;
-- email no confirmado devuelve mensaje específico;
-- credenciales incorrectas no deben revelar información sensible;
+- tratamiento neutro de errores sensibles;
+- recuperación por email;
+- nueva contraseña mediante callback;
 - si ya existe sesión, `/login` y `/registro` redirigen a la app.
 
-### Recuperación
+## 3. Acceso a programación
 
-- el usuario solicita enlace por email;
-- el mensaje de respuesta es neutro tanto si el email existe como si no;
-- el enlace permite definir una nueva contraseña.
+Un atleta puede ver programación publicada solo si cumple las reglas de acceso y pago configuradas.
 
-## 3. Regla de acceso a programación
+Estados actuales:
+- `pending`;
+- `active`;
+- `blocked`.
 
-Un atleta puede ver programación publicada solo si:
+Pago:
+- `paid`;
+- `pending`.
 
-1. `access_status = active`, y
-2. se cumple una de estas dos:
-   - `payment_status = paid`, o
-   - el ajuste global `auto_block_unpaid` está desactivado.
-
-Un admin siempre puede ver la programación, incluidos borradores.
-
-### Estados de acceso
-
-- `pending`: usuario recién registrado, pendiente de revisión.
-- `active`: usuario habilitado.
-- `blocked`: usuario bloqueado.
-
-### Estados de pago
-
-- `paid`: pagado.
-- `pending`: pendiente de pago.
+El admin puede ver también borradores.
 
 ## 4. Programación semanal — Admin
 
 El admin puede:
-- ver la semana actual en el panel;
-- crear una semana;
-- editar una semana;
+- ver semana actual;
+- crear/editar semana;
 - guardar borrador;
 - publicar/despublicar;
-- eliminar semanas solo si están en borrador;
-- crear días con bloques;
+- borrar cuando corresponda;
+- crear días y bloques;
 - ordenar bloques;
-- elegir el tipo de resultado/seguimiento de cada bloque.
+- elegir tipo de resultado/seguimiento.
 
-Reglas:
-- `start_date` de semana debe ser lunes;
-- cada semana es única por fecha de inicio;
-- un día vacío no se guarda;
-- un bloque completamente vacío no se guarda;
-- al editar un bloque existente debe mantenerse su ID;
-- mantener ID es obligatorio para no romper notas, marcas, resultados e historial existentes.
+Reglas protegidas:
+- semana única por fecha de inicio;
+- preservar IDs de bloques al editar;
+- no romper resultados, logs ni historial existentes.
 
-## 5. Tipos funcionales de bloque
+## 5. Tipos de resultado
 
 ### Sin resultado — `none`
-
-El atleta puede marcar hecho y dejar nota, pero no introduce resultado/ranking.
+Hecho + nota, sin ranking.
 
 ### Tiempo — `time`
-
-Uso típico:
-- WOD for time.
-
-Puede registrar:
 - tiempo;
 - time cap;
-- reps si llegó al cap.
+- reps si llega al cap.
 
 Ranking:
-- quien termina se ordena por menor tiempo;
-- quien llega al cap se ordena por mayor número de reps;
+- menor tiempo gana entre finalizados;
+- en cap, mayor número de reps;
 - empates comparten posición.
 
 ### AMRAP — `rounds_reps`
-
-Registra:
 - rondas;
-- reps.
+- reps;
+- mayor resultado gana.
 
-Ranking:
-- más rondas y reps es mejor.
-
-### Repeticiones/calorías — `reps`
-
-Registra:
-- reps/calorías.
-
-Ranking:
-- más es mejor.
+### Reps/calorías — `reps`
+- mayor resultado gana.
 
 ### Peso competitivo — `weight`
 
-Registra kg.
+Nuevo comportamiento desplegado:
+- el atleta informa los pesos de las rondas/series que correspondan;
+- el sistema calcula el **total de kilos movidos**;
+- el ranking usa ese total cuando el bloque se define con este criterio;
+- los datos anteriores se recalculan/adaptan para preservar histórico.
 
-Ranking:
-- más peso es mejor.
+Estado: DESPLEGADO PARA VALIDACIÓN.
 
 ### Intervalos / EMOM — `intervals`
+- RX o Intermedio cuando aplica;
+- puede indicar si mantuvo la programación completa;
+- si adapta, puede detallar reps por ronda.
 
-El atleta:
-- elige RX o Intermedio;
-- indica si mantuvo todas las reps en todos los intervalos;
-- si no, puede escribir el detalle de reps por ronda.
+### Strength / Weightlifting
 
-Visualización:
-- se muestra lista de participantes;
-- no se plantea como ranking clásico por puestos;
-- se diferencia quién lo completó según programación y quién tuvo que adaptarlo.
+La funcionalidad ha evolucionado respecto a la línea base inicial.
 
-### Carga / fuerza — `load`
+Incluye:
+- catálogo de movimientos;
+- series y reps estructuradas;
+- porcentajes sobre RM;
+- RM entre 1 y 5;
+- cálculo de kilos;
+- Complex;
+- estructuras de fuerza/halterofilia dentro de EMOM cuando corresponde;
+- ranking específico de Weightlifting por carga, sin separar RX/Intermedio.
 
-Pensado para Strength/Weightlifting.
-
-El atleta registra:
-- peso máximo y/o detalle de series.
-
-Reglas:
-- no hay ranking;
-- no necesita categorías competitivas;
-- el sistema lo guarda internamente como RX para simplificar el modelo actual.
+Estado: DESPLEGADO; parte pendiente de validación funcional final.
 
 ## 6. Vista del atleta
 
-Página principal `/`.
-
 El atleta con acceso puede:
 - ver programación publicada;
-- consultar semana actual;
-- navegar a semana anterior/siguiente publicada;
-- volver a semana actual;
-- abrir días y bloques;
-- marcar bloque como hecho;
+- navegar por semanas permitidas;
+- abrir bloques;
+- marcar hecho;
 - guardar nota;
-- guardar resultado si corresponde;
-- ver información de ranking del bloque.
-
-Si no existe semana publicada:
-- mostrar estado vacío claro;
-- permitir acceder a última semana publicada cuando exista.
-
-Si no tiene acceso:
-- no debe mostrarse contenido protegido;
-- debe mostrarse mensaje adecuado según estado pendiente/bloqueado/pago.
+- guardar resultado;
+- ver ranking cuando corresponda;
+- consultar historial.
 
 ## 7. Actividad, notas y resultados
 
-### Marcar hecho
-
-Cada atleta solo puede modificar su propia actividad.
-
-### Notas
-
-- máximo actual: 2000 caracteres;
-- privadas para atleta + admins;
-- aparecen al admin en el panel como actividad reciente.
-
-### Guardar resultado
-
-- solo sobre bloques con tipo de resultado distinto de `none`;
-- el backend obtiene el tipo real del bloque;
-- el atleta no decide arbitrariamente el tipo;
-- guardar un resultado implica marcar el bloque como hecho.
+- Cada atleta modifica su propia actividad.
+- Notas privadas para atleta + admins.
+- Guardar resultado marca el bloque como hecho.
+- El backend determina el tipo real del bloque.
+- No se permite que un atleta altere arbitrariamente el tipo de resultado.
 
 ## 8. Ranking
 
-Ruta: `/ranking`.
-
-Comportamiento:
-- ranking por bloque;
-- categorías RX e Intermedio donde corresponde;
-- empates comparten posición;
-- el atleta puede ver nombres/resultados agregados solo mediante el flujo controlado de ranking;
-- la tabla privada de resultados no debe quedar abierta directamente a otros atletas.
-
-## 9. Historial
-
-### Atleta
-
-Ruta: `/historial`.
-
-Debe mostrar todos los bloques donde haya:
-- marcado hecho;
-- dejado nota;
-- guardado resultado/carga.
-
-Incluye semanas antiguas aunque ya no estén visibles en navegación normal, siempre para el propio atleta.
-
-### Admin
-
-Ruta: `/admin/usuarios/[id]/historial`.
-
-El admin puede consultar historial completo del atleta.
-
-## 10. Mi cuenta
-
-Ruta: `/cuenta`.
-
-Actualmente contempla gestión básica de cuenta/nombre dentro de los límites permitidos.
-
-Regla protegida:
-- un atleta no puede modificar rol, pago ni acceso desde Mi cuenta.
-
-## 11. Panel Admin
-
-Ruta: `/admin`.
-
-Información actual:
-- saludo al admin;
-- semana actual y estado;
-- acceso directo a editar/crear semana;
-- total de atletas;
-- atletas con acceso;
-- atletas sin pagar;
-- registros pendientes de activar;
-- últimas notas de atletas;
-- accesos a programación y usuarios.
-
-## 12. Gestión de usuarios
-
-El admin puede:
-- listar atletas;
-- filtrar usuarios;
-- entrar en ficha individual;
-- activar/bloquear;
-- marcar pagado/pendiente;
-- cambiar rol atleta/admin;
-- consultar bloques hechos/notas;
-- consultar historial completo.
+Ruta principal: `/ranking`.
 
 Reglas:
-- un admin no puede cambiar su propio rol desde la acción existente;
-- convertir a admin activa también el acceso;
-- nuevos usuarios no reciben acceso automáticamente.
+- ranking por bloque;
+- RX e Intermedio separados cuando corresponde;
+- empates comparten posición;
+- resultados privados no se abren directamente a otros atletas;
+- cuando el resultado genera ranking competitivo, el sistema utiliza el sexo del atleta para separar **Masculino** y **Femenino**;
+- ambos rankings deben ser visibles para los usuarios;
+- puede existir una vista General cuando la interfaz la contemple, sin mezclar incorrectamente puestos masculinos/femeninos específicos;
+- Strength/Weightlifting usa ranking único por carga cuando no aplica RX/Intermedio.
 
-## 13. Ajustes globales
+Estado de separación por sexo: DESPLEGADO PARA VALIDACIÓN.
 
-Ruta: `/admin/ajustes`.
+## 9. Clasificación del día
 
-Ajustes funcionales actuales:
+Actualización desplegada el 14/10/2026:
+- se ordena por resultado real;
+- puesto y total se recalculan;
+- RX e Intermedio permanecen separados;
+- las vistas de ranking mantienen General / Masculina / Femenina cuando aplica.
 
-### Bloqueo automático por impago
+## 10. Historial
 
-`auto_block_unpaid`
+### Atleta
+Debe incluir bloques donde haya:
+- marcado hecho;
+- nota;
+- resultado/carga.
 
-ON:
-- atleta activo pero no pagado no ve programación.
+### Admin
+Puede consultar el historial completo del atleta desde su ficha.
 
-OFF:
-- atleta activo puede ver programación aunque esté pendiente de pago.
+## 11. Cuenta y perfil
 
-### Semanas pasadas
+El atleta gestiona únicamente los datos permitidos.
 
-`show_past_weeks`
+Reglas protegidas:
+- no puede cambiarse el rol;
+- no puede marcarse pagado;
+- no puede activar su propio acceso.
 
-Controla si atletas con acceso pueden consultar programación pasada.
+El admin puede editar el sexo Hombre/Mujer del usuario desde su perfil.
 
-### Notificaciones
+## 12. Panel Admin
 
-Admin puede:
-- activar Web Push en dispositivo compatible;
-- desactivar;
-- enviar prueba.
+Incluye:
+- semana actual;
+- estado;
+- accesos a programación y usuarios;
+- total de atletas;
+- accesos activos/pendientes;
+- pagos pendientes;
+- registros pendientes;
+- actividad/notas recientes.
 
-En iPhone puede requerir instalar la web en pantalla de inicio.
+## 13. Gestión de usuarios
 
-## 14. Email al publicar programación
+El admin puede:
+- listar/filtrar;
+- entrar en ficha;
+- activar/bloquear;
+- cambiar pago;
+- cambiar rol dentro de las reglas vigentes;
+- editar sexo;
+- consultar actividad e historial.
 
-Al publicar una semana por primera vez:
-- si Resend está configurado, se prepara aviso a usuarios con email confirmado y acceso no bloqueado;
-- incluye enlace directo a la semana;
-- cada destinatario recibe email individual;
-- no debe repetirse al despublicar y volver a publicar la misma semana;
-- si el envío completo falla, la semana queda preparada para poder reintentar más adelante.
+## 14. Ajustes y comunicaciones
 
-Importante:
-- este email es distinto de los emails de autenticación de Supabase.
+### Ajustes
+- bloqueo automático por impago;
+- visibilidad de semanas pasadas;
+- Web Push de admin.
 
-## 15. Push por nuevo registro
+### Email al publicar
+- aviso al publicar una semana por primera vez;
+- evita duplicados al republicar;
+- se gestiona mediante Resend cuando está configurado.
 
-Cuando se registra un usuario:
-- el registro no debe quedarse esperando a que termine la notificación;
-- admins con Push activo reciben aviso;
-- no debe enviarse repetidamente para el mismo alta;
-- endpoints inválidos/expirados deben poder limpiarse.
+### Invitaciones
+- existe flujo de invitación por email;
+- la invitación no sustituye la aprobación manual del admin.
 
-## 16. Comportamientos que NO debemos romper
+## 15. Comportamientos que no debemos romper
 
 - Registro/login/recuperación.
-- Acceso condicionado por estado + pago.
-- RLS real, no solo controles visuales.
-- Edición/publicación de semanas.
+- Campo de sexo una vez validado.
+- Acceso condicionado por estado/pago.
+- RLS real.
+- Programación y publicación.
 - Preservación de IDs de bloques.
 - Marcar hecho/notas/resultados.
-- Ranking.
+- Pesos por ronda y total una vez validados.
+- Rankings por sexo una vez validados.
+- Ranking de Strength/Weightlifting.
 - Historial.
 - Gestión de usuarios.
-- Email de semana publicada sin duplicados.
-- Web Push de nuevos registros.
-- Navegación rápida actual y comportamiento móvil existente.
+- Emails sin duplicados.
+- Push.
+- Rendimiento y experiencia móvil.
 
-## 17. Puntos funcionales pendientes de revisar
+## 16. Estrategia comercial futura — no funcional todavía
 
-No se consideran errores confirmados todavía; son áreas que requieren QA funcional con cuenta real:
+Desde 15/10/2026 se contempla que Lemon RX pueda venderse a otras programaciones de CrossFit/CrossTraining una vez probada durante meses con usuarios reales.
 
-1. Sesiones en varias pestañas/dispositivos, por los errores de refresh token observados en logs.
-2. Flujo exacto cuando un admin bloquea/desbloquea a un atleta mientras este tiene la app abierta.
-3. Reintento real del email de publicación ante fallo parcial del batch de Resend.
-4. Comportamiento Web Push en iPhone Safari/PWA frente a Android/Chrome.
-5. Estados vacíos y mensajes cuando no hay ranking o historial.
-6. Compatibilidad completa tras futura actualización a Node 22.
+No implica desarrollar ahora multiempresa ni white-label, pero conviene evitar decisiones que bloqueen esa evolución.
 
-## 18. Método para nuevas funcionalidades
+Hipótesis comercial a conservar:
+- 35 €/mes hasta 70 atletas activos;
+- desde el atleta 71, +0,50 €/mes por atleta activo adicional;
+- coaches/admins fuera del cómputo;
+- cobrar por atletas activos, no por cuentas históricas.
 
-Cada petición nueva debe documentarse así:
+Posibles necesidades futuras:
+- varias organizaciones/programaciones;
+- boxes dentro de una programación;
+- atletas adscritos a box;
+- rankings globales y por box;
+- branding white-label;
+- roles de administración por organización.
+
+Nada de este bloque se considera todavía funcionalidad implementada.
+
+## 17. Método para nuevas funcionalidades
 
 ### Necesidad
-Qué problema queremos resolver.
+Problema real a resolver.
 
 ### Comportamiento actual
 Qué hace Lemon RX hoy.
 
 ### Cambio propuesto
-Qué debería hacer exactamente.
+Qué debería hacer.
 
 ### Riesgo de regresión
-Qué funcionalidades existentes podrían verse afectadas.
+Qué podría romperse.
 
 ### Prueba
-Pasos concretos para validar.
+Pasos concretos.
 
 ### Resultado
-- Pendiente
-- Implementado, pendiente de validación
-- VALIDADO por Jose
-- Revertido
-
-## 19. Cambios funcionales validados
-
-### 13/10/2026 — Auditoría inicial
-
-No se ha cambiado ninguna funcionalidad.
-Se ha documentado la línea base que ya existía en producción para usarla como contrato funcional a partir de ahora.
+- PROPUESTO
+- DESPLEGADO / PENDIENTE DE VALIDACIÓN
+- VALIDADO
+- REVERTIDO
