@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { BlockTracker, type BlockView } from "@/components/block-tracker";
 import { StrengthBlockTracker, type StrengthBlockView } from "@/components/strength-block-tracker";
 import { FreeStrengthBlockTracker, type FreeStrengthBlockView } from "@/components/free-strength-block-tracker";
+import { BlockMovementHistory } from "@/components/block-movement-history";
 import { StrengthRankingPanel } from "@/components/strength-ranking-panel";
 import { Toast, useToast } from "@/components/toast";
 import type { BuilderSectionView } from "@/lib/types";
@@ -62,7 +63,7 @@ export function WeekDays({ days, meId }: { days: DayView[]; meId: string }) {
       const tracker = Array.isArray(block.builder_sections)
         ? <FreeStrengthBlockTracker block={block as FreeStrengthBlockView} notify={show} />
         : <StrengthBlockTracker block={block as StrengthBlockView} notify={show} />;
-      return <div key={block.id} className="space-y-7">{tracker}<StrengthRankingPanel rows={block.board} meId={meId} /></div>;
+      return <div key={block.id} className="space-y-7">{tracker}<BlockMovementHistory blockId={block.id} /><StrengthRankingPanel rows={block.board} meId={meId} /></div>;
     })}</div></div></div></li>;
   })}</ol><Toast toast={toast} className="bottom-[calc(5rem+env(safe-area-inset-bottom))] md:bottom-8" /></>;
 }
