@@ -31,7 +31,7 @@ export function AthleteEvolutionPanel({ evolution, weeks, hrefBase = "/cuenta" }
         </div>
         <nav className="flex gap-1" aria-label="Periodo de evolución">
           {([4, 8, 12] as EvolutionWindow[]).map((value) => (
-            <Link key={value} href={`${hrefBase}?evolucion=${value}`} className={`press rounded-md px-3 py-2 text-[13px] font-bold ${weeks === value ? "bg-lemon text-ink" : "bg-panel text-chalk-2"}`}>
+            <Link key={value} href={`${hrefBase}?evolucion=${value}`} prefetch={false} className={`press rounded-md px-3 py-2 text-[13px] font-bold ${weeks === value ? "bg-lemon text-ink" : "bg-panel text-chalk-2"}`}>
               {value} sem
             </Link>
           ))}
