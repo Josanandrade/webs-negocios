@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import type { Movement } from "@/lib/strength";
 import type { BuilderSection } from "@/lib/types";
+import { isSingleMaxLoadComplexBlock } from "@/lib/unified-strength";
 import type { EditableBlock } from "./block-editor";
 import { FreeStrengthEditor, newBuilderSection } from "./free-strength-editor";
 
@@ -27,6 +28,7 @@ export function FreeStrengthBlockEditor({ block, index, total, movements, onChan
   const textRef = useRef<HTMLTextAreaElement>(null);
   useLayoutEffect(() => autosize(textRef.current), [block.content]);
   const label = block.title.trim() || `Bloque ${index + 1}`;
+  const maxComplex = isSingleMaxLoadComplexBlock(block.builder_sections);
 
   return <li className="rounded-sm border border-line bg-ink-2" style={{ viewTransitionName: `block-${block.id}` }}>
     <div className="flex items-center gap-1 border-b border-line pl-3">
@@ -38,7 +40,7 @@ export function FreeStrengthBlockEditor({ block, index, total, movements, onChan
 
     <div className="border-b border-line px-3 py-2">
       <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-chalk-3">Resultado</p>
-      <p className="mt-0.5 text-[14px] font-semibold text-lemon">Ranking · kilos totales movidos</p>
+      <p className="mt-0.5 text-[14px] font-semibold text-lemon">{maxComplex ? "Ranking · peso del complex" : "Ranking · kilos totales movidos"}</p>
     </div>
 
     <div className="border-b border-line px-3 py-4">
