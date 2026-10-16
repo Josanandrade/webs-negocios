@@ -18,6 +18,16 @@ export function complexReps(item: BuilderComplexItem) {
   return item.movements.reduce((sum, row) => sum + Math.max(0, Number(row.reps || 0)), 0);
 }
 
+/** Un Complex libre, sin sets/rondas ni esquema, representa una búsqueda de peso máximo: el resultado es el peso de la barra, no volumen. */
+export function isMaxLoadComplex(section: BuilderSection, item: TrackedBuilderItem) {
+  return item.type === "complex" && sectionFormat(section) === "free" && !(item.scheme?.length);
+}
+
+export function isSingleMaxLoadComplexBlock(sections: BuilderSection[] | null | undefined) {
+  const tracked = (sections ?? []).flatMap((section) => trackedBuilderItems(section).map((item) => ({ section, item })));
+  return tracked.length === 1 && isMaxLoadComplex(tracked[0].section, tracked[0].item);
+}
+
 export function expectedWeightCount(item: TrackedBuilderItem, sectionCount: number) {
   const schemeCount = schemeSetCount(item.scheme);
   return schemeCount || sectionCount;
