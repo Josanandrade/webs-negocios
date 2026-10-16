@@ -16,7 +16,8 @@ function windowFrom(value: string | undefined): EvolutionWindow {
 export default async function AccountPage({ searchParams }: { searchParams: Promise<{ evolucion?: string }> }) {
   const [{ profile, isAdmin, canViewProgram }, sp] = await Promise.all([getViewer(), searchParams]);
   const weeks = windowFrom(sp.evolucion);
-  const evolution = canViewProgram && !isAdmin ? await getAthleteEvolution(profile.id, weeks) : null;
+  const showEvolution = canViewProgram && (!isAdmin || profile.show_evolution_as_athlete);
+  const evolution = showEvolution ? await getAthleteEvolution(profile.id, weeks) : null;
 
   return (
     <main className="mx-auto max-w-xl px-4 pb-16 pt-6 md:px-6 md:pt-10">
@@ -35,7 +36,12 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
         </Link>
       )}
 
-      {canViewProgram && !isAdmin && <AthleteEvolutionPanel evolution={evolution} weeks={weeks} />}
+      {showEvolution && <AthleteEvolutionPanel evolution={evolution} weeks={weeks} />}
+      {isAdmin && !profile.show_evolution_as_athlete && (
+        <p className="mt-6 rounded-lg border border-line bg-panel px-4 py-3 text-[14px] leading-relaxed text-chalk-2">
+          Tu evolución está oculta. Puedes activarla desde <Link href="/admin/ajustes" className="font-semibold text-lemon">Configuración</Link>.
+        </p>
+      )}
 
       <ProfileForm profile={profile} />
 
