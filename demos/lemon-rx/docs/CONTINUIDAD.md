@@ -158,6 +158,10 @@ Estado: **VALIDADO**.
 - Menos precargas automáticas innecesarias en navegación, periodos y fichas.
 - Semana monta los bloques de cada día solo al abrirlo por primera vez; después mantiene el contenido montado.
 - Panel y Cuenta muestran el contenido principal antes de esperar a Evolución.
+- Ampliación validada de navegación en frío: al entrar en Lemon RX se preparan de forma secuencial en segundo plano las rutas principales, priorizando Semana y Usuarios, evitando disparar muchas peticiones simultáneas.
+- Semana difiere también la descarga del código pesado de trackers, historial y ranking de fuerza hasta que se abre un día por primera vez.
+- La causa observada de la lentitud inicial no era el volumen actual de datos, sino el coste ocasional de la primera comunicación Railway → Supabase; las consultas SQL internas eran rápidas.
+- Resultado validado por Jose: la navegación inicial se percibe mucho más fluida.
 - No se tocaron Supabase, resultados, notas, programación, IDs de bloques ni `save_week_content`.
 
 ## 6. Estrategia comercial futura — HIPÓTESIS, NO PRODUCTO ACTUAL
