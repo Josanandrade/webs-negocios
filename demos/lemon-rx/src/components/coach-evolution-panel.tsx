@@ -29,7 +29,7 @@ export function CoachEvolutionPanel({ evolution, weeks }: { evolution: CoachEvol
         </div>
         <nav className="flex gap-1" aria-label="Periodo de evolución del panel">
           {([4, 8, 12] as EvolutionWindow[]).map((n) => (
-            <Link key={n} href={`/admin?evolucion=${n}`} className={`press rounded-md px-3 py-2 text-[13px] font-bold ${weeks === n ? "bg-lemon text-ink" : "bg-panel text-chalk-2"}`}>{n} sem</Link>
+            <Link key={n} href={`/admin?evolucion=${n}`} prefetch={false} className={`press rounded-md px-3 py-2 text-[13px] font-bold ${weeks === n ? "bg-lemon text-ink" : "bg-panel text-chalk-2"}`}>{n} sem</Link>
           ))}
         </nav>
       </div>
@@ -52,7 +52,7 @@ export function CoachEvolutionPanel({ evolution, weeks }: { evolution: CoachEvol
               <ul className="mt-3 divide-y divide-line border-t border-line">
                 {incomplete.map((a) => (
                   <li key={a.user_id}>
-                    <Link href={`/admin/usuarios/${a.user_id}`} className="day-trigger flex items-center justify-between gap-4 py-3">
+                    <Link href={`/admin/usuarios/${a.user_id}`} prefetch={false} className="day-trigger flex items-center justify-between gap-4 py-3">
                       <span className="min-w-0 truncate text-[15px] font-semibold">{a.full_name}</span>
                       <span className="shrink-0 text-right text-[13px] text-chalk-2">
                         {a.current.compliance.completed}/{a.current.compliance.programmed} · {value(a.current.compliance.pct, "%")}
@@ -74,7 +74,7 @@ export function CoachEvolutionPanel({ evolution, weeks }: { evolution: CoachEvol
               <ul className="divide-y divide-line">
                 {athletes.map((a) => (
                   <li key={a.user_id}>
-                    <Link href={`/admin/usuarios/${a.user_id}`} className="day-trigger grid gap-2 px-4 py-3 md:grid-cols-[1fr_110px_110px_120px] md:items-center md:gap-3">
+                    <Link href={`/admin/usuarios/${a.user_id}`} prefetch={false} className="day-trigger grid gap-2 px-4 py-3 md:grid-cols-[1fr_110px_110px_120px] md:items-center md:gap-3">
                       <div className="min-w-0"><span className="block truncate text-[16px] font-semibold">{a.full_name}</span><span className="text-[12px] text-chalk-3">{a.current.compliance.completed}/{a.current.compliance.programmed} bloques hasta hoy</span></div>
                       <Cell label="Cumplimiento" value={value(a.current.compliance.pct, "%")} highlight={(a.current.compliance.pct ?? 100) < 60} />
                       <Cell label="WOD" value={a.current.wods.comparable ? averagePosition(a.current.wods.avg_position, a.current.wods.avg_participants) : "—"} />
