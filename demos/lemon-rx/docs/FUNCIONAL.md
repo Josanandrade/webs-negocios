@@ -4,11 +4,13 @@
 
 ## 1. Propósito
 
-Lemon RX permite publicar y consumir programación semanal de CrossFit de forma privada, controlando acceso, pagos, actividad, resultados, rankings e historial.
+Lemon RX permite publicar y consumir programación semanal de CrossFit de forma privada, controlando acceso, pagos, actividad, resultados, rankings, historial y evolución del atleta.
 
 Usuarios principales:
 - Administrador/coach.
 - Atleta.
+
+Un administrador también puede participar como atleta en la evolución si tiene activada esa opción.
 
 ## 2. Registro y acceso
 
@@ -29,7 +31,9 @@ Comportamiento:
 - los admins pueden recibir Web Push por nuevo registro;
 - el usuario puede llegar también mediante invitación por email, sin eliminar la aprobación manual del admin.
 
-Estado del campo sexo: DESPLEGADO PARA VALIDACIÓN.
+Estado del campo sexo: **VALIDADO**.
+
+Regla: nunca inferir sexo por nombre.
 
 ### Login y recuperación
 
@@ -71,7 +75,33 @@ Reglas protegidas:
 - preservar IDs de bloques al editar;
 - no romper resultados, logs ni historial existentes.
 
-## 5. Tipos de resultado
+## 5. Strength / Weightlifting
+
+Estado: **VALIDADO**.
+
+Incluye:
+- catálogo de movimientos;
+- movimientos programables que pueden quedar fuera de RM mediante elegibilidad independiente;
+- constructor unificado de Strength/Weightlifting;
+- series y reps estructuradas;
+- porcentajes sobre RM;
+- RM entre 1 y 5;
+- cálculo orientativo de kilos por porcentaje;
+- Complex;
+- EMOM;
+- bloques A.1/A.2/A.3…;
+- accesorios;
+- registro real de pesos por serie/ronda;
+- volumen total movido;
+- ranking por carga total;
+- compatibilidad con bloques antiguos.
+
+Regla de producto:
+**La app informa. El coach decide.**
+
+No introducir escalado, readiness, pacing, estrategia o decisiones automáticas que sustituyan al coach/programador.
+
+## 6. Tipos de resultado
 
 ### Sin resultado — `none`
 Hecho + nota, sin ranking.
@@ -96,36 +126,19 @@ Ranking:
 
 ### Peso competitivo — `weight`
 
-Nuevo comportamiento desplegado:
-- el atleta informa los pesos de las rondas/series que correspondan;
-- el sistema calcula el **total de kilos movidos**;
-- el ranking usa ese total cuando el bloque se define con este criterio;
-- los datos anteriores se recalculan/adaptan para preservar histórico.
+Estado: **VALIDADO**.
 
-Estado: DESPLEGADO PARA VALIDACIÓN.
+- el atleta informa pesos de las rondas/series que correspondan;
+- el sistema calcula el total de kilos movidos;
+- el ranking usa ese total cuando el bloque se define con este criterio;
+- los datos anteriores se preservan.
 
 ### Intervalos / EMOM — `intervals`
 - RX o Intermedio cuando aplica;
 - puede indicar si mantuvo la programación completa;
 - si adapta, puede detallar reps por ronda.
 
-### Strength / Weightlifting
-
-La funcionalidad ha evolucionado respecto a la línea base inicial.
-
-Incluye:
-- catálogo de movimientos;
-- series y reps estructuradas;
-- porcentajes sobre RM;
-- RM entre 1 y 5;
-- cálculo de kilos;
-- Complex;
-- estructuras de fuerza/halterofilia dentro de EMOM cuando corresponde;
-- ranking específico de Weightlifting por carga, sin separar RX/Intermedio.
-
-Estado: DESPLEGADO; parte pendiente de validación funcional final.
-
-## 6. Vista del atleta
+## 7. Vista del atleta
 
 El atleta con acceso puede:
 - ver programación publicada;
@@ -135,9 +148,19 @@ El atleta con acceso puede:
 - guardar nota;
 - guardar resultado;
 - ver ranking cuando corresponda;
-- consultar historial.
+- consultar historial;
+- consultar su evolución en `Cuenta → Mi evolución`.
 
-## 7. Actividad, notas y resultados
+### Navegación de Semana
+
+Estado: **VALIDADO**.
+
+- los siete días pueden permanecer cerrados;
+- en móvil, con todos cerrados, se conserva el comportamiento de scroll ya validado;
+- al abrir un día se posiciona correctamente bajo la cabecera;
+- los bloques de un día se preparan al abrirlo por primera vez y las reaperturas posteriores son inmediatas.
+
+## 8. Actividad, notas y resultados
 
 - Cada atleta modifica su propia actividad.
 - Notas privadas para atleta + admins.
@@ -145,29 +168,24 @@ El atleta con acceso puede:
 - El backend determina el tipo real del bloque.
 - No se permite que un atleta altere arbitrariamente el tipo de resultado.
 
-## 8. Ranking
+## 9. Ranking
 
 Ruta principal: `/ranking`.
 
-Reglas:
+Reglas validadas:
 - ranking por bloque;
 - RX e Intermedio separados cuando corresponde;
 - empates comparten posición;
 - resultados privados no se abren directamente a otros atletas;
-- cuando el resultado genera ranking competitivo, el sistema utiliza el sexo del atleta para separar **Masculino** y **Femenino**;
-- ambos rankings deben ser visibles para los usuarios;
-- puede existir una vista General cuando la interfaz la contemple, sin mezclar incorrectamente puestos masculinos/femeninos específicos;
-- Strength/Weightlifting usa ranking único por carga cuando no aplica RX/Intermedio.
+- General / Masculina / Femenina;
+- Strength/Weightlifting usa ranking único por carga cuando no aplica RX/Intermedio;
+- en la vista detallada se puede pulsar un atleta para ver su sesión completa, incluidos resultados y notas visibles dentro de este contexto.
 
-Estado de separación por sexo: DESPLEGADO PARA VALIDACIÓN.
+### Navegación de filtros
 
-## 9. Clasificación del día
+Estado: **VALIDADO 16/10/2026**.
 
-Actualización desplegada el 14/10/2026:
-- se ordena por resultado real;
-- puesto y total se recalculan;
-- RX e Intermedio permanecen separados;
-- las vistas de ranking mantienen General / Masculina / Femenina cuando aplica.
+General / Masculina / Femenina se cambian de forma inmediata con los datos ya cargados, sin una nueva navegación completa al servidor.
 
 ## 10. Historial
 
@@ -180,7 +198,112 @@ Debe incluir bloques donde haya:
 ### Admin
 Puede consultar el historial completo del atleta desde su ficha.
 
-## 11. Cuenta y perfil
+### Presentación de fuerza
+Estado: **VALIDADO**.
+
+Los bloques Strength/Weightlifting no deben mostrar códigos JSON/técnicos. Los resultados estructurados se traducen a información humana: sección, movimiento, pesos y volumen cuando corresponda.
+
+## 11. Historial contextual de movimiento
+
+Estado: **VALIDADO 16/10/2026**.
+
+En bloques Strength/Weightlifting aparece **Ver historial**.
+
+Comportamiento:
+- detecta movimientos del bloque;
+- permite cambiar entre ellos si hay varios;
+- muestra los últimos 3 entrenamientos anteriores completados del mismo movimiento;
+- si existen solo 1 o 2, muestra los disponibles;
+- si no hay ninguno: `Aún no has registrado ningún bloque de este movimiento.`;
+- excluye el entrenamiento actual;
+- puede mostrar fecha, prescripción recuperable, pesos reales, volumen y nota;
+- funciona con bloques antiguos y con el constructor unificado.
+
+## 12. Mi evolución — atleta
+
+Estado: **VALIDADO**.
+
+Ubicación:
+- `Cuenta → Mi evolución`.
+
+Periodos:
+- 4 semanas;
+- 8 semanas;
+- 12 semanas.
+
+Métricas principales:
+
+### Cumplimiento
+- bloques completados / bloques programados;
+- porcentaje;
+- solo cuenta programación hasta el día de HOY;
+- los días futuros no reducen el porcentaje;
+- tampoco se penaliza por programación anterior al alta del usuario.
+
+### WOD
+- se muestra **Posición WOD media**;
+- formato ejemplo: `5/14`;
+- el numerador es la posición media conseguida en WODs comparables;
+- el denominador representa los participantes medios contra los que realmente se comparó;
+- la comparación se mantiene dentro de la misma división;
+- no mostrar percentil al usuario.
+
+### Fuerza
+- volumen total registrado;
+- sesiones realizadas / sesiones programadas hasta hoy, por ejemplo `3/3 sesiones realizadas`.
+
+### RM
+- muestra mejoras cuando existe histórico disponible;
+- no inventar cambios anteriores al momento en que Lemon empezó a guardar histórico de RM.
+
+### Comparación con periodo anterior
+- cumplimiento;
+- mejora/empeoramiento de posición media en WODs;
+- variación de volumen de fuerza;
+- si no hay periodo anterior suficiente, mostrarlo claramente sin fabricar una comparación.
+
+## 13. Evolución — coach/admin
+
+Estado: **VALIDADO**.
+
+Ubicación:
+- panel principal del Admin, debajo de los KPI principales.
+
+Incluye:
+- cumplimiento medio;
+- atletas que mejoran en WODs;
+- atletas que mejoran algún RM;
+- listado individual con cumplimiento, posición WOD media y fuerza;
+- selector 4/8/12 semanas.
+
+No mostrar una **posición WOD media global** de todos los usuarios, porque no aporta una lectura útil al coach.
+
+### Quién está completando menos bloques
+
+Dentro de Cumplimiento medio existe acceso a una lista de usuarios con bloques pendientes.
+
+Reglas:
+- solo contar bloques programados hasta HOY;
+- excluir días futuros;
+- ordenar desde menos bloques completados a más;
+- mostrar realizados/programados y porcentaje;
+- permitir entrar en la ficha del usuario.
+
+## 14. Admin como atleta
+
+Estado: **VALIDADO**.
+
+- Un admin puede tener también evolución deportiva.
+- Ajuste individual: **Mostrar mi evolución como atleta**.
+- Para admins, el valor por defecto vigente es **activado**.
+- Si el admin no quiere aparecer, debe desactivarlo en Ajustes.
+- Cuando está activado:
+  - aparece como un atleta más en la evolución del coach;
+  - sus datos son visibles para otros admins/coachs;
+  - su Cuenta muestra `Mi evolución`.
+- Desactivarlo no cambia ni limita su rol administrativo.
+
+## 15. Cuenta y perfil
 
 El atleta gestiona únicamente los datos permitidos.
 
@@ -191,7 +314,7 @@ Reglas protegidas:
 
 El admin puede editar el sexo Hombre/Mujer del usuario desde su perfil.
 
-## 12. Panel Admin
+## 16. Panel Admin
 
 Incluye:
 - semana actual;
@@ -201,9 +324,12 @@ Incluye:
 - accesos activos/pendientes;
 - pagos pendientes;
 - registros pendientes;
-- actividad/notas recientes.
+- evolución de atletas;
+- actividad/notas recientes, situada por debajo del bloque de evolución.
 
-## 13. Gestión de usuarios
+La carga de Evolución no debe bloquear la aparición de los KPI y contenido principal del panel.
+
+## 17. Gestión de usuarios
 
 El admin puede:
 - listar/filtrar;
@@ -214,12 +340,13 @@ El admin puede:
 - editar sexo;
 - consultar actividad e historial.
 
-## 14. Ajustes y comunicaciones
+## 18. Ajustes y comunicaciones
 
 ### Ajustes
 - bloqueo automático por impago;
 - visibilidad de semanas pasadas;
-- Web Push de admin.
+- Web Push de admin;
+- Mostrar mi evolución como atleta para admins.
 
 ### Email al publicar
 - aviso al publicar una semana por primera vez;
@@ -230,29 +357,45 @@ El admin puede:
 - existe flujo de invitación por email;
 - la invitación no sustituye la aprobación manual del admin.
 
-## 15. Comportamientos que no debemos romper
+## 19. Rendimiento y navegación — Fase 1
+
+Estado: **VALIDADO 16/10/2026**.
+
+Comportamientos protegidos:
+- Ranking General/Masculina/Femenina cambia localmente sin recarga completa;
+- Semana prepara cada día solo cuando el usuario lo abre por primera vez;
+- una vez abierto, el contenido permanece disponible para reapertura rápida;
+- se reducen precargas automáticas de rutas/fichas/periodos que el usuario no ha solicitado;
+- Panel y Cuenta muestran primero el contenido principal y cargan Evolución después.
+
+Esta fase no cambia la lógica de resultados, notas, programación ni datos.
+
+## 20. Comportamientos que no debemos romper
 
 - Registro/login/recuperación.
-- Campo de sexo una vez validado.
+- Campo sexo Hombre/Mujer y prohibición de inferirlo por nombre.
 - Acceso condicionado por estado/pago.
 - RLS real.
 - Programación y publicación.
 - Preservación de IDs de bloques.
 - Marcar hecho/notas/resultados.
-- Pesos por ronda y total una vez validados.
-- Rankings por sexo una vez validados.
+- Pesos por ronda y total.
+- Constructor unificado Strength/Weightlifting.
+- Rankings General/Masculina/Femenina.
 - Ranking de Strength/Weightlifting.
-- Historial.
+- Historial legible sin JSON técnico.
+- Historial contextual de movimientos.
+- Mi evolución y panel del coach.
+- Cumplimiento calculado solo hasta hoy.
+- Admins como atletas con opt-out individual.
 - Gestión de usuarios.
 - Emails sin duplicados.
 - Push.
-- Rendimiento y experiencia móvil.
+- Rendimiento y experiencia móvil ya validados.
 
-## 16. Estrategia comercial futura — no funcional todavía
+## 21. Estrategia comercial futura — no funcional todavía
 
 Desde 15/10/2026 se contempla que Lemon RX pueda venderse a otras programaciones de CrossFit/CrossTraining una vez probada durante meses con usuarios reales.
-
-No implica desarrollar ahora multiempresa ni white-label, pero conviene evitar decisiones que bloqueen esa evolución.
 
 Hipótesis comercial a conservar:
 - 35 €/mes hasta 70 atletas activos;
@@ -270,7 +413,18 @@ Posibles necesidades futuras:
 
 Nada de este bloque se considera todavía funcionalidad implementada.
 
-## 17. Método para nuevas funcionalidades
+## 22. Próximo bloque de rendimiento
+
+**Fase 2: optimizar el refresco después de guardar.**
+
+Objetivo funcional:
+- que marcar hecho, guardar nota o resultado se sienta más rápido;
+- actualizar únicamente las zonas afectadas;
+- evitar que el usuario vea información antigua después del guardado.
+
+Debe hacerse acción por acción y validarse antes de protegerlo como comportamiento definitivo.
+
+## 23. Método para nuevas funcionalidades
 
 ### Necesidad
 Problema real a resolver.
