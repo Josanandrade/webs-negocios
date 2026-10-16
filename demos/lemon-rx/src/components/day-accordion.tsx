@@ -15,6 +15,7 @@ export type DayView = { date: string; name: string; short: string; isToday: bool
 export function WeekDays({ days, meId }: { days: DayView[]; meId: string }) {
   const { toast, show } = useToast();
   const [open, setOpen] = useState<string | null>(null);
+  const [mountedDays, setMountedDays] = useState<Set<string>>(() => new Set());
 
   useEffect(() => {
     const mobile = window.matchMedia("(max-width: 767px)");
@@ -36,6 +37,14 @@ export function WeekDays({ days, meId }: { days: DayView[]; meId: string }) {
 
   function toggle(date: string, trigger: HTMLElement) {
     const opening = open !== date;
+    if (opening) {
+      setMountedDays((current) => {
+        if (current.has(date)) return current;
+        const next = new Set(current);
+        next.add(date);
+        return next;
+      });
+    }
     setOpen(opening ? date : null);
 
     if (opening && window.matchMedia("(max-width: 767px)").matches) {
@@ -56,15 +65,18 @@ export function WeekDays({ days, meId }: { days: DayView[]; meId: string }) {
   const rowHeight = "min-h-[clamp(3rem,6.4dvh,4.25rem)]";
 
   return <><ol className="border-t border-line">{days.map((day) => {
-    const empty = day.blocks.length === 0; const isOpen = open === day.date; const panelId = `dia-${day.date}`;
+    const empty = day.blocks.length === 0;
+    const isOpen = open === day.date;
+    const isMounted = mountedDays.has(day.date);
+    const panelId = `dia-${day.date}`;
     if (empty) return <li key={day.date} className="border-b border-line"><div className={`flex ${rowHeight} items-center justify-between gap-4 px-1 text-chalk-3/70`}><DayLabel day={day} /><span className="text-[14px]">Sin sesión</span></div></li>;
-    return <li key={day.date} className="border-b border-line"><h2><button type="button" aria-expanded={isOpen} aria-controls={panelId} onClick={(e) => toggle(day.date, e.currentTarget)} className={`day-trigger group flex ${rowHeight} w-full items-center justify-between gap-4 px-1 text-left`}><DayLabel day={day} /><span className="flex items-center gap-3"><DayProgress blocks={day.blocks} /><Chevron open={isOpen} /></span></button></h2><div id={panelId} role="region" aria-label={`${day.name} ${day.short}`} className="accordion-panel" data-open={isOpen} inert={!isOpen}><div><div className="space-y-7 px-1 pb-8 pt-1">{day.blocks.map((block) => {
+    return <li key={day.date} className="border-b border-line"><h2><button type="button" aria-expanded={isOpen} aria-controls={panelId} onClick={(e) => toggle(day.date, e.currentTarget)} className={`day-trigger group flex ${rowHeight} w-full items-center justify-between gap-4 px-1 text-left`}><DayLabel day={day} /><span className="flex items-center gap-3"><DayProgress blocks={day.blocks} /><Chevron open={isOpen} /></span></button></h2><div id={panelId} role="region" aria-label={`${day.name} ${day.short}`} className="accordion-panel" data-open={isOpen} inert={!isOpen}><div>{isMounted && <div className="space-y-7 px-1 pb-8 pt-1">{day.blocks.map((block) => {
       if (block.score_type !== "load") return <BlockTracker key={block.id} block={block} meId={meId} notify={show} />;
       const tracker = Array.isArray(block.builder_sections)
         ? <FreeStrengthBlockTracker block={block as FreeStrengthBlockView} notify={show} />
         : <StrengthBlockTracker block={block as StrengthBlockView} notify={show} />;
       return <div key={block.id} className="space-y-7">{tracker}<BlockMovementHistory blockId={block.id} /><StrengthRankingPanel rows={block.board} meId={meId} /></div>;
-    })}</div></div></div></li>;
+    })}</div>}</div></div></li>;
   })}</ol><Toast toast={toast} className="bottom-[calc(5rem+env(safe-area-inset-bottom))] md:bottom-8" /></>;
 }
 
