@@ -46,6 +46,8 @@ La mención antigua de que Supabase Lemon RX no era accesible queda superada.
 - Nuevos usuarios entran pendientes de aprobación/acceso y pago.
 - El admin gestiona rol, acceso y pago.
 - Invitaciones por email integradas manteniendo aprobación manual del usuario.
+- Sexo Hombre/Mujer validado; no inferir sexo por nombre.
+- Los admins pueden aparecer también como atletas en el panel de evolución; esta opción queda activada por defecto y cada admin puede desactivarla individualmente.
 
 ### Programación
 - Semanas en borrador/publicadas.
@@ -54,6 +56,7 @@ La mención antigua de que Supabase Lemon RX no era accesible queda superada.
 - Atletas solo leen programación a la que tienen acceso.
 - Navegación entre semanas.
 - IDs de bloques preservados al editar para no romper actividad, resultados ni historial.
+- Constructor unificado de Strength/Weightlifting validado, incluyendo bloques libres, series, reps, porcentajes, Complex y EMOM.
 
 ### Seguimiento y resultados
 - Marcar bloque como hecho.
@@ -61,7 +64,8 @@ La mención antigua de que Supabase Lemon RX no era accesible queda superada.
 - Resultados por tiempo, rondas+reps, reps/calorías, peso y cargas estructuradas.
 - RX e Intermedio cuando corresponde.
 - Historial individual.
-- Strength/Weightlifting evolucionado con estructura de series/reps, porcentajes sobre RM, RM 1–5, cálculo de kilos y Complex.
+- Strength/Weightlifting con porcentajes sobre RM, RM 1–5, cálculo de kilos, Complex y volumen total.
+- En historial no deben mostrarse códigos JSON/técnicos; los resultados de fuerza se traducen a texto humano.
 
 ### Ranking
 - Ranking por bloque.
@@ -71,55 +75,90 @@ La mención antigua de que Supabase Lemon RX no era accesible queda superada.
 - Rankings competitivos separados por sexo cuando corresponde.
 - En vistas donde hay clasificación general diaria, el orden se recalcula por resultado y mantiene separación RX/Intermedio.
 
+### Evolución
+- Historial contextual de movimientos validado: desde Strength/Weightlifting se pueden consultar los últimos 3 entrenamientos previos del mismo movimiento.
+- Motor de evolución validado para 4/8/12 semanas.
+- Cumplimiento calculado solo con bloques programados hasta HOY; los días futuros no penalizan.
+- WOD: posición media visible como `posición/participantes` usando WODs comparables y misma división.
+- Fuerza: sesiones realizadas/programadas y volumen total.
+- Histórico de RM guardado desde la implantación del motor; no inventar histórico anterior que no existía.
+- Atleta: `Cuenta → Mi evolución`.
+- Coach/admin: panel principal con evolución de atletas y acceso a usuarios con menor cumplimiento.
+
 ### Comunicaciones
 - Email al publicar una semana por primera vez mediante Resend si está configurado.
 - Evita duplicados al despublicar/republicar.
 - Web Push a administradores por nuevos registros si lo activan.
 
-## 5. Cambios desplegados desde la auditoría inicial
+## 5. Bloques validados y protegidos
 
-### 13/10/2026 — Strength / Weightlifting
-Estado: DESPLEGADO; algunas partes quedaron pendientes de validación funcional final.
+### 13–16/10/2026 — Strength / Weightlifting
+Estado: **VALIDADO**.
 
 - Catálogo compartido de movimientos.
-- Estructura de series, reps y porcentajes sobre 1RM.
+- Elegibilidad independiente para RM.
+- Constructor unificado para Strength/Weightlifting.
+- Series/reps estructuradas y porcentajes sobre 1RM.
 - RM entre 1 y 5.
 - Cálculo de kilos según RM/porcentaje.
-- Soporte de Complex.
-- Estructura de EMOM de fuerza/halterofilia.
-- Ranking de Weightlifting por carga.
-- Recuperación de resultados existentes para no perder históricos.
+- Complex y EMOM.
+- A.1/A.2/A.3… y bloques accesorios.
+- Registro por series/rondas y cálculo de volumen total.
+- Ranking por carga total.
+- Compatibilidad con programación/resultados antiguos.
 
-### 13/10/2026 — Sexo del atleta y rankings
-Estado: DESPLEGADO PARA VALIDACIÓN.
+### 13–16/10/2026 — Sexo y rankings
+Estado: **VALIDADO**.
 
-- El registro obliga a indicar Hombre o Mujer.
-- El admin puede editar este dato desde el perfil del usuario.
-- Los rankings competitivos separan Hombres y Mujeres.
-- Ambos rankings son visibles para los usuarios.
-- Objetivo de negocio: un atleta compite en ranking con usuarios de su mismo sexo, manteniendo una vista global cuando corresponda.
+- Registro obliga a indicar Hombre o Mujer.
+- Admin puede editarlo.
+- No inferir sexo por nombre.
+- Ranking permite General / Masculina / Femenina.
+- La clasificación diaria general mantiene el orden real del resultado.
 
-### 13/10/2026 — Peso por ronda y total de kilos
-Estado: DESPLEGADO PARA VALIDACIÓN.
+### 13–16/10/2026 — Peso por ronda y total de kilos
+Estado: **VALIDADO**.
 
-- En bloques competitivos por peso se informa el peso de cada ronda/serie en lugar de asumir un único peso para todo el bloque.
-- El sistema calcula la suma total de kilos movidos.
-- El ranking usa el total calculado para comparar atletas cuando ese es el criterio del bloque.
-- Se recalcularon resultados existentes para adaptarlos al nuevo modelo sin perder datos.
+- El atleta registra los pesos reales por ronda/serie.
+- El sistema calcula el total de kilos movidos.
+- El ranking utiliza el total cuando corresponde.
+- Los datos previos se han preservado.
 
 ### 13/10/2026 — Invitaciones
-Estado: DESPLEGADO/ONLINE.
+Estado: **VALIDADO / ONLINE**.
 
 - Invitación por email añadida.
 - La invitación no elimina la revisión/aprobación manual del alta por parte del admin.
 
-### 14/10/2026 — Clasificación del día
-Estado: DESPLEGADO.
+### 16/10/2026 — Historial contextual de movimientos
+Estado: **VALIDADO**.
 
-- La clasificación diaria se ordena por resultado real del bloque.
-- Puesto y total se recalculan correctamente.
-- RX e Intermedio permanecen separados.
-- La vista de ranking conserva General / Masculina / Femenina donde aplica.
+- `Ver historial` dentro de Strength/Weightlifting.
+- Últimos 3 entrenamientos anteriores completados del mismo movimiento.
+- Compatible con bloques antiguos y constructor unificado.
+- Relación por movimiento, no por texto visible.
+- No reescribe resultados antiguos.
+
+### 16/10/2026 — Motor y pantallas de evolución
+Estado: **VALIDADO**.
+
+- Periodos 4/8/12 semanas.
+- Cumplimiento en tiempo real hasta hoy.
+- Posición WOD media por atleta, mostrada como `5/14` o equivalente.
+- Fuerza mostrada como `realizadas/programadas` y volumen total.
+- Histórico de RM a partir del momento en que se implantó.
+- `Mi evolución` en Cuenta.
+- Panel coach/admin con cumplimiento medio, atletas que mejoran y listado de menor cumplimiento.
+- Los admins aparecen como atletas por defecto; pueden desactivarlo individualmente en Ajustes.
+
+### 16/10/2026 — Rendimiento Fase 1
+Estado: **VALIDADO**.
+
+- Ranking General/Masculina/Femenina filtrado localmente sin nueva navegación al servidor.
+- Menos precargas automáticas innecesarias en navegación, periodos y fichas.
+- Semana monta los bloques de cada día solo al abrirlo por primera vez; después mantiene el contenido montado.
+- Panel y Cuenta muestran el contenido principal antes de esperar a Evolución.
+- No se tocaron Supabase, resultados, notas, programación, IDs de bloques ni `save_week_content`.
 
 ## 6. Estrategia comercial futura — HIPÓTESIS, NO PRODUCTO ACTUAL
 
@@ -175,8 +214,9 @@ Esto permitiría en el futuro:
 
 ## 8. Riesgos técnicos abiertos
 
-- Node 20 observado frente a dependencias Supabase que declaran Node >=22.
-- Errores puntuales `refresh_token_already_used` a investigar.
+- Riesgo crítico histórico: `save_week_content` puede eliminar bloques ausentes y las FK de logs/resultados usan `ON DELETE CASCADE`; por tanto, preservar IDs de bloques es obligatorio y no se debe sustituir el RPC sin migración segura.
+- Node 20 observado frente a dependencias Supabase que recomiendan versiones más nuevas.
+- Errores puntuales `refresh_token_already_used` a investigar si se reproducen.
 - Vulnerabilidades high reportadas por npm: analizar individualmente; no usar `npm audit fix --force` a ciegas.
 - Pruebas RLS todavía mejorables/automatizables.
 
@@ -200,7 +240,11 @@ Orden:
 1. utilizarla con Fran y atletas reales;
 2. publicar programación real de forma continuada;
 3. registrar tiempos, kilos, rondas, reps y cargas;
-4. validar rankings e historial;
-5. corregir fricciones y errores;
+4. validar rankings, historial y evolución con uso real;
+5. seguir reduciendo fricciones de navegación/guardado;
 6. estabilizar el producto;
 7. solo entonces preparar la salida comercial a otras programaciones.
+
+### Siguiente bloque técnico propuesto
+
+**Rendimiento Fase 2**: reducir invalidaciones y refrescos demasiado amplios después de guardar resultados/notas/hecho. Debe hacerse acción por acción y con validación manual porque afecta a la frescura de datos. No tocar `save_week_content` ni los IDs de bloques.
