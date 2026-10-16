@@ -12,6 +12,11 @@ function signed(value: number | null, suffix = "") {
   return `${sign}${value.toLocaleString("es-ES", { maximumFractionDigits: 1 })}${suffix}`;
 }
 
+function averagePosition(position: number | null, participants: number | null) {
+  if (position == null || participants == null) return "—";
+  return `${Math.round(position)}/${Math.max(1, Math.round(participants))}`;
+}
+
 export function AthleteEvolutionPanel({ evolution, weeks, hrefBase = "/cuenta" }: { evolution: AthleteEvolution | null; weeks: EvolutionWindow; hrefBase?: string }) {
   const current = evolution?.current;
   const previous = evolution?.previous;
@@ -38,15 +43,15 @@ export function AthleteEvolutionPanel({ evolution, weeks, hrefBase = "/cuenta" }
       ) : (
         <>
           <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-lg bg-line md:grid-cols-4">
-            <Metric label="Cumplimiento" value={number(current.compliance.pct, "%")} sub={`${current.compliance.completed} de ${current.compliance.programmed} bloques`} />
-            <Metric label="WODs comparables" value={current.wods.comparable ? number(current.wods.avg_top_pct, "%") : "—"} sub={current.wods.comparable ? `Posición relativa media · ${current.wods.comparable} WODs` : "Aún sin muestra suficiente"} />
-            <Metric label="Volumen fuerza" value={`${Math.round(current.strength.total_load).toLocaleString("es-ES")} kg`} sub={`${current.strength.sessions} sesiones realizadas`} />
+            <Metric label="Cumplimiento" value={number(current.compliance.pct, "%")} sub={`${current.compliance.completed} de ${current.compliance.programmed} bloques hasta hoy`} />
+            <Metric label="Posición WOD media" value={current.wods.comparable ? averagePosition(current.wods.avg_position, current.wods.avg_participants) : "—"} sub={current.wods.comparable ? `${current.wods.comparable} WODs comparables · misma división` : "Aún sin muestra suficiente"} />
+            <Metric label="Volumen fuerza" value={`${Math.round(current.strength.total_load).toLocaleString("es-ES")} kg`} sub={`${current.strength.sessions}/${current.strength.programmed_sessions} sesiones realizadas`} />
             <Metric label="RM mejorados" value={String(rmUps.length)} sub={rmUps.length ? rmUps.slice(0, 2).map((row) => row.movement_name).join(" · ") : "Desde que guardamos histórico"} />
           </div>
 
           <div className="mt-6 grid gap-4 md:grid-cols-3">
-            <Trend title="Constancia" main={signed(evolution.trends.compliance_points, " pt")} text={previous?.available ? "Variación de cumplimiento frente al periodo anterior." : "Necesitamos un periodo anterior completo para comparar."} />
-            <Trend title="WODs" main={evolution.trends.wod_relative_improvement_points == null ? "Sin comparación todavía" : `${evolution.trends.wod_relative_improvement_points > 0 ? "+" : ""}${evolution.trends.wod_relative_improvement_points.toLocaleString("es-ES", { maximumFractionDigits: 1 })} pt`} text="Un valor positivo significa que tu posición relativa frente al grupo ha mejorado." />
+            <Trend title="Constancia" main={signed(evolution.trends.compliance_points, " pt")} text={previous?.available ? "Variación de cumplimiento frente al periodo anterior, contando solo los bloques hasta la fecha equivalente." : "Necesitamos un periodo anterior completo para comparar."} />
+            <Trend title="WODs" main={evolution.trends.wod_position_improvement == null ? "Sin comparación todavía" : `${evolution.trends.wod_position_improvement > 0 ? "+" : ""}${evolution.trends.wod_position_improvement.toLocaleString("es-ES", { maximumFractionDigits: 1 })} puestos`} text="Un valor positivo significa que tu posición media ha mejorado frente al periodo anterior." />
             <Trend title="Fuerza" main={signed(evolution.trends.strength_volume_pct, "%")} text="Variación del volumen total registrado frente al periodo anterior." />
           </div>
 
