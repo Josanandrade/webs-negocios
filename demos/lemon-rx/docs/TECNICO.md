@@ -278,6 +278,27 @@ Cambios de frontend/navegación validados:
    - Panel admin y Cuenta muestran primero el contenido principal;
    - Evolución se resuelve dentro de `Suspense`/carga progresiva y no bloquea la primera pintura de la página.
 
+5. **Warm-up secuencial de rutas principales**
+   - después de entrar en Lemon RX, el cliente prepara rutas privadas importantes en segundo plano de una en una;
+   - prioridad inicial: Semana y Usuarios;
+   - después se preparan otras rutas frecuentes con separación temporal para no volver a crear picos de peticiones;
+   - el prefetch por intención (hover/foco/touch) se mantiene como respaldo.
+
+6. **Code-splitting en Semana**
+   - `BlockTracker`, trackers de Strength/Weightlifting, historial contextual y ranking de fuerza se cargan de forma diferida;
+   - su código deja de formar parte obligatoria del coste inicial de Semana y se solicita cuando el usuario abre un día por primera vez;
+   - la lógica de negocio de esos componentes no se modificó.
+
+Diagnóstico de la incidencia de lentitud inicial:
+- el volumen actual de datos era pequeño y no justificaba esperas de varios segundos;
+- las consultas internas de Supabase observadas eran rápidas, mientras que algunas primeras peticiones desde Railway podían acumular varios segundos de tiempo total;
+- la estrategia adoptada es reducir el coste del cold-start percibido y preparar de forma controlada las rutas que el usuario previsiblemente abrirá después.
+
+Validación:
+- build Next y TypeScript correctos;
+- Railway producción SUCCESS;
+- Jose confirma que la navegación ahora se percibe mucho más fluida.
+
 No se modificaron en esta fase:
 - Supabase;
 - esquema/RLS;
