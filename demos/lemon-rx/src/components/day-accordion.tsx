@@ -14,7 +14,6 @@ export type DayView = { date: string; name: string; short: string; isToday: bool
 export function WeekDays({ days, meId }: { days: DayView[]; meId: string }) {
   const { toast, show } = useToast();
   const [open, setOpen] = useState<string | null>(null);
-  const compact = open === null;
 
   useEffect(() => {
     const mobile = window.matchMedia("(max-width: 767px)");
@@ -37,11 +36,23 @@ export function WeekDays({ days, meId }: { days: DayView[]; meId: string }) {
   function toggle(date: string, trigger: HTMLElement) {
     const opening = open !== date;
     setOpen(opening ? date : null);
-    if (opening && open !== null) window.setTimeout(() => { if (trigger.getBoundingClientRect().top < 0) trigger.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); }, 240);
+
+    if (opening && window.matchMedia("(max-width: 767px)").matches) {
+      window.setTimeout(() => {
+        const dayRow = trigger.closest("li");
+        if (!dayRow) return;
+        const header = document.querySelector("header");
+        const headerHeight = header?.getBoundingClientRect().height ?? 56;
+        const top = window.scrollY + dayRow.getBoundingClientRect().top - headerHeight;
+        window.scrollTo({
+          top: Math.max(0, top),
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        });
+      }, 260);
+    }
   }
 
-  const closedHeight = "min-h-[clamp(3rem,6.4dvh,4.25rem)]";
-  const rowHeight = compact ? closedHeight : "min-h-[4.5rem]";
+  const rowHeight = "min-h-[clamp(3rem,6.4dvh,4.25rem)]";
 
   return <><ol className="border-t border-line">{days.map((day) => {
     const empty = day.blocks.length === 0; const isOpen = open === day.date; const panelId = `dia-${day.date}`;
