@@ -10,18 +10,19 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     <div className={`min-h-dvh ${isAdmin ? "pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0" : ""}`}>
       <header className="sticky top-0 z-20 border-b border-line bg-ink pt-[env(safe-area-inset-top)]">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-2 px-4 md:h-16 md:px-6">
-          <Link href={isAdmin ? "/admin" : "/"} className="press -mx-1 shrink-0 px-1 py-2" aria-label="Lemon RX, inicio"><Wordmark className="text-[26px] md:text-[28px]" /></Link>
+          <Link href={isAdmin ? "/admin" : "/"} prefetch={false} className="press -mx-1 shrink-0 px-1 py-2" aria-label="Lemon RX, inicio"><Wordmark className="text-[26px] md:text-[28px]" /></Link>
           {isAdmin && <AdminNav variant="top" />}
           {isAdmin && (
             <Link
               href="/admin/programacion"
+              prefetch={false}
               className="press flex h-9 shrink-0 items-center justify-center rounded-sm border border-lemon bg-lemon px-3 font-display text-[12px] font-bold uppercase tracking-[0.05em] text-ink md:hidden"
             >
               Crear
             </Link>
           )}
-          {!isAdmin && <nav aria-label="Principal" className="ml-auto flex min-w-0 overflow-x-auto"><Link href="/ranking" className="press flex h-11 shrink-0 items-center px-2 text-[14px] font-semibold text-chalk-2 hover:text-chalk">Ranking</Link><Link href="/rms" className="press flex h-11 shrink-0 items-center px-2 text-[14px] font-semibold text-chalk-2 hover:text-chalk">RM's</Link><Link href="/historial" className="press flex h-11 shrink-0 items-center px-2 text-[14px] font-semibold text-chalk-2 hover:text-chalk">Historial</Link></nav>}
-          <Link href="/cuenta" className="press -mr-2 flex h-11 shrink-0 items-center gap-2 px-2 text-[14px] font-semibold text-chalk-2 hover:text-chalk">
+          {!isAdmin && <nav aria-label="Principal" className="ml-auto flex min-w-0 overflow-x-auto"><Link href="/ranking" prefetch={false} className="press flex h-11 shrink-0 items-center px-2 text-[14px] font-semibold text-chalk-2 hover:text-chalk">Ranking</Link><Link href="/rms" prefetch={false} className="press flex h-11 shrink-0 items-center px-2 text-[14px] font-semibold text-chalk-2 hover:text-chalk">RM's</Link><Link href="/historial" prefetch={false} className="press flex h-11 shrink-0 items-center px-2 text-[14px] font-semibold text-chalk-2 hover:text-chalk">Historial</Link></nav>}
+          <Link href="/cuenta" prefetch={false} className="press -mr-2 flex h-11 shrink-0 items-center gap-2 px-2 text-[14px] font-semibold text-chalk-2 hover:text-chalk">
             <Avatar url={profile.avatar_url} name={profile.full_name} size="sm" />
             <span className="max-w-[7rem] truncate">{isAdmin ? "Cuenta" : "Mi cuenta"}</span>
           </Link>
