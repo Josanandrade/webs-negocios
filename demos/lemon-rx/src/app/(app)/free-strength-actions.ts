@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { getViewer } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import type { BuilderSection } from "@/lib/types";
-import { expectedWeightCount, repsPerWeight, trackedBuilderItems } from "@/lib/unified-strength";
+import { expectedWeightCount, isMaxLoadComplex, isSingleMaxLoadComplexBlock, repsPerWeight, trackedBuilderItems } from "@/lib/unified-strength";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 type Result = { ok: true } | { ok: false; error: string };
@@ -36,6 +36,7 @@ export async function saveFreeStrengthResult(blockId: string, draft: FreeStrengt
   if (!block || block.score_type !== "load" || !Array.isArray(block.builder_sections) || !block.builder_sections.length) return { ok: false, error: "Este bloque no usa el constructor de fuerza." };
 
   const submittedSections = Array.isArray(draft?.sections) ? draft.sections : [];
+  const maxComplexBlock = isSingleMaxLoadComplexBlock(block.builder_sections);
   let totalLoadKg = 0;
   let maxKg: number | null = null;
   let trackedCount = 0;
@@ -56,12 +57,20 @@ export async function saveFreeStrengthResult(blockId: string, draft: FreeStrengt
       const parsed = rawWeights.map(parseKg);
       if (parsed.some((kg) => kg == null)) return { ok: false, error: "Revisa los pesos. Deben ser números mayores que 0." };
       const weights = parsed as number[];
-      const reps = repsPerWeight(item, count);
-      if (reps.length !== weights.length || reps.some((value) => value <= 0)) return { ok: false, error: "No se ha podido calcular el volumen de uno de los tramos." };
-      weights.forEach((kg, index) => {
-        totalLoadKg += kg * reps[index];
-        maxKg = maxKg == null ? kg : Math.max(maxKg, kg);
-      });
+
+      if (isMaxLoadComplex(section, item)) {
+        weights.forEach((kg) => {
+          totalLoadKg += kg;
+          maxKg = maxKg == null ? kg : Math.max(maxKg, kg);
+        });
+      } else {
+        const reps = repsPerWeight(item, count);
+        if (reps.length !== weights.length || reps.some((value) => value <= 0)) return { ok: false, error: "No se ha podido calcular el volumen de uno de los tramos." };
+        weights.forEach((kg, index) => {
+          totalLoadKg += kg * reps[index];
+          maxKg = maxKg == null ? kg : Math.max(maxKg, kg);
+        });
+      }
       savedExercises.push({ item_id: item.id, weights });
     }
     savedSections.push({ section_id: section.id, count, exercises: savedExercises });
@@ -78,7 +87,7 @@ export async function saveFreeStrengthResult(blockId: string, draft: FreeStrengt
     rounds: null,
     reps: null,
     kg: maxKg,
-    total_load: Math.round(totalLoadKg * 100) / 100,
+    total_load: maxComplexBlock ? null : Math.round(totalLoadKg * 100) / 100,
     as_prescribed: null,
     reps_detail,
   }, { onConflict: "user_id,block_id" });
