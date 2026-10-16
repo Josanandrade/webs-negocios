@@ -8,11 +8,9 @@ export type Viewer = {
   profile: Profile;
   settings: Settings;
   isAdmin: boolean;
-  /** Mismo criterio que public.has_program_access() en la base de datos. */
   canViewProgram: boolean;
 };
 
-/** Usuario actual con su perfil. Redirige a /login si no hay sesión válida. */
 export const getViewer = cache(async (): Promise<Viewer> => {
   const supabase = await createClient();
   const { data: claims } = await supabase.auth.getClaims();
@@ -22,7 +20,7 @@ export const getViewer = cache(async (): Promise<Viewer> => {
   const [{ data: profile }, { data: settings }] = await Promise.all([
     supabase
       .from("profiles")
-      .select("id, full_name, email, role, payment_status, access_status, sex, phone, avatar_url, created_at")
+      .select("id, full_name, email, role, payment_status, access_status, sex, phone, avatar_url, show_evolution_as_athlete, created_at")
       .eq("id", userId)
       .single<Profile>(),
     supabase.from("app_settings").select("auto_block_unpaid, show_past_weeks").single<Settings>(),
@@ -39,7 +37,6 @@ export const getViewer = cache(async (): Promise<Viewer> => {
   return { profile, settings, isAdmin, canViewProgram };
 });
 
-/** Para páginas y acciones de administración. Un no-admin nunca ve ni ejecuta nada. */
 export async function requireAdmin() {
   const viewer = await getViewer();
   if (!viewer.isAdmin) redirect("/");
