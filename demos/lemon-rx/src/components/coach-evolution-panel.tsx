@@ -1,0 +1,74 @@
+import Link from "next/link";
+import type { CoachEvolution, EvolutionWindow } from "@/lib/evolution";
+
+function value(n: number | null, suffix = "") {
+  return n == null ? "—" : `${n.toLocaleString("es-ES", { maximumFractionDigits: 1 })}${suffix}`;
+}
+
+export function CoachEvolutionPanel({ evolution, weeks }: { evolution: CoachEvolution | null; weeks: EvolutionWindow }) {
+  const athletes = [...(evolution?.athletes ?? [])].sort((a, b) => {
+    const aa = a.current.compliance.pct ?? 101;
+    const bb = b.current.compliance.pct ?? 101;
+    return aa - bb || a.full_name.localeCompare(b.full_name, "es");
+  });
+
+  return (
+    <section className="mt-10" aria-labelledby="coach-evolution-title">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="eyebrow">Seguimiento</p>
+          <h2 id="coach-evolution-title" className="font-display text-[24px] font-bold uppercase">Evolución de atletas</h2>
+        </div>
+        <nav className="flex gap-1" aria-label="Periodo de evolución del panel">
+          {([4, 8, 12] as EvolutionWindow[]).map((n) => (
+            <Link key={n} href={`/admin?evolucion=${n}`} className={`press rounded-md px-3 py-2 text-[13px] font-bold ${weeks === n ? "bg-lemon text-ink" : "bg-panel text-chalk-2"}`}>{n} sem</Link>
+          ))}
+        </nav>
+      </div>
+
+      {!evolution ? (
+        <p className="mt-4 border-y border-line py-4 text-[15px] text-chalk-3">No se han podido cargar las métricas de evolución.</p>
+      ) : (
+        <>
+          <dl className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-lg bg-line md:grid-cols-4">
+            <Stat label="Cumplimiento medio" value={value(evolution.summary.avg_compliance_pct, "%")} />
+            <Stat label="Posición WOD media" value={value(evolution.summary.avg_wod_top_pct, "%")} />
+            <Stat label="Mejoran en WODs" value={String(evolution.summary.athletes_improving_wods)} />
+            <Stat label="Mejoran algún RM" value={String(evolution.summary.athletes_improving_rm)} />
+          </dl>
+
+          {athletes.length === 0 ? (
+            <p className="mt-4 text-[15px] text-chalk-3">Aún no hay atletas con datos suficientes en este periodo.</p>
+          ) : (
+            <div className="mt-5 overflow-hidden rounded-lg border border-line">
+              <div className="hidden grid-cols-[1fr_110px_110px_120px] gap-3 border-b border-line px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.06em] text-chalk-3 md:grid">
+                <span>Atleta</span><span>Cumplimiento</span><span>WOD</span><span>Fuerza</span>
+              </div>
+              <ul className="divide-y divide-line">
+                {athletes.map((a) => (
+                  <li key={a.user_id}>
+                    <Link href={`/admin/usuarios/${a.user_id}`} className="day-trigger grid gap-2 px-4 py-3 md:grid-cols-[1fr_110px_110px_120px] md:items-center md:gap-3">
+                      <div className="min-w-0"><span className="block truncate text-[16px] font-semibold">{a.full_name}</span><span className="text-[12px] text-chalk-3">{a.current.compliance.completed}/{a.current.compliance.programmed} bloques</span></div>
+                      <Cell label="Cumplimiento" value={value(a.current.compliance.pct, "%")} highlight={(a.current.compliance.pct ?? 100) < 60} />
+                      <Cell label="WOD" value={a.current.wods.comparable ? `Top ${value(a.current.wods.avg_top_pct, "%")}` : "—"} />
+                      <Cell label="Fuerza" value={`${Math.round(a.current.strength.total_load).toLocaleString("es-ES")} kg`} />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <p className="mt-3 text-[12px] leading-[1.45] text-chalk-3">Ordenados por cumplimiento para que sea más fácil detectar quién puede necesitar seguimiento. Las métricas describen los registros, no sustituyen el criterio del coach.</p>
+        </>
+      )}
+    </section>
+  );
+}
+
+function Stat({ label, value }: { label: string; value: string }) {
+  return <div className="bg-ink px-4 py-4"><dt className="text-[11px] font-semibold uppercase tracking-[0.06em] text-chalk-3">{label}</dt><dd className="mt-1 font-display text-[28px] font-bold leading-none">{value}</dd></div>;
+}
+
+function Cell({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
+  return <div className="flex items-baseline justify-between gap-3 md:block"><span className="text-[11px] uppercase tracking-[0.05em] text-chalk-3 md:hidden">{label}</span><span className={`text-[14px] font-semibold ${highlight ? "text-lemon" : ""}`}>{value}</span></div>;
+}
