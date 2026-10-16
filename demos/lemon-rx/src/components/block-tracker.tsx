@@ -32,6 +32,21 @@ export type BlockView = Block & {
 
 type Notify = (text: string, tone?: "ok" | "error") => void;
 
+function divisionStorageKey(blockId: string) {
+  return `lemon-rx:wod-division:${blockId}`;
+}
+
+function readRememberedDivision(blockId: string): Division | null {
+  if (typeof window === "undefined") return null;
+  const value = window.sessionStorage.getItem(divisionStorageKey(blockId));
+  return value === "rx" || value === "intermediate" ? value : null;
+}
+
+function rememberDivision(blockId: string, division: Division) {
+  if (typeof window === "undefined") return;
+  window.sessionStorage.setItem(divisionStorageKey(blockId), division);
+}
+
 export function BlockTracker({ block, meId, notify }: { block: BlockView; meId: string; notify: Notify }) {
   const scored = block.score_type !== "none";
   const [resultOpen, setResultOpen] = useState(false);
@@ -193,9 +208,14 @@ function ResultPanel({ block, meId, onEdit }: { block: BlockView; meId: string; 
 }
 
 function Leaderboard({ block, meId, initial }: { block: BlockView; meId: string; initial: Division }) {
-  const [division, setDivision] = useState<Division>(initial);
+  const [division, setDivision] = useState<Division>(() => readRememberedDivision(block.id) ?? initial);
   const rows = block.board.filter((r) => r.division === division);
   const count = (d: Division) => block.board.filter((r) => r.division === d).length;
+
+  function selectDivision(next: Division) {
+    setDivision(next);
+    rememberDivision(block.id, next);
+  }
 
   return (
     <div className="enter px-4 pb-4">
@@ -208,7 +228,7 @@ function Leaderboard({ block, meId, initial }: { block: BlockView; meId: string;
               role="tab"
               type="button"
               aria-selected={active}
-              onClick={() => setDivision(d.value)}
+              onClick={() => selectDivision(d.value)}
               className={`press relative h-11 font-display text-[15px] font-bold uppercase tracking-[0.06em] ${active ? "text-chalk" : "text-chalk-3 hover:text-chalk-2"}`}
             >
               {d.label} <span className="font-semibold text-chalk-3">{count(d.value)}</span>
@@ -302,7 +322,8 @@ function ResultDialog({
 function ResultForm({ block, onDone, notify }: { block: BlockView; onDone: () => void; notify: Notify }) {
   const id = useId();
   const withDivision = hasDivision(block.score_type);
-  const [division, setDivision] = useState<Division | null>(block.result?.division ?? (withDivision ? null : "rx"));
+  const [division, setDivision] = useState<Division | null>(() => block.result?.division ?? (withDivision ? readRememberedDivision(block.id) : "rx"));
+  const [choosingDivision, setChoosingDivision] = useState(() => withDivision && !block.result?.division && !readRememberedDivision(block.id));
   const [draft, setDraft] = useState<ScoreDraft>(() => emptyDraft(block.result, block.sets_count));
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
@@ -319,6 +340,13 @@ function ResultForm({ block, onDone, notify }: { block: BlockView; onDone: () =>
     setError(null);
   };
 
+  function chooseDivision(next: Division) {
+    setDivision(next);
+    rememberDivision(block.id, next);
+    setChoosingDivision(false);
+    setError(null);
+  }
+
   function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!division) return setError("Elige si lo hiciste en RX o en Intermedio.");
@@ -330,6 +358,7 @@ function ResultForm({ block, onDone, notify }: { block: BlockView; onDone: () =>
         ? await saveStrengthResult(block.id, draft)
         : await saveBlockResult(block.id, division, draft);
       if (!r.ok) return setError(r.error);
+      rememberDivision(block.id, division);
       notify("Resultado guardado");
       onDone();
     });
@@ -346,15 +375,22 @@ function ResultForm({ block, onDone, notify }: { block: BlockView; onDone: () =>
     });
   }
 
+  const canEnterResult = !withDivision || Boolean(division && !choosingDivision);
+
   return (
     <form onSubmit={submit} className="space-y-4 px-4 py-4" noValidate>
-      {withDivision && (
+      {withDivision && (division && !choosingDivision ? (
+        <div className="flex min-h-11 items-center justify-between gap-3 rounded-sm border border-line bg-ink px-3">
+          <p className="text-[14px] text-chalk-3">Categoría · <strong className="font-display text-[16px] uppercase text-lemon">{divisionLabel(division)}</strong></p>
+          <button type="button" onClick={() => setChoosingDivision(true)} className="press h-10 px-1 text-[13px] font-semibold text-chalk-2 hover:text-chalk">Cambiar</button>
+        </div>
+      ) : (
         <div>
           <p className="label">¿Cómo lo hiciste?</p>
           <Segmented
             label="Categoría"
             value={division}
-            onChange={setDivision}
+            onChange={chooseDivision}
             options={[
               { value: "rx", label: "RX", tone: "ok" },
               { value: "intermediate", label: "Intermedio", tone: "ok" },
@@ -362,124 +398,128 @@ function ResultForm({ block, onDone, notify }: { block: BlockView; onDone: () =>
           />
           <p className="mt-1.5 text-[13px] text-chalk-3">Intermedio si adaptaste algún movimiento, repeticiones o peso.</p>
         </div>
-      )}
+      ))}
 
-      {block.score_type === "load" && block.sets_count && block.reps_per_set && (
-        <div>
-          <p className="label">Peso usado en cada serie</p>
-          <p className="mb-3 text-[14px] text-chalk-3">{block.sets_count} series × {block.reps_per_set} reps · sin RX ni Intermedio</p>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-            {Array.from({ length: block.sets_count }, (_, i) => (
-              <div key={i}>
-                <p className="mb-1 text-[13px] font-semibold text-chalk-3">Serie {i + 1}</p>
-                <NumberField
-                  id={`${id}-set-${i}`}
-                  label="kg"
-                  name={`Kilos serie ${i + 1}`}
-                  value={draft.setKgs[i] ?? ""}
-                  onChange={(v) => setSeriesKg(i, v)}
-                  decimal
-                  autoFocus={i === 0}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {block.score_type === "load" && (!block.sets_count || !block.reps_per_set) && (
-        <>
+      {canEnterResult && <>
+        {block.score_type === "load" && block.sets_count && block.reps_per_set && (
           <div>
-            <p className="label">Peso máximo</p>
+            <p className="label">Peso usado en cada serie</p>
+            <p className="mb-3 text-[14px] text-chalk-3">{block.sets_count} series × {block.reps_per_set} reps · sin RX ni Intermedio</p>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {Array.from({ length: block.sets_count }, (_, i) => (
+                <div key={i}>
+                  <p className="mb-1 text-[13px] font-semibold text-chalk-3">Serie {i + 1}</p>
+                  <NumberField
+                    id={`${id}-set-${i}`}
+                    label="kg"
+                    name={`Kilos serie ${i + 1}`}
+                    value={draft.setKgs[i] ?? ""}
+                    onChange={(v) => setSeriesKg(i, v)}
+                    decimal
+                    autoFocus={i === 0}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {block.score_type === "load" && (!block.sets_count || !block.reps_per_set) && (
+          <>
+            <div>
+              <p className="label">Peso máximo</p>
+              <NumberField id={`${id}-kg`} label="kg" name="Kilos" value={draft.kg} onChange={(v) => set({ kg: v })} decimal autoFocus />
+            </div>
+            <div>
+              <label htmlFor={`${id}-sets`} className="label">Series y pesos <span className="normal-case tracking-normal text-chalk-3">(opcional)</span></label>
+              <textarea id={`${id}-sets`} value={draft.detail} onChange={(e) => set({ detail: e.target.value })} rows={3} maxLength={500} placeholder="Ej.: 80, 85, 90, 90, 95 kg" className="field min-h-24 py-3" />
+            </div>
+          </>
+        )}
+
+        {block.score_type === "time" && (
+          <>
+            {!draft.capped && (
+              <div>
+                <p className="label">Tiempo</p>
+                <div className="flex items-center gap-2">
+                  <NumberField id={`${id}-min`} label="min" name="Minutos" value={draft.min} onChange={(v) => set({ min: v })} autoFocus />
+                  <span className="font-display text-[24px] font-bold text-chalk-3">:</span>
+                  <NumberField id={`${id}-sec`} label="seg" name="Segundos" value={draft.sec} onChange={(v) => set({ sec: v })} />
+                </div>
+              </div>
+            )}
+            <label className="flex min-h-11 items-center gap-3 text-[16px]">
+              <input type="checkbox" checked={draft.capped} onChange={(e) => set({ capped: e.target.checked })} className="h-5 w-5 accent-[var(--color-lemon)]" />
+              No terminé dentro del time cap
+            </label>
+            {draft.capped && (
+              <div>
+                <p className="label">Reps totales al llegar al cap</p>
+                <NumberField id={`${id}-reps`} label="reps" name="Reps" value={draft.reps} onChange={(v) => set({ reps: v })} autoFocus />
+              </div>
+            )}
+          </>
+        )}
+
+        {block.score_type === "rounds_reps" && (
+          <div>
+            <p className="label">Rondas completas + reps extra</p>
+            <div className="flex items-center gap-2">
+              <NumberField id={`${id}-rounds`} label="rondas" name="Rondas" value={draft.rounds} onChange={(v) => set({ rounds: v })} autoFocus />
+              <span className="font-display text-[24px] font-bold text-chalk-3">+</span>
+              <NumberField id={`${id}-reps`} label="reps" name="Reps" value={draft.reps} onChange={(v) => set({ reps: v })} />
+            </div>
+          </div>
+        )}
+
+        {block.score_type === "reps" && (
+          <div>
+            <p className="label">Reps o calorías</p>
+            <NumberField id={`${id}-reps`} label="total" name="Reps o calorías" value={draft.reps} onChange={(v) => set({ reps: v })} autoFocus />
+          </div>
+        )}
+
+        {block.score_type === "intervals" && (
+          <>
+            <div>
+              <p className="label">¿Mantuviste todas las repeticiones en todos los intervalos?</p>
+              <Segmented
+                label="Todas las repeticiones"
+                value={draft.prescribed || null}
+                onChange={(v) => set({ prescribed: v })}
+                options={[
+                  { value: "yes", label: "Sí", tone: "ok" },
+                  { value: "no", label: "No", tone: "ok" },
+                ]}
+              />
+            </div>
+            {draft.prescribed === "no" && (
+              <div>
+                <label htmlFor={`${id}-detail`} className="label">¿Cuántas repeticiones hiciste por ronda?</label>
+                <textarea id={`${id}-detail`} value={draft.detail} onChange={(e) => set({ detail: e.target.value })} rows={3} maxLength={500} autoFocus placeholder="Ej.: rondas 1-4 todas; rondas 5-8, 10 reps en vez de 12" className="field min-h-24 py-3" />
+              </div>
+            )}
+          </>
+        )}
+
+        {block.score_type === "weight" && (
+          <div>
+            <p className="label">Peso</p>
             <NumberField id={`${id}-kg`} label="kg" name="Kilos" value={draft.kg} onChange={(v) => set({ kg: v })} decimal autoFocus />
           </div>
-          <div>
-            <label htmlFor={`${id}-sets`} className="label">Series y pesos <span className="normal-case tracking-normal text-chalk-3">(opcional)</span></label>
-            <textarea id={`${id}-sets`} value={draft.detail} onChange={(e) => set({ detail: e.target.value })} rows={3} maxLength={500} placeholder="Ej.: 80, 85, 90, 90, 95 kg" className="field min-h-24 py-3" />
-          </div>
-        </>
-      )}
+        )}
 
-      {block.score_type === "time" && (
-        <>
-          {!draft.capped && (
-            <div>
-              <p className="label">Tiempo</p>
-              <div className="flex items-center gap-2">
-                <NumberField id={`${id}-min`} label="min" name="Minutos" value={draft.min} onChange={(v) => set({ min: v })} autoFocus />
-                <span className="font-display text-[24px] font-bold text-chalk-3">:</span>
-                <NumberField id={`${id}-sec`} label="seg" name="Segundos" value={draft.sec} onChange={(v) => set({ sec: v })} />
-              </div>
-            </div>
-          )}
-          <label className="flex min-h-11 items-center gap-3 text-[16px]">
-            <input type="checkbox" checked={draft.capped} onChange={(e) => set({ capped: e.target.checked })} className="h-5 w-5 accent-[var(--color-lemon)]" />
-            No terminé dentro del time cap
-          </label>
-          {draft.capped && (
-            <div>
-              <p className="label">Reps totales al llegar al cap</p>
-              <NumberField id={`${id}-reps`} label="reps" name="Reps" value={draft.reps} onChange={(v) => set({ reps: v })} autoFocus />
-            </div>
-          )}
-        </>
-      )}
+        {error && <p role="alert" className="border-l-2 border-danger pl-3 text-[15px] text-danger">{error}</p>}
 
-      {block.score_type === "rounds_reps" && (
-        <div>
-          <p className="label">Rondas completas + reps extra</p>
-          <div className="flex items-center gap-2">
-            <NumberField id={`${id}-rounds`} label="rondas" name="Rondas" value={draft.rounds} onChange={(v) => set({ rounds: v })} autoFocus />
-            <span className="font-display text-[24px] font-bold text-chalk-3">+</span>
-            <NumberField id={`${id}-reps`} label="reps" name="Reps" value={draft.reps} onChange={(v) => set({ reps: v })} />
-          </div>
+        <div className="flex flex-wrap items-center gap-3">
+          <button type="submit" className="btn-primary" disabled={pending}>{pending ? "Guardando…" : "Guardar resultado"}</button>
+          <button type="button" className="btn-ghost" onClick={onDone} disabled={pending}>Cancelar</button>
+          {block.result && <button type="button" onClick={remove} disabled={pending} className="press ml-auto h-11 text-[14px] font-semibold text-danger/80 hover:text-danger">Borrar</button>}
         </div>
-      )}
+      </>}
 
-      {block.score_type === "reps" && (
-        <div>
-          <p className="label">Reps o calorías</p>
-          <NumberField id={`${id}-reps`} label="total" name="Reps o calorías" value={draft.reps} onChange={(v) => set({ reps: v })} autoFocus />
-        </div>
-      )}
-
-      {block.score_type === "intervals" && (
-        <>
-          <div>
-            <p className="label">¿Mantuviste todas las repeticiones en todos los intervalos?</p>
-            <Segmented
-              label="Todas las repeticiones"
-              value={draft.prescribed || null}
-              onChange={(v) => set({ prescribed: v })}
-              options={[
-                { value: "yes", label: "Sí", tone: "ok" },
-                { value: "no", label: "No", tone: "ok" },
-              ]}
-            />
-          </div>
-          {draft.prescribed === "no" && (
-            <div>
-              <label htmlFor={`${id}-detail`} className="label">¿Cuántas repeticiones hiciste por ronda?</label>
-              <textarea id={`${id}-detail`} value={draft.detail} onChange={(e) => set({ detail: e.target.value })} rows={3} maxLength={500} autoFocus placeholder="Ej.: rondas 1-4 todas; rondas 5-8, 10 reps en vez de 12" className="field min-h-24 py-3" />
-            </div>
-          )}
-        </>
-      )}
-
-      {block.score_type === "weight" && (
-        <div>
-          <p className="label">Peso</p>
-          <NumberField id={`${id}-kg`} label="kg" name="Kilos" value={draft.kg} onChange={(v) => set({ kg: v })} decimal autoFocus />
-        </div>
-      )}
-
-      {error && <p role="alert" className="border-l-2 border-danger pl-3 text-[15px] text-danger">{error}</p>}
-
-      <div className="flex flex-wrap items-center gap-3">
-        <button type="submit" className="btn-primary" disabled={pending}>{pending ? "Guardando…" : "Guardar resultado"}</button>
-        <button type="button" className="btn-ghost" onClick={onDone} disabled={pending}>Cancelar</button>
-        {block.result && <button type="button" onClick={remove} disabled={pending} className="press ml-auto h-11 text-[14px] font-semibold text-danger/80 hover:text-danger">Borrar</button>}
-      </div>
+      {!canEnterResult && error && <p role="alert" className="border-l-2 border-danger pl-3 text-[15px] text-danger">{error}</p>}
     </form>
   );
 }
