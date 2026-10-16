@@ -6,8 +6,15 @@ export type EvolutionPeriod = {
   from: string | null;
   to: string | null;
   compliance: { programmed: number; completed: number; pct: number | null };
-  wods: { scored: number; comparable: number; avg_top_pct: number | null };
+  wods: {
+    scored: number;
+    comparable: number;
+    avg_position: number | null;
+    avg_participants: number | null;
+    avg_top_pct: number | null;
+  };
   strength: {
+    programmed_sessions: number;
     sessions: number;
     volume_sessions: number;
     total_load: number;
@@ -36,6 +43,7 @@ export type AthleteEvolution = {
   previous: EvolutionPeriod;
   trends: {
     compliance_points: number | null;
+    wod_position_improvement: number | null;
     wod_relative_improvement_points: number | null;
     strength_volume_pct: number | null;
   };
@@ -59,7 +67,6 @@ export type CoachEvolution = {
   summary: {
     athletes_with_data: number;
     avg_compliance_pct: number | null;
-    avg_wod_top_pct: number | null;
     athletes_improving_wods: number;
     athletes_improving_rm: number;
   };
@@ -84,9 +91,12 @@ function normalizePeriod(value: EvolutionPeriod): EvolutionPeriod {
     wods: {
       scored: Number(value.wods?.scored ?? 0),
       comparable: Number(value.wods?.comparable ?? 0),
+      avg_position: n(value.wods?.avg_position),
+      avg_participants: n(value.wods?.avg_participants),
       avg_top_pct: n(value.wods?.avg_top_pct),
     },
     strength: {
+      programmed_sessions: Number(value.strength?.programmed_sessions ?? 0),
       sessions: Number(value.strength?.sessions ?? 0),
       volume_sessions: Number(value.strength?.volume_sessions ?? 0),
       total_load: Number(value.strength?.total_load ?? 0),
@@ -102,6 +112,7 @@ function normalizePeriod(value: EvolutionPeriod): EvolutionPeriod {
 function normalizeTrends(value: AthleteEvolution["trends"]) {
   return {
     compliance_points: n(value?.compliance_points),
+    wod_position_improvement: n(value?.wod_position_improvement),
     wod_relative_improvement_points: n(value?.wod_relative_improvement_points),
     strength_volume_pct: n(value?.strength_volume_pct),
   };
@@ -137,7 +148,6 @@ export async function getCoachEvolution(weeks: EvolutionWindow = 4): Promise<Coa
     summary: {
       athletes_with_data: Number(raw.summary?.athletes_with_data ?? 0),
       avg_compliance_pct: n(raw.summary?.avg_compliance_pct),
-      avg_wod_top_pct: n(raw.summary?.avg_wod_top_pct),
       athletes_improving_wods: Number(raw.summary?.athletes_improving_wods ?? 0),
       athletes_improving_rm: Number(raw.summary?.athletes_improving_rm ?? 0),
     },
