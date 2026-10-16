@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
@@ -23,12 +24,11 @@ export default async function AdminHome({ searchParams }: { searchParams: Promis
   const sp = await searchParams;
   const weeks = windowFrom(sp.evolucion);
 
-  const [{ settings, profile: me }, profiles, { data: week }, notes, evolution] = await Promise.all([
+  const [{ settings, profile: me }, profiles, { data: week }, notes] = await Promise.all([
     requireAdmin(),
     listProfiles(),
     supabase.from("weeks").select("id, status").eq("start_date", thisWeek).maybeSingle(),
     getRecentNotes(6),
-    getCoachEvolution(weeks),
   ]);
 
   const athletes = profiles.filter((p) => p.role === "athlete");
@@ -49,7 +49,7 @@ export default async function AdminHome({ searchParams }: { searchParams: Promis
             <StatusDot status={week?.status ?? null} />{weekState}
           </p>
           {week ? (
-            <Link href={`/admin/programacion/${week.id}`} className={week.status === "published" ? "btn-secondary" : "btn-primary"}>Editar semana</Link>
+            <Link href={`/admin/programacion/${week.id}`} prefetch={false} className={week.status === "published" ? "btn-secondary" : "btn-primary"}>Editar semana</Link>
           ) : (
             <form action={createWeek}>
               <input type="hidden" name="start_date" value={thisWeek} />
@@ -67,13 +67,15 @@ export default async function AdminHome({ searchParams }: { searchParams: Promis
         </dl>
       </section>
 
-      <CoachEvolutionPanel evolution={evolution} weeks={weeks} />
+      <Suspense fallback={<EvolutionFallback />}>
+        <CoachEvolutionStream weeks={weeks} />
+      </Suspense>
 
       {newSignups.length > 0 && (
         <section aria-labelledby="nuevos" className="mt-10">
           <div className="flex items-baseline justify-between gap-4">
             <h2 id="nuevos" className="font-display text-[22px] font-bold uppercase">Pendientes de activar</h2>
-            <Link href="/admin/usuarios?filtro=nuevos" className="press py-2 text-[15px] font-semibold text-chalk-2 hover:text-chalk">Gestionar</Link>
+            <Link href="/admin/usuarios?filtro=nuevos" prefetch={false} className="press py-2 text-[15px] font-semibold text-chalk-2 hover:text-chalk">Gestionar</Link>
           </div>
           <ul className="mt-3 border-t border-line">
             {newSignups.slice(0, 5).map((p) => (
@@ -90,8 +92,8 @@ export default async function AdminHome({ searchParams }: { searchParams: Promis
       )}
 
       <nav aria-label="Accesos directos" className="mt-10 grid gap-3 sm:grid-cols-2">
-        <Link href="/admin/programacion" className="btn-secondary justify-between">Crear programación <span aria-hidden>→</span></Link>
-        <Link href="/admin/usuarios" className="btn-secondary justify-between">Gestionar usuarios <span aria-hidden>→</span></Link>
+        <Link href="/admin/programacion" prefetch={false} className="btn-secondary justify-between">Crear programación <span aria-hidden>→</span></Link>
+        <Link href="/admin/usuarios" prefetch={false} className="btn-secondary justify-between">Gestionar usuarios <span aria-hidden>→</span></Link>
       </nav>
 
       <section aria-labelledby="notas" className="mt-12 border-t border-line pt-8">
@@ -102,7 +104,7 @@ export default async function AdminHome({ searchParams }: { searchParams: Promis
           <ul className="mt-3 border-t border-line">
             {notes.map((n) => (
               <li key={`${n.user_id}-${n.block_id}`} className="border-b border-line">
-                <Link href={`/admin/usuarios/${n.user_id}${n.date ? `?semana=${n.date}` : ""}`} className="day-trigger block py-4">
+                <Link href={`/admin/usuarios/${n.user_id}${n.date ? `?semana=${n.date}` : ""}`} prefetch={false} className="day-trigger block py-4">
                   <p className="text-[14px] text-chalk-3"><span className="font-semibold text-chalk">{n.full_name}</span> · {n.date ? `${DAY_NAMES[isoDayOfWeek(n.date) - 1]} ${shortDate(n.date)} · ` : ""}{n.block_title}</p>
                   <p className="mt-1 line-clamp-3 whitespace-pre-wrap text-[16px] leading-[1.5]">{n.note}</p>
                 </Link>
@@ -115,10 +117,27 @@ export default async function AdminHome({ searchParams }: { searchParams: Promis
   );
 }
 
+async function CoachEvolutionStream({ weeks }: { weeks: EvolutionWindow }) {
+  const evolution = await getCoachEvolution(weeks);
+  return <CoachEvolutionPanel evolution={evolution} weeks={weeks} />;
+}
+
+function EvolutionFallback() {
+  return (
+    <section className="mt-10" aria-label="Cargando evolución de atletas">
+      <p className="eyebrow">Seguimiento</p>
+      <h2 className="font-display text-[24px] font-bold uppercase">Evolución de atletas</h2>
+      <div className="mt-4 grid grid-cols-1 gap-px overflow-hidden rounded-lg bg-line sm:grid-cols-3">
+        {[0, 1, 2].map((item) => <div key={item} className="bg-ink px-4 py-4"><div className="skeleton skeleton-fade h-3 w-28" /><div className="skeleton skeleton-fade mt-3 h-8 w-20" /></div>)}
+      </div>
+    </section>
+  );
+}
+
 function Stat({ label, value, href, highlight }: { label: string; value: number; href: string; highlight?: boolean }) {
   return (
     <div className="min-w-0">
-      <Link href={href} className="press block px-3 py-5 first:pl-0 md:px-6">
+      <Link href={href} prefetch={false} className="press block px-3 py-5 first:pl-0 md:px-6">
         <dt className="text-[13px] font-semibold uppercase tracking-[0.06em] text-chalk-3">{label}</dt>
         <dd className={`mt-1 font-display text-[44px] font-bold leading-none ${highlight ? "text-lemon" : ""}`}>{value}</dd>
       </Link>
