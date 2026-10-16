@@ -11,6 +11,9 @@ export function CoachEvolutionPanel({ evolution, weeks }: { evolution: CoachEvol
     const bb = b.current.compliance.pct ?? 101;
     return aa - bb || a.full_name.localeCompare(b.full_name, "es");
   });
+  const incomplete = athletes
+    .filter((a) => a.current.compliance.programmed > 0 && a.current.compliance.completed < a.current.compliance.programmed)
+    .sort((a, b) => a.current.compliance.completed - b.current.compliance.completed || (a.current.compliance.pct ?? 101) - (b.current.compliance.pct ?? 101) || a.full_name.localeCompare(b.full_name, "es"));
 
   return (
     <section className="mt-10" aria-labelledby="coach-evolution-title">
@@ -30,12 +33,31 @@ export function CoachEvolutionPanel({ evolution, weeks }: { evolution: CoachEvol
         <p className="mt-4 border-y border-line py-4 text-[15px] text-chalk-3">No se han podido cargar las métricas de evolución.</p>
       ) : (
         <>
-          <dl className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-lg bg-line md:grid-cols-4">
+          <dl className="mt-4 grid grid-cols-1 gap-px overflow-hidden rounded-lg bg-line sm:grid-cols-3">
             <Stat label="Cumplimiento medio" value={value(evolution.summary.avg_compliance_pct, "%")} />
-            <Stat label="Posición WOD media" value={value(evolution.summary.avg_wod_top_pct, "%")} />
             <Stat label="Mejoran en WODs" value={String(evolution.summary.athletes_improving_wods)} />
             <Stat label="Mejoran algún RM" value={String(evolution.summary.athletes_improving_rm)} />
           </dl>
+
+          <details className="mt-3 rounded-lg border border-line bg-panel px-4 py-3">
+            <summary className="press cursor-pointer text-[14px] font-semibold text-lemon">Ver quién está completando menos bloques ({incomplete.length})</summary>
+            {incomplete.length === 0 ? (
+              <p className="mt-3 text-[14px] text-chalk-3">Todos los usuarios con datos han completado los bloques contabilizados del periodo.</p>
+            ) : (
+              <ul className="mt-3 divide-y divide-line border-t border-line">
+                {incomplete.map((a) => (
+                  <li key={a.user_id}>
+                    <Link href={`/admin/usuarios/${a.user_id}`} className="day-trigger flex items-center justify-between gap-4 py-3">
+                      <span className="min-w-0 truncate text-[15px] font-semibold">{a.full_name}</span>
+                      <span className="shrink-0 text-right text-[13px] text-chalk-2">
+                        {a.current.compliance.completed}/{a.current.compliance.programmed} · {value(a.current.compliance.pct, "%")}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </details>
 
           {athletes.length === 0 ? (
             <p className="mt-4 text-[15px] text-chalk-3">Aún no hay atletas con datos suficientes en este periodo.</p>
@@ -58,7 +80,7 @@ export function CoachEvolutionPanel({ evolution, weeks }: { evolution: CoachEvol
               </ul>
             </div>
           )}
-          <p className="mt-3 text-[12px] leading-[1.45] text-chalk-3">Ordenados por cumplimiento para que sea más fácil detectar quién puede necesitar seguimiento. Las métricas describen los registros, no sustituyen el criterio del coach.</p>
+          <p className="mt-3 text-[12px] leading-[1.45] text-chalk-3">Ordenados por cumplimiento para que sea más fácil detectar quién puede necesitar seguimiento. La posición WOD se muestra solo por usuario; no se usa como KPI global.</p>
         </>
       )}
     </section>
