@@ -16,6 +16,7 @@ export type Profile = {
   sex: Sex | null;
   phone: string | null;
   avatar_url: string | null;
+  show_evolution_as_athlete: boolean;
   created_at: string;
 };
 
@@ -41,12 +42,9 @@ export type BuilderExerciseItem = {
   movement_id: string;
   reps: number;
   instruction: string;
-  /** Si es true, el atleta informa de los kg y este ejercicio suma al volumen total. */
   track_load: boolean;
-  /** Porcentaje mínimo/máximo del 1RM del propio movimiento. Null = sin prescripción por porcentaje. */
   percentage_min: number | null;
   percentage_max: number | null;
-  /** Tramos opcionales series × reps × %1RM. Si existen sustituyen reps/% simples para el registro de carga. */
   scheme?: StrengthSchemeRow[] | null;
 };
 
@@ -65,7 +63,6 @@ export type BuilderComplexItem = {
 export type BuilderRestItem = {
   id: string;
   type: "rest";
-  /** Texto libre: 30\", 90\", 2 min, 2–3 min, etc. Nunca se rellena por defecto. */
   duration: string;
 };
 
@@ -81,13 +78,10 @@ export type BuilderSectionFormat = "sets" | "rounds" | "emom" | "free";
 export type BuilderSection = {
   id: string;
   label: string;
-  /** Compatibilidad con bloques ya guardados. */
   count_type: "sets" | "rounds";
   count_min: number;
   count_max: number;
-  /** Formato del bloque dentro del constructor unificado. Ausente = se infiere de count_type. */
   format?: BuilderSectionFormat;
-  /** Solo se usa con format=emom. */
   emom_interval_seconds?: number | null;
   items: BuilderItem[];
 };
@@ -114,10 +108,7 @@ export type BuilderComplexView = BuilderComplexItem & {
 export type BuilderItemView = BuilderExerciseView | BuilderComplexView | BuilderRestItem | BuilderNoteItem;
 export type BuilderSectionView = Omit<BuilderSection, "items"> & { items: BuilderItemView[] };
 
-export type MovementRef = {
-  id: string;
-  name: string;
-};
+export type MovementRef = { id: string; name: string };
 
 export type Block = {
   id: string;
@@ -137,55 +128,29 @@ export type Block = {
   emom_interval_seconds: number | null;
   emom_rounds: number | null;
   emom_percentage: number | null;
-  /** Constructor unificado. Null significa bloque histórico con el modelo anterior. */
   builder_sections: BuilderSection[] | null;
   movement?: MovementRef | null;
   rm_reference_movement?: MovementRef | null;
 };
 
-export type Day = {
-  id: string;
-  date: string;
-  day_of_week: number;
-  workout_blocks: Block[];
-};
-
-export type Week = {
-  id: string;
-  start_date: string;
-  end_date: string;
-  status: WeekStatus;
-  published_at: string | null;
-  updated_at: string;
-};
-
+export type Day = { id: string; date: string; day_of_week: number; workout_blocks: Block[] };
+export type Week = { id: string; start_date: string; end_date: string; status: WeekStatus; published_at: string | null; updated_at: string };
 export type WeekWithDays = Week & { days: Day[] };
 
-/** Marca y nota de un atleta en un bloque. */
-export type BlockLog = {
-  block_id: string;
-  done: boolean;
-  note: string;
-  updated_at: string;
-};
+export type BlockLog = { block_id: string; done: boolean; note: string; updated_at: string };
 
-/** Valores de un resultado. Qué campos se usan depende del score_type del bloque. */
 export type Score = {
   seconds: number | null;
   capped: boolean;
   rounds: number | null;
   reps: number | null;
   kg: number | null;
-  /** Carga total movida en un bloque de fuerza: suma de kg × reps de todas las series/rondas. */
   total_load: number | null;
   as_prescribed: boolean | null;
   reps_detail: string;
 };
 
-export type BlockResult = Score & {
-  block_id: string;
-  division: Division;
-};
+export type BlockResult = Score & { block_id: string; division: Division };
 
 export type HistoryEntry = Partial<Score> & {
   block_id: string;
@@ -196,6 +161,7 @@ export type HistoryEntry = Partial<Score> & {
   done: boolean;
   note: string;
   division: Division | null;
+  builder_sections?: BuilderSection[] | null;
 };
 
 export type LeaderboardRow = BlockResult & {
@@ -207,7 +173,6 @@ export type LeaderboardRow = BlockResult & {
   total: number;
 };
 
-/** Actividad pública de ranking de un atleta en un bloque de un día visible. */
 export type RankingDayActivityRow = {
   user_id: string;
   block_id: string;
