@@ -5,6 +5,11 @@ function value(n: number | null, suffix = "") {
   return n == null ? "—" : `${n.toLocaleString("es-ES", { maximumFractionDigits: 1 })}${suffix}`;
 }
 
+function averagePosition(position: number | null, participants: number | null) {
+  if (position == null || participants == null) return "—";
+  return `${Math.round(position)}/${Math.max(1, Math.round(participants))}`;
+}
+
 export function CoachEvolutionPanel({ evolution, weeks }: { evolution: CoachEvolution | null; weeks: EvolutionWindow }) {
   const athletes = [...(evolution?.athletes ?? [])].sort((a, b) => {
     const aa = a.current.compliance.pct ?? 101;
@@ -42,7 +47,7 @@ export function CoachEvolutionPanel({ evolution, weeks }: { evolution: CoachEvol
           <details className="mt-3 rounded-lg border border-line bg-panel px-4 py-3">
             <summary className="press cursor-pointer text-[14px] font-semibold text-lemon">Ver quién está completando menos bloques ({incomplete.length})</summary>
             {incomplete.length === 0 ? (
-              <p className="mt-3 text-[14px] text-chalk-3">Todos los usuarios con datos han completado los bloques contabilizados del periodo.</p>
+              <p className="mt-3 text-[14px] text-chalk-3">Todos los usuarios con datos han completado los bloques programados hasta hoy.</p>
             ) : (
               <ul className="mt-3 divide-y divide-line border-t border-line">
                 {incomplete.map((a) => (
@@ -70,17 +75,17 @@ export function CoachEvolutionPanel({ evolution, weeks }: { evolution: CoachEvol
                 {athletes.map((a) => (
                   <li key={a.user_id}>
                     <Link href={`/admin/usuarios/${a.user_id}`} className="day-trigger grid gap-2 px-4 py-3 md:grid-cols-[1fr_110px_110px_120px] md:items-center md:gap-3">
-                      <div className="min-w-0"><span className="block truncate text-[16px] font-semibold">{a.full_name}</span><span className="text-[12px] text-chalk-3">{a.current.compliance.completed}/{a.current.compliance.programmed} bloques</span></div>
+                      <div className="min-w-0"><span className="block truncate text-[16px] font-semibold">{a.full_name}</span><span className="text-[12px] text-chalk-3">{a.current.compliance.completed}/{a.current.compliance.programmed} bloques hasta hoy</span></div>
                       <Cell label="Cumplimiento" value={value(a.current.compliance.pct, "%")} highlight={(a.current.compliance.pct ?? 100) < 60} />
-                      <Cell label="WOD" value={a.current.wods.comparable ? `Top ${value(a.current.wods.avg_top_pct, "%")}` : "—"} />
-                      <Cell label="Fuerza" value={`${Math.round(a.current.strength.total_load).toLocaleString("es-ES")} kg`} />
+                      <Cell label="WOD" value={a.current.wods.comparable ? averagePosition(a.current.wods.avg_position, a.current.wods.avg_participants) : "—"} />
+                      <Cell label="Fuerza" value={`${a.current.strength.sessions}/${a.current.strength.programmed_sessions} sesiones`} />
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
           )}
-          <p className="mt-3 text-[12px] leading-[1.45] text-chalk-3">Ordenados por cumplimiento para que sea más fácil detectar quién puede necesitar seguimiento. La posición WOD se muestra solo por usuario; no se usa como KPI global.</p>
+          <p className="mt-3 text-[12px] leading-[1.45] text-chalk-3">Ordenados por cumplimiento para detectar quién puede necesitar seguimiento. El cumplimiento solo cuenta bloques programados hasta hoy. La posición WOD media se calcula dentro de la misma división en los WODs comparables.</p>
         </>
       )}
     </section>
