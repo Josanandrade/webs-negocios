@@ -2,13 +2,21 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getViewer } from "@/lib/auth";
 import { formatJoined } from "@/lib/dates";
+import { getAthleteEvolution, type EvolutionWindow } from "@/lib/evolution";
 import { ProfileForm } from "./profile-form";
 import { PasswordForm } from "@/components/password-form";
+import { AthleteEvolutionPanel } from "@/components/athlete-evolution-panel";
 
 export const metadata: Metadata = { title: "Mi cuenta" };
 
-export default async function AccountPage() {
-  const { profile, isAdmin, canViewProgram } = await getViewer();
+function windowFrom(value: string | undefined): EvolutionWindow {
+  return value === "8" ? 8 : value === "12" ? 12 : 4;
+}
+
+export default async function AccountPage({ searchParams }: { searchParams: Promise<{ evolucion?: string }> }) {
+  const [{ profile, isAdmin, canViewProgram }, sp] = await Promise.all([getViewer(), searchParams]);
+  const weeks = windowFrom(sp.evolucion);
+  const evolution = canViewProgram && !isAdmin ? await getAthleteEvolution(profile.id, weeks) : null;
 
   return (
     <main className="mx-auto max-w-xl px-4 pb-16 pt-6 md:px-6 md:pt-10">
@@ -27,13 +35,13 @@ export default async function AccountPage() {
         </Link>
       )}
 
+      {canViewProgram && !isAdmin && <AthleteEvolutionPanel evolution={evolution} weeks={weeks} />}
+
       <ProfileForm profile={profile} />
 
       <section className="mt-12 border-t border-line pt-10">
         <h2 className="font-display text-[22px] font-bold uppercase">Contraseña</h2>
-        <div className="mt-5">
-          <PasswordForm />
-        </div>
+        <div className="mt-5"><PasswordForm /></div>
       </section>
 
       <section className="mt-12 border-t border-line pt-10">
