@@ -93,7 +93,7 @@ export default async function ProgramPage({ searchParams }: PageProps<"/">) {
 
   const label = start === thisWeek ? "Esta semana" : start < thisWeek ? "Semana anterior" : "Próxima semana";
   return (
-    <main className="mx-auto max-w-2xl px-4 pb-16 pt-6 md:px-6 md:pt-10">
+    <main className="mx-auto max-w-2xl px-4 pb-2 pt-6 md:px-6 md:pb-16 md:pt-10">
       <div className="flex items-end justify-between gap-3"><div><p className="eyebrow">{label}</p><h1 className="mt-1 font-display text-[44px] font-extrabold uppercase leading-[0.9] tracking-[0.005em] sm:text-[56px]"><span className="sr-only">Semana del </span>{weekRangeShort(start)}</h1></div><WeekPager prev={adjacent.prev} next={adjacent.next} /></div>
       <div className="mt-8" key={start}>{week ? <div className="enter"><WeekDays days={days} meId={me} /></div> : <EmptyWeek isCurrent={start === thisWeek} latest={adjacent.prev} />}</div>
       {start !== thisWeek && <p className="mt-8"><Link href="/" className="press inline-flex h-11 items-center text-[15px] font-semibold text-chalk-2 hover:text-chalk">Ir a la semana actual</Link></p>}
