@@ -5,16 +5,8 @@ export type EvolutionPeriod = {
   available: boolean;
   from: string | null;
   to: string | null;
-  compliance: {
-    programmed: number;
-    completed: number;
-    pct: number | null;
-  };
-  wods: {
-    scored: number;
-    comparable: number;
-    avg_top_pct: number | null;
-  };
+  compliance: { programmed: number; completed: number; pct: number | null };
+  wods: { scored: number; comparable: number; avg_top_pct: number | null };
   strength: {
     sessions: number;
     volume_sessions: number;
@@ -50,6 +42,30 @@ export type AthleteEvolution = {
   rms: EvolutionRm[];
 };
 
+export type CoachEvolutionAthlete = {
+  user_id: string;
+  full_name: string;
+  access_status: string;
+  current: EvolutionPeriod;
+  previous: EvolutionPeriod;
+  trends: AthleteEvolution["trends"];
+  rm_improvements: number;
+};
+
+export type CoachEvolution = {
+  version: 1;
+  weeks: number;
+  as_of: string;
+  summary: {
+    athletes_with_data: number;
+    avg_compliance_pct: number | null;
+    avg_wod_top_pct: number | null;
+    athletes_improving_wods: number;
+    athletes_improving_rm: number;
+  };
+  athletes: CoachEvolutionAthlete[];
+};
+
 export type EvolutionWindow = 4 | 8 | 12;
 
 function n(value: unknown) {
@@ -59,6 +75,7 @@ function n(value: unknown) {
 function normalizePeriod(value: EvolutionPeriod): EvolutionPeriod {
   return {
     ...value,
+    available: Boolean(value?.available),
     compliance: {
       programmed: Number(value.compliance?.programmed ?? 0),
       completed: Number(value.compliance?.completed ?? 0),
@@ -82,30 +99,54 @@ function normalizePeriod(value: EvolutionPeriod): EvolutionPeriod {
   };
 }
 
+function normalizeTrends(value: AthleteEvolution["trends"]) {
+  return {
+    compliance_points: n(value?.compliance_points),
+    wod_relative_improvement_points: n(value?.wod_relative_improvement_points),
+    strength_volume_pct: n(value?.strength_volume_pct),
+  };
+}
+
 export async function getAthleteEvolution(userId: string, weeks: EvolutionWindow = 4): Promise<AthleteEvolution | null> {
   const supabase = await createClient();
-  const { data, error } = await supabase.rpc("athlete_evolution_metrics", {
-    p_user_id: userId,
-    p_weeks: weeks,
-  });
+  const { data, error } = await supabase.rpc("athlete_evolution_metrics", { p_user_id: userId, p_weeks: weeks });
   if (error || !data) return null;
-
   const raw = data as AthleteEvolution;
   return {
     ...raw,
     current: normalizePeriod(raw.current),
     previous: normalizePeriod(raw.previous),
-    trends: {
-      compliance_points: n(raw.trends?.compliance_points),
-      wod_relative_improvement_points: n(raw.trends?.wod_relative_improvement_points),
-      strength_volume_pct: n(raw.trends?.strength_volume_pct),
-    },
+    trends: normalizeTrends(raw.trends),
     rms: Array.isArray(raw.rms) ? raw.rms.map((row) => ({
       ...row,
       current_rm: Number(row.current_rm),
       baseline_rm: n(row.baseline_rm),
       change_kg: n(row.change_kg),
       change_pct: n(row.change_pct),
+    })) : [],
+  };
+}
+
+export async function getCoachEvolution(weeks: EvolutionWindow = 4): Promise<CoachEvolution | null> {
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("coach_evolution_metrics", { p_weeks: weeks });
+  if (error || !data) return null;
+  const raw = data as CoachEvolution;
+  return {
+    ...raw,
+    summary: {
+      athletes_with_data: Number(raw.summary?.athletes_with_data ?? 0),
+      avg_compliance_pct: n(raw.summary?.avg_compliance_pct),
+      avg_wod_top_pct: n(raw.summary?.avg_wod_top_pct),
+      athletes_improving_wods: Number(raw.summary?.athletes_improving_wods ?? 0),
+      athletes_improving_rm: Number(raw.summary?.athletes_improving_rm ?? 0),
+    },
+    athletes: Array.isArray(raw.athletes) ? raw.athletes.map((row) => ({
+      ...row,
+      current: normalizePeriod(row.current),
+      previous: normalizePeriod(row.previous),
+      trends: normalizeTrends(row.trends),
+      rm_improvements: Number(row.rm_improvements ?? 0),
     })) : [],
   };
 }
