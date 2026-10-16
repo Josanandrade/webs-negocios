@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { IntentLink } from "@/components/intent-link";
 
 const ITEMS = [
   { href: "/admin", label: "Panel", match: (p: string) => p === "/admin" },
@@ -26,15 +26,14 @@ export function AdminNav({ variant }: { variant: "top" | "bottom" }) {
             const active = item.match(pathname);
             return (
               <li key={item.href}>
-                <Link
+                <IntentLink
                   href={item.href}
-                  prefetch={false}
                   aria-current={active ? "page" : undefined}
                   className={`press relative flex h-11 items-center px-2 font-display text-[14px] font-bold uppercase tracking-[0.04em] ${active ? "text-chalk" : "text-chalk-3 hover:text-chalk"}`}
                 >
                   {item.label === "Crear" ? "Crear programación" : item.label}
                   {active && <span className="absolute inset-x-2 bottom-1 h-[3px] bg-lemon" aria-hidden />}
-                </Link>
+                </IntentLink>
               </li>
             );
           })}
@@ -53,15 +52,14 @@ export function AdminNav({ variant }: { variant: "top" | "bottom" }) {
           const active = item.match(pathname);
           return (
             <li key={item.href} className="min-w-0">
-              <Link
+              <IntentLink
                 href={item.href}
-                prefetch={false}
                 aria-current={active ? "page" : undefined}
                 className={`press relative flex h-16 min-w-0 items-center justify-center px-0.5 text-center font-display text-[10px] font-bold uppercase tracking-[0.02em] ${active ? "text-chalk" : "text-chalk-3"}`}
               >
                 {active && <span className="absolute inset-x-2 top-0 h-[3px] bg-lemon" aria-hidden />}
                 <span className="truncate">{item.label === "Programación" ? "Semana" : item.label}</span>
-              </Link>
+              </IntentLink>
             </li>
           );
         })}
