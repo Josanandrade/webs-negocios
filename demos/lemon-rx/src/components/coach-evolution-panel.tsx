@@ -16,8 +16,8 @@ export function CoachEvolutionPanel({ evolution, weeks }: { evolution: CoachEvol
     const bb = b.current.compliance.pct ?? 101;
     return aa - bb || a.full_name.localeCompare(b.full_name, "es");
   });
-  const incomplete = athletes
-    .filter((a) => a.current.compliance.programmed > 0 && a.current.compliance.completed < a.current.compliance.programmed)
+  const complianceRows = athletes
+    .filter((a) => a.current.compliance.programmed > 0)
     .sort((a, b) => a.current.compliance.completed - b.current.compliance.completed || (a.current.compliance.pct ?? 101) - (b.current.compliance.pct ?? 101) || a.full_name.localeCompare(b.full_name, "es"));
 
   return (
@@ -45,12 +45,12 @@ export function CoachEvolutionPanel({ evolution, weeks }: { evolution: CoachEvol
           </dl>
 
           <details className="mt-3 rounded-lg border border-line bg-panel px-4 py-3">
-            <summary className="press cursor-pointer text-[14px] font-semibold text-lemon">Ver quién está completando menos bloques ({incomplete.length})</summary>
-            {incomplete.length === 0 ? (
-              <p className="mt-3 text-[14px] text-chalk-3">Todos los usuarios con datos han completado los bloques programados hasta hoy.</p>
+            <summary className="press cursor-pointer text-[14px] font-semibold text-lemon">Ver cumplimiento de usuarios ({complianceRows.length})</summary>
+            {complianceRows.length === 0 ? (
+              <p className="mt-3 text-[14px] text-chalk-3">Aún no hay usuarios con bloques programados en este periodo.</p>
             ) : (
               <ul className="mt-3 divide-y divide-line border-t border-line">
-                {incomplete.map((a) => (
+                {complianceRows.map((a) => (
                   <li key={a.user_id}>
                     <Link href={`/admin/usuarios/${a.user_id}`} prefetch={false} className="day-trigger flex items-center justify-between gap-4 py-3">
                       <span className="min-w-0 truncate text-[15px] font-semibold">{a.full_name}</span>
