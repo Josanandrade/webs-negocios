@@ -1,13 +1,33 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { BlockTracker, type BlockView } from "@/components/block-tracker";
-import { StrengthBlockTracker, type StrengthBlockView } from "@/components/strength-block-tracker";
-import { FreeStrengthBlockTracker, type FreeStrengthBlockView } from "@/components/free-strength-block-tracker";
-import { BlockMovementHistory } from "@/components/block-movement-history";
-import { StrengthRankingPanel } from "@/components/strength-ranking-panel";
+import type { BlockView } from "@/components/block-tracker";
+import type { StrengthBlockView } from "@/components/strength-block-tracker";
+import type { FreeStrengthBlockView } from "@/components/free-strength-block-tracker";
 import { Toast, useToast } from "@/components/toast";
 import type { BuilderSectionView } from "@/lib/types";
+
+const BlockTracker = dynamic(
+  () => import("@/components/block-tracker").then((mod) => mod.BlockTracker),
+  { ssr: false, loading: () => <BlockLoading /> },
+);
+const StrengthBlockTracker = dynamic(
+  () => import("@/components/strength-block-tracker").then((mod) => mod.StrengthBlockTracker),
+  { ssr: false, loading: () => <BlockLoading /> },
+);
+const FreeStrengthBlockTracker = dynamic(
+  () => import("@/components/free-strength-block-tracker").then((mod) => mod.FreeStrengthBlockTracker),
+  { ssr: false, loading: () => <BlockLoading /> },
+);
+const BlockMovementHistory = dynamic(
+  () => import("@/components/block-movement-history").then((mod) => mod.BlockMovementHistory),
+  { ssr: false },
+);
+const StrengthRankingPanel = dynamic(
+  () => import("@/components/strength-ranking-panel").then((mod) => mod.StrengthRankingPanel),
+  { ssr: false },
+);
 
 export type ExtendedBlockView = BlockView & { suggestedSets?: { reps: number; percentage: number; kg: number }[]; builderSectionsView?: BuilderSectionView[] };
 export type DayView = { date: string; name: string; short: string; isToday: boolean; blocks: ExtendedBlockView[] };
@@ -80,6 +100,9 @@ export function WeekDays({ days, meId }: { days: DayView[]; meId: string }) {
   })}</ol><Toast toast={toast} className="bottom-[calc(5rem+env(safe-area-inset-bottom))] md:bottom-8" /></>;
 }
 
+function BlockLoading() {
+  return <div className="border-t border-line py-6" aria-hidden><div className="skeleton h-5 w-36" /><div className="skeleton mt-4 h-11 w-full" /></div>;
+}
 function DayProgress({ blocks }: { blocks: ExtendedBlockView[] }) { const done = blocks.filter((b) => b.log?.done).length; if (done === 0) return null; const all = done === blocks.length; return <span className={`font-display text-[15px] font-bold uppercase tracking-[0.06em] ${all ? "text-lemon" : "text-chalk-3"}`} aria-label={all ? "Todo hecho" : `${done} de ${blocks.length} hechos`}>{all ? "✓ Hecho" : `${done}/${blocks.length}`}</span>; }
 function DayLabel({ day }: { day: DayView }) { return <span className="flex items-baseline gap-3"><span className="font-display text-[26px] font-bold uppercase leading-none tracking-[0.01em]">{day.name}</span><span className="font-display text-[17px] font-semibold uppercase tracking-[0.04em] text-chalk-3">{day.short}</span>{day.isToday && <span className="self-center bg-lemon px-1.5 py-0.5 font-display text-[12px] font-bold uppercase tracking-[0.1em] text-lemon-ink">Hoy</span>}</span>; }
 function Chevron({ open }: { open: boolean }) { return <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden className="shrink-0 text-chalk-3 transition-transform duration-200 ease-[var(--ease-out)] group-hover:text-chalk motion-reduce:transition-none" style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}><path d="M5 9l7 7 7-7" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="square" /></svg>; }
