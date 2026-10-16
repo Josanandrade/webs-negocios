@@ -158,7 +158,8 @@ Estado: **VALIDADO**.
 - los siete días pueden permanecer cerrados;
 - en móvil, con todos cerrados, se conserva el comportamiento de scroll ya validado;
 - al abrir un día se posiciona correctamente bajo la cabecera;
-- los bloques de un día se preparan al abrirlo por primera vez y las reaperturas posteriores son inmediatas.
+- los bloques de un día se preparan al abrirlo por primera vez y las reaperturas posteriores son inmediatas;
+- los componentes pesados de registro de resultados, Strength/Weightlifting, historial contextual y ranking de fuerza se cargan cuando hacen falta, no como coste obligatorio al entrar en Semana.
 
 ## 8. Actividad, notas y resultados
 
@@ -366,7 +367,12 @@ Comportamientos protegidos:
 - Semana prepara cada día solo cuando el usuario lo abre por primera vez;
 - una vez abierto, el contenido permanece disponible para reapertura rápida;
 - se reducen precargas automáticas de rutas/fichas/periodos que el usuario no ha solicitado;
-- Panel y Cuenta muestran primero el contenido principal y cargan Evolución después.
+- Panel y Cuenta muestran primero el contenido principal y cargan Evolución después;
+- al entrar en Lemon RX se preparan en segundo plano y de forma secuencial las pantallas principales, priorizando Semana y Usuarios, para reducir la espera de la primera visita sin lanzar todas las rutas a la vez;
+- Semana no obliga a descargar desde el principio todos los componentes pesados de trackers/historial/ranking de fuerza;
+- la mejora debe conservar la sensación de fluidez validada también en la primera entrada a Semana y Usuarios, no solo en visitas repetidas.
+
+Resultado de validación: Jose confirma que tras la ampliación de esta fase la app se percibe **mucho más fluida**.
 
 Esta fase no cambia la lógica de resultados, notas, programación ni datos.
 
