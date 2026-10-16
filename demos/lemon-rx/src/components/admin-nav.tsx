@@ -28,6 +28,7 @@ export function AdminNav({ variant }: { variant: "top" | "bottom" }) {
               <li key={item.href}>
                 <Link
                   href={item.href}
+                  prefetch={false}
                   aria-current={active ? "page" : undefined}
                   className={`press relative flex h-11 items-center px-2 font-display text-[14px] font-bold uppercase tracking-[0.04em] ${active ? "text-chalk" : "text-chalk-3 hover:text-chalk"}`}
                 >
@@ -54,6 +55,7 @@ export function AdminNav({ variant }: { variant: "top" | "bottom" }) {
             <li key={item.href} className="min-w-0">
               <Link
                 href={item.href}
+                prefetch={false}
                 aria-current={active ? "page" : undefined}
                 className={`press relative flex h-16 min-w-0 items-center justify-center px-0.5 text-center font-display text-[10px] font-bold uppercase tracking-[0.02em] ${active ? "text-chalk" : "text-chalk-3"}`}
               >
