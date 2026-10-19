@@ -1,16 +1,421 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>María Baena Nails &amp; Beauty · Uñas y belleza en Bormujos</title>
+  <meta name="description" content="María Baena Nails &amp; Beauty, estudio de uñas y belleza en Bormujos (Sevilla). Semipermanente, gel, acrílicas, nail art, manicura y pedicura. Pide tu cita por WhatsApp o teléfono.">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="theme-color" content="#F3F0EC">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Italiana&family=Urbanist:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__inner">
+      <a class="brand" href="#top" aria-label="María Baena Nails &amp; Beauty, inicio">
+        <span class="brand__mono" aria-hidden="true">MB</span>
+        <span class="brand__text">María Baena <small>Nails &amp; Beauty</small></span>
+      </a>
+      <nav class="nav__links" aria-label="Secciones">
+        <a href="#unas">Uñas</a>
+        <a href="#beauty">Beauty</a>
+        <a href="#galeria">Galería</a>
+        <a href="#estudio">El estudio</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <a class="btn btn--ink btn--small nav__cta" href="#cita">Pedir cita</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="menu" id="menu" hidden>
+      <a href="#unas">Uñas</a>
+      <a href="#beauty">Beauty</a>
+      <a href="#galeria">Galería</a>
+      <a href="#estudio">El estudio</a>
+      <a href="#opiniones">Opiniones</a>
+      <a href="#contacto">Contacto</a>
+      <a class="btn btn--cola" href="#cita">Pedir cita</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="kicker"><span class="dot" aria-hidden="true"></span> Estudio de uñas y belleza · Bormujos</p>
+          <h1 class="hero__title">
+            <span class="hero__name">María Baena</span>
+            <span class="hero__line">Uñas hechas <em>con lupa</em>,<br> belleza sin prisas.</span>
+          </h1>
+          <p class="hero__lead">Semipermanente, gel, acrílicas y nail art. Limamos, medimos y elegimos el tono contigo, para que tus manos se vean bien desde el primer día hasta la siguiente cita.</p>
+          <div class="hero__actions">
+            <a class="btn btn--cola" data-wa="Hola María, me gustaría pedir cita. ¿Qué huecos tenéis esta semana?" href="https://wa.me/34695634092">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.2a8.7 8.7 0 0 0-7.5 13.2L3.3 21l4.7-1.2A8.7 8.7 0 1 0 12 3.2Zm0 15.9a7.2 7.2 0 0 1-3.7-1l-.3-.2-2.7.7.7-2.6-.2-.3A7.2 7.2 0 1 1 12 19.1Zm4-5.4c-.2-.1-1.3-.6-1.5-.7-.2-.1-.3-.1-.5.1l-.7.8c-.1.2-.3.2-.5.1a5.9 5.9 0 0 1-2.9-2.6c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.4a.8.8 0 0 0-.6.3 2.5 2.5 0 0 0-.8 1.9 4.4 4.4 0 0 0 .9 2.3 10 10 0 0 0 3.8 3.4c1.4.6 2 .6 2.7.5.4-.1 1.3-.5 1.5-1 .2-.5.2-1 .1-1-.1-.2-.2-.2-.5-.3Z"/></svg>
+              Pedir cita por WhatsApp
+            </a>
+            <a class="btn btn--line" href="tel:+34695634092">Llamar · 695 63 40 92</a>
+          </div>
+          <ul class="hero__facts" aria-label="Datos rápidos">
+            <li><strong>4,9</strong><span>valoración en Google</span></li>
+            <li><strong>+90</strong><span>opiniones de clientas</span></li>
+            <li><strong>L–V</strong><span>mañana y tarde</span></li>
+          </ul>
+        </div>
+
+        <div class="hero__art" aria-hidden="true">
+          <div class="fan" id="fan">
+            <span class="fan__nail" style="--i:0;--c:#F1E2DA"><b>Nº 01</b></span>
+            <span class="fan__nail" style="--i:1;--c:#E5C3B3"><b>Nº 02</b></span>
+            <span class="fan__nail" style="--i:2;--c:#CFA08D"><b>Nº 03</b></span>
+            <span class="fan__nail fan__nail--chrome" style="--i:3"><b>Nº 04</b></span>
+            <span class="fan__nail" style="--i:4;--c:#B9B3C4"><b>Nº 05</b></span>
+            <span class="fan__nail" style="--i:5;--c:#8E2A3B"><b>Nº 06</b></span>
+            <span class="fan__nail" style="--i:6;--c:#5E1726"><b>Nº 07</b></span>
+            <span class="fan__pin"></span>
+          </div>
+          <div class="hero__tag">
+            <span class="mono">Carta de color</span>
+            <strong>Elige tono en el estudio</strong>
+          </div>
+        </div>
+      </div>
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker__track">
+          <span>Semipermanente</span><i>✦</i><span>Uñas de gel</span><i>✦</i><span>Acrílicas</span><i>✦</i><span>Nail art</span><i>✦</i><span>Dip powder</span><i>✦</i><span>Manicura</span><i>✦</i><span>Pedicura</span><i>✦</i><span>Facial</span><i>✦</i>
+          <span>Semipermanente</span><i>✦</i><span>Uñas de gel</span><i>✦</i><span>Acrílicas</span><i>✦</i><span>Nail art</span><i>✦</i><span>Dip powder</span><i>✦</i><span>Manicura</span><i>✦</i><span>Pedicura</span><i>✦</i><span>Facial</span><i>✦</i>
+        </div>
+      </div>
+    </section>
+
+    <!-- UÑAS -->
+    <section class="section" id="unas">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="mono label">01 — Uñas</p>
+          <h2>La especialidad de la casa.</h2>
+          <p class="section__lead">Cada servicio empieza igual: manos limpias, cutícula cuidada y una forma que te favorezca. Luego, el color o el diseño que traigas en mente.</p>
+        </header>
+
+        <div class="menu-list" role="list">
+          <article class="svc" role="listitem">
+            <span class="svc__n mono">01</span>
+            <div class="svc__body">
+              <h3>Semipermanente</h3>
+              <p>Color con brillo que aguanta semanas sin desconcharse. Lo que más se pide.</p>
+            </div>
+            <span class="svc__tag">Manos y pies</span>
+          </article>
+          <article class="svc" role="listitem">
+            <span class="svc__n mono">02</span>
+            <div class="svc__body">
+              <h3>Uñas de gel</h3>
+              <p>Refuerzo sobre tu uña natural o con extensión, para ganar largo y resistencia.</p>
+            </div>
+            <span class="svc__tag">Natural o extensión</span>
+          </article>
+          <article class="svc" role="listitem">
+            <span class="svc__n mono">03</span>
+            <div class="svc__body">
+              <h3>Uñas acrílicas</h3>
+              <p>Esculpidas a medida. Forma almendra, cuadrada, ballerina o la que te guste.</p>
+            </div>
+            <span class="svc__tag">Esculpidas</span>
+          </article>
+          <article class="svc" role="listitem">
+            <span class="svc__n mono">04</span>
+            <div class="svc__body">
+              <h3>Dip powder</h3>
+              <p>Polvo de color sellado: acabado ligero y uniforme, sin lámpara.</p>
+            </div>
+            <span class="svc__tag">Acabado ligero</span>
+          </article>
+          <article class="svc" role="listitem">
+            <span class="svc__n mono">05</span>
+            <div class="svc__body">
+              <h3>Nail art</h3>
+              <p>Francesa, baby boomer, cromados, líneas finas o algo para una ocasión especial.</p>
+            </div>
+            <span class="svc__tag">Diseño</span>
+          </article>
+          <article class="svc" role="listitem">
+            <span class="svc__n mono">06</span>
+            <div class="svc__body">
+              <h3>Manicura y pedicura</h3>
+              <p>Limado, cutículas, hidratación y esmaltado. Pedicura en camilla, cómoda y sin prisas.</p>
+            </div>
+            <span class="svc__tag">Cuidado completo</span>
+          </article>
+          <article class="svc" role="listitem">
+            <span class="svc__n mono">07</span>
+            <div class="svc__body">
+              <h3>Manicura y pedicura para hombre</h3>
+              <p>Manos y pies cuidados, con acabado natural y sin color si lo prefieres.</p>
+            </div>
+            <span class="svc__tag">Caballero</span>
+          </article>
+        </div>
+        <p class="note">¿Precio o duración de un servicio? Escríbenos y te lo decimos al momento.</p>
+      </div>
+    </section>
+
+    <!-- BEAUTY -->
+    <section class="section section--cola" id="beauty">
+      <div class="wrap beauty">
+        <header class="section__head section__head--light">
+          <p class="mono label">02 — Beauty</p>
+          <h2>Más allá de las uñas.</h2>
+          <p class="section__lead">El mismo cuidado, para la piel y para los días importantes.</p>
+        </header>
+        <div class="beauty__grid">
+          <article class="bcard">
+            <svg class="bcard__ic" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="22" r="13"/><path d="M18 20h.01M30 20h.01M19 28c3 2.6 7 2.6 10 0"/></svg>
+            <h3>Tratamientos faciales</h3>
+            <p>Para una piel limpia, hidratada y con buena cara.</p>
+          </article>
+          <article class="bcard">
+            <svg class="bcard__ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M17 8c-2 9 0 15 7 16s9 7 7 16M31 8c2 9 0 15-7 16"/></svg>
+            <h3>Tratamientos corporales</h3>
+            <p>Un rato para ti, para cuidarte de pies a cabeza.</p>
+          </article>
+          <article class="bcard">
+            <svg class="bcard__ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M14 30c0-8 4-18 10-18s10 10 10 18"/><path d="M10 30h28v4a4 4 0 0 1-4 4H14a4 4 0 0 1-4-4z"/></svg>
+            <h3>Ritual de manos y pies</h3>
+            <p>Manicura y pedicura juntas, para salir como nueva.</p>
+          </article>
+          <article class="bcard">
+            <svg class="bcard__ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 40s-13-8-13-18a7 7 0 0 1 13-4 7 7 0 0 1 13 4c0 10-13 18-13 18Z"/></svg>
+            <h3>Bodas y eventos</h3>
+            <p>Uñas para novias, invitadas, bautizos y comuniones. Mejor con tiempo.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="section" id="galeria">
+      <div class="wrap">
+        <header class="section__head section__head--row">
+          <div>
+            <p class="mono label">03 — Galería</p>
+            <h2>Ideas para tu próxima cita.</h2>
+          </div>
+          <p class="section__lead">Diseños de referencia ilustrados. Aquí irán las fotos reales de los trabajos del estudio.</p>
+        </header>
+
+        <div class="gallery">
+          <figure class="shot shot--tall">
+            <img src="assets/galeria/francesa.svg" alt="Ilustración de uñas almendra con manicura francesa" loading="lazy" width="600" height="800">
+            <figcaption><span class="mono">Ref. 01</span> Francesa fina</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/galeria/cereza.svg" alt="Ilustración de uñas en rojo cereza brillante" loading="lazy" width="600" height="600">
+            <figcaption><span class="mono">Ref. 02</span> Rojo cereza</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/galeria/baby-boomer.svg" alt="Ilustración de uñas con degradado baby boomer" loading="lazy" width="600" height="600">
+            <figcaption><span class="mono">Ref. 03</span> Baby boomer</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/galeria/cromado.svg" alt="Ilustración de uñas con efecto cromado" loading="lazy" width="600" height="600">
+            <figcaption><span class="mono">Ref. 04</span> Cromado perla</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/galeria/linea-fina.svg" alt="Ilustración de uñas nude con nail art de línea fina" loading="lazy" width="600" height="600">
+            <figcaption><span class="mono">Ref. 05</span> Línea fina</figcaption>
+          </figure>
+          <figure class="shot shot--wide">
+            <img src="assets/galeria/pedicura.svg" alt="Ilustración de pedicura en tono malva" loading="lazy" width="1200" height="600">
+            <figcaption><span class="mono">Ref. 06</span> Pedicura malva</figcaption>
+          </figure>
+        </div>
+        <p class="note note--center">¿Has visto un diseño que te encanta? Mándanos la foto por WhatsApp y te decimos cómo hacerlo.</p>
+      </div>
+    </section>
+
+    <!-- ESTUDIO -->
+    <section class="section section--bone" id="estudio">
+      <div class="wrap about">
+        <div class="about__plate" aria-hidden="true">
+          <div class="plate">
+            <span class="plate__mono">MB</span>
+            <span class="plate__rule"></span>
+            <span class="plate__name">María Baena</span>
+            <span class="mono plate__sub">Nails &amp; Beauty · Bormujos</span>
+          </div>
+          <div class="tools">
+            <span class="tool tool--file"></span>
+            <span class="tool tool--brush"></span>
+            <span class="tool tool--bottle"></span>
+          </div>
+        </div>
+        <div class="about__copy">
+          <p class="mono label">04 — El estudio</p>
+          <h2>Manos de confianza, cita tras cita.</h2>
+          <p>María empezó con su salón de uñas en Gines y hoy recibe en Bormujos, con un pequeño equipo que trabaja como ella: con paciencia, buen trato y mucho ojo para el detalle.</p>
+          <p>Aquí no hay cadena ni prisas. Te sientas, nos cuentas qué te apetece y salimos con un resultado que dura.</p>
+          <ul class="checks">
+            <li>Material desinfectado y limpieza en cada servicio</li>
+            <li>Amplia carta de colores para elegir en el momento</li>
+            <li>Consejo honesto sobre forma, largo y acabado</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPINIONES -->
+    <section class="section" id="opiniones">
+      <div class="wrap">
+        <header class="section__head section__head--row">
+          <div>
+            <p class="mono label">05 — Opiniones</p>
+            <h2>Lo que más repiten las clientas.</h2>
+          </div>
+          <div class="score">
+            <strong>4,9</strong>
+            <span class="stars" aria-hidden="true">★★★★★</span>
+            <span class="mono">+90 opiniones en Google</span>
+          </div>
+        </header>
+        <div class="quotes">
+          <article class="quote">
+            <p>El semipermanente aguanta tres o cuatro semanas sin desconcharse.</p>
+            <footer class="mono">Resumen de opiniones · Duración</footer>
+          </article>
+          <article class="quote quote--cola">
+            <p>Trato cercano, buen ambiente y un equipo que te hace sentir a gusto.</p>
+            <footer class="mono">Resumen de opiniones · Trato</footer>
+          </article>
+          <article class="quote">
+            <p>Muy buena relación calidad-precio para el resultado que te llevas.</p>
+            <footer class="mono">Resumen de opiniones · Calidad-precio</footer>
+          </article>
+        </div>
+        <p class="note note--center">Frases que resumen opiniones públicas de Google. Al publicar la web se enlazarán las reseñas originales.</p>
+      </div>
+    </section>
+
+    <!-- CTA / CITA -->
+    <section class="section section--ink" id="cita">
+      <div class="wrap cta">
+        <div class="cta__copy">
+          <p class="mono label label--light">06 — Pide tu cita</p>
+          <h2>Tu próxima manicura, a un mensaje.</h2>
+          <p>Elige servicio y franja, y te preparamos el WhatsApp. María te confirma el hueco.</p>
+          <a class="cta__phone" href="tel:+34695634092">
+            <span class="mono">o llama al</span>
+            <strong>695 63 40 92</strong>
+          </a>
+        </div>
+        <form class="ask" id="ask" novalidate>
+          <fieldset>
+            <legend>¿Qué te hacemos?</legend>
+            <div class="chips" role="group" aria-label="Servicio">
+              <label class="chip"><input type="radio" name="servicio" value="semipermanente" checked><span>Semipermanente</span></label>
+              <label class="chip"><input type="radio" name="servicio" value="uñas de gel"><span>Gel</span></label>
+              <label class="chip"><input type="radio" name="servicio" value="uñas acrílicas"><span>Acrílicas</span></label>
+              <label class="chip"><input type="radio" name="servicio" value="nail art"><span>Nail art</span></label>
+              <label class="chip"><input type="radio" name="servicio" value="pedicura"><span>Pedicura</span></label>
+              <label class="chip"><input type="radio" name="servicio" value="un tratamiento facial o corporal"><span>Beauty</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>¿Cuándo te viene mejor?</legend>
+            <div class="chips" role="group" aria-label="Franja">
+              <label class="chip"><input type="radio" name="franja" value="por la mañana" checked><span>Mañana</span></label>
+              <label class="chip"><input type="radio" name="franja" value="por la tarde"><span>Tarde</span></label>
+              <label class="chip"><input type="radio" name="franja" value="cuando haya hueco"><span>Me da igual</span></label>
+            </div>
+          </fieldset>
+          <label class="field">
+            <span>Tu nombre</span>
+            <input type="text" name="nombre" autocomplete="given-name" placeholder="Ej. Lucía">
+          </label>
+          <p class="ask__preview mono" id="preview" aria-live="polite"></p>
+          <button class="btn btn--cola btn--block" type="submit">Enviar por WhatsApp</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- UBICACIÓN + CONTACTO -->
+    <section class="section" id="contacto">
+      <div class="wrap visit">
+        <div class="visit__map" aria-hidden="true">
+          <svg viewBox="0 0 520 380" class="map">
+            <rect width="520" height="380" fill="#E9E5E0"/>
+            <path d="M-10 250 C120 230 220 260 330 220 S470 160 540 170" class="map__road map__road--main"/>
+            <path d="M200 -10 C210 90 190 190 230 400" class="map__road"/>
+            <path d="M380 -10 C360 110 390 250 360 400" class="map__road"/>
+            <path d="M-10 110 C100 120 300 90 540 105" class="map__road"/>
+            <path d="M60 -10 L90 400" class="map__road map__road--thin"/>
+            <path d="M-10 330 L540 300" class="map__road map__road--thin"/>
+            <rect x="240" y="120" width="110" height="80" rx="6" class="map__block"/>
+            <rect x="100" y="140" width="80" height="70" rx="6" class="map__block"/>
+            <rect x="410" y="190" width="90" height="90" rx="6" class="map__park"/>
+            <g transform="translate(290 168)">
+              <circle r="30" class="map__halo"/>
+              <path d="M0 14 C-11 2 -13 -4 -13 -9 a13 13 0 0 1 26 0 c0 5 -2 11 -13 23Z" class="map__pin"/>
+              <circle cy="-9" r="4.5" fill="#F3F0EC"/>
+            </g>
+            <text x="300" y="132" class="map__label">C. Colón</text>
+            <text x="24" y="270" class="map__label map__label--soft">Bormujos</text>
+          </svg>
+        </div>
+        <div class="visit__info">
+          <p class="mono label">07 — Ubicación y contacto</p>
+          <h2>Te esperamos en Bormujos.</h2>
+          <dl class="info">
+            <div><dt class="mono">Dirección</dt><dd>Calle Colón · 41930 Bormujos, Sevilla</dd></div>
+            <div><dt class="mono">Teléfono</dt><dd><a href="tel:+34695634092">695 63 40 92</a></dd></div>
+            <div><dt class="mono">WhatsApp</dt><dd><a data-wa="Hola María, tengo una pregunta." href="https://wa.me/34695634092">Escribir un mensaje</a></dd></div>
+            <div><dt class="mono">Horario</dt><dd>Lunes a viernes · 9:30–13:30 y 16:00–20:00<br><span class="muted">Sábado y domingo, cerrado</span></dd></div>
+          </dl>
+          <p class="open" id="open" hidden><span class="open__dot"></span><span id="openText"></span></p>
+          <div class="visit__actions">
+            <a class="btn btn--ink" href="https://www.google.com/maps/search/?api=1&amp;query=Mar%C3%ADa%20Baena%20Nails%20%26%20Beauty%20Calle%20Col%C3%B3n%20Bormujos" target="_blank" rel="noopener">Cómo llegar</a>
+            <a class="btn btn--line" href="tel:+34695634092">Llamar ahora</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div>
+        <p class="footer__brand">María Baena <small>Nails &amp; Beauty</small></p>
+        <p class="muted">Estudio de uñas y belleza en Bormujos, Sevilla.</p>
+      </div>
+      <nav aria-label="Pie de página">
+        <a href="#unas">Uñas</a>
+        <a href="#beauty">Beauty</a>
+        <a href="#galeria">Galería</a>
+        <a href="#estudio">El estudio</a>
+        <a href="#cita">Pedir cita</a>
+      </nav>
+      <div>
+        <p><a href="tel:+34695634092">695 63 40 92</a></p>
+        <p class="muted">Calle Colón · 41930 Bormujos</p>
+      </div>
+    </div>
+    <div class="wrap footer__base">
+      <span>© <span id="year">2026</span> María Baena Nails &amp; Beauty</span>
+      <span class="muted">Propuesta de diseño · versión preliminar</span>
+    </div>
+  </footer>
+
+  <a class="fab" data-wa="Hola María, me gustaría pedir cita." href="https://wa.me/34695634092" aria-label="Pedir cita por WhatsApp">
+    <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.2a8.7 8.7 0 0 0-7.5 13.2L3.3 21l4.7-1.2A8.7 8.7 0 1 0 12 3.2Zm0 15.9a7.2 7.2 0 0 1-3.7-1l-.3-.2-2.7.7.7-2.6-.2-.3A7.2 7.2 0 1 1 12 19.1Zm4-5.4c-.2-.1-1.3-.6-1.5-.7-.2-.1-.3-.1-.5.1l-.7.8c-.1.2-.3.2-.5.1a5.9 5.9 0 0 1-2.9-2.6c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.4a.8.8 0 0 0-.6.3 2.5 2.5 0 0 0-.8 1.9 4.4 4.4 0 0 0 .9 2.3 10 10 0 0 0 3.8 3.4c1.4.6 2 .6 2.7.5.4-.1 1.3-.5 1.5-1 .2-.5.2-1 .1-1-.1-.2-.2-.2-.5-.3Z"/></svg>
+  </a>
+
+  <script src="main.js" defer></script>
 </body>
 </html>
