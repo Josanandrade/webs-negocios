@@ -1,16 +1,481 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sonia · Peluquería y Salón de Belleza en Espartinas</title>
+  <meta name="description" content="Sonia, Peluquería y Salón de Belleza en Urb. Los Castaños (Novo Parque), Espartinas. Peluquería de señora y caballero, novias, color, keratina, extensiones y belleza. Pide tu cita por teléfono o WhatsApp.">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="theme-color" content="#FBF8F2">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=La+Belle+Aurore&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__inner">
+      <a class="brand" href="#top" aria-label="Sonia, Peluquería y Salón de Belleza, inicio">
+        <span class="brand__mark" aria-hidden="true">Sonia</span>
+        <span class="brand__tag">Peluquería y Salón de Belleza</span>
+      </a>
+      <nav class="nav__links" aria-label="Secciones">
+        <a href="#peluqueria">Peluquería</a>
+        <a href="#belleza">Belleza</a>
+        <a href="#consejos">Consejos</a>
+        <a href="#galeria">Galería</a>
+        <a href="#sonia">Sobre Sonia</a>
+        <a href="#ubicacion">Dónde estamos</a>
+      </nav>
+      <a class="btn btn--small nav__cta" href="#cita">Pedir cita</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="menu" id="menu" hidden>
+      <a href="#peluqueria">Peluquería</a>
+      <a href="#belleza">Belleza</a>
+      <a href="#consejos">Consejos</a>
+      <a href="#galeria">Galería</a>
+      <a href="#sonia">Sobre Sonia</a>
+      <a href="#ubicacion">Dónde estamos</a>
+      <a class="btn" href="#cita">Pedir cita</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow">Novo Parque · Espartinas</p>
+          <h1 class="hero__title">
+            <span class="hero__name">Sonia</span>
+            <span class="hero__line">Peluquería <em>y</em> Salón de Belleza</span>
+          </h1>
+          <p class="hero__lead">Más de veinte años encontrando el estilo de cada clienta y cada cliente. Corte, color, novias, keratina y belleza en un salón de barrio donde te conocen por tu nombre.</p>
+          <div class="hero__actions">
+            <a class="btn" href="#cita">Pedir cita</a>
+            <a class="btn btn--ghost" data-wa="Hola Sonia, me gustaría pedir cita en el salón." href="#cita">Escribir por WhatsApp</a>
+          </div>
+          <ul class="hero__facts" aria-label="Datos del salón">
+            <li><strong>+20</strong><span>años de oficio</span></li>
+            <li><strong>Señoras</strong><span>caballeros y novias</span></li>
+            <li><strong>Pelo</strong><span>y belleza bajo un techo</span></li>
+          </ul>
+        </div>
+
+        <div class="hero__art" aria-hidden="true">
+          <div class="mirror">
+            <svg viewBox="0 0 400 520" class="mirror__svg">
+              <defs>
+                <linearGradient id="hg" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#D8D4F2"/>
+                  <stop offset="1" stop-color="#F6E4D3"/>
+                </linearGradient>
+              </defs>
+              <path d="M30 520V200a170 170 0 0 1 340 0v320z" fill="url(#hg)"/>
+              <circle cx="200" cy="190" r="120" fill="#C9C6EA" opacity=".55"/>
+              <path d="M200 96c-70 0-112 52-112 124 0 60-24 120-40 190 50 40 108 54 152 54s102-14 152-54c-16-70-40-130-40-190 0-72-42-124-112-124z" fill="#2B2559"/>
+              <path d="M110 520c8-70 44-112 90-112s82 42 90 112z" fill="#F6E4D3"/>
+              <rect x="180" y="300" width="40" height="70" rx="18" fill="#EFC9AE"/>
+              <ellipse cx="200" cy="232" rx="62" ry="78" fill="#F3DCCB"/>
+              <path d="M136 226c4-58 30-96 70-100 40 4 62 40 60 74-30-6-58-26-74-56-10 34-30 62-56 82z" fill="#2B2559"/>
+              <path d="M150 170c-22 60-28 150-10 250M246 160c24 50 34 140 24 260" stroke="#D98E4A" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <path d="M168 150c-20 70-24 170-4 270" stroke="#E6CFA6" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".8"/>
+              <path d="M184 270c10 8 22 8 32 0" stroke="#B06A2C" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <circle cx="176" cy="232" r="4" fill="#2B2559"/><circle cx="224" cy="232" r="4" fill="#2B2559"/>
+            </svg>
+          </div>
+          <div class="hero__card hero__card--a">
+            <span class="dot"></span>
+            <div>
+              <b>Urb. Los Castaños, 27</b>
+              <small>Novo Parque · 41807 Espartinas</small>
+            </div>
+          </div>
+          <div class="hero__card hero__card--b">
+            <small>Cita por teléfono</small>
+            <b>954 11 36 20</b>
+          </div>
+          <p class="hero__sign">Tu peluquera, Sonia</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS (resumen) -->
+    <section class="services" id="servicios">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">Servicios</p>
+          <h2>Todo lo que te hacemos en el salón</h2>
+          <p>Peluquería para toda la familia y una cabina de belleza con profesionales para cada tratamiento.</p>
+        </header>
+        <div class="tiles">
+          <a class="tile reveal" href="#peluqueria">
+            <span class="tile__n">01</span>
+            <h3>Señoras</h3>
+            <p>Corte, peinado, color y tratamientos.</p>
+          </a>
+          <a class="tile reveal" href="#peluqueria">
+            <span class="tile__n">02</span>
+            <h3>Caballeros</h3>
+            <p>Corte clásico o con tendencia.</p>
+          </a>
+          <a class="tile reveal" href="#novias">
+            <span class="tile__n">03</span>
+            <h3>Novias y fiesta</h3>
+            <p>Peinados y recogidos para tu día.</p>
+          </a>
+          <a class="tile reveal" href="#peluqueria">
+            <span class="tile__n">04</span>
+            <h3>Keratina y extensiones</h3>
+            <p>Pelo liso, manejable o con más largo.</p>
+          </a>
+          <a class="tile reveal" href="#belleza">
+            <span class="tile__n">05</span>
+            <h3>Estética</h3>
+            <p>Rostro, cuerpo, pies y maquillaje.</p>
+          </a>
+          <a class="tile reveal" href="#belleza">
+            <span class="tile__n">06</span>
+            <h3>Depilación láser</h3>
+            <p>Con profesional especializada.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PELUQUERÍA -->
+    <section class="menu-block menu-block--hair" id="peluqueria">
+      <div class="wrap menu-block__grid">
+        <div class="menu-block__intro">
+          <p class="eyebrow">Peluquería</p>
+          <h2>Tu pelo, con consejo de verdad</h2>
+          <p>Sonia te asesora sobre el corte y el color que mejor te sientan, desde el estilo más clásico hasta la última tendencia, siempre con productos que cuidan el cabello.</p>
+          <a class="link-arrow" href="#cita">Reservar en peluquería</a>
+        </div>
+        <ul class="carta">
+          <li class="reveal">
+            <h3>Corte y peinado de señora</h3>
+            <p>Corte, secado y peinado adaptados a tu cara y a tu día a día.</p>
+          </li>
+          <li class="reveal">
+            <h3>Corte de caballero</h3>
+            <p>Para ellos también: corte y acabado a su gusto.</p>
+          </li>
+          <li class="reveal">
+            <h3>Color, tintes y mechas</h3>
+            <p>Mechas naturales, cambios de color y retoques de raíz. Te ayudamos a elegir el tono.</p>
+          </li>
+          <li class="reveal">
+            <h3>Baño de color</h3>
+            <p>Unifica el tono, hidrata y devuelve el brillo a tu melena.</p>
+          </li>
+          <li class="reveal">
+            <h3>Alisado de keratina</h3>
+            <p>Pelo liso y sin encrespamiento durante meses, según tu cabello. Fórmula sin formol, aplicada por profesionales.</p>
+          </li>
+          <li class="reveal">
+            <h3>Extensiones</h3>
+            <p>Más largo o más volumen con un resultado natural.</p>
+          </li>
+          <li class="reveal">
+            <h3>Tratamientos capilares</h3>
+            <p>Hidratación y cuidado para el pelo castigado por el sol, el color o el calor.</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="wrap">
+        <div class="bridal reveal" id="novias">
+          <div class="bridal__copy">
+            <p class="eyebrow eyebrow--light">Novias y fiesta</p>
+            <h3>Peinados y recogidos para los días que se recuerdan</h3>
+            <p>Bodas, comuniones, ferias y celebraciones. Cuéntanos la fecha y preparamos juntas la prueba de peinado.</p>
+            <a class="btn btn--light" data-wa="Hola Sonia, me caso / tengo un evento y quería información sobre peinado de novia o fiesta." href="#cita">Consultar fecha</a>
+          </div>
+          <svg class="bridal__art" viewBox="0 0 240 240" aria-hidden="true">
+            <circle cx="120" cy="120" r="110" fill="none" stroke="#D98E4A" stroke-width="1.5" stroke-dasharray="3 7"/>
+            <path d="M120 40c-38 0-62 30-58 64 2 18 12 30 24 38-6 18-4 38 8 56h52c12-18 14-38 8-56 12-8 22-20 24-38 4-34-20-64-58-64z" fill="#F6E4D3" opacity=".18"/>
+            <circle cx="120" cy="62" r="22" fill="#F6E4D3" opacity=".9"/>
+            <circle cx="104" cy="56" r="7" fill="#D98E4A"/><circle cx="136" cy="56" r="7" fill="#D98E4A"/><circle cx="120" cy="44" r="7" fill="#D98E4A"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- BELLEZA -->
+    <section class="menu-block menu-block--beauty" id="belleza">
+      <div class="wrap menu-block__grid menu-block__grid--rev">
+        <div class="menu-block__intro">
+          <p class="eyebrow">Belleza</p>
+          <h2>La cabina del salón</h2>
+          <p>Además de la peluquería, el salón cuenta con profesionales de estética para cuidarte de la cabeza a los pies. Algunos servicios funcionan con agenda propia: pregúntanos días y horarios.</p>
+          <a class="link-arrow" href="#cita">Consultar un tratamiento</a>
+        </div>
+        <div class="beauty-cards">
+          <article class="bcard reveal">
+            <span class="bcard__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="14" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 26c2-3 4-4 6-4s4 1 6 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+            <h3>Faciales y corporales</h3>
+            <p>Tratamientos de rostro y cuerpo con cosmética Ella Baché, pensados para la flacidez, la celulitis o las marcas de la edad.</p>
+          </article>
+          <article class="bcard reveal">
+            <span class="bcard__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 24l16-16M12 8l12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="currentColor"/></svg></span>
+            <h3>Depilación láser</h3>
+            <p>Fotodepilación con una profesional especializada que pasa por el salón en días concretos. Llámanos para precios y fechas.</p>
+            <span class="tag">Agenda propia</span>
+          </article>
+          <article class="bcard reveal">
+            <span class="bcard__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 18c4-6 16-6 20 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M9 15l-2-4M13 13l-1-4M19 13l1-4M23 15l2-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+            <h3>Maquillaje y pestañas</h3>
+            <p>Maquillaje para eventos y maquillaje permanente de pestañas para lucir mirada sin esfuerzo.</p>
+          </article>
+          <article class="bcard reveal">
+            <span class="bcard__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M11 6c-2 6-2 12 0 16 1 3 5 4 8 3l6-2c2-1 2-4 0-5l-6-2c-2-1-3-3-3-5V6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+            <h3>Pedicura</h3>
+            <p>Durezas, corte, limado y esmaltado para enseñar los pies con ganas cuando llega el buen tiempo.</p>
+          </article>
+          <article class="bcard reveal">
+            <span class="bcard__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 20c3-2 6-2 10 0s7 2 10 0M6 14c3-2 6-2 10 0s7 2 10 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+            <h3>Masaje terapéutico</h3>
+            <p>Para dolores, tensión muscular, contracturas y estrés, de la mano de fisioterapeuta.</p>
+            <span class="tag">Consultar disponibilidad</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONSEJOS: herencia del blog -->
+    <section class="tips" id="consejos">
+      <div class="wrap">
+        <header class="section-head section-head--split">
+          <div>
+            <p class="eyebrow">Consejos de Sonia</p>
+            <h2>¿Qué color elijo para mi pelo?</h2>
+          </div>
+          <p>La pregunta que más escuchamos en el salón. Elige tu tono de piel y te contamos por dónde empezaríamos. Luego, en el sillón, lo afinamos contigo.</p>
+        </header>
+
+        <div class="picker reveal">
+          <div class="picker__skins" role="radiogroup" aria-label="Tu tono de piel">
+            <button type="button" role="radio" aria-checked="true" data-skin="clara" style="--s:#F3DCCB">Piel clara</button>
+            <button type="button" role="radio" aria-checked="false" data-skin="amarillenta" style="--s:#E2C08F">Tono amarillento</button>
+            <button type="button" role="radio" aria-checked="false" data-skin="rosada" style="--s:#E9B5A4">Tono rosado</button>
+            <button type="button" role="radio" aria-checked="false" data-skin="morena" style="--s:#A8754F">Piel morena</button>
+          </div>
+          <div class="picker__result" aria-live="polite">
+            <div class="picker__swatches" id="swatches"></div>
+            <div>
+              <h3 id="tip-title">Piel clara</h3>
+              <p id="tip-text">Mejor huir de los colores extremos: tonos suaves y naturales que iluminen sin endurecer las facciones.</p>
+              <a class="link-arrow" data-wa="Hola Sonia, quiero cambiar de color y me gustaría que me asesoraras." href="#cita">Pedir asesoramiento de color</a>
+            </div>
+          </div>
+          <p class="picker__note">¿Te atreves con algo distinto? Azules, rosas y fantasía también se hacen en el salón.</p>
+        </div>
+
+        <div class="notes">
+          <article class="note reveal">
+            <span class="note__kicker">Keratina</span>
+            <h3>Pelo liso y perfecto</h3>
+            <p>Si tu pelo se encrespa o cuesta peinarlo, el alisado de keratina puede durar meses. Siempre aplicado por profesionales.</p>
+          </article>
+          <article class="note reveal">
+            <span class="note__kicker">Color</span>
+            <h3>El baño de color</h3>
+            <p>La forma más rápida de unificar el tono y recuperar el brillo entre tinte y tinte.</p>
+          </article>
+          <article class="note reveal">
+            <span class="note__kicker">Verano</span>
+            <h3>Enseña tus pies</h3>
+            <p>Tras un invierno de zapato cerrado, una buena pedicura antes de la primera sandalia.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="gallery" id="galeria">
+      <div class="wrap">
+        <header class="section-head section-head--split">
+          <div>
+            <p class="eyebrow">Galería</p>
+            <h2>Trabajos del salón</h2>
+          </div>
+          <div class="filters" role="group" aria-label="Filtrar galería">
+            <button type="button" class="is-active" aria-pressed="true" data-filter="all">Todo</button>
+            <button type="button" aria-pressed="false" data-filter="color">Color</button>
+            <button type="button" aria-pressed="false" data-filter="peinado">Peinados</button>
+            <button type="button" aria-pressed="false" data-filter="belleza">Belleza</button>
+          </div>
+        </header>
+        <div class="works">
+          <figure class="work work--tall" data-cat="color"><img src="assets/galeria/mechas.svg" alt="Ilustración: melena con mechas naturales" loading="lazy" width="600" height="800"><figcaption>Mechas naturales</figcaption></figure>
+          <figure class="work" data-cat="peinado"><img src="assets/galeria/keratina.svg" alt="Ilustración: melena lisa tras alisado de keratina" loading="lazy" width="600" height="600"><figcaption>Alisado de keratina</figcaption></figure>
+          <figure class="work" data-cat="peinado"><img src="assets/galeria/recogido.svg" alt="Ilustración: recogido de novia" loading="lazy" width="600" height="600"><figcaption>Recogido de novia</figcaption></figure>
+          <figure class="work" data-cat="color"><img src="assets/galeria/cobrizo.svg" alt="Ilustración: cambio de color a cobrizo" loading="lazy" width="600" height="600"><figcaption>Cambio a cobrizo</figcaption></figure>
+          <figure class="work" data-cat="peinado"><img src="assets/galeria/caballero.svg" alt="Ilustración: corte de caballero" loading="lazy" width="600" height="600"><figcaption>Corte de caballero</figcaption></figure>
+          <figure class="work work--wide" data-cat="belleza"><img src="assets/galeria/cabina.svg" alt="Ilustración: cabina de estética" loading="lazy" width="900" height="600"><figcaption>Cabina de estética</figcaption></figure>
+        </div>
+        <p class="gallery__note">Las imágenes son ilustraciones de muestra. Aquí irían las fotos reales de los trabajos del salón.</p>
+      </div>
+    </section>
+
+    <!-- SOBRE SONIA -->
+    <section class="about" id="sonia">
+      <div class="wrap about__grid">
+        <div class="about__portrait reveal" aria-hidden="true">
+          <svg viewBox="0 0 320 380">
+            <defs><clipPath id="pc"><rect width="320" height="380" rx="160"/></clipPath></defs>
+            <g clip-path="url(#pc)">
+            <rect width="320" height="380" fill="#2B2559"/>
+            <circle cx="160" cy="150" r="58" fill="#F6E4D3"/>
+            <path d="M98 150c-6-56 30-92 70-90 44 2 66 40 58 84-14-30-40-44-74-40-26 4-44 20-54 46z" fill="#D98E4A"/>
+            <path d="M70 380c6-80 44-128 90-128s84 48 90 128z" fill="#C9C6EA"/>
+            </g>
+            <text x="160" y="345" text-anchor="middle" font-family="La Belle Aurore, cursive" font-size="34" fill="#2B2559">Sonia</text>
+          </svg>
+        </div>
+        <div class="about__copy">
+          <p class="eyebrow">Sobre Sonia y el salón</p>
+          <h2>Peluquera desde los 17, y con la misma ilusión</h2>
+          <p>Sonia lleva más de veinte años detrás del sillón. Para ella su trabajo es también su pasión, y por eso sigue formándose en las tendencias de corte, color y peinado para que cada persona salga contenta con su look.</p>
+          <p>Hay clientas que la acompañan desde sus comienzos en Sevilla Este. Hoy el salón está en Novo Parque, en Espartinas, con un equipo que suma estética, depilación láser y masaje para que no tengas que ir de un sitio a otro.</p>
+          <ol class="timeline">
+            <li><b>Sevilla Este</b><span>Los primeros años de oficio y las primeras clientas de toda la vida.</span></li>
+            <li><b>Espartinas</b><span>El salón se instala en el pueblo y se hace parte del barrio.</span></li>
+            <li><b>Marzo 2014</b><span>Nueva casa en Urb. Los Castaños, 27, en Novo Parque.</span></li>
+            <li><b>Siempre</b><span>Formación en galas de peluquería y productos de calidad para cuidar pelo y piel.</span></li>
+          </ol>
+          <p class="about__sign">Tu peluquera, Sonia</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPINIONES -->
+    <section class="reviews" id="opiniones">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">Opiniones</p>
+          <h2>Lo que dicen quienes vienen</h2>
+        </header>
+        <div class="reviews__grid">
+          <blockquote class="quote quote--main reveal">
+            <p>“Has sido mi peluquera de toda la vida, desde que empezaste en Sevilla Este hasta ahora que estás en Espartinas. Siempre has sabido encontrar mi estilo en el peinado y en las mechas tan naturales que me pones. Es muy profesional y encantadora.”</p>
+            <footer>Eva <span>· clienta de toda la vida</span></footer>
+          </blockquote>
+          <div class="quote quote--slot reveal">
+            <p>Espacio para mostrar las reseñas de Google del salón, con su valoración y su número de opiniones.</p>
+            <footer>Pendiente de conectar</footer>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="cita">
+      <div class="wrap cta__grid">
+        <div>
+          <p class="eyebrow eyebrow--light">Pide tu cita</p>
+          <h2>¿Te cambiamos el look?</h2>
+          <p>Llama al salón o escríbenos por WhatsApp. Si quieres, elige aquí el servicio y te dejamos el mensaje preparado.</p>
+          <div class="cta__phones">
+            <a class="phone" href="tel:+34954113620"><small>Salón</small>954 11 36 20</a>
+            <a class="phone" href="tel:+34616499044"><small>Móvil</small>616 49 90 44</a>
+          </div>
+        </div>
+        <form class="ask" id="ask">
+          <label for="ask-name">Tu nombre</label>
+          <input id="ask-name" name="name" autocomplete="given-name" placeholder="Por ejemplo, Lucía">
+          <fieldset>
+            <legend>¿Qué te hacemos?</legend>
+            <div class="chips">
+              <label><input type="radio" name="svc" value="corte y peinado" checked><span>Corte y peinado</span></label>
+              <label><input type="radio" name="svc" value="color o mechas"><span>Color o mechas</span></label>
+              <label><input type="radio" name="svc" value="alisado de keratina"><span>Keratina</span></label>
+              <label><input type="radio" name="svc" value="peinado de novia o fiesta"><span>Novia o fiesta</span></label>
+              <label><input type="radio" name="svc" value="un tratamiento de estética"><span>Estética</span></label>
+              <label><input type="radio" name="svc" value="depilación láser"><span>Depilación láser</span></label>
+            </div>
+          </fieldset>
+          <label for="ask-when">¿Cuándo te viene bien?</label>
+          <select id="ask-when" name="when">
+            <option>lo antes posible</option>
+            <option>esta semana</option>
+            <option>la semana que viene</option>
+            <option>tengo una fecha concreta</option>
+          </select>
+          <button class="btn btn--accent" type="submit">Preparar mensaje de WhatsApp</button>
+          <p class="ask__note">No se envía nada desde esta web: se abre WhatsApp con el mensaje listo para que lo mandes tú.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- UBICACIÓN -->
+    <section class="location" id="ubicacion">
+      <div class="wrap location__grid">
+        <div class="map reveal" aria-hidden="true">
+          <svg viewBox="0 0 520 380">
+            <rect width="520" height="380" fill="#EFEAF8"/>
+            <path d="M-10 250C120 230 210 280 330 240S470 180 540 200" stroke="#fff" stroke-width="26" fill="none"/>
+            <path d="M160 -10C170 100 150 200 190 390" stroke="#fff" stroke-width="18" fill="none"/>
+            <path d="M380 -10C360 90 400 170 360 390" stroke="#fff" stroke-width="12" fill="none"/>
+            <g fill="#DCD6EF"><rect x="30" y="40" width="100" height="70" rx="10"/><rect x="210" y="40" width="130" height="90" rx="10"/><rect x="410" y="60" width="90" height="80" rx="10"/><rect x="30" y="290" width="110" height="70" rx="10"/><rect x="220" y="290" width="110" height="70" rx="10"/><rect x="410" y="260" width="90" height="100" rx="10"/></g>
+            <g transform="translate(270 168)"><circle r="34" fill="#D98E4A" opacity=".22"/><path d="M0 18c-14-16-20-26-20-36a20 20 0 0 1 40 0c0 10-6 20-20 36z" fill="#2B2559"/><circle cy="-18" r="7" fill="#FBF8F2"/></g>
+            <text x="270" y="222" text-anchor="middle" font-family="Instrument Sans, sans-serif" font-size="14" font-weight="600" fill="#2B2559">Los Castaños, 27</text>
+          </svg>
+        </div>
+        <div class="location__copy">
+          <p class="eyebrow">Ubicación</p>
+          <h2>En Novo Parque, Espartinas</h2>
+          <address>Urbanización Los Castaños, 27<br>Novo Parque · 41807 Espartinas (Sevilla)</address>
+          <dl class="hours">
+            <div><dt>Lunes a sábado</dt><dd>9:30 – 14:00</dd></div>
+            <div><dt>Domingo</dt><dd>Cerrado</dd></div>
+          </dl>
+          <p class="hours__note">Para tardes y servicios con agenda propia, consúltanos por teléfono.</p>
+          <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&query=Urbanizaci%C3%B3n%20Los%20Casta%C3%B1os%2027%2C%2041807%20Espartinas" target="_blank" rel="noopener">Cómo llegar</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="contact" id="contacto">
+      <div class="wrap contact__grid">
+        <a class="ccard" href="tel:+34954113620"><small>Teléfono del salón</small><b>954 11 36 20</b></a>
+        <a class="ccard" href="tel:+34616499044"><small>Móvil</small><b>616 49 90 44</b></a>
+        <a class="ccard" data-wa="Hola Sonia, quería hacer una consulta." href="#cita"><small>WhatsApp</small><b>Escríbenos</b></a>
+        <a class="ccard" href="mailto:tecambiotulook@hotmail.com"><small>Correo</small><b>tecambiotulook@hotmail.com</b></a>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div>
+        <span class="brand__mark">Sonia</span>
+        <p>Peluquería y Salón de Belleza<br>Urb. Los Castaños, 27 · Novo Parque · Espartinas</p>
+      </div>
+      <nav aria-label="Pie de página">
+        <a href="#peluqueria">Peluquería</a>
+        <a href="#belleza">Belleza</a>
+        <a href="#consejos">Consejos</a>
+        <a href="#cita">Pedir cita</a>
+      </nav>
+      <p class="footer__legal">© <span id="year">2026</span> Sonia, Peluquería y Salón de Belleza · Aviso legal · Privacidad · Cookies</p>
+    </div>
+  </footer>
+
+  <a class="fab" data-wa="Hola Sonia, me gustaría pedir cita." href="#cita" aria-label="Pedir cita por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.8-1.1-4.6-4-4.8-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.1.1.7-.1 1.2z" fill="currentColor"/></svg>
+    <span>Pedir cita</span>
+  </a>
+
+  <script src="main.js" defer></script>
 </body>
 </html>
