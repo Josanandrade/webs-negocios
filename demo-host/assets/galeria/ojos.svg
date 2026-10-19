@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Ilustración: mirada maquillada con ahumado suave y pestañas">
+  <rect width="600" height="750" fill="#EBDFD6"/>
+  <circle cx="300" cy="375" r="250" fill="#E7C9BE"/>
+  <path d="M110 380 C190 250 410 250 490 380 C410 300 190 300 110 380 Z" fill="#7A3D46" opacity=".55"/>
+  <path d="M130 390 C210 300 390 300 470 390 C390 470 210 470 130 390 Z" fill="#FFFFFF"/>
+  <circle cx="300" cy="388" r="62" fill="#5B3A2C"/>
+  <circle cx="300" cy="388" r="28" fill="#1F1A1C"/>
+  <circle cx="320" cy="368" r="10" fill="#FFFFFF"/>
+  <path d="M130 390 C210 300 390 300 470 390" fill="none" stroke="#1F1A1C" stroke-width="9" stroke-linecap="round"/>
+  <g stroke="#1F1A1C" stroke-width="6" stroke-linecap="round" fill="none">
+    <path d="M170 352 L150 326"/><path d="M205 330 L190 300"/><path d="M245 316 L236 284"/><path d="M285 310 L282 276"/><path d="M325 311 L330 277"/><path d="M365 318 L376 286"/><path d="M403 332 L420 304"/><path d="M436 352 L458 330"/>
+  </g>
+  <path d="M150 230 C230 180 370 180 450 220" fill="none" stroke="#3A2622" stroke-width="16" stroke-linecap="round"/>
+  <g fill="#B8935C"><circle cx="300" cy="560" r="6"/><circle cx="270" cy="575" r="4"/><circle cx="330" cy="575" r="4"/></g>
+</svg>

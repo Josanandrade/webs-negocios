@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Ilustración: mano con manicura en rojo carmín">
+  <rect width="600" height="750" fill="#E7C9BE"/>
+  <circle cx="300" cy="380" r="230" fill="#F4ECE6"/>
+  <path d="M190 750 L210 470 C200 400 214 330 226 270 C232 240 266 240 268 272 L272 380 L284 210 C288 176 326 176 328 212 L330 370 L346 230 C350 196 388 198 388 232 L382 380 L404 290 C412 260 446 266 442 298 L420 470 L436 750 Z" fill="#E2AE98"/>
+  <g fill="#9E1F3A">
+    <path d="M228 262 C230 240 262 238 266 262 L266 286 C256 292 238 292 228 286 Z"/>
+    <path d="M286 204 C288 180 324 180 326 204 L326 232 C314 238 298 238 286 232 Z"/>
+    <path d="M348 226 C350 202 386 204 386 228 L385 254 C374 260 358 260 347 254 Z"/>
+    <path d="M410 286 C416 264 444 270 440 294 L436 316 C426 320 412 318 404 312 Z"/>
+  </g>
+  <g fill="#FFFFFF" opacity=".5"><rect x="236" y="250" width="6" height="18" rx="3"/><rect x="296" y="192" width="6" height="22" rx="3"/><rect x="358" y="214" width="6" height="22" rx="3"/></g>
+  <path d="M150 600 C200 560 260 590 230 640" fill="none" stroke="#B8935C" stroke-width="4"/>
+</svg>

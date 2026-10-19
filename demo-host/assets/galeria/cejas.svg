@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Ilustración: cuidado facial con cejas definidas">
+  <rect width="600" height="750" fill="#EBDFD6"/>
+  <path d="M120 750 V330 C120 200 210 110 300 110 C390 110 480 200 480 330 V750 Z" fill="#E7C9BE"/>
+  <ellipse cx="300" cy="400" rx="150" ry="190" fill="#E2AE98"/>
+  <path d="M150 380 C150 250 220 190 300 190 C380 190 450 250 450 380 C430 300 380 250 300 250 C220 250 170 300 150 380 Z" fill="#3A2622"/>
+  <path d="M200 350 C224 330 256 328 280 340" fill="none" stroke="#3A2622" stroke-width="12" stroke-linecap="round"/>
+  <path d="M320 340 C344 328 376 330 400 350" fill="none" stroke="#3A2622" stroke-width="12" stroke-linecap="round"/>
+  <path d="M212 385 C228 374 254 374 268 385" fill="none" stroke="#1F1A1C" stroke-width="6" stroke-linecap="round"/>
+  <path d="M332 385 C346 374 372 374 388 385" fill="none" stroke="#1F1A1C" stroke-width="6" stroke-linecap="round"/>
+  <path d="M300 400 C292 440 290 452 304 458" fill="none" stroke="#C48C76" stroke-width="5" stroke-linecap="round"/>
+  <path d="M268 500 C286 512 314 512 332 500 C318 524 282 524 268 500 Z" fill="#9E1F3A"/>
+  <circle cx="225" cy="450" r="22" fill="#E79A8E" opacity=".45"/><circle cx="375" cy="450" r="22" fill="#E79A8E" opacity=".45"/>
+  <g fill="#FFFFFF" opacity=".8"><circle cx="440" cy="200" r="5"/><circle cx="460" cy="230" r="3"/><circle cx="150" cy="240" r="4"/></g>
+</svg>

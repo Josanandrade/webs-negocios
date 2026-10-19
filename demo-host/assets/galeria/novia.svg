@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Ilustración: novia de perfil con recogido bajo y velo">
+  <rect width="600" height="750" fill="#E7C9BE"/>
+  <path d="M120 750 V330 C120 200 210 110 300 110 C390 110 480 200 480 330 V750 Z" fill="#F4ECE6"/>
+  <path d="M330 190 C420 230 470 380 470 750 H360 C380 560 360 360 330 190 Z" fill="#FFFFFF" opacity=".75"/>
+  <path d="M245 650 C248 575 232 530 220 480 C196 478 184 462 188 440 C172 430 176 410 190 404 C180 372 186 340 200 312 C222 245 290 222 346 236 C410 252 436 316 428 382 C420 440 396 478 392 528 C388 570 400 610 418 650 Z" fill="#E2AE98"/>
+  <path d="M200 312 C214 222 300 192 364 222 C428 252 444 330 414 404 C404 366 390 334 358 316 C320 294 256 298 210 344 Z" fill="#3A2622"/>
+  <ellipse cx="402" cy="400" rx="54" ry="48" fill="#3A2622"/>
+  <path d="M362 384 C386 368 424 372 446 396" fill="none" stroke="#5E3E34" stroke-width="7" stroke-linecap="round"/>
+  <path d="M366 414 C392 430 428 426 448 410" fill="none" stroke="#5E3E34" stroke-width="6" stroke-linecap="round"/>
+  <g fill="#B8935C"><circle cx="352" cy="368" r="7"/><circle cx="368" cy="356" r="5"/><circle cx="340" cy="382" r="4"/></g>
+  <path d="M200 440 C206 446 214 448 222 446" fill="none" stroke="#9E1F3A" stroke-width="6" stroke-linecap="round"/>
+  <path d="M260 650 C300 610 380 606 418 650 Z" fill="#FFFFFF"/>
+</svg>

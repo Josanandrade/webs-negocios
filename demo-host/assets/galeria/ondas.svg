@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Ilustración: melena con ondas de invitada">
+  <rect width="600" height="750" fill="#1F1A1C"/>
+  <path d="M120 750 V330 C120 200 210 110 300 110 C390 110 480 200 480 330 V750 Z" fill="#2E2528"/>
+  <path d="M180 700 C150 600 160 480 180 400 C190 280 240 190 310 190 C390 190 430 270 430 360 C430 470 460 560 420 700 Z" fill="#8A5A3C"/>
+  <path d="M250 330 C250 280 280 250 320 250 C360 250 384 286 380 330 C376 390 352 440 316 440 C276 440 250 390 250 330 Z" fill="#E2AE98"/>
+  <path d="M296 404 C308 412 324 412 334 404" fill="none" stroke="#9E1F3A" stroke-width="8" stroke-linecap="round"/>
+  <g fill="none" stroke="#C99064" stroke-width="12" stroke-linecap="round">
+    <path d="M200 420 C230 450 190 490 220 520 C250 550 210 590 240 620"/>
+    <path d="M400 420 C370 450 410 490 380 520 C350 550 390 590 360 620"/>
+    <path d="M250 250 C270 220 320 210 350 230"/>
+  </g>
+  <g fill="none" stroke="#5E3A26" stroke-width="7" stroke-linecap="round">
+    <path d="M180 470 C206 500 176 540 202 570"/><path d="M420 470 C394 500 424 540 398 570"/>
+  </g>
+  <circle cx="470" cy="160" r="6" fill="#B8935C"/><circle cx="140" cy="210" r="4" fill="#B8935C"/>
+</svg>
