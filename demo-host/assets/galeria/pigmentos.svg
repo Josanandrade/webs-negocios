@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600"><rect width="600" height="600" fill="#F6F2EC"/>
+<g font-family="ui-monospace,Menlo,monospace" font-size="13" letter-spacing="1.4" fill="#4B413E">
+<circle cx="150" cy="170" r="70" fill="#6B5047"/><text x="150" y="272" text-anchor="middle">TONO 01</text>
+<circle cx="300" cy="170" r="70" fill="#4A362F"/><text x="300" y="272" text-anchor="middle">TONO 02</text>
+<circle cx="450" cy="170" r="70" fill="#2A2321"/><text x="450" y="272" text-anchor="middle">TONO 03</text>
+<circle cx="150" cy="390" r="70" fill="#DDA99B"/><text x="150" y="492" text-anchor="middle">TONO 04</text>
+<circle cx="300" cy="390" r="70" fill="#C07A6B"/><text x="300" y="492" text-anchor="middle">TONO 05</text>
+<circle cx="450" cy="390" r="70" fill="#9C4A3E"/><text x="450" y="492" text-anchor="middle">TONO 06</text>
+<text x="40" y="566" fill="#7A6E69">CARTA ILUSTRATIVA · COLORES ORIENTATIVOS</text></g></svg>

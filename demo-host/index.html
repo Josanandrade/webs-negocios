@@ -4,13 +4,419 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>Margot Ibáñez · Micropigmentación Facial · Villanueva del Ariscal</title>
+  <meta name="description" content="Micropigmentación facial de cejas, ojos y labios en Villanueva del Ariscal (Sevilla). Diseño a medida, cita previa por WhatsApp o teléfono.">
+  <meta name="theme-color" content="#1D1817">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Albert+Sans:wght@300;400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip" href="#tratamientos">Saltar al contenido</a>
+
+  <header class="top" id="top">
+    <div class="wrap top__inner">
+      <a class="brand" href="#top" aria-label="Margot Ibáñez, inicio">
+        <span class="brand__mark" aria-hidden="true">MI</span>
+        <span class="brand__name">Margot Ibáñez<small>Micropigmentación facial</small></span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <button class="nav__toggle" aria-expanded="false" aria-controls="menu"><span></span><span></span><span class="sr">Menú</span></button>
+        <ul id="menu">
+          <li><a href="#tratamientos">Tratamientos</a></li>
+          <li><a href="#resultados">Resultados</a></li>
+          <li><a href="#margot">Sobre Margot</a></li>
+          <li><a href="#proceso">Proceso</a></li>
+          <li><a href="#opiniones">Opiniones</a></li>
+          <li><a href="#ubicacion">Ubicación</a></li>
+          <li><a class="nav__cta" href="#cita">Pedir cita</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
   <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow mono">Estudio de micropigmentación facial · Villanueva del Ariscal</p>
+          <h1 class="hero__title">Diseñada<br>al milímetro.<br><em>Natural</em> a simple vista.</h1>
+          <p class="hero__lead">Cejas, mirada y labios trabajados con micropigmentación y un diseño pensado para tu rostro. Antes de pigmentar, se mide, se dibuja y se decide contigo.</p>
+          <div class="hero__actions">
+            <a class="btn btn--ink" href="#cita">Pedir cita</a>
+            <a class="btn btn--line" data-wa="Hola Margot, me gustaría información sobre micropigmentación." href="https://wa.me/34727740824" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+          </div>
+          <ul class="hero__trust">
+            <li><strong>5,0</strong><span class="stars" aria-hidden="true">★★★★★</span><span>87 reseñas en Google</span></li>
+            <li><strong>3</strong><span>zonas: cejas, ojos y labios</span></li>
+            <li><strong>1:1</strong><span>atención personal, con cita previa</span></li>
+          </ul>
+        </div>
+
+        <figure class="hero__study" aria-label="Ilustración de un estudio de proporciones del rostro">
+          <svg class="face" viewBox="0 0 520 620" role="img" aria-labelledby="faceT">
+            <title id="faceT">Estudio de proporciones: ilustración de mapeo de cejas, ojos y labios</title>
+            <defs>
+              <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="currentColor" opacity=".18"/></pattern>
+            </defs>
+            <rect x="0" y="0" width="520" height="620" fill="url(#dots)"/>
+            <!-- rostro -->
+            <path class="face__line" d="M260 82 C372 82 432 176 430 300 C428 420 372 540 260 552 C148 540 92 420 90 300 C88 176 148 82 260 82 Z"/>
+            <path class="face__soft" d="M246 300 C244 340 240 370 234 392 M230 404 Q246 414 260 409 Q274 414 290 404"/>
+            <!-- ojos -->
+            <g class="eye">
+              <path class="face__line" d="M138 290 Q178 264 218 292 Q178 308 138 290 Z"/>
+              <circle cx="179" cy="289" r="11" class="iris"/>
+              <path class="liner" d="M136 289 Q178 261 220 291 M136 289 L122 280"/>
+            </g>
+            <g class="eye" transform="translate(520 0) scale(-1 1)">
+              <path class="face__line" d="M138 290 Q178 264 218 292 Q178 308 138 290 Z"/>
+              <circle cx="179" cy="289" r="11" class="iris"/>
+              <path class="liner" d="M136 289 Q178 261 220 291 M136 289 L122 280"/>
+            </g>
+            <!-- cejas -->
+            <path class="brow" d="M228 256 C214 241 184 229 154 223 C134 219 117 227 102 243 C120 234 137 231 154 232 C182 236 207 246 228 262 Z"/>
+            <path class="brow" transform="translate(520 0) scale(-1 1)" d="M228 256 C214 241 184 229 154 223 C134 219 117 227 102 243 C120 234 137 231 154 232 C182 236 207 246 228 262 Z"/>
+            <!-- labios -->
+            <path class="lips" d="M212 470 Q236 452 260 463 Q284 452 308 470 Q284 496 260 498 Q236 496 212 470 Z"/>
+            <path class="lips__line" d="M212 470 Q260 478 308 470"/>
+            <!-- guías de mapeo -->
+            <g class="guides">
+              <path class="guide" d="M230 404 L230 196"/>
+              <path class="guide" d="M230 404 L143 208"/>
+              <path class="guide" d="M230 404 L92 226"/>
+              <path class="guide" d="M290 404 L290 196"/>
+              <path class="guide" d="M290 404 L377 208"/>
+              <path class="guide" d="M290 404 L428 226"/>
+              <path class="guide guide--h" d="M70 246 L450 246"/>
+              <path class="guide guide--h" d="M160 470 L360 470"/>
+              <path class="guide guide--v" d="M260 120 L260 540"/>
+            </g>
+            <g class="pins">
+              <circle cx="230" cy="250" r="4"/><circle cx="154" cy="225" r="4"/><circle cx="104" cy="242" r="4"/>
+              <circle cx="290" cy="250" r="4"/><circle cx="366" cy="225" r="4"/><circle cx="416" cy="242" r="4"/>
+            </g>
+            <g class="notes mono">
+              <text x="236" y="192">01 · inicio</text>
+              <text x="96" y="200">02 · arco</text>
+              <text x="24" y="268">03 · cola</text>
+              <text x="316" y="458">simetría</text>
+              <text x="268" y="132">eje</text>
+            </g>
+          </svg>
+          <figcaption class="mono">Fig. 01 — Así se empieza: medir antes de pigmentar. <span>Ilustración</span></figcaption>
+        </figure>
+      </div>
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker__track mono">
+          <span>Cejas</span><span>·</span><span>Línea de ojos</span><span>·</span><span>Labios</span><span>·</span><span>Diseño a medida</span><span>·</span><span>Cita previa</span><span>·</span>
+          <span>Cejas</span><span>·</span><span>Línea de ojos</span><span>·</span><span>Labios</span><span>·</span><span>Diseño a medida</span><span>·</span><span>Cita previa</span><span>·</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRATAMIENTOS -->
+    <section class="section" id="tratamientos">
+      <div class="wrap">
+        <header class="head">
+          <p class="eyebrow mono">01 — Tratamientos</p>
+          <h2>Tres zonas. Un mismo criterio: <em>que parezca tuyo</em>.</h2>
+          <p class="head__lead">La micropigmentación deposita pigmento de forma superficial para definir, rellenar o dar color. Cada diseño se adapta a tus rasgos, tu tono de piel y lo que quieres conseguir.</p>
+        </header>
+
+        <div class="treat">
+          <article class="treat__card">
+            <svg class="treat__icon" viewBox="0 0 120 60" aria-hidden="true"><path d="M110 40 C96 22 66 12 38 12 C24 12 14 20 6 34 C18 26 30 23 40 24 C64 26 88 32 110 48 Z"/><path class="tick" d="M6 54 H114"/></svg>
+            <p class="treat__n mono">A</p>
+            <h3>Cejas</h3>
+            <p>Para dar forma, densidad o simetría a unas cejas despobladas, desiguales o muy claras. Se diseña el arco según la estructura de tu rostro y se elige el tono que encaja con tu pelo y tu piel.</p>
+            <ul class="tags mono"><li>Diseño y visagismo</li><li>Tono a medida</li></ul>
+            <a class="treat__link" data-wa="Hola Margot, me interesa la micropigmentación de cejas." href="https://wa.me/34727740824" target="_blank" rel="noopener">Consultar cejas</a>
+          </article>
+          <article class="treat__card">
+            <svg class="treat__icon" viewBox="0 0 120 60" aria-hidden="true"><path d="M10 34 Q60 2 110 34 Q60 56 10 34 Z" class="o"/><path d="M8 33 Q60 -2 112 33 L120 26"/><path class="tick" d="M6 54 H114"/></svg>
+            <p class="treat__n mono">B</p>
+            <h3>Ojos</h3>
+            <p>Una línea que intensifica la mirada sin necesidad de maquillarte cada mañana. Desde un trazo muy fino pegado a las pestañas hasta una línea más marcada, siempre decidida contigo.</p>
+            <ul class="tags mono"><li>Línea de pestañas</li><li>Eyeliner</li></ul>
+            <a class="treat__link" data-wa="Hola Margot, me interesa la micropigmentación de ojos (eyeliner)." href="https://wa.me/34727740824" target="_blank" rel="noopener">Consultar ojos</a>
+          </article>
+          <article class="treat__card">
+            <svg class="treat__icon" viewBox="0 0 120 60" aria-hidden="true"><path d="M8 30 Q34 8 60 22 Q86 8 112 30 Q86 58 60 58 Q34 58 8 30 Z" class="o"/><path d="M8 30 Q60 40 112 30"/><path class="tick" d="M6 54 H114" opacity="0"/></svg>
+            <p class="treat__n mono">C</p>
+            <h3>Labios</h3>
+            <p>Para redefinir el contorno, corregir pequeñas asimetrías o recuperar color en labios que lo han perdido. El tono se elige para que se vea natural con o sin pintalabios.</p>
+            <ul class="tags mono"><li>Contorno</li><li>Color</li></ul>
+            <a class="treat__link" data-wa="Hola Margot, me interesa la micropigmentación de labios." href="https://wa.me/34727740824" target="_blank" rel="noopener">Consultar labios</a>
+          </article>
+        </div>
+
+        <aside class="also">
+          <h3 class="also__title">También en el estudio</h3>
+          <ul class="also__list">
+            <li>Higiene facial y extracción</li>
+            <li>Dermaplaning</li>
+            <li>Microdermoabrasión</li>
+            <li>Tratamiento facial para hombre</li>
+            <li>Depilación con hilo</li>
+            <li>Maquillaje y maquillaje de novia</li>
+          </ul>
+          <p class="also__note">Pregunta por disponibilidad y precio al pedir tu cita.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- RESULTADOS -->
+    <section class="section section--dark" id="resultados">
+      <div class="wrap">
+        <header class="head head--split">
+          <div>
+            <p class="eyebrow mono">02 — Resultados</p>
+            <h2>Lo que ves en el espejo<br><em>empieza en un boceto</em>.</h2>
+          </div>
+          <p class="head__lead">Desliza para ver cómo un mapeo de proporciones se convierte en un diseño de ceja. Es una ilustración del método: los trabajos reales de Margot irán en la galería, siempre con el permiso de cada clienta.</p>
+        </header>
+
+        <div class="compare" data-compare>
+          <div class="compare__layer compare__layer--after">
+            <svg viewBox="0 0 800 360" aria-hidden="true">
+              <rect width="800" height="360" class="compare__bg"/>
+              <path class="c-brow" d="M610 210 C560 150 450 110 330 98 C260 92 200 118 150 178 C210 146 270 136 330 140 C440 150 540 176 610 232 Z"/>
+              <g class="c-hairs">
+                <path d="M590 212 L566 184 M560 196 L538 168 M530 182 L506 156 M496 168 L472 146 M462 156 L438 136 M426 146 L402 128 M392 140 L366 124 M356 134 L330 122 M318 132 L292 124 M282 134 L258 128 M248 140 L224 136 M216 148 L192 148"/>
+              </g>
+              <path class="c-eye" d="M200 280 Q380 214 560 284 Q380 324 200 280 Z"/>
+              <circle class="c-iris" cx="380" cy="276" r="26"/>
+            </svg>
+            <span class="compare__tag mono">Diseño final</span>
+          </div>
+          <div class="compare__layer compare__layer--before">
+            <svg viewBox="0 0 800 360" aria-hidden="true">
+              <rect width="800" height="360" class="compare__bg compare__bg--paper"/>
+              <path class="c-sketch" d="M610 210 C560 150 450 110 330 98 C260 92 200 118 150 178 C210 146 270 136 330 140 C440 150 540 176 610 232 Z"/>
+              <path class="c-guide" d="M600 340 L600 40 M600 340 L360 40 M600 340 L120 120 M80 150 L720 150"/>
+              <circle class="c-pin" cx="600" cy="214" r="7"/><circle class="c-pin" cx="332" cy="100" r="7"/><circle class="c-pin" cx="152" cy="176" r="7"/>
+              <path class="c-eye c-eye--sketch" d="M200 280 Q380 214 560 284 Q380 324 200 280 Z"/>
+              <circle class="c-iris c-iris--sketch" cx="380" cy="276" r="26"/>
+              <text class="c-note mono" x="612" y="60">inicio</text>
+              <text class="c-note mono" x="370" y="56">arco</text>
+              <text class="c-note mono" x="96" y="112">cola</text>
+            </svg>
+            <span class="compare__tag mono">Mapeo</span>
+          </div>
+          <input class="compare__range" type="range" min="0" max="100" value="52" aria-label="Comparar mapeo y diseño">
+          <span class="compare__handle" aria-hidden="true"></span>
+        </div>
+        <p class="disclaimer mono">Ilustración del proceso · no es un resultado real</p>
+
+        <div class="gallery">
+          <figure class="g g--wide">
+            <img src="assets/galeria/cejas-mapeo.svg" alt="Ilustración de mapeo de cejas con puntos de inicio, arco y cola" loading="lazy" width="800" height="560">
+            <figcaption><span>Cejas · mapeo</span><span class="mono">Ilustración</span></figcaption>
+          </figure>
+          <figure class="g">
+            <img src="assets/galeria/pigmentos.svg" alt="Ilustración de una carta de tonos de pigmento" loading="lazy" width="600" height="600">
+            <figcaption><span>Carta de tonos</span><span class="mono">Ilustración</span></figcaption>
+          </figure>
+          <figure class="g g--slot">
+            <div class="slot"><span class="mono">Foto real</span><p>Espacio para un resultado de cejas de Margot</p></div>
+            <figcaption><span>Cejas</span><span class="mono">Pendiente</span></figcaption>
+          </figure>
+          <figure class="g">
+            <img src="assets/galeria/ojos-linea.svg" alt="Ilustración de una línea de ojos fina" loading="lazy" width="600" height="600">
+            <figcaption><span>Ojos · línea</span><span class="mono">Ilustración</span></figcaption>
+          </figure>
+          <figure class="g">
+            <img src="assets/galeria/labios-contorno.svg" alt="Ilustración del contorno de unos labios" loading="lazy" width="600" height="600">
+            <figcaption><span>Labios · contorno</span><span class="mono">Ilustración</span></figcaption>
+          </figure>
+          <figure class="g g--strip">
+            <div class="slot"><span class="mono">Galería preparada</span><p>Aquí irán los trabajos reales de Margot (cejas, ojos y labios), con el permiso de cada clienta.</p></div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE MARGOT -->
+    <section class="section" id="margot">
+      <div class="wrap about">
+        <div class="about__plate" aria-hidden="true">
+          <span class="about__mono">MI</span>
+          <span class="about__sign">Margot Ibáñez</span>
+          <span class="about__meta mono">Micropigmentación facial<br>Villanueva del Ariscal</span>
+        </div>
+        <div class="about__copy">
+          <p class="eyebrow mono">03 — Sobre Margot</p>
+          <h2>Una sola profesional, <em>de principio a fin</em>.</h2>
+          <p>Margot Ibáñez dedica su estudio de Villanueva del Ariscal a la micropigmentación facial. Quien te recibe es quien diseña contigo, quien pigmenta y quien te revisa después: no hay cambios de mano ni prisas.</p>
+          <p>Sus clientas destacan sobre todo dos cosas: el resultado y el trato. Muchas llegan por recomendación de una amiga, y vuelven a recomendarla.</p>
+          <blockquote class="about__quote">“Ella es una persona súper especial en todos los sentidos.”<cite class="mono">Reseña en Google</cite></blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section class="section section--stone" id="proceso">
+      <div class="wrap">
+        <header class="head">
+          <p class="eyebrow mono">04 — Cómo funciona</p>
+          <h2>Nada se pigmenta <em>sin que lo hayas visto antes</em>.</h2>
+        </header>
+        <ol class="steps">
+          <li class="step">
+            <span class="step__n mono">01</span>
+            <h3>Consulta</h3>
+            <p>Hablamos de lo que quieres conseguir, revisamos tu piel y resolvemos dudas. Es el momento de contar si tienes algún trabajo previo.</p>
+          </li>
+          <li class="step">
+            <span class="step__n mono">02</span>
+            <h3>Diseño</h3>
+            <p>Se mide tu rostro y se dibuja el diseño sobre la piel. Lo ves en el espejo y se ajusta hasta que te convence.</p>
+          </li>
+          <li class="step">
+            <span class="step__n mono">03</span>
+            <h3>Color</h3>
+            <p>Se elige el tono de pigmento según tu piel, tu pelo y el efecto que buscas, más suave o más definido.</p>
+          </li>
+          <li class="step">
+            <span class="step__n mono">04</span>
+            <h3>Sesión</h3>
+            <p>Micropigmentación con material de un solo uso y en un ambiente tranquilo, sin prisas.</p>
+          </li>
+          <li class="step">
+            <span class="step__n mono">05</span>
+            <h3>Cuidados y revisión</h3>
+            <p>Te llevas las pautas de cuidado por escrito y se valora la cicatrización para perfeccionar el resultado si hace falta.</p>
+          </li>
+        </ol>
+        <div class="assure">
+          <div><span class="assure__k mono">Higiene</span><p>Agujas y material desechables, abiertos delante de ti.</p></div>
+          <div><span class="assure__k mono">Transparencia</span><p>Sabes el diseño, el tono y el precio antes de empezar.</p></div>
+          <div><span class="assure__k mono">Naturalidad</span><p>Se busca un resultado que te favorezca, no uno que se note.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPINIONES -->
+    <section class="section" id="opiniones">
+      <div class="wrap reviews">
+        <div class="reviews__score">
+          <p class="eyebrow mono">05 — Opiniones</p>
+          <p class="score"><span class="score__n">5,0</span><span class="stars stars--big" aria-hidden="true">★★★★★</span></p>
+          <p class="score__meta">Valoración media en Google con <strong>87 reseñas</strong>.</p>
+          <a class="btn btn--line" href="https://www.google.com/maps/search/?api=1&amp;query=Margot%20Ib%C3%A1%C3%B1ez%20Micropigmentaci%C3%B3n%20Facial%20Villanueva%20del%20Ariscal" target="_blank" rel="noopener">Ver reseñas en Google</a>
+        </div>
+        <div class="reviews__list">
+          <blockquote class="rv"><p>“Margot, muchas gracias de verdad, ¡estoy encantada!”</p><cite class="mono">Clienta · Google</cite></blockquote>
+          <blockquote class="rv"><p>“Me la recomendó una amiga y viendo las redes sociales me dio buena impresión.”</p><cite class="mono">Clienta · Google</cite></blockquote>
+          <blockquote class="rv"><p>“Magnífica, ella es una persona súper especial en todos los sentidos.”</p><cite class="mono">Clienta · Google</cite></blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- CITA -->
+    <section class="section section--rouge" id="cita">
+      <div class="wrap book">
+        <div class="book__copy">
+          <p class="eyebrow mono">06 — Pedir cita</p>
+          <h2>Cuéntale qué te gustaría <em>y ella te propone hora</em>.</h2>
+          <p>Las citas se dan por WhatsApp o por teléfono. Elige lo que te interesa y se abrirá WhatsApp con el mensaje ya escrito.</p>
+          <p class="book__phone"><span class="mono">Teléfono</span><a href="tel:+34727740824">727 74 08 24</a></p>
+        </div>
+        <form class="book__form" id="bookForm">
+          <fieldset>
+            <legend class="mono">¿Qué te interesa?</legend>
+            <div class="chips">
+              <label><input type="radio" name="t" value="cejas" checked><span>Cejas</span></label>
+              <label><input type="radio" name="t" value="ojos (eyeliner)"><span>Ojos</span></label>
+              <label><input type="radio" name="t" value="labios"><span>Labios</span></label>
+              <label><input type="radio" name="t" value="una valoración, aún no lo tengo claro"><span>Aún no lo sé</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend class="mono">¿Es tu primera vez?</legend>
+            <div class="chips">
+              <label><input type="radio" name="p" value="Es mi primera vez" checked><span>Sí, primera vez</span></label>
+              <label><input type="radio" name="p" value="Ya tengo un trabajo previo"><span>Tengo un trabajo previo</span></label>
+            </div>
+          </fieldset>
+          <label class="field">
+            <span class="mono">Tu nombre</span>
+            <input type="text" name="n" autocomplete="given-name" placeholder="Opcional">
+          </label>
+          <button class="btn btn--ink btn--block" type="submit">Enviar por WhatsApp</button>
+          <a class="btn btn--paper btn--block" href="tel:+34727740824">Prefiero llamar</a>
+        </form>
+      </div>
+    </section>
+
+    <!-- UBICACIÓN + CONTACTO -->
+    <section class="section" id="ubicacion">
+      <div class="wrap place">
+        <div class="place__map">
+          <svg viewBox="0 0 600 440" role="img" aria-labelledby="mapT">
+            <title id="mapT">Plano orientativo de Villanueva del Ariscal con la ubicación del estudio</title>
+            <rect width="600" height="440" class="m-bg"/>
+            <path class="m-road m-road--main" d="M-10 300 C120 280 220 250 320 240 C420 230 520 200 610 150"/>
+            <path class="m-road" d="M140 -10 C160 120 180 220 210 450"/>
+            <path class="m-road" d="M380 -10 C370 100 360 180 352 450"/>
+            <path class="m-road" d="M-10 150 C150 160 300 150 610 120"/>
+            <path class="m-road" d="M-10 390 C200 370 400 360 610 330"/>
+            <path class="m-road m-road--thin" d="M260 0 L280 450 M480 -10 L470 450 M60 0 L80 450"/>
+            <circle class="m-pin-ring" cx="352" cy="214" r="34"/>
+            <path class="m-pin" d="M352 168 C334 168 322 181 322 197 C322 219 352 244 352 244 C352 244 382 219 382 197 C382 181 370 168 352 168 Z"/>
+            <circle cx="352" cy="197" r="8" class="m-dot"/>
+            <text class="m-label mono" x="398" y="206">Estudio</text>
+            <text class="m-label m-label--soft mono" x="24" y="428">Plano orientativo, no a escala</text>
+          </svg>
+        </div>
+        <div class="place__info">
+          <p class="eyebrow mono">07 — Ubicación y contacto</p>
+          <h2>En el corazón<br><em>del Aljarafe</em>.</h2>
+          <dl class="info">
+            <div><dt class="mono">Dirección</dt><dd>C. Inocencio Venegas, 15 A<br>41808 Villanueva del Ariscal, Sevilla</dd></div>
+            <div><dt class="mono">Horario</dt><dd>Lunes a viernes, de 10:00 a 14:00<br><small>Siempre con cita previa</small></dd></div>
+            <div><dt class="mono">Teléfono</dt><dd><a href="tel:+34727740824">727 74 08 24</a></dd></div>
+            <div><dt class="mono">WhatsApp</dt><dd><a data-wa="Hola Margot, tengo una pregunta." href="https://wa.me/34727740824" target="_blank" rel="noopener">Escribir un mensaje</a></dd></div>
+          </dl>
+          <a class="btn btn--ink" href="https://www.google.com/maps/search/?api=1&amp;query=C.%20Inocencio%20Venegas%2015%20Villanueva%20del%20Ariscal" target="_blank" rel="noopener">Cómo llegar</a>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div>
+        <p class="footer__brand">Margot Ibáñez</p>
+        <p class="footer__sub mono">Micropigmentación facial</p>
+      </div>
+      <ul class="footer__links">
+        <li><a href="#tratamientos">Tratamientos</a></li>
+        <li><a href="#resultados">Resultados</a></li>
+        <li><a href="#proceso">Proceso</a></li>
+        <li><a href="#cita">Pedir cita</a></li>
+      </ul>
+      <address>
+        C. Inocencio Venegas, 15 A<br>41808 Villanueva del Ariscal, Sevilla<br>
+        <a href="tel:+34727740824">727 74 08 24</a>
+      </address>
+    </div>
+    <div class="wrap footer__base mono">
+      <span>© <span id="year">2026</span> Margot Ibáñez Micropigmentación Facial</span>
+      <a href="#top">Volver arriba ↑</a>
+    </div>
+  </footer>
+
+  <div class="dock" aria-label="Contacto rápido">
+    <a href="tel:+34727740824">Llamar</a>
+    <a data-wa="Hola Margot, me gustaría pedir cita." href="https://wa.me/34727740824" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+
+  <script src="main.js" defer></script>
 </body>
 </html>

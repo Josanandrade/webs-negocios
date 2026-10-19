@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560"><rect width="800" height="560" fill="#E7E0D6"/>
+<g fill="none" stroke="#9C4A3E" stroke-width="1.4" stroke-dasharray="5 6"><path d="M330 520 L330 60"/><path d="M330 520 L210 60"/><path d="M330 520 L60 150"/><path d="M470 520 L470 60"/><path d="M470 520 L590 60"/><path d="M470 520 L740 150"/></g>
+<path d="M40 210 L760 210" stroke="#B39466" stroke-width="1.2" stroke-dasharray="3 6"/>
+<path d="M332 232 C300 200 250 178 206 172 C168 168 128 182 96 214 C134 196 170 190 206 192 C250 196 296 210 332 244 Z" fill="#3A2C27"/>
+<path d="M468 232 C500 200 550 178 594 172 C632 168 672 182 704 214 C666 196 630 190 594 192 C550 196 504 210 468 244 Z" fill="#3A2C27"/>
+<path d="M150 330 Q240 286 330 332 Q240 360 150 330 Z M470 332 Q560 286 650 330 Q560 360 470 332 Z" fill="none" stroke="#1D1817" stroke-width="1.6"/>
+<g fill="#F6F2EC" stroke="#9C4A3E" stroke-width="2"><circle cx="330" cy="236" r="6"/><circle cx="208" cy="172" r="6"/><circle cx="98" cy="212" r="6"/><circle cx="470" cy="236" r="6"/><circle cx="592" cy="172" r="6"/><circle cx="702" cy="212" r="6"/></g>
+<g font-family="ui-monospace,Menlo,monospace" font-size="15" letter-spacing="1.5" fill="#7E3A30"><text x="340" y="90">INICIO</text><text x="214" y="120">ARCO</text><text x="40" y="250">COLA</text></g>
+<text x="40" y="530" font-family="ui-monospace,Menlo,monospace" font-size="13" letter-spacing="1.5" fill="#7A6E69">ILUSTRACIÓN · NO ES UN TRABAJO REAL</text></svg>
