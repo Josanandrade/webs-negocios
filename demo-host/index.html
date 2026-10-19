@@ -1,16 +1,483 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Centro Naturláser · Estética Avanzada en Espartinas</title>
+  <meta name="description" content="Centro Naturláser Estética Avanzada, en Espartinas (Sevilla). Depilación láser, estética facial y corporal con asesoramiento personalizado. Pide tu cita por WhatsApp o teléfono.">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="theme-color" content="#0E1714">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__inner">
+      <a class="brand" href="#top" aria-label="Centro Naturláser, inicio">
+        <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true">
+          <circle cx="20" cy="20" r="18.5" fill="none" stroke="currentColor" stroke-width="1"/>
+          <path d="M20 31c-6-3.5-8-9-6-15 4 1 7 4 6 15z" fill="none" stroke="currentColor" stroke-width="1"/>
+          <path d="M20 31c6-3.5 8-9 6-15-4 1-7 4-6 15z" fill="none" stroke="currentColor" stroke-width="1"/>
+          <line x1="2" y1="20" x2="38" y2="20" stroke="var(--beam)" stroke-width="1.3"/>
+        </svg>
+        <span class="brand__name">Naturláser<small>Estética avanzada</small></span>
+      </a>
+      <nav class="nav__links" aria-label="Secciones">
+        <a href="#tratamientos">Tratamientos</a>
+        <a href="#laser">Láser</a>
+        <a href="#facial-corporal">Facial y corporal</a>
+        <a href="#centro">El centro</a>
+        <a href="#ubicacion">Ubicación</a>
+      </nav>
+      <a class="btn btn--small nav__cta" href="#cita">Pedir cita</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="menu" id="menu" hidden>
+      <a href="#tratamientos">Tratamientos</a>
+      <a href="#avanzada">Estética avanzada</a>
+      <a href="#laser">Láser</a>
+      <a href="#facial-corporal">Facial y corporal</a>
+      <a href="#centro">El centro</a>
+      <a href="#galeria">Galería</a>
+      <a href="#ubicacion">Ubicación</a>
+      <a class="btn" href="#cita">Pedir cita</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__grid wrap">
+        <div class="hero__copy">
+          <p class="mono hero__eyebrow"><span class="dot"></span> Espartinas · Sevilla · <span id="openNow">Consulta horario</span></p>
+          <h1 class="hero__title">
+            <span class="hero__line">Piel cuidada</span>
+            <span class="hero__line hero__line--beam">con <em>precisión</em></span>
+            <span class="hero__line">y criterio.</span>
+          </h1>
+          <p class="hero__lead">Centro Naturláser es estética avanzada en Espartinas: depilación láser, tratamientos faciales y corporales, y un plan pensado para tu piel antes de empezar.</p>
+          <div class="hero__actions">
+            <a class="btn" href="#cita">Solicitar valoración</a>
+            <a class="btn btn--ghost" id="heroWa" href="https://wa.me/34744635882" target="_blank" rel="noopener">WhatsApp 744 63 58 82</a>
+          </div>
+          <ul class="hero__facts mono" aria-label="Datos del centro">
+            <li><b>5,0</b> en Google · 7 opiniones</li>
+            <li><b>Mar–Sáb</b> con cita</li>
+            <li><b>Av. Pago Marqués, 2</b></li>
+          </ul>
+        </div>
+
+        <div class="hero__visual" aria-hidden="true">
+          <div class="scan">
+            <svg class="scan__svg" viewBox="0 0 420 480">
+              <defs>
+                <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#EFE6DC"/>
+                  <stop offset=".35" stop-color="#E6D3C3"/>
+                  <stop offset="1" stop-color="#D9BBA6"/>
+                </linearGradient>
+                <linearGradient id="beamG" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#D7263D" stop-opacity="0"/>
+                  <stop offset=".5" stop-color="#D7263D" stop-opacity=".9"/>
+                  <stop offset="1" stop-color="#D7263D" stop-opacity="0"/>
+                </linearGradient>
+                <clipPath id="frame"><rect x="20" y="20" width="380" height="440" rx="190"/></clipPath>
+              </defs>
+              <g clip-path="url(#frame)">
+                <rect x="0" y="0" width="420" height="480" fill="url(#skin)"/>
+                <!-- capas -->
+                <path d="M0 150 C80 138 160 160 240 148 S380 140 420 150 V480 H0Z" fill="#E2C8B4" opacity=".7"/>
+                <path d="M0 300 C90 290 170 312 260 298 S380 292 420 302 V480 H0Z" fill="#D4AE96" opacity=".55"/>
+                <!-- folículos -->
+                <g stroke="#6B4F3F" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".75">
+                  <path d="M90 60 C92 120 96 170 100 230"/><ellipse cx="100" cy="238" rx="9" ry="12" fill="#B48A71" stroke="none"/>
+                  <path d="M170 40 C171 110 174 180 178 250"/><ellipse cx="178" cy="258" rx="9" ry="12" fill="#B48A71" stroke="none"/>
+                  <path d="M250 70 C250 130 252 190 255 240"/><ellipse cx="255" cy="248" rx="9" ry="12" fill="#B48A71" stroke="none"/>
+                  <path d="M330 50 C331 120 333 180 336 236"/><ellipse cx="336" cy="244" rx="9" ry="12" fill="#B48A71" stroke="none"/>
+                </g>
+                <!-- haz -->
+                <g class="scan__beam">
+                  <rect x="150" y="0" width="56" height="480" fill="url(#beamG)" opacity=".18"/>
+                  <line x1="178" y1="0" x2="178" y2="262" stroke="#D7263D" stroke-width="1.4"/>
+                  <circle cx="178" cy="258" r="18" fill="none" stroke="#D7263D" stroke-width="1" opacity=".7"/>
+                  <circle cx="178" cy="258" r="30" fill="none" stroke="#D7263D" stroke-width=".6" opacity=".35"/>
+                </g>
+              </g>
+              <rect x="20" y="20" width="380" height="440" rx="190" fill="none" stroke="#0E1714" stroke-width="1"/>
+            </svg>
+            <span class="scan__tag scan__tag--a mono">Epidermis</span>
+            <span class="scan__tag scan__tag--b mono">Folículo</span>
+            <span class="scan__tag scan__tag--c mono">Dermis</span>
+          </div>
+
+          <div class="ficha">
+            <p class="ficha__head mono">Ficha de valoración <span>N.º 01</span></p>
+            <ol class="ficha__steps">
+              <li class="is-done"><span class="mono">01</span> Estudio de piel y vello</li>
+              <li class="is-done"><span class="mono">02</span> Plan personalizado</li>
+              <li class="is-now"><span class="mono">03</span> Sesiones en cabina</li>
+              <li><span class="mono">04</span> Seguimiento</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="hero__rule wrap mono" aria-hidden="true">
+        <span>Depilación láser</span><i></i><span>Estética facial</span><i></i><span>Estética corporal</span><i></i><span>Manos y pies</span>
+      </div>
+    </section>
+
+    <!-- 01 TRATAMIENTOS DESTACADOS -->
+    <section class="section" id="tratamientos">
+      <div class="wrap">
+        <header class="sec-head reveal">
+          <p class="kicker mono"><span>01</span> Tratamientos destacados</p>
+          <h2>Lo que más se pide <em>en cabina.</em></h2>
+          <p class="sec-head__lead">Cuatro líneas de trabajo, una misma forma de hacer: valorar primero, explicar qué esperar y adaptar cada sesión.</p>
+        </header>
+        <div class="featured">
+          <a class="feat feat--main reveal" href="#laser">
+            <span class="feat__n mono">A</span>
+            <h3>Depilación láser</h3>
+            <p>El servicio estrella del centro. Sesiones planificadas por zonas y adaptadas a tu tipo de piel y vello.</p>
+            <span class="feat__more mono">Ver zonas →</span>
+            <svg class="feat__art" viewBox="0 0 200 120" aria-hidden="true"><line x1="0" y1="60" x2="200" y2="60" stroke="var(--beam)" stroke-width="1.2"/><circle cx="120" cy="60" r="10" fill="none" stroke="var(--beam)"/><circle cx="120" cy="60" r="22" fill="none" stroke="var(--beam)" opacity=".4"/><circle cx="120" cy="60" r="36" fill="none" stroke="var(--beam)" opacity=".2"/></svg>
+          </a>
+          <a class="feat reveal" href="#facial-corporal">
+            <span class="feat__n mono">B</span>
+            <h3>Facial</h3>
+            <p>Limpieza profunda, hidratación, revitalización y tratamientos de rejuvenecimiento.</p>
+            <span class="feat__more mono">Ver facial →</span>
+          </a>
+          <a class="feat reveal" href="#facial-corporal">
+            <span class="feat__n mono">C</span>
+            <h3>Corporal</h3>
+            <p>Masajes reductores, drenaje linfático y envolturas corporales.</p>
+            <span class="feat__more mono">Ver corporal →</span>
+          </a>
+          <a class="feat reveal" href="#facial-corporal">
+            <span class="feat__n mono">D</span>
+            <h3>Bienestar y cuidado</h3>
+            <p>Masajes relajantes, manicura y pedicura para completar tu rutina.</p>
+            <span class="feat__more mono">Ver más →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 ESTÉTICA AVANZADA -->
+    <section class="section section--dark" id="avanzada">
+      <div class="wrap avz">
+        <header class="sec-head reveal">
+          <p class="kicker kicker--light mono"><span>02</span> Estética avanzada</p>
+          <h2>Primero entender tu piel. <em>Después tratarla.</em></h2>
+          <p class="sec-head__lead">Estética avanzada no es solo aparatología: es saber cuándo usarla, cuántas sesiones tienen sentido y cuándo no. Por eso cada tratamiento empieza con una conversación.</p>
+        </header>
+        <ol class="protocol">
+          <li class="reveal">
+            <span class="protocol__n mono">01</span>
+            <h3>Valoración</h3>
+            <p>Revisamos tu piel, tu historial y lo que quieres conseguir. Sin compromiso.</p>
+          </li>
+          <li class="reveal">
+            <span class="protocol__n mono">02</span>
+            <h3>Plan a medida</h3>
+            <p>Te proponemos tratamiento, número de sesiones orientativo y cuidados en casa.</p>
+          </li>
+          <li class="reveal">
+            <span class="protocol__n mono">03</span>
+            <h3>Cabina</h3>
+            <p>Sesiones en un espacio limpio, preparado y tranquilo, siempre con la misma atención.</p>
+          </li>
+          <li class="reveal">
+            <span class="protocol__n mono">04</span>
+            <h3>Seguimiento</h3>
+            <p>Valoramos cómo responde tu piel y ajustamos el plan si hace falta.</p>
+          </li>
+        </ol>
+        <div class="pillars reveal">
+          <div><span class="mono">Tecnología</span><p>Equipos de estética profesional para láser, facial y corporal.</p></div>
+          <div><span class="mono">Higiene</span><p>Cabina y material preparados antes de cada clienta.</p></div>
+          <div><span class="mono">Resultados</span><p>Expectativas realistas desde el primer día.</p></div>
+          <div><span class="mono">Asesoramiento</span><p>Te explicamos el porqué de cada paso.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 LÁSER -->
+    <section class="section" id="laser">
+      <div class="wrap laser">
+        <header class="sec-head reveal">
+          <p class="kicker mono"><span>03</span> Depilación láser</p>
+          <h2>Marca tus zonas. <em>Te preparamos el plan.</em></h2>
+          <p class="sec-head__lead">Selecciona las zonas que te interesan y envíanos la consulta por WhatsApp. Te responderemos con la valoración y las opciones disponibles.</p>
+        </header>
+
+        <div class="zones reveal">
+          <div class="zones__figure">
+            <div class="zones__toggle" role="tablist" aria-label="Tipo de zonas">
+              <button type="button" role="tab" aria-selected="true" data-set="mujer">Mujer</button>
+              <button type="button" role="tab" aria-selected="false" data-set="hombre">Hombre</button>
+            </div>
+            <svg class="body" viewBox="0 0 200 420" aria-hidden="true">
+              <g fill="none" stroke="currentColor" stroke-width="1.1">
+                <circle cx="100" cy="40" r="24"/>
+                <path d="M88 62v12M112 62v12"/>
+                <path d="M62 84c10-8 66-8 76 0l10 70-12 4-8-50v80l6 60-8 120h-16l-8-110-8 110H78l-8-120 6-60v-80l-8 50-12-4z"/>
+              </g>
+              <g class="body__pts">
+                <circle data-z="Facial" cx="100" cy="48" r="5"/>
+                <circle data-z="Axilas" cx="70" cy="98" r="5"/>
+                <circle data-z="Brazos" cx="52" cy="140" r="5"/>
+                <circle data-z="Pecho/abdomen" cx="100" cy="130" r="5"/>
+                <circle data-z="Ingles" cx="100" cy="196" r="5"/>
+                <circle data-z="Piernas" cx="82" cy="300" r="5"/>
+                <circle data-z="Espalda" cx="128" cy="120" r="5"/>
+              </g>
+            </svg>
+          </div>
+          <div class="zones__panel">
+            <p class="mono zones__label">Zonas</p>
+            <div class="chips" id="zoneChips"></div>
+            <p class="mono zones__label">¿Has hecho láser antes?</p>
+            <div class="seg" id="prevSeg">
+              <button type="button" aria-pressed="true" data-v="Es mi primera vez">Primera vez</button>
+              <button type="button" aria-pressed="false" data-v="Ya he hecho sesiones en otro centro">Ya he hecho sesiones</button>
+            </div>
+            <div class="zones__summary">
+              <p class="mono">Tu consulta</p>
+              <p id="zoneSummary">Elige al menos una zona.</p>
+            </div>
+            <a class="btn btn--block" id="zoneWa" href="https://wa.me/34744635882" target="_blank" rel="noopener">Enviar consulta por WhatsApp</a>
+            <p class="note">Sin precios en esta demo: el plan depende de cada piel y se confirma en la valoración.</p>
+          </div>
+        </div>
+
+        <div class="laser__faq">
+          <details class="reveal">
+            <summary>¿Cuántas sesiones necesito?</summary>
+            <p>Depende de la zona, del tipo de vello y de tu piel. En la valoración te damos un número orientativo y lo vamos ajustando según tu respuesta.</p>
+          </details>
+          <details class="reveal">
+            <summary>¿Qué tengo que hacer antes de una sesión?</summary>
+            <p>Te lo explicamos al reservar: cómo preparar la zona, qué evitar los días previos y cuidados después de la sesión.</p>
+          </details>
+          <details class="reveal">
+            <summary>¿Sirve para hombre?</summary>
+            <p>Sí. Puedes consultar zonas como espalda, pecho, abdomen o barba en la valoración.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 FACIAL / CORPORAL -->
+    <section class="section section--soft" id="facial-corporal">
+      <div class="wrap">
+        <header class="sec-head reveal">
+          <p class="kicker mono"><span>04</span> Facial y corporal</p>
+          <h2>Tratamientos para <em>cada objetivo.</em></h2>
+        </header>
+        <div class="tabs reveal">
+          <div class="tabs__list" role="tablist" aria-label="Áreas de tratamiento">
+            <button type="button" role="tab" id="t-facial" aria-controls="p-facial" aria-selected="true">Facial</button>
+            <button type="button" role="tab" id="t-corporal" aria-controls="p-corporal" aria-selected="false">Corporal</button>
+            <button type="button" role="tab" id="t-bienestar" aria-controls="p-bienestar" aria-selected="false">Bienestar</button>
+          </div>
+
+          <div class="tabs__panel" role="tabpanel" id="p-facial" aria-labelledby="t-facial">
+            <ul class="menu-list">
+              <li><span>Limpieza facial profunda</span><i></i><span class="mono">Piel limpia y oxigenada</span></li>
+              <li><span>Hidratación</span><i></i><span class="mono">Confort y luminosidad</span></li>
+              <li><span>Revitalización</span><i></i><span class="mono">Piel apagada o cansada</span></li>
+              <li><span>Rejuvenecimiento</span><i></i><span class="mono">Firmeza y textura</span></li>
+            </ul>
+            <img class="tabs__art" src="assets/galeria/facial.svg" alt="" width="320" height="240" loading="lazy">
+          </div>
+          <div class="tabs__panel" role="tabpanel" id="p-corporal" aria-labelledby="t-corporal" hidden>
+            <ul class="menu-list">
+              <li><span>Masaje reductor</span><i></i><span class="mono">Remodelar y tonificar</span></li>
+              <li><span>Drenaje linfático</span><i></i><span class="mono">Piernas ligeras</span></li>
+              <li><span>Envolturas corporales</span><i></i><span class="mono">Hidratación y textura</span></li>
+            </ul>
+            <img class="tabs__art" src="assets/galeria/corporal.svg" alt="" width="320" height="240" loading="lazy">
+          </div>
+          <div class="tabs__panel" role="tabpanel" id="p-bienestar" aria-labelledby="t-bienestar" hidden>
+            <ul class="menu-list">
+              <li><span>Masaje relajante</span><i></i><span class="mono">Descanso y desconexión</span></li>
+              <li><span>Manicura</span><i></i><span class="mono">Manos cuidadas</span></li>
+              <li><span>Pedicura</span><i></i><span class="mono">Pies cuidados</span></li>
+            </ul>
+            <img class="tabs__art" src="assets/galeria/manos.svg" alt="" width="320" height="240" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 EL CENTRO -->
+    <section class="section" id="centro">
+      <div class="wrap about">
+        <div class="about__copy reveal">
+          <p class="kicker mono"><span>05</span> Sobre el centro</p>
+          <h2>Un centro de barrio <em>con exigencia de clínica.</em></h2>
+          <p>En Centro Naturláser trabajamos con cita para dedicar a cada persona el tiempo que necesita. Te atendemos en un ambiente cercano y profesional, con asesoramiento personalizado desde la primera visita.</p>
+          <p>Estamos en la Avenida Pago Marqués, en Espartinas, a un paso para quien vive en el Aljarafe.</p>
+          <ul class="about__list mono">
+            <li>Entrada accesible en silla de ruedas</li>
+            <li>Pago con tarjeta</li>
+            <li>Atención con cita previa</li>
+          </ul>
+        </div>
+        <figure class="about__card reveal">
+          <img src="assets/galeria/cabina.svg" alt="Ilustración de una cabina de estética" width="560" height="420" loading="lazy">
+          <figcaption class="mono">Cabina · Espartinas</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 06 GALERÍA -->
+    <section class="section section--soft" id="galeria">
+      <div class="wrap">
+        <header class="sec-head reveal">
+          <p class="kicker mono"><span>06</span> Galería</p>
+          <h2>El espacio, <em>en detalle.</em></h2>
+        </header>
+        <div class="gallery">
+          <figure class="g g--tall reveal"><img src="assets/galeria/cabina.svg" alt="Cabina de tratamiento" loading="lazy" width="560" height="420"><figcaption class="mono">Cabina</figcaption></figure>
+          <figure class="g reveal"><img src="assets/galeria/laser.svg" alt="Pieza de mano de láser" loading="lazy" width="320" height="240"><figcaption class="mono">Láser</figcaption></figure>
+          <figure class="g reveal"><img src="assets/galeria/facial.svg" alt="Tratamiento facial" loading="lazy" width="320" height="240"><figcaption class="mono">Facial</figcaption></figure>
+          <figure class="g reveal"><img src="assets/galeria/corporal.svg" alt="Tratamiento corporal" loading="lazy" width="320" height="240"><figcaption class="mono">Corporal</figcaption></figure>
+          <figure class="g reveal"><img src="assets/galeria/recepcion.svg" alt="Recepción del centro" loading="lazy" width="320" height="240"><figcaption class="mono">Recepción</figcaption></figure>
+        </div>
+        <p class="note">Ilustraciones de la demo. En la web final irían fotografías reales del centro.</p>
+      </div>
+    </section>
+
+    <!-- 07 OPINIONES -->
+    <section class="section" id="opiniones">
+      <div class="wrap reviews">
+        <div class="score reveal">
+          <p class="kicker mono"><span>07</span> Opiniones</p>
+          <p class="score__num">5,0</p>
+          <p class="score__stars" aria-label="5 de 5 estrellas">★★★★★</p>
+          <p class="mono score__meta">Valoración media en Google · 7 opiniones</p>
+          <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&query=Centro+Naturl%C3%A1ser+Est%C3%A9tica+Avanzada+Espartinas" target="_blank" rel="noopener">Ver opiniones en Google</a>
+        </div>
+        <div class="quotes">
+          <blockquote class="quote reveal">
+            <span class="quote__tag mono">Ejemplo</span>
+            <p>Me explicaron todo el proceso del láser antes de empezar y he notado el cambio desde las primeras sesiones.</p>
+            <footer class="mono">Clienta de Espartinas</footer>
+          </blockquote>
+          <blockquote class="quote reveal">
+            <span class="quote__tag mono">Ejemplo</span>
+            <p>Trato cercano, todo muy limpio y cuidado. La limpieza facial, de diez.</p>
+            <footer class="mono">Clienta del Aljarafe</footer>
+          </blockquote>
+          <p class="note">Textos de ejemplo. En la web final se mostrarían las reseñas reales de Google.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 CITA -->
+    <section class="section section--dark cta" id="cita">
+      <div class="wrap cta__grid">
+        <div class="cta__copy reveal">
+          <p class="kicker kicker--light mono"><span>08</span> Pedir cita</p>
+          <h2>Empieza por <em>una valoración.</em></h2>
+          <p>Escríbenos por WhatsApp, llámanos o déjanos tu solicitud y te proponemos día y hora.</p>
+          <div class="cta__ways">
+            <a class="way" id="ctaWa" href="https://wa.me/34744635882" target="_blank" rel="noopener"><span class="mono">WhatsApp</span><b>744 63 58 82</b></a>
+            <a class="way" href="tel:+34744635882"><span class="mono">Llamar</span><b>744 63 58 82</b></a>
+          </div>
+        </div>
+        <form class="form reveal" id="citaForm" novalidate>
+          <p class="mono form__head">Solicitar cita</p>
+          <label>Nombre<input name="nombre" autocomplete="given-name" required></label>
+          <label>Tratamiento
+            <select name="tratamiento">
+              <option>Valoración inicial</option>
+              <option>Depilación láser</option>
+              <option>Tratamiento facial</option>
+              <option>Tratamiento corporal</option>
+              <option>Masaje relajante</option>
+              <option>Manicura / pedicura</option>
+            </select>
+          </label>
+          <fieldset class="form__slot">
+            <legend>Preferencia</legend>
+            <label><input type="radio" name="franja" value="mañana" checked> Mañana</label>
+            <label><input type="radio" name="franja" value="mediodía / primera tarde"> Mediodía</label>
+          </fieldset>
+          <label>Comentario (opcional)<textarea name="comentario" rows="3"></textarea></label>
+          <button class="btn btn--light btn--block" type="submit">Preparar mensaje de WhatsApp</button>
+          <p class="note note--light">No se envía ningún dato desde esta web: se abre WhatsApp con el mensaje listo.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- 09 UBICACIÓN + CONTACTO -->
+    <section class="section" id="ubicacion">
+      <div class="wrap loc">
+        <div class="loc__map reveal">
+          <img src="assets/mapa.svg" alt="Plano ilustrado de la ubicación en Espartinas" width="560" height="420">
+          <a class="btn btn--small" href="https://www.google.com/maps/dir/?api=1&destination=Av.+Pago+Marqu%C3%A9s+2,+41807+Espartinas,+Sevilla" target="_blank" rel="noopener">Cómo llegar</a>
+        </div>
+        <div class="loc__info reveal" id="contacto">
+          <p class="kicker mono"><span>09</span> Ubicación y contacto</p>
+          <h2>Te esperamos <em>en Espartinas.</em></h2>
+          <address>
+            Av. Pago Marqués, 2<br>
+            41807 Espartinas, Sevilla
+          </address>
+          <table class="hours" aria-label="Horario">
+            <tbody>
+              <tr data-d="1"><th>Lunes</th><td>Cerrado</td></tr>
+              <tr data-d="2"><th>Martes</th><td>10:00 – 17:30</td></tr>
+              <tr data-d="3"><th>Miércoles</th><td>10:00 – 17:30</td></tr>
+              <tr data-d="4"><th>Jueves</th><td>10:00 – 17:30</td></tr>
+              <tr data-d="5"><th>Viernes</th><td>10:00 – 15:00</td></tr>
+              <tr data-d="6"><th>Sábado</th><td>10:00 – 14:00</td></tr>
+              <tr data-d="0"><th>Domingo</th><td>Cerrado</td></tr>
+            </tbody>
+          </table>
+          <ul class="contact">
+            <li><span class="mono">Teléfono</span><a href="tel:+34744635882">744 63 58 82</a></li>
+            <li><span class="mono">WhatsApp</span><a href="https://wa.me/34744635882" target="_blank" rel="noopener">744 63 58 82</a></li>
+            <li><span class="mono">Facebook</span><a href="https://www.facebook.com/naturlaser/" target="_blank" rel="noopener">/naturlaser</a></li>
+            <li><span class="mono">Instagram</span><a href="https://www.instagram.com/naturlaser/" target="_blank" rel="noopener">@naturlaser</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div>
+        <p class="footer__brand">Naturláser</p>
+        <p class="footer__tag mono">Centro de Estética Avanzada · Espartinas, Sevilla</p>
+      </div>
+      <nav aria-label="Pie de página">
+        <a href="#tratamientos">Tratamientos</a>
+        <a href="#laser">Láser</a>
+        <a href="#cita">Pedir cita</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <p class="footer__small mono">© <span id="year">2026</span> Centro Naturláser Estética Avanzada</p>
+    </div>
+  </footer>
+
+  <a class="fab" id="fabWa" href="https://wa.me/34744635882" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
+  </a>
+
+  <script src="main.js" defer></script>
 </body>
 </html>
