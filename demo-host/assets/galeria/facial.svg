@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Ilustración: tratamiento facial">
+  <rect width="600" height="750" fill="#A65A4E"/>
+  <circle cx="300" cy="330" r="230" fill="#B86C5F"/>
+  <g transform="translate(300 360)">
+    <path d="M-120 -40 C -120 -170, 120 -170, 120 -40 C 120 70, 60 150, 0 150 C -60 150, -120 70, -120 -40 Z" fill="#F2DED2"/>
+    <path d="M-150 -60 C -160 -200, 160 -210, 150 -60 C 120 -150, -120 -150, -150 -60 Z" fill="#24211F"/>
+    <path d="M-70 -10 q 22 12 44 0" stroke="#24211F" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M26 -10 q 22 12 44 0" stroke="#24211F" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M-22 80 q 22 12 44 0" stroke="#864437" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M-100 -95 C -60 -120, 60 -120, 100 -95 C 90 -60, -90 -60, -100 -95 Z" fill="#FBF8F3"/>
+    <ellipse cx="-62" cy="40" rx="26" ry="14" fill="#E8C2B4" opacity=".7"/>
+    <ellipse cx="62" cy="40" rx="26" ry="14" fill="#E8C2B4" opacity=".7"/>
+  </g>
+  <g transform="translate(470 560) rotate(-30)">
+    <rect x="-12" y="-80" width="24" height="120" rx="12" fill="#24211F"/>
+    <ellipse cx="0" cy="-92" rx="34" ry="22" fill="#F3EEE6"/>
+  </g>
+  <path d="M0 620 C 160 580, 440 670, 600 620 V750 H0 Z" fill="#24211F" opacity=".22"/>
+</svg>

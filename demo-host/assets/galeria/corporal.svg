@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" role="img" aria-label="Ilustración: tratamiento corporal">
+  <rect width="900" height="560" fill="#24211F"/>
+  <path d="M90 380 C 200 300, 360 270, 470 300 C 560 325, 650 300, 760 260 C 820 240, 860 270, 840 320 C 820 370, 700 400, 560 405 C 420 410, 250 430, 120 430 C 80 430, 60 400, 90 380 Z" fill="#E8C9BB"/>
+  <path d="M470 300 C 520 260, 600 250, 660 270" stroke="#D3AE9E" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M60 430 H 860" stroke="#5E574F" stroke-width="3"/>
+  <rect x="60" y="430" width="800" height="30" rx="8" fill="#8E9B86"/>
+  <g fill="none" stroke="#A65A4E" stroke-width="2.5" opacity=".9">
+    <circle cx="560" cy="330" r="40"/><circle cx="560" cy="330" r="64" opacity=".6"/><circle cx="560" cy="330" r="90" opacity=".3"/>
+  </g>
+  <g fill="#F3EEE6" opacity=".8"><circle cx="120" cy="110" r="3"/><circle cx="760" cy="90" r="2.5"/><circle cx="420" cy="140" r="2"/></g>
+</svg>

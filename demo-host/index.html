@@ -1,16 +1,461 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Espacio de Belleza Rosa · Centro de estética en Umbrete</title>
+  <meta name="description" content="Espacio de Belleza Rosa, en el Paseo 1º de Mayo de Umbrete (Sevilla). Estética facial, corporal, depilación con hilo, cejas y maquillaje. Pide tu cita por teléfono o WhatsApp.">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="theme-color" content="#F3EEE6">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Marcellus&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__inner">
+      <a class="brand" href="#top" aria-label="Espacio de Belleza Rosa, inicio">
+        <span class="brand__small">Espacio de Belleza</span>
+        <span class="brand__name">Rosa</span>
+      </a>
+      <nav class="nav__links" aria-label="Secciones">
+        <a href="#tratamientos">Tratamientos</a>
+        <a href="#centro">El centro</a>
+        <a href="#galeria">Galería</a>
+        <a href="#opiniones">Opiniones</a>
+        <a href="#contacto">Dónde estamos</a>
+      </nav>
+      <a class="btn btn--small nav__cta" href="#cita">Pedir cita</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="menu" id="menu" hidden>
+      <a href="#destacados">Destacados</a>
+      <a href="#tratamientos">Tratamientos</a>
+      <a href="#centro">El centro</a>
+      <a href="#galeria">Galería</a>
+      <a href="#opiniones">Opiniones</a>
+      <a href="#contacto">Dónde estamos</a>
+      <a class="btn" href="#cita">Pedir cita</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <svg class="hero__rose" viewBox="0 0 400 400" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <path d="M200 120c26 0 44 18 44 40s-20 36-44 36-40-14-40-34 14-30 32-30 26 12 26 24-10 18-20 18"/>
+          <path d="M200 96c50 0 84 30 84 70 0 46-40 80-86 80-48 0-80-34-80-74 0-30 18-54 46-66"/>
+          <path d="M150 104c-40 16-66 50-66 92 0 60 52 100 116 100 66 0 116-44 116-104 0-46-30-80-72-94"/>
+          <path d="M200 296c0 30-4 60-14 96"/>
+          <path d="M194 340c-26-20-58-22-82-6 22 18 56 22 82 6z"/>
+          <path d="M190 362c22-22 52-28 78-16-20 22-52 28-78 16z"/>
+        </g>
+      </svg>
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow">Paseo 1º de Mayo, 21 · Umbrete</p>
+          <h1 class="hero__title">Todo tu cuidado, <em>en un mismo espacio.</em></h1>
+          <p class="hero__lead">Estética facial y corporal, depilación con hilo, cejas y maquillaje en el centro de Umbrete. Aquí tienes todo lo que hacemos, ordenado y a mano.</p>
+          <div class="hero__actions">
+            <a class="btn" href="#cita">Pedir cita</a>
+            <a class="btn btn--ghost" href="tel:+34955717096">Llamar · 955 71 70 96</a>
+          </div>
+          <p class="status" id="status" aria-live="polite">
+            <span class="status__dot" aria-hidden="true"></span>
+            <span class="status__text">Lunes a viernes 9:30–20:00 · Sábado 9:30–14:00</span>
+          </p>
+        </div>
+
+        <nav class="index" aria-label="Índice de tratamientos">
+          <p class="index__head"><span>Índice</span><span>Tratamientos</span></p>
+          <ol class="index__list">
+            <li><a href="#tratamientos" data-tab="facial"><span class="index__n">01</span><span class="index__t">Estética facial</span><span class="index__c">5</span></a></li>
+            <li><a href="#tratamientos" data-tab="corporal"><span class="index__n">02</span><span class="index__t">Estética corporal</span><span class="index__c">2</span></a></li>
+            <li><a href="#tratamientos" data-tab="depilacion"><span class="index__n">03</span><span class="index__t">Depilación</span><span class="index__c">1</span></a></li>
+            <li><a href="#tratamientos" data-tab="mirada"><span class="index__n">04</span><span class="index__t">Mirada</span><span class="index__c">1</span></a></li>
+            <li><a href="#tratamientos" data-tab="unas"><span class="index__n">05</span><span class="index__t">Uñas</span><span class="index__c index__c--q">?</span></a></li>
+            <li><a href="#tratamientos" data-tab="maquillaje"><span class="index__n">06</span><span class="index__t">Maquillaje</span><span class="index__c">2</span></a></li>
+          </ol>
+          <p class="index__foot">Pulsa una categoría para verla entera</p>
+        </nav>
+      </div>
+    </section>
+
+    <!-- DESTACADOS -->
+    <section class="section featured" id="destacados">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="kicker">Lo más pedido</p>
+          <h2>Servicios destacados</h2>
+        </header>
+        <div class="featured__grid">
+          <article class="feat reveal">
+            <span class="feat__cat">Facial</span>
+            <h3>Dermaplaning</h3>
+            <p>Retira células muertas y vello fino. La piel queda lisa, luminosa y lista para el maquillaje.</p>
+            <a class="feat__link" href="#cita" data-service="Dermaplaning">Pedir este tratamiento</a>
+          </article>
+          <article class="feat reveal">
+            <span class="feat__cat">Facial</span>
+            <h3>Limpieza con extracción</h3>
+            <p>Una higiene profunda para despejar poros y devolverle a la piel su equilibrio.</p>
+            <a class="feat__link" href="#cita" data-service="Limpieza facial con extracción">Pedir este tratamiento</a>
+          </article>
+          <article class="feat reveal">
+            <span class="feat__cat">Corporal</span>
+            <h3>Tratamiento de celulitis</h3>
+            <p>Trabajo por zonas para mejorar el aspecto de la piel y acompañarte con constancia.</p>
+            <a class="feat__link" href="#cita" data-service="Tratamiento de celulitis">Pedir este tratamiento</a>
+          </article>
+          <article class="feat feat--dark reveal">
+            <span class="feat__cat">Maquillaje</span>
+            <h3>Maquillaje de novia</h3>
+            <p>Para el día que más fotos te van a hacer. Un maquillaje que dura y que se parece a ti.</p>
+            <a class="feat__link" href="#cita" data-service="Maquillaje de novia">Pedir este tratamiento</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATEGORÍAS -->
+    <section class="section catalog" id="tratamientos">
+      <div class="wrap">
+        <header class="section__head section__head--split reveal">
+          <div>
+            <p class="kicker">Carta de tratamientos</p>
+            <h2>Encuentra lo que buscas</h2>
+          </div>
+          <label class="search">
+            <span class="sr">Buscar tratamiento</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <input id="search" type="search" placeholder="Busca: cejas, facial, novia…" autocomplete="off">
+          </label>
+        </header>
+
+        <div class="tabs" role="tablist" aria-label="Categorías">
+          <button role="tab" id="tab-facial" aria-controls="p-facial" aria-selected="true" data-tab="facial">Facial</button>
+          <button role="tab" id="tab-corporal" aria-controls="p-corporal" aria-selected="false" data-tab="corporal">Corporal</button>
+          <button role="tab" id="tab-depilacion" aria-controls="p-depilacion" aria-selected="false" data-tab="depilacion">Depilación</button>
+          <button role="tab" id="tab-mirada" aria-controls="p-mirada" aria-selected="false" data-tab="mirada">Mirada</button>
+          <button role="tab" id="tab-unas" aria-controls="p-unas" aria-selected="false" data-tab="unas">Uñas</button>
+          <button role="tab" id="tab-maquillaje" aria-controls="p-maquillaje" aria-selected="false" data-tab="maquillaje">Maquillaje</button>
+        </div>
+
+        <div class="panels">
+          <section class="panel" role="tabpanel" id="p-facial" aria-labelledby="tab-facial" data-panel="facial">
+            <header class="panel__head">
+              <span class="panel__n">01</span>
+              <div><h3>Estética facial</h3><p>Higiene, renovación y cuidado de la piel del rostro.</p></div>
+            </header>
+            <ul class="items">
+              <li class="item" data-k="higiene facial limpieza piel cara rostro"><div><h4>Higiene facial</h4><p>Limpieza, exfoliación e hidratación adaptadas a tu tipo de piel.</p></div><a href="#cita" data-service="Higiene facial">Pedir</a></li>
+              <li class="item" data-k="limpieza extraccion puntos negros poros cara"><div><h4>Limpieza con extracción</h4><p>Para pieles con poros obstruidos o puntos negros.</p></div><a href="#cita" data-service="Limpieza facial con extracción">Pedir</a></li>
+              <li class="item" data-k="dermaplaning exfoliacion vello luminosidad cara"><div><h4>Dermaplaning</h4><p>Exfoliación mecánica que deja la piel suave y uniforme.</p></div><a href="#cita" data-service="Dermaplaning">Pedir</a></li>
+              <li class="item" data-k="microdermoabrasion renovacion manchas textura cara"><div><h4>Microdermoabrasión</h4><p>Renovación de la capa superficial para mejorar textura y tono.</p></div><a href="#cita" data-service="Microdermoabrasión">Pedir</a></li>
+              <li class="item" data-k="facial hombre masculino chico cara"><div><h4>Facial para hombre</h4><p>Limpieza y cuidado pensados para la piel masculina.</p></div><a href="#cita" data-service="Facial para hombre">Pedir</a></li>
+            </ul>
+          </section>
+
+          <section class="panel" role="tabpanel" id="p-corporal" aria-labelledby="tab-corporal" data-panel="corporal">
+            <header class="panel__head">
+              <span class="panel__n">02</span>
+              <div><h3>Estética corporal</h3><p>Tratamientos por zonas para mejorar el aspecto de la piel y la silueta.</p></div>
+            </header>
+            <ul class="items">
+              <li class="item" data-k="remodelacion corporal silueta cuerpo reafirmante"><div><h4>Remodelación corporal</h4><p>Trabajo de silueta por zonas. Te explicamos el plan antes de empezar.</p></div><a href="#cita" data-service="Remodelación corporal">Pedir</a></li>
+              <li class="item" data-k="celulitis piel naranja cuerpo piernas"><div><h4>Tratamiento de celulitis</h4><p>Para mejorar la textura de la piel en las zonas que más te preocupan.</p></div><a href="#cita" data-service="Tratamiento de celulitis">Pedir</a></li>
+            </ul>
+          </section>
+
+          <section class="panel" role="tabpanel" id="p-depilacion" aria-labelledby="tab-depilacion" data-panel="depilacion">
+            <header class="panel__head">
+              <span class="panel__n">03</span>
+              <div><h3>Depilación</h3><p>Precisión para el rostro, con técnica de hilo.</p></div>
+            </header>
+            <ul class="items">
+              <li class="item" data-k="depilacion hilo rostro cara labio vello facial"><div><h4>Depilación con hilo</h4><p>Técnica precisa y respetuosa para el vello del rostro.</p></div><a href="#cita" data-service="Depilación con hilo">Pedir</a></li>
+            </ul>
+            <p class="panel__note">¿Buscas otra zona o técnica? <a href="tel:+34955717096">Llámanos</a> y te contamos.</p>
+          </section>
+
+          <section class="panel" role="tabpanel" id="p-mirada" aria-labelledby="tab-mirada" data-panel="mirada">
+            <header class="panel__head">
+              <span class="panel__n">04</span>
+              <div><h3>Mirada</h3><p>Cejas definidas que enmarcan la cara sin endurecerla.</p></div>
+            </header>
+            <ul class="items">
+              <li class="item" data-k="cejas hilo diseño mirada ojos"><div><h4>Diseño de cejas con hilo</h4><p>Forma limpia y natural, estudiada para tus rasgos.</p></div><a href="#cita" data-service="Diseño de cejas con hilo">Pedir</a></li>
+            </ul>
+            <p class="panel__note">Pregúntanos por el resto de tratamientos de mirada.</p>
+          </section>
+
+          <section class="panel" role="tabpanel" id="p-unas" aria-labelledby="tab-unas" data-panel="unas">
+            <header class="panel__head">
+              <span class="panel__n">05</span>
+              <div><h3>Uñas</h3><p>Cuidado de manos y pies.</p></div>
+            </header>
+            <ul class="items">
+              <li class="item" data-k="uñas unas manicura pedicura manos pies"><div><h4>Manos y pies</h4><p>Consúltanos qué servicios de uñas tenemos disponibles y te damos hora.</p></div><a href="#cita" data-service="Consulta de uñas">Consultar</a></li>
+            </ul>
+          </section>
+
+          <section class="panel" role="tabpanel" id="p-maquillaje" aria-labelledby="tab-maquillaje" data-panel="maquillaje">
+            <header class="panel__head">
+              <span class="panel__n">06</span>
+              <div><h3>Maquillaje</h3><p>Para bodas, eventos y cualquier día que lo merezca.</p></div>
+            </header>
+            <ul class="items">
+              <li class="item" data-k="maquillaje novia boda"><div><h4>Maquillaje de novia</h4><p>Un acabado que aguanta todo el día y se ve bien en fotos.</p></div><a href="#cita" data-service="Maquillaje de novia">Pedir</a></li>
+              <li class="item" data-k="maquillaje evento fiesta invitada comunion"><div><h4>Maquillaje para eventos</h4><p>Invitadas, celebraciones o una noche especial.</p></div><a href="#cita" data-service="Maquillaje para eventos">Pedir</a></li>
+            </ul>
+          </section>
+
+          <p class="empty" id="empty" hidden>No encontramos ese tratamiento en la carta. <a href="tel:+34955717096">Llámanos</a> y te decimos si lo hacemos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE EL CENTRO -->
+    <section class="section about" id="centro">
+      <div class="wrap about__grid">
+        <figure class="about__art reveal">
+          <img src="assets/galeria/cabina.svg" alt="Ilustración de una cabina de estética con camilla y lámpara" width="600" height="750" loading="lazy">
+          <figcaption>Ilustración</figcaption>
+        </figure>
+        <div class="about__copy reveal">
+          <p class="kicker">El centro</p>
+          <h2>Un centro de barrio, con oficio de cabina.</h2>
+          <p>Estamos en el Paseo 1º de Mayo, en pleno Umbrete. Llevamos años cuidando la piel de vecinas y vecinos del pueblo y del Aljarafe, con tratamientos que conocemos bien y un trato de tú a tú.</p>
+          <p>Antes de empezar te explicamos qué vamos a hacer y por qué. Y si algo no te conviene, también te lo decimos.</p>
+          <dl class="facts">
+            <div><dt>+10</dt><dd>años en Umbrete</dd></div>
+            <div><dt>6</dt><dd>áreas de tratamiento</dd></div>
+            <div><dt>L–S</dt><dd>abierto, mañana y tarde</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="section gallery" id="galeria">
+      <div class="wrap">
+        <header class="section__head section__head--split reveal">
+          <div>
+            <p class="kicker">Galería</p>
+            <h2>Cabina, detalle y resultado</h2>
+          </div>
+          <p class="section__aside">Ilustraciones de referencia. Este espacio está preparado para las fotos reales del centro.</p>
+        </header>
+        <div class="gallery__grid">
+          <figure class="shot shot--tall reveal"><img src="assets/galeria/facial.svg" alt="Ilustración: tratamiento facial" width="600" height="750" loading="lazy"><figcaption>Facial</figcaption></figure>
+          <figure class="shot reveal"><img src="assets/galeria/cejas.svg" alt="Ilustración: diseño de cejas con hilo" width="600" height="600" loading="lazy"><figcaption>Cejas con hilo</figcaption></figure>
+          <figure class="shot reveal"><img src="assets/galeria/dermaplaning.svg" alt="Ilustración: dermaplaning" width="600" height="600" loading="lazy"><figcaption>Dermaplaning</figcaption></figure>
+          <figure class="shot shot--wide reveal"><img src="assets/galeria/corporal.svg" alt="Ilustración: tratamiento corporal" width="900" height="560" loading="lazy"><figcaption>Corporal</figcaption></figure>
+          <figure class="shot shot--tall reveal"><img src="assets/galeria/maquillaje.svg" alt="Ilustración: maquillaje de novia" width="600" height="750" loading="lazy"><figcaption>Maquillaje</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILOSOFÍA -->
+    <section class="section values">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="kicker">Cómo trabajamos</p>
+          <h2>Lo que vas a notar al venir</h2>
+        </header>
+        <ol class="values__list">
+          <li class="reveal"><span>i.</span><h3>Te escuchamos primero</h3><p>Cada tratamiento empieza mirando tu piel y lo que quieres conseguir.</p></li>
+          <li class="reveal"><span>ii.</span><h3>Sin prisas</h3><p>Una cabina tranquila y el tiempo que cada servicio necesita.</p></li>
+          <li class="reveal"><span>iii.</span><h3>Horario amplio</h3><p>De lunes a viernes hasta las ocho de la tarde, y sábados por la mañana.</p></li>
+          <li class="reveal"><span>iv.</span><h3>Todo en un sitio</h3><p>Rostro, cuerpo, cejas y maquillaje sin cambiar de centro.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- OPINIONES -->
+    <section class="section reviews" id="opiniones">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="kicker">Opiniones</p>
+          <h2>Lo que cuentan quienes vienen</h2>
+        </header>
+        <div class="reviews__grid">
+          <blockquote class="review reveal">
+            <p>“Me hice el dermaplaning antes de una boda y la piel me quedó perfecta. Me explicó todo con mucha paciencia.”</p>
+            <footer><span>Clienta</span><span class="tag">Opinión de ejemplo</span></footer>
+          </blockquote>
+          <blockquote class="review reveal">
+            <p>“Llevo años haciéndome las cejas aquí. Las deja naturales, que es lo que yo quiero.”</p>
+            <footer><span>Clienta</span><span class="tag">Opinión de ejemplo</span></footer>
+          </blockquote>
+          <blockquote class="review reveal">
+            <p>“Un sitio tranquilo, de confianza y al lado de casa. Siempre me dan hora para el sábado.”</p>
+            <footer><span>Cliente</span><span class="tag">Opinión de ejemplo</span></footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- CITA -->
+    <section class="section booking" id="cita">
+      <div class="wrap booking__grid">
+        <div class="booking__copy reveal">
+          <p class="kicker kicker--light">Pide tu cita</p>
+          <h2>Dinos qué quieres hacerte y te damos hora.</h2>
+          <p>Rellena el formulario y se abrirá WhatsApp con el mensaje ya escrito. Si lo prefieres, llámanos.</p>
+          <div class="booking__actions">
+            <a class="btn btn--light" href="tel:+34955717096">Llamar · 955 71 70 96</a>
+            <a class="btn btn--outline-light" href="#" data-wa="Hola, me gustaría pedir cita en Espacio de Belleza Rosa.">WhatsApp</a>
+          </div>
+        </div>
+
+        <form class="form reveal" id="cita-form" novalidate>
+          <div class="field">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" name="nombre" type="text" autocomplete="given-name" required>
+          </div>
+          <div class="field">
+            <label for="servicio">Tratamiento</label>
+            <select id="servicio" name="servicio" required>
+              <option value="">Elige un tratamiento</option>
+              <optgroup label="Facial">
+                <option>Higiene facial</option>
+                <option>Limpieza facial con extracción</option>
+                <option>Dermaplaning</option>
+                <option>Microdermoabrasión</option>
+                <option>Facial para hombre</option>
+              </optgroup>
+              <optgroup label="Corporal">
+                <option>Remodelación corporal</option>
+                <option>Tratamiento de celulitis</option>
+              </optgroup>
+              <optgroup label="Depilación y mirada">
+                <option>Depilación con hilo</option>
+                <option>Diseño de cejas con hilo</option>
+              </optgroup>
+              <optgroup label="Uñas">
+                <option>Consulta de uñas</option>
+              </optgroup>
+              <optgroup label="Maquillaje">
+                <option>Maquillaje de novia</option>
+                <option>Maquillaje para eventos</option>
+              </optgroup>
+              <option>Otro / no lo tengo claro</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="dia">Día preferido</label>
+              <input id="dia" name="dia" type="date">
+            </div>
+            <fieldset class="field">
+              <legend>Franja</legend>
+              <div class="seg">
+                <label><input type="radio" name="franja" value="mañana" checked><span>Mañana</span></label>
+                <label><input type="radio" name="franja" value="tarde"><span>Tarde</span></label>
+              </div>
+            </fieldset>
+          </div>
+          <div class="field">
+            <label for="nota">Algo que debamos saber <span class="opt">(opcional)</span></label>
+            <textarea id="nota" name="nota" rows="3"></textarea>
+          </div>
+          <p class="form__error" id="form-error" role="alert" hidden>Escribe tu nombre y elige un tratamiento.</p>
+          <button class="btn btn--block" type="submit">Preparar mensaje de cita</button>
+          <p class="form__fine">No guardamos tus datos: el mensaje se envía desde tu WhatsApp.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- UBICACIÓN Y CONTACTO -->
+    <section class="section contact" id="contacto">
+      <div class="wrap contact__grid">
+        <div class="contact__info reveal">
+          <p class="kicker">Ubicación y contacto</p>
+          <h2>En el Paseo 1º de Mayo</h2>
+          <address>
+            Paseo 1º de Mayo, 21<br>
+            41806 Umbrete, Sevilla
+          </address>
+          <p class="contact__tel"><a href="tel:+34955717096">955 71 70 96</a></p>
+          <table class="hours">
+            <caption class="sr">Horario</caption>
+            <tbody>
+              <tr data-days="1,2,3,4,5"><th scope="row">Lunes a viernes</th><td>9:30 – 20:00</td></tr>
+              <tr data-days="6"><th scope="row">Sábado</th><td>9:30 – 14:00</td></tr>
+              <tr data-days="0"><th scope="row">Domingo</th><td>Cerrado</td></tr>
+            </tbody>
+          </table>
+          <div class="contact__actions">
+            <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=37.371781,-6.155759" target="_blank" rel="noopener">Cómo llegar</a>
+            <a class="btn btn--ghost" href="#cita">Pedir cita</a>
+          </div>
+        </div>
+        <a class="map reveal" href="https://www.google.com/maps/search/?api=1&amp;query=37.371781,-6.155759" target="_blank" rel="noopener" aria-label="Abrir ubicación en Google Maps">
+          <svg viewBox="0 0 600 520" aria-hidden="true">
+            <rect width="600" height="520" fill="var(--sand-2)"/>
+            <g stroke="var(--line)" stroke-width="2" fill="none">
+              <path d="M-20 140 L620 90"/><path d="M-20 300 L620 260"/><path d="M-20 440 L620 420"/>
+              <path d="M120 -20 L160 540"/><path d="M420 -20 L470 540"/>
+            </g>
+            <g fill="var(--sand)">
+              <rect x="20" y="20" width="110" height="105" rx="6"/><rect x="170" y="15" width="230" height="95" rx="6"/><rect x="480" y="10" width="110" height="80" rx="6"/>
+              <rect x="20" y="160" width="115" height="120" rx="6"/><rect x="485" y="110" width="105" height="140" rx="6"/>
+              <rect x="25" y="320" width="120" height="105" rx="6"/><rect x="180" y="300" width="250" height="110" rx="6"/><rect x="490" y="280" width="100" height="130" rx="6"/>
+            </g>
+            <path d="M150 210 C 260 190, 360 180, 470 168" stroke="var(--clay)" stroke-width="22" stroke-linecap="round" fill="none" opacity=".18"/>
+            <text x="190" y="232" font-family="Albert Sans, sans-serif" font-size="15" letter-spacing="2" fill="var(--ink-2)">PASEO 1º DE MAYO</text>
+            <g transform="translate(318 168)">
+              <circle r="34" fill="var(--clay)" opacity=".16"/>
+              <path d="M0 -38 C 18 -38 28 -24 28 -10 C 28 10 0 30 0 30 C 0 30 -28 10 -28 -10 C -28 -24 -18 -38 0 -38 Z" fill="var(--ink)"/>
+              <circle cy="-10" r="9" fill="var(--sand)"/>
+            </g>
+          </svg>
+          <span class="map__label">Abrir en el mapa</span>
+        </a>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div>
+        <p class="brand brand--footer"><span class="brand__small">Espacio de Belleza</span><span class="brand__name">Rosa</span></p>
+        <p class="footer__line">Centro de estética en Umbrete.</p>
+      </div>
+      <div>
+        <p class="footer__h">Visítanos</p>
+        <p>Paseo 1º de Mayo, 21<br>41806 Umbrete, Sevilla</p>
+      </div>
+      <div>
+        <p class="footer__h">Cita</p>
+        <p><a href="tel:+34955717096">955 71 70 96</a><br><a href="#" data-wa="Hola, me gustaría pedir cita en Espacio de Belleza Rosa.">WhatsApp</a></p>
+      </div>
+      <div>
+        <p class="footer__h">Horario</p>
+        <p>L–V 9:30–20:00<br>Sábado 9:30–14:00</p>
+      </div>
+    </div>
+    <div class="wrap footer__base">
+      <span>© <span id="year">2026</span> Espacio de Belleza Rosa</span>
+      <a href="#top">Volver arriba</a>
+    </div>
+  </footer>
+
+  <div class="dock" aria-label="Accesos rápidos">
+    <a href="tel:+34955717096">Llamar</a>
+    <a href="#" data-wa="Hola, me gustaría pedir cita en Espacio de Belleza Rosa.">WhatsApp</a>
+    <a class="dock__main" href="#cita">Pedir cita</a>
+  </div>
+
+  <script src="main.js" defer></script>
 </body>
 </html>

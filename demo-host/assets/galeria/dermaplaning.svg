@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Ilustración: dermaplaning">
+  <rect width="600" height="600" fill="#F3EEE6"/>
+  <path d="M0 600 V330 C 120 260, 260 250, 600 300 V600 Z" fill="#F2DED2"/>
+  <path d="M0 600 V420 C 160 360, 340 370, 600 400 V600 Z" fill="#E8C9BB" opacity=".6"/>
+  <g transform="translate(330 250) rotate(38)">
+    <rect x="-14" y="-10" width="28" height="210" rx="14" fill="#24211F"/>
+    <path d="M-26 -10 H26 L18 -48 H-18 Z" fill="#D8CEBF"/>
+    <rect x="-20" y="-54" width="40" height="8" rx="2" fill="#A65A4E"/>
+  </g>
+  <g fill="#FBF8F3"><circle cx="160" cy="300" r="5"/><circle cx="200" cy="270" r="3"/><circle cx="130" cy="260" r="3.5"/><circle cx="230" cy="310" r="4"/></g>
+  <g stroke="#A65A4E" stroke-width="2" fill="none" opacity=".6"><path d="M90 230 l20 -20"/><path d="M110 250 l26 -26"/><path d="M60 210 l14 -14"/></g>
+</svg>
