@@ -1,16 +1,331 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Mari Paz Vela · Centro de Estética en Umbrete</title>
+  <meta name="description" content="Mari Paz Vela Centro de Estética, en la calle Ruperto Escobar de Umbrete (Sevilla). Faciales, depilación, manos y pies, y maquillaje. Pide tu cita por teléfono o WhatsApp.">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="theme-color" content="#EAF0F3">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Red+Hat+Mono:wght@400;500&family=Red+Hat+Text:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__inner">
+      <a class="brand" href="#top" aria-label="Mari Paz Vela, inicio">
+        <svg class="brand__flame" viewBox="0 0 24 36" aria-hidden="true"><path d="M12 1C14 9 21 13 21 22a9 9 0 0 1-18 0c0-6 4-8 5-13 2 3 2 6 4 7 1-5-1-10 0-15Z"/></svg>
+        <span class="brand__text">
+          <span class="brand__name">Mari Paz Vela</span>
+          <span class="brand__tag">Centro de Estética · Umbrete</span>
+        </span>
+      </a>
+      <nav class="nav__links" aria-label="Secciones">
+        <a href="#servicios">Servicios</a>
+        <a href="#tratamientos">Tratamientos</a>
+        <a href="#centro">El centro</a>
+        <a href="#galeria">Galería</a>
+        <a href="#visitanos">Dónde estamos</a>
+      </nav>
+      <a class="btn btn--small nav__cta" href="#cita">Pedir cita</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="menu" id="menu" hidden>
+      <a href="#servicios">Servicios</a>
+      <a href="#tratamientos">Tratamientos</a>
+      <a href="#centro">El centro</a>
+      <a href="#galeria">Galería</a>
+      <a href="#opiniones">Opiniones</a>
+      <a href="#visitanos">Dónde estamos</a>
+      <a class="btn" href="#cita">Pedir cita</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="label">C. Ruperto Escobar, 10 · local 2 · Umbrete</p>
+          <h1 class="hero__title">
+            <span class="hero__line">Mari Paz</span>
+            <span class="hero__line hero__line--vela">Ve<span class="flame-i" aria-hidden="true"><svg viewBox="0 0 24 36"><defs><linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD48A"/><stop offset=".55" stop-color="#F08A4B"/><stop offset="1" stop-color="#D2553A"/></linearGradient></defs><path fill="url(#fl)" d="M12 1C14 9 21 13 21 22a9 9 0 0 1-18 0c0-6 4-8 5-13 2 3 2 6 4 7 1-5-1-10 0-15Z"/></svg></span>la</span>
+          </h1>
+          <p class="hero__sub">Centro de Estética</p>
+          <p class="hero__lead">Un rato para ti, a la luz de siempre. Cuidamos tu piel, tus manos y tus pies con calma, cerca de casa y con alguien que te conoce por tu nombre.</p>
+          <div class="hero__actions">
+            <a class="btn" href="#cita">Pedir cita</a>
+            <a class="btn btn--ghost" href="tel:+34691847764">Llamar · 691 84 77 64</a>
+          </div>
+        </div>
+
+        <aside class="today" aria-label="Horario de hoy">
+          <div class="today__head">
+            <span class="today__dot" data-open-dot></span>
+            <span data-open-text>Horario del centro</span>
+          </div>
+          <ol class="today__week" data-week>
+            <li data-day="1"><span>Lunes</span><span>Cerrado</span></li>
+            <li data-day="2"><span>Martes</span><span>9:30 – 13:30</span></li>
+            <li data-day="3"><span>Miércoles</span><span>9:30 – 13:30</span></li>
+            <li data-day="4"><span>Jueves</span><span>9:30 – 13:30</span></li>
+            <li data-day="5"><span>Viernes</span><span>9:30 – 13:30</span></li>
+            <li data-day="6"><span>Sábado</span><span>10:00 – 14:00</span></li>
+            <li data-day="0"><span>Domingo</span><span>Cerrado</span></li>
+          </ol>
+          <a class="today__wa" href="#" data-wa="Hola Mari Paz, me gustaría pedir cita. ¿Qué huecos tienes esta semana?">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
+            Escribir por WhatsApp
+          </a>
+        </aside>
+      </div>
+      <ul class="hero__strip wrap" aria-label="Lo que hacemos">
+        <li>Faciales</li><li>Depilación</li><li>Manos y pies</li><li>Maquillaje</li><li>Cejas y mirada</li>
+      </ul>
+    </section>
+
+    <!-- SERVICIOS PRINCIPALES -->
+    <section class="section" id="servicios">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="label">Servicios principales</p>
+          <h2>Cuatro formas de dedicarte un rato</h2>
+          <p class="section__lead">Lo que más se pide en el centro. Si buscas algo que no ves aquí, pregúntanos: te decimos con sinceridad si lo hacemos.</p>
+        </header>
+        <div class="services">
+          <article class="service reveal">
+            <div class="service__art"><img src="assets/ilustraciones/facial.svg" alt="" width="320" height="220" loading="lazy"></div>
+            <h3>Faciales</h3>
+            <p>Limpieza, hidratación y cuidado de la piel según cómo la tengas ese día. Primero miramos, luego decidimos.</p>
+            <a class="service__link" href="#tratamientos" data-tab-link="facial">Ver tratamientos</a>
+          </article>
+          <article class="service reveal">
+            <div class="service__art"><img src="assets/ilustraciones/depilacion.svg" alt="" width="320" height="220" loading="lazy"></div>
+            <h3>Depilación</h3>
+            <p>Zonas pequeñas o completas, con cuidado y sin prisas. Ideal para fijar cita cada pocas semanas y olvidarte.</p>
+            <a class="service__link" href="#tratamientos" data-tab-link="depilacion">Ver tratamientos</a>
+          </article>
+          <article class="service reveal">
+            <div class="service__art"><img src="assets/ilustraciones/pies.svg" alt="" width="320" height="220" loading="lazy"></div>
+            <h3>Manos y pies</h3>
+            <p>Manicura y pedicura para tenerlas cuidadas todo el año, no solo cuando llega el verano.</p>
+            <a class="service__link" href="#tratamientos" data-tab-link="manos">Ver tratamientos</a>
+          </article>
+          <article class="service reveal">
+            <div class="service__art"><img src="assets/ilustraciones/maquillaje.svg" alt="" width="320" height="220" loading="lazy"></div>
+            <h3>Maquillaje</h3>
+            <p>Para una boda, una comunión, una cena o una foto. Un maquillaje que se parece a ti y aguanta el día entero.</p>
+            <a class="service__link" href="#tratamientos" data-tab-link="maquillaje">Ver tratamientos</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRATAMIENTOS -->
+    <section class="section section--tint" id="tratamientos">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="label">Tratamientos</p>
+          <h2>La carta del centro</h2>
+          <p class="section__lead">Precio y duración según cada caso. Te lo decimos al pedir cita, sin sorpresas.</p>
+        </header>
+
+        <div class="carta reveal">
+          <div class="tabs" role="tablist" aria-label="Familias de tratamientos">
+            <button class="tab" role="tab" id="tab-facial" aria-controls="panel-facial" aria-selected="true">Facial</button>
+            <button class="tab" role="tab" id="tab-depilacion" aria-controls="panel-depilacion" aria-selected="false" tabindex="-1">Depilación</button>
+            <button class="tab" role="tab" id="tab-manos" aria-controls="panel-manos" aria-selected="false" tabindex="-1">Manos y pies</button>
+            <button class="tab" role="tab" id="tab-maquillaje" aria-controls="panel-maquillaje" aria-selected="false" tabindex="-1">Maquillaje</button>
+            <button class="tab" role="tab" id="tab-mirada" aria-controls="panel-mirada" aria-selected="false" tabindex="-1">Cejas y mirada</button>
+          </div>
+
+          <div class="panel" role="tabpanel" id="panel-facial" aria-labelledby="tab-facial">
+            <ul class="items">
+              <li><span class="items__name">Limpieza facial</span><span class="items__note">Piel limpia, luminosa y preparada</span><button class="items__add" data-pick="Limpieza facial">Pedir</button></li>
+              <li><span class="items__name">Tratamiento hidratante</span><span class="items__note">Para pieles tirantes o apagadas</span><button class="items__add" data-pick="Tratamiento facial hidratante">Pedir</button></li>
+              <li><span class="items__name">Facial a medida</span><span class="items__note">Valoramos tu piel y te proponemos</span><button class="items__add" data-pick="Facial a medida">Pedir</button></li>
+            </ul>
+          </div>
+          <div class="panel" role="tabpanel" id="panel-depilacion" aria-labelledby="tab-depilacion" hidden>
+            <ul class="items">
+              <li><span class="items__name">Depilación facial</span><span class="items__note">Labio, mentón y zonas pequeñas</span><button class="items__add" data-pick="Depilación facial">Pedir</button></li>
+              <li><span class="items__name">Piernas y axilas</span><span class="items__note">Medias piernas o completas</span><button class="items__add" data-pick="Depilación de piernas y axilas">Pedir</button></li>
+              <li><span class="items__name">Ingles</span><span class="items__note">Con discreción y cuidado</span><button class="items__add" data-pick="Depilación de ingles">Pedir</button></li>
+            </ul>
+          </div>
+          <div class="panel" role="tabpanel" id="panel-manos" aria-labelledby="tab-manos" hidden>
+            <ul class="items">
+              <li><span class="items__name">Manicura</span><span class="items__note">Limado, cutículas y color</span><button class="items__add" data-pick="Manicura">Pedir</button></li>
+              <li><span class="items__name">Pedicura</span><span class="items__note">Pies cuidados y suaves</span><button class="items__add" data-pick="Pedicura">Pedir</button></li>
+              <li><span class="items__name">Manos y pies</span><span class="items__note">Todo en la misma cita</span><button class="items__add" data-pick="Manicura y pedicura">Pedir</button></li>
+            </ul>
+          </div>
+          <div class="panel" role="tabpanel" id="panel-maquillaje" aria-labelledby="tab-maquillaje" hidden>
+            <ul class="items">
+              <li><span class="items__name">Maquillaje de evento</span><span class="items__note">Bodas, comuniones, bautizos, cenas</span><button class="items__add" data-pick="Maquillaje de evento">Pedir</button></li>
+              <li><span class="items__name">Maquillaje de novia</span><span class="items__note">Con prueba previa para ir tranquila</span><button class="items__add" data-pick="Maquillaje de novia">Pedir</button></li>
+              <li><span class="items__name">Maquillaje para fotos</span><span class="items__note">Natural y duradero ante la cámara</span><button class="items__add" data-pick="Maquillaje para sesión de fotos">Pedir</button></li>
+            </ul>
+          </div>
+          <div class="panel" role="tabpanel" id="panel-mirada" aria-labelledby="tab-mirada" hidden>
+            <ul class="items">
+              <li><span class="items__name">Diseño de cejas</span><span class="items__note">Forma que favorece a tu cara</span><button class="items__add" data-pick="Diseño de cejas">Pedir</button></li>
+              <li><span class="items__name">Tinte de cejas y pestañas</span><span class="items__note">Mirada definida sin maquillaje</span><button class="items__add" data-pick="Tinte de cejas y pestañas">Pedir</button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="section" id="centro">
+      <div class="wrap about">
+        <div class="about__art reveal">
+          <img src="assets/ilustraciones/centro.svg" alt="Ilustración de la cabina del centro con camilla, lámpara y una vela encendida" width="560" height="560" loading="lazy">
+        </div>
+        <div class="about__copy reveal">
+          <p class="label">El centro</p>
+          <h2>Un centro con nombre y apellidos</h2>
+          <p>Mari Paz Vela Centro de Estética está en la calle Ruperto Escobar, en Umbrete. Es un sitio pequeño y tranquilo, pensado para que vengas sin prisa, te tumbes y desconectes un rato.</p>
+          <p>Aquí no hay cadenas de montaje: te atiende la misma persona, que se acuerda de tu piel, de lo que te sentó bien la última vez y de cómo te gusta que te traten.</p>
+          <ul class="pillars">
+            <li><strong>Cerca</strong><span>En el pueblo, a un paseo de casa.</span></li>
+            <li><strong>Sin prisas</strong><span>Citas con su tiempo, una a una.</span></li>
+            <li><strong>Honesta</strong><span>Te decimos qué te conviene, y qué no.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERIA -->
+    <section class="section section--deep" id="galeria">
+      <div class="wrap">
+        <header class="section__head section__head--light reveal">
+          <p class="label">Galería</p>
+          <h2>Pequeños rituales</h2>
+          <p class="section__lead">Un adelanto del ambiente del centro. Aquí irán las fotos reales de la cabina y de los trabajos.</p>
+        </header>
+        <div class="gallery">
+          <figure class="shot shot--tall reveal"><img src="assets/galeria/cabina.svg" alt="Ilustración: cabina con luz cálida" width="400" height="560" loading="lazy"><figcaption>La cabina</figcaption></figure>
+          <figure class="shot reveal"><img src="assets/galeria/piel.svg" alt="Ilustración: mascarilla facial" width="400" height="300" loading="lazy"><figcaption>Facial</figcaption></figure>
+          <figure class="shot reveal"><img src="assets/galeria/manos.svg" alt="Ilustración: manos con esmalte" width="400" height="300" loading="lazy"><figcaption>Manos</figcaption></figure>
+          <figure class="shot reveal"><img src="assets/galeria/maquillaje.svg" alt="Ilustración: pinceles y paleta de maquillaje" width="800" height="300" loading="lazy"><figcaption>Maquillaje de evento</figcaption></figure>
+          <figure class="shot reveal"><img src="assets/galeria/vela.svg" alt="Ilustración: vela encendida junto a toallas" width="400" height="300" loading="lazy"><figcaption>Detalles</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPINIONES -->
+    <section class="section" id="opiniones">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="label">Opiniones</p>
+          <h2>Lo que se dice al salir</h2>
+          <p class="section__lead">Espacio reservado para reseñas reales de clientas. Los textos de abajo son ejemplos de muestra.</p>
+        </header>
+        <div class="quotes">
+          <blockquote class="quote reveal"><span class="quote__tag">Ejemplo</span><p>“Salgo siempre como nueva. Se nota que le gusta lo que hace y que se toma su tiempo contigo.”</p><footer>Clienta de Umbrete</footer></blockquote>
+          <blockquote class="quote reveal"><span class="quote__tag">Ejemplo</span><p>“Me maquilló para la boda de mi hermana y aguantó perfecto hasta el final. Natural, como yo quería.”</p><footer>Invitada de boda</footer></blockquote>
+          <blockquote class="quote reveal"><span class="quote__tag">Ejemplo</span><p>“Un sitio tranquilo, limpio y muy cerca. Ya tengo mi cita fija para la depilación.”</p><footer>Clienta habitual</footer></blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- CITA -->
+    <section class="section section--tint" id="cita">
+      <div class="wrap booking">
+        <div class="booking__copy reveal">
+          <p class="label">Pide tu cita</p>
+          <h2>Elige qué te apetece y te confirmamos el hueco</h2>
+          <p>Las citas se dan por teléfono o WhatsApp. Rellena esto y se abre WhatsApp con el mensaje ya escrito: solo tienes que enviarlo.</p>
+          <div class="booking__alt">
+            <a class="btn btn--ghost" href="tel:+34691847764">Llamar al 691 84 77 64</a>
+          </div>
+        </div>
+        <form class="form reveal" id="form" novalidate>
+          <fieldset class="form__chips">
+            <legend>¿Qué te hacemos?</legend>
+            <label><input type="checkbox" name="servicio" value="Facial"><span>Facial</span></label>
+            <label><input type="checkbox" name="servicio" value="Depilación"><span>Depilación</span></label>
+            <label><input type="checkbox" name="servicio" value="Manicura"><span>Manicura</span></label>
+            <label><input type="checkbox" name="servicio" value="Pedicura"><span>Pedicura</span></label>
+            <label><input type="checkbox" name="servicio" value="Maquillaje"><span>Maquillaje</span></label>
+            <label><input type="checkbox" name="servicio" value="Cejas"><span>Cejas</span></label>
+          </fieldset>
+          <div class="form__row">
+            <label class="field"><span>Tu nombre</span><input name="nombre" autocomplete="given-name" required placeholder="Ej. Rocío"></label>
+            <label class="field"><span>Cuándo te viene bien</span>
+              <select name="cuando">
+                <option>Lo antes posible</option>
+                <option>Martes por la mañana</option>
+                <option>Miércoles por la mañana</option>
+                <option>Jueves por la mañana</option>
+                <option>Viernes por la mañana</option>
+                <option>Sábado por la mañana</option>
+              </select>
+            </label>
+          </div>
+          <label class="field"><span>¿Algo que debamos saber? <em>(opcional)</em></span><textarea name="nota" rows="3" placeholder="Ej. es para una boda el 12 de junio"></textarea></label>
+          <p class="form__error" data-error hidden>Dinos tu nombre y elige al menos un servicio.</p>
+          <button class="btn btn--full" type="submit">Preparar mensaje de WhatsApp</button>
+          <p class="form__small">No guardamos ningún dato: el mensaje solo se envía si tú lo mandas desde WhatsApp.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- UBICACION + CONTACTO -->
+    <section class="section" id="visitanos">
+      <div class="wrap visit">
+        <div class="visit__map reveal">
+          <img src="assets/mapa.svg" alt="Plano ilustrado de Umbrete con la calle Ruperto Escobar señalada" width="640" height="480" loading="lazy">
+          <a class="btn btn--small visit__maps" href="https://www.google.com/maps/search/?api=1&amp;query=Calle+Ruperto+Escobar+10+Umbrete+Sevilla" target="_blank" rel="noopener">Abrir en Google Maps</a>
+        </div>
+        <div class="visit__info reveal">
+          <p class="label">Dónde estamos</p>
+          <h2>En el centro de Umbrete</h2>
+          <dl class="contact">
+            <div><dt>Dirección</dt><dd>C. Ruperto Escobar, 10, local 2<br>41806 Umbrete, Sevilla</dd></div>
+            <div><dt>Teléfono</dt><dd><a href="tel:+34691847764">691 84 77 64</a></dd></div>
+            <div><dt>WhatsApp</dt><dd><a href="#" data-wa="Hola Mari Paz, tengo una pregunta:">Escríbenos</a></dd></div>
+            <div><dt>Horario</dt><dd>Martes a viernes, 9:30 – 13:30<br>Sábado, 10:00 – 14:00<br>Domingo y lunes, cerrado</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div class="footer__brand">
+        <svg class="brand__flame" viewBox="0 0 24 36" aria-hidden="true"><path d="M12 1C14 9 21 13 21 22a9 9 0 0 1-18 0c0-6 4-8 5-13 2 3 2 6 4 7 1-5-1-10 0-15Z"/></svg>
+        <div>
+          <p class="footer__name">Mari Paz Vela</p>
+          <p class="footer__tag">Centro de Estética · Umbrete</p>
+        </div>
+      </div>
+      <nav class="footer__links" aria-label="Pie de página">
+        <a href="#servicios">Servicios</a>
+        <a href="#tratamientos">Tratamientos</a>
+        <a href="#cita">Pedir cita</a>
+        <a href="#visitanos">Contacto</a>
+      </nav>
+      <p class="footer__small">C. Ruperto Escobar, 10, local 2 · 41806 Umbrete · <a href="tel:+34691847764">691 84 77 64</a><br>© <span data-year>2026</span> Mari Paz Vela Centro de Estética</p>
+    </div>
+  </footer>
+
+  <a class="fab" href="#" data-wa="Hola Mari Paz, me gustaría pedir cita." aria-label="Pedir cita por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
+  </a>
+
+  <script src="main.js" defer></script>
 </body>
 </html>
