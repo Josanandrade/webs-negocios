@@ -1,16 +1,433 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bellanela · Estética y Belleza en Gines</title>
+  <meta name="description" content="Bellanela Estética y Belleza, en Gines (Sevilla). Tratamientos faciales, peeling, dermaplaning, microdermoabrasión, tratamientos corporales y depilación con hilo. Pide tu cita por WhatsApp o teléfono.">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="theme-color" content="#EEF0EC">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__inner">
+      <a class="brand" href="#top" aria-label="Bellanela, inicio">
+        <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="20" cy="20" r="11" fill="none" stroke="currentColor" stroke-width=".8" opacity=".55"/><circle cx="26.5" cy="13.5" r="3.2" fill="var(--coral)"/></svg>
+        <span class="brand__name">Bellanela</span>
+      </a>
+      <nav class="nav__links" aria-label="Secciones">
+        <a href="#servicios">Servicios</a>
+        <a href="#tratamientos">Tratamientos</a>
+        <a href="#galeria">Galería</a>
+        <a href="#centro">El centro</a>
+        <a href="#ubicacion">Ubicación</a>
+      </nav>
+      <a class="btn btn--small nav__cta" href="#cita">Pedir cita</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="menu" id="menu" hidden>
+      <a href="#servicios">Servicios</a>
+      <a href="#tratamientos">Tratamientos</a>
+      <a href="#galeria">Galería</a>
+      <a href="#centro">El centro</a>
+      <a href="#opiniones">Opiniones</a>
+      <a href="#ubicacion">Ubicación</a>
+      <a class="btn" href="#cita">Pedir cita</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow"><span class="pip" aria-hidden="true"></span> Estética y belleza · Gines, Sevilla</p>
+          <h1 class="hero__title">
+            <span class="hero__l1">Bella</span><span class="hero__l2">nela</span>
+          </h1>
+          <p class="hero__lead">Tratamientos faciales y corporales pensados para tu piel, no para la moda del mes. Primero te miramos de cerca; después elegimos contigo qué necesita.</p>
+          <div class="hero__actions">
+            <a class="btn" href="#cita">Pedir cita</a>
+            <a class="btn btn--ghost" href="tel:+34653595206">Llamar · 653 59 52 06</a>
+          </div>
+          <dl class="hero__facts">
+            <div><dt>Lun–Mié</dt><dd>10:00–14:00</dd></div>
+            <div><dt>Jueves</dt><dd>10:00–21:00</dd></div>
+            <div><dt>Viernes</dt><dd>10:00–15:00</dd></div>
+          </dl>
+        </div>
+
+        <div class="lens" aria-hidden="true">
+          <svg class="lens__svg" viewBox="0 0 520 520">
+            <defs>
+              <radialGradient id="skin" cx="42%" cy="38%" r="70%">
+                <stop offset="0" stop-color="#F6E3D6"/>
+                <stop offset=".55" stop-color="#E9C7B3"/>
+                <stop offset="1" stop-color="#C99A85"/>
+              </radialGradient>
+              <clipPath id="lensClip"><circle cx="260" cy="260" r="196"/></clipPath>
+              <pattern id="pores" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(18)">
+                <circle cx="6" cy="8" r="1.3" fill="#B98670" opacity=".45"/>
+                <circle cx="19" cy="19" r="1" fill="#B98670" opacity=".35"/>
+              </pattern>
+            </defs>
+            <circle cx="260" cy="260" r="246" fill="none" stroke="var(--ink)" stroke-width="1" opacity=".18"/>
+            <circle cx="260" cy="260" r="226" fill="none" stroke="var(--ink)" stroke-width="1" stroke-dasharray="2 7" opacity=".35"/>
+            <g clip-path="url(#lensClip)">
+              <rect width="520" height="520" fill="url(#skin)"/>
+              <rect width="520" height="520" fill="url(#pores)"/>
+              <g fill="none" stroke="#A9705C" stroke-width="1.1" opacity=".35">
+                <path d="M40 210 C140 180 220 240 320 205 S470 170 520 190"/>
+                <path d="M30 262 C150 236 230 292 330 258 S470 226 520 246"/>
+                <path d="M40 318 C150 292 240 344 340 312 S470 284 520 300"/>
+                <path d="M60 372 C170 350 250 398 350 368 S470 342 520 356"/>
+              </g>
+              <path class="lens__sweep" d="M0 520 L0 300 C120 260 200 330 300 290 S460 240 520 260 L520 520 Z" fill="#FBF3EC" opacity=".55"/>
+            </g>
+            <circle cx="260" cy="260" r="196" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
+            <circle class="lens__dot" cx="372" cy="132" r="10" fill="var(--coral)"/>
+          </svg>
+          <ul class="lens__tags">
+            <li style="--a:-58deg">Facial</li>
+            <li style="--a:-14deg">Peeling</li>
+            <li style="--a:30deg">Dermaplaning</li>
+            <li style="--a:118deg">Corporal</li>
+            <li style="--a:160deg">Hilo</li>
+            <li style="--a:206deg">Microdermoabrasión</li>
+          </ul>
+          <p class="lens__note"><span>×10</span> la piel, vista de cerca</p>
+        </div>
+      </div>
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker__track">
+          <span>Higiene facial</span><span>Peeling químico</span><span>Dermaplaning</span><span>Microdermoabrasión</span><span>Facial para acné</span><span>Facial masculino</span><span>Remodelación corporal</span><span>Celulitis</span><span>Depilación con hilo</span>
+          <span>Higiene facial</span><span>Peeling químico</span><span>Dermaplaning</span><span>Microdermoabrasión</span><span>Facial para acné</span><span>Facial masculino</span><span>Remodelación corporal</span><span>Celulitis</span><span>Depilación con hilo</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="section" id="servicios">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="kicker"><span>01</span> Servicios</p>
+          <h2>Seis áreas, <em>un mismo cuidado.</em></h2>
+          <p class="section__lead">La cabina de Bellanela trabaja sobre todo la piel del rostro y del cuerpo. Lo que ves marcado como <span class="tag tag--on">En carta</span> es lo que ya ofrecemos; lo marcado como <span class="tag">Consúltanos</span> te lo confirmamos al pedir cita.</p>
+        </header>
+
+        <div class="areas">
+          <article class="area area--lg reveal">
+            <span class="tag tag--on">En carta</span>
+            <svg class="area__icon" viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="30" rx="16" ry="21" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M25 27h3M36 27h3M29 38c2 1.6 4 1.6 6 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="46" cy="14" r="4" fill="var(--coral)"/></svg>
+            <h3>Faciales</h3>
+            <p>Higiene y extracción, peeling químico, dermaplaning, microdermoabrasión, facial para piel con acné y facial masculino.</p>
+            <a class="area__link" href="#tratamientos">Ver tratamientos</a>
+          </article>
+          <article class="area area--lg reveal">
+            <span class="tag tag--on">En carta</span>
+            <svg class="area__icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M24 8c-4 10-4 18 0 24s4 16-2 24M40 8c4 10 4 18 0 24s-4 16 2 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="47" cy="34" r="4" fill="var(--coral)"/></svg>
+            <h3>Corporales</h3>
+            <p>Remodelación corporal y tratamiento de celulitis, con un plan de sesiones adaptado a tu zona y a tu objetivo.</p>
+            <a class="area__link" href="#tratamientos">Ver tratamientos</a>
+          </article>
+          <article class="area reveal">
+            <span class="tag tag--on">Hilo en carta</span>
+            <svg class="area__icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M12 30c8-8 16-8 22-4s14 4 20-2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M14 44l36-14" stroke="currentColor" stroke-width="1" stroke-dasharray="2 3"/><circle cx="50" cy="30" r="3.5" fill="var(--coral)"/></svg>
+            <h3>Depilación</h3>
+            <p>Depilación con hilo para cejas y rostro. Otras técnicas, consúltanos.</p>
+          </article>
+          <article class="area reveal">
+            <span class="tag">Consúltanos</span>
+            <svg class="area__icon" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="12" width="12" height="20" rx="6" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="36" y="18" width="10" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M18 36c0 12 6 18 14 18s16-6 16-16" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            <h3>Uñas</h3>
+            <p>Pregúntanos qué servicios de manos y pies tenemos disponibles.</p>
+          </article>
+          <article class="area reveal">
+            <span class="tag">Consúltanos</span>
+            <svg class="area__icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M22 54V30l6-16h8l6 16v24z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M22 34h20" stroke="currentColor" stroke-width="1.6"/></svg>
+            <h3>Maquillaje</h3>
+            <p>Para eventos y ocasiones especiales. Cuéntanos la fecha y lo vemos.</p>
+          </article>
+          <article class="area reveal">
+            <span class="tag">Consúltanos</span>
+            <svg class="area__icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 40c10-6 18-6 22 0s12 6 22 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M10 28c10-6 18-6 22 0s12 6 22 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".5"/></svg>
+            <h3>Masajes</h3>
+            <p>Pregúntanos por masajes y tratamientos relajantes en cabina.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRATAMIENTOS -->
+    <section class="section section--ink" id="tratamientos">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="kicker"><span>02</span> Tratamientos</p>
+          <h2>¿Qué le pasa <em>a tu piel?</em></h2>
+          <p class="section__lead">Elige lo que te preocupa y te enseñamos qué tratamientos de la carta encajan. Es una orientación: en cabina valoramos tu piel antes de empezar.</p>
+        </header>
+
+        <div class="finder reveal">
+          <div class="finder__chips" role="tablist" aria-label="Preocupaciones">
+            <button role="tab" aria-selected="true" data-concern="acne">Granitos y acné</button>
+            <button role="tab" aria-selected="false" data-concern="textura">Poros y textura</button>
+            <button role="tab" aria-selected="false" data-concern="apagada">Piel apagada</button>
+            <button role="tab" aria-selected="false" data-concern="tono">Manchas y tono</button>
+            <button role="tab" aria-selected="false" data-concern="hombre">Piel masculina</button>
+            <button role="tab" aria-selected="false" data-concern="celulitis">Celulitis</button>
+            <button role="tab" aria-selected="false" data-concern="contorno">Contorno corporal</button>
+            <button role="tab" aria-selected="false" data-concern="vello">Cejas y vello facial</button>
+          </div>
+          <div class="finder__panel" role="tabpanel" aria-live="polite">
+            <p class="finder__title" id="finder-title">Granitos y acné</p>
+            <p class="finder__text" id="finder-text"></p>
+            <ul class="finder__list" id="finder-list"></ul>
+            <a class="btn btn--coral" id="finder-cta" href="#cita">Pedir cita para esto</a>
+          </div>
+        </div>
+
+        <div class="carta reveal" id="carta">
+          <h3 class="carta__title">La carta, completa</h3>
+          <ol class="carta__list">
+            <li><span class="carta__n">01</span><strong>Higiene facial</strong><em>Limpieza profunda y puesta a punto de la piel.</em><span class="carta__z">Rostro</span></li>
+            <li><span class="carta__n">02</span><strong>Extracción facial</strong><em>Retirada de puntos negros e impurezas.</em><span class="carta__z">Rostro</span></li>
+            <li><span class="carta__n">03</span><strong>Facial para acné</strong><em>Para pieles con granitos y tendencia grasa.</em><span class="carta__z">Rostro</span></li>
+            <li><span class="carta__n">04</span><strong>Peeling químico</strong><em>Renovación de la capa superficial de la piel.</em><span class="carta__z">Rostro</span></li>
+            <li><span class="carta__n">05</span><strong>Dermaplaning</strong><em>Exfoliación manual y retirada de pelusa facial.</em><span class="carta__z">Rostro</span></li>
+            <li><span class="carta__n">06</span><strong>Microdermoabrasión</strong><em>Exfoliación mecánica para afinar la textura.</em><span class="carta__z">Rostro</span></li>
+            <li><span class="carta__n">07</span><strong>Facial masculino</strong><em>Tratamiento facial pensado para la piel del hombre.</em><span class="carta__z">Rostro</span></li>
+            <li><span class="carta__n">08</span><strong>Remodelación corporal</strong><em>Trabajo de contorno por zonas.</em><span class="carta__z">Cuerpo</span></li>
+            <li><span class="carta__n">09</span><strong>Tratamiento de celulitis</strong><em>Plan por sesiones según la zona.</em><span class="carta__z">Cuerpo</span></li>
+            <li><span class="carta__n">10</span><strong>Depilación con hilo</strong><em>Cejas y vello facial con precisión.</em><span class="carta__z">Mirada</span></li>
+          </ol>
+          <p class="note note--ink">Duración y precio de cada tratamiento: te los indicamos al pedir cita.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="section" id="galeria">
+      <div class="wrap">
+        <header class="section__head section__head--row reveal">
+          <div>
+            <p class="kicker"><span>03</span> Galería</p>
+            <h2>Un vistazo <em>a la cabina.</em></h2>
+          </div>
+          <p class="note">Ilustraciones de muestra. En la web final irán fotos reales del centro.</p>
+        </header>
+        <div class="gallery">
+          <figure class="shot shot--tall reveal"><img src="assets/galeria/cabina.svg" alt="Cabina de tratamiento con camilla y lámpara" width="600" height="800"><figcaption>La cabina</figcaption></figure>
+          <figure class="shot reveal"><img src="assets/galeria/serum.svg" alt="Gota de sérum sobre la piel" width="600" height="600"><figcaption>Facial</figcaption></figure>
+          <figure class="shot reveal"><img src="assets/galeria/dermaplaning.svg" alt="Bisturí de dermaplaning sobre fondo rosado" width="600" height="600"><figcaption>Dermaplaning</figcaption></figure>
+          <figure class="shot reveal"><img src="assets/galeria/hilo.svg" alt="Hilo de depilación trazando una ceja" width="600" height="600"><figcaption>Hilo</figcaption></figure>
+          <figure class="shot shot--wide reveal"><img src="assets/galeria/corporal.svg" alt="Silueta abstracta de contorno corporal" width="900" height="600"><figcaption>Corporal</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE EL CENTRO -->
+    <section class="section section--mist" id="centro">
+      <div class="wrap centro">
+        <div class="centro__copy reveal">
+          <p class="kicker"><span>04</span> El centro</p>
+          <h2>Un centro pequeño, <em>con tiempo para ti.</em></h2>
+          <p>Bellanela es un centro de estética en Gines dedicado al cuidado de la piel. Aquí no hay prisa ni cadena de montaje: cada cita empieza mirando tu piel de cerca y escuchando qué te preocupa.</p>
+          <p>Trabajamos con cita previa para que la cabina sea solo tuya mientras dura el tratamiento. Y los jueves alargamos hasta la noche, para que puedas venir al salir del trabajo.</p>
+        </div>
+        <ol class="steps reveal" aria-label="Cómo trabajamos">
+          <li><span>1</span><div><strong>Miramos tu piel</strong><p>Antes de nada, valoramos tipo de piel, sensibilidad y lo que quieres conseguir.</p></div></li>
+          <li><span>2</span><div><strong>Elegimos contigo</strong><p>Te explicamos qué tratamiento encaja y cuántas sesiones tiene sentido hacer.</p></div></li>
+          <li><span>3</span><div><strong>Tratamiento en cabina</strong><p>Con calma, en un espacio tranquilo y reservado para ti.</p></div></li>
+          <li><span>4</span><div><strong>Cuidados en casa</strong><p>Te llevas pautas sencillas para que el resultado dure más.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- OPINIONES -->
+    <section class="section" id="opiniones">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="kicker"><span>05</span> Opiniones</p>
+          <h2>Lo que cuentan <em>al salir.</em></h2>
+        </header>
+        <div class="reviews">
+          <blockquote class="review reveal">
+            <span class="review__tag">Ejemplo</span>
+            <p>Me hice una higiene facial y noté la piel limpia y luminosa durante días. Me explicó todo lo que hacía.</p>
+            <footer>Clienta de Gines</footer>
+          </blockquote>
+          <blockquote class="review reveal">
+            <span class="review__tag">Ejemplo</span>
+            <p>Vengo por las cejas con hilo desde hace tiempo. Precisa, rápida y con muy buen trato.</p>
+            <footer>Clienta habitual</footer>
+          </blockquote>
+          <blockquote class="review reveal">
+            <span class="review__tag">Ejemplo</span>
+            <p>El horario de los jueves por la tarde me salva. Ambiente tranquilo y todo muy cuidado.</p>
+            <footer>Clienta del Aljarafe</footer>
+          </blockquote>
+        </div>
+        <p class="note">Textos de ejemplo. En la web final se mostrarían vuestras reseñas reales.</p>
+      </div>
+    </section>
+
+    <!-- CTA / CITA -->
+    <section class="section cta" id="cita">
+      <div class="wrap cta__grid">
+        <div class="cta__copy reveal">
+          <p class="kicker kicker--light"><span>06</span> Pedir cita</p>
+          <h2>Reserva tu momento <em>en cabina.</em></h2>
+          <p>Elige el tratamiento y cuándo te viene bien. Te preparamos el mensaje para enviarlo por WhatsApp y te confirmamos la hora.</p>
+          <ul class="cta__alt">
+            <li><a href="tel:+34653595206">Llamar al 653 59 52 06</a></li>
+            <li><a href="#" data-wa-direct>Escribir por WhatsApp</a></li>
+          </ul>
+        </div>
+        <form class="booking reveal" id="booking" novalidate>
+          <label class="field">
+            <span>Tratamiento</span>
+            <select name="servicio" required>
+              <option value="">Elige uno…</option>
+              <optgroup label="Faciales">
+                <option>Higiene facial</option>
+                <option>Extracción facial</option>
+                <option>Facial para acné</option>
+                <option>Peeling químico</option>
+                <option>Dermaplaning</option>
+                <option>Microdermoabrasión</option>
+                <option>Facial masculino</option>
+              </optgroup>
+              <optgroup label="Corporales">
+                <option>Remodelación corporal</option>
+                <option>Tratamiento de celulitis</option>
+              </optgroup>
+              <optgroup label="Depilación">
+                <option>Depilación con hilo</option>
+              </optgroup>
+              <optgroup label="Otros">
+                <option>Uñas (consultar)</option>
+                <option>Maquillaje (consultar)</option>
+                <option>Masaje (consultar)</option>
+                <option>No lo sé, quiero que me aconsejéis</option>
+              </optgroup>
+            </select>
+          </label>
+          <fieldset class="field">
+            <legend>Día preferido</legend>
+            <div class="days" id="days"></div>
+          </fieldset>
+          <fieldset class="field">
+            <legend>Franja</legend>
+            <div class="seg">
+              <label><input type="radio" name="franja" value="mañana" checked><span>Mañana</span></label>
+              <label><input type="radio" name="franja" value="tarde" id="franja-tarde"><span>Tarde (solo jueves)</span></label>
+            </div>
+          </fieldset>
+          <label class="field">
+            <span>Tu nombre</span>
+            <input name="nombre" type="text" autocomplete="given-name" placeholder="Nombre">
+          </label>
+          <p class="booking__error" id="booking-error" role="alert" hidden></p>
+          <button class="btn btn--coral btn--block" type="submit">Preparar mensaje</button>
+          <div class="booking__done" id="booking-done" hidden>
+            <pre id="booking-preview"></pre>
+            <a class="btn btn--block" id="booking-send" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- UBICACIÓN -->
+    <section class="section" id="ubicacion">
+      <div class="wrap ubic">
+        <div class="ubic__map reveal" aria-hidden="true">
+          <svg viewBox="0 0 600 440">
+            <rect width="600" height="440" fill="var(--mist)"/>
+            <g fill="none" stroke="#fff" stroke-linecap="round">
+              <path d="M-20 300 C120 280 220 330 360 300 S560 250 640 270" stroke-width="22"/>
+              <path d="M150 -20 C170 120 140 240 190 460" stroke-width="14"/>
+              <path d="M380 -20 C360 120 420 220 400 460" stroke-width="12"/>
+              <path d="M-20 140 C120 160 300 120 640 150" stroke-width="10"/>
+              <path d="M190 220 L400 210" stroke-width="8"/>
+              <path d="M260 140 L270 300" stroke-width="7"/>
+            </g>
+            <g fill="var(--ink)" opacity=".08">
+              <rect x="200" y="160" width="50" height="40" rx="4"/><rect x="290" y="160" width="80" height="36" rx="4"/>
+              <rect x="200" y="235" width="56" height="50" rx="4"/><rect x="290" y="232" width="90" height="52" rx="4"/>
+              <rect x="430" y="170" width="120" height="70" rx="4"/><rect x="40" y="170" width="90" height="90" rx="4"/>
+              <rect x="40" y="330" width="120" height="70" rx="4"/><rect x="220" y="340" width="140" height="60" rx="4"/>
+            </g>
+            <circle cx="282" cy="218" r="46" fill="var(--coral)" opacity=".14"/>
+            <circle cx="282" cy="218" r="12" fill="var(--coral)"/>
+            <circle cx="282" cy="218" r="4.5" fill="#fff"/>
+            <text x="304" y="206" font-family="Sora, sans-serif" font-size="14" fill="var(--ink)">Bellanela</text>
+            <text x="24" y="420" font-family="Sora, sans-serif" font-size="11" fill="var(--ink)" opacity=".5">Plano orientativo · Gines</text>
+          </svg>
+        </div>
+        <div class="ubic__info reveal">
+          <p class="kicker"><span>07</span> Ubicación</p>
+          <h2>En Gines, <em>a un paso.</em></h2>
+          <p class="ubic__addr">C. Salvador Dalí, 30<br>41960 Gines, Sevilla</p>
+          <p class="open" id="open-now" hidden></p>
+          <table class="hours">
+            <tbody>
+              <tr data-day="1"><th>Lunes</th><td>10:00 – 14:00</td></tr>
+              <tr data-day="2"><th>Martes</th><td>10:00 – 14:00</td></tr>
+              <tr data-day="3"><th>Miércoles</th><td>10:00 – 14:00</td></tr>
+              <tr data-day="4"><th>Jueves</th><td>10:00 – 21:00</td></tr>
+              <tr data-day="5"><th>Viernes</th><td>10:00 – 15:00</td></tr>
+              <tr data-day="6"><th>Sábado</th><td>Cerrado</td></tr>
+              <tr data-day="0"><th>Domingo</th><td>Cerrado</td></tr>
+            </tbody>
+          </table>
+          <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Bellanela+Est%C3%A9tica+y+Belleza+Gines" target="_blank" rel="noopener">Cómo llegar</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="section section--tight" id="contacto">
+      <div class="wrap">
+        <div class="contact reveal">
+          <a class="contact__item" href="tel:+34653595206"><span>Teléfono</span><strong>653 59 52 06</strong></a>
+          <a class="contact__item" href="#" data-wa-direct><span>WhatsApp</span><strong>Escríbenos</strong></a>
+          <a class="contact__item" href="https://www.facebook.com/bellanelabelleza/" target="_blank" rel="noopener"><span>Facebook</span><strong>@bellanelabelleza</strong></a>
+          <a class="contact__item" href="#ubicacion"><span>Dirección</span><strong>C. Salvador Dalí, 30</strong></a>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div>
+        <p class="footer__brand">Bellanela</p>
+        <p class="footer__tag">Estética y Belleza · Gines, Sevilla</p>
+      </div>
+      <nav aria-label="Pie de página">
+        <a href="#servicios">Servicios</a>
+        <a href="#tratamientos">Tratamientos</a>
+        <a href="#cita">Pedir cita</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <p class="footer__small">© <span id="year">2026</span> Bellanela Estética y Belleza</p>
+    </div>
+  </footer>
+
+  <a class="fab" href="#" data-wa-direct aria-label="Escribir por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.2z"/></svg>
+  </a>
+
+  <script src="main.js" defer></script>
 </body>
 </html>

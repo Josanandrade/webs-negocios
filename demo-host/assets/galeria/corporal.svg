@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" preserveAspectRatio="xMidYMid slice">
+<rect width="900" height="600" fill="#172234"/>
+<circle cx="680" cy="120" r="260" fill="#D4604F" opacity=".12"/>
+<path d="M360 -20c-60 120-40 200 10 280s70 200-20 360" fill="none" stroke="#EBCDBB" stroke-width="3"/>
+<path d="M540 -20c50 120 30 210-20 290s-60 190 30 350" fill="none" stroke="#EBCDBB" stroke-width="3"/>
+<path d="M360 -20c-60 120-40 200 10 280s70 200-20 360H580c-90-160-80-270-30-350s70-170 20-290z" fill="#EBCDBB" opacity=".18"/>
+<g fill="none" stroke="#CDAE7E" stroke-dasharray="4 8" stroke-width="2"><path d="M300 260h300"/><path d="M290 380h320"/></g>
+<g fill="#D4604F"><circle cx="300" cy="260" r="6"/><circle cx="600" cy="260" r="6"/><circle cx="290" cy="380" r="6"/><circle cx="610" cy="380" r="6"/></g>
+<g font-family="Georgia, serif" font-size="22" fill="#EEF0EC" opacity=".8"><text x="640" y="268">cintura</text><text x="650" y="388">cadera</text></g>
+</svg>
