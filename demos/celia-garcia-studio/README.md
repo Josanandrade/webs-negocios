@@ -9,18 +9,14 @@ Demo estática (HTML + CSS + JS, sin build ni backend) para **Celia García Stud
 
 ## Despliegue en Cloudflare Pages (no Railway)
 
-| Ajuste | Valor |
-|---|---|
-| Rama | `demo/celia-garcia-studio` |
-| Root directory | `demos/celia-garcia-studio` |
-| Build command | *(vacío)* |
-| Build output directory | `public` |
-
-`wrangler.toml` declara `pages_build_output_dir = "public"`. También se puede subir a mano:
+El repositorio tiene un único proyecto de Cloudflare Pages que publica siempre la carpeta `demo-host/` de la raíz.
+En la rama `demo/celia-garcia-studio`, `demo-host/` es una copia de `public/`. Tras cambiar la demo:
 
 ```bash
-npx wrangler pages deploy public --project-name celia-garcia-studio --branch demo-celia-garcia-studio
+rm -rf demo-host && cp -r demos/celia-garcia-studio/public demo-host
 ```
+
+Cloudflare genera la preview al detectar el commit en la rama. No se usa Wrangler ni proyectos propios.
 
 ## Ver en local
 

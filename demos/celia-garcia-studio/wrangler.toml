@@ -1,5 +1,0 @@
-# Cloudflare Pages · demo estática sin build.
-# Root directory del proyecto en Pages: demos/celia-garcia-studio
-name = "celia-garcia-studio"
-pages_build_output_dir = "public"
-compatibility_date = "2026-10-01"

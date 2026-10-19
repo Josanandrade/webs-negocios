@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" width="600" height="750" role="img">
+<defs>
+  <filter id="cateyecereza-grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/>
+    <feColorMatrix values="0 0 0 0 .23  0 0 0 0 .16  0 0 0 0 .15  0 0 0 .05 0"/>
+  </filter>
+  <filter id="cateyecereza-shadow" x="-40%" y="-30%" width="180%" height="160%">
+    <feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#6b3f36" flood-opacity=".18"/>
+  </filter>
+  <filter id="cateyecereza-soft"><feGaussianBlur stdDeviation="1.6"/></filter>
+  <filter id="blur" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="10"/></filter>
+  <linearGradient id="cateyecereza-gloss" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+    <stop offset=".5" stop-color="#fff" stop-opacity=".75"/>
+    <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient><linearGradient id="cateyecereza-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#efe1dd"/><stop offset="1" stop-color="#d7b9b3"/></linearGradient>
+      <radialGradient id="cateyecereza-glow" cx=".7" cy=".25" r=".7"><stop offset="0" stop-color="#fbe9e6" stop-opacity=".55"/><stop offset="1" stop-color="#fbe9e6" stop-opacity="0"/></radialGradient><linearGradient id="cateyecereza-cherry" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#3a0f19"/><stop offset="1" stop-color="#6e2234"/></linearGradient>
+        <linearGradient id="cateyecereza-band0" x1="0" y1="0" x2="1" y2="1" gradientTransform="rotate(-8 .5 .5)">
+        <stop offset=".3" stop-color="#ffd9df" stop-opacity="0"/><stop offset=".5" stop-color="#ffd9df" stop-opacity=".75"/><stop offset=".7" stop-color="#ffd9df" stop-opacity="0"/></linearGradient><clipPath id="cateyecereza-clip0"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z"/></clipPath><linearGradient id="cateyecereza-cherry" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#3a0f19"/><stop offset="1" stop-color="#6e2234"/></linearGradient>
+        <linearGradient id="cateyecereza-band1" x1="0" y1="0" x2="1" y2="1" gradientTransform="rotate(-4 .5 .5)">
+        <stop offset=".3" stop-color="#ffd9df" stop-opacity="0"/><stop offset=".5" stop-color="#ffd9df" stop-opacity=".75"/><stop offset=".7" stop-color="#ffd9df" stop-opacity="0"/></linearGradient><clipPath id="cateyecereza-clip1"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z"/></clipPath><linearGradient id="cateyecereza-cherry" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#3a0f19"/><stop offset="1" stop-color="#6e2234"/></linearGradient>
+        <linearGradient id="cateyecereza-band2" x1="0" y1="0" x2="1" y2="1" gradientTransform="rotate(0 .5 .5)">
+        <stop offset=".3" stop-color="#ffd9df" stop-opacity="0"/><stop offset=".5" stop-color="#ffd9df" stop-opacity=".75"/><stop offset=".7" stop-color="#ffd9df" stop-opacity="0"/></linearGradient><clipPath id="cateyecereza-clip2"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z"/></clipPath><linearGradient id="cateyecereza-cherry" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#3a0f19"/><stop offset="1" stop-color="#6e2234"/></linearGradient>
+        <linearGradient id="cateyecereza-band3" x1="0" y1="0" x2="1" y2="1" gradientTransform="rotate(4 .5 .5)">
+        <stop offset=".3" stop-color="#ffd9df" stop-opacity="0"/><stop offset=".5" stop-color="#ffd9df" stop-opacity=".75"/><stop offset=".7" stop-color="#ffd9df" stop-opacity="0"/></linearGradient><clipPath id="cateyecereza-clip3"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z"/></clipPath><linearGradient id="cateyecereza-cherry" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#3a0f19"/><stop offset="1" stop-color="#6e2234"/></linearGradient>
+        <linearGradient id="cateyecereza-band4" x1="0" y1="0" x2="1" y2="1" gradientTransform="rotate(8 .5 .5)">
+        <stop offset=".3" stop-color="#ffd9df" stop-opacity="0"/><stop offset=".5" stop-color="#ffd9df" stop-opacity=".75"/><stop offset=".7" stop-color="#ffd9df" stop-opacity="0"/></linearGradient><clipPath id="cateyecereza-clip4"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z"/></clipPath></defs>
+<rect width="600" height="750" fill="url(#cateyecereza-bg)"/><rect width="600" height="750" fill="url(#cateyecereza-glow)"/>
+<ellipse cx="300" cy="530" rx="165" ry="14" fill="#7a4b40" opacity=".10" filter="url(#blur)"/><g transform="translate(300 500) scale(1.42) rotate(-30 0 210)" filter="url(#cateyecereza-shadow)">
+      <g clip-path="url(#cateyecereza-clip0)"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="url(#cateyecereza-cherry)"/><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="url(#cateyecereza-band0)"/>
+        <path d="M-22,-24 C-26,-70 -22,-112 -8,-138" fill="none" stroke="url(#cateyecereza-gloss)" stroke-width="7" stroke-linecap="round" opacity=".7" filter="url(#cateyecereza-soft)"/>
+        <path d="M-35,-8 Q0,6 35,-8" fill="none" stroke="#000" stroke-opacity=".06" stroke-width="5"/>
+      </g>
+      <path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="none" stroke="#7a4b40" stroke-opacity=".12" stroke-width="1"/>
+    </g><g transform="translate(300 500) scale(1.42) rotate(-15 0 210)" filter="url(#cateyecereza-shadow)">
+      <g clip-path="url(#cateyecereza-clip1)"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="url(#cateyecereza-cherry)"/><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="url(#cateyecereza-band1)"/>
+        <path d="M-22,-24 C-26,-70 -22,-112 -8,-138" fill="none" stroke="url(#cateyecereza-gloss)" stroke-width="7" stroke-linecap="round" opacity=".7" filter="url(#cateyecereza-soft)"/>
+        <path d="M-35,-8 Q0,6 35,-8" fill="none" stroke="#000" stroke-opacity=".06" stroke-width="5"/>
+      </g>
+      <path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="none" stroke="#7a4b40" stroke-opacity=".12" stroke-width="1"/>
+    </g><g transform="translate(300 500) scale(1.42) rotate(0 0 210)" filter="url(#cateyecereza-shadow)">
+      <g clip-path="url(#cateyecereza-clip2)"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="url(#cateyecereza-cherry)"/><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="url(#cateyecereza-band2)"/>
+        <path d="M-22,-24 C-26,-70 -22,-112 -8,-138" fill="none" stroke="url(#cateyecereza-gloss)" stroke-width="7" stroke-linecap="round" opacity=".7" filter="url(#cateyecereza-soft)"/>
+        <path d="M-35,-8 Q0,6 35,-8" fill="none" stroke="#000" stroke-opacity=".06" stroke-width="5"/>
+      </g>
+      <path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="none" stroke="#7a4b40" stroke-opacity=".12" stroke-width="1"/>
+    </g><g transform="translate(300 500) scale(1.42) rotate(15 0 210)" filter="url(#cateyecereza-shadow)">
+      <g clip-path="url(#cateyecereza-clip3)"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="url(#cateyecereza-cherry)"/><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="url(#cateyecereza-band3)"/>
+        <path d="M-22,-24 C-26,-70 -22,-112 -8,-138" fill="none" stroke="url(#cateyecereza-gloss)" stroke-width="7" stroke-linecap="round" opacity=".7" filter="url(#cateyecereza-soft)"/>
+        <path d="M-35,-8 Q0,6 35,-8" fill="none" stroke="#000" stroke-opacity=".06" stroke-width="5"/>
+      </g>
+      <path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="none" stroke="#7a4b40" stroke-opacity=".12" stroke-width="1"/>
+    </g><g transform="translate(300 500) scale(1.42) rotate(30 0 210)" filter="url(#cateyecereza-shadow)">
+      <g clip-path="url(#cateyecereza-clip4)"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="url(#cateyecereza-cherry)"/><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="url(#cateyecereza-band4)"/>
+        <path d="M-22,-24 C-26,-70 -22,-112 -8,-138" fill="none" stroke="url(#cateyecereza-gloss)" stroke-width="7" stroke-linecap="round" opacity=".7" filter="url(#cateyecereza-soft)"/>
+        <path d="M-35,-8 Q0,6 35,-8" fill="none" stroke="#000" stroke-opacity=".06" stroke-width="5"/>
+      </g>
+      <path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="none" stroke="#7a4b40" stroke-opacity=".12" stroke-width="1"/>
+    </g>
+<rect width="600" height="750" filter="url(#cateyecereza-grain)"/>
+</svg>
