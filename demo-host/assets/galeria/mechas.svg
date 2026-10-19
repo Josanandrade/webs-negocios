@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice">
+<rect width="800" height="400" fill="#12261F"/>
+<g fill="none" stroke-linecap="round" stroke-width="22">
+<path d="M60 -10 C120 120 20 260 90 420" stroke="#6B3E26"/><path d="M108 -10 C168 120 68 260 138 420" stroke="#C98A55"/><path d="M156 -10 C216 120 116 260 186 420" stroke="#E9C08A"/><path d="M204 -10 C264 120 164 260 234 420" stroke="#6B3E26"/><path d="M252 -10 C312 120 212 260 282 420" stroke="#F3D9A8"/><path d="M300 -10 C360 120 260 260 330 420" stroke="#8A5533"/><path d="M348 -10 C408 120 308 260 378 420" stroke="#E9C08A"/><path d="M396 -10 C456 120 356 260 426 420" stroke="#6B3E26"/><path d="M444 -10 C504 120 404 260 474 420" stroke="#C98A55"/><path d="M492 -10 C552 120 452 260 522 420" stroke="#F3D9A8"/><path d="M540 -10 C600 120 500 260 570 420" stroke="#6B3E26"/><path d="M588 -10 C648 120 548 260 618 420" stroke="#C98A55"/><path d="M636 -10 C696 120 596 260 666 420" stroke="#E9C08A"/><path d="M684 -10 C744 120 644 260 714 420" stroke="#8A5533"/><path d="M732 -10 C792 120 692 260 762 420" stroke="#F3D9A8"/><path d="M780 -10 C840 120 740 260 810 420" stroke="#6B3E26"/>
+</g>
+<circle cx="660" cy="90" r="50" fill="none" stroke="#FF6F59" stroke-width="12"/>
+</svg>

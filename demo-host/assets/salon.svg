@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 520">
+<rect width="600" height="520" fill="#FFFBF5"/>
+<rect y="380" width="600" height="140" fill="#F6EFE4"/>
+<g stroke="#12261F" stroke-width="2" opacity=".15"><path d="M40 380 L-20 520"/><path d="M110 380 L50 520"/><path d="M180 380 L120 520"/><path d="M250 380 L190 520"/><path d="M320 380 L260 520"/><path d="M390 380 L330 520"/><path d="M460 380 L400 520"/><path d="M530 380 L470 520"/><path d="M600 380 L540 520"/><path d="M670 380 L610 520"/></g>
+<rect x="60" y="60" width="140" height="180" rx="8" fill="#DCEBF5" stroke="#12261F" stroke-width="5"/>
+<path d="M130 60 V240 M60 150 H200" stroke="#12261F" stroke-width="4"/>
+<path d="M78 228 C90 200 108 190 120 200" stroke="#7FA38F" stroke-width="6" fill="none"/>
+<circle cx="360" cy="190" r="110" fill="#DCEBF5" stroke="#12261F" stroke-width="6"/>
+<circle cx="360" cy="190" r="124" fill="none" stroke="#FF6F59" stroke-width="10"/>
+<path d="M300 140 C320 120 340 115 360 118" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round" opacity=".8"/>
+<rect x="230" y="320" width="260" height="26" rx="6" fill="#12261F"/>
+<rect x="250" y="346" width="12" height="60" fill="#12261F"/><rect x="458" y="346" width="12" height="60" fill="#12261F"/>
+<rect x="270" y="286" width="22" height="34" rx="4" fill="#FF6F59"/><rect x="300" y="276" width="18" height="44" rx="4" fill="#7FA38F"/>
+<path d="M430 300 l30 -14 l4 8 l-30 14z" fill="#12261F"/>
+<g transform="translate(330 330)">
+<rect x="-70" y="40" width="140" height="70" rx="22" fill="#FF6F59" stroke="#12261F" stroke-width="5"/>
+<rect x="-56" y="-30" width="112" height="84" rx="26" fill="#FF6F59" stroke="#12261F" stroke-width="5"/>
+<rect x="-8" y="110" width="16" height="50" fill="#12261F"/>
+<ellipse cx="0" cy="166" rx="56" ry="12" fill="#12261F"/>
+</g>
+<g transform="translate(520 300)"><rect x="-26" y="40" width="52" height="80" rx="8" fill="#F6EFE4" stroke="#12261F" stroke-width="4"/>
+<path d="M0 40 C-40 0 -30 -40 0 -60 C30 -40 40 0 0 40Z" fill="#7FA38F" stroke="#12261F" stroke-width="4"/></g>
+<text x="300" y="40" text-anchor="middle" font-family="Epilogue, sans-serif" font-weight="900" font-size="26" fill="#12261F" letter-spacing="2">FON</text>
+</svg>

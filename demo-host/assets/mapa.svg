@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+<rect width="800" height="500" fill="#E7F0E9"/>
+<g fill="#FFFBF5" stroke="#B9D3E6" stroke-width="2">
+<rect x="40" y="40" width="200" height="140" rx="10"/><rect x="280" y="40" width="220" height="140" rx="10"/><rect x="540" y="40" width="220" height="140" rx="10"/>
+<rect x="40" y="230" width="200" height="230" rx="10"/><rect x="280" y="230" width="220" height="100" rx="10"/><rect x="280" y="370" width="220" height="90" rx="10"/><rect x="540" y="230" width="220" height="230" rx="10"/>
+</g>
+<g stroke="#FFFFFF" stroke-width="26" stroke-linecap="round"><path d="M0 205 H800"/><path d="M260 0 V500"/><path d="M520 0 V500"/><path d="M280 350 H500"/></g>
+<text x="390" y="198" text-anchor="middle" font-family="Karla, sans-serif" font-weight="700" font-size="15" fill="#5E6F67" letter-spacing="1.5">C/ CABO DE GATA</text>
+<g transform="translate(390 300)">
+<circle r="58" fill="#FF6F59" opacity=".18"/>
+<path d="M0 30 C-30 -4 -34 -18 -34 -30 a34 34 0 0 1 68 0 c0 12 -4 26 -34 60z" fill="#12261F"/>
+<circle cy="-30" r="13" fill="none" stroke="#FF6F59" stroke-width="6"/>
+</g>
+<g transform="translate(390 400)"><rect x="-120" y="-24" width="240" height="48" rx="24" fill="#12261F"/>
+<text y="7" text-anchor="middle" font-family="Epilogue, sans-serif" font-weight="800" font-size="18" fill="#FFFBF5">Fon Peluqueros · local 7</text></g>
+<text x="760" y="480" text-anchor="end" font-family="Karla, sans-serif" font-size="13" fill="#5E6F67">Plano orientativo · Benacazón</text>
+</svg>

@@ -1,16 +1,344 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Fon Peluqueros · Benacazón</title>
+  <meta name="description" content="Fon Peluqueros, en la calle Cabo de Gata de Benacazón (Sevilla). Cortes, color y peinados con trato cercano. Pide tu cita por WhatsApp o llamando.">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="theme-color" content="#FFFBF5">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,500;0,700;0,800;0,900;1,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__inner">
+      <a class="brand" href="#top" aria-label="Fon Peluqueros, inicio">
+        <span class="brand__mark" aria-hidden="true">F<i></i>n</span>
+        <span class="brand__name">Peluqueros</span>
+      </a>
+      <nav class="nav__links" aria-label="Secciones">
+        <a href="#servicios">Servicios</a>
+        <a href="#peluqueria">Peluquería</a>
+        <a href="#galeria">Galería</a>
+        <a href="#salon">El salón</a>
+        <a href="#opiniones">Opiniones</a>
+        <a href="#ubicacion">Ubicación</a>
+      </nav>
+      <a class="btn btn--small nav__cta" href="#cita">Pedir cita</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="menu" id="menu" hidden>
+      <a href="#servicios">Servicios</a>
+      <a href="#peluqueria">Peluquería</a>
+      <a href="#galeria">Galería</a>
+      <a href="#salon">El salón</a>
+      <a href="#opiniones">Opiniones</a>
+      <a href="#ubicacion">Ubicación</a>
+      <a class="btn" href="#cita">Pedir cita</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow">Peluquería en Benacazón · Sevilla</p>
+          <h1 class="hero__title">
+            <span class="hero__word" aria-hidden="true">F<span class="ring"></span>n</span>
+            <span class="hero__claim">Tu pelo, en manos <em>de confianza.</em></span>
+            <span class="sr-only">Fon Peluqueros. Tu pelo, en manos de confianza.</span>
+          </h1>
+          <p class="lead">Cortes, color y peinados con calma, buen oficio y el trato cercano de tu peluquería de barrio. Escríbenos y te buscamos hueco.</p>
+          <div class="hero__actions">
+            <a class="btn btn--wa" data-wa="Hola, me gustaría pedir cita en Fon Peluqueros." href="#cita">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Zm0 16.4a7.4 7.4 0 0 1-3.8-1l-.3-.2-2.7.7.7-2.6-.2-.3A7.4 7.4 0 1 1 12 19.4Zm4.1-5.5c-.2-.1-1.3-.7-1.5-.7-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6 6 0 0 1-3-2.6c-.2-.4.2-.4.6-1.2.1-.2 0-.3 0-.4l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.9 2.3 1 2.5.1.2 1.7 2.7 4.2 3.7 1.6.7 2.2.7 3 .6.5-.1 1.3-.6 1.5-1.1.2-.5.2-1 .1-1.1l-.6-.4Z"/></svg>
+              Pedir cita por WhatsApp
+            </a>
+            <a class="btn btn--ghost" href="tel:+34651611780">Llamar al 651 61 17 80</a>
+          </div>
+        </div>
+
+        <aside class="today reveal" aria-label="Horario de hoy">
+          <div class="today__top">
+            <span class="today__dot" data-open-dot></span>
+            <strong data-open-label>Horario de hoy</strong>
+          </div>
+          <p class="today__sub" data-open-sub>Lunes a viernes, mañana y tarde.</p>
+          <ol class="week" data-week>
+            <li data-day="1"><span>L</span><b>10–14 · 17–20</b></li>
+            <li data-day="2"><span>M</span><b>10–14 · 17–20</b></li>
+            <li data-day="3"><span>X</span><b>10–14 · 17–20</b></li>
+            <li data-day="4"><span>J</span><b>10–14 · 17–20</b></li>
+            <li data-day="5"><span>V</span><b>10–14 · 17–20</b></li>
+            <li data-day="6" class="is-closed"><span>S</span><b>Cerrado</b></li>
+            <li data-day="0" class="is-closed"><span>D</span><b>Cerrado</b></li>
+          </ol>
+          <div class="today__rating">
+            <span class="today__score">4,9</span>
+            <span><span class="stars" aria-hidden="true">★★★★★</span><small>Valoración en Google</small></span>
+          </div>
+          <p class="today__addr">C/ Cabo de Gata, 1 · local 7</p>
+        </aside>
+      </div>
+
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker__track">
+          <span>Corte</span><span>Color</span><span>Peinado</span><span>Trato cercano</span><span>Benacazón</span>
+          <span>Corte</span><span>Color</span><span>Peinado</span><span>Trato cercano</span><span>Benacazón</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="section" id="servicios">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="kicker">Servicios</p>
+          <h2>Lo de siempre, <em>bien hecho.</em></h2>
+          <p class="section__lead">Tres pilares y un mismo cuidado. Si buscas algo concreto, pregúntanos por WhatsApp y te contamos.</p>
+        </header>
+        <div class="services">
+          <article class="service reveal">
+            <span class="service__num">01</span>
+            <svg class="service__icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="18" cy="46" r="9"/><circle cx="46" cy="46" r="9"/><path d="M24 39 47 8M40 39 17 8"/></svg>
+            <h3>Corte</h3>
+            <p>Cortes a tu medida, pensados para cómo te peinas cada mañana y para que crezcan bien entre cita y cita.</p>
+            <a class="service__link" data-wa="Hola, quería pedir cita para un corte." href="#cita">Pedir corte →</a>
+          </article>
+          <article class="service service--color reveal">
+            <span class="service__num">02</span>
+            <svg class="service__icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M14 50 40 24l8 8-26 26H14z"/><path d="m40 24 6-6a5.7 5.7 0 0 1 8 8l-6 6"/></svg>
+            <h3>Color</h3>
+            <p>Coloración, retoque de raíz o un cambio de tono. Te asesoramos para que el color te favorezca y dure.</p>
+            <a class="service__link" data-wa="Hola, quería información sobre color." href="#cita">Consultar color →</a>
+          </article>
+          <article class="service reveal">
+            <span class="service__num">03</span>
+            <svg class="service__icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 26h44v8H10z"/><path d="M16 34v14M24 34v14M32 34v14M40 34v14M48 34v14"/><path d="M22 26c0-8 4-12 10-12s10 4 10 12"/></svg>
+            <h3>Peinado</h3>
+            <p>Secados, ondas y peinados para el día a día o para una ocasión especial. Sales con el peinado listo para lo que venga.</p>
+            <a class="service__link" data-wa="Hola, quería pedir cita para un peinado." href="#cita">Reservar peinado →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PELUQUERÍA -->
+    <section class="section section--dark" id="peluqueria">
+      <div class="wrap split">
+        <header class="section__head reveal">
+          <p class="kicker">Peluquería</p>
+          <h2>Así trabajamos <em>contigo.</em></h2>
+          <p class="section__lead">Nada de prisas ni de cortes en serie. Cada cita sigue el mismo orden para que sepas qué esperar.</p>
+          <a class="btn btn--coral" href="#cita">Quiero mi cita</a>
+        </header>
+        <ol class="steps">
+          <li class="reveal">
+            <span class="steps__n">1</span>
+            <div>
+              <h3>Hablamos primero</h3>
+              <p>Nos cuentas cómo llevas el pelo, qué te gusta y qué no. Si traes una foto de referencia, mejor.</p>
+            </div>
+          </li>
+          <li class="reveal">
+            <span class="steps__n">2</span>
+            <div>
+              <h3>Te proponemos</h3>
+              <p>Te decimos con sinceridad qué va a funcionar con tu tipo de pelo y tu rutina, antes de empezar.</p>
+            </div>
+          </li>
+          <li class="reveal">
+            <span class="steps__n">3</span>
+            <div>
+              <h3>Manos a la obra</h3>
+              <p>Corte, color o peinado con tiempo y atención al detalle, sin mirar el reloj.</p>
+            </div>
+          </li>
+          <li class="reveal">
+            <span class="steps__n">4</span>
+            <div>
+              <h3>Te vas sabiendo cómo peinarte</h3>
+              <p>Te explicamos cómo mantenerlo en casa para que te dure el resultado del salón.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="section" id="galeria">
+      <div class="wrap">
+        <header class="section__head section__head--row reveal">
+          <div>
+            <p class="kicker">Galería</p>
+            <h2>Trabajos <em>del salón.</em></h2>
+          </div>
+          <div class="filters" role="group" aria-label="Filtrar galería">
+            <button type="button" class="chip is-active" data-filter="all">Todo</button>
+            <button type="button" class="chip" data-filter="corte">Corte</button>
+            <button type="button" class="chip" data-filter="color">Color</button>
+            <button type="button" class="chip" data-filter="peinado">Peinado</button>
+          </div>
+        </header>
+        <div class="gallery">
+          <figure class="shot shot--tall reveal" data-cat="color"><img src="assets/galeria/melena-color.svg" alt="Ilustración de melena con color cálido" loading="lazy"><figcaption>Color cálido</figcaption></figure>
+          <figure class="shot reveal" data-cat="corte"><img src="assets/galeria/bob.svg" alt="Ilustración de corte bob" loading="lazy"><figcaption>Bob recto</figcaption></figure>
+          <figure class="shot reveal" data-cat="corte"><img src="assets/galeria/caballero.svg" alt="Ilustración de corte de caballero" loading="lazy"><figcaption>Corte caballero</figcaption></figure>
+          <figure class="shot reveal" data-cat="peinado"><img src="assets/galeria/ondas.svg" alt="Ilustración de peinado con ondas" loading="lazy"><figcaption>Ondas</figcaption></figure>
+          <figure class="shot reveal" data-cat="peinado"><img src="assets/galeria/recogido.svg" alt="Ilustración de recogido" loading="lazy"><figcaption>Recogido</figcaption></figure>
+          <figure class="shot shot--wide reveal" data-cat="color"><img src="assets/galeria/mechas.svg" alt="Ilustración de mechas" loading="lazy"><figcaption>Mechas</figcaption></figure>
+        </div>
+        <p class="note reveal">Ilustraciones provisionales. Aquí irán las fotos reales de vuestros trabajos.</p>
+      </div>
+    </section>
+
+    <!-- SOBRE EL SALÓN -->
+    <section class="section section--sky" id="salon">
+      <div class="wrap about">
+        <figure class="about__art reveal">
+          <img src="assets/salon.svg" width="600" height="520" alt="Ilustración del interior de Fon Peluqueros: tocador con espejo redondo y sillón" loading="lazy">
+        </figure>
+        <div class="about__copy reveal">
+          <p class="kicker">Sobre el salón</p>
+          <h2>Un salón de barrio <em>en Benacazón.</em></h2>
+          <p>Fon Peluqueros está en la calle Cabo de Gata, en el local 7. Un sitio cómodo y sin pretensiones donde la gente vuelve porque se siente bien atendida.</p>
+          <p>Abrimos de lunes a viernes, por la mañana y por la tarde, para que puedas venir antes o después del trabajo. Lo más fácil para pedir hora es escribirnos por WhatsApp.</p>
+          <ul class="facts">
+            <li><strong>4,9</strong><span>de media en Google</span></li>
+            <li><strong>L–V</strong><span>mañana y tarde</span></li>
+            <li><strong>Local 7</strong><span>C/ Cabo de Gata, 1</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPINIONES -->
+    <section class="section" id="opiniones">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="kicker">Opiniones</p>
+          <h2>Lo que dicen <em>quienes vienen.</em></h2>
+        </header>
+        <div class="reviews">
+          <div class="score reveal">
+            <span class="score__num">4,9</span>
+            <span class="stars" aria-hidden="true">★★★★★</span>
+            <p>Valoración media en Google</p>
+            <a class="btn btn--light btn--small" href="https://www.google.com/maps/search/?api=1&amp;query=Peluquer%C3%ADa+Fon+Cabo+de+Gata+Benacaz%C3%B3n" target="_blank" rel="noopener">Ver reseñas en Google</a>
+          </div>
+          <blockquote class="quote reveal">
+            <span class="tag">Texto de ejemplo</span>
+            <p>Aquí irá una reseña real de Google, copiada tal cual con el permiso del salón.</p>
+            <footer>Nombre del cliente · Google</footer>
+          </blockquote>
+          <blockquote class="quote reveal">
+            <span class="tag">Texto de ejemplo</span>
+            <p>Espacio para una segunda reseña real: lo que más valoran vuestros clientes, con sus palabras.</p>
+            <footer>Nombre del cliente · Google</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="cita">
+      <div class="wrap cta__grid">
+        <div class="cta__copy reveal">
+          <p class="kicker kicker--light">Pide tu cita</p>
+          <h2>Dinos qué te quieres hacer <em>y te buscamos hueco.</em></h2>
+          <p>Elige el servicio y la franja que mejor te venga. Se abre WhatsApp con el mensaje preparado; no se envía nada hasta que tú le des.</p>
+          <a class="cta__phone" href="tel:+34651611780">¿Prefieres llamar? <strong>651 61 17 80</strong></a>
+        </div>
+        <form class="booking reveal" data-booking novalidate>
+          <fieldset>
+            <legend>Servicio</legend>
+            <div class="pills">
+              <label><input type="radio" name="servicio" value="corte" checked><span>Corte</span></label>
+              <label><input type="radio" name="servicio" value="color"><span>Color</span></label>
+              <label><input type="radio" name="servicio" value="peinado"><span>Peinado</span></label>
+              <label><input type="radio" name="servicio" value="otra consulta"><span>Otra consulta</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>¿Cuándo te viene bien?</legend>
+            <div class="pills">
+              <label><input type="radio" name="franja" value="por la mañana (10–14 h)" checked><span>Mañana</span></label>
+              <label><input type="radio" name="franja" value="por la tarde (17–20 h)"><span>Tarde</span></label>
+              <label><input type="radio" name="franja" value="cuando haya hueco"><span>Me da igual</span></label>
+            </div>
+          </fieldset>
+          <label class="field">
+            <span>Tu nombre</span>
+            <input type="text" name="nombre" autocomplete="given-name" placeholder="Opcional">
+          </label>
+          <p class="booking__preview" data-preview></p>
+          <button class="btn btn--wa btn--block" type="submit">Enviar por WhatsApp</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- UBICACIÓN -->
+    <section class="section" id="ubicacion">
+      <div class="wrap location">
+        <div class="location__copy reveal">
+          <p class="kicker">Ubicación</p>
+          <h2>Calle Cabo de Gata, <em>local 7.</em></h2>
+          <address>C/ Cabo de Gata, 1, local 7<br>41805 Benacazón, Sevilla</address>
+          <a class="btn btn--ink" href="https://www.google.com/maps/search/?api=1&amp;query=37.3577798%2C-6.200258" target="_blank" rel="noopener">Cómo llegar</a>
+        </div>
+        <a class="map reveal" href="https://www.google.com/maps/search/?api=1&amp;query=37.3577798%2C-6.200258" target="_blank" rel="noopener" aria-label="Abrir la ubicación en Google Maps">
+          <img src="assets/mapa.svg" width="800" height="500" alt="Plano ilustrado con la ubicación de Fon Peluqueros en Benacazón" loading="lazy">
+        </a>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="section section--tight" id="contacto">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="kicker">Contacto</p>
+          <h2>Estamos a <em>un mensaje.</em></h2>
+        </header>
+        <div class="contact">
+          <a class="contact__card reveal" data-wa="Hola, tengo una consulta para Fon Peluqueros." href="#cita">
+            <span>WhatsApp</span><strong>651 61 17 80</strong><small>La forma más rápida de pedir cita</small>
+          </a>
+          <a class="contact__card reveal" href="tel:+34651611780">
+            <span>Teléfono</span><strong>651 61 17 80</strong><small>Llámanos en horario de apertura</small>
+          </a>
+          <div class="contact__card reveal">
+            <span>Horario</span><strong>Lunes a viernes</strong><small>10:00–14:00 y 17:00–20:00<br>Sábado y domingo cerrado</small>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div>
+        <span class="brand__mark brand__mark--big" aria-hidden="true">F<i></i>n</span>
+        <p>Peluqueros · Benacazón</p>
+      </div>
+      <p>C/ Cabo de Gata, 1, local 7 · 41805 Benacazón (Sevilla)<br><a href="tel:+34651611780">651 61 17 80</a></p>
+      <p class="footer__small">© <span data-year>2026</span> Fon Peluqueros</p>
+    </div>
+  </footer>
+
+  <a class="fab" data-wa="Hola, me gustaría pedir cita en Fon Peluqueros." href="#cita" aria-label="Pedir cita por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Zm0 16.4a7.4 7.4 0 0 1-3.8-1l-.3-.2-2.7.7.7-2.6-.2-.3A7.4 7.4 0 1 1 12 19.4Zm4.1-5.5c-.2-.1-1.3-.7-1.5-.7-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6 6 0 0 1-3-2.6c-.2-.4.2-.4.6-1.2.1-.2 0-.3 0-.4l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.9 2.3 1 2.5.1.2 1.7 2.7 4.2 3.7 1.6.7 2.2.7 3 .6.5-.1 1.3-.6 1.5-1.1.2-.5.2-1 .1-1.1l-.6-.4Z"/></svg>
+  </a>
+
+  <script src="main.js" defer></script>
 </body>
 </html>
