@@ -1,16 +1,418 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>Sinfo Daza Peluquería · Benacazón</title>
+  <meta name="description" content="Peluquería en Benacazón: color, mechas balayage, alisados, queratina, rizos y trenzados. Pide tu cita por teléfono o WhatsApp.">
+  <meta name="theme-color" content="#1D2B2A">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <header class="nav">
+    <div class="nav__inner wrap">
+      <a class="brand" href="#inicio" aria-label="Sinfo Daza Peluquería, inicio">
+        <span class="brand__mark" aria-hidden="true">SD</span>
+        <span class="brand__text">Sinfo Daza <small>Peluquería</small></span>
+      </a>
+      <nav class="nav__links" aria-label="Principal">
+        <a href="#servicios">Servicios</a>
+        <a href="#especialidades">Tu pelo</a>
+        <a href="#galeria">Trabajos</a>
+        <a href="#salon">El salón</a>
+        <a href="#opiniones">Opiniones</a>
+        <a href="#ubicacion">Dónde estamos</a>
+      </nav>
+      <a class="btn btn--copper nav__cta" href="#cita">Pedir cita</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="menu" id="menu" hidden>
+      <a href="#servicios">Servicios</a>
+      <a href="#especialidades">Tu pelo</a>
+      <a href="#galeria">Trabajos</a>
+      <a href="#salon">El salón</a>
+      <a href="#opiniones">Opiniones</a>
+      <a href="#ubicacion">Dónde estamos</a>
+      <a class="btn btn--copper" href="#cita">Pedir cita</a>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow">Peluquería en Benacazón · C/ Ben a Cassun, 3</p>
+          <h1 class="hero__title">Tu pelo,<br><em>tal y como es.</em></h1>
+          <p class="hero__lead">Liso, ondulado, rizado o con ganas de color. En Sinfo Daza te escuchamos primero y después trabajamos tu pelo con calma, en un salón cercano donde te llaman por tu nombre.</p>
+          <div class="hero__actions">
+            <a class="btn btn--copper btn--lg" data-wa="Hola Sinfo, me gustaría pedir cita." href="#cita">Pedir cita por WhatsApp</a>
+            <a class="btn btn--ghost btn--lg" href="tel:+34623580199">Llamar · 623 58 01 99</a>
+          </div>
+          <ul class="hero__facts">
+            <li><strong>5,0</strong><span>valoración en Google</span></li>
+            <li><strong>Mar–Sáb</strong><span>con cita previa</span></li>
+            <li><strong>Color y textura</strong><span>nuestra especialidad</span></li>
+          </ul>
+        </div>
+
+        <div class="hero__art" aria-hidden="true">
+          <div class="strands">
+            <figure class="strand strand--liso">
+              <svg viewBox="0 0 80 360"><path d="M20 10 V350 M34 10 V350 M48 10 V350 M62 10 V350"/></svg>
+              <figcaption>Liso</figcaption>
+            </figure>
+            <figure class="strand strand--onda">
+              <svg viewBox="0 0 80 360"><path d="M20 10 C40 60 0 110 20 160 S40 260 20 350 M36 10 C56 60 16 110 36 160 S56 260 36 350 M52 10 C72 60 32 110 52 160 S72 260 52 350"/></svg>
+              <figcaption>Ondas</figcaption>
+            </figure>
+            <figure class="strand strand--rizo">
+              <svg viewBox="0 0 80 360"><path d="M40 10 c22 10 22 34 0 34 s-22 24 0 34 s22 24 0 34 s-22 24 0 34 s22 24 0 34 s-22 24 0 34 s22 24 0 34 s-22 24 0 34 s22 24 0 34"/><path class="soft" d="M28 20 c18 10 18 30 0 30 s-18 22 0 30 s18 22 0 30 s-18 22 0 30 s18 22 0 30 s-18 22 0 30 s18 22 0 30 s-18 22 0 30 s18 22 0 30"/></svg>
+              <figcaption>Rizos</figcaption>
+            </figure>
+            <figure class="strand strand--trenza">
+              <svg viewBox="0 0 80 360"><path d="M24 10 C56 40 56 60 24 90 S-8 140 24 170 S56 220 24 250 S-8 300 24 330"/><path d="M56 10 C24 40 24 60 56 90 S88 140 56 170 S24 220 56 250 S88 300 56 330"/><path class="soft" d="M40 330 V352"/></svg>
+              <figcaption>Trenzas</figcaption>
+            </figure>
+            <figure class="strand strand--color">
+              <svg viewBox="0 0 80 360"><defs><linearGradient id="bal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3A2A22"/><stop offset=".45" stop-color="#8A5A3B"/><stop offset=".8" stop-color="#D9A86C"/><stop offset="1" stop-color="#EED6A8"/></linearGradient></defs><path stroke="url(#bal)" d="M22 10 C30 120 14 240 24 350 M40 10 C46 120 32 240 42 350 M58 10 C62 120 50 240 58 350"/></svg>
+              <figcaption>Balayage</figcaption>
+            </figure>
+          </div>
+          <div class="hero__card">
+            <span class="hero__card-k">Horario</span>
+            <p><strong>Martes a viernes</strong> 9:30–13:30 · 16:30–20:30</p>
+            <p><strong>Sábado</strong> 9:30–13:30</p>
+            <p class="muted">Domingo y lunes, cerrado</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="section" id="servicios">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="eyebrow">Servicios</p>
+          <h2>Lo que hacemos en el salón</h2>
+          <p class="section__lead">Cada servicio empieza con una conversación: qué quieres, cómo llevas el pelo en tu día a día y qué te va a durar. Precio y tiempo te los confirmamos al pedir cita.</p>
+        </header>
+        <div class="services">
+          <article class="service reveal">
+            <span class="service__n">01</span>
+            <h3>Corte y peinado</h3>
+            <p>Cortes a tu medida y peinados para el día a día o para una ocasión.</p>
+          </article>
+          <article class="service reveal">
+            <span class="service__n">02</span>
+            <h3>Tinte de cabello</h3>
+            <p>Color completo, raíces y cobertura de canas con tonos pensados para ti.</p>
+          </article>
+          <article class="service reveal">
+            <span class="service__n">03</span>
+            <h3>Mechas y balayage</h3>
+            <p>Mechas, reflejos y balayage para dar luz con un acabado natural.</p>
+          </article>
+          <article class="service reveal">
+            <span class="service__n">04</span>
+            <h3>Alisado permanente</h3>
+            <p>Para quien quiere olvidarse de la plancha y ganar tiempo cada mañana.</p>
+          </article>
+          <article class="service reveal">
+            <span class="service__n">05</span>
+            <h3>Tratamiento de queratina</h3>
+            <p>Menos encrespamiento, más brillo y un pelo más fácil de manejar.</p>
+          </article>
+          <article class="service reveal">
+            <span class="service__n">06</span>
+            <h3>Pelo rizado</h3>
+            <p>Corte y cuidado pensados para respetar y definir el rizo natural.</p>
+          </article>
+          <article class="service reveal">
+            <span class="service__n">07</span>
+            <h3>Trenzados</h3>
+            <p>Trenzas y recogidos trenzados para eventos o para lucir cualquier día.</p>
+          </article>
+          <article class="service reveal">
+            <span class="service__n">08</span>
+            <h3>Tratamientos capilares</h3>
+            <p>Hidratación y cuidado para recuperar un pelo castigado.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESPECIALIDADES -->
+    <section class="section section--ink" id="especialidades">
+      <div class="wrap special">
+        <header class="section__head reveal">
+          <p class="eyebrow eyebrow--light">Especialidades</p>
+          <h2>¿Cómo es tu pelo?</h2>
+          <p class="section__lead">Elige lo que más se parece a tu pelo y lo que te gustaría conseguir. Te preparamos el mensaje para pedir cita y lo terminamos de ver en el salón.</p>
+        </header>
+
+        <div class="finder reveal">
+          <div class="finder__group" role="radiogroup" aria-label="Tu pelo">
+            <p class="finder__q">Mi pelo es…</p>
+            <button type="button" class="chip is-on" data-hair="liso" aria-pressed="true">Liso</button>
+            <button type="button" class="chip" data-hair="ondulado" aria-pressed="false">Ondulado</button>
+            <button type="button" class="chip" data-hair="rizado" aria-pressed="false">Rizado</button>
+            <button type="button" class="chip" data-hair="encrespado" aria-pressed="false">Con encrespamiento</button>
+          </div>
+          <div class="finder__group" role="radiogroup" aria-label="Lo que buscas">
+            <p class="finder__q">Y me gustaría…</p>
+            <button type="button" class="chip is-on" data-goal="luz" aria-pressed="true">Dar luz al color</button>
+            <button type="button" class="chip" data-goal="canas" aria-pressed="false">Cubrir canas</button>
+            <button type="button" class="chip" data-goal="manejable" aria-pressed="false">Que sea más manejable</button>
+            <button type="button" class="chip" data-goal="evento" aria-pressed="false">Un peinado para un evento</button>
+          </div>
+          <div class="finder__result" aria-live="polite">
+            <p class="finder__k">Te proponemos</p>
+            <h3 id="finder-title">Mechas balayage</h3>
+            <p id="finder-text">Luz que nace en medios y puntas y crece sin marcar raíz. En liso se ve el degradado limpio y elegante.</p>
+            <a class="btn btn--copper" id="finder-wa" data-wa="Hola Sinfo, tengo el pelo liso y me gustaría darle luz. ¿Me recomiendas mechas balayage? Quería pedir cita." href="#cita">Consultar por WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="pillars">
+          <div class="pillar reveal"><h3>Color</h3><p>Tinte, mechas, reflejos y balayage. Elegimos el tono contigo y lo ajustamos a tu piel y a tu ritmo de mantenimiento.</p></div>
+          <div class="pillar reveal"><h3>Textura</h3><p>Alisado permanente y queratina para quien quiere orden y brillo sin pelearse con el secador.</p></div>
+          <div class="pillar reveal"><h3>Rizo natural</h3><p>Cortamos y cuidamos el rizo para que se defina, no para que desaparezca.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="section" id="galeria">
+      <div class="wrap">
+        <header class="section__head section__head--row reveal">
+          <div>
+            <p class="eyebrow">Galería</p>
+            <h2>Trabajos del salón</h2>
+          </div>
+          <div class="filters" role="group" aria-label="Filtrar trabajos">
+            <button type="button" class="chip chip--dark is-on" data-filter="todo" aria-pressed="true">Todo</button>
+            <button type="button" class="chip chip--dark" data-filter="color" aria-pressed="false">Color</button>
+            <button type="button" class="chip chip--dark" data-filter="textura" aria-pressed="false">Textura</button>
+            <button type="button" class="chip chip--dark" data-filter="peinado" aria-pressed="false">Peinados</button>
+          </div>
+        </header>
+        <div class="gallery">
+          <figure class="shot shot--tall reveal" data-cat="color"><img src="assets/galeria/balayage.svg" alt="Ilustración de melena con balayage miel" loading="lazy"><figcaption>Balayage miel</figcaption></figure>
+          <figure class="shot reveal" data-cat="textura"><img src="assets/galeria/rizos.svg" alt="Ilustración de pelo rizado definido" loading="lazy"><figcaption>Rizo definido</figcaption></figure>
+          <figure class="shot reveal" data-cat="textura"><img src="assets/galeria/alisado.svg" alt="Ilustración de melena lisa con brillo" loading="lazy"><figcaption>Alisado con brillo</figcaption></figure>
+          <figure class="shot shot--tall reveal" data-cat="peinado"><img src="assets/galeria/trenza.svg" alt="Ilustración de trenza de raíz" loading="lazy"><figcaption>Trenza de raíz</figcaption></figure>
+          <figure class="shot reveal" data-cat="color"><img src="assets/galeria/cobre.svg" alt="Ilustración de color cobrizo" loading="lazy"><figcaption>Cobre luminoso</figcaption></figure>
+          <figure class="shot reveal" data-cat="peinado"><img src="assets/galeria/ondas.svg" alt="Ilustración de ondas al agua" loading="lazy"><figcaption>Ondas para evento</figcaption></figure>
+        </div>
+        <p class="note">Imágenes ilustrativas. En la web definitiva irán fotos reales de trabajos del salón.</p>
+      </div>
+    </section>
+
+    <!-- SOBRE EL SALÓN -->
+    <section class="section section--mist" id="salon">
+      <div class="wrap about">
+        <div class="about__art reveal" aria-hidden="true">
+          <svg viewBox="0 0 420 460" class="facade">
+            <rect x="20" y="40" width="380" height="400" rx="6" class="f-wall"/>
+            <rect x="20" y="40" width="380" height="70" class="f-sign"/>
+            <text x="210" y="84" text-anchor="middle" class="f-name">Sinfo Daza</text>
+            <text x="210" y="102" text-anchor="middle" class="f-sub">PELUQUERÍA</text>
+            <rect x="52" y="146" width="176" height="230" rx="88" class="f-win"/>
+            <path d="M100 146 V200 M180 146 V180" class="f-cord"/>
+            <path d="M84 200 h32 l-6 -14 h-20z M164 180 h32 l-6 -14 h-20z" class="f-lamp"/>
+            <path d="M78 330 h124 M96 330 v46 M184 330 v46" class="f-line"/>
+            <path d="M118 300 c0 -20 44 -20 44 0 v30 h-44z" class="f-chair"/>
+            <rect x="262" y="146" width="106" height="294" class="f-door"/>
+            <circle cx="350" cy="300" r="5" class="f-knob"/>
+            <rect x="0" y="436" width="420" height="24" class="f-street"/>
+            <path d="M40 436 h60 M140 436 h60" class="f-plant"/>
+            <text x="315" y="138" text-anchor="middle" class="f-num">3</text>
+          </svg>
+        </div>
+        <div class="about__copy reveal">
+          <p class="eyebrow">Sobre el salón</p>
+          <h2>Una peluquería de pueblo, con oficio de las grandes.</h2>
+          <p>Sinfo Daza es un salón acogedor y moderno en la calle Ben a Cassun de Benacazón. Aquí no hay prisas ni cadena de montaje: cada clienta tiene su tiempo, su diagnóstico y un color pensado para ella.</p>
+          <p>Trabajamos sobre todo color y textura, desde una raíz y unas mechas hasta un alisado o un balayage completo, y también cuidamos el rizo natural y los peinados para los días importantes.</p>
+          <ul class="ticks">
+            <li>Atención personal con cita previa</li>
+            <li>Diagnóstico antes de cada servicio</li>
+            <li>Horario de mañana y tarde de martes a viernes</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPINIONES -->
+    <section class="section" id="opiniones">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="eyebrow">Opiniones</p>
+          <h2><span class="score">5,0</span> en Google</h2>
+          <p class="section__lead">Lo que más repiten nuestras clientas: el trato y salir contentas con su pelo.</p>
+        </header>
+        <div class="reviews">
+          <blockquote class="review reveal">
+            <div class="stars" aria-label="5 de 5">★★★★★</div>
+            <p>“Me explicó todo antes de empezar con el balayage y el resultado fue justo lo que quería. Muy natural.”</p>
+            <footer>Clienta · <span class="tag">Texto de ejemplo</span></footer>
+          </blockquote>
+          <blockquote class="review reveal">
+            <div class="stars" aria-label="5 de 5">★★★★★</div>
+            <p>“Por fin alguien que sabe cortar el pelo rizado. Trato cercano y el salón muy bonito.”</p>
+            <footer>Clienta · <span class="tag">Texto de ejemplo</span></footer>
+          </blockquote>
+          <blockquote class="review reveal">
+            <div class="stars" aria-label="5 de 5">★★★★★</div>
+            <p>“Me hice la queratina y el pelo me dura perfecto. Se nota que le gusta lo que hace.”</p>
+            <footer>Clienta · <span class="tag">Texto de ejemplo</span></footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- CITA -->
+    <section class="section section--copper" id="cita">
+      <div class="wrap booking">
+        <div class="booking__copy reveal">
+          <p class="eyebrow eyebrow--light">Pedir cita</p>
+          <h2>Cuéntanos qué quieres y te buscamos hueco.</h2>
+          <p>Rellena estos datos y se abrirá WhatsApp con el mensaje preparado. Si lo prefieres, llámanos y lo hablamos.</p>
+          <a class="booking__phone" href="tel:+34623580199">623 58 01 99</a>
+        </div>
+        <form class="booking__form reveal" id="cita-form" novalidate>
+          <label>Tu nombre
+            <input name="nombre" type="text" autocomplete="given-name" placeholder="Ej. Lucía" required>
+          </label>
+          <label>Servicio
+            <select name="servicio">
+              <option>Corte y peinado</option>
+              <option>Tinte de cabello</option>
+              <option>Mechas o balayage</option>
+              <option>Alisado permanente</option>
+              <option>Tratamiento de queratina</option>
+              <option>Pelo rizado</option>
+              <option>Trenzado o peinado de evento</option>
+              <option>Tratamiento capilar</option>
+              <option>No lo sé, quiero consejo</option>
+            </select>
+          </label>
+          <fieldset class="days">
+            <legend>Día que te viene mejor</legend>
+            <label><input type="radio" name="dia" value="martes" checked><span>Mar</span></label>
+            <label><input type="radio" name="dia" value="miércoles"><span>Mié</span></label>
+            <label><input type="radio" name="dia" value="jueves"><span>Jue</span></label>
+            <label><input type="radio" name="dia" value="viernes"><span>Vie</span></label>
+            <label><input type="radio" name="dia" value="sábado"><span>Sáb</span></label>
+          </fieldset>
+          <fieldset class="days">
+            <legend>Franja</legend>
+            <label><input type="radio" name="franja" value="por la mañana" checked><span>Mañana</span></label>
+            <label><input type="radio" name="franja" value="por la tarde"><span>Tarde</span></label>
+          </fieldset>
+          <p class="form__hint" id="franja-hint" hidden>Los sábados solo abrimos por la mañana.</p>
+          <button class="btn btn--ink btn--lg" type="submit">Enviar por WhatsApp</button>
+          <p class="form__small">No guardamos ningún dato: el mensaje se prepara en tu móvil.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- UBICACIÓN -->
+    <section class="section" id="ubicacion">
+      <div class="wrap location">
+        <div class="location__copy reveal">
+          <p class="eyebrow">Ubicación</p>
+          <h2>En Benacazón, cerca de todo</h2>
+          <address>C/ Ben a Cassun, 3<br>41805 Benacazón, Sevilla</address>
+          <p>A unos 20 minutos de Sevilla por la A-49.</p>
+          <a class="btn btn--ink" href="https://www.google.com/maps/search/?api=1&amp;query=Sinfo%20Daza%20Peluquer%C3%ADa%20Benacaz%C3%B3n" target="_blank" rel="noopener">Cómo llegar</a>
+        </div>
+        <div class="location__map reveal" aria-hidden="true">
+          <svg viewBox="0 0 520 360" class="map">
+            <rect width="520" height="360" class="m-bg"/>
+            <path d="M-10 250 C120 230 260 270 530 210" class="m-road m-road--main"/>
+            <path d="M140 -10 C150 120 170 220 190 370" class="m-road"/>
+            <path d="M330 -10 C320 100 300 200 310 370" class="m-road"/>
+            <path d="M-10 110 C150 120 330 90 530 120" class="m-road"/>
+            <rect x="40" y="140" width="80" height="80" rx="4" class="m-block"/>
+            <rect x="210" y="130" width="80" height="90" rx="4" class="m-block"/>
+            <rect x="360" y="140" width="120" height="60" rx="4" class="m-block"/>
+            <rect x="200" y="280" width="90" height="60" rx="4" class="m-block"/>
+            <text x="420" y="232" class="m-label">A-49 · Sevilla</text>
+            <g class="m-pin" transform="translate(246 168)">
+              <path d="M0 -44 C24 -44 30 -20 0 8 C-30 -20 -24 -44 0 -44Z"/>
+              <circle cx="0" cy="-26" r="8" class="m-pin-dot"/>
+            </g>
+            <text x="246" y="200" text-anchor="middle" class="m-name">Sinfo Daza</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="section section--mist" id="contacto">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="eyebrow">Contacto</p>
+          <h2>Hablamos cuando quieras</h2>
+        </header>
+        <div class="contact">
+          <a class="contact__card reveal" href="tel:+34623580199">
+            <span class="contact__k">Teléfono</span>
+            <strong>623 58 01 99</strong>
+            <span>Llámanos para pedir cita</span>
+          </a>
+          <a class="contact__card reveal" data-wa="Hola Sinfo, quería hacer una consulta." href="#cita">
+            <span class="contact__k">WhatsApp</span>
+            <strong>Escríbenos</strong>
+            <span>Te contestamos entre clienta y clienta</span>
+          </a>
+          <div class="contact__card reveal">
+            <span class="contact__k">Horario</span>
+            <strong>Mar–Vie</strong>
+            <span>9:30–13:30 · 16:30–20:30<br>Sábado 9:30–13:30</span>
+          </div>
+          <div class="contact__card reveal">
+            <span class="contact__k">Dirección</span>
+            <strong>C/ Ben a Cassun, 3</strong>
+            <span>41805 Benacazón, Sevilla</span>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div>
+        <p class="footer__brand">Sinfo Daza <span>Peluquería</span></p>
+        <p>C/ Ben a Cassun, 3 · 41805 Benacazón (Sevilla)</p>
+      </div>
+      <nav aria-label="Pie">
+        <a href="#servicios">Servicios</a>
+        <a href="#galeria">Trabajos</a>
+        <a href="#cita">Pedir cita</a>
+        <a href="tel:+34623580199">623 58 01 99</a>
+      </nav>
+      <p class="footer__small">© 2026 Sinfo Daza Peluquería · Aviso legal · Privacidad</p>
+    </div>
+  </footer>
+
+  <a class="fab" data-wa="Hola Sinfo, me gustaría pedir cita." href="#cita" aria-label="Pedir cita por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.6-.3Z"/></svg>
+  </a>
+
+  <script src="main.js" defer></script>
 </body>
 </html>
