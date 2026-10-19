@@ -1,16 +1,439 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Free Style · Peluquería y Estética en San José de la Rinconada</title>
+  <meta name="description" content="Free Style, peluquería y estética para mujer y hombre en C/ del Mocho, 32, San José de la Rinconada (Sevilla). Pide tu cita por WhatsApp o por teléfono.">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="theme-color" content="#2E1430">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Free Style · Peluquería y Estética">
+  <meta property="og:image" content="assets/og.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Figtree:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__inner">
+      <a class="brand" href="#top" aria-label="Free Style, inicio">
+        <svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 46 C 20 18, 34 58, 54 16" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/></svg>
+        <span class="brand__name">Free Style</span>
+        <span class="brand__tag">Peluquería · Estética</span>
+      </a>
+      <nav class="nav__links" aria-label="Secciones">
+        <a href="#peluqueria">Peluquería</a>
+        <a href="#estetica">Estética</a>
+        <a href="#galeria">Galería</a>
+        <a href="#salon">El salón</a>
+        <a href="#ubicacion">Dónde estamos</a>
+      </nav>
+      <a class="btn btn--small btn--saffron nav__cta" href="#cita">Pedir cita</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="menu" id="menu" hidden>
+      <a href="#peluqueria">Peluquería</a>
+      <a href="#estetica">Estética</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#galeria">Galería</a>
+      <a href="#salon">El salón</a>
+      <a href="#opiniones">Opiniones</a>
+      <a href="#ubicacion">Dónde estamos</a>
+      <a class="btn btn--saffron" href="#cita">Pedir cita</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <svg class="hero__strand" viewBox="0 0 1440 720" preserveAspectRatio="none" aria-hidden="true">
+        <path class="draw" d="M-40 560 C 180 380 300 690 520 520 S 820 160 1000 330 S 1300 620 1500 260" />
+        <path class="draw draw--2" d="M-40 600 C 200 440 320 720 540 560 S 840 220 1020 380 S 1320 660 1500 320" />
+      </svg>
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow eyebrow--light"><span class="dot" aria-hidden="true"></span> San José de la Rinconada · C/ del Mocho, 32</p>
+          <h1 class="hero__title" id="hero-title">
+            <span class="hero__free">Free</span>
+            <span class="hero__style">Style</span>
+          </h1>
+          <p class="hero__lead">Peluquería y estética para mujer y hombre. Corte, color, mechas, peinados, uñas, cejas y cuidado facial, todo en el mismo salón de tu barrio.</p>
+          <div class="hero__actions">
+            <a class="btn btn--saffron" href="#" data-wa="Hola Free Style 👋 Me gustaría pedir cita.">
+              <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg> Pedir cita por WhatsApp
+            </a>
+            <a class="btn btn--line" href="tel:+34658472580">
+              <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg> 658 47 25 80
+            </a>
+          </div>
+          <p class="hero__status" data-open-status aria-live="polite">Martes a viernes 9:00–20:00 · Sábados 9:00–14:00</p>
+        </div>
+
+        <div class="hero__cards" aria-label="Las dos casas del salón">
+          <a class="ticket ticket--hair" href="#peluqueria">
+            <span class="ticket__num">01</span>
+            <img src="assets/galeria/melena.svg" alt="" width="800" height="1000">
+            <span class="ticket__label">Peluquería</span>
+            <span class="ticket__list">Corte · Color · Mechas · Peinados</span>
+          </a>
+          <a class="ticket ticket--beauty" href="#estetica">
+            <span class="ticket__num">02</span>
+            <img src="assets/galeria/unas.svg" alt="" width="800" height="1000">
+            <span class="ticket__label">Estética</span>
+            <span class="ticket__list">Uñas · Cejas · Pestañas · Facial</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Corte</span><i>✦</i><span>Color</span><i>✦</i><span>Mechas</span><i>✦</i><span>Peinados</span><i>✦</i><span>Tratamientos capilares</span><i>✦</i><span>Uñas</span><i>✦</i><span>Cejas y pestañas</span><i>✦</i><span>Facial</span><i>✦</i><span>Maquillaje</span><i>✦</i>
+        <span>Corte</span><i>✦</i><span>Color</span><i>✦</i><span>Mechas</span><i>✦</i><span>Peinados</span><i>✦</i><span>Tratamientos capilares</span><i>✦</i><span>Uñas</span><i>✦</i><span>Cejas y pestañas</span><i>✦</i><span>Facial</span><i>✦</i><span>Maquillaje</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- PELUQUERÍA -->
+    <section class="world world--hair" id="peluqueria" aria-labelledby="pelu-title">
+      <div class="wrap world__grid">
+        <figure class="world__art reveal">
+          <img src="assets/galeria/balayage.svg" alt="Ilustración de mechas de oscuro a rubio" width="800" height="1000" loading="lazy">
+          <figcaption class="sticker sticker--saffron">Mujer &amp; hombre</figcaption>
+        </figure>
+        <div class="world__copy">
+          <p class="eyebrow">01 · Peluquería</p>
+          <h2 class="h2" id="pelu-title">Tu pelo, <em>a tu manera.</em></h2>
+          <p class="lead">Desde un corte de mantenimiento hasta un cambio de look completo. Te escuchamos, te aconsejamos y trabajamos el pelo pensando en cómo lo vas a llevar en el día a día.</p>
+          <ul class="menu-list">
+            <li><span>Corte y peinado</span><small>Mujer y hombre, con lavado y acabado.</small></li>
+            <li><span>Color</span><small>Tinte, retoque de raíz y cambios de tono.</small></li>
+            <li><span>Mechas</span><small>Mechas, balayage e iluminación.</small></li>
+            <li><span>Forma y textura</span><small>Alisados, permanente y pelo rizado.</small></li>
+            <li><span>Peinados y recogidos</span><small>Para eventos, bodas y celebraciones.</small></li>
+            <li><span>Tratamientos capilares</span><small>Hidratación y cuidado del pelo.</small></li>
+          </ul>
+          <a class="link-arrow" href="#cita" data-service="Peluquería">Pedir cita de peluquería <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESTÉTICA -->
+    <section class="world world--beauty" id="estetica" aria-labelledby="este-title">
+      <div class="wrap world__grid world__grid--rev">
+        <div class="world__copy">
+          <p class="eyebrow">02 · Estética</p>
+          <h2 class="h2" id="este-title">Detalles que <em>se notan.</em></h2>
+          <p class="lead">Manos cuidadas, una mirada definida y una piel con buena cara. La parte de estética del salón para completar el look sin cambiar de sitio.</p>
+          <ul class="menu-list">
+            <li><span>Uñas</span><small>Manicura, pedicura y esmaltado.</small></li>
+            <li><span>Cejas</span><small>Diseño y depilación de cejas.</small></li>
+            <li><span>Pestañas</span><small>Para una mirada más definida.</small></li>
+            <li><span>Tratamientos faciales</span><small>Limpieza y cuidado de la piel.</small></li>
+            <li><span>Maquillaje</span><small>Para un evento o un día especial.</small></li>
+          </ul>
+          <a class="link-arrow" href="#cita" data-service="Estética">Pedir cita de estética <span aria-hidden="true">→</span></a>
+        </div>
+        <figure class="world__art reveal">
+          <img src="assets/galeria/mirada.svg" alt="Ilustración de ceja y pestañas" width="800" height="800" loading="lazy">
+          <figcaption class="sticker sticker--plum">Todo en un mismo salón</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- SERVICIOS DESTACADOS -->
+    <section class="featured" id="servicios" aria-labelledby="feat-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow eyebrow--light">Servicios destacados</p>
+          <h2 class="h2 h2--light" id="feat-title">Lo que más se pide en el salón</h2>
+          <p class="section-head__note">Pregúntanos precio y disponibilidad por WhatsApp: te respondemos con lo que necesitas para tu caso.</p>
+        </div>
+        <div class="feat-grid">
+          <article class="feat reveal">
+            <span class="feat__n">A</span>
+            <h3>Color &amp; mechas</h3>
+            <p>Tono, raíz, balayage o un cambio completo. Te asesoramos sobre lo que mejor va con tu piel y tu pelo.</p>
+            <a href="#" class="feat__ask" data-wa="Hola Free Style, quería consultar precio y cita para color / mechas.">Consultar →</a>
+          </article>
+          <article class="feat reveal">
+            <span class="feat__n">B</span>
+            <h3>Corte mujer y hombre</h3>
+            <p>Corte con lavado y peinado, o un repaso rápido para mantener la forma entre visita y visita.</p>
+            <a href="#" class="feat__ask" data-wa="Hola Free Style, quería pedir cita para un corte.">Consultar →</a>
+          </article>
+          <article class="feat reveal">
+            <span class="feat__n">C</span>
+            <h3>Alisados y textura</h3>
+            <p>Alisados, permanente y cuidado del pelo rizado para que el pelo se deje hacer cada mañana.</p>
+            <a href="#" class="feat__ask" data-wa="Hola Free Style, quería información sobre alisados / permanente.">Consultar →</a>
+          </article>
+          <article class="feat reveal">
+            <span class="feat__n">D</span>
+            <h3>Peinados para eventos</h3>
+            <p>Recogidos y peinados para bodas, comuniones y celebraciones. Mejor reservar con tiempo.</p>
+            <a href="#" class="feat__ask" data-wa="Hola Free Style, quería consultar un peinado para un evento.">Consultar →</a>
+          </article>
+          <article class="feat reveal">
+            <span class="feat__n">E</span>
+            <h3>Uñas</h3>
+            <p>Manicura y pedicura para llevar las manos y los pies cuidados.</p>
+            <a href="#" class="feat__ask" data-wa="Hola Free Style, quería pedir cita para uñas.">Consultar →</a>
+          </article>
+          <article class="feat reveal">
+            <span class="feat__n">F</span>
+            <h3>Cejas, pestañas y facial</h3>
+            <p>Diseño de cejas, mirada y cuidado facial para completar el look.</p>
+            <a href="#" class="feat__ask" data-wa="Hola Free Style, quería información sobre cejas / pestañas / facial.">Consultar →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="gallery" id="galeria" aria-labelledby="gal-title">
+      <div class="wrap">
+        <div class="section-head section-head--row">
+          <div>
+            <p class="eyebrow">Galería</p>
+            <h2 class="h2" id="gal-title">Estilo libre, <em>trabajo cuidado.</em></h2>
+          </div>
+          <p class="gallery__note">Ilustraciones de muestra. En la web final este espacio mostrará fotos reales de trabajos del salón.</p>
+        </div>
+        <div class="gal-grid">
+          <button class="gal gal--tall reveal" type="button" data-caption="Ondas y movimiento"><img src="assets/galeria/melena.svg" alt="Ilustración: melena con ondas" width="800" height="1000" loading="lazy"><span>Ondas</span></button>
+          <button class="gal reveal" type="button" data-caption="Rizos definidos"><img src="assets/galeria/rizos.svg" alt="Ilustración: rizos" width="800" height="800" loading="lazy"><span>Rizos</span></button>
+          <button class="gal reveal" type="button" data-caption="Corte"><img src="assets/galeria/tijeras.svg" alt="Ilustración: tijeras y peine" width="800" height="800" loading="lazy"><span>Corte</span></button>
+          <button class="gal gal--tall reveal" type="button" data-caption="Mechas y balayage"><img src="assets/galeria/balayage.svg" alt="Ilustración: mechas balayage" width="800" height="1000" loading="lazy"><span>Mechas</span></button>
+          <button class="gal reveal" type="button" data-caption="Recogidos para eventos"><img src="assets/galeria/recogido.svg" alt="Ilustración: recogido" width="800" height="800" loading="lazy"><span>Recogidos</span></button>
+          <button class="gal gal--tall reveal" type="button" data-caption="Cuidado facial"><img src="assets/galeria/facial.svg" alt="Ilustración: perfil y cuidado facial" width="800" height="1000" loading="lazy"><span>Facial</span></button>
+          <button class="gal reveal" type="button" data-caption="Mirada: cejas y pestañas"><img src="assets/galeria/mirada.svg" alt="Ilustración: cejas y pestañas" width="800" height="800" loading="lazy"><span>Mirada</span></button>
+          <button class="gal gal--tall reveal" type="button" data-caption="Uñas"><img src="assets/galeria/unas.svg" alt="Ilustración: uñas esmaltadas" width="800" height="1000" loading="lazy"><span>Uñas</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE EL SALÓN -->
+    <section class="about" id="salon" aria-labelledby="about-title">
+      <div class="wrap about__grid">
+        <div class="about__copy">
+          <p class="eyebrow">El salón</p>
+          <h2 class="h2" id="about-title">Un salón de barrio con <em>imagen de ahora.</em></h2>
+          <p class="lead">Free Style está en la esquina de la calle del Mocho, en San José de la Rinconada. Un sitio cercano donde peluquería y estética trabajan juntas, para que puedas resolver el corte, el color, las uñas o las cejas en la misma visita.</p>
+          <p>Atendemos a mujer y hombre, con horario de mañana y tarde de martes a viernes y los sábados por la mañana, para que encuentres un hueco aunque trabajes.</p>
+        </div>
+        <ul class="about__facts">
+          <li class="fact reveal"><strong>2 en 1</strong><span>Peluquería y estética en el mismo salón</span></li>
+          <li class="fact reveal"><strong>Mujer &amp; hombre</strong><span>Cortes, color y peinado para todos</span></li>
+          <li class="fact reveal"><strong>11 h</strong><span>Abierto de 9:00 a 20:00 de martes a viernes</span></li>
+          <li class="fact reveal"><strong>Sábados</strong><span>De 9:00 a 14:00 para quien no puede entre semana</span></li>
+        </ul>
+        <div class="team reveal" aria-label="El equipo">
+          <div class="team__avatar" aria-hidden="true"><img src="assets/galeria/recogido.svg" alt="" width="800" height="800" loading="lazy"></div>
+          <div>
+            <p class="team__kicker">El equipo</p>
+            <p class="team__text">Este espacio presentará al equipo de Free Style con nombre, foto y especialidad de cada profesional, para que sepas quién te atiende antes de venir.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPINIONES -->
+    <section class="reviews" id="opiniones" aria-labelledby="rev-title">
+      <div class="wrap">
+        <div class="section-head section-head--row">
+          <div>
+            <p class="eyebrow">Opiniones</p>
+            <h2 class="h2" id="rev-title">Lo que cuentan quienes vienen</h2>
+          </div>
+          <a class="btn btn--line-dark btn--small" href="https://www.google.com/maps/search/?api=1&amp;query=Free+Style+Peluquer%C3%ADa+y+est%C3%A9tica+Calle+del+Mocho+32+San+Jos%C3%A9+de+la+Rinconada" target="_blank" rel="noopener">Ver reseñas en Google</a>
+        </div>
+        <div class="rev-grid">
+          <figure class="rev rev--slot reveal">
+            <div class="rev__stars" aria-hidden="true">★★★★★</div>
+            <blockquote><span class="bar"></span><span class="bar"></span><span class="bar bar--short"></span></blockquote>
+            <figcaption>Reseña de Google</figcaption>
+          </figure>
+          <figure class="rev rev--slot reveal">
+            <div class="rev__stars" aria-hidden="true">★★★★★</div>
+            <blockquote><span class="bar"></span><span class="bar bar--short"></span></blockquote>
+            <figcaption>Reseña de Google</figcaption>
+          </figure>
+          <figure class="rev rev--slot reveal">
+            <div class="rev__stars" aria-hidden="true">★★★★★</div>
+            <blockquote><span class="bar"></span><span class="bar"></span><span class="bar bar--short"></span></blockquote>
+            <figcaption>Reseña de Google</figcaption>
+          </figure>
+        </div>
+        <p class="reviews__note">En la web final aquí se mostrarán las reseñas reales de vuestras clientas y clientes en Google, con su nombre y valoración.</p>
+      </div>
+    </section>
+
+    <!-- CITA -->
+    <section class="booking" id="cita" aria-labelledby="cita-title">
+      <div class="wrap booking__grid">
+        <div class="booking__copy">
+          <p class="eyebrow eyebrow--light">Pide tu cita</p>
+          <h2 class="h2 h2--light" id="cita-title">Pide tu cita <em>en un minuto.</em></h2>
+          <p class="lead lead--light">Dinos qué quieres hacerte y cuándo te viene bien. Rellena tres datos y se abrirá WhatsApp con el mensaje ya escrito. Si lo prefieres, llámanos.</p>
+          <div class="booking__calls">
+            <a class="call" href="tel:+34658472580"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><span><small>Móvil</small>658 47 25 80</span></a>
+            <a class="call" href="tel:+34954793687"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg><span><small>Salón</small>954 79 36 87</span></a>
+          </div>
+        </div>
+        <form class="booking__form" id="booking-form" novalidate>
+          <fieldset class="chips">
+            <legend>¿Qué te hacemos?</legend>
+            <label><input type="radio" name="servicio" value="Corte" checked><span>Corte</span></label>
+            <label><input type="radio" name="servicio" value="Color / mechas"><span>Color / mechas</span></label>
+            <label><input type="radio" name="servicio" value="Peinado / recogido"><span>Peinado</span></label>
+            <label><input type="radio" name="servicio" value="Alisado / tratamiento"><span>Alisado / tratamiento</span></label>
+            <label><input type="radio" name="servicio" value="Uñas"><span>Uñas</span></label>
+            <label><input type="radio" name="servicio" value="Cejas / pestañas"><span>Cejas / pestañas</span></label>
+            <label><input type="radio" name="servicio" value="Facial / maquillaje"><span>Facial / maquillaje</span></label>
+            <label><input type="radio" name="servicio" value="Peluquería"><span>Peluquería (otro)</span></label>
+            <label><input type="radio" name="servicio" value="Estética"><span>Estética (otro)</span></label>
+          </fieldset>
+          <div class="row">
+            <label class="field">
+              <span>Tu nombre</span>
+              <input type="text" name="nombre" autocomplete="given-name" required placeholder="Nombre">
+            </label>
+            <label class="field">
+              <span>Día que te viene bien</span>
+              <select name="dia">
+                <option>Lo antes posible</option>
+                <option>Martes</option>
+                <option>Miércoles</option>
+                <option>Jueves</option>
+                <option>Viernes</option>
+                <option>Sábado (mañana)</option>
+              </select>
+            </label>
+          </div>
+          <fieldset class="chips chips--small">
+            <legend>Mejor por la…</legend>
+            <label><input type="radio" name="franja" value="mañana" checked><span>Mañana</span></label>
+            <label><input type="radio" name="franja" value="tarde"><span>Tarde</span></label>
+            <label><input type="radio" name="franja" value="me da igual"><span>Me da igual</span></label>
+          </fieldset>
+          <label class="field">
+            <span>¿Algo más? <small>(opcional)</small></span>
+            <textarea name="nota" rows="2" placeholder="Por ejemplo: quiero cambiar de color, es para una boda…"></textarea>
+          </label>
+          <button class="btn btn--saffron btn--block" type="submit"><svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg> Enviar solicitud por WhatsApp</button>
+          <p class="form-hint" id="form-hint" role="status">No reservamos nada automáticamente: te confirmamos la hora por WhatsApp o por teléfono.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- UBICACIÓN -->
+    <section class="where" id="ubicacion" aria-labelledby="where-title">
+      <div class="wrap where__grid">
+        <div class="where__info">
+          <p class="eyebrow">Dónde estamos</p>
+          <h2 class="h2" id="where-title">C/ del Mocho, 32</h2>
+          <p class="lead">Local en esquina · 41300 San José de la Rinconada (Sevilla)</p>
+          <table class="hours" aria-label="Horario">
+            <tbody>
+              <tr data-day="1"><th>Lunes</th><td>Cerrado</td></tr>
+              <tr data-day="2"><th>Martes</th><td>9:00 – 20:00</td></tr>
+              <tr data-day="3"><th>Miércoles</th><td>9:00 – 20:00</td></tr>
+              <tr data-day="4"><th>Jueves</th><td>9:00 – 20:00</td></tr>
+              <tr data-day="5"><th>Viernes</th><td>9:00 – 20:00</td></tr>
+              <tr data-day="6"><th>Sábado</th><td>9:00 – 14:00</td></tr>
+              <tr data-day="0"><th>Domingo</th><td>Cerrado</td></tr>
+            </tbody>
+          </table>
+          <div class="where__cta">
+            <a class="btn btn--plum" href="https://www.google.com/maps/dir/?api=1&amp;destination=37.488927,-5.938939" target="_blank" rel="noopener">Cómo llegar</a>
+            <a class="btn btn--line-dark" href="tel:+34658472580">Llamar</a>
+          </div>
+        </div>
+        <div class="where__map reveal">
+          <iframe title="Mapa: Free Style, C/ del Mocho 32, San José de la Rinconada" loading="lazy" referrerpolicy="no-referrer"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-5.9449%2C37.4859%2C-5.9329%2C37.4919&amp;layer=mapnik&amp;marker=37.488927%2C-5.938939"></iframe>
+          <span class="where__pin" aria-hidden="true">Free Style</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="contact" id="contacto" aria-labelledby="contact-title">
+      <div class="wrap">
+        <h2 class="h2 contact__title" id="contact-title">¿Hablamos?</h2>
+        <div class="contact__grid">
+          <a class="ccard ccard--wa" href="#" data-wa="Hola Free Style 👋 Tengo una consulta.">
+            <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg>
+            <span class="ccard__k">WhatsApp</span><span class="ccard__v">658 47 25 80</span><span class="ccard__h">Escríbenos y te respondemos</span>
+          </a>
+          <a class="ccard" href="tel:+34658472580">
+            <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>
+            <span class="ccard__k">Móvil</span><span class="ccard__v">658 47 25 80</span><span class="ccard__h">Llamada directa</span>
+          </a>
+          <a class="ccard" href="tel:+34954793687">
+            <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>
+            <span class="ccard__k">Teléfono del salón</span><span class="ccard__v">954 79 36 87</span><span class="ccard__h">En horario de apertura</span>
+          </a>
+          <a class="ccard" href="https://www.google.com/maps/dir/?api=1&amp;destination=37.488927,-5.938939" target="_blank" rel="noopener">
+            <svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>
+            <span class="ccard__k">Dirección</span><span class="ccard__v">C/ del Mocho, 32</span><span class="ccard__h">San José de la Rinconada</span>
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div>
+        <a class="brand brand--light" href="#top">
+          <svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 46 C 20 18, 34 58, 54 16" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/></svg>
+          <span class="brand__name">Free Style</span>
+        </a>
+        <p class="footer__claim">Peluquería y estética para mujer y hombre en San José de la Rinconada.</p>
+      </div>
+      <nav aria-label="Pie de página">
+        <a href="#peluqueria">Peluquería</a>
+        <a href="#estetica">Estética</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#galeria">Galería</a>
+        <a href="#cita">Pedir cita</a>
+      </nav>
+      <div class="footer__contact">
+        <p>C/ del Mocho, 32 · 41300 San José de la Rinconada</p>
+        <p><a href="tel:+34658472580">658 47 25 80</a> · <a href="tel:+34954793687">954 79 36 87</a></p>
+        <p>Mar–Vie 9:00–20:00 · Sáb 9:00–14:00</p>
+      </div>
+    </div>
+    <div class="wrap footer__legal">
+      <p>© 2026 Free Style Peluquería y Estética</p>
+      <p>Propuesta de diseño preparada por AvanttAI. No es la web oficial del salón y no está indexada en buscadores.</p>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="#" data-wa="Hola Free Style 👋 Me gustaría pedir cita." aria-label="Pedir cita por WhatsApp">
+    <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg><span>Cita</span>
+  </a>
+
+  <dialog class="lightbox" id="lightbox" aria-label="Imagen ampliada">
+    <button type="button" class="lightbox__close" aria-label="Cerrar">×</button>
+    <img alt="">
+    <p></p>
+  </dialog>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.9 2.3 1 2.5.1.2 1.7 2.6 4.2 3.7 1.6.7 2.2.7 3 .6.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1l-.6-.4Z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  </svg>
+
+  <script src="main.js" defer></script>
 </body>
 </html>
