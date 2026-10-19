@@ -1,16 +1,448 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>The Barber Migue · Barbería en Pilas</title>
+  <meta name="description" content="The Barber Migue, barbería en Pilas (Sevilla). Cortes de caballero, degradados y barba con tiempo y al detalle. Pide tu hueco por WhatsApp o llamando.">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="theme-color" content="#0E1215">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <!-- Degradados compartidos por las ilustraciones de cortes -->
+  <svg width="0" height="0" class="defs" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="fade-skin" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#C9D2FF"/><stop offset=".42" stop-color="#8EA2FF"/><stop offset=".58" stop-color="#3557FF" stop-opacity=".35"/><stop offset=".7" stop-color="#3557FF" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="fade-mid" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#C9D2FF"/><stop offset=".55" stop-color="#8EA2FF"/><stop offset=".75" stop-color="#3557FF" stop-opacity=".35"/><stop offset=".9" stop-color="#3557FF" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="fade-low" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#C9D2FF"/><stop offset=".7" stop-color="#8EA2FF"/><stop offset=".88" stop-color="#3557FF" stop-opacity=".4"/><stop offset="1" stop-color="#3557FF" stop-opacity=".05"/>
+      </linearGradient>
+      <linearGradient id="fade-solid" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#C9D2FF"/><stop offset="1" stop-color="#8EA2FF"/>
+      </linearGradient>
+      <symbol id="head" viewBox="0 0 400 440">
+        <path class="head-line" d="M140 150C140 90 200 60 260 70C320 80 345 130 340 190C337 240 320 270 300 290L296 345C297 380 300 405 304 432M140 150C132 175 130 190 128 205L112 240L126 248C124 260 130 268 128 276C126 288 134 300 150 310C175 318 205 315 225 305L230 345C229 380 226 405 222 432"/>
+        <ellipse class="head-line" cx="258" cy="216" rx="13" ry="24"/>
+        <path class="head-line head-line--soft" d="M252 206c6 3 7 14 1 20"/>
+        <path class="head-line head-line--soft" d="M137 192c8-6 20-7 30-3"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__inner">
+      <a class="brand" href="#top" aria-label="The Barber Migue, inicio">
+        <img class="brand__icon" src="favicon.svg" alt="" width="34" height="34">
+        <span class="brand__name"><small>The Barber</small> Migue</span>
+      </a>
+      <nav class="nav__links" aria-label="Secciones">
+        <a href="#servicios">Servicios</a>
+        <a href="#cortes">Cortes</a>
+        <a href="#barba">Barba</a>
+        <a href="#galeria">Galería</a>
+        <a href="#migue">Migue</a>
+        <a href="#ubicacion">Dónde</a>
+      </nav>
+      <a class="btn btn--small nav__cta" href="#reserva">Reservar</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="menu" id="menu" hidden>
+      <a href="#servicios">Servicios</a>
+      <a href="#cortes">Cortes</a>
+      <a href="#barba">Barba</a>
+      <a href="#galeria">Galería</a>
+      <a href="#migue">Sobre Migue</a>
+      <a href="#opiniones">Opiniones</a>
+      <a href="#ubicacion">Dónde estamos</a>
+      <a class="btn" href="#reserva">Reservar cita</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__grid" aria-hidden="true"></div>
+      <div class="wrap hero__inner">
+        <div class="hero__copy">
+          <p class="kicker"><span class="dot"></span> Barbería · Pilas, Sevilla</p>
+          <h1 class="hero__title">
+            <span class="hero__the">The Barber</span>
+            <span class="hero__name">Migue</span>
+          </h1>
+          <p class="hero__lead">Cortes con oficio, degradados limpios y barba bien perfilada. Te sientas, hablamos de lo que quieres y sales con el corte que te pega.</p>
+          <div class="hero__actions">
+            <a class="btn btn--wa" data-wa href="#reserva">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>
+              Reservar por WhatsApp
+            </a>
+            <a class="btn btn--ghost" data-call href="#contacto">Llamar</a>
+          </div>
+          <ul class="hero__facts" aria-label="En resumen">
+            <li><b>Pilas</b><span>Sevilla</span></li>
+            <li><b>Con cita</b><span>sin esperas</span></li>
+            <li><b>Corte + barba</b><span>en una visita</span></li>
+          </ul>
+        </div>
+
+        <figure class="hero__plan" aria-label="Plano de un degradado: tijera arriba y máquina bajando hasta la piel">
+          <div class="plan__head">
+            <span>Ficha de corte</span><span class="mono">MIGUE · 01</span>
+          </div>
+          <svg class="plan__svg" viewBox="90 50 360 390" role="img" aria-hidden="true">
+            <path class="hair" fill="url(#fade-skin)" d="M138 152C140 88 200 58 262 68C322 78 348 130 341 192C338 240 322 268 300 290L292 282C284 250 274 206 236 184C204 168 172 160 138 152Z"/>
+            <use href="#head" width="400" height="440"/>
+            <g class="guide">
+              <line x1="250" y1="96" x2="372" y2="96"/><text x="378" y="100">TIJERA</text>
+              <line x1="336" y1="160" x2="372" y2="160"/><text x="378" y="164">#3</text>
+              <line x1="340" y1="200" x2="372" y2="200"/><text x="378" y="204">#1</text>
+              <line x1="330" y1="236" x2="372" y2="236"/><text x="378" y="240">#0,5</text>
+              <line x1="312" y1="268" x2="372" y2="268"/><text x="378" y="272">#0</text>
+            </g>
+            <path class="stubble" d="M150 306C176 316 206 313 226 302M232 250C236 272 232 292 226 302"/>
+            <g class="mark"><circle cx="232" cy="96" r="5"/></g>
+          </svg>
+          <figcaption class="plan__foot"><span>Degradado a piel</span><span class="mono">Tiempo de silla · sin prisa</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="strip" aria-hidden="true">
+      <div class="strip__track">
+        <span>Corte</span><i></i><span>Degradado</span><i></i><span>Barba</span><i></i><span>Pilas</span><i></i>
+        <span>Corte</span><i></i><span>Degradado</span><i></i><span>Barba</span><i></i><span>Pilas</span><i></i>
+        <span>Corte</span><i></i><span>Degradado</span><i></i><span>Barba</span><i></i><span>Pilas</span><i></i>
+      </div>
+    </div>
+
+    <!-- SERVICIOS -->
+    <section class="section section--light" id="servicios">
+      <div class="wrap">
+        <header class="head">
+          <p class="eyebrow mono">01 / Servicios</p>
+          <h2>Lo que se hace en la silla</h2>
+          <p class="head__lead">Una carta corta y bien hecha. Los precios se consultan directamente en la barbería.</p>
+        </header>
+        <div class="services">
+          <article class="service">
+            <span class="service__num mono">01</span>
+            <h3>Corte de caballero</h3>
+            <p>Corte a máquina y tijera adaptado a tu tipo de pelo, a tu cara y a cómo te peinas cada día.</p>
+            <ul><li>Lavado y peinado final</li><li>Consejo de mantenimiento</li></ul>
+            <a class="service__cta" data-wa data-service="Corte de caballero" href="#reserva">Pedir hueco <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="service service--accent">
+            <span class="service__num mono">02</span>
+            <h3>Degradados</h3>
+            <p>Low, mid o high fade, a piel o con número. Transiciones limpias, sin escalones, y nuca y patillas bien definidas.</p>
+            <ul><li>Fade a piel o con número</li><li>Repaso de contornos</li></ul>
+            <a class="service__cta" data-wa data-service="Degradado" href="#reserva">Pedir hueco <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="service">
+            <span class="service__num mono">03</span>
+            <h3>Barba</h3>
+            <p>Arreglo y perfilado de barba para que la forma acompañe al corte: líneas de mejilla y cuello definidas.</p>
+            <ul><li>Rebaje y perfilado</li><li>Corte + barba en la misma cita</li></ul>
+            <a class="service__cta" data-wa data-service="Corte + barba" href="#reserva">Pedir hueco <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORTES -->
+    <section class="section section--dark" id="cortes">
+      <div class="wrap">
+        <header class="head head--split">
+          <div>
+            <p class="eyebrow mono">02 / Cortes</p>
+            <h2>Elige hasta dónde baja la máquina</h2>
+          </div>
+          <p class="head__lead">Si no sabes cómo pedirlo, enséñanos una foto o señala aquí. La altura del degradado lo cambia todo.</p>
+        </header>
+
+        <div class="scale" role="img" aria-label="Escala de números de la máquina, de piel a tijera">
+          <div class="scale__bar"></div>
+          <ol class="scale__labels mono">
+            <li>Piel</li><li>#0,5</li><li>#1</li><li>#2</li><li>#3</li><li>Tijera</li>
+          </ol>
+        </div>
+
+        <div class="cuts" role="tablist" aria-label="Tipos de corte">
+          <button class="cut is-active" role="tab" aria-selected="true" data-cut="0">
+            <svg viewBox="0 0 400 440" aria-hidden="true"><path fill="url(#fade-low)" d="M138 152C140 88 200 58 262 68C322 78 348 130 341 192C338 240 322 268 300 290L292 282C284 250 274 206 236 184C204 168 172 160 138 152Z"/><use href="#head"/></svg>
+            <span class="cut__name">Low fade</span><span class="cut__tag mono">bajo</span>
+          </button>
+          <button class="cut" role="tab" aria-selected="false" data-cut="1">
+            <svg viewBox="0 0 400 440" aria-hidden="true"><path fill="url(#fade-mid)" d="M138 152C140 88 200 58 262 68C322 78 348 130 341 192C338 240 322 268 300 290L292 282C284 250 274 206 236 184C204 168 172 160 138 152Z"/><use href="#head"/></svg>
+            <span class="cut__name">Mid fade</span><span class="cut__tag mono">medio</span>
+          </button>
+          <button class="cut" role="tab" aria-selected="false" data-cut="2">
+            <svg viewBox="0 0 400 440" aria-hidden="true"><path fill="url(#fade-skin)" d="M138 152C140 88 200 58 262 68C322 78 348 130 341 192C338 240 322 268 300 290L292 282C284 250 274 206 236 184C204 168 172 160 138 152Z"/><use href="#head"/></svg>
+            <span class="cut__name">High fade</span><span class="cut__tag mono">a piel</span>
+          </button>
+          <button class="cut" role="tab" aria-selected="false" data-cut="3">
+            <svg viewBox="0 0 400 440" aria-hidden="true"><path fill="url(#fade-solid)" d="M134 156C132 84 200 50 264 60C328 70 352 128 344 196C340 244 324 272 302 292L294 284C288 254 276 210 238 188C206 172 172 164 134 156Z"/><use href="#head"/></svg>
+            <span class="cut__name">Clásico</span><span class="cut__tag mono">tijera</span>
+          </button>
+        </div>
+        <div class="cut-info" aria-live="polite">
+          <p class="cut-info__title" id="cutTitle">Low fade</p>
+          <p class="cut-info__text" id="cutText">El degradado empieza justo encima de la oreja y baja hasta la nuca. Discreto, limpio y fácil de llevar al trabajo.</p>
+          <a class="btn btn--small" data-wa id="cutCta" data-service="Low fade" href="#reserva">Quiero este corte</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- BARBA -->
+    <section class="section section--steel" id="barba">
+      <div class="wrap barba">
+        <div class="barba__art" aria-hidden="true">
+          <svg viewBox="0 0 320 320">
+            <circle cx="160" cy="160" r="150" class="ring"/>
+            <circle cx="160" cy="160" r="118" class="ring ring--dash"/>
+            <path class="beard" d="M88 120c0 70 22 120 72 128 50-8 72-58 72-128-10 28-22 42-38 46-12-10-22-12-34-12s-22 2-34 12c-16-4-28-18-38-46Z"/>
+            <path class="beard-line" d="M88 120c-2 20-2 40 4 58M232 120c2 20 2 40-4 58"/>
+            <path class="moustache" d="M128 160c10-10 22-12 32-6 10-6 22-4 32 6-12 2-22 0-32-4-10 4-20 6-32 4Z"/>
+            <g class="ticks"><path d="M160 6v18M160 296v18M6 160h18M296 160h18"/></g>
+          </svg>
+        </div>
+        <div class="barba__copy">
+          <p class="eyebrow mono">03 / Barba</p>
+          <h2>La barba también se corta</h2>
+          <p>Una buena barba depende de dónde se marcan las líneas. Perfilamos mejilla y cuello, rebajamos volumen donde sobra y dejamos la forma pensada para tu cara.</p>
+          <ol class="steps">
+            <li><span class="mono">A</span><div><b>Forma</b><p>Decidimos juntos largo y contorno.</p></div></li>
+            <li><span class="mono">B</span><div><b>Rebaje</b><p>Igualamos volumen con máquina y tijera.</p></div></li>
+            <li><span class="mono">C</span><div><b>Perfilado</b><p>Líneas de mejilla y cuello bien definidas.</p></div></li>
+          </ol>
+          <a class="btn" data-wa data-service="Barba" href="#reserva">Reservar barba</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="section section--light" id="galeria">
+      <div class="wrap">
+        <header class="head head--split">
+          <div>
+            <p class="eyebrow mono">04 / Galería</p>
+            <h2>La barbería por dentro</h2>
+          </div>
+          <p class="head__lead">Aquí irán las fotos reales del local y de los cortes de Migue.</p>
+        </header>
+        <div class="gallery">
+          <figure class="tile tile--wide"><img src="assets/galeria/sillon.svg" alt="Ilustración de un sillón de barbero frente al espejo" loading="lazy"><figcaption>El sillón</figcaption></figure>
+          <figure class="tile"><img src="assets/galeria/maquina.svg" alt="Ilustración de una máquina de cortar pelo" loading="lazy"><figcaption>Máquina</figcaption></figure>
+          <figure class="tile"><img src="assets/galeria/tijeras.svg" alt="Ilustración de unas tijeras de barbero" loading="lazy"><figcaption>Tijera</figcaption></figure>
+          <figure class="tile"><img src="assets/galeria/peine.svg" alt="Ilustración de un peine y un cepillo de barbero" loading="lazy"><figcaption>Acabado</figcaption></figure>
+          <figure class="tile"><img src="assets/galeria/degradado.svg" alt="Ilustración de una nuca con degradado" loading="lazy"><figcaption>Degradado</figcaption></figure>
+          <figure class="tile tile--wide"><img src="assets/galeria/fachada.svg" alt="Ilustración de la fachada de la barbería con su rótulo" loading="lazy"><figcaption>La puerta</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE MIGUE -->
+    <section class="section section--dark" id="migue">
+      <div class="wrap about">
+        <div class="about__card" aria-hidden="true">
+          <div class="about__portrait">
+            <svg viewBox="0 0 300 360">
+              <rect x="0" y="0" width="300" height="360" class="p-bg"/>
+              <path class="p-fig" d="M60 360c4-62 40-96 90-96s86 34 90 96Z"/>
+              <path class="p-fig" d="M150 250c-38 0-62-34-62-80s24-80 62-80 62 34 62 80-24 80-62 80Z"/>
+              <path class="p-hair" d="M88 160c-6-56 26-84 62-84 40 0 70 26 62 84-6-20-12-30-20-36-14 6-30 8-44 8s-30-2-44-8c-8 6-12 16-16 36Z"/>
+              <path class="p-beard" d="M96 180c4 42 26 70 54 70s50-28 54-70c-10 18-24 26-54 26s-44-8-54-26Z"/>
+            </svg>
+            <span class="about__badge mono">Foto de Migue pendiente</span>
+          </div>
+          <p class="about__sign">Migue</p>
+        </div>
+        <div class="about__copy">
+          <p class="eyebrow mono">05 / Sobre Migue</p>
+          <h2>Detrás de la silla hay un barbero, no una cadena</h2>
+          <p>The Barber Migue es la barbería de Migue en Pilas. Aquí no hay prisa por despachar: cada corte empieza con una charla sobre lo que quieres, cómo llevas el pelo y cuánto tiempo le dedicas por la mañana.</p>
+          <p>Buen ambiente, buena música y un corte que se nota bien hecho a las dos semanas, no solo al salir.</p>
+          <ul class="values">
+            <li><b>Estilo</b><span>Cortes actuales sin perder lo clásico.</span></li>
+            <li><b>Confianza</b><span>Te dice si un corte te va o no te va.</span></li>
+            <li><b>Detalle</b><span>Contornos, nuca y patillas sin descuidos.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPINIONES -->
+    <section class="section section--light" id="opiniones">
+      <div class="wrap">
+        <header class="head">
+          <p class="eyebrow mono">06 / Opiniones</p>
+          <h2>Lo que dicen al salir</h2>
+          <p class="head__lead">Espacio para las reseñas reales de Google de la barbería.</p>
+        </header>
+        <div class="reviews">
+          <blockquote class="review">
+            <span class="review__tag mono">Texto de ejemplo</span>
+            <p>“Llevo años buscando a alguien que me haga bien el degradado y por fin lo he encontrado. Se toma su tiempo y se nota.”</p>
+            <footer>Cliente · Pilas</footer>
+          </blockquote>
+          <blockquote class="review review--dark">
+            <span class="review__tag mono">Texto de ejemplo</span>
+            <p>“Buen rollo, buena conversación y la barba como nunca me la habían dejado. Ya tengo barbero fijo.”</p>
+            <footer>Cliente · Aljarafe</footer>
+          </blockquote>
+          <blockquote class="review">
+            <span class="review__tag mono">Texto de ejemplo</span>
+            <p>“Le enseñé una foto y me dijo sinceramente cómo quedaría con mi pelo. Salí mejor de lo que esperaba.”</p>
+            <footer>Cliente · Pilas</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="reserva">
+      <div class="wrap cta__inner">
+        <div class="cta__copy">
+          <p class="eyebrow mono">07 / Reserva</p>
+          <h2>¿Te toca ya?</h2>
+          <p>Dinos qué quieres hacerte y cuándo te viene bien. Se abre WhatsApp con el mensaje preparado y Migue te confirma el hueco.</p>
+          <div class="cta__alt">
+            <a class="btn btn--ghost" data-call href="#contacto">Prefiero llamar</a>
+          </div>
+        </div>
+        <form class="booking" id="booking" novalidate>
+          <div class="booking__row">
+            <label for="b-name">Nombre</label>
+            <input id="b-name" name="name" type="text" autocomplete="given-name" placeholder="Tu nombre" required>
+          </div>
+          <fieldset class="booking__row">
+            <legend>Servicio</legend>
+            <div class="chips" id="serviceChips">
+              <label><input type="radio" name="service" value="Corte de caballero" checked><span>Corte</span></label>
+              <label><input type="radio" name="service" value="Degradado"><span>Degradado</span></label>
+              <label><input type="radio" name="service" value="Barba"><span>Barba</span></label>
+              <label><input type="radio" name="service" value="Corte + barba"><span>Corte + barba</span></label>
+            </div>
+          </fieldset>
+          <div class="booking__cols">
+            <div class="booking__row">
+              <label for="b-day">Día</label>
+              <select id="b-day" name="day"></select>
+            </div>
+            <div class="booking__row">
+              <label for="b-slot">Franja</label>
+              <select id="b-slot" name="slot">
+                <option>Por la mañana</option>
+                <option>A mediodía</option>
+                <option>Por la tarde</option>
+              </select>
+            </div>
+          </div>
+          <div class="booking__row">
+            <label for="b-note">Algo más <small>(opcional)</small></label>
+            <input id="b-note" name="note" type="text" placeholder="Ej.: degradado a piel, traigo foto">
+          </div>
+          <button class="btn btn--wa btn--block" type="submit">Enviar por WhatsApp</button>
+          <p class="booking__hint">No se guarda nada en esta web: el mensaje se abre en tu WhatsApp.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- UBICACIÓN -->
+    <section class="section section--light" id="ubicacion">
+      <div class="wrap location">
+        <div class="location__copy">
+          <p class="eyebrow mono">08 / Ubicación</p>
+          <h2>En Pilas, Sevilla</h2>
+          <p class="location__addr" data-address>Pilas · 41840 Sevilla</p>
+          <p>A un paso para todo el Aljarafe y el Condado: Villamanrique, Aznalcázar, Carrión, Huévar o Benacazón.</p>
+          <a class="btn btn--dark" id="mapsLink" href="https://www.google.com/maps/search/?api=1&amp;query=The%20Barber%20Migue%20Pilas" target="_blank" rel="noopener">Cómo llegar</a>
+        </div>
+        <div class="location__map" aria-hidden="true">
+          <svg viewBox="0 0 520 380">
+            <rect width="520" height="380" class="m-bg"/>
+            <g class="m-blocks">
+              <rect x="30" y="30" width="120" height="80" rx="4"/><rect x="170" y="30" width="90" height="80" rx="4"/><rect x="280" y="30" width="80" height="120" rx="4"/><rect x="380" y="30" width="110" height="60" rx="4"/>
+              <rect x="30" y="130" width="70" height="110" rx="4"/><rect x="120" y="130" width="140" height="60" rx="4"/><rect x="380" y="110" width="110" height="110" rx="4"/>
+              <rect x="120" y="210" width="90" height="70" rx="4"/><rect x="230" y="170" width="130" height="110" rx="4"/><rect x="30" y="260" width="70" height="90" rx="4"/>
+              <rect x="120" y="300" width="160" height="50" rx="4"/><rect x="300" y="300" width="60" height="50" rx="4"/><rect x="380" y="240" width="110" height="110" rx="4"/>
+            </g>
+            <path class="m-road" d="M0 120h520M110 0v380M370 0v380M0 290h520"/>
+            <g class="m-pin" transform="translate(300 225)">
+              <circle r="34" class="m-pulse"/>
+              <circle r="14"/>
+              <circle r="5" class="m-core"/>
+            </g>
+            <text x="20" y="366" class="m-label">PILAS · SEVILLA</text>
+          </svg>
+          <span class="location__note mono">Plano orientativo</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="section section--dark" id="contacto">
+      <div class="wrap">
+        <header class="head">
+          <p class="eyebrow mono">09 / Contacto</p>
+          <h2>Pide tu hueco como prefieras</h2>
+        </header>
+        <div class="contact">
+          <a class="contact__card" data-wa href="#reserva">
+            <span class="contact__label mono">WhatsApp</span>
+            <span class="contact__value" data-phone-label>Escríbenos</span>
+            <span class="contact__go">Abrir chat →</span>
+          </a>
+          <a class="contact__card" data-call href="#contacto">
+            <span class="contact__label mono">Teléfono</span>
+            <span class="contact__value" data-phone-label>Llámanos</span>
+            <span class="contact__go">Llamar →</span>
+          </a>
+          <a class="contact__card" data-ig href="#contacto">
+            <span class="contact__label mono">Instagram</span>
+            <span class="contact__value" data-ig-label>Cortes recientes</span>
+            <span class="contact__go">Ver perfil →</span>
+          </a>
+          <div class="contact__card contact__card--static">
+            <span class="contact__label mono">Horario</span>
+            <span class="contact__value">Con cita previa</span>
+            <span class="contact__go">Consulta disponibilidad por WhatsApp</span>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div>
+        <p class="footer__brand"><small>The Barber</small> Migue</p>
+        <p class="footer__meta">Barbería · Pilas (Sevilla)</p>
+      </div>
+      <nav class="footer__links" aria-label="Pie">
+        <a href="#servicios">Servicios</a><a href="#cortes">Cortes</a><a href="#barba">Barba</a><a href="#reserva">Reservar</a>
+      </nav>
+      <p class="footer__legal">© <span id="year">2026</span> The Barber Migue</p>
+    </div>
+  </footer>
+
+  <a class="fab" data-wa href="#reserva" aria-label="Reservar por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>
+  </a>
+
+  <script src="main.js" defer></script>
 </body>
 </html>
