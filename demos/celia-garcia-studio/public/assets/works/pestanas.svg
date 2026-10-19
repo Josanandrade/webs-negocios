@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" width="600" height="750" role="img">
+<defs>
+  <filter id="lash-grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/>
+    <feColorMatrix values="0 0 0 0 .23  0 0 0 0 .16  0 0 0 0 .15  0 0 0 .05 0"/>
+  </filter>
+  <filter id="lash-shadow" x="-40%" y="-30%" width="180%" height="160%">
+    <feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#6b3f36" flood-opacity=".18"/>
+  </filter>
+  <filter id="lash-soft"><feGaussianBlur stdDeviation="1.6"/></filter>
+  <filter id="blur" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="10"/></filter>
+  <linearGradient id="lash-gloss" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+    <stop offset=".5" stop-color="#fff" stop-opacity=".75"/>
+    <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient><linearGradient id="lash-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6ece8"/><stop offset="1" stop-color="#e6cfc9"/></linearGradient>
+      <radialGradient id="lash-glow" cx=".7" cy=".25" r=".7"><stop offset="0" stop-color="#fff6f2" stop-opacity=".55"/><stop offset="1" stop-color="#fff6f2" stop-opacity="0"/></radialGradient></defs>
+<rect width="600" height="750" fill="url(#lash-bg)"/><rect width="600" height="750" fill="url(#lash-glow)"/>
+
+    <g fill="none" stroke="#3b2a26" stroke-linecap="round">
+      <path d="M120,360 C200,440 400,440 480,360" stroke-width="2.4"/>
+      <path d="M150,300 C230,250 380,250 460,292" stroke-width="1.2" opacity=".55"/>
+      <g stroke-width="1.6"><path d="M140.0,370.0 Q140.0,385.6 125.1,391.3"/><path d="M152.3,377.0 Q151.6,395.9 135.4,403.7"/><path d="M164.6,383.9 Q163.3,406.1 146.3,416.1"/><path d="M176.9,390.6 Q175.3,416.0 157.8,428.3"/><path d="M189.2,397.0 Q187.5,425.4 169.8,440.2"/><path d="M201.5,402.9 Q199.9,434.2 182.4,451.4"/><path d="M213.8,408.5 Q212.5,442.4 195.6,461.9"/><path d="M226.2,413.4 Q225.4,449.7 209.3,471.5"/><path d="M238.5,417.7 Q238.5,456.0 223.6,479.8"/><path d="M250.8,421.4 Q251.8,461.4 238.3,486.9"/><path d="M263.1,424.2 Q265.2,465.6 253.4,492.6"/><path d="M275.4,426.3 Q278.7,468.7 268.8,496.7"/><path d="M287.7,427.6 Q292.3,470.6 284.3,499.2"/><path d="M300.0,428.0 Q306.0,471.2 300.0,500.0"/><path d="M312.3,427.6 Q319.7,470.6 315.7,499.2"/><path d="M324.6,426.3 Q333.3,468.7 331.2,496.7"/><path d="M336.9,424.2 Q346.8,465.6 346.6,492.6"/><path d="M349.2,421.4 Q360.2,461.4 361.7,486.9"/><path d="M361.5,417.7 Q373.5,456.0 376.4,479.8"/><path d="M373.8,413.4 Q386.6,449.7 390.7,471.5"/><path d="M386.2,408.5 Q399.5,442.4 404.4,461.9"/><path d="M398.5,402.9 Q412.1,434.2 417.6,451.4"/><path d="M410.8,397.0 Q424.5,425.4 430.2,440.2"/><path d="M423.1,390.6 Q436.7,416.0 442.2,428.3"/><path d="M435.4,383.9 Q448.7,406.1 453.7,416.1"/><path d="M447.7,377.0 Q460.4,395.9 464.6,403.7"/><path d="M460.0,370.0 Q472.0,385.6 474.9,391.3"/></g>
+    </g>
+    <g transform="translate(80 720) rotate(-8) scale(0.9)" fill="none" stroke="#a8786c" stroke-width="1.22" stroke-linecap="round">
+    <path d="M0,0 C10,-40 4,-90 22,-140 C30,-160 34,-175 30,-190"/>
+    <path d="M18,-40 q14,-14 30,-2 q-16,12 -30,2z M18,-40 q16,-4 28,-2" transform="rotate(-35 18 -40)"/><path d="M6,-78 q14,-14 30,-2 q-16,12 -30,2z M6,-78 q16,-4 28,-2" transform="rotate(30 6 -78)"/><path d="M26,-112 q14,-14 30,-2 q-16,12 -30,2z M26,-112 q16,-4 28,-2" transform="rotate(-40 26 -112)"/><path d="M10,-150 q14,-14 30,-2 q-16,12 -30,2z M10,-150 q16,-4 28,-2" transform="rotate(25 10 -150)"/><path d="M30,-60 q14,-14 30,-2 q-16,12 -30,2z M30,-60 q16,-4 28,-2" transform="rotate(55 30 -60)"/>
+    <g transform="translate(30 -196)">
+      <path d="M0,0 c-12,-6 -16,-22 -4,-28 c4,8 6,14 4,28z"/>
+      <path d="M0,0 c12,-6 16,-22 4,-28 c-4,8 -6,14 -4,28z"/>
+      <path d="M0,0 c-18,2 -26,-10 -20,-20 c8,4 14,10 20,20z"/>
+      <path d="M0,0 c18,2 26,-10 20,-20 c-8,4 -14,10 -20,20z"/>
+      <circle cx="0" cy="-12" r="1.2" fill="#a8786c"/><circle cx="-3" cy="-16" r=".9" fill="#a8786c"/><circle cx="3" cy="-17" r=".9" fill="#a8786c"/>
+    </g>
+  </g>
+<rect width="600" height="750" filter="url(#lash-grain)"/>
+</svg>

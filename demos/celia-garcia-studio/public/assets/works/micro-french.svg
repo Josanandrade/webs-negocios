@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" width="600" height="750" role="img">
+<defs>
+  <filter id="microfrench-grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/>
+    <feColorMatrix values="0 0 0 0 .23  0 0 0 0 .16  0 0 0 0 .15  0 0 0 .05 0"/>
+  </filter>
+  <filter id="microfrench-shadow" x="-40%" y="-30%" width="180%" height="160%">
+    <feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#6b3f36" flood-opacity=".18"/>
+  </filter>
+  <filter id="microfrench-soft"><feGaussianBlur stdDeviation="1.6"/></filter>
+  <filter id="blur" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="10"/></filter>
+  <linearGradient id="microfrench-gloss" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+    <stop offset=".5" stop-color="#fff" stop-opacity=".75"/>
+    <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient><linearGradient id="microfrench-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4ebe5"/><stop offset="1" stop-color="#e4d2c8"/></linearGradient>
+      <radialGradient id="microfrench-glow" cx=".7" cy=".25" r=".7"><stop offset="0" stop-color="#fff5ee" stop-opacity=".55"/><stop offset="1" stop-color="#fff5ee" stop-opacity="0"/></radialGradient><linearGradient id="microfrench-nude" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#e9c4b8"/><stop offset="1" stop-color="#f2d7ce"/></linearGradient><clipPath id="microfrench-clip0"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z"/></clipPath><linearGradient id="microfrench-nude" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#e9c4b8"/><stop offset="1" stop-color="#f2d7ce"/></linearGradient><clipPath id="microfrench-clip1"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z"/></clipPath><linearGradient id="microfrench-nude" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#e9c4b8"/><stop offset="1" stop-color="#f2d7ce"/></linearGradient><clipPath id="microfrench-clip2"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z"/></clipPath><linearGradient id="microfrench-nude" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#e9c4b8"/><stop offset="1" stop-color="#f2d7ce"/></linearGradient><clipPath id="microfrench-clip3"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z"/></clipPath><linearGradient id="microfrench-nude" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#e9c4b8"/><stop offset="1" stop-color="#f2d7ce"/></linearGradient><clipPath id="microfrench-clip4"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z"/></clipPath></defs>
+<rect width="600" height="750" fill="url(#microfrench-bg)"/><rect width="600" height="750" fill="url(#microfrench-glow)"/>
+<g transform="translate(520 735) rotate(10) scale(1.15)" fill="none" stroke="#8f6b60" stroke-width="0.96" stroke-linecap="round">
+    <path d="M0,0 C10,-40 4,-90 22,-140 C30,-160 34,-175 30,-190"/>
+    <path d="M18,-40 q14,-14 30,-2 q-16,12 -30,2z M18,-40 q16,-4 28,-2" transform="rotate(-35 18 -40)"/><path d="M6,-78 q14,-14 30,-2 q-16,12 -30,2z M6,-78 q16,-4 28,-2" transform="rotate(30 6 -78)"/><path d="M26,-112 q14,-14 30,-2 q-16,12 -30,2z M26,-112 q16,-4 28,-2" transform="rotate(-40 26 -112)"/><path d="M10,-150 q14,-14 30,-2 q-16,12 -30,2z M10,-150 q16,-4 28,-2" transform="rotate(25 10 -150)"/><path d="M30,-60 q14,-14 30,-2 q-16,12 -30,2z M30,-60 q16,-4 28,-2" transform="rotate(55 30 -60)"/>
+    <g transform="translate(30 -196)">
+      <path d="M0,0 c-12,-6 -16,-22 -4,-28 c4,8 6,14 4,28z"/>
+      <path d="M0,0 c12,-6 16,-22 4,-28 c-4,8 -6,14 -4,28z"/>
+      <path d="M0,0 c-18,2 -26,-10 -20,-20 c8,4 14,10 20,20z"/>
+      <path d="M0,0 c18,2 26,-10 20,-20 c-8,4 -14,10 -20,20z"/>
+      <circle cx="0" cy="-12" r="1.2" fill="#8f6b60"/><circle cx="-3" cy="-16" r=".9" fill="#8f6b60"/><circle cx="3" cy="-17" r=".9" fill="#8f6b60"/>
+    </g>
+  </g><ellipse cx="300" cy="530" rx="165" ry="14" fill="#7a4b40" opacity=".10" filter="url(#blur)"/><g transform="translate(300 500) scale(1.42) rotate(-28 0 210)" filter="url(#microfrench-shadow)">
+      <g clip-path="url(#microfrench-clip0)"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="url(#microfrench-nude)"/><path d="M-42,-122 Q0,-148 42,-122 L42,-160 L-42,-160 Z" fill="#fffaf7"/>
+        <path d="M-22,-24 C-26,-70 -22,-112 -8,-138" fill="none" stroke="url(#microfrench-gloss)" stroke-width="7" stroke-linecap="round" opacity=".7" filter="url(#microfrench-soft)"/>
+        <path d="M-35,-8 Q0,6 35,-8" fill="none" stroke="#000" stroke-opacity=".06" stroke-width="5"/>
+      </g>
+      <path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="none" stroke="#7a4b40" stroke-opacity=".12" stroke-width="1"/>
+    </g><g transform="translate(300 500) scale(1.42) rotate(-14 0 210)" filter="url(#microfrench-shadow)">
+      <g clip-path="url(#microfrench-clip1)"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="url(#microfrench-nude)"/><path d="M-42,-128 Q0,-154 42,-128 L42,-160 L-42,-160 Z" fill="#fffaf7"/>
+        <path d="M-22,-24 C-26,-70 -22,-112 -8,-138" fill="none" stroke="url(#microfrench-gloss)" stroke-width="7" stroke-linecap="round" opacity=".7" filter="url(#microfrench-soft)"/>
+        <path d="M-35,-8 Q0,6 35,-8" fill="none" stroke="#000" stroke-opacity=".06" stroke-width="5"/>
+      </g>
+      <path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="none" stroke="#7a4b40" stroke-opacity=".12" stroke-width="1"/>
+    </g><g transform="translate(300 500) scale(1.42) rotate(0 0 210)" filter="url(#microfrench-shadow)">
+      <g clip-path="url(#microfrench-clip2)"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="url(#microfrench-nude)"/><path d="M-42,-122 Q0,-148 42,-122 L42,-160 L-42,-160 Z" fill="#fffaf7"/>
+        <path d="M-22,-24 C-26,-70 -22,-112 -8,-138" fill="none" stroke="url(#microfrench-gloss)" stroke-width="7" stroke-linecap="round" opacity=".7" filter="url(#microfrench-soft)"/>
+        <path d="M-35,-8 Q0,6 35,-8" fill="none" stroke="#000" stroke-opacity=".06" stroke-width="5"/>
+      </g>
+      <path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="none" stroke="#7a4b40" stroke-opacity=".12" stroke-width="1"/>
+    </g><g transform="translate(300 500) scale(1.42) rotate(14 0 210)" filter="url(#microfrench-shadow)">
+      <g clip-path="url(#microfrench-clip3)"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="url(#microfrench-nude)"/><path d="M-42,-128 Q0,-154 42,-128 L42,-160 L-42,-160 Z" fill="#fffaf7"/>
+        <path d="M-22,-24 C-26,-70 -22,-112 -8,-138" fill="none" stroke="url(#microfrench-gloss)" stroke-width="7" stroke-linecap="round" opacity=".7" filter="url(#microfrench-soft)"/>
+        <path d="M-35,-8 Q0,6 35,-8" fill="none" stroke="#000" stroke-opacity=".06" stroke-width="5"/>
+      </g>
+      <path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="none" stroke="#7a4b40" stroke-opacity=".12" stroke-width="1"/>
+    </g><g transform="translate(300 500) scale(1.42) rotate(28 0 210)" filter="url(#microfrench-shadow)">
+      <g clip-path="url(#microfrench-clip4)"><path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="url(#microfrench-nude)"/><path d="M-42,-122 Q0,-148 42,-122 L42,-160 L-42,-160 Z" fill="#fffaf7"/>
+        <path d="M-22,-24 C-26,-70 -22,-112 -8,-138" fill="none" stroke="url(#microfrench-gloss)" stroke-width="7" stroke-linecap="round" opacity=".7" filter="url(#microfrench-soft)"/>
+        <path d="M-35,-8 Q0,6 35,-8" fill="none" stroke="#000" stroke-opacity=".06" stroke-width="5"/>
+      </g>
+      <path d="M-35,-8 L-35,-85 C-35,-125 -14,-148 0,-153 C14,-148 35,-125 35,-85 L35,-8 Q0,6 -35,-8 Z" fill="none" stroke="#7a4b40" stroke-opacity=".12" stroke-width="1"/>
+    </g>
+<rect width="600" height="750" filter="url(#microfrench-grain)"/>
+</svg>
