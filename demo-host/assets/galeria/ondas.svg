@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Ilustración: melena con ondas y mechas en tonos miel">
+  <rect width="600" height="750" fill="#F7D3DC"/>
+  <circle cx="470" cy="140" r="90" fill="#F2DE9B" opacity=".8"/>
+  <g fill="none" stroke-linecap="round">
+    <path d="M90 -20 C 40 140, 220 220, 140 380 S 120 620, 220 780" stroke="#5A3726" stroke-width="46"/>
+    <path d="M160 -20 C 110 150, 290 230, 210 390 S 190 630, 290 780" stroke="#7A4B30" stroke-width="44"/>
+    <path d="M230 -20 C 180 160, 360 240, 280 400 S 260 640, 360 780" stroke="#A86F43" stroke-width="42"/>
+    <path d="M300 -20 C 250 170, 430 250, 350 410 S 330 650, 430 780" stroke="#C99360" stroke-width="40"/>
+    <path d="M370 -20 C 320 180, 500 260, 420 420 S 400 660, 500 780" stroke="#E2B987" stroke-width="38"/>
+    <path d="M440 -20 C 390 190, 570 270, 490 430 S 470 670, 570 780" stroke="#F0D3A8" stroke-width="36"/>
+    <g stroke="#FBF6EC" stroke-width="3" opacity=".45">
+      <path d="M112 -20 C 62 140, 242 220, 162 380 S 142 620, 242 780"/>
+      <path d="M252 -20 C 202 160, 382 240, 302 400 S 282 640, 382 780"/>
+      <path d="M392 -20 C 342 180, 522 260, 442 420 S 422 660, 522 780"/>
+    </g>
+  </g>
+</svg>

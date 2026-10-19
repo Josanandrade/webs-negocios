@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Ilustración: carta de mechones de color">
+  <rect width="600" height="750" fill="#FBF6EC"/>
+  <g transform="translate(300 700)">
+    <g fill="none" stroke-linecap="round" stroke-width="52">
+      <path d="M0 0 L -250 -520" stroke="#1F140F"/>
+      <path d="M0 0 L -170 -560" stroke="#5A3726"/>
+      <path d="M0 0 L -85 -585" stroke="#8A5534"/>
+      <path d="M0 0 L 0 -595" stroke="#B9804F"/>
+      <path d="M0 0 L 85 -585" stroke="#E2B987"/>
+      <path d="M0 0 L 170 -560" stroke="#B23E62"/>
+      <path d="M0 0 L 250 -520" stroke="#D98FA6"/>
+    </g>
+    <circle r="34" fill="#F2DE9B"/><circle r="12" fill="#33231C"/>
+  </g>
+</svg>

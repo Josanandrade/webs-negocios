@@ -1,2 +1,3 @@
+# Demo privada: no indexar.
 User-agent: *
 Disallow: /

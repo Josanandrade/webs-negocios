@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Ilustración: corte bob con flequillo">
+  <rect width="600" height="750" fill="#33231C"/>
+  <rect x="60" y="60" width="480" height="630" rx="240" fill="#B23E62" opacity=".9"/>
+  <path d="M270 600 L 270 520 L 330 520 L 330 600 Z" fill="#E9B9A4"/>
+  <ellipse cx="300" cy="400" rx="105" ry="135" fill="#E9B9A4"/>
+  <path d="M175 520 C 160 380, 170 250, 300 235 C 430 250, 440 380, 425 520 L 380 520 C 395 420, 390 360, 380 340 C 330 345, 260 340, 215 320 C 205 380, 205 440, 220 520 Z" fill="#1F140F"/>
+  <path d="M215 320 C 260 300, 340 300, 385 340" fill="none" stroke="#5A3726" stroke-width="6"/>
+  <path d="M200 620 C 230 580, 370 580, 400 620 L 420 700 L 180 700 Z" fill="#F2DE9B"/>
+  <g fill="#FBF6EC"><circle cx="110" cy="140" r="5"/><circle cx="500" cy="200" r="4"/><circle cx="480" cy="560" r="6"/></g>
+</svg>

@@ -1,16 +1,374 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ma Ji Var · Peluquería y Belleza en Umbrete</title>
+  <meta name="description" content="Peluquería y Belleza Ma Ji Var, en la calle Baldomero Muñoz de Umbrete (Sevilla). Peluquería, manicura, pedicura y uñas de gel. Pide tu cita por teléfono o WhatsApp.">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="theme-color" content="#FBF6EC">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__inner">
+      <a class="brand" href="#top" aria-label="Ma Ji Var, inicio">
+        <span class="brand__mark" aria-hidden="true">Ma<i>·</i>Ji<i>·</i>Var</span>
+        <span class="brand__tag">Peluquería y Belleza</span>
+      </a>
+      <nav class="nav__links" aria-label="Secciones">
+        <a href="#peluqueria">Peluquería</a>
+        <a href="#belleza">Belleza</a>
+        <a href="#galeria">Galería</a>
+        <a href="#salon">El salón</a>
+        <a href="#visitanos">Dónde estamos</a>
+      </nav>
+      <a class="btn btn--small nav__cta" href="#cita">Pedir cita</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="menu" id="menu" hidden>
+      <a href="#peluqueria">Peluquería</a>
+      <a href="#belleza">Belleza</a>
+      <a href="#galeria">Galería</a>
+      <a href="#salon">El salón</a>
+      <a href="#opiniones">Opiniones</a>
+      <a href="#visitanos">Dónde estamos</a>
+      <a class="btn" href="#cita">Pedir cita</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Calle Baldomero Muñoz, 30 · Umbrete</p>
+          <h1 class="hero__title">
+            <span class="syl">Ma</span><span class="syl syl--it">Ji</span><span class="syl">Var</span>
+          </h1>
+          <p class="hero__lead">Peluquería y belleza en Umbrete, con trato cercano y mucho mimo. Tu pelo, tus manos y tus pies, en las mismas manos de confianza.</p>
+          <div class="hero__actions">
+            <a class="btn" href="#cita">Pedir cita</a>
+            <a class="btn btn--ghost" href="tel:+34955715970" data-call>Llamar · 955 71 59 70</a>
+          </div>
+          <ul class="hero__facts" aria-label="Datos rápidos">
+            <li><strong>L–V</strong> 10:00–17:00</li>
+            <li><strong>Sáb</strong> 10:00–14:00</li>
+            <li><strong>Cita</strong> por teléfono o WhatsApp</li>
+          </ul>
+        </div>
+
+        <div class="hero__art" aria-hidden="true">
+          <figure class="arch arch--main"><img src="assets/galeria/ondas.svg" alt="" width="600" height="750"></figure>
+          <figure class="arch arch--small"><img src="assets/galeria/manicura.svg" alt="" width="600" height="750"></figure>
+          <div class="hero__badge">
+            <span class="hero__badge-k">Pelo</span>
+            <span class="hero__badge-plus">+</span>
+            <span class="hero__badge-k">Uñas</span>
+          </div>
+          <svg class="hero__swirl" viewBox="0 0 200 200"><defs><path id="circ" d="M100 100 m-78 0 a78 78 0 1 1 156 0 a78 78 0 1 1 -156 0"/></defs><text textLength="486" lengthAdjust="spacing"><textPath href="#circ" textLength="486" lengthAdjust="spacing">peluquería · belleza · umbrete ·</textPath></text></svg>
+        </div>
+      </div>
+
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker__track">
+          <span>Corte</span><span>Color</span><span>Mechas</span><span>Peinados</span><span>Manicura</span><span>Pedicura</span><span>Uñas de gel</span>
+          <span>Corte</span><span>Color</span><span>Mechas</span><span>Peinados</span><span>Manicura</span><span>Pedicura</span><span>Uñas de gel</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PELUQUERÍA -->
+    <section class="section" id="peluqueria">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="kicker">01 · Peluquería</p>
+          <h2>Tu pelo, <em>a tu manera.</em></h2>
+          <p class="section__intro">Te escuchamos antes de coger las tijeras. Cuéntanos qué quieres y te decimos con sinceridad cómo conseguirlo.</p>
+        </header>
+
+        <div class="cards cards--hair">
+          <article class="card reveal">
+            <span class="card__n">A</span>
+            <h3>Corte</h3>
+            <p>Cortes de mantenimiento o cambios de look, adaptados a tu cara, tu tipo de pelo y el tiempo que le quieres dedicar cada mañana.</p>
+            <a class="card__link" href="#cita" data-service="Corte">Pedir cita para corte →</a>
+          </article>
+          <article class="card reveal">
+            <span class="card__n">B</span>
+            <h3>Color y mechas</h3>
+            <p>Tinte, retoque de raíz, mechas y cambios de tono. Buscamos un color que te favorezca y que puedas mantener.</p>
+            <a class="card__link" href="#cita" data-service="Color y mechas">Pedir cita para color →</a>
+          </article>
+          <article class="card reveal">
+            <span class="card__n">C</span>
+            <h3>Peinados y recogidos</h3>
+            <p>Lavar y peinar para el día a día o un peinado especial para una boda, una comunión o una feria.</p>
+            <a class="card__link" href="#cita" data-service="Peinado">Pedir cita para peinado →</a>
+          </article>
+          <article class="card reveal">
+            <span class="card__n">D</span>
+            <h3>Cuidado del cabello</h3>
+            <p>Tratamientos para devolver al pelo su brillo, su fuerza y su suavidad, con el consejo de qué usar en casa.</p>
+            <a class="card__link" href="#cita" data-service="Tratamiento capilar">Pedir cita →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- BELLEZA -->
+    <section class="section section--pink" id="belleza">
+      <div class="wrap beauty">
+        <div class="beauty__art reveal" aria-hidden="true">
+          <figure class="frame frame--tall"><img src="assets/galeria/gel.svg" alt="" width="600" height="750" loading="lazy"></figure>
+        </div>
+        <div class="beauty__copy">
+          <header class="section__head reveal">
+            <p class="kicker">02 · Belleza</p>
+            <h2>Manos y pies <em>cuidados.</em></h2>
+            <p class="section__intro">Un rato para ti mientras te dejamos las uñas perfectas. Para mujer y también para hombre.</p>
+          </header>
+          <ul class="menu-list">
+            <li class="reveal">
+              <div><h3>Manicura</h3><p>Limado, cutículas, hidratación y esmaltado.</p></div>
+              <span class="tag">Mujer y hombre</span>
+            </li>
+            <li class="reveal">
+              <div><h3>Pedicura</h3><p>Cuidado completo del pie y esmaltado.</p></div>
+              <span class="tag">Mujer y hombre</span>
+            </li>
+            <li class="reveal">
+              <div><h3>Manicura y pedicura</h3><p>Manos y pies en la misma cita.</p></div>
+              <span class="tag">Combinado</span>
+            </li>
+            <li class="reveal">
+              <div><h3>Uñas de gel</h3><p>Esmaltado de gel y extensiones de uñas de gel.</p></div>
+              <span class="tag">Duraderas</span>
+            </li>
+          </ul>
+          <a class="btn" href="#cita" data-service="Manicura">Pedir cita de belleza</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="section" id="galeria">
+      <div class="wrap">
+        <header class="section__head section__head--row reveal">
+          <div>
+            <p class="kicker">03 · Galería</p>
+            <h2>Inspiración <em>del salón.</em></h2>
+          </div>
+          <div class="filters" role="group" aria-label="Filtrar galería">
+            <button type="button" class="is-active" aria-pressed="true" data-filter="all">Todo</button>
+            <button type="button" aria-pressed="false" data-filter="pelo">Pelo</button>
+            <button type="button" aria-pressed="false" data-filter="unas">Uñas</button>
+          </div>
+        </header>
+
+        <div class="gallery">
+          <figure class="work work--tall reveal" data-cat="pelo"><img src="assets/galeria/ondas.svg" alt="Ilustración de melena con ondas y mechas miel" width="600" height="750" loading="lazy"><figcaption>Ondas y mechas</figcaption></figure>
+          <figure class="work reveal" data-cat="unas"><img src="assets/galeria/manicura.svg" alt="Ilustración de manicura en tono peonía" width="600" height="750" loading="lazy"><figcaption>Manicura</figcaption></figure>
+          <figure class="work reveal" data-cat="pelo"><img src="assets/galeria/corte.svg" alt="Ilustración de corte bob con flequillo" width="600" height="750" loading="lazy"><figcaption>Corte bob</figcaption></figure>
+          <figure class="work work--tall reveal" data-cat="unas"><img src="assets/galeria/gel.svg" alt="Ilustración de uñas de gel con varios acabados" width="600" height="750" loading="lazy"><figcaption>Uñas de gel</figcaption></figure>
+          <figure class="work reveal" data-cat="pelo"><img src="assets/galeria/recogido.svg" alt="Ilustración de perfil con recogido" width="600" height="750" loading="lazy"><figcaption>Recogido</figcaption></figure>
+          <figure class="work reveal" data-cat="pelo"><img src="assets/galeria/color.svg" alt="Ilustración de carta de colores de pelo" width="600" height="750" loading="lazy"><figcaption>Color</figcaption></figure>
+        </div>
+        <p class="note">Imágenes ilustrativas. Aquí irían las fotos reales de vuestros trabajos.</p>
+      </div>
+    </section>
+
+    <!-- SOBRE EL SALÓN -->
+    <section class="section section--ink" id="salon">
+      <div class="wrap about">
+        <div class="about__name reveal" aria-hidden="true">
+          <span>Ma</span><span>Ji</span><span>Var</span>
+        </div>
+        <div class="about__copy reveal">
+          <p class="kicker kicker--light">04 · El salón</p>
+          <h2>Cercano, <em>como debe ser.</em></h2>
+          <p>Ma Ji Var es la peluquería y centro de belleza de la calle Baldomero Muñoz, en Umbrete. Un sitio cercano, donde te conocen por tu nombre y saben cómo te gusta llevar el pelo.</p>
+          <p>Aquí puedes hacerte el color y, en la misma visita, dejarte las uñas listas. Sin prisas, con trato de tú a tú y con el cuidado de hacer las cosas bien.</p>
+          <ul class="values">
+            <li><strong>Cercanía</strong><span>Trato de confianza, como en casa.</span></li>
+            <li><strong>Todo en uno</strong><span>Peluquería y belleza en el mismo salón.</span></li>
+            <li><strong>En el pueblo</strong><span>Sin desplazarte a Sevilla.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPINIONES -->
+    <section class="section" id="opiniones">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="kicker">05 · Opiniones</p>
+          <h2>Lo que dicen <em>nuestras clientas.</em></h2>
+        </header>
+        <div class="reviews">
+          <blockquote class="review reveal">
+            <span class="review__tag">Ejemplo</span>
+            <div class="stars" aria-label="5 de 5">★★★★★</div>
+            <p>“Llevo años viniendo y siempre salgo contenta. Me entienden a la primera con el color.”</p>
+            <footer>Clienta de Umbrete</footer>
+          </blockquote>
+          <blockquote class="review reveal">
+            <span class="review__tag">Ejemplo</span>
+            <div class="stars" aria-label="5 de 5">★★★★★</div>
+            <p>“Me hago el pelo y las uñas en la misma mañana. Trato muy cercano y todo muy limpio.”</p>
+            <footer>Clienta habitual</footer>
+          </blockquote>
+          <blockquote class="review reveal">
+            <span class="review__tag">Ejemplo</span>
+            <div class="stars" aria-label="5 de 5">★★★★★</div>
+            <p>“Me peinaron para una boda y aguantó perfecto toda la noche. Repetiré.”</p>
+            <footer>Clienta</footer>
+          </blockquote>
+        </div>
+        <p class="note">Textos de ejemplo. En la web final se mostrarían vuestras reseñas reales de Google.</p>
+      </div>
+    </section>
+
+    <!-- CITA -->
+    <section class="section section--butter" id="cita">
+      <div class="wrap booking">
+        <div class="booking__copy reveal">
+          <p class="kicker">06 · Pide tu cita</p>
+          <h2>Reserva tu hueco <em>en un minuto.</em></h2>
+          <p>Dinos qué te quieres hacer y cuándo te viene bien. Te preparamos el mensaje para que lo envíes por WhatsApp, o si lo prefieres, llámanos.</p>
+          <div class="booking__direct">
+            <a class="btn btn--wa" href="#" data-wa="Hola, me gustaría pedir cita en Ma Ji Var.">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
+              WhatsApp
+            </a>
+            <a class="btn btn--ghost" href="tel:+34955715970">Llamar al 955 71 59 70</a>
+          </div>
+        </div>
+
+        <form class="booking__form reveal" id="cita-form" novalidate>
+          <fieldset>
+            <legend>¿Qué te hacemos?</legend>
+            <div class="chips" id="chips">
+              <label><input type="radio" name="servicio" value="Corte" required><span>Corte</span></label>
+              <label><input type="radio" name="servicio" value="Color y mechas"><span>Color y mechas</span></label>
+              <label><input type="radio" name="servicio" value="Peinado"><span>Peinado</span></label>
+              <label><input type="radio" name="servicio" value="Tratamiento capilar"><span>Tratamiento</span></label>
+              <label><input type="radio" name="servicio" value="Manicura"><span>Manicura</span></label>
+              <label><input type="radio" name="servicio" value="Pedicura"><span>Pedicura</span></label>
+              <label><input type="radio" name="servicio" value="Uñas de gel"><span>Uñas de gel</span></label>
+            </div>
+          </fieldset>
+
+          <div class="row">
+            <label class="field">
+              <span>Día que prefieres</span>
+              <input type="date" name="dia" id="dia" required>
+            </label>
+            <fieldset class="field">
+              <legend>Franja</legend>
+              <div class="seg">
+                <label><input type="radio" name="franja" value="mañana" checked><span>Mañana</span></label>
+                <label><input type="radio" name="franja" value="mediodía"><span>Mediodía</span></label>
+                <label><input type="radio" name="franja" value="tarde"><span>Tarde</span></label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="row">
+            <label class="field">
+              <span>Tu nombre</span>
+              <input type="text" name="nombre" autocomplete="given-name" required placeholder="Ej. Lucía">
+            </label>
+            <label class="field">
+              <span>Comentario <small>(opcional)</small></span>
+              <input type="text" name="nota" placeholder="Ej. solo raíz, o uñas cortas">
+            </label>
+          </div>
+
+          <p class="form__error" id="form-error" role="alert" hidden></p>
+          <button class="btn btn--block" type="submit">Preparar mensaje de cita</button>
+
+          <div class="form__done" id="form-done" hidden>
+            <p class="form__done-title">Tu solicitud está lista</p>
+            <p class="form__preview" id="form-preview"></p>
+            <div class="booking__direct">
+              <a class="btn btn--wa" id="send-wa" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+              <a class="btn btn--ghost" href="tel:+34955715970">Mejor llamo</a>
+            </div>
+            <p class="form__small">Te confirmamos el hueco según la agenda del salón.</p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- UBICACIÓN Y CONTACTO -->
+    <section class="section" id="visitanos">
+      <div class="wrap visit">
+        <div class="visit__info reveal">
+          <p class="kicker">07 · Dónde estamos</p>
+          <h2>Te esperamos <em>en Umbrete.</em></h2>
+          <dl class="visit__list">
+            <div><dt>Dirección</dt><dd>C. Baldomero Muñoz, 30<br>41806 Umbrete, Sevilla</dd></div>
+            <div><dt>Teléfono</dt><dd><a href="tel:+34955715970">955 71 59 70</a></dd></div>
+            <div><dt>Horario</dt><dd>Lunes a viernes: 10:00–17:00<br>Sábado: 10:00–14:00<br>Domingo: cerrado</dd></div>
+          </dl>
+          <p class="open-now" id="open-now" hidden></p>
+          <div class="visit__actions">
+            <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Calle+Baldomero+Mu%C3%B1oz+30%2C+41806+Umbrete%2C+Sevilla" target="_blank" rel="noopener">Cómo llegar</a>
+            <a class="btn btn--ghost" href="#cita">Pedir cita</a>
+          </div>
+        </div>
+        <div class="visit__map reveal">
+          <iframe title="Mapa: Calle Baldomero Muñoz 30, Umbrete" loading="lazy" referrerpolicy="no-referrer"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-6.1639%2C37.3655%2C-6.1559%2C37.3701&amp;layer=mapnik&amp;marker=37.36779%2C-6.159895"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="contact" id="contacto">
+      <div class="wrap contact__inner">
+        <p class="contact__title">¿Te hacemos un hueco?</p>
+        <div class="contact__links">
+          <a href="tel:+34955715970"><span>Llamar</span>955 71 59 70</a>
+          <a href="#" data-wa="Hola, tengo una consulta para Ma Ji Var."><span>WhatsApp</span>Escríbenos</a>
+          <a href="#cita"><span>Online</span>Solicitar cita</a>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div>
+        <p class="footer__brand">Ma<i>·</i>Ji<i>·</i>Var</p>
+        <p>Peluquería y Belleza · C. Baldomero Muñoz, 30 · 41806 Umbrete (Sevilla)</p>
+      </div>
+      <nav aria-label="Pie de página">
+        <a href="#peluqueria">Peluquería</a>
+        <a href="#belleza">Belleza</a>
+        <a href="#galeria">Galería</a>
+        <a href="#cita">Cita</a>
+      </nav>
+      <p class="footer__demo">Web de demostración: no es la web oficial del negocio.</p>
+    </div>
+  </footer>
+
+  <div class="dock" aria-label="Accesos rápidos">
+    <a href="tel:+34955715970">Llamar</a>
+    <a href="#" data-wa="Hola, me gustaría pedir cita en Ma Ji Var.">WhatsApp</a>
+    <a class="dock__main" href="#cita">Pedir cita</a>
+  </div>
+
+  <script src="main.js" defer></script>
 </body>
 </html>

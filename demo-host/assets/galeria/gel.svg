@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Ilustración: uñas de gel con distintos acabados">
+  <rect width="600" height="750" fill="#B23E62"/>
+  <g transform="translate(0 40)">
+    <g>
+      <path d="M95 200 C 95 120, 185 120, 185 200 L 185 420 C 185 450, 95 450, 95 420 Z" fill="#F7D3DC"/>
+      <path d="M95 200 C 95 120, 185 120, 185 200 L 185 215 C 155 200, 125 200, 95 215 Z" fill="#FBF6EC"/>
+    </g>
+    <g>
+      <path d="M215 160 C 215 80, 305 80, 305 160 L 305 380 C 305 410, 215 410, 215 380 Z" fill="#F2DE9B"/>
+      <g fill="#33231C"><circle cx="245" cy="180" r="9"/><circle cx="275" cy="225" r="9"/><circle cx="245" cy="270" r="9"/><circle cx="275" cy="315" r="9"/></g>
+    </g>
+    <g>
+      <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBF6EC"/><stop offset="1" stop-color="#D98FA6"/></linearGradient></defs>
+      <path d="M335 200 C 335 120, 425 120, 425 200 L 425 420 C 425 450, 335 450, 335 420 Z" fill="url(#g)"/>
+    </g>
+    <g>
+      <path d="M455 240 C 455 160, 545 160, 545 240 L 545 460 C 545 490, 455 490, 455 460 Z" fill="#33231C"/>
+      <path d="M470 300 C 500 280, 520 330, 500 350 C 480 370, 470 330, 500 320" fill="none" stroke="#F2DE9B" stroke-width="6" stroke-linecap="round"/>
+    </g>
+  </g>
+  <path d="M0 620 C 150 580, 450 660, 600 610 L 600 750 L 0 750 Z" fill="#33231C" opacity=".25"/>
+</svg>

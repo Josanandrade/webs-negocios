@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Ilustración: perfil de mujer con recogido">
+  <rect width="600" height="750" fill="#F2DE9B"/>
+  <circle cx="300" cy="360" r="240" fill="#FAF0C8"/>
+  <path d="M250 640 C 250 560, 230 520, 215 470 C 190 470, 175 455, 178 430 C 160 420, 165 400, 180 395 C 170 360, 175 330, 190 300 C 210 230, 280 200, 340 215 C 410 232, 440 300, 430 370 C 422 430, 395 470, 390 520 C 386 560, 400 600, 420 640 Z" fill="#E9B9A4"/>
+  <path d="M190 300 C 205 205, 300 170, 370 200 C 440 230, 455 320, 420 400 C 410 360, 395 320, 360 300 C 320 275, 250 280, 200 330 Z" fill="#4A2C20"/>
+  <circle cx="420" cy="215" r="70" fill="#4A2C20"/>
+  <path d="M370 180 C 400 150, 460 160, 480 200" fill="none" stroke="#7A4B30" stroke-width="10" stroke-linecap="round"/>
+  <path d="M380 240 C 410 265, 460 255, 485 225" fill="none" stroke="#7A4B30" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="365" cy="160" r="9" fill="#D9577A"/><circle cx="388" cy="148" r="7" fill="#D9577A"/><circle cx="350" cy="178" r="6" fill="#FBF6EC"/>
+  <path d="M300 640 C 320 600, 380 590, 420 640" fill="#D9577A"/>
+</svg>
