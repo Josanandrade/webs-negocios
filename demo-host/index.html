@@ -1,16 +1,373 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Peluquería &amp; Estética Mamen · Umbrete</title>
+  <meta name="description" content="Peluquería &amp; Estética Mamen, en Umbrete (Sevilla). Corte, color, tratamientos capilares, estética, uñas y mirada. Pide tu cita por WhatsApp o por teléfono.">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="theme-color" content="#FAF6F0">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Caprasimo&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__inner">
+      <a class="brand" href="#top" aria-label="Peluquería y Estética Mamen, inicio">
+        <span class="brand__mark" aria-hidden="true">M</span>
+        <span class="brand__text"><b>Mamen</b><small>Peluquería &amp; Estética</small></span>
+      </a>
+      <nav class="nav__links" aria-label="Secciones">
+        <a href="#peluqueria">Peluquería</a>
+        <a href="#estetica">Estética</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#galeria">Galería</a>
+        <a href="#centro">El centro</a>
+        <a href="#ubicacion">Dónde estamos</a>
+      </nav>
+      <a class="btn btn--ink btn--small nav__cta" href="#cita">Pedir cita</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="menu" id="menu" hidden>
+      <a href="#peluqueria">Peluquería</a>
+      <a href="#estetica">Estética</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#galeria">Galería</a>
+      <a href="#centro">El centro</a>
+      <a href="#opiniones">Opiniones</a>
+      <a href="#ubicacion">Dónde estamos</a>
+      <a class="btn btn--ink" href="#cita">Pedir cita</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="hero__pills">
+            <a class="pill pill--cobre" href="#peluqueria">Peluquería</a>
+            <span class="hero__amp" aria-hidden="true">&amp;</span>
+            <a class="pill pill--lav" href="#estetica">Estética</a>
+          </p>
+          <h1 class="hero__title"><span>Ma</span><span>men</span></h1>
+          <p class="hero__lead">Tu pelo y tu piel, en las mismas manos. Corte, color y tratamientos capilares; estética, uñas y mirada. Todo con cita, sin prisas, aquí en Umbrete.</p>
+          <div class="hero__ctas">
+            <a class="btn btn--wa" data-wa="Hola Mamen, me gustaría pedir cita." href="#cita">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
+              Pedir cita por WhatsApp
+            </a>
+            <a class="btn btn--line" href="tel:+34628857439">Llamar · 628 85 74 39</a>
+          </div>
+          <ul class="hero__facts">
+            <li><b>Con cita previa</b><span>Te damos hora y te esperamos</span></li>
+            <li><b>Dos áreas</b><span>Peluquería y estética en un solo sitio</span></li>
+            <li><b>Umbrete</b><span>Camino de los Malaguíes</span></li>
+          </ul>
+        </div>
+
+        <div class="hero__art" aria-hidden="true">
+          <figure class="arch arch--cobre">
+            <img src="assets/galeria/melena.svg" alt="" width="480" height="600">
+            <figcaption>Peluquería</figcaption>
+          </figure>
+          <figure class="arch arch--lav">
+            <img src="assets/galeria/unas.svg" alt="" width="480" height="600">
+            <figcaption>Estética</figcaption>
+          </figure>
+          <svg class="badge" viewBox="0 0 200 200">
+            <defs><path id="circ" d="M100 100 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0"/></defs>
+            <circle cx="100" cy="100" r="98" fill="#231C26"/>
+            <text font-size="17" letter-spacing="3.2" fill="#FAF6F0" font-family="Albert Sans, sans-serif" font-weight="600"><textPath href="#circ">PELUQUERÍA · ESTÉTICA · UMBRETE · </textPath></text>
+            <text x="100" y="118" text-anchor="middle" font-size="54" fill="#F4B48E" font-family="Caprasimo, serif">&amp;</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- PELUQUERÍA -->
+    <section class="area area--cobre" id="peluqueria">
+      <div class="wrap area__grid">
+        <header class="area__head reveal">
+          <p class="eyebrow">01 · Peluquería</p>
+          <h2>Corte, color y un pelo que se deja peinar.</h2>
+          <p>Escuchamos qué quieres y cómo te peinas en casa antes de coger las tijeras. Cortes actuales, color a tu medida y tratamientos para recuperar el pelo castigado.</p>
+          <a class="link" href="#servicios" data-tab="peluqueria">Ver servicios de peluquería →</a>
+        </header>
+        <ul class="area__cards">
+          <li class="card reveal"><span class="card__ico"><svg viewBox="0 0 48 48"><circle cx="14" cy="36" r="6"/><circle cx="34" cy="36" r="6"/><path d="M18 31 38 6M30 31 10 6"/></svg></span><h3>Corte y peinado</h3><p>Cortes de mujer, puntas, flequillos, peinados modernos y brushing.</p></li>
+          <li class="card reveal"><span class="card__ico"><svg viewBox="0 0 48 48"><path d="M12 40c0-10 6-12 6-22a6 6 0 0 1 12 0c0 10 6 12 6 22Z"/><path d="M18 26h12"/></svg></span><h3>Color</h3><p>Coloración, cobertura de canas, mechas y matices para refrescar el tono.</p></li>
+          <li class="card reveal"><span class="card__ico"><svg viewBox="0 0 48 48"><path d="M24 6c6 10 12 15 12 23a12 12 0 0 1-24 0c0-8 6-13 12-23Z"/><path d="M19 30a5 5 0 0 0 5 5"/></svg></span><h3>Tratamientos capilares</h3><p>Hidratación, reparación y cuidado para pelo seco, fino o dañado.</p></li>
+          <li class="card reveal"><span class="card__ico"><svg viewBox="0 0 48 48"><path d="M10 30c4-14 24-14 28 0"/><circle cx="24" cy="20" r="6"/><path d="M8 40h32"/></svg></span><h3>Peinados de ocasión</h3><p>Recogidos y peinados para bodas, comuniones y días especiales.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ESTÉTICA -->
+    <section class="area area--lav" id="estetica">
+      <div class="wrap area__grid area__grid--flip">
+        <header class="area__head reveal">
+          <p class="eyebrow">02 · Estética</p>
+          <h2>Piel cuidada, manos bonitas y una mirada que se nota.</h2>
+          <p>La otra mitad del centro: tratamientos faciales, manicura y pedicura (también para hombre), mirada y maquillaje. Para combinarlo con tu cita de peluquería o venir solo a esto.</p>
+          <a class="link" href="#servicios" data-tab="estetica">Ver servicios de estética →</a>
+        </header>
+        <ul class="area__cards">
+          <li class="card reveal"><span class="card__ico"><svg viewBox="0 0 48 48"><ellipse cx="24" cy="24" rx="13" ry="17"/><path d="M19 22h.1M29 22h.1M19 31c3 2 7 2 10 0"/></svg></span><h3>Facial</h3><p>Limpiezas e higiene facial, hidratación y cuidado según tu piel.</p></li>
+          <li class="card reveal"><span class="card__ico"><svg viewBox="0 0 48 48"><rect x="15" y="6" width="18" height="36" rx="9"/><rect x="19" y="10" width="10" height="13" rx="5"/></svg></span><h3>Uñas</h3><p>Manicura y pedicura, con servicio para hombre.</p></li>
+          <li class="card reveal"><span class="card__ico"><svg viewBox="0 0 48 48"><path d="M6 26c8-10 28-10 36 0-8 10-28 10-36 0Z"/><circle cx="24" cy="26" r="5"/><path d="M12 15l2 4M24 12v4M36 15l-2 4"/></svg></span><h3>Mirada</h3><p>Cejas y pestañas para enmarcar la cara.</p></li>
+          <li class="card reveal"><span class="card__ico"><svg viewBox="0 0 48 48"><path d="M20 42V22h8v20Z"/><path d="M21 22l2-14h2l2 14"/></svg></span><h3>Maquillaje</h3><p>Maquillaje para eventos, a juego con tu peinado.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="services" id="servicios">
+      <div class="wrap">
+        <header class="section-head reveal">
+          <p class="eyebrow">03 · Servicios</p>
+          <h2>Todo lo que hacemos, ordenado.</h2>
+          <p>Elige un apartado. Pregúntanos precio y tiempo por WhatsApp: te respondemos con lo que necesitas.</p>
+        </header>
+
+        <div class="tabs reveal" role="tablist" aria-label="Apartados de servicios">
+          <button role="tab" id="t-peluqueria" aria-controls="p-peluqueria" aria-selected="true" data-tone="cobre">Peluquería</button>
+          <button role="tab" id="t-color" aria-controls="p-color" aria-selected="false" tabindex="-1" data-tone="cobre">Color</button>
+          <button role="tab" id="t-capilar" aria-controls="p-capilar" aria-selected="false" tabindex="-1" data-tone="cobre">Tratamientos capilares</button>
+          <button role="tab" id="t-estetica" aria-controls="p-estetica" aria-selected="false" tabindex="-1" data-tone="lav">Estética</button>
+          <button role="tab" id="t-unas" aria-controls="p-unas" aria-selected="false" tabindex="-1" data-tone="lav">Uñas</button>
+          <button role="tab" id="t-mirada" aria-controls="p-mirada" aria-selected="false" tabindex="-1" data-tone="lav">Mirada</button>
+        </div>
+
+        <div class="panels">
+          <div class="panel" role="tabpanel" id="p-peluqueria" aria-labelledby="t-peluqueria" data-tone="cobre">
+            <ul class="menu-list">
+              <li><span>Corte de mujer</span><em>Lavado, corte y acabado</em></li>
+              <li><span>Arreglo de puntas y flequillo</span><em>Para mantener la forma</em></li>
+              <li><span>Peinado y brushing</span><em>Liso, ondas o volumen</em></li>
+              <li><span>Recogidos</span><em>Bodas, comuniones y eventos</em></li>
+            </ul>
+            <a class="btn btn--wa btn--small" data-wa="Hola Mamen, quería información sobre un servicio de peluquería." href="#cita">Consultar por WhatsApp</a>
+          </div>
+          <div class="panel" role="tabpanel" id="p-color" aria-labelledby="t-color" data-tone="cobre" hidden>
+            <ul class="menu-list">
+              <li><span>Tinte y cobertura de canas</span><em>Raíz o completo</em></li>
+              <li><span>Mechas</span><em>Para dar luz al tono</em></li>
+              <li><span>Matiz y baño de color</span><em>Refrescar y unificar</em></li>
+              <li><span>Cambio de look</span><em>Te asesoramos antes de empezar</em></li>
+            </ul>
+            <a class="btn btn--wa btn--small" data-wa="Hola Mamen, quería información sobre color (tinte, mechas…)." href="#cita">Consultar por WhatsApp</a>
+          </div>
+          <div class="panel" role="tabpanel" id="p-capilar" aria-labelledby="t-capilar" data-tone="cobre" hidden>
+            <ul class="menu-list">
+              <li><span>Hidratación profunda</span><em>Para pelo seco o con encrespamiento</em></li>
+              <li><span>Reparación</span><em>Tras decoloraciones o mucho calor</em></li>
+              <li><span>Cuidado del cuero cabelludo</span><em>Según lo que necesite tu pelo</em></li>
+            </ul>
+            <a class="btn btn--wa btn--small" data-wa="Hola Mamen, quería información sobre tratamientos capilares." href="#cita">Consultar por WhatsApp</a>
+          </div>
+          <div class="panel" role="tabpanel" id="p-estetica" aria-labelledby="t-estetica" data-tone="lav" hidden>
+            <ul class="menu-list">
+              <li><span>Limpieza facial</span><em>Higiene y luminosidad</em></li>
+              <li><span>Tratamiento facial</span><em>Hidratación y cuidado de la piel</em></li>
+              <li><span>Maquillaje</span><em>Día, noche o evento</em></li>
+            </ul>
+            <a class="btn btn--wa btn--small" data-wa="Hola Mamen, quería información sobre estética facial o maquillaje." href="#cita">Consultar por WhatsApp</a>
+          </div>
+          <div class="panel" role="tabpanel" id="p-unas" aria-labelledby="t-unas" data-tone="lav" hidden>
+            <ul class="menu-list">
+              <li><span>Manicura</span><em>Limado, cutículas y esmaltado</em></li>
+              <li><span>Pedicura</span><em>Cuidado completo de pies</em></li>
+              <li><span>Manicura para hombre</span><em>Manos cuidadas, acabado natural</em></li>
+              <li><span>Pedicura para hombre</span><em>Cuidado de pies</em></li>
+            </ul>
+            <a class="btn btn--wa btn--small" data-wa="Hola Mamen, quería cita para manicura o pedicura." href="#cita">Consultar por WhatsApp</a>
+          </div>
+          <div class="panel" role="tabpanel" id="p-mirada" aria-labelledby="t-mirada" data-tone="lav" hidden>
+            <ul class="menu-list">
+              <li><span>Diseño de cejas</span><em>Forma según tu cara</em></li>
+              <li><span>Tinte de cejas y pestañas</span><em>Más definición sin maquillaje</em></li>
+              <li><span>Lifting de pestañas</span><em>Curvatura natural</em></li>
+            </ul>
+            <a class="btn btn--wa btn--small" data-wa="Hola Mamen, quería información sobre cejas o pestañas." href="#cita">Consultar por WhatsApp</a>
+          </div>
+        </div>
+        <p class="note">Precios y duraciones a consultar en el centro.</p>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="gallery" id="galeria">
+      <div class="wrap">
+        <header class="section-head section-head--row reveal">
+          <div>
+            <p class="eyebrow">04 · Galería</p>
+            <h2>Trabajos del centro</h2>
+          </div>
+          <div class="filters" role="group" aria-label="Filtrar galería">
+            <button type="button" class="chip is-on" data-filter="all" aria-pressed="true">Todo</button>
+            <button type="button" class="chip" data-filter="pelo" aria-pressed="false">Peluquería</button>
+            <button type="button" class="chip" data-filter="estetica" aria-pressed="false">Estética</button>
+          </div>
+        </header>
+        <ul class="grid">
+          <li class="tile tile--tall reveal" data-cat="pelo"><img src="assets/galeria/melena.svg" alt="Ilustración: melena con ondas" loading="lazy" width="480" height="600"><span>Corte y ondas</span></li>
+          <li class="tile reveal" data-cat="pelo"><img src="assets/galeria/color.svg" alt="Ilustración: mechas y color" loading="lazy" width="480" height="600"><span>Color</span></li>
+          <li class="tile reveal" data-cat="estetica"><img src="assets/galeria/unas.svg" alt="Ilustración: manicura" loading="lazy" width="480" height="600"><span>Manicura</span></li>
+          <li class="tile reveal" data-cat="estetica"><img src="assets/galeria/mirada.svg" alt="Ilustración: cejas y pestañas" loading="lazy" width="480" height="600"><span>Mirada</span></li>
+          <li class="tile reveal" data-cat="pelo"><img src="assets/galeria/recogido.svg" alt="Ilustración: recogido" loading="lazy" width="480" height="600"><span>Recogido</span></li>
+          <li class="tile tile--wide reveal" data-cat="estetica"><img src="assets/galeria/facial.svg" alt="Ilustración: tratamiento facial" loading="lazy" width="480" height="600"><span>Facial</span></li>
+        </ul>
+        <p class="note">Imágenes ilustrativas: aquí irán las fotos reales de los trabajos del centro.</p>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="about" id="centro">
+      <div class="wrap about__grid">
+        <div class="about__plate reveal" aria-hidden="true">
+          <span class="about__m">M</span>
+          <span class="about__line">Peluquería</span>
+          <span class="about__line about__line--lav">&amp; Estética</span>
+        </div>
+        <div class="about__copy reveal">
+          <p class="eyebrow">05 · Sobre Mamen</p>
+          <h2>Un centro de pueblo, con trato de siempre.</h2>
+          <p>En Peluquería &amp; Estética Mamen la idea es sencilla: que salgas mejor de lo que entraste y con ganas de volver. Por eso trabajamos con cita, para dedicarte el tiempo que necesitas y que no tengas que esperar.</p>
+          <p>Aquí puedes cortarte el pelo, cambiar de color y, en la misma visita, hacerte las manos o arreglarte las cejas. Todo en el Camino de los Malaguíes, en Umbrete.</p>
+          <ul class="ticks">
+            <li>Trato cercano y personal en cada visita</li>
+            <li>Peluquería y estética coordinadas en una misma cita</li>
+            <li>Consejo para cuidar el pelo y la piel en casa</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPINIONES -->
+    <section class="reviews" id="opiniones">
+      <div class="wrap">
+        <header class="section-head reveal">
+          <p class="eyebrow">06 · Opiniones</p>
+          <h2>Lo que dicen las clientas</h2>
+          <p class="rating"><span class="stars" aria-hidden="true">★★★★★</span> <b>5,0</b> en Google</p>
+        </header>
+        <ul class="quotes">
+          <li class="quote reveal"><span class="tag">Ejemplo</span><blockquote>“Me corté y me hice el color en la misma mañana, y de paso las manos. Trato cercanísimo y mucho mimo.”</blockquote><cite>Clienta de Umbrete</cite></li>
+          <li class="quote quote--lav reveal"><span class="tag">Ejemplo</span><blockquote>“Mamen te escucha y te aconseja de verdad. Salí con el pelo que llevaba meses buscando.”</blockquote><cite>Clienta habitual</cite></li>
+          <li class="quote reveal"><span class="tag">Ejemplo</span><blockquote>“Me peinó y maquilló para la comunión de mi hija. Aguantó todo el día perfecto.”</blockquote><cite>Clienta</cite></li>
+        </ul>
+        <p class="note">Las tarjetas marcadas como “Ejemplo” se sustituirán por reseñas reales de Google.</p>
+      </div>
+    </section>
+
+    <!-- CTA / CITA -->
+    <section class="cta" id="cita">
+      <div class="wrap cta__grid">
+        <div class="cta__copy">
+          <p class="eyebrow eyebrow--light">07 · Pide tu cita</p>
+          <h2>Dinos qué te apetece y te damos hora.</h2>
+          <p>Marca lo que quieres hacerte y te preparamos el mensaje de WhatsApp. Si lo prefieres, llámanos.</p>
+          <a class="btn btn--light" href="tel:+34628857439">Llamar al 628 85 74 39</a>
+        </div>
+        <form class="booker" id="booker" novalidate>
+          <fieldset>
+            <legend>¿Qué te quieres hacer?</legend>
+            <div class="chips">
+              <label class="chip-c chip-c--cobre"><input type="checkbox" name="svc" value="corte"><span>Corte / peinado</span></label>
+              <label class="chip-c chip-c--cobre"><input type="checkbox" name="svc" value="color"><span>Color</span></label>
+              <label class="chip-c chip-c--cobre"><input type="checkbox" name="svc" value="tratamiento capilar"><span>Tratamiento capilar</span></label>
+              <label class="chip-c chip-c--lav"><input type="checkbox" name="svc" value="estética facial"><span>Facial</span></label>
+              <label class="chip-c chip-c--lav"><input type="checkbox" name="svc" value="manicura o pedicura"><span>Uñas</span></label>
+              <label class="chip-c chip-c--lav"><input type="checkbox" name="svc" value="cejas o pestañas"><span>Mirada</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>¿Cuándo te viene mejor?</legend>
+            <div class="chips">
+              <label class="chip-c"><input type="radio" name="when" value="por la mañana" checked><span>Mañana</span></label>
+              <label class="chip-c"><input type="radio" name="when" value="por la tarde"><span>Tarde</span></label>
+              <label class="chip-c"><input type="radio" name="when" value="cuando haya hueco"><span>Me da igual</span></label>
+            </div>
+          </fieldset>
+          <label class="field">
+            <span>Tu nombre</span>
+            <input type="text" name="name" autocomplete="given-name" placeholder="Opcional">
+          </label>
+          <output class="preview" id="preview" aria-live="polite"></output>
+          <button class="btn btn--wa btn--block" type="submit">Enviar por WhatsApp</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- UBICACIÓN + CONTACTO -->
+    <section class="where" id="ubicacion">
+      <div class="wrap where__grid">
+        <div class="map reveal">
+          <svg viewBox="0 0 560 420" role="img" aria-label="Plano ilustrativo de la zona del Camino de los Malaguíes, Umbrete">
+            <rect width="560" height="420" fill="#EFE7DC"/>
+            <g fill="#E3D8C9"><rect x="30" y="30" width="150" height="110" rx="10"/><rect x="200" y="30" width="120" height="70" rx="10"/><rect x="350" y="250" width="180" height="140" rx="10"/><rect x="30" y="280" width="190" height="110" rx="10"/></g>
+            <g fill="#D7E3C7"><rect x="360" y="30" width="170" height="160" rx="14"/><circle cx="120" cy="210" r="40"/></g>
+            <path d="M-10 180 C 140 160, 260 230, 570 200" stroke="#FFFDF9" stroke-width="26" fill="none"/>
+            <path d="M260 -10 C 250 120, 300 260, 290 430" stroke="#FFFDF9" stroke-width="18" fill="none"/>
+            <path d="M-10 180 C 140 160, 260 230, 570 200" stroke="#C2612F" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round" fill="none"/>
+            <text x="40" y="168" font-family="Albert Sans, sans-serif" font-size="14" fill="#6B5F66" font-weight="600">Cam. de los Malaguíes</text>
+            <text x="282" y="36" font-family="Albert Sans, sans-serif" font-size="13" fill="#6B5F66" font-weight="600">↑ hacia el centro de Umbrete</text>
+            <g transform="translate(330 196)">
+              <circle r="34" fill="#C2612F" opacity=".18"/>
+              <path d="M0 10 C -16 -8, -18 -16, -18 -24 a18 18 0 0 1 36 0 c0 8 -2 16 -18 34Z" fill="#231C26" transform="translate(0 -14)"/>
+              <circle cy="-38" r="7" fill="#F4B48E"/>
+            </g>
+          </svg>
+          <a class="btn btn--ink map__btn" href="https://www.google.com/maps/search/?api=1&amp;query=Peluquer%C3%ADa%20%26%20Est%C3%A9tica%20Mamen%2C%20Camino%20de%20los%20Malagu%C3%ADes%2C%20Umbrete" target="_blank" rel="noopener">Cómo llegar</a>
+        </div>
+        <div class="contact reveal" id="contacto">
+          <p class="eyebrow">08 · Ubicación y contacto</p>
+          <h2>Ven a vernos a Umbrete</h2>
+          <dl class="contact__list">
+            <div><dt>Dirección</dt><dd>Camino de los Malaguíes<br>41806 Umbrete, Sevilla</dd></div>
+            <div><dt>Teléfono</dt><dd><a href="tel:+34628857439">628 85 74 39</a></dd></div>
+            <div><dt>WhatsApp</dt><dd><a data-wa="Hola Mamen, me gustaría pedir cita." href="#cita">Escríbenos</a></dd></div>
+            <div><dt>Horario</dt><dd>Con cita previa. Pregúntanos por WhatsApp los huecos de la semana.</dd></div>
+          </dl>
+          <div class="contact__ctas">
+            <a class="btn btn--wa" data-wa="Hola Mamen, me gustaría pedir cita." href="#cita">WhatsApp</a>
+            <a class="btn btn--line" href="tel:+34628857439">Llamar</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div>
+        <p class="footer__name">Mamen</p>
+        <p>Peluquería &amp; Estética · Umbrete</p>
+      </div>
+      <nav aria-label="Pie de página">
+        <a href="#peluqueria">Peluquería</a>
+        <a href="#estetica">Estética</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#cita">Pedir cita</a>
+      </nav>
+      <p class="footer__small">Camino de los Malaguíes, 41806 Umbrete (Sevilla) · <a href="tel:+34628857439">628 85 74 39</a><br>© <span id="year">2026</span> Peluquería &amp; Estética Mamen</p>
+    </div>
+  </footer>
+
+  <div class="dock" aria-label="Contacto rápido">
+    <a href="tel:+34628857439">Llamar</a>
+    <a class="dock__wa" data-wa="Hola Mamen, me gustaría pedir cita." href="#cita">WhatsApp</a>
+  </div>
+
+  <script src="main.js" defer></script>
 </body>
 </html>

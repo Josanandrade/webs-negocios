@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 600" role="img" aria-label="Ilustración: melena con ondas">
+  <rect width="480" height="600" fill="#F6E2D3"/>
+  <circle cx="380" cy="110" r="70" fill="#F4B48E" opacity=".6"/>
+  <path d="M240 90c-95 0-150 70-150 170 0 90-40 140-20 230 10 50 70 70 120 50l50-20 50 20c50 20 110 0 120-50 20-90-20-140-20-230 0-100-55-170-150-170Z" fill="#9A4720"/>
+  <ellipse cx="240" cy="270" rx="78" ry="98" fill="#EDC2A4"/>
+  <path d="M240 600v-120c-40 0-60-20-60-60h120c0 40-20 60-60 60" fill="#EDC2A4"/>
+  <path d="M150 600c10-70 40-100 90-100s80 30 90 100Z" fill="#231C26"/>
+  <path d="M160 200c30-60 130-80 180-10-30-20-90-30-140 10-20 20-30 40-40 60Z" fill="#7A3818"/>
+  <g fill="none" stroke="#C2612F" stroke-width="7" stroke-linecap="round" opacity=".9">
+    <path d="M120 300c-20 40 20 70 0 110s20 70 0 100"/>
+    <path d="M360 300c20 40-20 70 0 110s-20 70 0 100"/>
+    <path d="M140 250c-15 30 15 55 0 85"/>
+    <path d="M340 250c15 30-15 55 0 85"/>
+  </g>
+  <path d="M215 290c8 6 16 6 24 0M255 290c8 6 16 6 24 0" stroke="#231C26" stroke-width="4" fill="none" stroke-linecap="round" transform="translate(-7 -20)"/>
+  <path d="M225 325c10 8 20 8 30 0" stroke="#9A4720" stroke-width="5" fill="none" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 600" role="img" aria-label="Ilustración: mechas y color">
+  <rect width="480" height="600" fill="#FAF6F0"/>
+  <g transform="rotate(-8 240 300)">
+    <path d="M110 40c0 200 30 330 30 560h40c0-230-20-360-20-560Z" fill="#3B2418"/>
+    <path d="M170 40c0 200 30 330 30 560h40c0-230-20-360-20-560Z" fill="#9A4720"/>
+    <path d="M230 40c0 200 30 330 30 560h40c0-230-20-360-20-560Z" fill="#C2612F"/>
+    <path d="M290 40c0 200 30 330 30 560h40c0-230-20-360-20-560Z" fill="#F4B48E"/>
+    <path d="M350 40c0 200 30 330 30 560h40c0-230-20-360-20-560Z" fill="#F6E2D3"/>
+  </g>
+  <rect x="60" y="250" width="360" height="120" rx="24" fill="#231C26"/>
+  <g font-family="Albert Sans, sans-serif" font-weight="700" fill="#FAF6F0" font-size="20">
+    <text x="90" y="305">Carta de color</text>
+  </g>
+  <g>
+    <circle cx="110" cy="335" r="14" fill="#3B2418" stroke="#FAF6F0" stroke-width="2"/>
+    <circle cx="150" cy="335" r="14" fill="#9A4720"/>
+    <circle cx="190" cy="335" r="14" fill="#C2612F"/>
+    <circle cx="230" cy="335" r="14" fill="#F4B48E"/>
+    <circle cx="270" cy="335" r="14" fill="#F6E2D3"/>
+    <circle cx="310" cy="335" r="14" fill="#8F7FD1"/>
+  </g>
+</svg>

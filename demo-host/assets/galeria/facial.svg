@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 600" role="img" aria-label="Ilustración: tratamiento facial">
+  <rect width="480" height="600" fill="#E9E5F7"/>
+  <path d="M0 420c120-40 360-40 480 0v180H0Z" fill="#8F7FD1"/>
+  <ellipse cx="240" cy="290" rx="120" ry="150" fill="#EDC2A4"/>
+  <path d="M120 250c0-110 60-160 120-160s120 50 120 160c-30-60-80-80-120-80s-90 20-120 80Z" fill="#FAF6F0"/>
+  <path d="M120 250c30-30 80-50 120-50s90 20 120 50" stroke="#D6CFF0" stroke-width="10" fill="none"/>
+  <g fill="#F6E2D3" opacity=".95"><ellipse cx="170" cy="340" rx="34" ry="22"/><ellipse cx="310" cy="340" rx="34" ry="22"/></g>
+  <path d="M190 300c10 8 22 8 32 0M258 300c10 8 22 8 32 0" stroke="#231C26" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M220 380c14 10 26 10 40 0" stroke="#9A4720" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <g fill="#FAF6F0"><circle cx="400" cy="120" r="10"/><circle cx="420" cy="160" r="5"/><circle cx="70" cy="170" r="7"/></g>
+  <path d="M60 520c40-20 80-20 120 0" stroke="#5B4BA0" stroke-width="6" fill="none" stroke-linecap="round"/>
+</svg>

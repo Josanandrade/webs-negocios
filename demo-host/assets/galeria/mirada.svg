@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 600" role="img" aria-label="Ilustración: cejas y pestañas">
+  <rect width="480" height="600" fill="#231C26"/>
+  <circle cx="240" cy="300" r="200" fill="#5B4BA0" opacity=".45"/>
+  <path d="M90 230c50-50 250-60 300-10" stroke="#3B2418" stroke-width="26" fill="none" stroke-linecap="round"/>
+  <path d="M70 330c60-80 280-80 340 0-60 80-280 80-340 0Z" fill="#FAF6F0"/>
+  <circle cx="240" cy="330" r="62" fill="#8F7FD1"/>
+  <circle cx="240" cy="330" r="30" fill="#231C26"/>
+  <circle cx="258" cy="312" r="10" fill="#FAF6F0"/>
+  <g stroke="#FAF6F0" stroke-width="7" stroke-linecap="round" fill="none">
+    <path d="M100 300l-24-30M140 278l-14-36M185 264l-6-38M240 260v-40M295 264l6-38M340 278l14-36M380 300l24-30"/>
+  </g>
+  <path d="M70 330c60-80 280-80 340 0" stroke="#231C26" stroke-width="8" fill="none"/>
+</svg>
