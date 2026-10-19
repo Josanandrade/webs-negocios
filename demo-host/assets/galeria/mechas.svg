@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 720" role="img" aria-label="Ilustración: melena con mechas">
+  <rect width="600" height="720" fill="#FAF3DF"/>
+  <circle cx="300" cy="380" r="235" fill="#E9B949"/>
+  <path d="M170 640 C 140 440, 160 260, 300 245 C 440 260, 460 440, 430 640 Z" fill="#7A5432"/><path d="M200 620 C 185 470, 200 330, 240 290 M260 630 C 250 480, 255 340, 280 280 M360 630 C 365 480, 360 330, 330 280 M410 620 C 420 470, 405 330, 370 290" stroke="#E8C88A" stroke-width="14" fill="none" stroke-linecap="round"/>
+  <path d="M110 720 C 130 575, 470 575, 490 720 Z" fill="#2A2340"/>
+  <path d="M272 600 V520 H328 V600 Z" fill="#F1C9A8"/><ellipse cx="300" cy="410" rx="100" ry="128" fill="#F1C9A8"/>
+  <path d="M195 350 C 220 270, 360 255, 405 345 C 350 300, 260 300, 195 350 Z" fill="#7A5432"/>
+  
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 720" role="img" aria-label="Ilustración: corte bob">
+  <rect width="600" height="720" fill="#EFEAF7"/>
+  <circle cx="300" cy="380" r="235" fill="#FFFFFF"/>
+  <path d="M180 540 C 160 380, 180 250, 300 240 C 420 250, 440 380, 420 540 C 400 560, 380 545, 385 520 C 395 430, 390 360, 380 330 C 320 340, 260 330, 220 320 C 210 380, 205 450, 215 520 C 220 545, 200 560, 180 540 Z" fill="#3A2A22"/>
+  <path d="M110 720 C 130 575, 470 575, 490 720 Z" fill="#8D7CC4"/>
+  <path d="M272 600 V520 H328 V600 Z" fill="#F1C9A8"/><ellipse cx="300" cy="410" rx="100" ry="128" fill="#F1C9A8"/>
+  <path d="M200 330 C 230 270, 350 260, 400 340 C 340 310, 260 305, 200 330 Z" fill="#3A2A22"/>
+  
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 720" role="img" aria-label="Ilustración: melena con ondas">
+  <rect width="600" height="720" fill="#2A2340"/>
+  <circle cx="300" cy="380" r="235" fill="#3D3460"/>
+  <path d="M160 680 C 120 600, 190 560, 150 480 C 120 400, 170 260, 300 245 C 430 260, 480 400, 450 480 C 410 560, 480 600, 440 680 Z" fill="#5A3A28"/><path d="M175 640 c 30 -30 -20 -60 10 -90 M425 640 c -30 -30 20 -60 -10 -90" stroke="#8A5C3E" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <path d="M110 720 C 130 575, 470 575, 490 720 Z" fill="#E9B949"/>
+  <path d="M272 600 V520 H328 V600 Z" fill="#F1C9A8"/><ellipse cx="300" cy="410" rx="100" ry="128" fill="#F1C9A8"/>
+  <path d="M195 360 C 215 270, 370 255, 405 360 C 360 300, 250 300, 195 360 Z" fill="#5A3A28"/>
+  
+</svg>

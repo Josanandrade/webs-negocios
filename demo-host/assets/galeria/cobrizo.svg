@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 720" role="img" aria-label="Ilustración: melena cobriza">
+  <rect width="600" height="720" fill="#FBEDE4"/>
+  <circle cx="300" cy="380" r="235" fill="#F4D3C0"/>
+  <path d="M175 620 C 150 440, 170 260, 300 245 C 430 260, 450 440, 425 620 Z" fill="#B5532E"/>
+  <path d="M110 720 C 130 575, 470 575, 490 720 Z" fill="#2A2340"/>
+  <path d="M272 600 V520 H328 V600 Z" fill="#F1C9A8"/><ellipse cx="300" cy="410" rx="100" ry="128" fill="#F1C9A8"/>
+  <path d="M190 380 C 200 280, 280 250, 330 260 C 390 275, 410 320, 405 360 C 370 310, 300 300, 260 320 C 230 335, 205 355, 190 380 Z" fill="#B5532E"/><path d="M250 270 C 300 255, 360 270, 385 300" stroke="#E08A5E" stroke-width="8" fill="none" stroke-linecap="round"/>
+  
+</svg>

@@ -1,16 +1,373 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Nieve's Peluquería · Umbrete</title>
+  <meta name="description" content="Nieve's Peluquería, en la calle Manuel el Sacristán de Umbrete (Sevilla). Cortes, color, peinados y tratamientos capilares con trato cercano. Pide tu cita por WhatsApp o llamando.">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="theme-color" content="#FAF7F1">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,500;0,700;0,800;1,500;1,700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__inner">
+      <a class="brand" href="#top" aria-label="Nieve's Peluquería, inicio">
+        <img class="brand__icon" src="favicon.svg" alt="" width="34" height="34">
+        <span class="brand__name">Nieve's <em>Peluquería</em></span>
+      </a>
+      <nav class="nav__links" aria-label="Secciones">
+        <a href="#servicios">Servicios</a>
+        <a href="#salon">El salón</a>
+        <a href="#galeria">Trabajos</a>
+        <a href="#opiniones">Opiniones</a>
+        <a href="#ubicacion">Dónde estamos</a>
+      </nav>
+      <a class="btn btn--small nav__cta" href="#cita">Pedir cita</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="menu" id="menu" hidden>
+      <a href="#servicios">Servicios</a>
+      <a href="#salon">El salón</a>
+      <a href="#galeria">Trabajos</a>
+      <a href="#opiniones">Opiniones</a>
+      <a href="#ubicacion">Dónde estamos</a>
+      <a class="btn" href="#cita">Pedir cita</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Peluquería en Umbrete, Sevilla</p>
+          <h1>Tu peluquería de siempre, <em>con el pelo de ahora.</em></h1>
+          <p class="lead">En Nieve's te escuchamos antes de coger las tijeras. Cortes, color, peinados y cuidado del cabello con calma, buen producto y el trato de toda la vida.</p>
+          <div class="hero__actions">
+            <a class="btn btn--wa" data-wa="Hola Nieve, me gustaría pedir cita." href="#cita">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Zm0 16.4a7.4 7.4 0 0 1-3.8-1l-.3-.2-2.7.7.7-2.6-.2-.3A7.4 7.4 0 1 1 12 19.4Zm4.1-5.5c-.2-.1-1.3-.7-1.5-.7-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6 6 0 0 1-3-2.6c-.2-.4.2-.4.6-1.2.1-.2 0-.3 0-.4l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.9 2.3 1 2.5.1.2 1.7 2.7 4.2 3.7 1.6.7 2.2.7 3 .6.5-.1 1.3-.6 1.5-1.1.2-.5.2-1 .1-1.1l-.6-.4Z"/></svg>
+              Pedir cita por WhatsApp
+            </a>
+            <a class="btn btn--ghost" href="tel:+34627277440">Llamar al 627 277 440</a>
+          </div>
+          <ul class="hero__facts" aria-label="Datos rápidos">
+            <li><strong>5,0</strong><span>valoración en Google</span></li>
+            <li><strong>C/ Manuel el Sacristán, 5</strong><span>en el centro de Umbrete</span></li>
+          </ul>
+        </div>
+
+        <figure class="hero__art reveal">
+          <svg class="storefront" viewBox="0 0 520 560" role="img" aria-label="Ilustración de la fachada de Nieve's Peluquería">
+            <defs>
+              <pattern id="awning" width="52" height="40" patternUnits="userSpaceOnUse">
+                <rect width="26" height="40" fill="#8D7CC4"/><rect x="26" width="26" height="40" fill="#FAF7F1"/>
+              </pattern>
+              <clipPath id="win"><rect x="88" y="250" width="200" height="200" rx="10"/></clipPath>
+            </defs>
+            <rect x="40" y="70" width="440" height="470" rx="22" fill="#FFFFFF" stroke="#2A2340" stroke-width="4"/>
+            <rect x="40" y="70" width="440" height="80" rx="22" fill="#2A2340"/>
+            <rect x="40" y="120" width="440" height="30" fill="#2A2340"/>
+            <text x="260" y="122" text-anchor="middle" font-family="Alegreya, Georgia, serif" font-weight="800" font-size="38" fill="#FAF7F1">Nieve's</text>
+            <text x="260" y="143" text-anchor="middle" font-family="Nunito Sans, Arial, sans-serif" font-weight="800" font-size="12" letter-spacing="4" fill="#E9B949">PELUQUERÍA</text>
+            <path d="M40 150 H480 V196 Q467 214 454 196 Q441 214 428 196 Q415 214 402 196 Q389 214 376 196 Q363 214 350 196 Q337 214 324 196 Q311 214 298 196 Q285 214 272 196 Q259 214 246 196 Q233 214 220 196 Q207 214 194 196 Q181 214 168 196 Q155 214 142 196 Q129 214 116 196 Q103 214 90 196 Q77 214 64 196 Q52 214 40 196 Z" fill="url(#awning)" stroke="#2A2340" stroke-width="3"/>
+            <!-- escaparate -->
+            <rect x="88" y="250" width="200" height="200" rx="10" fill="#E7E1F4"/>
+            <g clip-path="url(#win)">
+              <circle cx="190" cy="330" r="46" fill="#F1C9A8"/>
+              <path d="M132 470 C 130 360, 140 270, 190 262 C 250 262, 258 360, 250 470 Z" fill="#3A2A22"/>
+              <ellipse cx="190" cy="335" rx="36" ry="44" fill="#F1C9A8"/>
+              <path d="M150 320 C 160 280, 225 270, 232 318 C 210 300, 180 296, 150 320 Z" fill="#3A2A22"/>
+              <path d="M140 470 C 150 410, 230 410, 240 470 Z" fill="#E9B949"/>
+              <path d="M226 270 l18 -40 M232 274 l24 -34" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity=".7"/>
+            </g>
+            <rect x="88" y="250" width="200" height="200" rx="10" fill="none" stroke="#2A2340" stroke-width="4"/>
+            <!-- puerta -->
+            <rect x="320" y="250" width="112" height="250" rx="8" fill="#8D7CC4" stroke="#2A2340" stroke-width="4"/>
+            <rect x="336" y="268" width="80" height="120" rx="6" fill="#E7E1F4" stroke="#2A2340" stroke-width="3"/>
+            <circle cx="410" cy="420" r="6" fill="#E9B949" stroke="#2A2340" stroke-width="2"/>
+            <rect x="344" y="300" width="64" height="30" rx="4" fill="#FFFFFF" stroke="#2A2340" stroke-width="2"/>
+            <text x="376" y="320" text-anchor="middle" font-family="Nunito Sans, Arial, sans-serif" font-weight="800" font-size="12" fill="#2A2340">ABIERTO</text>
+            <!-- maceta -->
+            <path d="M84 500 h56 l-8 40 h-40 z" fill="#C9744C" stroke="#2A2340" stroke-width="3"/>
+            <path d="M112 500 C 100 470, 80 466, 76 450 M112 500 C 120 470, 142 462, 150 446 M112 500 C 112 476, 108 458, 114 440" fill="none" stroke="#5E8A5A" stroke-width="6" stroke-linecap="round"/>
+            <rect x="40" y="536" width="440" height="4" fill="#2A2340"/>
+          </svg>
+          <div class="hero__badge">
+            <span class="stars" aria-hidden="true">★★★★★</span>
+            <strong>5,0 en Google</strong>
+            <span>clientas que repiten</span>
+          </div>
+          <div class="hero__note">Te atendemos con cita, sin prisas</div>
+        </figure>
+      </div>
+      <svg class="hero__flakes" viewBox="0 0 1200 120" aria-hidden="true" preserveAspectRatio="none"><path d="M0 60 Q 150 0 300 60 T 600 60 T 900 60 T 1200 60 V120 H0 Z" fill="#EFEAF7"/></svg>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="section services" id="servicios">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="kicker">Servicios</p>
+          <h2>Lo que hacemos cada día en el salón</h2>
+          <p>Te contamos qué te va mejor antes de empezar y sin compromiso. Si tienes dudas con un servicio, pregúntanos por WhatsApp.</p>
+        </header>
+        <div class="cards">
+          <article class="card reveal">
+            <div class="card__icon" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="13" cy="35" r="7"/><circle cx="35" cy="35" r="7"/><path d="M18 30 L36 6 M30 30 L12 6"/></svg></div>
+            <h3>Corte</h3>
+            <p>Cortes para mujer y caballero, desde arreglar las puntas hasta un cambio de look. Pensados para que en casa también te queden bien.</p>
+            <ul><li>Corte y lavado</li><li>Corte y peinado</li><li>Caballero y arreglo de barba</li></ul>
+          </article>
+          <article class="card reveal">
+            <div class="card__icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M10 40 L30 20 l6 6 -20 20z"/><path d="M30 20 l4 -12 6 6 -10 6"/><path d="M8 12 h10 M13 7 v10"/></svg></div>
+            <h3>Color</h3>
+            <p>Tintes, mechas y reflejos para cubrir canas, aportar luz o atreverte con algo nuevo, cuidando siempre el cabello.</p>
+            <ul><li>Tinte y retoque de raíz</li><li>Mechas y reflejos</li><li>Matiz y brillo</li></ul>
+          </article>
+          <article class="card reveal">
+            <div class="card__icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 6 C 12 6 8 18 14 26 C 8 32 12 42 24 42 C 36 42 40 32 34 26 C 40 18 36 6 24 6Z"/><path d="M24 14 v20"/></svg></div>
+            <h3>Peinados</h3>
+            <p>Secados, ondas y recogidos para el día a día o para esa boda, comunión o feria que tienes marcada en el calendario.</p>
+            <ul><li>Secado y plancha</li><li>Ondas</li><li>Recogidos para eventos</li></ul>
+          </article>
+          <article class="card reveal">
+            <div class="card__icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M18 6 h12 v8 l4 4 v24 H14 V18 l4 -4z"/><path d="M14 26 h20"/></svg></div>
+            <h3>Tratamientos</h3>
+            <p>Hidratación, reparación y brillo para cabellos secos, castigados por el sol o por el color. Te recomendamos qué usar también en casa.</p>
+            <ul><li>Hidratación profunda</li><li>Reparación de puntas</li><li>Asesoramiento de producto</li></ul>
+          </article>
+        </div>
+        <p class="services__more reveal">¿Buscas otro servicio? <a data-wa="Hola Nieve, quería preguntar si hacéis este servicio: " href="#cita">Pregúntanos</a> y te decimos.</p>
+      </div>
+    </section>
+
+    <!-- SOBRE EL SALÓN -->
+    <section class="section about" id="salon">
+      <div class="wrap about__grid">
+        <div class="about__art reveal" aria-hidden="true">
+          <svg viewBox="0 0 480 440">
+            <rect x="20" y="30" width="300" height="380" rx="150" fill="#EFEAF7"/>
+            <rect x="60" y="70" width="220" height="300" rx="110" fill="#FFFFFF" stroke="#2A2340" stroke-width="4"/>
+            <path d="M100 330 C 110 250, 230 250, 240 330 Z" fill="#8D7CC4"/>
+            <circle cx="170" cy="200" r="42" fill="#F1C9A8"/>
+            <path d="M126 210 C 120 150, 150 130, 172 130 C 210 130, 228 160, 216 214 C 206 178, 160 168, 126 210 Z" fill="#7A4E36"/>
+            <rect x="300" y="210" width="150" height="200" rx="16" fill="#E9B949" stroke="#2A2340" stroke-width="4"/>
+            <rect x="320" y="180" width="26" height="40" rx="6" fill="#FFFFFF" stroke="#2A2340" stroke-width="3"/>
+            <rect x="360" y="160" width="30" height="60" rx="8" fill="#8D7CC4" stroke="#2A2340" stroke-width="3"/>
+            <rect x="402" y="190" width="24" height="30" rx="5" fill="#FFFFFF" stroke="#2A2340" stroke-width="3"/>
+            <path d="M320 270 h110 M320 310 h110 M320 350 h110" stroke="#2A2340" stroke-width="3" stroke-linecap="round" opacity=".35"/>
+          </svg>
+        </div>
+        <div class="about__copy reveal">
+          <p class="kicker">Sobre el salón</p>
+          <h2>Una peluquería de barrio, de las que conocen tu nombre</h2>
+          <p>Nieve's es un salón pequeño en la calle Manuel el Sacristán, en Umbrete. Aquí no hay cadenas de montaje: cada cita tiene su tiempo para escucharte, proponerte y dejarte el pelo como de verdad te gusta.</p>
+          <p>Trabajamos con productos de calidad y nos formamos para estar al día de técnicas y tendencias, pero sin perder lo importante: que salgas a gusto y con ganas de volver.</p>
+          <ul class="values">
+            <li><strong>Trato personal.</strong> Te atiende siempre alguien que ya sabe cómo te gusta.</li>
+            <li><strong>Consejo sincero.</strong> Te decimos lo que le va bien a tu pelo, aunque sea menos.</li>
+            <li><strong>Con cita.</strong> Sin esperas largas y con el tiempo que pide cada servicio.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="section gallery" id="galeria">
+      <div class="wrap">
+        <header class="section__head section__head--row reveal">
+          <div>
+            <p class="kicker">Trabajos</p>
+            <h2>Algunos de nuestros trabajos</h2>
+          </div>
+          <div class="filters" role="group" aria-label="Filtrar trabajos">
+            <button type="button" class="is-active" aria-pressed="true" data-filter="all">Todos</button>
+            <button type="button" aria-pressed="false" data-filter="corte">Corte</button>
+            <button type="button" aria-pressed="false" data-filter="color">Color</button>
+            <button type="button" aria-pressed="false" data-filter="peinado">Peinado</button>
+          </div>
+        </header>
+        <div class="works">
+          <figure class="work reveal" data-cat="corte"><img src="assets/galeria/bob.svg" alt="Ilustración de un corte bob a la altura de la mandíbula" loading="lazy" width="600" height="720"><figcaption>Bob con movimiento</figcaption></figure>
+          <figure class="work reveal" data-cat="color"><img src="assets/galeria/mechas.svg" alt="Ilustración de una melena con mechas claras" loading="lazy" width="600" height="720"><figcaption>Mechas con luz</figcaption></figure>
+          <figure class="work reveal" data-cat="peinado"><img src="assets/galeria/recogido.svg" alt="Ilustración de un recogido bajo para evento" loading="lazy" width="600" height="720"><figcaption>Recogido para boda</figcaption></figure>
+          <figure class="work reveal" data-cat="peinado"><img src="assets/galeria/ondas.svg" alt="Ilustración de una melena larga con ondas" loading="lazy" width="600" height="720"><figcaption>Ondas suaves</figcaption></figure>
+          <figure class="work reveal" data-cat="color"><img src="assets/galeria/cobrizo.svg" alt="Ilustración de una melena en tono cobrizo" loading="lazy" width="600" height="720"><figcaption>Cobrizo con brillo</figcaption></figure>
+          <figure class="work reveal" data-cat="corte"><img src="assets/galeria/caballero.svg" alt="Ilustración de un corte de caballero con barba arreglada" loading="lazy" width="600" height="720"><figcaption>Caballero y barba</figcaption></figure>
+        </div>
+        <p class="gallery__note">Las imágenes son ilustraciones provisionales. En la web definitiva irían las fotos reales de los trabajos del salón.</p>
+      </div>
+    </section>
+
+    <!-- OPINIONES -->
+    <section class="section reviews" id="opiniones">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="kicker">Opiniones</p>
+          <h2>Lo que dicen quienes ya vienen</h2>
+        </header>
+        <div class="reviews__grid">
+          <div class="score reveal">
+            <span class="score__num">5,0</span>
+            <span class="stars" aria-hidden="true">★★★★★</span>
+            <p>Valoración media en Google</p>
+            <a class="btn btn--light btn--small" href="https://www.google.com/maps/search/?api=1&amp;query=Nieve%27s+Peluquer%C3%ADa+Umbrete" target="_blank" rel="noopener">Ver reseñas en Google</a>
+          </div>
+          <blockquote class="quote reveal">
+            <span class="tag">Texto de ejemplo</span>
+            <p>“Llevo años viniendo y no me cambio. Te escuchan, te aconsejan y siempre sales guapísima.”</p>
+            <footer>Clienta del salón</footer>
+          </blockquote>
+          <blockquote class="quote reveal">
+            <span class="tag">Texto de ejemplo</span>
+            <p>“Me hicieron el recogido para la boda de mi hermana y me duró perfecto toda la noche.”</p>
+            <footer>Clienta del salón</footer>
+          </blockquote>
+          <blockquote class="quote reveal">
+            <span class="tag">Texto de ejemplo</span>
+            <p>“Trato cercano, buen precio y muy limpias trabajando. Se nota que les gusta lo que hacen.”</p>
+            <footer>Clienta del salón</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA / CITA -->
+    <section class="section cta" id="cita">
+      <div class="wrap cta__box reveal">
+        <div class="cta__copy">
+          <p class="kicker kicker--light">Pide tu cita</p>
+          <h2>¿Te buscamos un hueco esta semana?</h2>
+          <p>Escríbenos por WhatsApp o llámanos y te decimos qué días tenemos libres. Si lo prefieres, rellena esto y se abrirá WhatsApp con el mensaje preparado.</p>
+          <a class="cta__phone" href="tel:+34627277440">627 277 440</a>
+        </div>
+        <form class="form" id="form-cita" novalidate>
+          <label>Tu nombre
+            <input name="nombre" type="text" autocomplete="given-name" placeholder="Por ejemplo, Lucía" required>
+          </label>
+          <label>Servicio
+            <select name="servicio">
+              <option>Corte</option>
+              <option>Color / mechas</option>
+              <option>Peinado o recogido</option>
+              <option>Tratamiento</option>
+              <option>Caballero</option>
+              <option>Aún no lo sé, quiero consultar</option>
+            </select>
+          </label>
+          <fieldset>
+            <legend>¿Cuándo te viene mejor?</legend>
+            <div class="chips">
+              <label><input type="radio" name="cuando" value="por la mañana" checked> Mañana</label>
+              <label><input type="radio" name="cuando" value="por la tarde"> Tarde</label>
+              <label><input type="radio" name="cuando" value="cuando haya hueco"> Me da igual</label>
+            </div>
+          </fieldset>
+          <button class="btn btn--wa" type="submit">Enviar por WhatsApp</button>
+          <p class="form__hint">No guardamos ningún dato: el mensaje se prepara en tu móvil.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- UBICACIÓN -->
+    <section class="section location" id="ubicacion">
+      <div class="wrap location__grid">
+        <div class="location__copy reveal">
+          <p class="kicker">Ubicación</p>
+          <h2>Estamos en el centro de Umbrete</h2>
+          <address>
+            <strong>Nieve's Peluquería</strong><br>
+            C/ Manuel el Sacristán, 5<br>
+            41806 Umbrete, Sevilla
+          </address>
+          <p>A pocos minutos andando de la plaza del pueblo. Si vienes en coche, pregúntanos y te decimos dónde suele haber sitio para aparcar.</p>
+          <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Calle+Manuel+el+Sacrist%C3%A1n+5+Umbrete+Sevilla" target="_blank" rel="noopener">Cómo llegar</a>
+        </div>
+        <div class="map reveal" aria-hidden="true">
+          <svg viewBox="0 0 560 420">
+            <rect width="560" height="420" rx="24" fill="#EFEAF7"/>
+            <g fill="#FFFFFF" stroke="#D9D1EC" stroke-width="2">
+              <rect x="30" y="30" width="150" height="110" rx="10"/><rect x="210" y="30" width="140" height="110" rx="10"/><rect x="380" y="30" width="150" height="110" rx="10"/>
+              <rect x="30" y="180" width="150" height="90" rx="10"/><rect x="380" y="180" width="150" height="90" rx="10"/>
+              <rect x="30" y="310" width="150" height="80" rx="10"/><rect x="210" y="310" width="140" height="80" rx="10"/><rect x="380" y="310" width="150" height="80" rx="10"/>
+            </g>
+            <rect x="210" y="180" width="140" height="90" rx="10" fill="#DCEAD8" stroke="#BCD3B5" stroke-width="2"/>
+            <text x="280" y="231" text-anchor="middle" font-family="Nunito Sans, Arial, sans-serif" font-size="13" font-weight="700" fill="#5E8A5A">plaza</text>
+            <path d="M0 160 H560 M0 290 H560 M195 0 V420 M365 0 V420" stroke="#FFFFFF" stroke-width="16"/>
+            <text x="105" y="164" text-anchor="middle" font-family="Nunito Sans, Arial, sans-serif" font-size="11" font-weight="700" fill="#7A7290" letter-spacing="1">C/ MANUEL EL SACRISTÁN</text>
+            <g transform="translate(455 162)">
+              <path d="M0 -58 C -22 -58 -34 -42 -34 -26 C -34 -2 0 22 0 22 C 0 22 34 -2 34 -26 C 34 -42 22 -58 0 -58Z" fill="#2A2340"/>
+              <circle cx="0" cy="-27" r="12" fill="#E9B949"/>
+            </g>
+          </svg>
+          <p class="map__caption">Plano orientativo</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="section contact" id="contacto">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="kicker">Contacto</p>
+          <h2>Llámanos, escríbenos o pásate</h2>
+        </header>
+        <div class="contact__grid">
+          <a class="contact__item reveal" href="tel:+34627277440">
+            <span class="contact__label">Teléfono</span>
+            <strong>627 277 440</strong>
+            <span>Llama para pedir cita</span>
+          </a>
+          <a class="contact__item reveal" data-wa="Hola Nieve, me gustaría pedir cita." href="#cita">
+            <span class="contact__label">WhatsApp</span>
+            <strong>Escríbenos</strong>
+            <span>Te contestamos en cuanto podamos</span>
+          </a>
+          <div class="contact__item reveal">
+            <span class="contact__label">Horario</span>
+            <strong>Con cita previa</strong>
+            <span>Consúltanos el horario de esta semana</span>
+          </div>
+          <a class="contact__item reveal" href="https://www.facebook.com/p/Nieves-Peluquer%C3%ADa-100045651027003/" target="_blank" rel="noopener">
+            <span class="contact__label">Facebook</span>
+            <strong>Nieve's Peluquería</strong>
+            <span>Novedades y trabajos</span>
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <div>
+        <p class="footer__brand">Nieve's <em>Peluquería</em></p>
+        <p>C/ Manuel el Sacristán, 5 · 41806 Umbrete, Sevilla</p>
+      </div>
+      <nav aria-label="Pie de página">
+        <a href="#servicios">Servicios</a>
+        <a href="#galeria">Trabajos</a>
+        <a href="#cita">Pedir cita</a>
+        <a href="tel:+34627277440">627 277 440</a>
+      </nav>
+      <p class="footer__legal">© <span id="year">2026</span> Nieve's Peluquería · Web de demostración</p>
+    </div>
+  </footer>
+
+  <a class="fab" data-wa="Hola Nieve, me gustaría pedir cita." href="#cita" aria-label="Pedir cita por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Zm0 16.4a7.4 7.4 0 0 1-3.8-1l-.3-.2-2.7.7.7-2.6-.2-.3A7.4 7.4 0 1 1 12 19.4Z"/></svg>
+  </a>
+
+  <script src="main.js" defer></script>
 </body>
 </html>

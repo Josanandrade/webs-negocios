@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 720" role="img" aria-label="Ilustración: corte de caballero con barba">
+  <rect width="600" height="720" fill="#EFEAF7"/>
+  <circle cx="300" cy="380" r="235" fill="#8D7CC4"/>
+  
+  <path d="M110 720 C 130 575, 470 575, 490 720 Z" fill="#2A2340"/>
+  <path d="M272 600 V520 H328 V600 Z" fill="#F1C9A8"/><ellipse cx="300" cy="410" rx="100" ry="128" fill="#F1C9A8"/>
+  <path d="M205 360 C 200 280, 250 255, 300 255 C 360 255, 400 285, 395 360 C 380 320, 350 305, 300 305 C 250 305, 220 320, 205 360 Z" fill="#2E2420"/><path d="M215 440 C 220 520, 260 545, 300 545 C 340 545, 380 520, 385 440 C 370 480, 340 495, 300 495 C 260 495, 230 480, 215 440 Z" fill="#2E2420"/><path d="M265 470 C 285 462, 315 462, 335 470" stroke="#2E2420" stroke-width="10" stroke-linecap="round" fill="none"/>
+  
+</svg>
