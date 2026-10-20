@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>Inmueble · Hogar Inmobiliaria</title>
+  <meta name="theme-color" content="#FFF7EC">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,600&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="has-sticky">
+  <header class="nav" id="top">
+    <div class="wrap nav-in">
+      <a class="brand" href="../" aria-label="Hogar Inmobiliaria, inicio">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M4 19 20 5l16 14" fill="none" stroke="#D65A36" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 17v18h22V17" fill="#23304A"/><path d="M17 35v-9a3 3 0 0 1 6 0v9z" fill="#F2B544"/></svg>
+        <span class="brand-name">Hogar<small>Inmobiliaria</small></span>
+      </a>
+      <nav class="menu" aria-label="Principal">
+        <a href="../#inmuebles">Inmuebles</a>
+        <a href="../#vender">Vender</a>
+        <a href="../#servicios">Servicios</a>
+        <a href="../#contacto">Contacto</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-ink nav-call" data-tel data-i="phone"><span data-cfg="telefono"></span></a>
+        <button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="sheet"><span></span></button>
+      </div>
+    </div>
+  </header>
+  <div class="sheet" id="sheet">
+    <a href="../#inmuebles">Todos los inmuebles</a>
+    <a href="../#vender">Vender o alquilar tu casa</a>
+    <a href="../#servicios">Servicios</a>
+    <a href="../#contacto">Contacto</a>
+    <a class="btn btn-teja btn-block" data-tel data-i="phone">Llamar a la oficina</a>
+  </div>
+
+  <main class="wrap" id="detail"></main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-bottom" style="border:0;margin:0;padding:0">
+        <span>© <span data-year></span> Hogar Inmobiliaria · <span data-cfg="direccion"></span>, Dos Hermanas · <a data-tel data-cfg="telefono"></a></span>
+        <span>Propuesta de web de demostración. Este inmueble y sus imágenes son ficticios.</span>
+      </div>
+    </div>
+  </footer>
+
+  <a class="fab" id="fab" aria-label="Escribir por WhatsApp" data-i="wa"><span>WhatsApp</span></a>
+  <div class="sticky-cta" id="sticky">
+    <a class="btn btn-teja" href="#info" data-i="mail">Quiero información</a>
+    <a class="btn btn-wa" id="sticky-wa" target="_blank" rel="noopener" data-i="wa">WhatsApp</a>
+  </div>
+
+  <script src="../assets/data.js"></script>
+  <script src="../assets/art.js"></script>
+  <script src="../assets/ui.js"></script>
+  <script src="../inmueble.js"></script>
+</body>
+</html>

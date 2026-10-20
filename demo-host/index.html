@@ -2,15 +2,386 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>Hogar Inmobiliaria · Comprar, vender y alquilar casa en Dos Hermanas</title>
+  <meta name="description" content="Hogar Inmobiliaria, en la calle San Sebastián de Dos Hermanas. Pisos, casas y chalets en venta y alquiler, valoración de tu vivienda y asesoramiento en cada paso.">
+  <meta name="theme-color" content="#FFF7EC">
+  <meta property="og:title" content="Hogar Inmobiliaria · Dos Hermanas">
+  <meta property="og:description" content="Comprar, vender o alquilar tu casa, con alguien que te acompaña en cada paso.">
+  <meta property="og:image" content="assets/og.svg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,600&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip" href="#inmuebles">Saltar al contenido</a>
+
+  <header class="nav" id="top">
+    <div class="wrap nav-in">
+      <a class="brand" href="#top" aria-label="Hogar Inmobiliaria, inicio">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M4 19 20 5l16 14" fill="none" stroke="#D65A36" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 17v18h22V17" fill="#23304A"/><path d="M17 35v-9a3 3 0 0 1 6 0v9z" fill="#F2B544"/></svg>
+        <span class="brand-name">Hogar<small>Inmobiliaria</small></span>
+      </a>
+      <nav class="menu" aria-label="Principal">
+        <a href="#inmuebles">Inmuebles</a>
+        <a href="#vender">Vender</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-ink nav-call" data-tel data-i="phone"><span data-cfg="telefono"></span></a>
+        <button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="sheet"><span></span></button>
+      </div>
+    </div>
+  </header>
+  <div class="sheet" id="sheet">
+    <a href="#inmuebles">Inmuebles</a>
+    <a href="#vender">Vender o alquilar tu casa</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#contacto">Contacto</a>
+    <a class="btn btn-teja btn-block" data-tel data-i="phone">Llamar a la oficina</a>
+  </div>
+
   <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Inmobiliaria en Dos Hermanas</span>
+          <h1>Una casa para quedarse. Un <em>hogar</em> para crecer.</h1>
+          <p class="lead">Pisos, casas y chalets en Dos Hermanas, Montequinto y alrededores. Te acompañamos en la búsqueda, las visitas, la financiación y el papeleo, hasta que tengas las llaves.</p>
+
+          <form class="search" id="search" role="search" aria-label="Buscar inmuebles">
+            <p class="search-title">¿Qué buscas?</p>
+            <div class="seg" role="radiogroup" aria-label="Operación">
+              <input type="radio" name="op" id="op-venta" value="Venta" checked><label for="op-venta">Comprar</label>
+              <input type="radio" name="op" id="op-alquiler" value="Alquiler"><label for="op-alquiler">Alquilar</label>
+            </div>
+            <div class="fields">
+              <label class="field"><span>Tipo de inmueble</span>
+                <select class="select" name="tipo" id="f-tipo"><option value="">Todos</option></select>
+              </label>
+              <label class="field"><span>Localidad o zona</span>
+                <select class="select" name="zona" id="f-zona"><option value="">Todas</option></select>
+              </label>
+              <label class="field"><span>Precio máximo</span>
+                <select class="select" name="precio" id="f-precio"></select>
+              </label>
+              <button class="btn btn-teja btn-block" type="submit" data-i="search">Buscar inmuebles</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="house-wrap" aria-hidden="true">
+          <div class="house">
+            <svg viewBox="0 0 600 520" preserveAspectRatio="xMidYMax slice">
+              <defs><linearGradient id="hs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F9CDB5"/><stop offset="1" stop-color="#FDEBDD"/></linearGradient></defs>
+              <rect width="600" height="520" fill="url(#hs)"/>
+              <circle cx="470" cy="170" r="46" fill="#FBE3B4"/>
+              <path d="M0 430 Q150 390 300 420 T600 410 V520 H0Z" fill="#A9C6A8"/>
+              <rect x="150" y="250" width="300" height="200" fill="#FFFFFF"/>
+              <path d="M128 258 300 150 472 258Z" fill="#D65A36"/>
+              <rect x="372" y="168" width="30" height="58" fill="#B4462A"/>
+              <rect x="186" y="284" width="74" height="62" rx="4" fill="#FCE3A4" stroke="#23304A" stroke-width="6"/>
+              <path d="M223 284v62M186 315h74" stroke="#23304A" stroke-width="4"/>
+              <rect x="340" y="284" width="74" height="62" rx="4" fill="#FCE3A4" stroke="#23304A" stroke-width="6"/>
+              <path d="M377 284v62M340 315h74" stroke="#23304A" stroke-width="4"/>
+              <path d="M268 450V380a32 32 0 0 1 64 0v70z" fill="#23304A"/>
+              <circle cx="318" cy="414" r="4" fill="#F2B544"/>
+              <circle cx="300" cy="214" r="18" fill="#FCE3A4" stroke="#FFFFFF" stroke-width="6"/>
+              <rect x="252" y="452" width="96" height="20" rx="4" fill="#B4462A"/>
+              <text x="300" y="467" text-anchor="middle" font-family="Work Sans, sans-serif" font-weight="700" font-size="13" letter-spacing="3" fill="#FFF7EC">HOGAR</text>
+              <rect x="166" y="352" width="100" height="16" rx="8" fill="#7FA584"/>
+              <rect x="334" y="352" width="100" height="16" rx="8" fill="#7FA584"/>
+              <g><rect x="80" y="330" width="14" height="130" rx="6" fill="#8A6A4F"/><circle cx="87" cy="300" r="56" fill="#7FA584"/><circle cx="54" cy="330" r="34" fill="#5E8C66"/><circle cx="118" cy="322" r="36" fill="#94B89A"/>
+                <path d="M110 330v74M134 330v74" stroke="#23304A" stroke-width="2"/><rect x="104" y="402" width="36" height="8" rx="3" fill="#D65A36"/><path d="M106 330h32" stroke="#8A6A4F" stroke-width="6" stroke-linecap="round"/></g>
+              <g><rect x="500" y="400" width="8" height="56" fill="#23304A"/><rect x="484" y="372" width="40" height="32" rx="6" fill="#23304A"/><rect x="510" y="368" width="4" height="22" fill="#D65A36"/><path d="M498 386h18" stroke="#F2B544" stroke-width="3"/></g>
+            </svg>
+          </div>
+          <div class="float-card fc-1"><i class="dot"></i><span><b>Nuevo · Vista Azul</b>Adosado con patio, 4 hab.</span></div>
+          <div class="float-card fc-2"><i class="dot"></i><span><b>Reservado</b>Ático en Sevilla Este</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INMUEBLES -->
+    <section class="sec" id="inmuebles" style="padding-top:32px">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">Inmuebles destacados</span>
+          <h2>Casas pensadas para <em>vivirlas</em></h2>
+          <p class="lead">Filtra por lo que de verdad pesa cuando buscas casa con niños: dormitorios, patio, piscina o un colegio a mano.</p>
+        </div>
+        <div class="chips" id="chips" role="group" aria-label="¿Qué necesita tu familia?">
+          <button class="chip" type="button" data-chip="hab3" aria-pressed="false" data-i="bed">3 o más dormitorios</button>
+          <button class="chip" type="button" data-chip="patio" aria-pressed="false" data-i="tree">Patio o jardín</button>
+          <button class="chip" type="button" data-chip="piscina" aria-pressed="false" data-i="pool">Piscina</button>
+          <button class="chip" type="button" data-chip="garaje" aria-pressed="false" data-i="car">Garaje</button>
+          <button class="chip" type="button" data-chip="colegios" aria-pressed="false" data-i="school">Colegios cerca</button>
+        </div>
+        <div class="results-bar">
+          <span id="results-count" aria-live="polite"></span>
+          <div class="active-filters" id="active-filters"></div>
+          <button class="linkbtn" type="button" id="clear" hidden>Quitar filtros</button>
+        </div>
+        <div class="grid" id="grid"></div>
+        <div class="empty" id="empty">
+          <h3 style="font-size:22px;margin-bottom:8px">Ahora mismo no hay nada con esos filtros</h3>
+          <p style="color:var(--muted);margin-bottom:16px">Cuéntanos qué buscas y te avisamos en cuanto entre algo así. Muchas casas se venden antes de publicarse.</p>
+          <a class="btn btn-wa" data-wa="Hola, estoy buscando casa y no he encontrado nada con mis filtros en vuestra web. Os cuento lo que necesito:" data-i="wa">Avisadme por WhatsApp</a>
+        </div>
+        <div class="more"><button class="btn btn-ghost" type="button" id="more" hidden>Ver más inmuebles</button></div>
+      </div>
+    </section>
+
+    <!-- PANEL -->
+    <section class="panel-promo" id="panel">
+      <div class="wrap promo-grid">
+        <div>
+          <span class="eyebrow">Para la inmobiliaria</span>
+          <h2 style="font-size:clamp(30px,7.4vw,46px);margin:12px 0 14px">Gestiona tus inmuebles desde tu <em>propio panel</em></h2>
+          <p class="lead">Publica una vivienda, modifica su precio o cambia su estado a reservada, vendida o alquilada desde un panel privado. Los cambios se reflejan automáticamente en tu web.</p>
+          <ul class="steps">
+            <li><span class="step-ic" data-i="plus"></span><span><b>Publica en un par de minutos</b><small>Fotos, precio, descripción y características desde el móvil o el ordenador.</small></span></li>
+            <li><span class="step-ic" data-i="euro"></span><span><b>Cambia el precio cuando quieras</b><small>Sin llamar a nadie ni esperar a que te lo actualicen.</small></span></li>
+            <li><span class="step-ic" data-i="key"></span><span><b>Reservado, vendido o alquilado</b><small>Un toque y la web lo muestra al momento. También puedes destacar las que más te interesen.</small></span></li>
+          </ul>
+          <a class="btn btn-light" href="admin-demo/" data-i="grid">Ver cómo gestionarías tus inmuebles</a>
+          <p class="promo-tip">Prueba: entra al panel, cambia el precio o el estado de una casa y vuelve a esta página.</p>
+        </div>
+        <div class="phone" aria-hidden="true">
+          <div class="phone-screen">
+            <div class="ph-top"><small>Panel de gestión</small><b>Mis inmuebles</b></div>
+            <div class="ph-kpis"><div><b id="ph-pub">12</b>publicados</div><div><b id="ph-disp">8</b>disponibles</div><div><b id="ph-res">2</b>reservados</div></div>
+            <div id="ph-rows"></div>
+            <div class="ph-add">+ Añadir inmueble</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VENDER -->
+    <section class="sec sell" id="vender" style="margin-top:64px">
+      <div class="wrap sell-grid">
+        <div>
+          <span class="eyebrow">Propietarios</span>
+          <h2 style="font-size:clamp(30px,7.4vw,46px);margin:12px 0 14px" id="sell-title">¿Quieres <em>vender</em> tu vivienda?</h2>
+          <p class="lead" id="sell-lead">Te decimos cuánto vale de verdad tu casa en tu zona y cómo venderla sin perder meses. Nos encargamos de las fotos, el anuncio, las visitas y la documentación.</p>
+          <ul class="ticks">
+            <li><span data-i="checkc"></span><span><b>Valoración sin compromiso.</b> Con precios reales de la zona, no con una cifra para que firmes.</span></li>
+            <li><span data-i="checkc"></span><span><b>Visitas con sentido.</b> Primero una visita virtual y después solo compradores con la financiación estudiada.</span></li>
+            <li><span data-i="checkc"></span><span><b>Papeleo resuelto.</b> Documentación técnica y legal, notaría y, si hace falta, trámites de herencia.</span></li>
+          </ul>
+        </div>
+        <div class="form-card" id="valoracion">
+          <div class="seg" role="radiogroup" aria-label="¿Qué quieres hacer con tu vivienda?" style="margin-bottom:16px">
+            <input type="radio" name="owner" id="own-vender" value="vender" checked><label for="own-vender">Vender</label>
+            <input type="radio" name="owner" id="own-alquilar" value="alquilar"><label for="own-alquilar">Alquilar</label>
+          </div>
+          <form id="form-val" novalidate>
+            <h3 id="val-h">Solicitar valoración</h3>
+            <p class="hint" id="val-hint">Te llamamos para conocer la casa y darte un precio razonado.</p>
+            <div class="form-grid two">
+              <label class="field"><span>Nombre</span><input class="input" name="nombre" autocomplete="name" required></label>
+              <label class="field"><span>Teléfono</span><input class="input" name="tel" type="tel" inputmode="tel" autocomplete="tel" required></label>
+              <label class="field full"><span>Email</span><input class="input" name="email" type="email" inputmode="email" autocomplete="email"></label>
+              <label class="field"><span>Localidad</span><select class="select" name="localidad" id="val-loc"></select></label>
+              <label class="field"><span>Tipo de inmueble</span><select class="select" name="tipo" id="val-tipo"></select></label>
+              <button class="btn btn-teja btn-block full" type="submit" id="val-btn" data-i="home">Quiero valorar mi vivienda</button>
+              <p class="legal full">Usaremos tus datos solo para contactarte sobre tu vivienda.</p>
+            </div>
+          </form>
+          <div class="form-ok" id="val-ok">
+            <div class="ok-ic" data-i="check"></div>
+            <h3>¡Recibido!</h3>
+            <p>En la web real esta solicitud llegaría a la oficina. Si quieres ir más rápido, mándanos el mensaje ya preparado:</p>
+            <a class="btn btn-wa btn-block" id="val-wa" target="_blank" rel="noopener" data-i="wa">Enviar por WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="sec" id="servicios">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">Servicios</span>
+          <h2>Todo lo que pasa entre <em>buscar</em> y tener las llaves</h2>
+        </div>
+        <div class="services">
+          <article class="service"><span class="ic" data-i="hand"></span><h3>Compra y venta</h3><p>Pisos, casas, chalets, locales y terrenos. Te acompañamos en visitas, negociación y firma.</p></article>
+          <article class="service"><span class="ic" data-i="key"></span><h3>Alquiler</h3><p>Buscamos inquilinos con garantías, preparamos el contrato y hacemos la entrega de llaves.</p></article>
+          <article class="service"><span class="ic" data-i="chart"></span><h3>Valoración de inmuebles</h3><p>Un precio de salida realista, comparado con lo que se vende de verdad en tu zona.</p></article>
+          <article class="service"><span class="ic" data-i="doc"></span><h3>Gestión integral</h3><p>Documentación técnica y legal, notaría, registro y trámites de herencias.</p></article>
+          <article class="service"><span class="ic" data-i="euro"></span><h3>Financiación</h3><p>Buscamos la hipoteca que encaja contigo y te explicamos cada número antes de firmar.</p></article>
+          <article class="service"><span class="ic" data-i="mega"></span><h3>Marketing inmobiliario</h3><p>Fotos cuidadas, anuncio en esta web y en los portales, y difusión en redes sociales.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- HIPOTECA -->
+    <section class="sec" id="hipoteca" style="padding-top:0">
+      <div class="wrap">
+        <div class="calc">
+          <div>
+            <span class="eyebrow">Antes de visitar</span>
+            <h2 style="font-size:clamp(28px,6.6vw,40px);margin:12px 0 20px">¿Cuánto pagarías <em>al mes</em>?</h2>
+            <div style="display:grid;gap:18px">
+              <label class="range"><span class="range-top">Precio de la vivienda <output id="o-precio"></output></span><input type="range" id="r-precio" min="80000" max="450000" step="5000" value="220000"></label>
+              <label class="range"><span class="range-top">Tus ahorros <output id="o-ahorro"></output></span><input type="range" id="r-ahorro" min="0" max="150000" step="2500" value="50000"></label>
+              <label class="range"><span class="range-top">Años <output id="o-anos"></output></span><input type="range" id="r-anos" min="10" max="35" step="1" value="30"></label>
+            </div>
+          </div>
+          <div class="calc-out" aria-live="polite">
+            <small>Cuota aproximada</small>
+            <span class="big" id="cuota">—</span>
+            <small id="cuota-det"></small>
+            <a class="btn btn-light" style="margin-top:10px" id="cuota-wa" target="_blank" rel="noopener" data-i="euro">Que me ayudéis con la hipoteca</a>
+            <small style="font-size:12px">Cálculo orientativo con un interés fijo del 3 %. No es una oferta de financiación.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOSOTROS -->
+    <section class="sec" id="nosotros" style="padding-top:0">
+      <div class="wrap about-grid">
+        <div class="about-art" aria-hidden="true">
+          <svg viewBox="0 0 500 400" preserveAspectRatio="xMidYMid slice">
+            <rect width="500" height="400" fill="#E6F0E4"/>
+            <rect x="0" y="330" width="500" height="70" fill="#E7D7BF"/>
+            <rect x="40" y="60" width="420" height="270" fill="#FFFFFF"/>
+            <rect x="40" y="52" width="420" height="14" fill="#EADFCF"/>
+            <rect x="70" y="90" width="80" height="60" fill="#BFD5DE"/><rect x="210" y="90" width="80" height="60" fill="#BFD5DE"/><rect x="350" y="90" width="80" height="60" fill="#BFD5DE"/>
+            <path d="M60 180h380l-16 34H76z" fill="#D65A36"/>
+            <g fill="#FFF7EC">
+              <path d="M76 214h38l-19 14z"/><path d="M152 214h38l-19 14z"/><path d="M228 214h38l-19 14z"/><path d="M304 214h38l-19 14z"/><path d="M380 214h38l-19 14z"/>
+            </g>
+            <rect x="70" y="236" width="230" height="94" fill="#BFD5DE"/><rect x="320" y="236" width="110" height="94" fill="#23304A"/>
+            <circle cx="420" cy="286" r="4" fill="#F2B544"/>
+            <rect x="96" y="256" width="72" height="54" fill="#FFFFFF" opacity=".85"/><rect x="180" y="256" width="72" height="54" fill="#FFFFFF" opacity=".85"/>
+            <path d="M110 270h44M110 280h30M194 270h44M194 280h30" stroke="#23304A" stroke-width="3"/>
+            <rect x="110" y="292" width="20" height="10" fill="#D65A36"/><rect x="194" y="292" width="20" height="10" fill="#4F7A5B"/>
+            <rect x="140" y="152" width="220" height="26" rx="4" fill="#23304A"/>
+            <text x="250" y="170" text-anchor="middle" font-family="Lora, serif" font-weight="700" font-size="16" fill="#FFF7EC">Hogar Inmobiliaria</text>
+            <g transform="translate(470 330)"><path d="M-22 0h44l-6 40h-32z" fill="#D65A36"/><path d="M0 0Q-40-60-10-110Q-6-50 0 0Z" fill="#5E8C66"/><path d="M0 0Q40-50 20-100Q8-40 0 0Z" fill="#7FA584"/></g>
+          </svg>
+        </div>
+        <div>
+          <span class="eyebrow">Sobre nosotros</span>
+          <h2 style="font-size:clamp(30px,7.4vw,46px);margin:12px 0 14px">Una inmobiliaria de <em>barrio</em>, en el centro de Dos Hermanas</h2>
+          <p class="lead">Estamos en la calle San Sebastián, a pie de calle y con la puerta abierta. Al frente están Alejandro y Patricia, que atienden personalmente a cada cliente, ya sea una familia que busca su primera casa o un propietario que quiere vender sin complicarse.</p>
+          <div class="people"><span class="person"><i>A</i>Alejandro Santos</span><span class="person"><i>P</i>Patricia Catalán</span></div>
+          <div class="values">
+            <div class="value"><span class="ic" data-i="users"></span><div><b>Trato cercano</b><p>Sabes siempre con quién hablas y en qué punto está tu casa.</p></div></div>
+            <div class="value"><span class="ic" data-i="shield"></span><div><b>Gestiones seguras</b><p>Revisamos cargas, documentación y financiación antes de cada paso.</p></div></div>
+            <div class="value"><span class="ic" data-i="pin"></span><div><b>Conocemos la zona</b><p>Dos Hermanas, Montequinto, Sevilla y los pueblos de alrededor.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="sec" id="contacto" style="padding-top:0">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">Contacto</span>
+          <h2>Pásate por la oficina o <em>escríbenos</em></h2>
+        </div>
+        <div class="contact-grid">
+          <div style="display:grid;gap:16px">
+            <div class="contact-list">
+              <a class="c-item" data-tel><span class="ic" data-i="phone"></span><span><small>Teléfono</small><b data-cfg="telefono"></b></span></a>
+              <a class="c-item wa" data-wa="Hola, os escribo desde vuestra web."><span class="ic" data-i="wa"></span><span><small>WhatsApp</small><b>Escríbenos ahora</b></span></a>
+              <a class="c-item" data-mail><span class="ic" data-i="mail"></span><span><small>Email</small><b class="small" data-cfg="email"></b></span></a>
+              <a class="c-item" data-maps><span class="ic" data-i="pin"></span><span><small>Oficina</small><b><span data-cfg="direccion"></span>, Dos Hermanas</b></span></a>
+              <div class="c-item"><span class="ic" data-i="clock"></span><span><small>Horario</small><b data-cfg="horario"></b></span></div>
+            </div>
+            <div class="form-card">
+              <form id="form-contact" novalidate>
+                <h3>Cuéntanos qué necesitas</h3>
+                <p class="hint">Te respondemos por teléfono o WhatsApp, como prefieras.</p>
+                <div class="form-grid two">
+                  <label class="field"><span>Nombre</span><input class="input" name="nombre" autocomplete="name" required></label>
+                  <label class="field"><span>Teléfono</span><input class="input" name="tel" type="tel" inputmode="tel" autocomplete="tel" required></label>
+                  <label class="field full"><span>Me interesa</span><select class="select" name="interes"><option>Comprar una vivienda</option><option>Alquilar una vivienda</option><option>Vender mi vivienda</option><option>Alquilar mi vivienda</option><option>Financiación o trámites</option></select></label>
+                  <label class="field full"><span>Mensaje</span><textarea class="input" name="msg" rows="3" placeholder="Por ejemplo: buscamos 3 dormitorios con patio cerca de un colegio"></textarea></label>
+                  <button class="btn btn-ink btn-block full" type="submit" data-i="mail">Enviar mensaje</button>
+                </div>
+              </form>
+              <div class="form-ok" id="contact-ok">
+                <div class="ok-ic" data-i="check"></div>
+                <h3>¡Gracias!</h3>
+                <p>En la web real este mensaje llegaría a la oficina. También puedes enviarlo ya por WhatsApp:</p>
+                <a class="btn btn-wa btn-block" id="contact-wa" target="_blank" rel="noopener" data-i="wa">Enviar por WhatsApp</a>
+              </div>
+            </div>
+          </div>
+          <div class="map">
+            <svg viewBox="0 0 560 460" role="img" aria-label="Esquema de la zona de trabajo alrededor de Dos Hermanas">
+              <rect width="560" height="460" fill="#EEE6D6"/>
+              <g fill="#E3D8C3"><rect x="20" y="30" width="110" height="80" rx="10"/><rect x="380" y="40" width="150" height="90" rx="10"/><rect x="30" y="300" width="120" height="130" rx="10"/><rect x="400" y="320" width="130" height="110" rx="10"/></g>
+              <path d="M90 0 C120 120 60 220 120 460" stroke="#B9D4DC" stroke-width="18" fill="none"/>
+              <g stroke="#FFFFFF" stroke-width="10" fill="none" stroke-linecap="round"><path d="M150 40 L280 230 L300 460"/><path d="M0 250 H560"/><path d="M280 230 L520 90"/><path d="M280 230 L470 400"/></g>
+              <g stroke="#F2B544" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="1 9"><path d="M150 40 L280 230"/></g>
+              <circle cx="280" cy="235" r="120" fill="#D65A36" opacity=".08"/>
+              <circle cx="280" cy="235" r="62" fill="#D65A36" opacity=".12"/>
+              <g font-family="Work Sans, sans-serif" font-size="19" font-weight="600" fill="#23304A">
+                <g><circle cx="150" cy="40" r="7" fill="#23304A"/><text x="164" y="45">Sevilla</text></g>
+                <g><circle cx="228" cy="128" r="6" fill="#4F7A5B"/><text x="240" y="133">Montequinto</text></g>
+                <g><circle cx="470" cy="80" r="6" fill="#4F7A5B"/><text x="400" y="62">Alcalá de G.</text></g>
+                <g><circle cx="160" cy="250" r="6" fill="#4F7A5B"/><text x="62" y="236">Entrenúcleos</text></g>
+                <g><circle cx="360" cy="300" r="6" fill="#4F7A5B"/><text x="372" y="305">Vista Azul</text></g>
+                <g><circle cx="220" cy="330" r="6" fill="#4F7A5B"/><text x="128" y="358">Fuente del Rey</text></g>
+                <g><circle cx="340" cy="190" r="6" fill="#4F7A5B"/><text x="352" y="186">El Arenal</text></g>
+                <g><circle cx="300" cy="430" r="6" fill="#4F7A5B"/><text x="314" y="435">Utrera · Los Palacios</text></g>
+              </g>
+              <g transform="translate(280 232)"><path d="M0 0c-16-18-26-30-26-44a26 26 0 0 1 52 0c0 14-10 26-26 44z" fill="#D65A36"/><circle cx="0" cy="-44" r="10" fill="#FFF7EC"/></g>
+              <rect x="208" y="244" width="144" height="40" rx="10" fill="#23304A"/>
+              <text x="280" y="262" text-anchor="middle" font-family="Lora, serif" font-weight="700" font-size="14" fill="#FFF">Hogar Inmobiliaria</text>
+              <text x="280" y="277" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="11" fill="#D7DCE6">Dos Hermanas centro</text>
+            </svg>
+            <div class="map-foot">
+              <b>Zona de trabajo</b>
+              <div class="zones"><span>Dos Hermanas</span><span>Montequinto</span><span>Entrenúcleos</span><span>Sevilla</span><span>Alcalá de Guadaíra</span><span>Coria del Río</span><span>Utrera</span><span>Los Palacios</span></div>
+              <a class="btn btn-ghost btn-block" data-maps data-i="pin">Cómo llegar a la oficina</a>
+              <small style="color:var(--muted);font-size:12px">Esquema orientativo, no a escala.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <a class="brand" href="#top"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M4 19 20 5l16 14" fill="none" stroke="#D65A36" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 17v18h22V17" fill="#FFF7EC"/><path d="M17 35v-9a3 3 0 0 1 6 0v9z" fill="#F2B544"/></svg><span class="brand-name">Hogar<small>Inmobiliaria</small></span></a>
+          <p style="margin-top:14px;max-width:34ch">Compra, venta y alquiler de viviendas en Dos Hermanas y alrededores.</p>
+        </div>
+        <div><h4>Inmuebles</h4><ul><li><a href="#inmuebles">En venta</a></li><li><a href="#inmuebles">En alquiler</a></li><li><a href="#vender">Vender mi casa</a></li><li><a href="#hipoteca">Calcular cuota</a></li></ul></div>
+        <div><h4>Agencia</h4><ul><li><a href="#servicios">Servicios</a></li><li><a href="#nosotros">Nosotros</a></li><li><a href="#contacto">Contacto</a></li><li><a href="admin-demo/">Acceso inmobiliaria</a></li></ul></div>
+        <div><h4>Oficina</h4><ul><li><span data-cfg="direccion"></span></li><li data-cfg="localidad"></li><li><a data-tel data-cfg="telefono"></a></li><li><a data-mail data-cfg="email"></a></li></ul></div>
+      </div>
+      <div class="foot-bottom">
+        <span>© <span data-year></span> Hogar Inmobiliaria · Dos Hermanas (Sevilla)</span>
+        <span>Propuesta de web de demostración. Los inmuebles e imágenes son ficticios.</span>
+      </div>
+    </div>
+  </footer>
+
+  <a class="fab" data-wa="Hola, os escribo desde vuestra web. Me gustaría información." aria-label="Escribir por WhatsApp" data-i="wa"><span>WhatsApp</span></a>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/art.js"></script>
+  <script src="assets/ui.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

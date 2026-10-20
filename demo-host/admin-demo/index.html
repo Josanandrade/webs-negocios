@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>Panel de gestión (demo) · Hogar Inmobiliaria</title>
+  <meta name="theme-color" content="#23304A">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,600&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../admin.css">
+</head>
+<body class="adm">
+  <div class="demo-bar"><span>Vista demo del panel de gestión<span class="hide-sm"> · los cambios solo se guardan en este navegador</span></span> <button type="button" id="reset" class="demo-reset">Restablecer</button></div>
+
+  <!-- LOGIN -->
+  <section class="login" id="login">
+    <div class="login-card">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true" style="width:52px;height:52px"><path d="M4 19 20 5l16 14" fill="none" stroke="#D65A36" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 17v18h22V17" fill="#23304A"/><path d="M17 35v-9a3 3 0 0 1 6 0v9z" fill="#F2B544"/></svg>
+      <h1>Acceso inmobiliaria</h1>
+      <p class="hint">Entra a tu panel para publicar y actualizar tus inmuebles.</p>
+      <form id="login-form" class="form-grid">
+        <label class="field"><span>Usuario</span><input class="input" id="login-user" autocomplete="off"></label>
+        <label class="field"><span>Contraseña</span><input class="input" type="password" value="demostracion" autocomplete="off"></label>
+        <button class="btn btn-teja btn-block" type="submit" data-i="lock">Entrar al panel</button>
+      </form>
+      <p class="legal" style="text-align:center;margin-top:12px">Demo: los datos ya están rellenos, solo pulsa “Entrar”.</p>
+      <a class="linkbtn" href="../" style="display:block;text-align:center;margin-top:6px">← Volver a la web</a>
+    </div>
+  </section>
+
+  <!-- APP -->
+  <div class="app" id="app" hidden>
+    <aside class="side">
+      <a class="brand side-brand" href="../"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M4 19 20 5l16 14" fill="none" stroke="#D65A36" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 17v18h22V17" fill="#FFF7EC"/><path d="M17 35v-9a3 3 0 0 1 6 0v9z" fill="#F2B544"/></svg><span class="brand-name">Hogar<small>Panel de gestión</small></span></a>
+      <nav class="side-nav" aria-label="Panel">
+        <a href="#" class="on" data-i="home">Inmuebles</a>
+        <a href="#contactos" data-i="users">Solicitudes <em id="nav-leads">3</em></a>
+        <a href="../" target="_blank" rel="noopener" data-i="eye">Ver mi web</a>
+        <a href="#" id="logout" data-i="out">Salir</a>
+      </nav>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <div>
+          <small>Panel de control</small>
+          <h1>Mis inmuebles</h1>
+        </div>
+        <div class="top-actions">
+          <a class="btn btn-ghost btn-sm" href="../" target="_blank" rel="noopener" data-i="eye"><span class="hide-sm">Ver mi web</span></a>
+          <button class="btn btn-teja btn-sm" type="button" id="add" data-i="plus">Añadir inmueble</button>
+        </div>
+      </header>
+
+      <div class="kpis" id="kpis"></div>
+
+      <div class="toolbar">
+        <div class="tabs" id="tabs" role="tablist"></div>
+        <label class="search-in"><span class="sr">Buscar</span><input class="input" id="q" placeholder="Buscar por título, zona o referencia"></label>
+      </div>
+
+      <div class="list" id="list"></div>
+
+      <section class="leads" id="contactos">
+        <div class="leads-head"><h2>Últimas solicitudes desde la web</h2><small>Ejemplos de demostración</small></div>
+        <div class="lead-item"><span class="lead-ic val" data-i="chart"></span><div><b>Valoración · Piso en Montequinto</b><small>Laura M. · hoy, 10:42 · “Queremos vender para mudarnos a una casa más grande”</small></div><span class="pill reservado">Nueva</span></div>
+        <div class="lead-item"><span class="lead-ic" data-i="mail"></span><div><b>Información · Adosado con patio en Vista Azul</b><small>Antonio R. · ayer, 19:15 · “¿Podemos verlo el sábado?”</small></div><span class="pill disponible">Respondida</span></div>
+        <div class="lead-item"><span class="lead-ic val" data-i="key"></span><div><b>Alquilar mi vivienda · Casa en El Arenal</b><small>Carmen G. · ayer, 12:03 · “Es la casa de mis padres”</small></div><span class="pill alquilado">Pendiente</span></div>
+      </section>
+    </div>
+
+    <nav class="bottom-nav" aria-label="Panel móvil">
+      <a href="#" class="on" data-i="home">Inmuebles</a>
+      <button type="button" id="add-m" data-i="plus">Añadir</button>
+      <a href="#contactos" data-i="users">Solicitudes</a>
+      <a href="../" target="_blank" rel="noopener" data-i="eye">Mi web</a>
+    </nav>
+  </div>
+
+  <!-- EDITOR -->
+  <div class="drawer" id="drawer" hidden>
+    <div class="drawer-bg" data-close></div>
+    <form class="drawer-panel" id="editor" novalidate>
+      <header class="drawer-head">
+        <button type="button" class="icon-btn" data-close aria-label="Cerrar" data-i="x"></button>
+        <div><small id="ed-ref">Nuevo inmueble</small><h2 id="ed-title">Añadir inmueble</h2></div>
+      </header>
+      <div class="drawer-body">
+        <fieldset class="ed-sec">
+          <legend>Fotografías</legend>
+          <div class="photos" id="photos"></div>
+          <p class="legal">La primera foto es la portada. En el panel real subes las tuyas desde el móvil o el ordenador.</p>
+        </fieldset>
+
+        <fieldset class="ed-sec">
+          <legend>Datos principales</legend>
+          <label class="field"><span>Título</span><input class="input" name="titulo" required placeholder="Ej.: Piso reformado en el centro"></label>
+          <div class="row2">
+            <div class="field"><span>Operación</span>
+              <div class="seg" role="radiogroup" aria-label="Operación">
+                <input type="radio" name="operacion" id="ed-venta" value="Venta"><label for="ed-venta">Venta</label>
+                <input type="radio" name="operacion" id="ed-alq" value="Alquiler"><label for="ed-alq">Alquiler</label>
+              </div>
+            </div>
+            <label class="field"><span id="ed-price-l">Precio (€)</span><input class="input" name="precio" type="number" inputmode="numeric" min="0" step="500" required></label>
+          </div>
+          <div class="field"><span>Estado</span><div class="status-pick" id="status-pick"></div></div>
+          <label class="toggle"><input type="checkbox" name="destacado"><span></span>Destacar en la portada de la web</label>
+        </fieldset>
+
+        <fieldset class="ed-sec">
+          <legend>Características</legend>
+          <div class="row2">
+            <label class="field"><span>Tipo de inmueble</span><select class="select" name="tipo" id="ed-tipo"></select></label>
+            <label class="field"><span>Localidad / zona</span><select class="select" name="zona" id="ed-zona"></select></label>
+          </div>
+          <div class="row3">
+            <label class="field"><span>Habitaciones</span><input class="input" name="hab" type="number" inputmode="numeric" min="0" max="12"></label>
+            <label class="field"><span>Baños</span><input class="input" name="banos" type="number" inputmode="numeric" min="0" max="8"></label>
+            <label class="field"><span>Metros²</span><input class="input" name="m2" type="number" inputmode="numeric" min="0"></label>
+          </div>
+          <div class="checks" id="ed-extras"></div>
+        </fieldset>
+
+        <fieldset class="ed-sec">
+          <legend>Descripción</legend>
+          <label class="field"><span class="sr">Descripción</span><textarea class="input" name="descripcion" rows="6" placeholder="Cuenta cómo es la casa, qué la hace especial y qué hay cerca."></textarea></label>
+        </fieldset>
+
+        <button type="button" class="btn btn-block danger" id="ed-delete" data-i="trash">Eliminar inmueble</button>
+      </div>
+      <footer class="drawer-foot">
+        <button type="button" class="btn btn-ghost" data-close>Cancelar</button>
+        <button type="submit" class="btn btn-teja" data-i="check">Guardar cambios</button>
+      </footer>
+    </form>
+  </div>
+
+  <script src="../assets/data.js"></script>
+  <script src="../assets/art.js"></script>
+  <script src="../assets/ui.js"></script>
+  <script src="../admin.js"></script>
+</body>
+</html>
