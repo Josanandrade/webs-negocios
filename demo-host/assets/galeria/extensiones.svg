@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5A3A22"/><stop offset="1" stop-color="#D8B07A"/></linearGradient>
+<pattern id="az" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#CBD7F3"/><path d="M30 8 C35 18 42 25 52 30 C42 35 35 42 30 52 C25 42 18 35 8 30 C18 25 25 18 30 8Z" fill="none" stroke="#1F3B8C" stroke-opacity=".35" stroke-width="1.6"/></pattern></defs>
+<rect width="300" height="300" fill="url(#az)"/><path d="M90 50 C140 20 190 30 210 80 C224 120 210 170 230 230 C238 260 230 290 220 300 L80 300 C70 280 64 250 72 220 C86 170 70 120 90 50Z" fill="url(#g)"/>
+<path d="M110 90 C116 160 100 230 112 300 M150 70 C160 150 146 230 160 300 M190 90 C196 160 186 230 198 300" stroke="#F2D04B" stroke-width="3" fill="none" opacity=".55"/></svg>

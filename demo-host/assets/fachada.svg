@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 440"><defs><pattern id="az" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#1F3B8C"/><path d="M20 4 C24 12 28 16 36 20 C28 24 24 28 20 36 C16 28 12 24 4 20 C12 16 16 12 20 4Z" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.4"/></pattern></defs>
+<rect width="540" height="440" fill="#CBD7F3"/>
+<rect x="0" y="380" width="540" height="60" fill="#D9D2C2"/>
+<rect x="40" y="60" width="460" height="320" fill="#F7F5EF"/>
+<rect x="40" y="300" width="460" height="80" fill="url(#az)"/>
+<rect x="70" y="92" width="400" height="58" rx="6" fill="#0F1836"/>
+<text x="270" y="131" text-anchor="middle" font-family="Georgia,serif" font-size="30" fill="#F2D04B">Donna Bella</text>
+<path d="M60 160 H480 L462 196 H78Z" fill="#F2D04B"/>
+<path d="M78 196 q15 14 30 0 q15 14 30 0 q15 14 30 0 q15 14 30 0 q15 14 30 0 q15 14 30 0 q15 14 30 0 q15 14 30 0 q15 14 30 0 q15 14 30 0 q15 14 30 0 q15 14 30 0 q15 14 30 0" fill="#F2D04B"/>
+<rect x="80" y="214" width="220" height="166" fill="#0F1836" opacity=".9"/>
+<rect x="88" y="222" width="204" height="150" fill="#2D55C4" opacity=".55"/>
+<circle cx="150" cy="282" r="22" fill="#EFE9DC"/><rect x="128" y="304" width="44" height="60" rx="10" fill="#EFE9DC"/>
+<circle cx="230" cy="290" r="18" fill="#F2D04B"/><rect x="212" y="308" width="36" height="56" rx="10" fill="#F2D04B"/>
+<rect x="330" y="214" width="120" height="166" fill="#0F1836"/>
+<rect x="338" y="222" width="104" height="158" fill="#1F3B8C"/>
+<circle cx="428" cy="304" r="4" fill="#F2D04B"/>
+<text x="390" y="252" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="20" fill="#fff">19</text>
+<rect x="20" y="300" width="14" height="80" fill="#5B6178"/><circle cx="27" cy="292" r="22" fill="#4E7A3A"/>
+<rect x="506" y="300" width="14" height="80" fill="#5B6178"/><circle cx="513" cy="292" r="22" fill="#4E7A3A"/>
+</svg>

@@ -4,13 +4,363 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>Donna Bella · Peluquería y Estética en Gines</title>
+  <meta name="description" content="Donna Bella, peluquería y estética en Av. Colón 19, Gines (Sevilla). Color, corte, rizos, alisado, extensiones y trenzas. Horario continuo de lunes a viernes.">
+  <meta name="theme-color" content="#1F3B8C">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Red+Hat+Display:wght@500;700;900&family=Red+Hat+Text:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#principal">Saltar al contenido</a>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#inicio" aria-label="Donna Bella, inicio">
+      <span class="brand__tile" aria-hidden="true">DB</span>
+      <span class="brand__name">Donna Bella<small>peluquería &amp; estética</small></span>
+    </a>
+    <nav class="nav__links" aria-label="Secciones">
+      <a href="#servicios">Servicios</a>
+      <a href="#melena">Tu melena</a>
+      <a href="#galeria">Galería</a>
+      <a href="#salon">El salón</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a class="btn btn--tile nav__cta" href="tel:+34854529901" data-tel>Llamar</a>
+    <button class="nav__burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-movil"><span></span><span></span></button>
+  </header>
+  <div class="menu-movil" id="menu-movil" hidden>
+    <a href="#servicios">Servicios</a>
+    <a href="#melena">Tu melena</a>
+    <a href="#galeria">Galería</a>
+    <a href="#salon">El salón</a>
+    <a href="#cita">Pedir cita</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+
+  <main id="principal">
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="hero__text">
+        <p class="eyebrow"><span class="dot"></span> Av. Colón 19 · Gines</p>
+        <h1 class="hero__title">
+          <span class="hero__donna">Donna</span>
+          <span class="hero__bella">Bella</span>
+        </h1>
+        <p class="hero__lead">Peluquería y estética en el centro de Gines. Color, corte, rizos, alisados, extensiones y trenzas, con <strong>horario continuo de lunes a viernes</strong>, de 10:00 a 19:30.</p>
+        <div class="hero__actions">
+          <a class="btn btn--cobalt" href="#cita">Pedir cita</a>
+          <a class="btn btn--line" href="tel:+34854529901" data-tel>854 52 99 01</a>
+        </div>
+        <ul class="hero__facts" aria-label="Datos rápidos">
+          <li><b>L–V</b><span>10:00 – 19:30</span></li>
+          <li><b>Sin cierre</b><span>a mediodía</span></li>
+          <li><b>Gines</b><span>Aljarafe, Sevilla</span></li>
+        </ul>
+      </div>
+
+      <div class="hero__art" aria-hidden="true">
+        <div class="tiles">
+          <div class="tile t1"></div><div class="tile t2"></div><div class="tile t3"></div>
+          <div class="tile t4"></div><div class="tile tile--portrait">
+            <img src="assets/hero-donna.svg" alt="">
+          </div><div class="tile t6"></div>
+          <div class="tile t7"></div><div class="tile t8"></div><div class="tile t9"></div>
+        </div>
+        <div class="hero__card">
+          <span class="hero__card-k">Hoy</span>
+          <span class="hero__card-v" id="hoy-estado">Abierto hasta las 19:30</span>
+          <span class="hero__card-s">Llama y te buscamos hueco</span>
+        </div>
+        <div class="hero__stamp">
+          <svg viewBox="0 0 120 120"><defs><path id="circ" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs><text><textPath href="#circ">· color · corte · rizos · alisado · extensiones · trenzas </textPath></text></svg>
+          <span>DB</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="ribbon" aria-hidden="true">
+      <div class="ribbon__track">
+        <span>Coloración</span><i>✦</i><span>Corte de mujer</span><i>✦</i><span>Rizos</span><i>✦</i><span>Permanente</span><i>✦</i><span>Alisado permanente</span><i>✦</i><span>Extensiones</span><i>✦</i><span>Trenzas</span><i>✦</i><span>Estética</span><i>✦</i>
+        <span>Coloración</span><i>✦</i><span>Corte de mujer</span><i>✦</i><span>Rizos</span><i>✦</i><span>Permanente</span><i>✦</i><span>Alisado permanente</span><i>✦</i><span>Extensiones</span><i>✦</i><span>Trenzas</span><i>✦</i><span>Estética</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- SERVICIOS -->
+    <section class="section servicios" id="servicios">
+      <header class="section__head">
+        <p class="kicker">01 · Servicios</p>
+        <h2>Todo lo que tu pelo<br><em>necesita, en un mismo sitio</em></h2>
+        <p class="section__intro">Cada servicio empieza con una pregunta: ¿qué quieres conseguir? A partir de ahí elegimos técnica, tiempos y cuidados para casa.</p>
+      </header>
+
+      <div class="carta">
+        <article class="carta__item reveal">
+          <span class="carta__n">A</span>
+          <h3>Corte de mujer</h3>
+          <p>Corte pensado para tu tipo de pelo y para cómo te peinas a diario. Que funcione también el día que no tienes tiempo.</p>
+          <span class="carta__tag">Corte · forma · peinado</span>
+        </article>
+        <article class="carta__item reveal">
+          <span class="carta__n">B</span>
+          <h3>Coloración</h3>
+          <p>Cubrir canas, cambiar de tono o dar luz. Color de raíz, tono completo y matices para que el resultado se vea natural.</p>
+          <span class="carta__tag">Raíz · tono · matiz</span>
+        </article>
+        <article class="carta__item reveal">
+          <span class="carta__n">C</span>
+          <h3>Rizos y permanente</h3>
+          <p>Definir el rizo que ya tienes o crear onda y volumen con permanente. Rizos con forma, no con encrespamiento.</p>
+          <span class="carta__tag">Rizo natural · permanente</span>
+        </article>
+        <article class="carta__item reveal">
+          <span class="carta__n">D</span>
+          <h3>Alisado permanente</h3>
+          <p>Pelo liso y manejable durante meses. Te explicamos antes cómo cuidarlo para que dure lo máximo posible.</p>
+          <span class="carta__tag">Liso · antiencrespamiento</span>
+        </article>
+        <article class="carta__item reveal">
+          <span class="carta__n">E</span>
+          <h3>Extensiones</h3>
+          <p>Más largo, más densidad o las dos cosas. Elegimos el tono y el método que mejor se integran con tu melena.</p>
+          <span class="carta__tag">Largo · volumen</span>
+        </article>
+        <article class="carta__item reveal">
+          <span class="carta__n">F</span>
+          <h3>Trenzas</h3>
+          <p>Trenzados para el día a día, para un evento o para el verano. Ideales también para las peques de la casa.</p>
+          <span class="carta__tag">Trenzado · recogidos</span>
+        </article>
+      </div>
+
+      <aside class="estetica reveal" aria-labelledby="estetica-t">
+        <div class="estetica__tile" aria-hidden="true"></div>
+        <div>
+          <p class="kicker kicker--light">Y además · estética</p>
+          <h3 id="estetica-t">El rincón de estética</h3>
+          <p>Donna Bella es peluquería <em>y</em> estética. Este bloque está listo para mostrar vuestra carta de cuidados (uñas, cejas, depilación, facial…) con los tratamientos y precios que realmente ofrecéis.</p>
+          <a class="btn btn--lemon" href="#cita">Preguntar por estética</a>
+        </div>
+      </aside>
+    </section>
+
+    <!-- SECCIÓN PRINCIPAL: TU MELENA -->
+    <section class="section melena" id="melena">
+      <header class="section__head section__head--light">
+        <p class="kicker kicker--light">02 · Peluquería</p>
+        <h2>¿Qué le pasa<br><em>a tu melena?</em></h2>
+        <p class="section__intro">Elige cómo es tu pelo y qué te gustaría cambiar. Te decimos por dónde empezaríamos en el salón.</p>
+      </header>
+
+      <div class="diag">
+        <div class="diag__panel">
+          <fieldset class="diag__group">
+            <legend>Mi pelo es…</legend>
+            <div class="chips" data-group="tipo">
+              <button type="button" class="chip is-on" data-v="liso">Liso</button>
+              <button type="button" class="chip" data-v="ondulado">Ondulado</button>
+              <button type="button" class="chip" data-v="rizado">Rizado</button>
+            </div>
+          </fieldset>
+          <fieldset class="diag__group">
+            <legend>Quiero…</legend>
+            <div class="chips" data-group="meta">
+              <button type="button" class="chip is-on" data-v="color">Cambiar o refrescar el color</button>
+              <button type="button" class="chip" data-v="encrespado">Olvidarme del encrespado</button>
+              <button type="button" class="chip" data-v="largo">Más largo o más volumen</button>
+              <button type="button" class="chip" data-v="forma">Un corte con forma</button>
+              <button type="button" class="chip" data-v="evento">Un peinado para un evento</button>
+            </div>
+          </fieldset>
+        </div>
+
+        <output class="diag__result" id="diag-result" aria-live="polite">
+          <span class="diag__label">Empezaríamos por</span>
+          <strong class="diag__service" id="diag-service">Coloración</strong>
+          <p class="diag__why" id="diag-why">Revisamos tu base y tus canas y elegimos un tono que favorezca a tu piel.</p>
+          <a class="btn btn--lemon" href="#cita" id="diag-cta">Pedir cita para esto</a>
+        </output>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="section galeria" id="galeria">
+      <header class="section__head">
+        <p class="kicker">03 · Galería</p>
+        <h2>Trabajos del salón<br><em>enmarcados en azulejo</em></h2>
+        <p class="section__intro">En la web final, esta galería se llena con vuestras fotos de Instagram: antes y después, color y peinados reales.</p>
+      </header>
+      <div class="gal">
+        <figure class="gal__item gal__item--tall reveal"><img src="assets/galeria/color.svg" alt="Ilustración de melena con coloración en tonos miel" ><figcaption>Color</figcaption></figure>
+        <figure class="gal__item reveal"><img src="assets/galeria/rizos.svg" alt="Ilustración de pelo rizado definido" ><figcaption>Rizos</figcaption></figure>
+        <figure class="gal__item reveal"><img src="assets/galeria/corte.svg" alt="Ilustración de un corte bob" ><figcaption>Corte</figcaption></figure>
+        <figure class="gal__item reveal"><img src="assets/galeria/trenza.svg" alt="Ilustración de una trenza de espiga" ><figcaption>Trenzas</figcaption></figure>
+        <figure class="gal__item gal__item--wide reveal"><img src="assets/galeria/alisado.svg" alt="Ilustración de pelo largo y liso" ><figcaption>Alisado</figcaption></figure>
+        <figure class="gal__item reveal"><img src="assets/galeria/extensiones.svg" alt="Ilustración de melena larga con extensiones" ><figcaption>Extensiones</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- SOBRE EL SALÓN -->
+    <section class="section salon" id="salon">
+      <div class="salon__art reveal" aria-hidden="true">
+        <img src="assets/fachada.svg" alt="">
+      </div>
+      <div class="salon__text">
+        <p class="kicker">04 · El salón</p>
+        <h2>Una <em>donna</em>, una silla<br>y el tiempo que haga falta</h2>
+        <p>Donna Bella está en la Avenida Colón, en pleno centro de Gines: a un paso para quien vive en el pueblo y fácil de encontrar para quien viene de Bormujos, Espartinas o Valencina.</p>
+        <p>Trabajamos de lunes a viernes <strong>sin cerrar a mediodía</strong>, para que puedas venir en tu hora de comer, a la salida del cole o al terminar de trabajar.</p>
+        <ul class="salon__list">
+          <li><span>✦</span>Diagnóstico antes de cada servicio de color o química</li>
+          <li><span>✦</span>Consejos de cuidado para que el resultado dure en casa</li>
+          <li><span>✦</span>Cita por teléfono, sin esperas en la puerta</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- OPINIONES -->
+    <section class="section opiniones" id="opiniones">
+      <header class="section__head">
+        <p class="kicker">05 · Opiniones</p>
+        <h2>Lo que se cuenta<br><em>al salir del salón</em></h2>
+      </header>
+      <div class="ops">
+        <blockquote class="op reveal">
+          <span class="op__tag">Reseña de ejemplo</span>
+          <p>“Llegué con el pelo encrespado y salí con un liso que me ha durado semanas. Además me explicaron cómo cuidarlo.”</p>
+          <footer>Clienta · alisado</footer>
+        </blockquote>
+        <blockquote class="op op--cobalt reveal">
+          <span class="op__tag">Reseña de ejemplo</span>
+          <p>“Por fin alguien que entiende mis rizos. Me cortaron en seco y ahora se me quedan con forma.”</p>
+          <footer>Clienta · rizos</footer>
+        </blockquote>
+        <blockquote class="op reveal">
+          <span class="op__tag">Reseña de ejemplo</span>
+          <p>“Que abran a mediodía me salva la semana. Voy en mi descanso y vuelvo al trabajo con el color hecho.”</p>
+          <footer>Clienta · color</footer>
+        </blockquote>
+      </div>
+      <p class="ops__note">En la web final, aquí aparecen vuestras reseñas reales de Google con su puntuación.</p>
+    </section>
+
+    <!-- CITA -->
+    <section class="section cita" id="cita">
+      <div class="cita__intro">
+        <p class="kicker kicker--light">06 · Pedir cita</p>
+        <h2>Elige qué te hacemos<br><em>y cuándo te viene bien</em></h2>
+        <p>Rellena tres datos y te preparamos la petición. La forma más rápida sigue siendo llamar: <a href="tel:+34854529901" data-tel>854 52 99 01</a>.</p>
+        <ul class="cita__hours">
+          <li><span>Lunes a viernes</span><b>10:00 – 19:30</b></li>
+          <li><span>Sábado y domingo</span><b>Cerrado</b></li>
+        </ul>
+      </div>
+
+      <form class="cita__form" id="form-cita" novalidate>
+        <label class="field">
+          <span>Servicio</span>
+          <select name="servicio" id="f-servicio">
+            <option>Coloración</option>
+            <option>Corte de mujer</option>
+            <option>Rizos</option>
+            <option>Permanente</option>
+            <option>Alisado permanente</option>
+            <option>Extensiones</option>
+            <option>Trenzas</option>
+            <option>Estética</option>
+            <option>No lo tengo claro, quiero consejo</option>
+          </select>
+        </label>
+        <div class="field">
+          <span>Día</span>
+          <div class="days" id="f-dias" role="radiogroup" aria-label="Día preferido"></div>
+        </div>
+        <div class="field">
+          <span>Franja</span>
+          <div class="seg" role="radiogroup" aria-label="Franja horaria">
+            <label><input type="radio" name="franja" value="mañana" checked><span>Mañana</span></label>
+            <label><input type="radio" name="franja" value="mediodía"><span>Mediodía</span></label>
+            <label><input type="radio" name="franja" value="tarde"><span>Tarde</span></label>
+          </div>
+        </div>
+        <label class="field">
+          <span>Tu nombre</span>
+          <input name="nombre" id="f-nombre" autocomplete="given-name" placeholder="Ej. Lucía">
+        </label>
+        <button class="btn btn--cobalt btn--block" type="submit">Preparar mi petición</button>
+
+        <div class="ticket" id="ticket" hidden>
+          <p class="ticket__k">Tu petición</p>
+          <p class="ticket__msg" id="ticket-msg"></p>
+          <div class="ticket__actions">
+            <a class="btn btn--cobalt" href="tel:+34854529901" data-tel>Llamar y reservar</a>
+            <button class="btn btn--line" type="button" id="ticket-copy">Copiar texto</button>
+          </div>
+          <p class="ticket__note" id="ticket-note">Cuando el salón confirme su WhatsApp, este botón enviará la petición directamente al móvil del salón.</p>
+        </div>
+      </form>
+    </section>
+
+    <!-- UBICACIÓN -->
+    <section class="section ubicacion" id="ubicacion">
+      <div class="ubi__map reveal">
+        <img src="assets/mapa.svg" alt="Plano ilustrado del centro de Gines con Donna Bella marcado en la Avenida Colón">
+      </div>
+      <div class="ubi__text">
+        <p class="kicker">07 · Ubicación</p>
+        <h2>Avenida Colón, 19<br><em>Gines, Sevilla</em></h2>
+        <p>En el centro del pueblo, en la avenida principal de Gines. Código postal 41960.</p>
+        <a class="btn btn--line" href="https://www.google.com/maps/search/?api=1&amp;query=Donna%20Bella%20Avenida%20Col%C3%B3n%2019%20Gines" target="_blank" rel="noopener">Cómo llegar</a>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="section contacto" id="contacto">
+      <div class="contacto__grid">
+        <a class="ccard reveal" href="tel:+34854529901" data-tel>
+          <span class="ccard__k">Teléfono</span>
+          <span class="ccard__v">854 52 99 01</span>
+          <span class="ccard__s">Para citas y consultas</span>
+        </a>
+        <div class="ccard reveal">
+          <span class="ccard__k">Dirección</span>
+          <span class="ccard__v">Av. Colón, 19</span>
+          <span class="ccard__s">41960 Gines, Sevilla</span>
+        </div>
+        <div class="ccard reveal">
+          <span class="ccard__k">Horario</span>
+          <span class="ccard__v">L–V · 10:00–19:30</span>
+          <span class="ccard__s">Sábado y domingo cerrado</span>
+        </div>
+        <a class="ccard ccard--cobalt reveal" href="https://www.instagram.com/donnabella_peluqueria/" target="_blank" rel="noopener">
+          <span class="ccard__k">Instagram</span>
+          <span class="ccard__v">@donnabella_peluqueria</span>
+          <span class="ccard__s">Trabajos y novedades</span>
+        </a>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="footer__brand">
+      <span class="brand__tile" aria-hidden="true">DB</span>
+      <div>
+        <strong>Donna Bella</strong>
+        <span>Peluquería y estética · Gines</span>
+      </div>
+    </div>
+    <p>Av. Colón, 19 · 41960 Gines (Sevilla) · <a href="tel:+34854529901" data-tel>854 52 99 01</a></p>
+    <p class="footer__small">© <span id="year">2026</span> Donna Bella. Propuesta de web.</p>
+  </footer>
+
+  <a class="fab" href="tel:+34854529901" data-tel aria-label="Llamar a Donna Bella">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>
+    <span>Llamar</span>
+  </a>
+
+  <script src="main.js"></script>
 </body>
 </html>
