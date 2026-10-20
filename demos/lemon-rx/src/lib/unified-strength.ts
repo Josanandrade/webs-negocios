@@ -19,7 +19,7 @@ export function complexReps(item: BuilderComplexItem) {
 }
 
 /**
- * Un Complex de una sola ejecución y sin esquema representa una búsqueda de peso máximo:
+ * Un Complex de una sola ejecución programada y sin esquema representa una búsqueda de peso máximo:
  * se guarda/rankea por el peso de la barra, no por la suma de kg de sus movimientos internos.
  * El constructor puede persistir esa única ejecución como `free` o como `sets`, por lo que
  * la decisión depende de que haya exactamente 1 ejecución, no del nombre del formato.
