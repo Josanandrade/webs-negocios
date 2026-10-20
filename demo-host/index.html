@@ -4,13 +4,354 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>Talleres Jesús García · Taller mecánico en Bollullos de la Mitación</title>
+  <meta name="description" content="Taller mecánico en Av. de la Constitución 84, Bollullos de la Mitación (Sevilla). Revisiones, diagnosis de averías, frenos y puesta a punto para la ITV. Cuéntanos qué le pasa a tu coche por WhatsApp.">
+  <meta name="theme-color" content="#1F3B2D">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Talleres Jesús García · Bollullos de la Mitación">
+  <meta property="og:description" content="Tu taller mecánico en la Avenida de la Constitución. Cuéntanos qué le pasa a tu coche por WhatsApp.">
+  <meta property="og:image" content="assets/og.png">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip" href="#parte">Saltar al contenido</a>
+
+  <header class="nav" id="top">
+    <a class="brand" href="#top" aria-label="Talleres Jesús García, inicio">
+      <span class="brand-badge" aria-hidden="true">JG</span>
+      <span class="brand-text"><small>Talleres</small>Jesús García</span>
+    </a>
+    <nav class="menu" id="menu" aria-label="Principal">
+      <a href="#parte">Pedir cita</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#como">Cómo trabajamos</a>
+      <a href="#donde">Dónde estamos</a>
+    </nav>
+    <a class="btn btn-wa nav-cta" data-wa="Hola, he visto vuestra web y quería información." href="#">WhatsApp</a>
+    <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><span></span><span></span></button>
+  </header>
+
   <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+    <!-- HERO: la fachada del taller -->
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>Av. de la Constitución, 84 · Bollullos de la Mitación</p>
+        <h1 class="hero-title"><span class="ht-small">Talleres</span><span class="ht-big">Jesús<br>García</span></h1>
+        <p class="hero-sub">Taller mecánico en Bollullos. <strong>Cuéntanos qué le pasa a tu coche</strong> y te decimos cuándo traerlo.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-wa" data-wa="Hola, he visto vuestra web y quería información." href="#">
+            <svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+            Escribir por WhatsApp
+          </a>
+          <a class="btn btn-ghost" href="tel:+34955766990">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-tel"/></svg>
+            955 76 69 90
+          </a>
+        </div>
+      </div>
+
+      <figure class="facade" aria-hidden="true">
+        <svg viewBox="0 0 560 470" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g-inside" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#0E1512"/><stop offset="1" stop-color="#1D2622"/>
+            </linearGradient>
+            <linearGradient id="g-light" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#FFE7B8" stop-opacity=".55"/><stop offset="1" stop-color="#FFE7B8" stop-opacity="0"/>
+            </linearGradient>
+            <pattern id="p-slats" width="8" height="18" patternUnits="userSpaceOnUse">
+              <rect width="8" height="18" fill="#24463A"/><rect y="15" width="8" height="3" fill="#183027"/>
+            </pattern>
+          </defs>
+          <!-- fachada -->
+          <rect x="10" y="40" width="540" height="420" rx="6" fill="#E3DED3"/>
+          <rect x="10" y="440" width="540" height="20" fill="#CFC8BA"/>
+          <!-- rótulo -->
+          <rect x="70" y="62" width="420" height="78" rx="4" fill="#1F3B2D"/>
+          <rect x="70" y="128" width="420" height="12" fill="#F2622E"/>
+          <text x="280" y="86" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" letter-spacing="6" fill="#D9E3DC">TALLERES</text>
+          <text x="280" y="120" text-anchor="middle" font-family="Big Shoulders Display, Impact, sans-serif" font-weight="900" font-size="36" letter-spacing="2" fill="#FBF9F4">JESÚS GARCÍA</text>
+          <!-- focos -->
+          <path d="M120 140 l-10 14 h20 Z" fill="#15181A"/><path d="M440 140 l-10 14 h20 Z" fill="#15181A"/>
+          <!-- hueco del portón -->
+          <rect x="70" y="170" width="420" height="270" fill="url(#g-inside)"/>
+          <path d="M70 290 L490 290 L560 470 L0 470 Z" fill="url(#g-light)" opacity=".5"/>
+          <!-- elevador -->
+          <rect x="120" y="230" width="12" height="210" fill="#3A4741"/><rect x="428" y="230" width="12" height="210" fill="#3A4741"/>
+          <rect x="132" y="336" width="296" height="8" fill="#F2622E"/>
+          <!-- coche en el elevador -->
+          <g class="car">
+            <path d="M160 336 c2-26 24-34 46-36 l26-30 c8-9 18-12 30-12 h58 c12 0 20 4 28 12 l30 30 c26 4 44 12 46 36 Z" fill="#E9E5DC"/>
+            <path d="M246 272 h50 v28 h-74 Z M308 272 h20 c6 0 10 2 14 6 l22 22 h-56 Z" fill="#9FB5AB" opacity=".9"/>
+            <rect x="160" y="316" width="244" height="6" fill="#C9C2B4"/>
+            <circle cx="214" cy="338" r="22" fill="#15181A"/><circle cx="214" cy="338" r="9" fill="#8C948F"/>
+            <circle cx="356" cy="338" r="22" fill="#15181A"/><circle cx="356" cy="338" r="9" fill="#8C948F"/>
+            <rect x="388" y="306" width="14" height="7" rx="2" fill="#F2B33D"/>
+          </g>
+          <!-- persiana subida a medias -->
+          <rect class="shutter" x="70" y="170" width="420" height="64" fill="url(#p-slats)"/>
+          <rect class="shutter-edge" x="66" y="230" width="428" height="8" rx="2" fill="#15181A"/>
+          <!-- banco de trabajo y herramientas -->
+          <rect x="452" y="372" width="34" height="68" fill="#F2622E"/>
+          <rect x="452" y="372" width="34" height="5" fill="#15181A"/>
+          <rect x="456" y="386" width="26" height="4" fill="#15181A" opacity=".5"/>
+          <rect x="456" y="402" width="26" height="4" fill="#15181A" opacity=".5"/>
+          <rect x="456" y="418" width="26" height="4" fill="#15181A" opacity=".5"/>
+          <!-- neumáticos apilados -->
+          <ellipse cx="94" cy="430" rx="20" ry="7" fill="#15181A"/><rect x="74" y="408" width="40" height="22" fill="#15181A"/><ellipse cx="94" cy="408" rx="20" ry="7" fill="#2A302D"/>
+          <!-- número de portal -->
+          <rect x="500" y="200" width="36" height="28" rx="3" fill="#FBF9F4" stroke="#15181A" stroke-width="2"/>
+          <text x="518" y="220" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="14" fill="#15181A">84</text>
+        </svg>
+      </figure>
+    </section>
+
+    <!-- tira de servicios -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>Revisiones</span><span>Diagnosis</span><span>Frenos</span><span>Suspensión</span><span>Pre-ITV</span><span>Mecánica general</span>
+        <span>Revisiones</span><span>Diagnosis</span><span>Frenos</span><span>Suspensión</span><span>Pre-ITV</span><span>Mecánica general</span>
+      </div>
+    </div>
+
+    <!-- PARTE DE TALLER -->
+    <section class="section parte-wrap" id="parte">
+      <div class="parte-intro">
+        <p class="kicker">Pedir cita</p>
+        <h2>Rellena el parte.<br><em>Nosotros lo leemos.</em></h2>
+        <p>Marca lo que notas en el coche y nos llega por WhatsApp, listo para darte cita.</p>
+      </div>
+
+      <form class="parte" id="parte-form" aria-label="Parte de taller">
+        <div class="parte-head">
+          <span>Parte de taller</span>
+          <span class="mono" id="parte-no">Nº 0001</span>
+        </div>
+
+        <fieldset>
+          <legend><span class="mono">01</span> Vehículo</legend>
+          <div class="opts" role="radiogroup" aria-label="Tipo de vehículo">
+            <button type="button" class="opt is-on" data-veh="coche" aria-pressed="true">Coche</button>
+            <button type="button" class="opt" data-veh="furgoneta" aria-pressed="false">Furgoneta</button>
+          </div>
+          <label class="field">
+            <span>Marca y modelo <em>(opcional)</em></span>
+            <input type="text" id="modelo" maxlength="40" placeholder="Ej. Seat León" autocomplete="off">
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="mono">02</span> ¿Qué le pasa?</legend>
+          <div class="checks">
+            <button type="button" class="chk is-on" data-issue="toca revisión o cambio de aceite" aria-pressed="true">Toca revisión</button>
+            <button type="button" class="chk" data-issue="se le ha encendido un testigo" aria-pressed="false">Testigo encendido</button>
+            <button type="button" class="chk" data-issue="hace un ruido raro" aria-pressed="false">Ruido raro</button>
+            <button type="button" class="chk" data-issue="quiero revisar los frenos" aria-pressed="false">Frenos</button>
+            <button type="button" class="chk" data-issue="tiene que pasar la ITV" aria-pressed="false">Pasa la ITV</button>
+            <button type="button" class="chk" data-issue="tiene otra avería" aria-pressed="false">Otra avería</button>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="mono">03</span> ¿Cuándo te viene bien?</legend>
+          <div class="opts" role="radiogroup" aria-label="Preferencia">
+            <button type="button" class="opt is-on" data-when="Si puede ser, lo antes posible." aria-pressed="true">Cuanto antes</button>
+            <button type="button" class="opt" data-when="Me vendría bien esta semana." aria-pressed="false">Esta semana</button>
+            <button type="button" class="opt" data-when="No me corre prisa." aria-pressed="false">Sin prisa</button>
+          </div>
+        </fieldset>
+
+        <div class="parte-preview" aria-live="polite">
+          <span class="mono">Mensaje</span>
+          <p id="parte-text"></p>
+        </div>
+
+        <a class="btn btn-wa btn-block" id="parte-send" href="#">
+          <svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+          Enviar por WhatsApp
+        </a>
+      </form>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="section servicios" id="servicios">
+      <div class="sec-head">
+        <p class="kicker">Servicios</p>
+        <h2>Lo que hacemos en el taller</h2>
+      </div>
+      <ol class="svc-list">
+        <li class="svc">
+          <span class="svc-no mono">01</span>
+          <svg class="svc-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M17 8h14v6l-3 3v5h-8v-5l-3-3Z"/><path d="M14 22h20l3 18H11Z"/><path d="M20 30h8"/></svg>
+          <div><h3>Revisión y mantenimiento</h3><p>Aceite, filtros, niveles y lo que pida el libro del coche.</p></div>
+          <a class="svc-ask" data-wa="Hola, he visto vuestra web y quería información sobre una revisión." href="#" aria-label="Preguntar por revisión y mantenimiento">Preguntar</a>
+        </li>
+        <li class="svc">
+          <span class="svc-no mono">02</span>
+          <svg class="svc-ico" viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="12" width="32" height="22" rx="3"/><path d="M14 27l5-6 4 4 5-8 6 10"/><path d="M18 40h12M24 34v6"/></svg>
+          <div><h3>Diagnosis de averías</h3><p>Testigos, fallos y ruidos: buscamos el origen antes de tocar nada.</p></div>
+          <a class="svc-ask" data-wa="Hola, he visto vuestra web. Mi coche tiene una avería y quería que le echarais un vistazo." href="#" aria-label="Preguntar por diagnosis de averías">Preguntar</a>
+        </li>
+        <li class="svc">
+          <span class="svc-no mono">03</span>
+          <svg class="svc-ico" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="15"/><circle cx="24" cy="24" r="5"/><path d="M33 12a15 15 0 0 1 4 8l-7 2"/></svg>
+          <div><h3>Frenos</h3><p>Pastillas, discos y líquido. Revisión si notas algo raro al frenar.</p></div>
+          <a class="svc-ask" data-wa="Hola, he visto vuestra web y quería revisar los frenos del coche." href="#" aria-label="Preguntar por frenos">Preguntar</a>
+        </li>
+        <li class="svc">
+          <span class="svc-no mono">04</span>
+          <svg class="svc-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6v8M24 34v8"/><path d="M18 14h12M18 34h12"/><path d="M19 14l10 4-10 4 10 4-10 4"/></svg>
+          <div><h3>Suspensión y dirección</h3><p>Si el coche se va hacia un lado, golpea o vibra.</p></div>
+          <a class="svc-ask" data-wa="Hola, he visto vuestra web y quería que revisarais la suspensión del coche." href="#" aria-label="Preguntar por suspensión y dirección">Preguntar</a>
+        </li>
+        <li class="svc">
+          <span class="svc-no mono">05</span>
+          <svg class="svc-ico" viewBox="0 0 48 48" aria-hidden="true"><rect x="10" y="8" width="28" height="32" rx="3"/><path d="M17 20l4 4 9-9"/><path d="M17 31h14"/></svg>
+          <div><h3>Puesta a punto para la ITV</h3><p>Lo repasamos antes para que vayas tranquilo.</p></div>
+          <a class="svc-ask" data-wa="Hola, he visto vuestra web. Tengo que pasar la ITV y quería que revisarais el coche antes." href="#" aria-label="Preguntar por puesta a punto para la ITV">Preguntar</a>
+        </li>
+        <li class="svc">
+          <span class="svc-no mono">06</span>
+          <svg class="svc-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M30 8a8 8 0 0 0-7 11L9 33a3.5 3.5 0 0 0 5 5l14-14a8 8 0 0 0 11-7l-5 2-4-4 2-5Z"/></svg>
+          <div><h3>Mecánica general</h3><p>Reparaciones del día a día en coches y furgonetas.</p></div>
+          <a class="svc-ask" data-wa="Hola, he visto vuestra web y quería información sobre una reparación." href="#" aria-label="Preguntar por mecánica general">Preguntar</a>
+        </li>
+      </ol>
+    </section>
+
+    <!-- CÓMO TRABAJAMOS -->
+    <section class="section como" id="como">
+      <div class="sec-head">
+        <p class="kicker">Cómo trabajamos</p>
+        <h2>De tu WhatsApp<br>al elevador</h2>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="step-no">1</span>
+          <h3>Nos escribes</h3>
+          <p>Qué coche es y qué notas. Una foto del testigo ayuda.</p>
+        </li>
+        <li>
+          <span class="step-no">2</span>
+          <h3>Te damos hora</h3>
+          <p>Lo traes a la Avenida de la Constitución, 84.</p>
+        </li>
+        <li>
+          <span class="step-no">3</span>
+          <h3>Te lo explicamos</h3>
+          <p>Te contamos qué tiene y qué hay que hacer.</p>
+        </li>
+      </ol>
+      <a class="btn btn-wa como-cta" data-wa="Hola, he visto vuestra web y quería información." href="#">
+        <svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+        Empezar por WhatsApp
+      </a>
+    </section>
+
+    <!-- EL TALLER -->
+    <section class="taller" aria-labelledby="taller-h">
+      <div class="taller-copy">
+        <p class="kicker">El taller</p>
+        <h2 id="taller-h">En plena Avenida de la Constitución</h2>
+        <p>Un taller a pie de calle en Bollullos de la Mitación. Aparca, entra y cuéntanos.</p>
+      </div>
+      <div class="taller-grid">
+        <figure class="tile tile-a">
+          <svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="320" height="220" fill="#24463A"/>
+            <rect x="0" y="170" width="320" height="50" fill="#183027"/>
+            <rect x="40" y="60" width="10" height="110" fill="#8C948F"/><rect x="270" y="60" width="10" height="110" fill="#8C948F"/>
+            <rect x="50" y="120" width="220" height="7" fill="#F2622E"/>
+            <path d="M70 120c2-18 18-24 34-26l18-22c6-6 12-8 22-8h40c9 0 15 3 21 9l21 21c18 3 30 9 32 26Z" fill="#E9E5DC"/>
+            <circle cx="108" cy="121" r="15" fill="#15181A"/><circle cx="214" cy="121" r="15" fill="#15181A"/>
+            <circle cx="108" cy="121" r="6" fill="#8C948F"/><circle cx="214" cy="121" r="6" fill="#8C948F"/>
+          </svg>
+          <figcaption>Elevador</figcaption>
+        </figure>
+        <figure class="tile tile-b">
+          <svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="320" height="220" fill="#15181A"/>
+            <rect x="60" y="40" width="200" height="120" rx="8" fill="#1F3B2D"/>
+            <path d="M80 120 l30-34 26 22 30-46 36 58 18-20" fill="none" stroke="#F2622E" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+            <circle cx="232" cy="64" r="10" fill="#F2B33D"/>
+            <rect x="140" y="160" width="40" height="22" fill="#2A302D"/><rect x="110" y="182" width="100" height="8" rx="4" fill="#2A302D"/>
+          </svg>
+          <figcaption>Diagnosis</figcaption>
+        </figure>
+        <figure class="tile tile-c">
+          <svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="320" height="220" fill="#ECE9E2"/>
+            <circle cx="160" cy="110" r="70" fill="#15181A"/><circle cx="160" cy="110" r="44" fill="#8C948F"/>
+            <circle cx="160" cy="110" r="14" fill="#15181A"/>
+            <g fill="#15181A"><circle cx="160" cy="80" r="5"/><circle cx="188" cy="100" r="5"/><circle cx="178" cy="134" r="5"/><circle cx="142" cy="134" r="5"/><circle cx="132" cy="100" r="5"/></g>
+            <path d="M214 62a70 70 0 0 1 14 30l-24 6Z" fill="#F2622E"/>
+          </svg>
+          <figcaption>Frenos</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- DÓNDE -->
+    <section class="section where" id="donde">
+      <div class="where-info">
+        <p class="kicker">Dónde estamos</p>
+        <h2>Av. de la Constitución, 84</h2>
+        <p class="where-town">41110 Bollullos de la Mitación · Sevilla</p>
+        <div class="contact">
+          <a class="c-row c-wa" data-wa="Hola, he visto vuestra web y quería información." href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+            <span><small>WhatsApp</small>626 685 358</span>
+          </a>
+          <a class="c-row" href="tel:+34955766990">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-tel"/></svg>
+            <span><small>Teléfono del taller</small>955 76 69 90</span>
+          </a>
+          <a class="c-row" href="https://www.google.com/maps/search/?api=1&amp;query=Talleres+Jes%C3%BAs+Garc%C3%ADa+Avenida+de+la+Constituci%C3%B3n+84+Bollullos+de+la+Mitaci%C3%B3n" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+            <span><small>Google Maps</small>Cómo llegar y opiniones</span>
+          </a>
+        </div>
+      </div>
+      <div class="map">
+        <iframe title="Mapa de Talleres Jesús García en Bollullos de la Mitación" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Avenida%20de%20la%20Constituci%C3%B3n%2084%2C%2041110%20Bollullos%20de%20la%20Mitaci%C3%B3n%2C%20Sevilla&amp;z=16&amp;output=embed"></iframe>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="cta-band">
+      <p class="mono">¿Algo raro en el coche?</p>
+      <h2>No esperes a que vaya a más.</h2>
+      <div class="hero-ctas">
+        <a class="btn btn-wa" data-wa="Hola, he visto vuestra web y quería información." href="#">
+          <svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+          WhatsApp
+        </a>
+        <a class="btn btn-line" href="tel:+34955766990">Llamar al taller</a>
+      </div>
+    </section>
   </main>
+
+  <footer class="foot">
+    <div class="brand foot-brand"><span class="brand-badge" aria-hidden="true">JG</span><span class="brand-text"><small>Talleres</small>Jesús García</span></div>
+    <p>Av. de la Constitución, 84 · 41110 Bollullos de la Mitación (Sevilla)</p>
+    <p><a href="tel:+34955766990">955 76 69 90</a> · <a data-wa="Hola, he visto vuestra web y quería información." href="#">WhatsApp 626 685 358</a></p>
+  </footer>
+
+  <a class="fab" data-wa="Hola, he visto vuestra web y quería información." href="#" aria-label="Escribir por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+  </a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.5-.3Z"/></symbol>
+    <symbol id="i-tel" viewBox="0 0 24 24"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1Z"/></symbol>
+  </svg>
+
+  <script src="main.js"></script>
 </body>
 </html>
