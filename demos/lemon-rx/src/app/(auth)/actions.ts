@@ -91,7 +91,7 @@ export async function requestPasswordReset(_: AuthState, form: FormData): Promis
 
   const supabase = await createClient();
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${await origin()}/auth/callback?next=/nueva-contrasena`,
+    redirectTo: `${await origin()}/auth/recovery`,
   });
   if (error?.status === 429)
     return { error: "Demasiados intentos. Espera unos minutos y vuelve a probar.", email };
