@@ -1,16 +1,402 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Carmen Soto · Peluquería &amp; Estilismo en Gines</title>
+  <meta name="description" content="Carmen Soto Peluquería &amp; Estilismo, en Gines (Sevilla). Corte, color, peinados y estilismo para el día a día y para tus eventos. Pide tu cita por WhatsApp.">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="theme-color" content="#1B1416">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Epilogue:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__inner">
+      <a class="brand" href="#top" aria-label="Carmen Soto, inicio">
+        <span class="brand__mono" aria-hidden="true">CS</span>
+        <span class="brand__name">Carmen Soto<small>Peluquería &amp; Estilismo</small></span>
+      </a>
+      <nav class="nav__links" id="menu" aria-label="Secciones">
+        <a href="#indice">Servicios</a>
+        <a href="#estilismo">Estilismo</a>
+        <a href="#lookbook">Lookbook</a>
+        <a href="#salon">El salón</a>
+        <a href="#opiniones">Opiniones</a>
+        <a href="#ubicacion">Ubicación</a>
+        <a class="nav__menu-cta" href="#cita">Pedir cita</a>
+      </nav>
+      <a class="btn btn--small nav__cta" href="#cita">Pedir cita</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- HERO · portada de revista -->
+    <section class="cover" aria-labelledby="cover-title">
+      <div class="wrap cover__grid">
+        <div class="cover__issue">
+          <span>Nº 01</span>
+          <span class="cover__season" data-season>Otoño</span>
+          <span>Gines · Sevilla</span>
+        </div>
+
+        <h1 class="cover__title" id="cover-title">
+          <span class="cover__first">Carmen</span>
+          <span class="cover__last">Soto</span>
+          <span class="cover__sub">Peluquería <em>&amp;</em> Estilismo</span>
+        </h1>
+
+        <figure class="cover__figure">
+          <img src="assets/portada.svg" alt="Ilustración de una melena con ondas en tonos carmín y rosa palo" width="560" height="700">
+          <figcaption class="cover__sticker">
+            <strong>Tu estilo,</strong>
+            <span>hecho en Gines</span>
+          </figcaption>
+        </figure>
+
+        <ul class="cover__lines" aria-label="En este número">
+          <li><b>01</b> Cortes que se peinan solos en casa</li>
+          <li><b>02</b> Color pensado para tu piel y tu ritmo</li>
+          <li><b>03</b> Peinados y recogidos para tu evento</li>
+        </ul>
+
+        <div class="cover__actions">
+          <a class="btn btn--carmin" href="#cita" data-wa>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z" fill="currentColor"/></svg>
+            Pide tu cita por WhatsApp
+          </a>
+          <a class="btn btn--line" href="#indice">Ver servicios</a>
+        </div>
+      </div>
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker__track">
+          <span>Corte</span><i>✦</i><span>Color</span><i>✦</i><span>Mechas</span><i>✦</i><span>Tratamientos</span><i>✦</i><span>Peinados</span><i>✦</i><span>Recogidos</span><i>✦</i><span>Estilismo</span><i>✦</i>
+          <span>Corte</span><i>✦</i><span>Color</span><i>✦</i><span>Mechas</span><i>✦</i><span>Tratamientos</span><i>✦</i><span>Peinados</span><i>✦</i><span>Recogidos</span><i>✦</i><span>Estilismo</span><i>✦</i>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS · índice -->
+    <section class="section index" id="indice" aria-labelledby="indice-title">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Índice</p>
+          <h2 id="indice-title">Lo que hacemos <em>en el salón</em></h2>
+          <p class="section__lead">Cada servicio empieza igual: mirando tu pelo, escuchando lo que buscas y proponiéndote algo que puedas mantener. Pregúntanos por cualquiera de ellos.</p>
+        </header>
+
+        <ol class="toc">
+          <li class="toc__item">
+            <span class="toc__num">02</span>
+            <div>
+              <h3>Corte y forma</h3>
+              <p>Cortes de mujer, puntas, flequillos y cambios de look. Forma que respeta cómo cae tu pelo.</p>
+            </div>
+            <a class="toc__go" href="#cita" data-service="Corte y forma" aria-label="Pedir cita para corte">Pedir →</a>
+          </li>
+          <li class="toc__item">
+            <span class="toc__num">04</span>
+            <div>
+              <h3>Color</h3>
+              <p>Tinte, cobertura de canas, matices y cambios de color con diagnóstico previo.</p>
+            </div>
+            <a class="toc__go" href="#cita" data-service="Color" aria-label="Pedir cita para color">Pedir →</a>
+          </li>
+          <li class="toc__item">
+            <span class="toc__num">06</span>
+            <div>
+              <h3>Mechas e iluminación</h3>
+              <p>Mechas, babylights y efectos de luz para dar movimiento sin perder naturalidad.</p>
+            </div>
+            <a class="toc__go" href="#cita" data-service="Mechas e iluminación" aria-label="Pedir cita para mechas">Pedir →</a>
+          </li>
+          <li class="toc__item">
+            <span class="toc__num">08</span>
+            <div>
+              <h3>Tratamientos capilares</h3>
+              <p>Hidratación, reparación y brillo para pelo castigado por el sol, el calor o el color.</p>
+            </div>
+            <a class="toc__go" href="#cita" data-service="Tratamiento capilar" aria-label="Pedir cita para tratamiento">Pedir →</a>
+          </li>
+          <li class="toc__item">
+            <span class="toc__num">10</span>
+            <div>
+              <h3>Peinados y recogidos</h3>
+              <p>Ondas, brushing y recogidos para bodas, comuniones, ferias y cualquier ocasión especial.</p>
+            </div>
+            <a class="toc__go" href="#cita" data-service="Peinado o recogido" aria-label="Pedir cita para peinado">Pedir →</a>
+          </li>
+          <li class="toc__item">
+            <span class="toc__num">12</span>
+            <div>
+              <h3>Estilismo y asesoría</h3>
+              <p>Te ayudamos a elegir corte y color según tu rostro, tu estilo y el tiempo que quieres dedicarle.</p>
+            </div>
+            <a class="toc__go" href="#cita" data-service="Asesoría de estilismo" aria-label="Pedir cita para asesoría">Pedir →</a>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- SECCIÓN PRINCIPAL · estilismo -->
+    <section class="section studio" id="estilismo" aria-labelledby="estilismo-title">
+      <div class="wrap studio__grid">
+        <div class="studio__text">
+          <p class="kicker kicker--light">El reportaje</p>
+          <h2 id="estilismo-title">El estilismo empieza <em>antes de las tijeras</em></h2>
+          <p>Un buen resultado no es solo técnica. Es entender cómo te peinas por la mañana, cuánto tiempo tienes y qué te hace sentir tú. Por eso cada cita empieza con una conversación.</p>
+          <ol class="steps">
+            <li><b>Miramos</b><span>Tu pelo, su textura, su historia de color.</span></li>
+            <li><b>Escuchamos</b><span>Lo que te gusta, lo que no, y tu día a día.</span></li>
+            <li><b>Proponemos</b><span>Una idea clara, con lo que necesita de mantenimiento.</span></li>
+            <li><b>Te lo enseñamos</b><span>Para que el peinado te dure también en casa.</span></li>
+          </ol>
+        </div>
+
+        <div class="studio__tool" aria-labelledby="finder-title">
+          <div class="finder">
+            <p class="finder__tag">Test de estilo · 30 segundos</p>
+            <h3 id="finder-title">¿Qué te apetece?</h3>
+            <fieldset class="finder__q">
+              <legend>Busco…</legend>
+              <div class="chips" data-group="goal">
+                <button type="button" class="chip" data-value="un cambio de look">Un cambio</button>
+                <button type="button" class="chip" data-value="mantener y sanear">Mantener</button>
+                <button type="button" class="chip" data-value="un peinado para un evento">Un evento</button>
+              </div>
+            </fieldset>
+            <fieldset class="finder__q">
+              <legend>Mi pelo es…</legend>
+              <div class="chips" data-group="hair">
+                <button type="button" class="chip" data-value="liso">Liso</button>
+                <button type="button" class="chip" data-value="ondulado">Ondulado</button>
+                <button type="button" class="chip" data-value="rizado">Rizado</button>
+              </div>
+            </fieldset>
+            <fieldset class="finder__q">
+              <legend>Por la mañana tengo…</legend>
+              <div class="chips" data-group="time">
+                <button type="button" class="chip" data-value="5 minutos">5 min</button>
+                <button type="button" class="chip" data-value="15 minutos">15 min</button>
+                <button type="button" class="chip" data-value="todo el tiempo del mundo">Todo el tiempo</button>
+              </div>
+            </fieldset>
+            <div class="finder__out" aria-live="polite">
+              <p class="finder__hint" data-finder-text>Elige una opción en cada fila y te diremos por dónde empezar.</p>
+              <a class="btn btn--carmin btn--block" href="#cita" data-finder-cta hidden>Contárselo a Carmen</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA · lookbook -->
+    <section class="section lookbook" id="lookbook" aria-labelledby="lookbook-title">
+      <div class="wrap">
+        <header class="section__head section__head--row">
+          <div>
+            <p class="kicker">Lookbook</p>
+            <h2 id="lookbook-title">Ideas para <em>tu próximo look</em></h2>
+          </div>
+          <p class="section__note">Ilustraciones de referencia. En la web definitiva irían las fotos reales de los trabajos del salón.</p>
+        </header>
+
+        <div class="looks">
+          <figure class="look look--tall">
+            <img src="assets/lookbook/bob.svg" alt="Ilustración de un bob recto a la altura de la mandíbula" width="400" height="520">
+            <figcaption><span>Look 01</span>Bob con caída</figcaption>
+          </figure>
+          <figure class="look">
+            <img src="assets/lookbook/mechas.svg" alt="Ilustración de una melena larga con mechas iluminadas" width="400" height="400">
+            <figcaption><span>Look 02</span>Luz en las puntas</figcaption>
+          </figure>
+          <figure class="look">
+            <img src="assets/lookbook/recogido.svg" alt="Ilustración de un recogido bajo con moño" width="400" height="400">
+            <figcaption><span>Look 03</span>Recogido de invitada</figcaption>
+          </figure>
+
+          <figure class="look look--tall">
+            <img src="assets/lookbook/pixie.svg" alt="Ilustración de un corte pixie con flequillo" width="400" height="520">
+            <figcaption><span>Look 04</span>Corto y con actitud</figcaption>
+          </figure>
+          <figure class="look">
+            <img src="assets/lookbook/ondas.svg" alt="Ilustración de una melena con ondas marcadas" width="640" height="400">
+            <figcaption><span>Look 05</span>Ondas al agua</figcaption>
+          </figure>
+          <figure class="look">
+            <img src="assets/lookbook/cobrizo.svg" alt="Ilustración de una media melena en tono cobrizo" width="400" height="400">
+            <figcaption><span>Look 06</span>Cobrizo de temporada</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE EL SALÓN -->
+    <section class="section salon" id="salon" aria-labelledby="salon-title">
+      <div class="wrap salon__grid">
+        <figure class="salon__plate">
+          <img src="assets/salon.svg" alt="Ilustración del interior del salón: tocador con espejo, sillón y plantas" width="520" height="620">
+        </figure>
+        <div class="salon__letter">
+          <p class="kicker">Carta de la editora</p>
+          <h2 id="salon-title">Un salón de Gines, <em>con mirada de estilista</em></h2>
+          <p>En Carmen Soto Peluquería &amp; Estilismo te atendemos en Gines con calma y con el trato cercano de siempre. Aquí vienes a cortarte las puntas o a prepararte para el día más importante del año, y en los dos casos te vas sabiendo qué te hemos hecho y cómo cuidarlo.</p>
+          <p>Nos gusta el pelo que se mueve, el color que favorece y los peinados que aguantan la fiesta entera.</p>
+          <p class="signature">Carmen Soto</p>
+          <ul class="salon__facts">
+            <li><b>Gines</b><span>Aljarafe, Sevilla</span></li>
+            <li><b>Con cita</b><span>Por WhatsApp o teléfono</span></li>
+            <li><b>Para ti</b><span>Día a día y eventos</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPINIONES -->
+    <section class="section reviews" id="opiniones" aria-labelledby="opiniones-title">
+      <div class="wrap">
+        <header class="section__head">
+          <p class="kicker">Cartas de las lectoras</p>
+          <h2 id="opiniones-title">Lo que dicen <em>al salir del salón</em></h2>
+        </header>
+        <div class="quotes">
+          <blockquote class="quote">
+            <p>«Le dije lo que quería a medias y entendió perfectamente lo que buscaba. El corte me dura semanas igual de bien.»</p>
+            <footer>Clienta del salón <small>Reseña de ejemplo</small></footer>
+          </blockquote>
+          <blockquote class="quote quote--accent">
+            <p>«Me peinó para la boda de mi hermana y el recogido aguantó hasta las tantas. Encantada.»</p>
+            <footer>Invitada de boda <small>Reseña de ejemplo</small></footer>
+          </blockquote>
+          <blockquote class="quote">
+            <p>«Trato cercano, sin prisas y siempre te explica qué te va a hacer. Ya no me voy a otro sitio.»</p>
+            <footer>Vecina de Gines <small>Reseña de ejemplo</small></footer>
+          </blockquote>
+        </div>
+        <p class="reviews__note">Aquí se mostrarían las reseñas reales de Google o Facebook del salón.</p>
+      </div>
+    </section>
+
+    <!-- CTA CITA -->
+    <section class="section booking" id="cita" aria-labelledby="cita-title">
+      <div class="wrap booking__grid">
+        <div class="booking__intro">
+          <p class="kicker kicker--light">Reserva</p>
+          <h2 id="cita-title">Pide tu cita <em>en un mensaje</em></h2>
+          <p>Elige el servicio y cuándo te viene bien. Te preparamos el mensaje y lo envías por WhatsApp; te confirmamos la hora lo antes posible.</p>
+          <div class="booking__alt">
+            <a class="btn btn--light" href="#" data-wa-direct>Escribir por WhatsApp</a>
+            <a class="btn btn--ghost-light" href="#" data-call>Llamar al salón</a>
+          </div>
+        </div>
+
+        <form class="ticket" id="ticket" novalidate>
+          <div class="ticket__head">
+            <span>Cita</span>
+            <span>Carmen Soto · Gines</span>
+          </div>
+          <label class="field">
+            <span>Tu nombre</span>
+            <input type="text" name="nombre" autocomplete="given-name" placeholder="Ej.: Lucía">
+          </label>
+          <label class="field">
+            <span>Servicio</span>
+            <select name="servicio">
+              <option>Corte y forma</option>
+              <option>Color</option>
+              <option>Mechas e iluminación</option>
+              <option>Tratamiento capilar</option>
+              <option>Peinado o recogido</option>
+              <option>Asesoría de estilismo</option>
+              <option>Aún no lo sé, quiero consejo</option>
+            </select>
+          </label>
+          <fieldset class="field">
+            <legend>¿Qué día te viene mejor?</legend>
+            <div class="days" data-days></div>
+          </fieldset>
+          <fieldset class="field">
+            <legend>Franja</legend>
+            <div class="chips chips--dark" data-group="slot">
+              <button type="button" class="chip" data-value="por la mañana">Mañana</button>
+              <button type="button" class="chip" data-value="por la tarde">Tarde</button>
+              <button type="button" class="chip" data-value="cuando haya hueco">Me da igual</button>
+            </div>
+          </fieldset>
+          <label class="field">
+            <span>¿Algo más? <small>(opcional)</small></span>
+            <textarea name="nota" rows="2" placeholder="Ej.: es para una boda el sábado 14"></textarea>
+          </label>
+          <button class="btn btn--carmin btn--block" type="submit">Preparar mensaje de WhatsApp</button>
+          <p class="ticket__small">No se envía nada desde esta página: el mensaje se abre en tu WhatsApp.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- UBICACIÓN -->
+    <section class="section where" id="ubicacion" aria-labelledby="ubicacion-title">
+      <div class="wrap where__grid">
+        <div>
+          <p class="kicker">Ubicación</p>
+          <h2 id="ubicacion-title">Te esperamos <em>en Gines</em></h2>
+          <p>En pleno Aljarafe, a un paso de Sevilla, Bormujos, Espartinas y Valencina.</p>
+          <dl class="where__list">
+            <div><dt>Salón</dt><dd>Carmen Soto Peluquería &amp; Estilismo</dd></div>
+            <div><dt>Localidad</dt><dd>Gines, Sevilla</dd></div>
+            <div><dt>Citas</dt><dd>Por WhatsApp o llamada</dd></div>
+          </dl>
+          <a class="btn btn--line" href="https://www.google.com/maps/search/?api=1&amp;query=Carmen+Soto+Peluquer%C3%ADa+Gines+Sevilla" target="_blank" rel="noopener">Cómo llegar</a>
+        </div>
+        <figure class="where__map">
+          <img src="assets/mapa.svg" alt="Mapa ilustrado de Gines con su posición en el Aljarafe sevillano" width="640" height="480">
+        </figure>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="section contact" id="contacto" aria-labelledby="contacto-title">
+      <div class="wrap">
+        <h2 class="contact__title" id="contacto-title">¿Hablamos de <em>tu pelo</em>?</h2>
+        <div class="contact__cards">
+          <a class="ccard" href="#" data-wa-direct>
+            <span class="ccard__label">WhatsApp</span>
+            <span class="ccard__value">Escríbenos</span>
+          </a>
+          <a class="ccard" href="#" data-call>
+            <span class="ccard__label">Teléfono</span>
+            <span class="ccard__value" data-phone-label>Llámanos</span>
+          </a>
+          <a class="ccard" href="https://www.facebook.com/carmensotoginespeluqueriayestilismo/" target="_blank" rel="noopener">
+            <span class="ccard__label">Facebook</span>
+            <span class="ccard__value">Carmen Soto Gines</span>
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <p class="footer__brand">Carmen Soto <span>Peluquería &amp; Estilismo</span></p>
+      <p>Gines, Sevilla · © <span data-year>2026</span></p>
+      <p class="footer__demo">Propuesta de diseño. Página privada, no indexada en buscadores.</p>
+    </div>
+  </footer>
+
+  <a class="fab" href="#" data-wa-direct aria-label="Escribir por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z" fill="currentColor"/></svg>
+  </a>
+
+  <script src="main.js" defer></script>
 </body>
 </html>

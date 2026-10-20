@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-label="Mapa ilustrado del Aljarafe con Gines">
+  <rect width="640" height="480" fill="#EADDD4"/>
+  <g fill="none" stroke="#F4ECE6" stroke-width="10" stroke-linecap="round"><path d="M-10 300C120 280 220 250 320 240s220 0 340-30"/><path d="M180 -10c20 120 40 220 60 300s30 140 30 200"/></g>
+  <g fill="none" stroke="#F4ECE6" stroke-width="4"><path d="M-10 120c120 20 220 60 330 110"/><path d="M420 -10c-20 100-50 180-100 240"/><path d="M320 240c30 80 80 160 150 250"/><path d="M60 480c60-80 140-150 260-240"/></g>
+  <!-- A-49 -->
+  <path d="M-10 360C140 340 260 320 380 330s200 30 270 20" fill="none" stroke="#CFC6BA" stroke-width="16"/>
+  <text x="520" y="336" font-family="Epilogue, sans-serif" font-size="12" font-weight="600" fill="#6E6164" letter-spacing="2">A-49</text>
+  <!-- river -->
+  <path d="M600 -10c-40 120 0 220-30 320s-10 140 20 180" fill="none" stroke="#C9B9BC" stroke-width="22" opacity=".7"/>
+  <g font-family="Epilogue, sans-serif" font-size="12" fill="#6E6164" letter-spacing="2">
+    <text x="440" y="250">SEVILLA →</text>
+    <text x="70" y="214">ESPARTINAS</text>
+    <text x="300" y="420">BORMUJOS</text>
+    <text x="250" y="80">VALENCINA</text>
+  </g>
+  <g fill="#CFC6BA"><circle cx="110" cy="230" r="5"/><circle cx="340" cy="400" r="5"/><circle cx="290" cy="96" r="5"/></g>
+  <!-- Gines -->
+  <circle cx="320" cy="240" r="70" fill="#B0102E" opacity=".1"/>
+  <circle cx="320" cy="240" r="40" fill="#B0102E" opacity=".15"/>
+  <path d="M320 248c-20-26-30-40-30-56a30 30 0 0 1 60 0c0 16-10 30-30 56z" transform="translate(0 -10)" fill="#B0102E"/>
+  <circle cx="320" cy="172" r="10" fill="#F4ECE6"/>
+  <rect x="250" y="252" width="140" height="44" fill="#1B1416"/>
+  <text x="320" y="272" text-anchor="middle" font-family="Didot, Georgia, serif" font-size="16" fill="#F4ECE6">Carmen Soto</text>
+  <text x="320" y="288" text-anchor="middle" font-family="Epilogue, sans-serif" font-size="10" letter-spacing="3" fill="#E9C9C1">GINES</text>
+  <g transform="translate(40 40)"><circle r="18" fill="none" stroke="#1B1416"/><path d="M0-14l5 14H-5z" fill="#B0102E"/><text y="34" text-anchor="middle" font-family="Epilogue, sans-serif" font-size="10" fill="#1B1416">N</text></g>
+</svg>

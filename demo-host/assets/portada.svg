@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 700" role="img" aria-label="Melena ondulada ilustrada">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EBCFC7"/><stop offset="1" stop-color="#E2B9AF"/></linearGradient>
+    <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C2183A"/><stop offset=".55" stop-color="#9A0E28"/><stop offset="1" stop-color="#5E0718"/></linearGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F2DCD3"/><stop offset="1" stop-color="#E7C6BA"/></linearGradient>
+  </defs>
+  <rect width="560" height="700" fill="url(#bg)"/>
+  <circle cx="300" cy="300" r="214" fill="#F4ECE6" opacity=".55"/>
+  <g fill="none" stroke="#B0102E" stroke-width="1" opacity=".35">
+    <circle cx="300" cy="300" r="240"/><circle cx="300" cy="300" r="262"/>
+  </g>
+  <!-- hair back mass -->
+  <path d="M206 168c34-62 132-86 196-44 66 44 74 128 58 196-12 52 8 92 34 132 30 46 26 108-18 150-34 32-80 40-118 98H190c22-50 6-96-22-132-30-40-44-86-28-140 14-48 36-82 28-128-4-26 14-50 38-32z" fill="url(#hair)"/>
+  <!-- neck + shoulders -->
+  <path d="M262 470c6 40 2 74-12 104-30 18-74 30-118 44-34 12-58 40-66 82h388c-6-46-38-74-82-90-40-14-76-26-96-48-10-30-12-62-8-96z" fill="url(#skin)"/>
+  <path d="M66 700c10-46 40-72 84-86 34-10 72-22 100-38" fill="none" stroke="#1B1416" stroke-width="2"/>
+  <!-- face profile looking left -->
+  <path d="M300 196c-46 0-84 32-90 80-2 18-14 30-24 44-6 8-2 14 8 16l8 2c-4 10-2 18 6 22-4 8 0 16 8 18-4 18 6 36 30 40 28 4 52 16 66 34 26-14 44-48 46-92 4-82-12-164-58-164z" fill="url(#skin)"/>
+  <path d="M210 276c-2 18-14 30-24 44-6 8-2 14 8 16l8 2c-4 10-2 18 6 22-4 8 0 16 8 18-4 18 6 36 30 40" fill="none" stroke="#1B1416" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M222 268c8-6 18-8 28-4" fill="none" stroke="#1B1416" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M226 284c6 3 12 3 18 0" fill="none" stroke="#1B1416" stroke-width="2" stroke-linecap="round"/>
+  <path d="M206 384c6 2 12 2 18-2" fill="none" stroke="#B0102E" stroke-width="5" stroke-linecap="round"/>
+  <!-- hair front sweep -->
+  <path d="M212 236c20-58 80-86 140-70 56 16 86 70 80 136-6 62-46 98-44 150 2 46 34 76 30 120-4 40-34 66-70 82 18-40 22-78 4-112-18-34-40-60-36-104 4-44 26-80 10-120-14-34-56-58-114-82z" fill="#7A0A20"/>
+  <g fill="none" stroke="#E9C9C1" stroke-width="2" stroke-linecap="round" opacity=".6">
+    <path d="M250 200c48-18 104 0 124 50 20 52-10 96-12 142-2 50 30 80 24 132"/>
+    <path d="M286 186c40 6 70 34 76 74"/>
+    <path d="M392 330c-8 48 6 82 30 118 22 34 22 74-2 106"/>
+    <path d="M190 470c18 30 22 64 10 100"/>
+    <path d="M180 360c-8 34-4 64 14 92"/>
+  </g>
+  <!-- earring -->
+  <circle cx="318" cy="352" r="9" fill="none" stroke="#F4ECE6" stroke-width="3"/>
+  <!-- sparkle -->
+  <g fill="#F4ECE6"><path d="M112 140l6 18 18 6-18 6-6 18-6-18-18-6 18-6z"/><path d="M468 110l4 11 11 4-11 4-4 11-4-11-11-4 11-4z"/></g>
+</svg>
