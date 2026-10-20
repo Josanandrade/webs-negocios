@@ -2,15 +2,350 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>Global Soluciones Inmobiliarias · Comprar, vender y alquilar en Umbrete y el Aljarafe</title>
+  <meta name="description" content="Inmobiliaria en Umbrete (Sevilla). Compra, venta y alquiler de viviendas, terrenos, naves y locales en el Aljarafe, con valoración, financiación y acompañamiento hasta la firma.">
+  <meta name="theme-color" content="#121A22">
+  <meta property="og:title" content="Global Soluciones Inmobiliarias · Umbrete">
+  <meta property="og:description" content="Compra, vende o alquila en el Aljarafe con un solo equipo.">
+  <meta property="og:image" content="assets/og.svg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=Martian+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip" href="#inmuebles">Saltar al contenido</a>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 18V7m0 6h18v5M21 13a3 3 0 0 0-3-3h-7v3M7 11.5a1.5 1.5 0 1 0 0-.01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-bath" viewBox="0 0 24 24"><path d="M4 12h16v2a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM6 12V6a2 2 0 0 1 4 0M7 19l-1 2m11-2 1 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-area" viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h5M15 4v5m5 6h-5m-6 5v-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9.5" r="2.5" fill="currentColor"/></symbol>
+      <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 5h18v14H3zM3 6l9 7 9-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-logo" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="3"/><path d="M3.5 24h41M24 3c-7 6-7 36 0 42M24 3c7 6 7 36 0 42" fill="none" stroke="currentColor" stroke-width="2" opacity=".45"/><path d="M13 27 24 17l11 10v9H13z" fill="var(--jade)"/><path d="M21 36v-6h6v6" fill="var(--ink)"/></symbol>
+    </defs>
+  </svg>
+
+  <header class="nav" id="top">
+    <div class="wrap nav-in">
+      <a class="brand" href="#top" aria-label="Global Soluciones Inmobiliarias, inicio">
+        <svg class="brand-mark"><use href="#i-logo"/></svg>
+        <span class="brand-txt"><b>GLOBAL</b><small>Soluciones Inmobiliarias</small></span>
+      </a>
+      <nav class="menu" id="menu" aria-label="Principal">
+        <a href="#inmuebles">Inmuebles</a>
+        <a href="#vender">Vender</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#financiacion">Financiación</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+        <a class="menu-cta" href="#vender">Valorar mi vivienda</a>
+      </nav>
+      <a class="nav-tel" data-tel href="tel:+34654700166"><svg><use href="#i-phone"/></svg><span data-tel-text>654 700 166</span></a>
+      <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+    </div>
+  </header>
+
   <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="dot"></span> Inmobiliaria en Umbrete · Aljarafe sevillano</p>
+          <h1>Compra, vende o alquila <em>con un solo equipo</em>.</h1>
+          <p class="lead">Viviendas, terrenos, naves y locales en Umbrete y alrededores. Nos ocupamos de toda la operación: valoración, publicación, visitas, financiación y firma.</p>
+
+          <form class="search" id="search" role="search" aria-label="Buscar inmuebles">
+            <div class="search-tabs" role="tablist" aria-label="¿Qué buscas?">
+              <span class="search-q">¿Qué buscas?</span>
+              <button type="button" role="tab" class="on" aria-selected="true" data-op="Venta">Comprar</button>
+              <button type="button" role="tab" aria-selected="false" data-op="Alquiler">Alquilar</button>
+            </div>
+            <div class="search-fields">
+              <label><span>Tipo de inmueble</span>
+                <select name="tipo" id="f-tipo"><option value="">Todos</option></select></label>
+              <label><span>Localidad / zona</span>
+                <select name="zona" id="f-zona"><option value="">Todas</option></select></label>
+              <label><span>Precio máximo</span>
+                <select name="precio" id="f-precio"></select></label>
+              <button class="btn btn-jade search-go" type="submit">Buscar inmuebles <svg><use href="#i-arrow"/></svg></button>
+            </div>
+          </form>
+        </div>
+
+        <div class="hero-ring" aria-hidden="true">
+          <svg viewBox="0 0 400 400" class="ring">
+            <circle cx="200" cy="200" r="150" class="ring-track"/>
+            <g class="ring-segs"></g>
+            <circle cx="200" cy="200" r="92" class="ring-core"/>
+            <text x="200" y="192" class="ring-big" text-anchor="middle">360°</text>
+            <text x="200" y="222" class="ring-small" text-anchor="middle">GESTIÓN INTEGRAL</text>
+          </svg>
+          <p class="ring-cap" id="ringCap">Un mismo equipo para toda la operación.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section class="process" aria-label="Cómo trabajamos">
+      <div class="wrap">
+        <ol class="steps">
+          <li><b>01</b><span>Valoración</span><small>Precio realista según la zona</small></li>
+          <li><b>02</b><span>Publicación</span><small>Fotos, ficha y difusión</small></li>
+          <li><b>03</b><span>Visitas</span><small>Filtramos y acompañamos</small></li>
+          <li><b>04</b><span>Financiación</span><small>Te ayudamos con la hipoteca</small></li>
+          <li><b>05</b><span>Firma</span><small>Contrato, arras y notaría</small></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- DESTACADOS -->
+    <section class="sec" id="destacados">
+      <div class="wrap">
+        <div class="sec-head">
+          <div>
+            <p class="kicker">Selección de la agencia</p>
+            <h2>Inmuebles destacados</h2>
+          </div>
+          <div class="car-ctrl">
+            <button class="ctrl" data-dir="-1" aria-label="Anterior"><svg style="transform:rotate(180deg)"><use href="#i-arrow"/></svg></button>
+            <button class="ctrl" data-dir="1" aria-label="Siguiente"><svg><use href="#i-arrow"/></svg></button>
+          </div>
+        </div>
+        <div class="featured" id="featured"></div>
+      </div>
+    </section>
+
+    <!-- CARTERA -->
+    <section class="sec sec-alt" id="inmuebles">
+      <div class="wrap">
+        <div class="sec-head">
+          <div>
+            <p class="kicker">Cartera</p>
+            <h2>Todos los inmuebles</h2>
+          </div>
+          <p class="result" id="result" aria-live="polite"></p>
+        </div>
+        <div class="chips" id="chips" role="group" aria-label="Filtrar por tipo"></div>
+        <div class="grid" id="grid"></div>
+        <div class="empty" id="empty" hidden>
+          <p><b>No tenemos ahora mismo nada con esos filtros.</b> Cuéntanos qué buscas y te avisamos en cuanto entre algo parecido.</p>
+          <div class="row"><button class="btn btn-ghost" id="clear" type="button">Quitar filtros</button>
+          <a class="btn btn-jade" data-wa="Hola, estoy buscando un inmueble y no he encontrado lo que quiero en la web. ¿Me avisáis si entra algo?" href="#"><svg><use href="#i-wa"/></svg> Avísame por WhatsApp</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ZONAS -->
+    <section class="sec zones" id="zonas">
+      <div class="wrap zones-grid">
+        <div>
+          <p class="kicker">Dónde trabajamos</p>
+          <h2>Umbrete y todo el Aljarafe</h2>
+          <p class="muted">Desde nuestra oficina en Umbrete llevamos operaciones en los pueblos de alrededor y en Sevilla capital. Toca una localidad para ver lo que tenemos allí.</p>
+          <ul class="zone-list" id="zoneList"></ul>
+        </div>
+        <figure class="map">
+          <svg viewBox="0 0 640 420" id="zoneMap" role="img" aria-label="Esquema de las localidades donde trabaja la agencia">
+            <path class="map-river" d="M600 20 C560 120 540 160 548 230 S590 340 560 410"/>
+            <g id="mapRoads" class="map-road"></g>
+            <g id="mapNodes"></g>
+          </svg>
+          <figcaption>Esquema orientativo, no a escala.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- PROPIETARIOS -->
+    <section class="owners" id="vender">
+      <div class="wrap owners-grid">
+        <div class="owners-copy">
+          <div class="seg" role="tablist" aria-label="¿Qué quieres hacer con tu inmueble?">
+            <button type="button" role="tab" class="on" aria-selected="true" data-mode="vender">Quiero vender</button>
+            <button type="button" role="tab" aria-selected="false" data-mode="alquilar">Quiero alquilar</button>
+          </div>
+          <h2 data-mode-text="vender">¿Quieres vender tu vivienda?</h2>
+          <h2 data-mode-text="alquilar" hidden>¿Quieres alquilar tu propiedad?</h2>
+          <p class="lead" data-mode-text="vender">Te decimos cuánto vale de verdad en tu zona, la preparamos para salir al mercado y nos encargamos de visitas, negociación, papeles y firma. Tú decides cada paso.</p>
+          <p class="lead" data-mode-text="alquilar" hidden>Buscamos inquilino, revisamos su solvencia, preparamos el contrato y estamos pendientes de la entrega de llaves. Tú solo tienes que decidir.</p>
+          <ul class="ticks">
+            <li data-mode-text="vender"><svg><use href="#i-check"/></svg> Valoración sin compromiso, en persona</li>
+            <li data-mode-text="vender"><svg><use href="#i-check"/></svg> Solo enseñamos tu casa a compradores con interés real</li>
+            <li data-mode-text="vender"><svg><use href="#i-check"/></svg> Te ayudamos con la documentación y la notaría</li>
+            <li data-mode-text="alquilar" hidden><svg><use href="#i-check"/></svg> Precio de alquiler acorde a la zona</li>
+            <li data-mode-text="alquilar" hidden><svg><use href="#i-check"/></svg> Estudio de solvencia del inquilino</li>
+            <li data-mode-text="alquilar" hidden><svg><use href="#i-check"/></svg> Contrato, inventario y entrega de llaves</li>
+          </ul>
+        </div>
+        <form class="card form" id="valoracion" novalidate>
+          <p class="form-title" data-mode-text="vender">Solicitar valoración</p>
+          <p class="form-title" data-mode-text="alquilar" hidden>Quiero alquilar mi propiedad</p>
+          <label><span>Nombre</span><input name="nombre" autocomplete="name" required></label>
+          <div class="two">
+            <label><span>Teléfono</span><input name="telefono" type="tel" inputmode="tel" autocomplete="tel" required></label>
+            <label><span>Email</span><input name="email" type="email" autocomplete="email"></label>
+          </div>
+          <div class="two">
+            <label><span>Localidad</span><select name="localidad" id="v-zona" required><option value="">Elige…</option></select></label>
+            <label><span>Tipo de inmueble</span><select name="tipo" id="v-tipo" required><option value="">Elige…</option></select></label>
+          </div>
+          <button class="btn btn-jade btn-block" type="submit"><span data-mode-text="vender">Quiero valorar mi vivienda</span><span data-mode-text="alquilar" hidden>Quiero alquilar mi propiedad</span></button>
+          <p class="fine">Te llamamos para concertar la visita. Sin compromiso.</p>
+          <div class="ok" hidden><svg><use href="#i-check"/></svg><p><b>Solicitud recibida.</b> Te llamaremos lo antes posible. Si lo prefieres, <a data-wa-from-form href="#">mándanos también un WhatsApp</a>.</p></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="sec" id="servicios">
+      <div class="wrap">
+        <div class="sec-head"><div><p class="kicker">Servicios</p><h2>Todo lo que necesitas, en la misma oficina</h2></div></div>
+        <div class="services">
+          <article><span class="svc-n">A</span><h3>Compra y venta</h3><p>Viviendas, chalets, pisos y casas de pueblo. Te acompañamos desde la primera visita hasta la notaría.</p></article>
+          <article><span class="svc-n">B</span><h3>Alquiler</h3><p>Buscamos inquilino o vivienda de alquiler, con contrato y estudio de solvencia.</p></article>
+          <article><span class="svc-n">C</span><h3>Valoración de inmuebles</h3><p>Un precio realista según lo que se está vendiendo de verdad en tu calle y en tu pueblo.</p></article>
+          <article><span class="svc-n">D</span><h3>Terrenos, naves y locales</h3><p>Solares, parcelas, naves y locales comerciales para invertir o para tu negocio.</p></article>
+          <article><span class="svc-n">E</span><h3>Asesoramiento y financiación</h3><p>Te orientamos con la hipoteca y los números de la operación antes de comprometerte.</p></article>
+          <article><span class="svc-n">F</span><h3>Marketing inmobiliario</h3><p>Fotos cuidadas, ficha completa y difusión en web y portales para que tu inmueble se vea bien.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINANCIACIÓN -->
+    <section class="sec sec-alt" id="financiacion">
+      <div class="wrap fin-grid">
+        <div>
+          <p class="kicker">Financiación</p>
+          <h2>¿Cuánto pagarías al mes?</h2>
+          <p class="muted">Calcula una cuota orientativa antes de visitar. Después te ayudamos a estudiar la financiación real con tu banco.</p>
+        </div>
+        <div class="card calc">
+          <label><span>Precio de la vivienda <output id="c-precio-o"></output></span><input type="range" id="c-precio" min="50000" max="600000" step="5000" value="214000"></label>
+          <label><span>Ahorro aportado <output id="c-entrada-o"></output></span><input type="range" id="c-entrada" min="0" max="100" step="5" value="20"></label>
+          <label><span>Plazo <output id="c-plazo-o"></output></span><input type="range" id="c-plazo" min="10" max="40" step="1" value="30"></label>
+          <label><span>Interés anual <output id="c-tipo-o"></output></span><input type="range" id="c-tipo" min="1" max="6" step="0.1" value="3"></label>
+          <div class="calc-out"><span>Cuota estimada</span><b id="c-cuota">–</b><small>Cálculo orientativo. No incluye impuestos ni gastos de compra.</small></div>
+          <a class="btn btn-ink btn-block" data-wa="Hola, me gustaría que me ayudarais a estudiar la financiación para comprar una vivienda." href="#">Quiero que me ayudéis con la hipoteca</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOSOTROS -->
+    <section class="sec about" id="nosotros">
+      <div class="wrap about-grid">
+        <div class="about-card">
+          <svg class="about-mark"><use href="#i-logo"/></svg>
+          <p class="about-addr"><svg><use href="#i-pin"/></svg> Av. de los Poetas, 31 · Umbrete</p>
+        </div>
+        <div>
+          <p class="kicker">Sobre nosotros</p>
+          <h2>Una agencia de Umbrete que se mueve por todo el Aljarafe</h2>
+          <p>Somos una inmobiliaria con oficina en Umbrete. Conocemos los pueblos en los que trabajamos, sus calles y lo que se está pagando en cada zona, y eso es lo que te trasladamos cuando vas a comprar, vender o alquilar.</p>
+          <p>Nos gusta llevar cada operación de forma individual, con trato directo y sin sorpresas: te explicamos los pasos, los plazos y los gastos antes de empezar.</p>
+          <ul class="values">
+            <li><b>Transparencia</b><span>Precios y condiciones claros desde el primer día.</span></li>
+            <li><b>Responsabilidad</b><span>Cada operación, con una persona que responde.</span></li>
+            <li><b>Visión completa</b><span>Lo inmobiliario y lo financiero, juntos.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL (propuesta) -->
+    <section class="panel-pitch" id="panel">
+      <div class="wrap pitch-grid">
+        <div>
+          <p class="kicker kicker-light">Para la agencia</p>
+          <h2>Gestiona tus inmuebles desde tu propio panel</h2>
+          <p>Publica una vivienda, modifica su precio o cambia su estado a reservada, vendida o alquilada desde un panel privado. Los cambios se reflejan automáticamente en tu web.</p>
+          <a class="btn btn-jade" href="admin-demo/">Ver cómo gestionarías tus inmuebles <svg><use href="#i-arrow"/></svg></a>
+        </div>
+        <a class="pitch-mock" href="admin-demo/" aria-label="Abrir la vista demo del panel de gestión">
+          <div class="pm-bar"><i></i><i></i><i></i><span>Panel de gestión</span></div>
+          <div class="pm-stats"><b><em>12</em>publicados</b><b><em>8</em>disponibles</b><b><em>2</em>reservados</b></div>
+          <div class="pm-row"><span class="pm-th" style="background-image:url(assets/inmuebles/gs101-1.svg)"></span><span>Chalet independiente con piscina<small>389.000 € · Venta</small></span><em class="st st-Disponible">Disponible</em></div>
+          <div class="pm-row"><span class="pm-th" style="background-image:url(assets/inmuebles/gs104-1.svg)"></span><span>Casa de pueblo reformada<small>168.000 € · Venta</small></span><em class="st st-Reservado">Reservado</em></div>
+          <div class="pm-row"><span class="pm-th" style="background-image:url(assets/inmuebles/gs107-1.svg)"></span><span>Pareado con jardín y piscina<small>1.250 €/mes · Alquiler</small></span><em class="st st-Alquilado">Alquilado</em></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="sec" id="contacto">
+      <div class="wrap contact-grid">
+        <div>
+          <p class="kicker">Contacto</p>
+          <h2>Hablemos de tu próxima operación</h2>
+          <ul class="contact-list">
+            <li><svg><use href="#i-phone"/></svg><div><small>Teléfono</small><a data-tel href="tel:+34654700166"><span data-tel-text>654 700 166</span></a></div></li>
+            <li><svg><use href="#i-wa"/></svg><div><small>WhatsApp</small><a data-wa="Hola, os escribo desde vuestra web." href="#">Escríbenos por WhatsApp</a></div></li>
+            <li><svg><use href="#i-mail"/></svg><div><small>Email</small><a href="mailto:globalsoluciones2010@gmail.com">globalsoluciones2010@gmail.com</a></div></li>
+            <li><svg><use href="#i-pin"/></svg><div><small>Oficina</small><a data-maps href="#" target="_blank" rel="noopener">Av. de los Poetas, 31 · 41806 Umbrete (Sevilla)</a></div></li>
+          </ul>
+          <p class="muted small">Zona de trabajo: Umbrete, Espartinas, Bormujos, Benacazón, Villanueva del Ariscal, Bollullos de la Mitación, Almensilla, Sanlúcar la Mayor, Gines, Tomares y Sevilla.</p>
+        </div>
+        <div class="contact-side">
+          <form class="card form" id="contactForm" novalidate>
+            <p class="form-title">Escríbenos</p>
+            <div class="two">
+              <label><span>Nombre</span><input name="nombre" autocomplete="name" required></label>
+              <label><span>Teléfono</span><input name="telefono" type="tel" inputmode="tel" autocomplete="tel" required></label>
+            </div>
+            <label><span>¿En qué te ayudamos?</span>
+              <select name="motivo"><option>Quiero comprar</option><option>Quiero alquilar</option><option>Quiero vender</option><option>Quiero poner en alquiler</option><option>Otra consulta</option></select></label>
+            <label><span>Mensaje</span><textarea name="mensaje" rows="3"></textarea></label>
+            <button class="btn btn-ink btn-block" type="submit">Enviar mensaje</button>
+            <div class="ok" hidden><svg><use href="#i-check"/></svg><p><b>Mensaje enviado.</b> Te respondemos en cuanto podamos.</p></div>
+          </form>
+          <a class="office" data-maps href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 400 160" aria-hidden="true">
+              <rect width="400" height="160" fill="var(--paper-2)"/>
+              <path d="M0 98 H400 M210 0 V160 M0 30 L400 150" stroke="var(--line)" stroke-width="14"/>
+              <path d="M0 98 H400 M210 0 V160" stroke="#fff" stroke-width="2" stroke-dasharray="8 8"/>
+              <circle cx="232" cy="78" r="26" fill="var(--jade)" opacity=".18"/>
+              <path d="M232 92s-14-12-14-22a14 14 0 0 1 28 0c0 10-14 22-14 22z" fill="var(--jade)"/>
+              <circle cx="232" cy="70" r="5" fill="#fff"/>
+            </svg>
+            <span>Cómo llegar a la oficina <svg><use href="#i-arrow"/></svg></span>
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="foot">
+    <div class="wrap foot-grid">
+      <div>
+        <a class="brand brand-light" href="#top"><svg class="brand-mark"><use href="#i-logo"/></svg><span class="brand-txt"><b>GLOBAL</b><small>Soluciones Inmobiliarias</small></span></a>
+        <p>Compra, venta y alquiler en Umbrete y el Aljarafe.</p>
+      </div>
+      <nav aria-label="Pie">
+        <a href="#inmuebles">Inmuebles</a><a href="#vender">Vender mi vivienda</a><a href="#servicios">Servicios</a><a href="#financiacion">Financiación</a><a href="#contacto">Contacto</a>
+      </nav>
+      <div class="foot-c">
+        <a data-tel href="tel:+34654700166"><span data-tel-text>654 700 166</span></a>
+        <a href="mailto:globalsoluciones2010@gmail.com">globalsoluciones2010@gmail.com</a>
+        <span>Av. de los Poetas, 31 · Umbrete</span>
+      </div>
+    </div>
+    <div class="wrap foot-bottom">
+      <span>© Global Soluciones Inmobiliarias</span>
+      <span>Inmuebles e imágenes de demostración · <a href="admin-demo/">Acceso gestión</a></span>
+    </div>
+  </footer>
+
+  <a class="fab" data-wa="Hola, os escribo desde vuestra web." href="#" aria-label="Escribir por WhatsApp"><svg><use href="#i-wa"/></svg><span>WhatsApp</span></a>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
