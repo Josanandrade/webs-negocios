@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" role="img" aria-label="Ilustración de arreglo de barba">
+<rect width="300" height="300" fill="#F0A21A"/>
+<circle cx="150" cy="150" r="118" fill="none" stroke="#F0A21A" stroke-opacity=".35" stroke-width="2" stroke-dasharray="4 8"/>
+<path d="M92 92c0-34 24-56 56-56s52 24 52 58c0 14-3 24-8 33l10 18c2 4 0 7-4 8l-8 2v14c0 9-7 15-16 15h-14v26H112v-34c-13-10-20-27-20-48z" fill="#E9E5DB"/><circle cx="160" cy="104" r="4" fill="#16181B"/><path d="M118 120c4 0 7 3 7 7s-3 7-7 7" stroke="#B9B3A5" stroke-width="4" fill="none"/>
+<path d="M92 92c0-36 24-58 58-58 28 0 46 14 52 34-20-6-50-6-76 0-16 4-28 12-34 24z" fill="#16181B"/>
+<path d="M112 140c10 22 26 38 46 40h20c9 0 16-6 16-15v-14l-12-2c-8 6-20 8-34 6-14-2-26-8-36-15z" fill="#2A2D31"/><path d="M150 168h30" stroke="#5B6066" stroke-width="3"/><g transform="translate(40 200) rotate(-20)"><rect width="70" height="10" rx="3" fill="#16181B"/><rect x="66" y="-1" width="34" height="12" rx="2" fill="#E9E5DB"/></g>
+</svg>

@@ -4,13 +4,353 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>Peluquería Rafael Lobo · Gines</title>
+  <meta name="description" content="Peluquería de caballeros en Gines. Corte de pelo y barba en la calle Romero Ressendi. Pide tu turno por WhatsApp o teléfono.">
+  <meta name="theme-color" content="#16181B">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Courier+Prime:wght@400;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <header class="top" id="top">
+    <a class="brand" href="#inicio" aria-label="Peluquería Rafael Lobo, inicio">
+      <img src="favicon.svg" alt="" width="34" height="34">
+      <span>Rafael <b>Lobo</b></span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a href="#servicios">Servicios</a>
+      <a href="#sillon">El sillón</a>
+      <a href="#galeria">Galería</a>
+      <a href="#opiniones">Opiniones</a>
+      <a href="#ubicacion">Dónde estamos</a>
+    </nav>
+    <a class="btn btn-amber btn-sm" href="#turno">Pedir turno</a>
+    <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
+  </header>
+
   <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <p class="kicker"><span class="dot"></span> Peluquería de caballeros · Gines</p>
+        <h1 class="hero-title">
+          <span class="t-small">Rafael</span>
+          <span class="t-big">Lobo</span>
+        </h1>
+        <p class="lead">Corte de pelo y arreglo de barba en la calle Romero Ressendi. Sin prisas, con buena mano y con el mismo cuidado el primer día que el décimo.</p>
+        <div class="hero-cta">
+          <a class="btn btn-amber" data-wa href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.1 1.4 1.8 1 .9 1.8 1.1 2 1.3.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z" fill="currentColor"/></svg>
+            Pedir turno por WhatsApp
+          </a>
+          <a class="btn btn-ghost" data-tel href="#">Llamar al salón</a>
+        </div>
+        <ul class="hero-facts">
+          <li><b>Corte</b><span>de caballero</span></li>
+          <li><b>Barba</b><span>arreglo y perfilado</span></li>
+          <li><b>Gines</b><span>C. Romero Ressendi, 1</span></li>
+        </ul>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <div class="moon">
+          <img src="assets/lobo.svg" alt="" class="wolf">
+        </div>
+        <div class="ticket" aria-hidden="true">
+          <div class="ticket-head">
+            <span>TURNO</span><span class="ticket-num" id="ticketNum">07</span>
+          </div>
+          <div class="ticket-row"><span>Servicio</span><b>Corte + barba</b></div>
+          <div class="ticket-row"><span>Sillón</span><b>Rafael</b></div>
+          <div class="ticket-row"><span>Aviso</span><b>Por WhatsApp</b></div>
+          <div class="ticket-cut"></div>
+          <p class="ticket-foot">Peluquería Rafael Lobo · Gines</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Corte de caballero</span><i>✦</i><span>Arreglo de barba</span><i>✦</i><span>Degradado</span><i>✦</i><span>Repaso a navaja</span><i>✦</i><span>Gines · Sevilla</span><i>✦</i>
+        <span>Corte de caballero</span><i>✦</i><span>Arreglo de barba</span><i>✦</i><span>Degradado</span><i>✦</i><span>Repaso a navaja</span><i>✦</i><span>Gines · Sevilla</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- SERVICIOS -->
+    <section class="section services" id="servicios">
+      <div class="sec-head">
+        <p class="eyebrow">01 · Servicios</p>
+        <h2>Lo que se hace en el sillón</h2>
+        <p class="sec-sub">Pocos servicios, bien hechos. Pregunta el precio o el hueco que te viene mejor y te contestamos por WhatsApp.</p>
+      </div>
+      <div class="svc-grid">
+        <article class="svc svc-main">
+          <span class="svc-n">A</span>
+          <h3>Corte de pelo de caballero</h3>
+          <p>Tijera, máquina o mezcla de las dos. Se habla antes de empezar: cómo lo llevas, cómo lo peinas y cuánto quieres que te dure.</p>
+          <a class="svc-link" data-wa-service="Corte de pelo" href="#">Pedir este servicio →</a>
+        </article>
+        <article class="svc">
+          <span class="svc-n">B</span>
+          <h3>Corte y arreglo de barba</h3>
+          <p>Recorte, forma y perfilado de líneas para que la barba quede limpia y a tu medida.</p>
+          <a class="svc-link" data-wa-service="Arreglo de barba" href="#">Pedir este servicio →</a>
+        </article>
+        <article class="svc">
+          <span class="svc-n">C</span>
+          <h3>Corte + barba</h3>
+          <p>El servicio completo en una sola visita: sales con el pelo y la barba en el mismo punto.</p>
+          <a class="svc-link" data-wa-service="Corte + barba" href="#">Pedir este servicio →</a>
+        </article>
+        <article class="svc">
+          <span class="svc-n">D</span>
+          <h3>Degradados</h3>
+          <p>Del degradado bajo y discreto al más marcado, con transición limpia y nuca bien acabada.</p>
+          <a class="svc-link" data-wa-service="Degradado" href="#">Pedir este servicio →</a>
+        </article>
+        <article class="svc">
+          <span class="svc-n">E</span>
+          <h3>Corte infantil</h3>
+          <p>Para los más pequeños de la casa, con paciencia y sin sustos.</p>
+          <a class="svc-link" data-wa-service="Corte infantil" href="#">Pedir este servicio →</a>
+        </article>
+      </div>
+      <p class="svc-note">Precios en el salón o por WhatsApp.</p>
+    </section>
+
+    <!-- EL SILLÓN (sección principal) -->
+    <section class="section chair" id="sillon">
+      <div class="chair-inner">
+        <div class="sec-head light">
+          <p class="eyebrow">02 · Peluquería de caballeros</p>
+          <h2>Así es un corte en el sillón de Rafael</h2>
+        </div>
+        <ol class="steps">
+          <li>
+            <span class="step-n">1</span>
+            <h3>Hablamos</h3>
+            <p>Cómo lo llevas ahora, qué te molesta y qué quieres. Dos minutos que ahorran sorpresas.</p>
+          </li>
+          <li>
+            <span class="step-n">2</span>
+            <h3>Cortamos</h3>
+            <p>Máquina y tijera a tu gusto. Sin correr, aunque haya gente esperando.</p>
+          </li>
+          <li>
+            <span class="step-n">3</span>
+            <h3>Repasamos</h3>
+            <p>Patillas, nuca y contorno bien definidos. Si hay barba, la dejamos a juego.</p>
+          </li>
+          <li>
+            <span class="step-n">4</span>
+            <h3>Te vas listo</h3>
+            <p>Peinado y un consejo para que el corte te dure hasta la próxima visita.</p>
+          </li>
+        </ol>
+        <div class="chair-quote">
+          <p>«Un buen corte no es el que se nota el primer día. Es el que sigue bien a las tres semanas.»</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="section gallery" id="galeria">
+      <div class="sec-head">
+        <p class="eyebrow">03 · Galería</p>
+        <h2>Estilos que salen del salón</h2>
+        <p class="sec-sub">Este espacio está pensado para los trabajos reales del salón: un antes y después, un degradado recién hecho, una barba perfilada.</p>
+      </div>
+      <div class="gal-grid">
+        <figure class="gal g1"><img src="assets/degradado.svg" alt="Ilustración de un corte degradado"><figcaption>Degradado</figcaption></figure>
+        <figure class="gal g2"><img src="assets/barba.svg" alt="Ilustración de un arreglo de barba"><figcaption>Barba perfilada</figcaption></figure>
+        <figure class="gal g3"><img src="assets/clasico.svg" alt="Ilustración de un corte clásico con raya"><figcaption>Clásico con raya</figcaption></figure>
+        <figure class="gal g4"><img src="assets/infantil.svg" alt="Ilustración de un corte infantil"><figcaption>Corte infantil</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="section about" id="sobre">
+      <div class="about-grid">
+        <div class="about-sign" aria-hidden="true">
+          <div class="sign">
+            <span class="sign-top">Peluquería</span>
+            <span class="sign-name">Rafael Lobo</span>
+            <span class="sign-bot">Gines</span>
+          </div>
+          <div class="pole"><span></span></div>
+        </div>
+        <div class="about-copy">
+          <p class="eyebrow">04 · El salón</p>
+          <h2>Una peluquería de barrio, con nombre y apellido</h2>
+          <p>Peluquería Rafael Lobo está en la calle Romero Ressendi, en Gines. Es de esos sitios a los que se vuelve porque te conocen: sabes quién te va a cortar y él sabe cómo te gusta.</p>
+          <p>Aquí no hay cadenas ni turnos con número de serie. Hay un sillón, buenas herramientas y la costumbre de hacer las cosas bien, desde el primer corte del niño hasta el arreglo de barba de los sábados.</p>
+          <ul class="about-list">
+            <li>Corte y barba para hombre</li>
+            <li>Trato cercano y de confianza</li>
+            <li>Turno por WhatsApp o llamada</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPINIONES -->
+    <section class="section reviews" id="opiniones">
+      <div class="sec-head">
+        <p class="eyebrow">05 · Opiniones</p>
+        <h2>Lo que dicen los clientes</h2>
+        <p class="rating" id="rating" hidden><span class="stars">★★★★★</span> <b id="ratingValue"></b> <span id="ratingSource"></span></p>
+      </div>
+      <div class="rev-grid">
+        <blockquote class="rev">
+          <p>«Me corto con Rafael desde hace tiempo y siempre salgo como quiero. Buen trato y sin esperas raras.»</p>
+          <footer><span class="rev-name">Cliente del salón</span><span class="rev-tag">Reseña de ejemplo</span></footer>
+        </blockquote>
+        <blockquote class="rev rev-amber">
+          <p>«El degradado perfecto y la barba igual. Le mandé un WhatsApp por la mañana y me dio hueco esa tarde.»</p>
+          <footer><span class="rev-name">Cliente del salón</span><span class="rev-tag">Reseña de ejemplo</span></footer>
+        </blockquote>
+        <blockquote class="rev">
+          <p>«Llevo a mi hijo y tiene una paciencia enorme con él. Peluquería de las de siempre, de confianza.»</p>
+          <footer><span class="rev-name">Cliente del salón</span><span class="rev-tag">Reseña de ejemplo</span></footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- CTA TURNO -->
+    <section class="section turno" id="turno">
+      <div class="turno-card">
+        <div class="turno-copy">
+          <p class="eyebrow">06 · Pide tu turno</p>
+          <h2>Elige y pide tu hueco</h2>
+          <p>Marca qué quieres y cuándo te viene mejor. Se abre WhatsApp con el mensaje ya escrito, solo tienes que enviarlo.</p>
+        </div>
+        <form class="turno-form" id="turnoForm">
+          <fieldset>
+            <legend>Servicio</legend>
+            <div class="chips" data-group="servicio">
+              <button type="button" class="chip is-on">Corte de pelo</button>
+              <button type="button" class="chip">Arreglo de barba</button>
+              <button type="button" class="chip">Corte + barba</button>
+              <button type="button" class="chip">Degradado</button>
+              <button type="button" class="chip">Corte infantil</button>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Día</legend>
+            <div class="chips" data-group="dia">
+              <button type="button" class="chip is-on">Lo antes posible</button>
+              <button type="button" class="chip">Lunes</button>
+              <button type="button" class="chip">Martes</button>
+              <button type="button" class="chip">Miércoles</button>
+              <button type="button" class="chip">Jueves</button>
+              <button type="button" class="chip">Viernes</button>
+              <button type="button" class="chip">Sábado</button>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Franja</legend>
+            <div class="chips" data-group="franja">
+              <button type="button" class="chip is-on">Mañana</button>
+              <button type="button" class="chip">Tarde</button>
+              <button type="button" class="chip">Me da igual</button>
+            </div>
+          </fieldset>
+          <label class="name-field">
+            <span>Tu nombre</span>
+            <input type="text" id="turnoName" autocomplete="given-name" placeholder="Opcional">
+          </label>
+          <div class="preview" aria-live="polite">
+            <span class="preview-label">Tu mensaje</span>
+            <p id="turnoPreview"></p>
+          </div>
+          <div class="turno-actions">
+            <button type="submit" class="btn btn-amber">Enviar por WhatsApp</button>
+            <a class="btn btn-ghost-dark" data-tel href="#">Prefiero llamar</a>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- UBICACIÓN -->
+    <section class="section location" id="ubicacion">
+      <div class="loc-grid">
+        <div class="loc-copy">
+          <p class="eyebrow">07 · Dónde estamos</p>
+          <h2>Calle Romero Ressendi, 1</h2>
+          <p class="addr">41960 Gines, Sevilla</p>
+          <p>En Gines, fácil para quien viene andando y para quien llega desde Bormujos, Espartinas o Valencina.</p>
+          <a class="btn btn-dark" id="mapsLink" href="https://www.google.com/maps/search/?api=1&query=Peluqueria%20Rafael%20Lobo%2C%20Calle%20Romero%20Ressendi%201%2C%2041960%20Gines%2C%20Sevilla" target="_blank" rel="noopener">Cómo llegar</a>
+        </div>
+        <a class="map" href="https://www.google.com/maps/search/?api=1&query=Peluqueria%20Rafael%20Lobo%2C%20Calle%20Romero%20Ressendi%201%2C%2041960%20Gines%2C%20Sevilla" target="_blank" rel="noopener" aria-label="Abrir la ubicación en Google Maps">
+          <svg viewBox="0 0 600 420" aria-hidden="true">
+            <rect width="600" height="420" fill="#E4E0D5"/>
+            <g fill="#D6D1C5">
+              <rect x="30" y="30" width="150" height="110" rx="6"/><rect x="220" y="30" width="170" height="110" rx="6"/><rect x="430" y="30" width="140" height="110" rx="6"/>
+              <rect x="30" y="190" width="150" height="80" rx="6"/><rect x="430" y="190" width="140" height="200" rx="6"/>
+              <rect x="30" y="310" width="150" height="80" rx="6"/><rect x="220" y="300" width="170" height="90" rx="6"/>
+            </g>
+            <g stroke="#F6F3EC" stroke-width="22" fill="none" stroke-linecap="round">
+              <path d="M0 165H600"/><path d="M200 0V420"/><path d="M410 0V420"/><path d="M0 290H200"/>
+            </g>
+            <rect x="220" y="185" width="170" height="90" rx="6" fill="#16181B"/>
+            <text x="305" y="160" text-anchor="middle" font-family="Public Sans, sans-serif" font-size="13" font-weight="600" fill="#5B6066" letter-spacing="2">C. ROMERO RESSENDI</text>
+            <g transform="translate(305 230)">
+              <circle r="34" fill="#F0A21A"/>
+              <circle r="34" fill="none" stroke="#F0A21A" stroke-opacity=".4" stroke-width="10" class="pulse"/>
+              <text y="7" text-anchor="middle" font-family="Alfa Slab One, serif" font-size="22" fill="#16181B">RL</text>
+            </g>
+          </svg>
+          <span class="map-hint">Abrir en Google Maps ↗</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="section contact" id="contacto">
+      <div class="contact-grid">
+        <a class="c-card c-wa" data-wa href="#">
+          <span class="c-label">WhatsApp</span>
+          <b data-phone-text>621 02 39 14</b>
+          <span class="c-sub">Escríbenos y te damos hueco</span>
+        </a>
+        <a class="c-card" data-tel href="#">
+          <span class="c-label">Teléfono</span>
+          <b data-phone-text>621 02 39 14</b>
+          <span class="c-sub">Llama para pedir turno</span>
+        </a>
+        <div class="c-card c-static">
+          <span class="c-label">Dirección</span>
+          <b>C. Romero Ressendi, 1</b>
+          <span class="c-sub">41960 Gines, Sevilla</span>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="foot-brand">
+      <img src="favicon.svg" alt="" width="40" height="40">
+      <div>
+        <b>Peluquería Rafael Lobo</b>
+        <span>Peluquería de caballeros · Gines, Sevilla</span>
+      </div>
+    </div>
+    <nav class="foot-nav" aria-label="Pie de página">
+      <a href="#servicios">Servicios</a>
+      <a href="#galeria">Galería</a>
+      <a href="#turno">Pedir turno</a>
+      <a href="#ubicacion">Ubicación</a>
+    </nav>
+    <p class="foot-legal">© <span id="year"></span> Peluquería Rafael Lobo · C. Romero Ressendi, 1 · 41960 Gines</p>
+  </footer>
+
+  <a class="fab" data-wa href="#" aria-label="Pedir turno por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.1 1.4 1.8 1 .9 1.8 1.1 2 1.3.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z" fill="currentColor"/></svg>
+  </a>
+
+  <script src="main.js" defer></script>
 </body>
 </html>

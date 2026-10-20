@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" role="img" aria-label="Ilustración de degradado">
+<rect width="300" height="300" fill="#23262A"/>
+<circle cx="150" cy="150" r="118" fill="none" stroke="#F0A21A" stroke-opacity=".35" stroke-width="2" stroke-dasharray="4 8"/>
+<path d="M92 92c0-34 24-56 56-56s52 24 52 58c0 14-3 24-8 33l10 18c2 4 0 7-4 8l-8 2v14c0 9-7 15-16 15h-14v26H112v-34c-13-10-20-27-20-48z" fill="#E9E5DB"/><circle cx="160" cy="104" r="4" fill="#16181B"/><path d="M118 120c4 0 7 3 7 7s-3 7-7 7" stroke="#B9B3A5" stroke-width="4" fill="none"/>
+<path d="M90 96c-2-40 26-66 62-66 30 0 50 14 54 40-18-8-44-10-70-6-16 3-28 12-34 28z" fill="#16181B"/><path d="M92 96c4-10 10-16 18-20v34c-8 2-14-4-18-14z" fill="#3A3D42"/><path d="M96 112c4 6 8 9 14 10v-10" fill="#5B6066" opacity=".7"/>
+<g stroke="#F0A21A" stroke-width="2" opacity=".8"><line x1="40" y1="90" x2="70" y2="90"/><line x1="40" y1="110" x2="70" y2="110"/><line x1="40" y1="130" x2="70" y2="130"/></g><text x="40" y="82" font-family="monospace" font-size="11" fill="#F0A21A">0 · 1 · 2</text>
+</svg>
