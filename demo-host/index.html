@@ -4,268 +4,82 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Julio Puig Real Estate · Inmobiliaria en Coria del Río</title>
-  <meta name="description" content="Compra, venta y alquiler de viviendas en Coria del Río, Gelves, La Puebla del Río y Sevilla con trato directo y personal.">
-  <meta name="theme-color" content="#F7F4EE">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#f4f1eb">
+  <title>Demo inmobiliaria</title>
+  <meta name="description" content="Demo comercial inmobiliaria.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site.css">
 </head>
-<body data-base="">
-  <a class="skip" href="#inmuebles">Saltar a los inmuebles</a>
-
-  <header class="top" id="top">
-    <div class="wrap top__in">
-      <a class="brand" href="./" aria-label="Julio Puig Real Estate, inicio">
-        <span class="brand__mark" aria-hidden="true">JP</span>
-        <span class="brand__name">Julio Puig<small>Real Estate</small></span>
-      </a>
-      <nav class="nav" id="nav" aria-label="Principal">
-        <a href="#inmuebles">Inmuebles</a>
-        <a href="#vender">Vender</a>
-        <a href="#servicios">Servicios</a>
-        <a href="#julio">Sobre Julio</a>
-        <a href="#contacto">Contacto</a>
-        <a class="btn btn--ink nav__cta" href="#vender">Valorar mi vivienda</a>
-      </nav>
-      <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú">
-        <svg><use href="assets/icons.svg#menu"/></svg>
-      </button>
-    </div>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="nav-shell" id="top">
+    <a class="logo" href="./" aria-label="Inicio"><span class="logo-mark" id="logoMark">RE</span><span><b id="brandName">Inmobiliaria</b><small id="brandSub">Real Estate</small></span></a>
+    <nav id="navLinks">
+      <a href="#inmuebles">Inmuebles</a><a href="#vender">Vender</a><a href="#servicios">Servicios</a><a href="#nosotros">Nosotros</a>
+    </nav>
+    <a class="nav-cta" href="#vender">Valorar vivienda</a>
+    <button class="menu" id="menuBtn" aria-label="Abrir menú">☰</button>
   </header>
 
   <main>
-    <!-- HERO -->
-    <section class="hero">
-      <div class="wrap hero__grid">
-        <div class="hero__copy">
-          <p class="eyebrow">Asesor inmobiliario · Coria del Río y alrededores</p>
-          <h1 class="hero__title">Encontrar casa es más fácil cuando <em>alguien te acompaña.</em></h1>
-          <p class="hero__lead">Compra, venta y alquiler en Coria del Río, Gelves, La Puebla del Río y Sevilla. Trato directo con Julio, desde la primera visita hasta la firma.</p>
-          <div class="hero__actions">
-            <a class="btn btn--ink" href="#inmuebles">Ver inmuebles</a>
-            <a class="btn btn--line" href="#vender">Quiero vender</a>
-          </div>
-        </div>
-        <figure class="hero__visual">
-          <div class="arch"><img src="assets/img/f-chalet-palomares.svg" alt="Ilustración de un chalet con piscina" width="1200" height="800"></div>
-          <a class="hero__pick" href="inmueble/?ref=JP-103" id="heroPick">
-            <span class="hero__pick-k">Destacado</span>
-            <span class="hero__pick-t">Chalet en Palomares del Río</span>
-            <span class="hero__pick-p">345.000 €</span>
-          </a>
-          <figcaption class="hero__note"><span class="dot"></span>Hablas siempre con Julio</figcaption>
-        </figure>
+    <section class="hero reveal">
+      <div class="hero-copy">
+        <span class="kicker" id="heroKicker">Tu inmobiliaria local</span>
+        <h1 id="heroTitle">Tu próxima casa empieza con una buena decisión.</h1>
+        <p id="heroLead">Compra, venta y alquiler con acompañamiento cercano.</p>
+        <div class="hero-actions"><a class="btn primary" href="#inmuebles">Ver inmuebles</a><a class="btn ghost" href="#vender">Quiero vender</a></div>
+        <div class="hero-trust"><span>✓ Trato directo</span><span>✓ Valoración personalizada</span><span>✓ Gestión completa</span></div>
       </div>
-
-      <div class="wrap">
-        <form class="search" id="search" aria-label="Buscador de inmuebles">
-          <p class="search__q">¿Qué buscas?</p>
-          <div class="seg" role="radiogroup" aria-label="Operación">
-            <label><input type="radio" name="op" value="venta" checked><span>Comprar</span></label>
-            <label><input type="radio" name="op" value="alquiler"><span>Alquilar</span></label>
-          </div>
-          <label class="field">
-            <span>Tipo de inmueble</span>
-            <select name="type" id="fType"><option value="">Todos</option></select>
-          </label>
-          <label class="field">
-            <span>Localidad o zona</span>
-            <select name="town" id="fTown"><option value="">Toda la zona</option></select>
-          </label>
-          <label class="field">
-            <span>Precio máximo</span>
-            <select name="max" id="fMax"></select>
-          </label>
-          <button class="btn btn--sand search__go" type="submit"><svg><use href="assets/icons.svg#search"/></svg>Buscar inmuebles</button>
-        </form>
+      <div class="hero-media">
+        <div class="hero-photo"><img id="heroImg" src="assets/img/f-chalet-palomares.svg" alt="Vivienda destacada"></div>
+        <div class="floating-card"><small>Inmueble destacado</small><strong id="heroProperty">Chalet con piscina</strong><span id="heroPrice">345.000 €</span><a id="heroLink" href="inmueble/?ref=DEMO-101">Ver ficha →</a></div>
+        <div class="orb one"></div><div class="orb two"></div>
       </div>
     </section>
 
-    <!-- INMUEBLES -->
-    <section class="sec" id="inmuebles">
-      <div class="wrap">
-        <div class="sec__head">
-          <div>
-            <p class="eyebrow">Cartera</p>
-            <h2 class="h2" id="listTitle">Inmuebles seleccionados</h2>
-          </div>
-          <div class="chips" id="opChips" role="tablist" aria-label="Filtrar por operación">
-            <button class="chip is-on" data-op="">Todos</button>
-            <button class="chip" data-op="venta">En venta</button>
-            <button class="chip" data-op="alquiler">En alquiler</button>
-          </div>
-        </div>
-        <p class="results" id="results" aria-live="polite"></p>
-        <div class="grid" id="grid"></div>
-        <div class="more" id="more" hidden><button class="btn btn--line" type="button">Ver todos los inmuebles</button></div>
-        <p class="empty" id="empty" hidden>No hay inmuebles con esos filtros ahora mismo. <button class="link" id="clear">Ver todos</button> o <a class="link" href="#contacto">cuéntanos qué buscas</a> y te avisamos.</p>
+    <section class="search-wrap reveal">
+      <div class="search-head"><span>Encuentra tu sitio</span><b id="searchClaim">Busca entre nuestra selección de inmuebles</b></div>
+      <form id="searchForm" class="property-search">
+        <label><span>Operación</span><select id="opFilter"><option value="">Comprar o alquilar</option><option value="venta">Comprar</option><option value="alquiler">Alquilar</option></select></label>
+        <label><span>Tipo</span><select id="typeFilter"><option value="">Cualquier tipo</option></select></label>
+        <label><span>Zona</span><select id="townFilter"><option value="">Todas las zonas</option></select></label>
+        <button class="btn primary" type="submit">Buscar</button>
+      </form>
+    </section>
+
+    <section class="section reveal" id="inmuebles">
+      <div class="section-head"><div><span class="kicker">Cartera</span><h2>Inmuebles que merece la pena mirar</h2></div><button class="text-btn" id="resetFilters">Ver todos ↗</button></div>
+      <div class="property-grid" id="propertyGrid"></div>
+      <p class="empty" id="emptyState" hidden>No hay inmuebles con esos filtros. Prueba otra combinación.</p>
+    </section>
+
+    <section class="admin-story reveal" id="panel">
+      <div class="admin-copy"><span class="kicker light">Tu web, siempre actualizada</span><h2>Publica, cambia el precio y marca un inmueble como vendido desde tu propio panel.</h2><p>La versión final incluiría un acceso privado para gestionar la cartera sin depender de nadie. Cualquier cambio se reflejaría directamente en la web pública.</p><a class="btn cream" href="admin-demo/">Entrar en la demo del panel →</a></div>
+      <div class="admin-mock">
+        <div class="mock-top"><span></span><span></span><span></span><b>Panel de gestión</b></div>
+        <div class="mock-stats"><article><small>Publicados</small><b id="mockTotal">12</b></article><article><small>Disponibles</small><b id="mockAvail">8</b></article><article><small>Reservados</small><b>2</b></article></div>
+        <div class="mock-row"><i></i><div><b>Casa familiar con patio</b><small>Venta · Disponible</small></div><strong>239.000 €</strong></div>
+        <div class="mock-row"><i></i><div><b>Ático con terraza</b><small>Alquiler · Reservado</small></div><strong>950 €/mes</strong></div>
+        <div class="mock-row"><i></i><div><b>Chalet independiente</b><small>Venta · Vendido</small></div><strong>395.000 €</strong></div>
       </div>
     </section>
 
-    <!-- PANEL -->
-    <section class="panel-band" id="panel">
-      <div class="wrap panel-band__grid">
-        <div>
-          <p class="eyebrow eyebrow--sand">Incluido en tu web</p>
-          <h2 class="h2 h2--light">Gestiona tus inmuebles desde tu propio panel</h2>
-          <p class="lead-light">Publica una vivienda, modifica su precio o cambia su estado a reservada, vendida o alquilada desde un panel privado. Los cambios se reflejan automáticamente en tu web.</p>
-          <ul class="ticks">
-            <li><svg><use href="assets/icons.svg#check"/></svg>Fotos, descripción y características de cada inmueble</li>
-            <li><svg><use href="assets/icons.svg#check"/></svg>Precio editable en cualquier momento</li>
-            <li><svg><use href="assets/icons.svg#check"/></svg>Disponible, reservado, vendido o alquilado con un toque</li>
-            <li><svg><use href="assets/icons.svg#check"/></svg>Destaca los inmuebles que quieres mover primero</li>
-          </ul>
-          <a class="btn btn--sand" href="admin-demo/">Ver cómo gestionarías tus inmuebles <svg><use href="assets/icons.svg#arrow"/></svg></a>
-        </div>
-        <div class="sync" aria-hidden="true">
-          <div class="sync__card sync__panel">
-            <p class="sync__lbl">Tu panel</p>
-            <div class="sync__row"><span>Adosado en Gelves</span><b>238.000 €</b></div>
-            <div class="sync__row"><span>Piso en Triana</span><b>265.000 €</b></div>
-            <div class="sync__row is-live"><span>Casa en Coria</span><b class="pill" id="syncPill1">Disponible</b></div>
-          </div>
-          <div class="sync__arrow"><svg><use href="assets/icons.svg#arrow"/></svg></div>
-          <div class="sync__card sync__web">
-            <p class="sync__lbl">Tu web</p>
-            <div class="sync__img"><img src="assets/img/f-adosados-coria.svg" alt=""><b class="pill" id="syncPill2">Disponible</b></div>
-            <p class="sync__t">Casa adosada · Coria del Río</p>
-          </div>
-        </div>
-      </div>
+    <section class="section sell-section reveal" id="vender">
+      <div class="sell-copy"><span class="kicker">Propietarios</span><h2 id="sellTitle">¿Estás pensando en vender tu vivienda?</h2><p id="sellText">Una buena venta empieza con una valoración realista y una estrategia clara.</p><div class="sell-steps"><span><b>01</b>Valoración</span><span><b>02</b>Presentación</span><span><b>03</b>Visitas</span><span><b>04</b>Firma</span></div></div>
+      <form class="lead-form" id="leadForm"><h3>Solicita una valoración</h3><p>Te contactaremos para conocer el inmueble y orientarte sin compromiso.</p><div class="form-grid"><label><span>Nombre</span><input required name="name" placeholder="Tu nombre"></label><label><span>Teléfono</span><input required name="phone" placeholder="600 000 000"></label><label><span>Localidad</span><input required name="town" placeholder="Localidad"></label><label><span>Tipo de inmueble</span><select name="kind"><option>Piso</option><option>Casa</option><option>Chalet</option><option>Local</option><option>Terreno</option></select></label></div><button class="btn primary full" type="submit">Quiero valorar mi vivienda</button><small id="formMsg"></small></form>
     </section>
 
-    <!-- VENDER -->
-    <section class="sec sell" id="vender">
-      <div class="wrap sell__grid">
-        <div class="sell__copy">
-          <p class="eyebrow">Propietarios</p>
-          <h2 class="h2">¿Quieres vender tu vivienda?</h2>
-          <p class="lead">Antes de poner un precio, conviene saber cuánto vale de verdad tu casa en tu calle y en el momento actual. Julio la visita, la compara con lo que se está vendiendo en la zona y te da una valoración clara, sin compromiso.</p>
-          <ol class="steps">
-            <li><b>Valoración</b><span>Visita y estudio del precio de mercado de tu vivienda.</span></li>
-            <li><b>Presentación</b><span>Fotos cuidadas, descripción honesta y difusión en tu web y portales.</span></li>
-            <li><b>Visitas filtradas</b><span>Solo enseñamos tu casa a compradores con interés real.</span></li>
-            <li><b>Hasta la notaría</b><span>Negociación, arras y acompañamiento hasta la firma.</span></li>
-          </ol>
-          <div class="rent-note">
-            <h3>¿Quieres alquilar tu propiedad?</h3>
-            <p>Buscamos inquilino, revisamos su solvencia y preparamos el contrato. Marca "Alquilar" en el formulario.</p>
-          </div>
-        </div>
-        <form class="card form" id="valForm" novalidate>
-          <h3 class="form__t">Solicitar valoración</h3>
-          <p class="form__s">Gratis y sin compromiso. Te contactamos para concretar la visita.</p>
-          <div class="seg seg--full" role="radiogroup" aria-label="Qué quieres hacer">
-            <label><input type="radio" name="goal" value="vender" checked><span>Vender</span></label>
-            <label><input type="radio" name="goal" value="alquilar"><span>Alquilar</span></label>
-          </div>
-          <label class="field"><span>Nombre</span><input name="name" autocomplete="name" required></label>
-          <div class="two">
-            <label class="field"><span>Teléfono</span><input name="tel" type="tel" inputmode="tel" autocomplete="tel" required></label>
-            <label class="field"><span>Email</span><input name="email" type="email" autocomplete="email"></label>
-          </div>
-          <div class="two">
-            <label class="field"><span>Localidad</span><select name="town" id="valTown" required><option value="">Elige</option></select></label>
-            <label class="field"><span>Tipo de inmueble</span>
-              <select name="type" required><option value="">Elige</option><option>Piso</option><option>Casa</option><option>Chalet</option><option>Ático</option><option>Local</option><option>Terreno</option></select>
-            </label>
-          </div>
-          <label class="check"><input type="checkbox" name="ok" required><span>Acepto que Julio Puig Real Estate me contacte sobre esta solicitud.</span></label>
-          <button class="btn btn--ink btn--block" type="submit">Quiero valorar mi vivienda</button>
-          <p class="form__msg" role="status"></p>
-        </form>
-      </div>
-    </section>
+    <section class="section services-section reveal" id="servicios"><div class="section-head"><div><span class="kicker">Servicios</span><h2>Una operación inmobiliaria bien acompañada</h2></div></div><div class="services-grid"><article><span>01</span><h3>Compra y venta</h3><p>Búsqueda, negociación y acompañamiento hasta la firma.</p></article><article><span>02</span><h3>Alquiler</h3><p>Selección, documentación y seguimiento de la operación.</p></article><article><span>03</span><h3>Valoración</h3><p>Análisis de mercado para fijar un precio coherente.</p></article><article><span>04</span><h3>Gestión integral</h3><p>Documentación, coordinación y apoyo durante todo el proceso.</p></article></div></section>
 
-    <!-- SERVICIOS -->
-    <section class="sec sec--paper" id="servicios">
-      <div class="wrap">
-        <p class="eyebrow">Servicios</p>
-        <h2 class="h2">Todo lo que necesitas para cerrar bien una operación</h2>
-        <div class="services">
-          <article><span>01</span><h3>Compra y venta</h3><p>Te ayudamos a encontrar casa o a vender la tuya al precio adecuado, con cada paso explicado.</p></article>
-          <article><span>02</span><h3>Alquiler</h3><p>Selección de inquilinos, contrato y entrega de llaves, para propietarios e inquilinos.</p></article>
-          <article><span>03</span><h3>Valoración de inmuebles</h3><p>Precio realista basado en la vivienda, su estado y lo que se mueve en la zona.</p></article>
-          <article><span>04</span><h3>Gestión integral</h3><p>Documentación, certificado energético, nota simple y coordinación con notaría.</p></article>
-          <article><span>05</span><h3>Asesoramiento</h3><p>Orientación sobre financiación, gastos de compraventa e impuestos antes de decidir.</p></article>
-          <article><span>06</span><h3>Marketing inmobiliario</h3><p>Fotografía, ficha cuidada, difusión en portales y redes para que tu casa se vea mejor.</p></article>
-        </div>
-      </div>
-    </section>
+    <section class="about-section reveal" id="nosotros"><div class="about-badge" id="aboutBadge">RE</div><div><span class="kicker light">Quiénes somos</span><h2 id="aboutTitle">Cercanía, claridad y conocimiento de la zona.</h2><p id="aboutText">Un servicio inmobiliario pensado para que cada paso sea sencillo y entendible.</p><div class="about-points"><span>Trato directo</span><span>Conocimiento local</span><span>Comunicación clara</span></div></div></section>
 
-    <!-- SOBRE JULIO -->
-    <section class="sec about" id="julio">
-      <div class="wrap about__grid">
-        <figure class="about__card" aria-hidden="true">
-          <div class="about__arch">
-            <span class="about__mono">JP</span>
-          </div>
-          <figcaption><em>Julio Puig</em><span>Agente inmobiliario</span></figcaption>
-        </figure>
-        <div>
-          <p class="eyebrow">Tu asesor</p>
-          <h2 class="h2">Una persona, no una centralita</h2>
-          <p class="lead">Detrás de Julio Puig Real Estate está Julio Puig Colchero, agente inmobiliario con oficina en Coria del Río. Él mismo atiende cada operación: escucha lo que necesitas, te enseña las viviendas y te acompaña con el papeleo hasta la notaría.</p>
-          <div class="values">
-            <div><h3>Un solo interlocutor</h3><p>Siempre sabes con quién hablas y a quién llamar.</p></div>
-            <div><h3>De la zona</h3><p>Su cartera está en Coria del Río, Gelves, La Puebla del Río y los pueblos de alrededor.</p></div>
-            <div><h3>Claridad</h3><p>Precio, gastos y plazos explicados antes de dar cada paso.</p></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ZONA + CONTACTO -->
-    <section class="sec sec--paper" id="contacto">
-      <div class="wrap contact__grid">
-        <div>
-          <p class="eyebrow">Contacto</p>
-          <h2 class="h2">Hablemos de tu casa</h2>
-          <ul class="contact-list" id="contactList"></ul>
-          <div class="zone">
-            <div class="zone__map" id="zoneMap"></div>
-            <p class="zone__cap">Zona de trabajo · esquema orientativo</p>
-          </div>
-        </div>
-        <form class="card form" id="contactForm" novalidate>
-          <h3 class="form__t">Escríbenos</h3>
-          <p class="form__s">Cuéntanos qué buscas o qué quieres vender.</p>
-          <label class="field"><span>Nombre</span><input name="name" autocomplete="name" required></label>
-          <label class="field"><span>Teléfono</span><input name="tel" type="tel" inputmode="tel" autocomplete="tel" required></label>
-          <label class="field"><span>Me interesa</span>
-            <select name="topic"><option>Comprar una vivienda</option><option>Alquilar una vivienda</option><option>Vender mi vivienda</option><option>Alquilar mi propiedad</option><option>Otra consulta</option></select>
-          </label>
-          <label class="field"><span>Mensaje</span><textarea name="msg" rows="4" placeholder="Zona, presupuesto, número de habitaciones…"></textarea></label>
-          <button class="btn btn--ink btn--block" type="submit">Enviar consulta</button>
-          <p class="form__msg" role="status"></p>
-        </form>
-      </div>
-    </section>
+    <section class="contact-section reveal"><div><span class="kicker">Hablemos</span><h2>¿Compras, vendes o alquilas?</h2><p id="contactText">Cuéntanos qué necesitas y te orientamos.</p></div><div class="contact-card"><a id="phoneLink" href="#"><small>Teléfono / WhatsApp</small><b id="phoneText">600 000 000</b></a><p id="addressText">Sevilla</p><a class="btn primary" id="waButton" target="_blank" rel="noopener">Escribir por WhatsApp</a></div></section>
   </main>
 
-  <footer class="foot">
-    <div class="wrap foot__grid">
-      <div>
-        <a class="brand brand--light" href="./"><span class="brand__mark">JP</span><span class="brand__name">Julio Puig<small>Real Estate</small></span></a>
-        <p class="foot__txt">Compra, venta y alquiler de viviendas en Coria del Río y alrededores.</p>
-      </div>
-      <nav aria-label="Pie">
-        <a href="#inmuebles">Inmuebles</a><a href="#vender">Vender</a><a href="#servicios">Servicios</a><a href="#julio">Sobre Julio</a><a href="#contacto">Contacto</a>
-      </nav>
-      <div class="foot__c" id="footContact"></div>
-    </div>
-    <div class="wrap foot__legal">
-      <span>© <span id="year"></span> Julio Puig Real Estate</span>
-      <span>Web de demostración: los inmuebles mostrados son ejemplos ficticios.</span>
-    </div>
-  </footer>
-
-  <a class="fab" id="fab" href="#contacto" aria-label="Escribir por WhatsApp"><svg><use href="assets/icons.svg#wa"/></svg><span>WhatsApp</span></a>
-
-  <script src="data.js"></script>
-  <script src="main.js"></script>
+  <footer><div class="footer-brand"><b id="footerBrand">Inmobiliaria</b><span>Demo comercial · contenido inmobiliario ficticio</span></div><a href="admin-demo/">Ver panel demo</a><a href="#top">Volver arriba ↑</a></footer>
+  <a class="wa-float" id="waFloat" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+  <script src="site.js"></script>
 </body>
 </html>
