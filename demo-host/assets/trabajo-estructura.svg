@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Estructura tubular">
+<defs><pattern id="g" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#D9DDD8" stroke-width="1"/></pattern>
+<marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 2L10 5L0 8z" fill="#D9532B"/></marker></defs>
+<rect width="800" height="600" fill="#ECEEEA"/><rect width="800" height="600" fill="url(#g)"/>
+<rect x="24" y="24" width="752" height="552" fill="none" stroke="#1C2226" stroke-width="2"/>
+<g fill="none" stroke="#1C2226" stroke-width="3" stroke-linecap="square"><path d="M140 470V180M400 470V180M660 470V180" stroke-width="10"/><path d="M110 180H690" stroke-width="10"/><path d="M110 150H690" stroke-width="6"/><path d="M110 150L150 180L190 150" stroke-width="3"/><path d="M190 150L230 180L270 150" stroke-width="3"/><path d="M270 150L310 180L350 150" stroke-width="3"/><path d="M350 150L390 180L430 150" stroke-width="3"/><path d="M430 150L470 180L510 150" stroke-width="3"/><path d="M510 150L550 180L590 150" stroke-width="3"/><path d="M590 150L630 180L670 150" stroke-width="3"/><path d="M670 150L710 180L750 150" stroke-width="3"/><path d="M140 180L210 250L280 180" stroke="#9AA3A8" stroke-width="3"/><path d="M400 180L470 250L540 180" stroke="#9AA3A8" stroke-width="3"/><path d="M90 470H710" stroke-width="2"/><rect x="118" y="462" width="44" height="10" stroke-width="2"/><rect x="378" y="462" width="44" height="10" stroke-width="2"/><rect x="638" y="462" width="44" height="10" stroke-width="2"/><g stroke="#D9532B" stroke-width="1.5"><line x1="140" y1="115" x2="660" y2="115" marker-start="url(#a)" marker-end="url(#a)"/></g>
+<text x="400.0" y="107" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="14" fill="#D9532B" stroke="none">5.000</text><g stroke="#D9532B" stroke-width="1.5"><line x1="720" y1="180" x2="720" y2="470" marker-start="url(#a)" marker-end="url(#a)"/></g>
+<text x="710" y="325.0" transform="rotate(-90 710 325.0)" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="14" fill="#D9532B" stroke="none">2.600</text></g>
+<g font-family="ui-monospace,Menlo,Consolas,monospace" fill="#1C2226">
+<rect x="520" y="512" width="256" height="64" fill="#ECEEEA" stroke="#1C2226" stroke-width="2"/>
+<line x1="520" y1="540" x2="776" y2="540" stroke="#1C2226" stroke-width="1"/>
+<text x="532" y="532" font-size="15" font-weight="700" letter-spacing="1">ESTRUCTURA TUBULAR</text>
+<text x="532" y="562" font-size="12" letter-spacing="1">HIERRO · PÓRTICO</text>
+<text x="764" y="562" font-size="12" text-anchor="end" fill="#D9532B" font-weight="700">E-04</text>
+</g></svg>

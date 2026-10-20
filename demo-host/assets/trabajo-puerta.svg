@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Cancela de dos hojas">
+<defs><pattern id="g" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#D9DDD8" stroke-width="1"/></pattern>
+<marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 2L10 5L0 8z" fill="#D9532B"/></marker></defs>
+<rect width="800" height="600" fill="#ECEEEA"/><rect width="800" height="600" fill="url(#g)"/>
+<rect x="24" y="24" width="752" height="552" fill="none" stroke="#1C2226" stroke-width="2"/>
+<g fill="none" stroke="#1C2226" stroke-width="3" stroke-linecap="square"><path d="M120 460V120M680 460V120" stroke-width="10"/><rect x="134" y="150" width="262" height="300" stroke-width="5"/><rect x="404" y="150" width="262" height="300" stroke-width="5"/><path d="M160 150V450"/><path d="M186 150V450"/><path d="M212 150V450"/><path d="M238 150V450"/><path d="M264 150V450"/><path d="M290 150V450"/><path d="M316 150V450"/><path d="M342 150V450"/><path d="M368 150V450"/><path d="M394 150V450"/><path d="M134 300H396" stroke-width="4"/><path d="M430 150V450"/><path d="M456 150V450"/><path d="M482 150V450"/><path d="M508 150V450"/><path d="M534 150V450"/><path d="M560 150V450"/><path d="M586 150V450"/><path d="M612 150V450"/><path d="M638 150V450"/><path d="M664 150V450"/><path d="M404 300H666" stroke-width="4"/><path d="M134 150C200 70 330 70 396 150M404 150C470 70 600 70 666 150" stroke-width="4"/><path d="M265 110c-30 0-40-30-15-36s30 20 10 22" stroke="#D9532B" stroke-width="3"/><path d="M535 110c30 0 40-30 15-36s-30 20-10 22" stroke="#D9532B" stroke-width="3"/><path d="M80 460H720" stroke-width="2"/><g stroke="#D9532B" stroke-width="1.5"><line x1="134" y1="495" x2="666" y2="495" marker-start="url(#a)" marker-end="url(#a)"/></g>
+<text x="400.0" y="487" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="14" fill="#D9532B" stroke="none">3.200</text></g>
+<g font-family="ui-monospace,Menlo,Consolas,monospace" fill="#1C2226">
+<rect x="520" y="512" width="256" height="64" fill="#ECEEEA" stroke="#1C2226" stroke-width="2"/>
+<line x1="520" y1="540" x2="776" y2="540" stroke="#1C2226" stroke-width="1"/>
+<text x="532" y="532" font-size="15" font-weight="700" letter-spacing="1">CANCELA DE DOS HOJAS</text>
+<text x="532" y="562" font-size="12" letter-spacing="1">HIERRO · CERRAJERÍA</text>
+<text x="764" y="562" font-size="12" text-anchor="end" fill="#D9532B" font-weight="700">H-03</text>
+</g></svg>

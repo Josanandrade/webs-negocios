@@ -4,13 +4,371 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>JJ Carpinsur · Carpintería metálica en Sanlúcar la Mayor</title>
+  <meta name="description" content="JJ Carpinsur, carpintería metálica de hierro y aluminio en el Polígono Industrial Solúcar, Sanlúcar la Mayor (Sevilla). Cerramientos, barandillas, estructuras, mamparas y cerrajería. Presupuesto sin compromiso.">
+  <meta name="theme-color" content="#15191C">
+  <meta property="og:title" content="JJ Carpinsur · Carpintería metálica">
+  <meta property="og:description" content="Hierro y aluminio a medida desde Sanlúcar la Mayor. Pide presupuesto por WhatsApp.">
+  <meta property="og:image" content="assets/og.svg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip" href="#servicios">Saltar al contenido</a>
+
+  <header class="nav" id="top">
+    <a class="brand" href="#top" aria-label="JJ Carpinsur, inicio">
+      <span class="brand-mark" aria-hidden="true">JJ</span>
+      <span class="brand-word">Carpinsur<small>Carpintería metálica</small></span>
+    </a>
+    <nav class="menu" id="menu" aria-label="Principal">
+      <a href="#servicios">Servicios</a>
+      <a href="#trabajos">Trabajos</a>
+      <a href="#proceso">Cómo trabajamos</a>
+      <a href="#taller">El taller</a>
+      <a href="#presupuesto">Presupuesto</a>
+    </nav>
+    <a class="nav-phone" href="tel:+34608355734"><span class="mono">608 355 734</span></a>
+    <a class="btn btn-wa nav-cta" data-wa="Hola JJ Carpinsur, quería pedir un presupuesto." href="#">WhatsApp</a>
+    <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><span></span><span></span></button>
+  </header>
+
   <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow mono"><span class="dot"></span>Polígono Ind. Solúcar · Sanlúcar la Mayor · Sevilla</p>
+          <h1 id="hero-title">Hierro y aluminio,<br><span class="cut">a la medida</span><br>de tu obra.</h1>
+          <p class="lead">Carpintería metálica de interior y exterior: cerramientos, barandillas, estructuras, mamparas y cerrajería, en múltiples acabados. Te preparamos el presupuesto sin compromiso.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-minio btn-lg" href="#presupuesto">Pedir presupuesto</a>
+            <a class="btn btn-wa btn-lg" data-wa="Hola JJ Carpinsur, quería pedir un presupuesto." href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1a16 16 0 0 1-1.7-.6 13 13 0 0 1-5-4.4c-.4-.5-1.3-1.7-1.3-3.2 0-1.5.8-2.3 1.1-2.6.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Escríbenos por WhatsApp</a>
+            <a class="link-arrow" href="#trabajos">Ver trabajos <span aria-hidden="true">→</span></a>
+          </div>
+          <dl class="hero-facts">
+            <div><dt class="mono">Google</dt><dd><strong>4,5</strong> <span class="stars" aria-hidden="true">★★★★★</span><small>11 reseñas</small></dd></div>
+            <div><dt class="mono">Materiales</dt><dd><strong>Hierro</strong> y <strong>aluminio</strong></dd></div>
+            <div><dt class="mono">Presupuesto</dt><dd><strong>Gratis</strong><small>y sin compromiso</small></dd></div>
+          </dl>
+        </div>
+
+        <figure class="hero-plan" aria-label="Plano de taller animado de una barandilla">
+          <svg viewBox="0 0 520 560" class="plan-svg" aria-hidden="true">
+            <defs>
+              <marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 2L10 5L0 8z" fill="#E2602F"/></marker>
+            </defs>
+            <rect class="sheet" x="10" y="10" width="500" height="540"/>
+            <g class="draw thick">
+              <path d="M70 120H450"/>
+              <path d="M70 120V400M450 120V400"/>
+              <path d="M70 380H450"/>
+            </g>
+            <g class="draw bars">
+              <path d="M100 126V380"/><path d="M130 126V380"/><path d="M160 126V380"/><path d="M190 126V380"/><path d="M220 126V380"/><path d="M250 126V380"/><path d="M280 126V380"/><path d="M310 126V380"/><path d="M340 126V380"/><path d="M370 126V380"/><path d="M400 126V380"/><path d="M430 126V380"/>
+            </g>
+            <g class="draw slab">
+              <path d="M40 400H480"/><path d="M40 400V424H480V400"/>
+            </g>
+            <g class="draw dims">
+              <path d="M490 120V400" marker-start="url(#ar)" marker-end="url(#ar)"/>
+              <path d="M70 90H450" marker-start="url(#ar)" marker-end="url(#ar)"/>
+            </g>
+            <text class="dim-t" x="260" y="80" text-anchor="middle">2.800</text>
+            <text class="dim-t" x="478" y="265" text-anchor="middle" transform="rotate(-90 478 265)">1.000</text>
+            <g class="cajetin">
+              <rect x="250" y="462" width="260" height="88"/>
+              <path d="M250 492H510M250 520H510M400 492V550"/>
+              <text x="262" y="483">JJ CARPINSUR · TALLER</text>
+              <text x="262" y="511">BARANDILLA BALCÓN</text>
+              <text x="262" y="540">HIERRO · EXT.</text>
+              <text x="412" y="511">E 1:20</text>
+              <text x="412" y="540" class="minio">B-01</text>
+            </g>
+          </svg>
+          <figcaption class="mono">Plano de taller · cada pieza se fabrica a medida</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- FRANJA DE MATERIALES -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track mono">
+        <span>Carpintería de aluminio</span><i>/</i><span>Cerramientos</span><i>/</i><span>Barandillas</span><i>/</i><span>Estructuras tubulares</span><i>/</i><span>Mamparas</span><i>/</i><span>Cerrajería artística</span><i>/</i><span>Interior y exterior</span><i>/</i>
+        <span>Carpintería de aluminio</span><i>/</i><span>Cerramientos</span><i>/</i><span>Barandillas</span><i>/</i><span>Estructuras tubulares</span><i>/</i><span>Mamparas</span><i>/</i><span>Cerrajería artística</span><i>/</i><span>Interior y exterior</span><i>/</i>
+      </div>
+    </div>
+
+    <!-- SERVICIOS -->
+    <section class="section services" id="servicios" aria-labelledby="serv-title">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="kicker mono">01 · Servicios</p>
+          <h2 id="serv-title">Dos materiales.<br>Un mismo taller.</h2>
+          <p class="sec-intro">Trabajamos el hierro y el aluminio para interiores y exteriores, en múltiples acabados. Elige qué necesitas y te decimos cómo lo resolvemos.</p>
+        </header>
+
+        <div class="mat-switch" role="tablist" aria-label="Filtrar por material">
+          <button role="tab" aria-selected="true" data-mat="todo">Todo</button>
+          <button role="tab" aria-selected="false" data-mat="aluminio">Aluminio</button>
+          <button role="tab" aria-selected="false" data-mat="hierro">Hierro</button>
+        </div>
+
+        <ol class="serv-list">
+          <li class="serv" data-mat="aluminio">
+            <span class="serv-n mono">A</span>
+            <div class="serv-body">
+              <h3>Carpintería de aluminio</h3>
+              <p>Ventanas, puertas y otros elementos de aluminio para exterior e interior, en múltiples acabados.</p>
+            </div>
+            <span class="tag mono">Aluminio</span>
+          </li>
+          <li class="serv" data-mat="aluminio">
+            <span class="serv-n mono">B</span>
+            <div class="serv-body">
+              <h3>Cerramientos</h3>
+              <p>Cerramientos de aluminio para porches, terrazas y otros espacios.</p>
+            </div>
+            <span class="tag mono">Aluminio</span>
+          </li>
+          <li class="serv" data-mat="aluminio">
+            <span class="serv-n mono">C</span>
+            <div class="serv-body">
+              <h3>Mamparas</h3>
+              <p>Mamparas a medida para baño y para separar espacios interiores.</p>
+            </div>
+            <span class="tag mono">Aluminio</span>
+          </li>
+          <li class="serv" data-mat="hierro aluminio">
+            <span class="serv-n mono">D</span>
+            <div class="serv-body">
+              <h3>Barandillas</h3>
+              <p>Barandillas para balcones, escaleras y terrazas, de interior y de exterior.</p>
+            </div>
+            <span class="tag mono">Hierro · Aluminio</span>
+          </li>
+          <li class="serv" data-mat="hierro">
+            <span class="serv-n mono">E</span>
+            <div class="serv-body">
+              <h3>Estructuras y estructuras tubulares</h3>
+              <p>Estructuras metálicas y tubulares fabricadas a medida.</p>
+            </div>
+            <span class="tag mono">Hierro</span>
+          </li>
+          <li class="serv" data-mat="hierro">
+            <span class="serv-n mono">F</span>
+            <div class="serv-body">
+              <h3>Cerrajería y cerrajería artística</h3>
+              <p>Puertas metálicas, cancelas y piezas de hierro con trabajo decorativo.</p>
+            </div>
+            <span class="tag mono">Hierro</span>
+          </li>
+        </ol>
+        <p class="serv-foot">¿Tu trabajo no aparece en la lista? <a href="#presupuesto">Cuéntanoslo</a> y te decimos si podemos hacerlo.</p>
+      </div>
+    </section>
+
+    <!-- TRABAJOS -->
+    <section class="section works" id="trabajos" aria-labelledby="works-title">
+      <div class="wrap">
+        <header class="sec-head light">
+          <p class="kicker mono">02 · Trabajos</p>
+          <h2 id="works-title">Lo que sale<br>de nuestro taller.</h2>
+          <p class="sec-intro">Cada encargo empieza en un plano y termina instalado. Filtra por tipo de trabajo.</p>
+        </header>
+
+        <div class="filters" role="group" aria-label="Filtrar trabajos">
+          <button class="chip is-on" data-f="all">Todos</button>
+          <button class="chip" data-f="barandillas">Barandillas</button>
+          <button class="chip" data-f="aluminio">Aluminio</button>
+          <button class="chip" data-f="cerrajeria">Cerrajería</button>
+          <button class="chip" data-f="estructuras">Estructuras</button>
+        </div>
+
+        <div class="gallery">
+          <figure class="work w-wide" data-cat="barandillas"><img src="assets/trabajo-barandilla.svg" alt="Barandilla de hierro para balcón" loading="lazy" width="800" height="600"><figcaption><b>Barandilla de balcón</b><span class="mono">Hierro · exterior</span></figcaption></figure>
+          <figure class="work" data-cat="aluminio"><img src="assets/trabajo-ventana.svg" alt="Ventana corredera de aluminio" loading="lazy" width="800" height="600"><figcaption><b>Ventana corredera</b><span class="mono">Aluminio</span></figcaption></figure>
+          <figure class="work" data-cat="cerrajeria"><img src="assets/trabajo-puerta.svg" alt="Cancela de hierro de dos hojas con remate decorativo" loading="lazy" width="800" height="600"><figcaption><b>Cancela de dos hojas</b><span class="mono">Hierro · cerrajería artística</span></figcaption></figure>
+          <figure class="work" data-cat="estructuras"><img src="assets/trabajo-estructura.svg" alt="Estructura tubular de hierro" loading="lazy" width="800" height="600"><figcaption><b>Estructura tubular</b><span class="mono">Hierro</span></figcaption></figure>
+          <figure class="work" data-cat="aluminio"><img src="assets/trabajo-cerramiento.svg" alt="Cerramiento de porche en aluminio" loading="lazy" width="800" height="600"><figcaption><b>Cerramiento de porche</b><span class="mono">Aluminio</span></figcaption></figure>
+          <figure class="work" data-cat="aluminio"><img src="assets/trabajo-mampara.svg" alt="Mampara de aluminio" loading="lazy" width="800" height="600"><figcaption><b>Mampara</b><span class="mono">Aluminio · interior</span></figcaption></figure>
+        </div>
+
+        <div class="ba">
+          <div class="ba-copy">
+            <p class="kicker mono">Antes / después</p>
+            <h3>Del hueco a la barandilla.</h3>
+            <p>Desliza para ver el cambio. Así es como mejor se entiende un trabajo bien hecho.</p>
+          </div>
+          <div class="ba-frame" style="--pos:50%">
+            <img src="assets/despues-balcon.svg" alt="Después: balcón con barandilla instalada" width="800" height="600">
+            <div class="ba-before"><img src="assets/antes-balcon.svg" alt="Antes: balcón sin barandilla" width="800" height="600"></div>
+            <span class="ba-tag ba-tag-l mono">Antes</span><span class="ba-tag ba-tag-r mono">Después</span>
+            <div class="ba-handle" aria-hidden="true"><span></span></div>
+            <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Comparar antes y después">
+          </div>
+        </div>
+        <p class="works-note mono">Ilustraciones de muestra. En la web definitiva, fotos reales de vuestros trabajos.</p>
+      </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section class="section process" id="proceso" aria-labelledby="proc-title">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="kicker mono">03 · Cómo trabajamos</p>
+          <h2 id="proc-title">De la foto<br>al trabajo terminado.</h2>
+        </header>
+        <ol class="steps">
+          <li><span class="step-n">01</span><h3>Nos lo cuentas</h3><p>Mándanos por WhatsApp unas fotos del sitio y las medidas aproximadas. Con eso ya podemos orientarte.</p></li>
+          <li><span class="step-n">02</span><h3>Presupuesto sin compromiso</h3><p>Te decimos qué solución encaja, en qué material y cuánto cuesta, antes de empezar nada.</p></li>
+          <li><span class="step-n">03</span><h3>Fabricación a medida</h3><p>Cada pieza se hace para tu hueco, no sale de un catálogo.</p></li>
+          <li><span class="step-n">04</span><h3>Trabajo terminado</h3><p>Te entregamos el trabajo listo para usar, en interior o en exterior.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- POR QUÉ / TALLER -->
+    <section class="section shop" id="taller" aria-labelledby="shop-title">
+      <div class="wrap shop-grid">
+        <div>
+          <p class="kicker mono">04 · El taller</p>
+          <h2 id="shop-title">Una empresa del gremio, cerca de tu obra.</h2>
+          <p class="sec-intro">JJ Carpinsur es una empresa de carpintería metálica con sede en el Polígono Industrial Solúcar de Sanlúcar la Mayor, en pleno Aljarafe sevillano.</p>
+          <ul class="reasons">
+            <li><b>4,5 sobre 5 en Google</b><span>Con 11 reseñas de clientes. <a href="https://www.google.com/maps/search/?api=1&amp;query=JJ+Carpinsur+Sanl%C3%BAcar+la+Mayor" target="_blank" rel="noopener">Ver en Google</a></span></li>
+            <li><b>Hierro y aluminio</b><span>Los dos materiales en un mismo taller: no tienes que buscar a otro según el trabajo.</span></li>
+            <li><b>Interior y exterior</b><span>De la mampara del baño a la cancela de la entrada.</span></li>
+            <li><b>Presupuesto gratis</b><span>Sin compromiso, para que decidas con los números delante.</span></li>
+          </ul>
+        </div>
+        <aside class="spec" aria-label="Ficha de la empresa">
+          <p class="spec-title mono">Ficha</p>
+          <dl>
+            <div><dt>Empresa</dt><dd>JJ Carpinsur</dd></div>
+            <div><dt>Actividad</dt><dd>Carpintería metálica · hierro y aluminio</dd></div>
+            <div><dt>Taller</dt><dd>C. Blasco de Garay, 5<br>Pol. Ind. Solúcar<br>41800 Sanlúcar la Mayor (Sevilla)</dd></div>
+            <div><dt>Teléfono</dt><dd><a href="tel:+34608355734">608 355 734</a></dd></div>
+            <div><dt>Redes</dt><dd><a href="https://www.facebook.com/p/Jjcarpinsur-100041169321442/" target="_blank" rel="noopener">Facebook · Jjcarpinsur</a></dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <!-- PRESUPUESTO -->
+    <section class="section quote" id="presupuesto" aria-labelledby="quote-title">
+      <div class="wrap quote-grid">
+        <header class="sec-head light">
+          <p class="kicker mono">05 · Presupuesto</p>
+          <h2 id="quote-title">Pide tu presupuesto en un minuto.</h2>
+          <p class="sec-intro">Marca lo que necesitas y te abrimos WhatsApp con el mensaje ya escrito. Solo tienes que añadir las fotos.</p>
+          <div class="quote-alt">
+            <a class="btn btn-ghost" href="tel:+34608355734">Prefiero llamar · <span class="mono">608 355 734</span></a>
+          </div>
+        </header>
+
+        <form class="qform" id="qform" novalidate>
+          <fieldset>
+            <legend class="mono">1 · ¿Qué necesitas?</legend>
+            <div class="opts">
+              <label><input type="radio" name="tipo" value="una barandilla" checked><span>Barandilla</span></label>
+              <label><input type="radio" name="tipo" value="un cerramiento"><span>Cerramiento</span></label>
+              <label><input type="radio" name="tipo" value="ventanas o puertas de aluminio"><span>Ventanas / puertas</span></label>
+              <label><input type="radio" name="tipo" value="una mampara"><span>Mampara</span></label>
+              <label><input type="radio" name="tipo" value="una estructura metálica"><span>Estructura</span></label>
+              <label><input type="radio" name="tipo" value="una cancela o puerta de hierro"><span>Cancela / cerrajería</span></label>
+              <label><input type="radio" name="tipo" value="otro trabajo"><span>Otro</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend class="mono">2 · ¿En qué material?</legend>
+            <div class="opts">
+              <label><input type="radio" name="mat" value="en aluminio"><span>Aluminio</span></label>
+              <label><input type="radio" name="mat" value="en hierro"><span>Hierro</span></label>
+              <label><input type="radio" name="mat" value="" checked><span>Aconsejadme</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend class="mono">3 · ¿Dónde va?</legend>
+            <div class="opts">
+              <label><input type="radio" name="donde" value="de exterior" checked><span>Exterior</span></label>
+              <label><input type="radio" name="donde" value="de interior"><span>Interior</span></label>
+            </div>
+          </fieldset>
+          <div class="row2">
+            <label class="field"><span class="mono">Localidad de la obra</span><input type="text" name="loc" placeholder="Ej. Sanlúcar la Mayor" autocomplete="address-level2"></label>
+            <label class="field"><span class="mono">Medidas aproximadas</span><input type="text" name="med" placeholder="Ej. 3 m de largo"></label>
+          </div>
+          <div class="preview">
+            <p class="mono">Mensaje</p>
+            <p id="qmsg" aria-live="polite"></p>
+          </div>
+          <button class="btn btn-wa btn-lg btn-block" type="submit">Enviar por WhatsApp</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- DÓNDE -->
+    <section class="section where" id="donde" aria-labelledby="where-title">
+      <div class="wrap where-grid">
+        <div>
+          <p class="kicker mono">06 · Dónde estamos</p>
+          <h2 id="where-title">En el Polígono Solúcar, Sanlúcar la Mayor.</h2>
+          <p class="sec-intro">Si tu obra está en otro pueblo, pregúntanos y te decimos si llegamos.</p>
+          <p class="addr">C. Blasco de Garay, 5 · Pol. Ind. Solúcar<br>41800 Sanlúcar la Mayor (Sevilla)</p>
+          <div class="where-ctas">
+            <a class="btn btn-dark" href="https://www.google.com/maps/search/?api=1&amp;query=JJ+Carpinsur+Calle+Blasco+de+Garay+5+Sanl%C3%BAcar+la+Mayor" target="_blank" rel="noopener">Cómo llegar</a>
+            <a class="btn btn-ghost-dark" href="tel:+34608355734">Llamar</a>
+          </div>
+        </div>
+        <figure class="map" aria-label="Situación aproximada de Sanlúcar la Mayor respecto a Sevilla">
+          <svg viewBox="0 0 560 400" aria-hidden="true">
+            <defs><pattern id="mg" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="currentColor" stroke-opacity=".12"/></pattern></defs>
+            <rect width="560" height="400" fill="url(#mg)"/>
+            <path class="river" d="M470 10C455 90 492 150 468 220S486 330 470 400"/>
+            <path class="road" d="M40 214C140 206 230 196 300 196S420 202 470 196"/>
+            <text class="road-t" x="330" y="186">A-49</text>
+            <g class="town"><circle cx="108" cy="212" r="5"/><text x="96" y="242" text-anchor="end">Benacazón</text></g>
+            <g class="town"><circle cx="196" cy="84" r="5"/><text x="208" y="89">Olivares</text></g>
+            <g class="town"><circle cx="232" cy="230" r="5"/><text x="244" y="250">Umbrete</text></g>
+            <g class="town"><circle cx="300" cy="196" r="5"/><text x="308" y="230">Espartinas</text></g>
+            <g class="town big"><circle cx="490" cy="200" r="9"/><text x="500" y="232" text-anchor="end">Sevilla</text></g>
+            <g class="pin">
+              <circle cx="60" cy="168" r="26" class="pulse"/>
+              <circle cx="60" cy="168" r="10"/>
+              <text x="40" y="132" class="pin-t">Sanlúcar la Mayor</text>
+            </g>
+          </svg>
+          <figcaption class="mono">Esquema orientativo, no a escala</figcaption>
+        </figure>
+      </div>
+    </section>
   </main>
+
+  <footer class="foot">
+    <div class="wrap foot-grid">
+      <div>
+        <p class="foot-brand"><span class="brand-mark">JJ</span> Carpinsur</p>
+        <p>Carpintería metálica · hierro y aluminio<br>Sanlúcar la Mayor (Sevilla)</p>
+      </div>
+      <div>
+        <p><a href="tel:+34608355734">608 355 734</a></p>
+        <p><a href="#" data-wa="Hola JJ Carpinsur, quería pedir un presupuesto.">WhatsApp</a> · <a href="https://www.facebook.com/p/Jjcarpinsur-100041169321442/" target="_blank" rel="noopener">Facebook</a></p>
+      </div>
+      <p class="foot-legal mono">© JJ Carpinsur · Aviso legal · Privacidad · Cookies</p>
+    </div>
+  </footer>
+
+  <div class="mbar" aria-label="Contacto rápido">
+    <a class="mbar-call" href="tel:+34608355734">Llamar</a>
+    <a class="mbar-wa" href="#" data-wa="Hola JJ Carpinsur, quería pedir un presupuesto.">Presupuesto por WhatsApp</a>
+  </div>
+
+  <script src="main.js" defer></script>
 </body>
 </html>
