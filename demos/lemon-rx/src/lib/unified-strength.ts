@@ -18,10 +18,14 @@ export function complexReps(item: BuilderComplexItem) {
   return item.movements.reduce((sum, row) => sum + Math.max(0, Number(row.reps || 0)), 0);
 }
 
-/** Un Complex libre de una sola ejecución y sin esquema representa una búsqueda de peso máximo: se guarda el peso de la barra, no volumen. */
+/**
+ * Un Complex de una sola ejecución y sin esquema representa una búsqueda de peso máximo:
+ * se guarda/rankea por el peso de la barra, no por la suma de kg de sus movimientos internos.
+ * El constructor puede persistir esa única ejecución como `free` o como `sets`, por lo que
+ * la decisión depende de que haya exactamente 1 ejecución, no del nombre del formato.
+ */
 export function isMaxLoadComplex(section: BuilderSection, item: TrackedBuilderItem) {
   return item.type === "complex"
-    && sectionFormat(section) === "free"
     && section.count_min === 1
     && section.count_max === 1
     && !(item.scheme?.length);
