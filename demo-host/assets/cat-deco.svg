@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" role="img" aria-label="Ilustración de un aparador con espejo redondo, jarrones y planta">
+  <rect width="600" height="450" fill="#E7DCC9"/>
+  <rect y="360" width="600" height="90" fill="#A9825E"/>
+  <circle cx="300" cy="140" r="96" fill="#D8A548"/>
+  <circle cx="300" cy="140" r="84" fill="#EFE7DA"/>
+  <path d="M250 110c30-30 70-30 100 0" stroke="#FBF8F3" stroke-width="10" fill="none" stroke-linecap="round" opacity=".8"/>
+  <ellipse cx="300" cy="392" rx="230" ry="12" fill="#2A1F18" opacity=".18"/>
+  <rect x="90" y="260" width="420" height="100" rx="8" fill="#7A5B42"/>
+  <path d="M195 270v80M300 270v80M405 270v80" stroke="#5C4331" stroke-width="3"/>
+  <path d="M130 360v20M470 360v20" stroke="#2A1F18" stroke-width="8" stroke-linecap="round"/>
+  <path d="M130 260c-6-30 0-60 18-70h10c18 10 24 40 18 70z" fill="#B5532F"/>
+  <path d="M150 192c-10-40-30-60-50-70M156 192c10-50 30-70 60-80M152 192c0-40 4-70 10-100" stroke="#5A7757" stroke-width="4" fill="none"/>
+  <rect x="215" y="216" width="40" height="44" rx="14" fill="#23392E"/>
+  <rect x="268" y="236" width="70" height="24" rx="4" fill="#E8C6B4"/><rect x="274" y="222" width="58" height="14" rx="3" fill="#9AA58A"/>
+  <circle cx="390" cy="236" r="24" fill="#FBF8F3"/>
+  <path d="M450 260v-60" stroke="#2A1F18" stroke-width="4"/><path d="M425 205h50l-8-34h-34z" fill="#F1DEBD"/>
+</svg>

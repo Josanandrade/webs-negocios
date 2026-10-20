@@ -4,13 +4,274 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>Muebles Puchera · Muebles, descanso y hogar en Umbrete</title>
+  <meta name="description" content="Muebles Puchera, empresa familiar de Umbrete. Sofás, dormitorios, colchones, mueble juvenil, electrodomésticos y decoración. Transporte y montaje incluidos y financiación a medida.">
+  <meta name="theme-color" content="#23392E">
+  <meta property="og:title" content="Muebles Puchera · Umbrete">
+  <meta property="og:description" content="Sofás, dormitorios, descanso y hogar. Ven a vernos o escríbenos por WhatsApp.">
+  <meta property="og:image" content="assets/og.svg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,400;0,600;1,400;1,500&family=Red+Hat+Text:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip" href="#catalogo">Saltar al contenido</a>
+
+  <div class="topbar">
+    <span class="tb-hide">Empresa familiar de Umbrete</span>
+    <span class="tb-sep tb-hide" aria-hidden="true">·</span>
+    <span>Transporte y montaje incluidos</span>
+    <span class="tb-sep tb-hide" aria-hidden="true">·</span>
+    <span class="tb-hide">Financiación a medida</span>
+  </div>
+
+  <header class="nav" id="top">
+    <a class="brand" href="#top" aria-label="Muebles Puchera, inicio">
+      <span class="brand-small">Muebles</span>
+      <span class="brand-big">Puchera</span>
+    </a>
+    <nav class="menu" id="menu" aria-label="Principal">
+      <a href="#catalogo">Catálogo</a>
+      <a href="#servicio">Servicio</a>
+      <a href="#proyecto">Tu proyecto</a>
+      <a href="#visitanos">Visítanos</a>
+    </nav>
+    <a class="btn btn-wa nav-cta" data-wa="Hola, he visto vuestra web y quería información." href="#">WhatsApp</a>
+    <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><span></span><span></span></button>
+  </header>
+
   <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+    <!-- HERO · portada editorial -->
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="issue"><span>Umbrete</span><span class="rule" aria-hidden="true"></span><span>Muebles · Descanso · Hogar</span></p>
+        <h1>La casa que imaginas, <em>pieza a pieza.</em></h1>
+        <p class="hero-sub">Sofás, dormitorios, colchones y todo lo que hace hogar. Ven a verlo en tienda y te lo llevamos montado.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-wa" data-wa="Hola, he visto vuestra web y quería información." href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.5-.3Z"/></svg>
+            Escríbenos por WhatsApp
+          </a>
+          <a class="btn btn-line" href="#catalogo">Ver el catálogo</a>
+        </div>
+      </div>
+
+      <figure class="hero-art">
+        <div class="arch"><img src="assets/hero-salon.svg" alt="Salón con sofá verde, cojines, lámpara de pie y planta" width="800" height="1000" fetchpriority="high"></div>
+        <figcaption class="tag tag-1"><b>01</b> Sofás y sillones</figcaption>
+        <figcaption class="tag tag-2"><b>06</b> Decoración</figcaption>
+        <p class="stamp" aria-hidden="true"><span>Montaje</span><em>incluido</em></p>
+      </figure>
+    </section>
+
+    <!-- ÍNDICE -->
+    <nav class="index" aria-label="Categorías">
+      <a href="#c-sofas"><b>01</b>Sofás</a>
+      <a href="#c-dormitorios"><b>02</b>Dormitorios</a>
+      <a href="#c-descanso"><b>03</b>Colchones</a>
+      <a href="#c-juvenil"><b>04</b>Juvenil</a>
+      <a href="#c-electro"><b>05</b>Electro</a>
+      <a href="#c-deco"><b>06</b>Decoración</a>
+    </nav>
+
+    <!-- CATÁLOGO -->
+    <section class="catalog" id="catalogo">
+      <header class="sec-head">
+        <p class="kicker">El catálogo</p>
+        <h2>Seis estancias, <em>una sola tienda</em></h2>
+        <p>Pregunta por cualquier pieza y te enviamos fotos, medidas y acabados por WhatsApp.</p>
+      </header>
+
+      <article class="cat cat-wide" id="c-sofas">
+        <div class="cat-img"><img src="assets/cat-sofas.svg" alt="Sofá terracota con cojines" width="600" height="450" loading="lazy"></div>
+        <div class="cat-body">
+          <span class="num">01</span>
+          <h3>Sofás y sillones</h3>
+          <p>El centro del salón. Ven a sentarte en ellos antes de elegir.</p>
+          <a class="more" data-wa="Hola, he visto vuestra web y quería información sobre sofás." href="#">Preguntar por sofás <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="cat" id="c-dormitorios">
+        <div class="cat-img"><img src="assets/cat-dormitorio.svg" alt="Dormitorio con cama, mesitas y lámparas" width="600" height="450" loading="lazy"></div>
+        <div class="cat-body">
+          <span class="num">02</span>
+          <h3>Dormitorios</h3>
+          <p>Cama, mesitas y armario pensados juntos.</p>
+          <a class="more" data-wa="Hola, he visto vuestra web y quería información sobre dormitorios." href="#">Preguntar <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="cat" id="c-descanso">
+        <div class="cat-img"><img src="assets/cat-colchones.svg" alt="Capas de un colchón y almohada" width="600" height="450" loading="lazy"></div>
+        <div class="cat-body">
+          <span class="num">03</span>
+          <h3>Colchones y descanso</h3>
+          <p>Colchón, base y almohada: te ayudamos a acertar.</p>
+          <a class="more" data-wa="Hola, he visto vuestra web y quería información sobre colchones." href="#">Preguntar <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="cat" id="c-juvenil">
+        <div class="cat-img"><img src="assets/cat-juvenil.svg" alt="Dormitorio juvenil con cama, escritorio y estantería" width="600" height="450" loading="lazy"></div>
+        <div class="cat-body">
+          <span class="num">04</span>
+          <h3>Mueble juvenil</h3>
+          <p>Habitaciones que crecen con ellos y aprovechan cada metro.</p>
+          <a class="more" data-wa="Hola, he visto vuestra web y quería información sobre muebles juveniles." href="#">Preguntar <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="cat" id="c-electro">
+        <div class="cat-img"><img src="assets/cat-electro.svg" alt="Frigorífico, lavadora y horno" width="600" height="450" loading="lazy"></div>
+        <div class="cat-body">
+          <span class="num">05</span>
+          <h3>Electrodomésticos</h3>
+          <p>Frigoríficos, lavadoras, hornos y más, en nuestra tienda de electro.</p>
+          <a class="more" data-wa="Hola, he visto vuestra web y quería información sobre electrodomésticos." href="#">Preguntar <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="cat cat-wide cat-flip" id="c-deco">
+        <div class="cat-img"><img src="assets/cat-deco.svg" alt="Aparador con espejo redondo, jarrones y planta" width="600" height="450" loading="lazy"></div>
+        <div class="cat-body">
+          <span class="num">06</span>
+          <h3>Auxiliares y decoración</h3>
+          <p>Aparadores, mesas, espejos y esos detalles que terminan una estancia.</p>
+          <a class="more" data-wa="Hola, he visto vuestra web y quería información sobre muebles auxiliares y decoración." href="#">Preguntar por decoración <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    </section>
+
+    <!-- SERVICIO -->
+    <section class="service" id="servicio">
+      <header class="sec-head sec-head-light">
+        <p class="kicker">Cómo trabajamos</p>
+        <h2>De la tienda <em>a tu casa</em></h2>
+      </header>
+      <ol class="steps">
+        <li>
+          <span class="step-n">I</span>
+          <h3>Te asesoramos</h3>
+          <p>Atención personal en tienda. Trae medidas o una foto de la estancia.</p>
+        </li>
+        <li>
+          <span class="step-n">II</span>
+          <h3>Financiación a medida</h3>
+          <p>Si lo prefieres, lo pagas en cómodos plazos. Pregúntanos sin compromiso.</p>
+        </li>
+        <li>
+          <span class="step-n">III</span>
+          <h3>Transporte y montaje</h3>
+          <p>Incluidos. Lo llevamos a tu casa y lo dejamos montado.</p>
+        </li>
+      </ol>
+      <a class="btn btn-cream" data-wa="Hola, he visto vuestra web y quería información sobre la financiación." href="#">Preguntar por la financiación</a>
+    </section>
+
+    <!-- PROYECTO · compositor de WhatsApp -->
+    <section class="project" id="proyecto">
+      <div class="project-intro">
+        <p class="kicker">Tu proyecto</p>
+        <h2>Cuéntanos qué <em>tienes en mente</em></h2>
+        <p>Elige y te preparamos el mensaje. Solo tienes que enviarlo.</p>
+      </div>
+
+      <div class="composer">
+        <fieldset>
+          <legend>¿Qué estancia?</legend>
+          <div class="chips" data-group="room">
+            <button type="button" class="chip is-on" data-v="el salón">Salón</button>
+            <button type="button" class="chip" data-v="el dormitorio">Dormitorio</button>
+            <button type="button" class="chip" data-v="la habitación juvenil">Juvenil</button>
+            <button type="button" class="chip" data-v="descanso">Descanso</button>
+            <button type="button" class="chip" data-v="electro">Electro</button>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>¿Qué buscas?</legend>
+          <div class="chips" data-group="scope">
+            <button type="button" class="chip is-on" data-v="renovarlo entero">Renovarlo entero</button>
+            <button type="button" class="chip" data-v="una pieza concreta">Una pieza</button>
+            <button type="button" class="chip" data-v="ver ideas">Ver ideas</button>
+          </div>
+        </fieldset>
+        <label class="check">
+          <input type="checkbox" id="fin">
+          <span>Me interesa la financiación</span>
+        </label>
+
+        <div class="note" aria-live="polite">
+          <p class="note-head">Tu mensaje</p>
+          <p class="note-text" id="note-text"></p>
+        </div>
+        <a class="btn btn-wa btn-block" id="send" href="#">Enviar por WhatsApp</a>
+      </div>
+    </section>
+
+    <!-- VISÍTANOS -->
+    <section class="visit" id="visitanos">
+      <header class="sec-head">
+        <p class="kicker">Visítanos</p>
+        <h2>Dos tiendas <em>en Umbrete</em></h2>
+        <p class="status"><span class="dot" id="open-dot"></span><span id="open-text">L–V 10:00–14:00 y 17:30–20:30</span></p>
+      </header>
+
+      <div class="stores">
+        <article class="store">
+          <p class="store-tag">Muebles y descanso</p>
+          <h3>Muebles Puchera</h3>
+          <p class="addr">Av. Majalbarraque, 25<br>41806 Umbrete (Sevilla)</p>
+          <div class="store-links">
+            <a class="btn btn-wa btn-sm" data-wa="Hola, he visto vuestra web y quería información." href="#">WhatsApp</a>
+            <a class="btn btn-line btn-sm" href="tel:+34647424911">Llamar</a>
+            <a class="link" href="https://www.google.com/maps/search/?api=1&amp;query=Muebles+Puchera+Umbrete" target="_blank" rel="noopener">Cómo llegar →</a>
+          </div>
+        </article>
+        <article class="store store-alt">
+          <p class="store-tag">Electrodomésticos</p>
+          <h3>Electrodomésticos Puchera</h3>
+          <p class="addr">C/ Baldomero Muñoz, 54<br>41806 Umbrete (Sevilla)</p>
+          <div class="store-links">
+            <a class="btn btn-line btn-sm" href="tel:+34955717985">Llamar 955 71 79 85</a>
+            <a class="link" href="https://www.google.com/maps/search/?api=1&amp;query=Calle+Baldomero+Mu%C3%B1oz+54+Umbrete" target="_blank" rel="noopener">Cómo llegar →</a>
+          </div>
+        </article>
+      </div>
+
+      <table class="hours" aria-label="Horario">
+        <tbody>
+          <tr data-d="1"><th>Lunes</th><td>10:00–14:00 · 17:30–20:30</td></tr>
+          <tr data-d="2"><th>Martes</th><td>10:00–14:00 · 17:30–20:30</td></tr>
+          <tr data-d="3"><th>Miércoles</th><td>10:00–14:00 · 17:30–20:30</td></tr>
+          <tr data-d="4"><th>Jueves</th><td>10:00–14:00 · 17:30–20:30</td></tr>
+          <tr data-d="5"><th>Viernes</th><td>10:00–14:00 · 17:30–20:30</td></tr>
+          <tr data-d="6"><th>Sábado</th><td>Consúltanos</td></tr>
+          <tr data-d="0"><th>Domingo</th><td>Cerrado</td></tr>
+        </tbody>
+      </table>
+
+      <div class="social">
+        <a href="https://www.instagram.com/electromueblespuchera/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/profile.php?id=100057460598782" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.tiktok.com/@electromueblespuchera" target="_blank" rel="noopener">TikTok</a>
+      </div>
+    </section>
   </main>
+
+  <footer class="foot">
+    <p class="foot-brand"><span>Muebles</span> <em>Puchera</em></p>
+    <p>Empresa familiar de Umbrete · <a href="tel:+34647424911">647 42 49 11</a></p>
+    <p class="foot-small">© <span id="year"></span> Muebles Puchera</p>
+  </footer>
+
+  <a class="fab" data-wa="Hola, he visto vuestra web y quería información." href="#" aria-label="Escribir por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.5-.3Z"/></svg>
+  </a>
+
+  <script src="main.js"></script>
 </body>
 </html>

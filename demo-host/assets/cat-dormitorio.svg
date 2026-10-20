@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" role="img" aria-label="Ilustración de un dormitorio con cama, mesitas y lámparas">
+  <rect width="600" height="450" fill="#DCE1D3"/>
+  <rect y="340" width="600" height="110" fill="#B48B64"/>
+  <rect x="150" y="120" width="300" height="150" rx="16" fill="#23392E"/>
+  <path d="M210 120v150M270 120v150M330 120v150M390 120v150" stroke="#2F4A3B" stroke-width="6"/>
+  <ellipse cx="300" cy="388" rx="230" ry="12" fill="#2A1F18" opacity=".18"/>
+  <rect x="140" y="250" width="320" height="120" rx="12" fill="#F6EFE4"/>
+  <path d="M140 300h320v62a8 8 0 0 1-8 8H148a8 8 0 0 1-8-8z" fill="#E8C6B4"/>
+  <path d="M140 300c60 14 260 14 320 0" stroke="#D3A994" stroke-width="4" fill="none"/>
+  <rect x="170" y="230" width="110" height="50" rx="20" fill="#FBF8F3"/>
+  <rect x="320" y="230" width="110" height="50" rx="20" fill="#FBF8F3"/>
+  <rect x="40" y="280" width="90" height="80" rx="6" fill="#7A5B42"/>
+  <rect x="470" y="280" width="90" height="80" rx="6" fill="#7A5B42"/>
+  <path d="M50 320h70M480 320h70" stroke="#5C4331" stroke-width="3"/>
+  <path d="M85 280v-50M515 280v-50" stroke="#2A1F18" stroke-width="4"/>
+  <path d="M60 230h50l-10-40H70zM490 230h50l-10-40h-30z" fill="#D8A548"/>
+  <circle cx="85" cy="220" r="60" fill="#FFE7B8" opacity=".25"/>
+  <circle cx="515" cy="220" r="60" fill="#FFE7B8" opacity=".25"/>
+</svg>

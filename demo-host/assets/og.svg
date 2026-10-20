@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#F2ECE2"/>
+  <rect x="700" width="500" height="630" fill="#23392E"/>
+  <text x="80" y="250" font-family="Georgia, serif" font-size="120" fill="#2A1F18">Muebles</text>
+  <text x="80" y="380" font-family="Georgia, serif" font-style="italic" font-size="120" fill="#B5532F">Puchera</text>
+  <text x="84" y="470" font-family="Arial, sans-serif" font-size="30" letter-spacing="6" fill="#2A1F18">SALÓN · DESCANSO · HOGAR · UMBRETE</text>
+  <rect x="780" y="300" width="340" height="110" rx="34" fill="#B5532F"/>
+  <rect x="800" y="270" width="90" height="70" rx="20" fill="#D8A548"/>
+  <rect x="1000" y="275" width="88" height="66" rx="20" fill="#E8C6B4"/>
+  <path d="M800 410v30M1100 410v30" stroke="#F2ECE2" stroke-width="10" stroke-linecap="round"/>
+</svg>

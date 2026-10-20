@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Ilustración de un salón con sofá verde, lámpara de pie y planta">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9DFD0"/><stop offset="1" stop-color="#DFD2BF"/></linearGradient>
+    <linearGradient id="win" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7E7CF"/><stop offset="1" stop-color="#EBC9A2"/></linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B98D63"/><stop offset="1" stop-color="#9E7450"/></linearGradient>
+    <linearGradient id="sofa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3A5646"/><stop offset="1" stop-color="#2A4034"/></linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFE7B8" stop-opacity=".9"/><stop offset="1" stop-color="#FFE7B8" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#wall)"/>
+  <!-- ventana en arco -->
+  <path d="M420 640V300a150 150 0 0 1 300 0v340z" fill="url(#win)"/>
+  <path d="M420 640V300a150 150 0 0 1 300 0v340" fill="none" stroke="#C9B497" stroke-width="10"/>
+  <path d="M570 150v490M420 420h300" stroke="#C9B497" stroke-width="6"/>
+  <ellipse cx="640" cy="260" rx="40" ry="40" fill="#FFF3DE" opacity=".7"/>
+  <!-- cuadro -->
+  <rect x="110" y="250" width="200" height="250" fill="#F6EFE4" stroke="#7A5B42" stroke-width="10"/>
+  <rect x="135" y="275" width="150" height="200" fill="#E4C9AE"/>
+  <circle cx="230" cy="345" r="38" fill="#B5532F"/>
+  <path d="M135 475c40-70 90-90 150-60v60z" fill="#9AA58A"/>
+  <!-- suelo -->
+  <rect y="760" width="800" height="240" fill="url(#floor)"/>
+  <path d="M0 800h800M0 860h800M0 930h800" stroke="#8C6646" stroke-width="2" opacity=".5"/>
+  <!-- alfombra -->
+  <ellipse cx="380" cy="890" rx="330" ry="62" fill="#E7D7BF"/>
+  <ellipse cx="380" cy="890" rx="280" ry="44" fill="none" stroke="#B5532F" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
+  <!-- lámpara de pie -->
+  <circle cx="700" cy="520" r="180" fill="url(#glow)"/>
+  <path d="M700 520v300" stroke="#2A1F18" stroke-width="6"/>
+  <ellipse cx="700" cy="822" rx="40" ry="8" fill="#2A1F18"/>
+  <path d="M650 520h100l-22-90h-56z" fill="#F1DEBD"/>
+  <path d="M650 520h100" stroke="#D8A548" stroke-width="4"/>
+  <!-- sofá -->
+  <ellipse cx="350" cy="830" rx="300" ry="20" fill="#2A1F18" opacity=".18"/>
+  <rect x="80" y="610" width="540" height="140" rx="40" fill="url(#sofa)"/>
+  <rect x="60" y="680" width="80" height="140" rx="34" fill="#2F4A3B"/>
+  <rect x="560" y="680" width="80" height="140" rx="34" fill="#2F4A3B"/>
+  <rect x="120" y="715" width="460" height="95" rx="26" fill="#355243"/>
+  <path d="M350 718v90" stroke="#23392E" stroke-width="4"/>
+  <path d="M110 820v26M590 820v26" stroke="#2A1F18" stroke-width="10" stroke-linecap="round"/>
+  <!-- cojines -->
+  <rect x="150" y="640" width="120" height="96" rx="26" fill="#D8A548" transform="rotate(-8 210 688)"/>
+  <rect x="420" y="645" width="118" height="92" rx="26" fill="#E8C6B4" transform="rotate(7 479 691)"/>
+  <rect x="290" y="655" width="110" height="82" rx="24" fill="#B5532F"/>
+  <!-- manta -->
+  <path d="M500 700c30 0 60 10 70 40l10 80c-30 6-60 4-80-6z" fill="#F2ECE2"/>
+  <path d="M510 720l55 0M512 745l58 0M514 770l60 0M516 795l62 0" stroke="#DCC9A9" stroke-width="3"/>
+  <!-- mesa auxiliar -->
+  <ellipse cx="420" cy="870" rx="90" ry="18" fill="#2A1F18" opacity=".15"/>
+  <ellipse cx="420" cy="812" rx="88" ry="20" fill="#7A5B42"/>
+  <path d="M370 818l-10 52M470 818l10 52M420 830v42" stroke="#5C4331" stroke-width="7" stroke-linecap="round"/>
+  <rect x="385" y="770" width="34" height="38" rx="6" fill="#F6EFE4"/>
+  <circle cx="450" cy="792" r="16" fill="#9AA58A"/>
+  <!-- planta -->
+  <path d="M40 840h90l-12 80H52z" fill="#B5532F"/>
+  <g fill="#4F6A4E">
+    <path d="M85 840c-40-60-60-130-30-200 20 60 30 130 30 200z"/>
+    <path d="M85 840c10-80 40-150 90-190-10 70-40 140-90 190z" fill="#6A8466"/>
+    <path d="M85 840c-30-40-70-70-80-130 40 20 70 70 80 130z" fill="#3F583F"/>
+    <path d="M85 840c0-90 0-160 10-250 20 80 10 170-10 250z" fill="#5A7757"/>
+  </g>
+</svg>
