@@ -4,13 +4,406 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>Salón de Peluquería Toñi Garrido · Benacazón</title>
+  <meta name="description" content="Peluquería en Benacazón: corte de mujer y niños, tinte, mechas balayage, alisado permanente y queratina. Pide cita por WhatsApp o teléfono.">
+  <meta name="theme-color" content="#1F2D5C">
+  <meta property="og:title" content="Salón de Peluquería Toñi Garrido · Benacazón">
+  <meta property="og:description" content="Corte, color y alisado en C/ Juan Ramón Jiménez, 15. Pide tu cita por WhatsApp.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Yeseva+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <header class="top">
+    <div class="wrap top__bar">
+      <a class="brand" href="#inicio" aria-label="Toñi Garrido, inicio">
+        <span class="brand__mark" aria-hidden="true">TG</span>
+        <span class="brand__text"><b>Toñi Garrido</b><small>Salón de peluquería</small></span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="#servicios">Servicios</a>
+        <a href="#color">Color</a>
+        <a href="#galeria">Trabajos</a>
+        <a href="#salon">El salón</a>
+        <a href="#opiniones">Opiniones</a>
+        <a href="#ubicacion">Dónde estamos</a>
+      </nav>
+      <a class="btn btn--albero top__cta" href="#cita">Pedir cita</a>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><span></span><span></span></button>
+    </div>
+    <div class="menu" id="menu" hidden>
+      <a href="#servicios">Servicios</a>
+      <a href="#color">Color</a>
+      <a href="#galeria">Trabajos</a>
+      <a href="#salon">El salón</a>
+      <a href="#opiniones">Opiniones</a>
+      <a href="#ubicacion">Dónde estamos</a>
+      <a class="btn btn--albero" href="#cita">Pedir cita</a>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="tiles" aria-hidden="true"></div>
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <div class="plaque" aria-label="Dirección: Calle Juan Ramón Jiménez, 15, Benacazón">
+            <span class="plaque__small">Calle</span>
+            <span class="plaque__big">Juan Ramón Jiménez, 15</span>
+            <span class="plaque__small">Benacazón</span>
+          </div>
+          <h1 class="hero__title">Ponte en manos <em>de Toñi.</em></h1>
+          <p class="hero__lead">Corte, color y alisado en tu peluquería de siempre en Benacazón. Cuéntanos qué te apetece y te buscamos hueco.</p>
+          <div class="hero__actions">
+            <a class="btn btn--albero btn--lg" href="#cita">Pedir cita por WhatsApp</a>
+            <a class="btn btn--ghost btn--lg" href="tel:+34618745554">Llamar · 618 74 55 54</a>
+          </div>
+          <ul class="hero__facts">
+            <li><b>4,5</b><span>valoración media en directorios</span></li>
+            <li><b>6 días</b><span>abierto, miércoles descanso</span></li>
+            <li><b>Mujer y niños</b><span>corte, color y tratamientos</span></li>
+          </ul>
+        </div>
+
+        <div class="hero__art">
+          <figure class="mirror" aria-label="Ilustración: espejo de tocador con una clienta peinada">
+            <div class="mirror__bulbs" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <div class="mirror__glass">
+              <svg class="portrait" viewBox="0 0 300 340" role="img" aria-label="Clienta con melena de color" data-portrait>
+                <defs>
+                  <linearGradient id="hairG" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" style="stop-color:var(--hair-a)"/>
+                    <stop offset="1" style="stop-color:var(--hair-b)"/>
+                  </linearGradient>
+                </defs>
+                <path d="M78 160c-8-78 38-128 96-124 62 4 92 58 82 128-6 46 10 88 26 118H64c18-36 18-80 14-122z" fill="url(#hairG)"/>
+                <path d="M118 238h64l8 52h-80z" fill="#E7B7A0"/>
+                <ellipse cx="150" cy="168" rx="56" ry="70" fill="#F2C9B3"/>
+                <path d="M92 150c10-58 58-84 112-62 22 10 34 36 34 62-24-26-62-44-108-30-16 6-28 18-38 30z" fill="url(#hairG)"/>
+                <path d="M100 116c20 50 6 120-10 170" style="stroke:var(--hair-c)" stroke-width="6" fill="none" stroke-linecap="round" opacity=".7"/>
+                <path d="M214 120c-8 50 8 110 30 166" style="stroke:var(--hair-c)" stroke-width="6" fill="none" stroke-linecap="round" opacity=".7"/>
+                <path d="M130 172q6 6 12 0M160 172q6 6 12 0" stroke="#3A2A2A" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path d="M140 206q10 8 20 0" stroke="#B2475C" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M40 340c10-44 50-62 110-62s100 18 110 62z" style="fill:var(--anil)"/>
+                <path d="M120 290l30 30 30-30" style="stroke:var(--albero)" stroke-width="5" fill="none"/>
+              </svg>
+            </div>
+            <figcaption class="mirror__tag"><span data-tone-name>Castaño con mechas miel</span></figcaption>
+          </figure>
+          <div class="hero__ticket" aria-hidden="true">
+            <svg viewBox="0 0 64 64"><circle cx="18" cy="46" r="9"/><circle cx="46" cy="46" r="9"/><path d="M24 40 50 8M40 40 14 8"/></svg>
+            <span>Corte · Color · Alisado</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="section" id="servicios">
+      <div class="wrap">
+        <header class="head reveal">
+          <p class="eyebrow">Servicios</p>
+          <h2>Lo que hacemos en el salón</h2>
+          <p class="lead">Precios en el salón o por WhatsApp: cada melena es distinta y preferimos verte antes de dar una cifra.</p>
+        </header>
+        <div class="menu-board">
+          <article class="svc reveal">
+            <span class="svc__num">01</span>
+            <h3>Corte</h3>
+            <ul>
+              <li><b>Corte de mujer</b><span>Lavado, corte y peinado pensado para tu tipo de pelo y tu día a día.</span></li>
+              <li><b>Corte de niños</b><span>Rápido y con paciencia, para que vengan a gusto.</span></li>
+            </ul>
+          </article>
+          <article class="svc svc--dark reveal">
+            <span class="svc__num">02</span>
+            <h3>Color</h3>
+            <ul>
+              <li><b>Tinte</b><span>Cobertura de canas o cambio de tono, con el color que mejor te sienta.</span></li>
+              <li><b>Mechas balayage</b><span>Luz degradada y natural, sin raíz marcada.</span></li>
+              <li><b>Mechas y reflejos</b><span>Para iluminar el rostro o dar movimiento al color.</span></li>
+            </ul>
+          </article>
+          <article class="svc reveal">
+            <span class="svc__num">03</span>
+            <h3>Alisado y cuidado</h3>
+            <ul>
+              <li><b>Alisado permanente</b><span>Pelo liso y manejable durante meses.</span></li>
+              <li><b>Tratamiento con queratina</b><span>Menos encrespamiento, más brillo y suavidad.</span></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOR (sección principal) -->
+    <section class="section section--anil" id="color">
+      <div class="wrap color">
+        <div class="color__copy reveal">
+          <p class="eyebrow eyebrow--light">Peluquería y color</p>
+          <h2>Antes de teñir, <em>lo hablamos.</em></h2>
+          <p>Toca un tono y mira cómo cambia. Es solo para inspirarte: en el salón miramos tu base, tus canas y cómo cuidas el pelo en casa, y entonces decidimos juntas.</p>
+          <div class="swatches" role="radiogroup" aria-label="Elige un tono de inspiración">
+            <button type="button" role="radio" aria-checked="true" data-tone="miel" style="--s1:#5A3622;--s2:#C98F4E">Castaño con mechas miel</button>
+            <button type="button" role="radio" aria-checked="false" data-tone="balayage" style="--s1:#3B2A20;--s2:#E3C08A">Balayage rubio</button>
+            <button type="button" role="radio" aria-checked="false" data-tone="cobrizo" style="--s1:#7A2E14;--s2:#D06A35">Cobrizo</button>
+            <button type="button" role="radio" aria-checked="false" data-tone="chocolate" style="--s1:#2A1A14;--s2:#5E3B2A">Chocolate</button>
+            <button type="button" role="radio" aria-checked="false" data-tone="ceniza" style="--s1:#8C8172;--s2:#E6DDCC">Rubio ceniza</button>
+          </div>
+          <a class="btn btn--albero" href="#cita" data-tone-cta>Quiero este tono</a>
+          <svg class="lock" viewBox="0 0 560 150" aria-hidden="true">
+            <defs><linearGradient id="lockG" x1="0" x2="1"><stop offset="0" style="stop-color:var(--hair-a)"/><stop offset=".55" style="stop-color:var(--hair-b)"/><stop offset="1" style="stop-color:var(--hair-c)"/></linearGradient></defs>
+            <g fill="none" stroke="url(#lockG)" stroke-linecap="round">
+              <path d="M10 40c90-30 160 40 260 10s180-40 280 0" stroke-width="16"/>
+              <path d="M10 64c90-30 160 40 260 10s180-40 280 0" stroke-width="16"/>
+              <path d="M10 88c90-30 160 40 260 10s180-40 280 0" stroke-width="16"/>
+              <path d="M10 112c90-30 160 40 260 10s180-40 280 0" stroke-width="16"/>
+            </g>
+            <g fill="none" stroke="#FBF8F1" stroke-opacity=".35" stroke-width="2"><path d="M10 52c90-30 160 40 260 10s180-40 280 0"/><path d="M10 100c90-30 160 40 260 10s180-40 280 0"/></g>
+          </svg>
+        </div>
+        <div class="color__steps reveal">
+          <h3>Así trabajamos el color</h3>
+          <ol>
+            <li><span><b>Diagnóstico.</b> Miramos tu pelo con luz natural y te preguntamos qué buscas.</span></li>
+            <li><span><b>Propuesta.</b> Tinte, mechas o balayage: te explicamos la diferencia y el mantenimiento.</span></li>
+            <li><span><b>Cuidado.</b> Si el pelo lo pide, lo acompañamos con queratina o un tratamiento.</span></li>
+          </ol>
+          <p class="note">Los tonos de esta muestra son orientativos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="section" id="galeria">
+      <div class="wrap">
+        <header class="head reveal">
+          <p class="eyebrow">Trabajos</p>
+          <h2>Un vistazo al salón</h2>
+          <p class="lead">Aquí irán las fotos reales de vuestros trabajos. De momento, ilustraciones de muestra.</p>
+        </header>
+        <div class="filters" role="tablist" aria-label="Filtrar trabajos">
+          <button type="button" class="is-on" data-filter="todo">Todo</button>
+          <button type="button" data-filter="color">Color</button>
+          <button type="button" data-filter="corte">Corte</button>
+          <button type="button" data-filter="liso">Alisado</button>
+        </div>
+        <div class="gallery">
+          <figure class="shot shot--tall reveal" data-cat="color"><img src="assets/galeria/balayage.svg" alt="Ilustración de melena con balayage"><figcaption>Balayage</figcaption></figure>
+          <figure class="shot reveal" data-cat="corte"><img src="assets/galeria/bob.svg" alt="Ilustración de corte bob"><figcaption>Corte bob</figcaption></figure>
+          <figure class="shot reveal" data-cat="liso"><img src="assets/galeria/liso.svg" alt="Ilustración de pelo liso tras alisado"><figcaption>Alisado permanente</figcaption></figure>
+          <figure class="shot reveal" data-cat="color"><img src="assets/galeria/cobrizo.svg" alt="Ilustración de tinte cobrizo"><figcaption>Tinte cobrizo</figcaption></figure>
+          <figure class="shot reveal" data-cat="corte"><img src="assets/galeria/peque.svg" alt="Ilustración de corte infantil"><figcaption>Corte de niños</figcaption></figure>
+          <figure class="shot shot--wide reveal" data-cat="liso"><img src="assets/galeria/queratina.svg" alt="Ilustración de tratamiento de queratina"><figcaption>Queratina</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE EL SALÓN -->
+    <section class="section section--cal" id="salon">
+      <div class="wrap about">
+        <div class="about__art reveal" aria-hidden="true">
+          <svg viewBox="0 0 360 300">
+            <rect x="20" y="40" width="320" height="240" rx="6" fill="#FBF8F1" stroke="#1F2D5C" stroke-width="3"/>
+            <rect x="20" y="40" width="320" height="46" fill="#1F2D5C"/>
+            <g fill="#D9A441"><rect x="20" y="86" width="40" height="14"/><rect x="100" y="86" width="40" height="14"/><rect x="180" y="86" width="40" height="14"/><rect x="260" y="86" width="40" height="14"/></g>
+            <text x="180" y="71" text-anchor="middle" font-family="Yeseva One, serif" font-size="22" fill="#FBF8F1">Toñi Garrido</text>
+            <rect x="48" y="122" width="120" height="132" rx="60" fill="#E4EAF4" stroke="#1F2D5C" stroke-width="3"/>
+            <path d="M74 230c4-40 24-62 34-62s30 22 34 62" fill="#C93A6B" opacity=".25"/>
+            <rect x="200" y="122" width="110" height="158" fill="#F1E3C4" stroke="#1F2D5C" stroke-width="3"/>
+            <circle cx="292" cy="204" r="5" fill="#1F2D5C"/>
+            <path d="M200 280h110" stroke="#1F2D5C" stroke-width="3"/>
+          </svg>
+        </div>
+        <div class="about__copy reveal">
+          <p class="eyebrow">El salón</p>
+          <h2>Tu peluquería de confianza, <em>con oficio.</em></h2>
+          <p>El Salón de Peluquería Toñi Garrido está en la calle Juan Ramón Jiménez de Benacazón. Aquí vienes a cortarte, a cambiar de color o a poner orden en un pelo rebelde, con alguien que te conoce y te escucha.</p>
+          <p>Trabajamos con cita para atenderte sin prisas. Escríbenos y te decimos qué día te viene mejor.</p>
+          <div class="hours" aria-label="Horario">
+            <h3>Horario</h3>
+            <dl>
+              <div><dt>Lunes</dt><dd>10:00 – 20:00</dd></div>
+              <div><dt>Martes</dt><dd>10:00 – 18:00</dd></div>
+              <div class="off"><dt>Miércoles</dt><dd>Cerrado</dd></div>
+              <div><dt>Jueves</dt><dd>10:00 – 18:00</dd></div>
+              <div><dt>Viernes</dt><dd>10:00 – 20:00</dd></div>
+              <div><dt>Sábado</dt><dd>10:00 – 14:00</dd></div>
+              <div class="off"><dt>Domingo</dt><dd>Cerrado</dd></div>
+            </dl>
+            <p class="hours__now" data-now></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPINIONES -->
+    <section class="section" id="opiniones">
+      <div class="wrap">
+        <header class="head reveal">
+          <p class="eyebrow">Opiniones</p>
+          <h2><span class="score">4,5</span> de 5</h2>
+          <p class="lead">Valoración media publicada en directorios de peluquerías. Aquí pondremos vuestras reseñas reales de Google.</p>
+        </header>
+        <div class="reviews">
+          <blockquote class="review reveal">
+            <div class="stars" aria-label="5 de 5">★★★★★</div>
+            <p>“Llevo años viniendo y siempre salgo como quiero. Toñi te aconseja sin imponer.”</p>
+            <footer>Clienta <span class="tag">Texto de ejemplo</span></footer>
+          </blockquote>
+          <blockquote class="review reveal">
+            <div class="stars" aria-label="5 de 5">★★★★★</div>
+            <p>“Me hice el alisado y el pelo me ha durado perfecto. Trato de diez.”</p>
+            <footer>Clienta <span class="tag">Texto de ejemplo</span></footer>
+          </blockquote>
+          <blockquote class="review reveal">
+            <div class="stars" aria-label="5 de 5">★★★★★</div>
+            <p>“Mis hijos se cortan aquí y salen encantados. Muy cerca y con cita, sin esperar.”</p>
+            <footer>Clienta <span class="tag">Texto de ejemplo</span></footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- CITA -->
+    <section class="section section--anil" id="cita">
+      <div class="wrap booking">
+        <div class="booking__copy reveal">
+          <p class="eyebrow eyebrow--light">Pide tu cita</p>
+          <h2>Prepara tu mensaje <em>en un minuto.</em></h2>
+          <p>Elige lo que te quieres hacer y cuándo te viene mejor. Te abrimos WhatsApp con el mensaje escrito y Toñi te confirma la hora.</p>
+          <p class="booking__alt">¿Prefieres llamar? <a href="tel:+34618745554">618 74 55 54</a></p>
+          <ul class="booking__notes">
+            <li>Miércoles y domingo, cerrado.</li>
+            <li>Sábados, solo por la mañana.</li>
+            <li>Si vienes a hacerte color, cuéntanos qué te pusiste la última vez.</li>
+          </ul>
+        </div>
+        <form class="planner reveal" data-planner novalidate>
+          <fieldset>
+            <legend>1. ¿Qué te hacemos?</legend>
+            <div class="chips" data-services>
+              <label><input type="checkbox" value="Corte de mujer"><span>Corte de mujer</span></label>
+              <label><input type="checkbox" value="Corte de niños"><span>Corte de niños</span></label>
+              <label><input type="checkbox" value="Tinte"><span>Tinte</span></label>
+              <label><input type="checkbox" value="Mechas balayage"><span>Balayage</span></label>
+              <label><input type="checkbox" value="Mechas y reflejos"><span>Mechas</span></label>
+              <label><input type="checkbox" value="Alisado permanente"><span>Alisado</span></label>
+              <label><input type="checkbox" value="Tratamiento con queratina"><span>Queratina</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>2. ¿Qué día?</legend>
+            <div class="days" data-days>
+              <label><input type="radio" name="dia" value="lunes"><span>L</span></label>
+              <label><input type="radio" name="dia" value="martes"><span>M</span></label>
+              <label class="is-closed" title="Miércoles cerrado"><input type="radio" name="dia" value="miércoles" disabled><span>X</span></label>
+              <label><input type="radio" name="dia" value="jueves"><span>J</span></label>
+              <label><input type="radio" name="dia" value="viernes"><span>V</span></label>
+              <label><input type="radio" name="dia" value="sábado"><span>S</span></label>
+              <label><input type="radio" name="dia" value="cualquier día" checked><span>Me da igual</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>3. ¿Mañana o tarde?</legend>
+            <div class="days" data-slot>
+              <label><input type="radio" name="franja" value="por la mañana" checked><span>Mañana</span></label>
+              <label data-afternoon><input type="radio" name="franja" value="por la tarde"><span>Tarde</span></label>
+            </div>
+          </fieldset>
+          <label class="field">
+            <span>Tu nombre</span>
+            <input type="text" name="nombre" autocomplete="given-name" placeholder="Ej.: Lucía">
+          </label>
+          <div class="preview" aria-live="polite"><p data-preview></p></div>
+          <button class="btn btn--albero btn--lg btn--block" type="submit">Enviar por WhatsApp</button>
+          <p class="planner__hint">No se guarda nada: el mensaje se abre en tu WhatsApp.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- UBICACIÓN -->
+    <section class="section" id="ubicacion">
+      <div class="wrap where">
+        <div class="where__copy reveal">
+          <p class="eyebrow">Dónde estamos</p>
+          <h2>En el centro de Benacazón</h2>
+          <address>C/ Juan Ramón Jiménez, 15<br>41805 Benacazón, Sevilla</address>
+          <a class="btn btn--ghost-dark" href="https://www.google.com/maps/search/?api=1&query=Calle+Juan+Ramon+Jimenez+15+41805+Benacazon+Sevilla" target="_blank" rel="noopener">Cómo llegar en Google Maps</a>
+        </div>
+        <div class="where__map reveal" aria-hidden="true">
+          <svg viewBox="0 0 520 340">
+            <rect width="520" height="340" fill="#EFE8DA"/>
+            <g fill="#E3DACA">
+              <rect x="20" y="20" width="150" height="90" rx="6"/><rect x="200" y="20" width="130" height="90" rx="6"/><rect x="360" y="20" width="140" height="90" rx="6"/>
+              <rect x="20" y="150" width="150" height="80" rx="6"/><rect x="360" y="150" width="140" height="80" rx="6"/>
+              <rect x="20" y="268" width="150" height="56" rx="6"/><rect x="200" y="268" width="130" height="56" rx="6"/><rect x="360" y="268" width="140" height="56" rx="6"/>
+            </g>
+            <rect x="200" y="150" width="130" height="80" rx="6" fill="#D9A441" opacity=".35"/>
+            <path d="M0 130H520M0 250H520M185 0V340M345 0V340" stroke="#FBF8F1" stroke-width="18"/>
+            <text x="440" y="122" font-family="Be Vietnam Pro, sans-serif" font-size="11" fill="#1F2D5C" text-anchor="middle" opacity=".7">C/ Juan Ramón Jiménez</text>
+            <g transform="translate(265 156)">
+              <path d="M0 0c-18 0-30 13-30 29 0 22 30 47 30 47s30-25 30-47C30 13 18 0 0 0z" fill="#C93A6B"/>
+              <circle cx="0" cy="28" r="10" fill="#FBF8F1"/>
+            </g>
+            <rect x="205" y="236" width="120" height="26" rx="13" fill="#1F2D5C"/><text x="265" y="254" font-family="Yeseva One, serif" font-size="14" fill="#FBF8F1" text-anchor="middle">Toñi Garrido</text>
+          </svg>
+          <p class="map-note">Plano orientativo</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="section section--cal" id="contacto">
+      <div class="wrap contact">
+        <a class="ccard reveal" href="#cita" data-wa-direct>
+          <span class="ccard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z"/></svg></span>
+          <b>WhatsApp</b><span>618 74 55 54</span>
+        </a>
+        <a class="ccard reveal" href="tel:+34618745554">
+          <span class="ccard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.6 3h3l1.5 4.5-2.2 1.4a11 11 0 0 0 6.2 6.2l1.4-2.2 4.5 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.2 2 2 0 0 1 6.6 3z"/></svg></span>
+          <b>Teléfono</b><span>618 74 55 54</span>
+        </a>
+        <a class="ccard reveal" href="https://www.facebook.com/p/Peluquer%C3%ADa-To%C3%B1i-Garrido-100063526331833/" target="_blank" rel="noopener">
+          <span class="ccard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H7v4h3v7h4v-7h3l1-4h-4V8z"/></svg></span>
+          <b>Facebook</b><span>Peluquería Toñi Garrido</span>
+        </a>
+        <div class="ccard ccard--static reveal">
+          <span class="ccard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+          <b>Horario</b><span>L y V 10–20 · M y J 10–18<br>S 10–14 · X y D cerrado</span>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="foot">
+    <div class="tiles tiles--thin" aria-hidden="true"></div>
+    <div class="wrap foot__grid">
+      <div>
+        <p class="foot__name">Salón de Peluquería Toñi Garrido</p>
+        <p>C/ Juan Ramón Jiménez, 15 · 41805 Benacazón (Sevilla)</p>
+      </div>
+      <div class="foot__links">
+        <a href="tel:+34618745554">618 74 55 54</a>
+        <a href="#cita">Pedir cita</a>
+        <a href="#inicio">Volver arriba</a>
+      </div>
+    </div>
+    <p class="wrap foot__legal">© <span data-year></span> Toñi Garrido · Aviso legal · Privacidad</p>
+  </footer>
+
+  <a class="fab" href="#cita" data-wa-direct aria-label="Escribir por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z"/></svg>
+  </a>
+
+  <script src="main.js" defer></script>
 </body>
 </html>
