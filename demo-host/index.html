@@ -1,16 +1,411 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>Inmomairena · Inmobiliaria en Mairena del Aljarafe</title>
+  <meta name="description" content="Compra, venta y alquiler de viviendas en Mairena del Aljarafe y alrededores. Valoración de tu vivienda sin compromiso.">
+  <meta name="theme-color" content="#211B2E">
+  <meta property="og:title" content="Inmomairena · Inmobiliaria en Mairena del Aljarafe">
+  <meta property="og:description" content="Compra, vende o alquila en el Aljarafe con una inmobiliaria de aquí.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;600;700;800&family=Red+Hat+Text:wght@400;500;600&family=Spectral:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+<body class="home">
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="hdr" id="hdr">
+    <div class="wrap hdr__in">
+      <a class="logo" href="./" aria-label="Inmomairena, inicio">
+        <span class="logo__mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 15.5 16 7l10 8.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25v-6.5M16 25v-6.5M22 25v-6.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+        <span class="logo__txt">inmo<b>mairena</b></span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="#inmuebles">Inmuebles</a>
+        <a href="#vender">Vender</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <div class="hdr__cta">
+        <a class="btn btn--ghost btn--sm hide-sm" data-phone href="tel:+34633573599"><svg><use href="assets/icons.svg#phone"/></svg><span data-phone-text>633 57 35 99</span></a>
+        <a class="btn btn--sun btn--sm hide-sm" href="#vender">Valorar mi vivienda</a>
+        <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="sheet"><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="sheet" id="sheet" hidden>
+    <nav class="sheet__nav" aria-label="Menú móvil">
+      <a href="#inmuebles"><small>01</small>Inmuebles</a>
+      <a href="#vender"><small>02</small>Vender mi vivienda</a>
+      <a href="#servicios"><small>03</small>Servicios</a>
+      <a href="#nosotros"><small>04</small>Nosotros</a>
+      <a href="#contacto"><small>05</small>Contacto</a>
+    </nav>
+    <div class="sheet__foot">
+      <a class="btn btn--light btn--block" data-phone href="tel:+34633573599"><svg><use href="assets/icons.svg#phone"/></svg>Llamar al 633 57 35 99</a>
+      <a class="btn btn--wa btn--block" data-wa href="#"><svg><use href="assets/icons.svg#wa"/></svg>Escribir por WhatsApp</a>
+    </div>
+  </div>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow eyebrow--light"><span class="dot"></span>Inmobiliaria en Mairena del Aljarafe</p>
+          <h1 class="hero__title">
+            <span class="line"><span>Tu casa en el</span></span>
+            <span class="line"><span>Aljarafe, para</span></span>
+            <span class="line"><span class="rot" id="rot" aria-live="polite"><em>comprar.</em></span></span>
+          </h1>
+          <p class="hero__lead">Compra, venta y alquiler en Mairena del Aljarafe y los pueblos de alrededor, con una inmobiliaria de aquí que conoce cada calle.</p>
+
+          <form class="search" id="search" autocomplete="off">
+            <div class="seg" role="tablist" aria-label="Operación">
+              <button type="button" role="tab" class="is-on" aria-selected="true" data-op="venta">Comprar</button>
+              <button type="button" role="tab" aria-selected="false" data-op="alquiler">Alquilar</button>
+              <a class="seg__link" href="#vender">Vender</a>
+              <i class="seg__pill" aria-hidden="true"></i>
+            </div>
+            <div class="search__fields">
+              <label class="sf"><span>Tipo de inmueble</span>
+                <select name="type" id="sType"><option value="">Todos los tipos</option></select>
+              </label>
+              <label class="sf"><span>Zona</span>
+                <select name="town" id="sTown"><option value="">Todo el Aljarafe</option></select>
+              </label>
+              <label class="sf"><span>Precio</span>
+                <select name="price" id="sPrice"></select>
+              </label>
+              <button class="btn btn--sun search__go" type="submit"><svg><use href="assets/icons.svg#search"/></svg><span>Buscar</span></button>
+            </div>
+          </form>
+
+          <div class="hero__trust">
+            <span><svg><use href="assets/icons.svg#check"/></svg>Valoración sin compromiso</span>
+            <span><svg><use href="assets/icons.svg#check"/></svg>Trato directo</span>
+          </div>
+        </div>
+
+        <div class="hero__visual" aria-hidden="true">
+          <div class="hero__frame">
+            <img src="assets/img/hero-chalet.svg" alt="" width="1200" height="800">
+            <div class="hero__shine"></div>
+          </div>
+          <div class="live" id="live">
+            <div class="live__img"><img id="liveImg" src="assets/img/f-chalet-simon-verde.svg" alt=""></div>
+            <div class="live__body">
+              <span class="live__k"><i></i>Nuevo en la web</span>
+              <strong id="liveTitle">Chalet con piscina y jardín</strong>
+              <span id="liveMeta">Simón Verde · 465.000 €</span>
+            </div>
+          </div>
+          <div class="chip chip--float chip--a"><svg><use href="assets/icons.svg#pin"/></svg>Mairena del Aljarafe</div>
+          <div class="chip chip--float chip--b"><span class="st st--reservado"></span>Ático marcado como reservado</div>
+        </div>
+      </div>
+      <div class="hero__scroll" aria-hidden="true"><span></span></div>
+    </section>
+
+    <!-- ZONAS -->
+    <div class="ticker" aria-label="Zonas donde trabajamos">
+      <div class="ticker__track" id="ticker"></div>
+    </div>
+
+    <!-- DESTACADOS -->
+    <section class="sec" id="destacados">
+      <div class="wrap">
+        <header class="sh reveal">
+          <div>
+            <p class="eyebrow">Selección de la semana</p>
+            <h2 class="sh__t">Inmuebles <em>destacados</em></h2>
+          </div>
+          <div class="sh__side">
+            <div class="arrows" id="featArrows">
+              <button class="ib" data-dir="-1" aria-label="Anterior"><svg><use href="assets/icons.svg#back"/></svg></button>
+              <button class="ib" data-dir="1" aria-label="Siguiente"><svg><use href="assets/icons.svg#arrow"/></svg></button>
+            </div>
+          </div>
+        </header>
+        <div class="rail" id="featured"></div>
+        <div class="rail__dots" id="featDots" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- CARTERA -->
+    <section class="sec sec--tint" id="inmuebles">
+      <div class="wrap">
+        <header class="sh reveal">
+          <div>
+            <p class="eyebrow">Cartera</p>
+            <h2 class="sh__t">Todos los <em>inmuebles</em></h2>
+          </div>
+          <p class="sh__p">Viviendas en venta y alquiler en Mairena del Aljarafe y alrededores. Filtra por operación o tipo y abre la ficha para ver todos los detalles.</p>
+        </header>
+
+        <div class="filters reveal" id="filters">
+          <div class="chips" id="opChips" role="group" aria-label="Operación">
+            <button class="is-on" data-op="">Todo</button>
+            <button data-op="venta">En venta</button>
+            <button data-op="alquiler">En alquiler</button>
+          </div>
+          <div class="filters__right">
+            <label class="mini"><span class="vh">Tipo</span><select id="fType"><option value="">Cualquier tipo</option></select></label>
+            <label class="mini"><span class="vh">Zona</span><select id="fTown"><option value="">Cualquier zona</option></select></label>
+          </div>
+        </div>
+        <p class="results" id="results" aria-live="polite"></p>
+        <div class="grid" id="list"></div>
+        <div class="more" id="more" hidden><button class="btn btn--line" id="moreBtn">Ver todos los inmuebles</button></div>
+        <div class="empty" id="empty" hidden>
+          <p><strong>Ahora mismo no hay inmuebles con esos filtros.</strong> Cuéntanos qué buscas y te avisamos en cuanto entre algo que encaje.</p>
+          <div class="empty__row">
+            <button class="btn btn--line btn--sm" id="clearFilters">Quitar filtros</button>
+            <a class="btn btn--ink btn--sm" href="#contacto">Contarnos qué busco</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VENDER -->
+    <section class="sell" id="vender">
+      <div class="wrap sell__grid">
+        <div class="sell__copy reveal">
+          <p class="eyebrow eyebrow--light">Para propietarios</p>
+          <h2 class="sell__t">¿Quieres vender <em>tu vivienda?</em></h2>
+          <p class="sell__p">Te decimos cuánto vale de verdad en el mercado de la zona, preparamos la venta con buen material y nos encargamos de las visitas, la negociación y el papeleo hasta la firma.</p>
+          <ol class="steps">
+            <li><b>1</b><div><strong>Nos cuentas</strong><span>Rellenas el formulario o nos llamas. Cinco minutos.</span></div></li>
+            <li><b>2</b><div><strong>Visitamos tu casa</strong><span>Vemos la vivienda contigo y estudiamos ventas comparables de la zona.</span></div></li>
+            <li><b>3</b><div><strong>Valoración y plan</strong><span>Precio recomendado, estrategia y cómo la vamos a mostrar.</span></div></li>
+          </ol>
+        </div>
+
+        <form class="card-form sell__form reveal" id="sellForm" novalidate data-ok="¡Solicitud recibida! Te llamamos para concertar la visita de valoración.">
+          <div class="card-form__head">
+            <span class="badge-soft">Sin compromiso</span>
+            <h3>Solicita tu valoración</h3>
+          </div>
+          <label class="f"><span>Nombre</span><input name="nombre" required autocomplete="name" placeholder="Tu nombre"></label>
+          <div class="f-row">
+            <label class="f"><span>Teléfono</span><input name="tel" required type="tel" inputmode="tel" autocomplete="tel" placeholder="600 000 000"></label>
+            <label class="f"><span>Email</span><input name="email" type="email" autocomplete="email" placeholder="tu@email.com"></label>
+          </div>
+          <div class="f-row">
+            <label class="f"><span>Localidad</span><select name="localidad" required id="sellTown"><option value="">Elige localidad</option></select></label>
+            <label class="f"><span>Tipo de inmueble</span><select name="tipo" required id="sellType"><option value="">Elige tipo</option></select></label>
+          </div>
+          <label class="check"><input type="checkbox" required name="privacidad"><span>Acepto que me contactéis para la valoración.</span></label>
+          <button class="btn btn--sun btn--block btn--lg" type="submit">Solicitar valoración<svg><use href="assets/icons.svg#arrow"/></svg></button>
+          <p class="card-form__note">Demo: el formulario no envía datos.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="sec" id="servicios">
+      <div class="wrap">
+        <header class="sh reveal">
+          <div>
+            <p class="eyebrow">Servicios</p>
+            <h2 class="sh__t">Todo lo que necesitas, <em>en un sitio</em></h2>
+          </div>
+        </header>
+        <div class="services">
+          <article class="svc reveal">
+            <span class="svc__ic"><svg><use href="assets/icons.svg#key"/></svg></span>
+            <h3>Compra y venta</h3>
+            <p>Te acompañamos desde la primera visita hasta la notaría: búsqueda, negociación, arras y firma.</p>
+          </article>
+          <article class="svc reveal">
+            <span class="svc__ic"><svg><use href="assets/icons.svg#home"/></svg></span>
+            <h3>Alquiler</h3>
+            <p>Buscamos inquilino con estudio de solvencia, contrato y entrega de llaves con inventario.</p>
+          </article>
+          <article class="svc reveal">
+            <span class="svc__ic"><svg><use href="assets/icons.svg#chart"/></svg></span>
+            <h3>Valoración</h3>
+            <p>Precio realista basado en ventas recientes de la zona, no en lo que piden los portales.</p>
+          </article>
+          <article class="svc reveal">
+            <span class="svc__ic"><svg><use href="assets/icons.svg#chat"/></svg></span>
+            <h3>Asesoramiento</h3>
+            <p>Hipoteca, gastos de compraventa, impuestos y plazos explicados con claridad antes de decidir.</p>
+          </article>
+          <article class="svc reveal">
+            <span class="svc__ic"><svg><use href="assets/icons.svg#folder"/></svg></span>
+            <h3>Gestión inmobiliaria</h3>
+            <p>Nos ocupamos de la documentación, certificados, notas simples y trámites para que tú no pierdas tiempo.</p>
+          </article>
+          <a class="svc svc--cta reveal" href="#contacto">
+            <h3>¿Tienes una duda concreta?</h3>
+            <p>Llámanos o escríbenos y te respondemos sin rodeos.</p>
+            <span class="svc__go">Hablar con nosotros<svg><use href="assets/icons.svg#arrow"/></svg></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL / PRODUCTO -->
+    <section class="sync" id="panel">
+      <div class="wrap sync__grid">
+        <div class="sync__copy reveal">
+          <p class="eyebrow">Tu web, siempre al día</p>
+          <h2 class="sh__t">Cambias un inmueble en tu panel y <em>la web se actualiza sola</em></h2>
+          <p class="sh__p">Esta web incluye un panel privado para la inmobiliaria. Desde el móvil o el ordenador puedes subir un piso nuevo, cambiar el precio, marcarlo como reservado o vendido y destacarlo en portada. Sin llamar a nadie y sin esperar.</p>
+          <ul class="ticks">
+            <li><svg><use href="assets/icons.svg#check"/></svg>Crear y editar inmuebles con fotos</li>
+            <li><svg><use href="assets/icons.svg#check"/></svg>Estados: disponible, reservado, vendido o alquilado</li>
+            <li><svg><use href="assets/icons.svg#check"/></svg>Destacar en portada con un toque</li>
+            <li><svg><use href="assets/icons.svg#check"/></svg>Solicitudes de compradores y propietarios en un sitio</li>
+          </ul>
+          <a class="btn btn--ink btn--lg" href="admin-demo/">Ver el panel de gestión<svg><use href="assets/icons.svg#arrow"/></svg></a>
+        </div>
+
+        <div class="sync__stage reveal" aria-hidden="true">
+          <div class="mock mock--panel">
+            <div class="mock__bar"><i></i><i></i><i></i><span>Panel · Inmuebles</span></div>
+            <div class="mock__row"><span class="mock__th" style="background-image:url(assets/img/f-piso-ciudad-expo.svg)"></span><span class="mock__tt">Piso junto al metro</span><span class="pill pill--disponible">Disponible</span></div>
+            <div class="mock__row is-active"><span class="mock__th" style="background-image:url(assets/img/f-atico-cavaleri.svg)"></span><span class="mock__tt">Ático con terraza</span><span class="pill pill--swap" id="mockPill">Disponible</span></div>
+            <div class="mock__row"><span class="mock__th" style="background-image:url(assets/img/f-adosado-bormujos.svg)"></span><span class="mock__tt">Adosado reformado</span><span class="pill pill--disponible">Disponible</span></div>
+            <div class="mock__row"><span class="mock__th" style="background-image:url(assets/img/f-chalet-palomares.svg)"></span><span class="mock__tt">Villa de una planta</span><span class="pill pill--vendido">Vendido</span></div>
+            <div class="mock__row"><span class="mock__th" style="background-image:url(assets/img/f-loft-gelves.svg)"></span><span class="mock__tt">Loft junto al puerto</span><span class="pill pill--alquilado">Alquilado</span></div>
+            <div class="mock__cursor" id="mockCursor"></div>
+          </div>
+          <div class="sync__beam"><span></span></div>
+          <div class="mock mock--phone">
+            <div class="mock__notch"></div>
+            <div class="mock__card">
+              <div class="mock__img" style="background-image:url(assets/img/f-atico-cavaleri.svg)"><span class="pill pill--swap pill--sm" id="mockPill2">Disponible</span></div>
+              <strong>Ático con terraza de 40 m²</strong>
+              <span>Cavaleri · 239.000 €</span>
+            </div>
+            <div class="mock__toast" id="mockToast"><svg><use href="assets/icons.svg#check"/></svg>Web actualizada</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOSOTROS -->
+    <section class="sec sec--tint" id="nosotros">
+      <div class="wrap about">
+        <div class="about__visual reveal" aria-hidden="true">
+          <img src="assets/img/f-casa-casco.svg" alt="" loading="lazy">
+          <div class="about__note">
+            <span class="logo__mark logo__mark--sm"><svg viewBox="0 0 32 32"><path d="M6 15.5 16 7l10 8.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25v-6.5M16 25v-6.5M22 25v-6.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+            <p>“Preferimos decirte la verdad sobre un precio que hacerte perder meses.”</p>
+          </div>
+        </div>
+        <div class="about__copy reveal">
+          <p class="eyebrow">Sobre nosotros</p>
+          <h2 class="sh__t">Una inmobiliaria <em>de Mairena</em>, para la gente de aquí</h2>
+          <p>En Inmomairena trabajamos en Mairena del Aljarafe y en los pueblos de alrededor. Conocemos los barrios, los colegios, lo que se paga en cada zona y lo que de verdad importa cuando alguien busca casa o quiere vender la suya.</p>
+          <p>Nos gusta el trato directo: una persona que te coge el teléfono, te explica las cosas claras y te acompaña en cada paso, tanto si compras tu primera vivienda como si vendes la casa familiar.</p>
+          <div class="values">
+            <div><strong>Cercanía</strong><span>Hablas siempre con la misma persona.</span></div>
+            <div><strong>Claridad</strong><span>Precios realistas y gastos explicados desde el principio.</span></div>
+            <div><strong>Seguimiento</strong><span>Te contamos cómo va tu operación sin que tengas que preguntar.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="sec" id="contacto">
+      <div class="wrap">
+        <header class="sh reveal">
+          <div>
+            <p class="eyebrow">Contacto</p>
+            <h2 class="sh__t">Hablemos de <em>tu casa</em></h2>
+          </div>
+          <p class="sh__p">Buscas, vendes o alquilas: cuéntanos y te respondemos lo antes posible.</p>
+        </header>
+        <div class="contact">
+          <div class="contact__side reveal">
+            <a class="cbox" data-phone href="tel:+34633573599">
+              <span class="cbox__ic"><svg><use href="assets/icons.svg#phone"/></svg></span>
+              <span><small>Llámanos</small><strong data-phone-text>633 57 35 99</strong></span>
+              <svg class="cbox__go"><use href="assets/icons.svg#arrow"/></svg>
+            </a>
+            <a class="cbox cbox--wa" data-wa href="#">
+              <span class="cbox__ic"><svg><use href="assets/icons.svg#wa"/></svg></span>
+              <span><small>WhatsApp</small><strong>Escríbenos ahora</strong></span>
+              <svg class="cbox__go"><use href="assets/icons.svg#arrow"/></svg>
+            </a>
+            <div class="zone">
+              <div class="zone__head"><span><small>Zona de trabajo</small><strong>Mairena del Aljarafe y alrededores</strong></span></div>
+              <div class="zone__map" id="zoneMap"></div>
+            </div>
+          </div>
+
+          <form class="card-form contact__form reveal" id="contactForm" novalidate data-ok="¡Mensaje recibido! Te respondemos lo antes posible.">
+            <div class="card-form__head"><h3>Envíanos un mensaje</h3></div>
+            <div class="chips chips--form" role="group" aria-label="Motivo">
+              <label><input type="radio" name="motivo" value="comprar" checked><span>Quiero comprar</span></label>
+              <label><input type="radio" name="motivo" value="alquilar"><span>Quiero alquilar</span></label>
+              <label><input type="radio" name="motivo" value="vender"><span>Quiero vender</span></label>
+              <label><input type="radio" name="motivo" value="otro"><span>Otra consulta</span></label>
+            </div>
+            <label class="f"><span>Nombre</span><input name="nombre" required autocomplete="name" placeholder="Tu nombre"></label>
+            <div class="f-row">
+              <label class="f"><span>Teléfono</span><input name="tel" required type="tel" inputmode="tel" autocomplete="tel" placeholder="600 000 000"></label>
+              <label class="f"><span>Email</span><input name="email" type="email" autocomplete="email" placeholder="tu@email.com"></label>
+            </div>
+            <label class="f"><span>Mensaje</span><textarea name="mensaje" rows="4" placeholder="Por ejemplo: busco un piso de 3 dormitorios en Mairena, hasta 220.000 €"></textarea></label>
+            <label class="check"><input type="checkbox" required name="privacidad"><span>Acepto que me contactéis para responder a mi consulta.</span></label>
+            <button class="btn btn--ink btn--block btn--lg" type="submit">Enviar mensaje<svg><use href="assets/icons.svg#arrow"/></svg></button>
+            <p class="card-form__note">Demo: el formulario no envía datos.</p>
+          </form>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="ftr">
+    <div class="wrap ftr__grid">
+      <div class="ftr__brand">
+        <a class="logo logo--light" href="./"><span class="logo__mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 15.5 16 7l10 8.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 25v-6.5M16 25v-6.5M22 25v-6.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span><span class="logo__txt">inmo<b>mairena</b></span></a>
+        <p>Compra, venta y alquiler de viviendas en Mairena del Aljarafe y alrededores.</p>
+      </div>
+      <div class="ftr__col">
+        <h4>Inmuebles</h4>
+        <a href="#inmuebles" data-quick-op="venta">En venta</a>
+        <a href="#inmuebles" data-quick-op="alquiler">En alquiler</a>
+        <a href="#destacados">Destacados</a>
+      </div>
+      <div class="ftr__col">
+        <h4>Propietarios</h4>
+        <a href="#vender">Valorar mi vivienda</a>
+        <a href="#servicios">Servicios</a>
+        <a href="admin-demo/">Acceso inmobiliaria</a>
+      </div>
+      <div class="ftr__col">
+        <h4>Contacto</h4>
+        <a data-phone href="tel:+34633573599" data-phone-text>633 57 35 99</a>
+        <a data-wa href="#">WhatsApp</a>
+        <span>Mairena del Aljarafe (Sevilla)</span>
+      </div>
+    </div>
+    <div class="wrap ftr__base">
+      <span>© <span data-year></span> Inmobiliaria Inmomairena</span>
+      <span>Aviso legal · Privacidad · Cookies</span>
+      <span class="ftr__demo">Demo con inmuebles e imágenes de ejemplo</span>
+    </div>
+  </footer>
+
+  <a class="fab" data-wa href="#" aria-label="Escribir por WhatsApp"><svg><use href="assets/icons.svg#wa"/></svg></a>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/ui.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
