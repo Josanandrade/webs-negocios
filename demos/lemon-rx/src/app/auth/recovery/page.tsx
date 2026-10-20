@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { createBrowserClient } from "@supabase/ssr";
 import { useEffect, useRef, useState } from "react";
 import { Wordmark } from "@/components/wordmark";
-import { createBrowserSupabase } from "@/lib/supabase/browser";
 
 export default function RecoveryHandoffPage() {
   const started = useRef(false);
@@ -15,14 +15,25 @@ export default function RecoveryHandoffPage() {
 
     const params = new URLSearchParams(window.location.search);
     const code = params.get("code");
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
     if (!code) {
       setError("El enlace de recuperación no es válido. Solicita uno nuevo.");
       return;
     }
+    if (!url || !key) {
+      setError("No se ha podido preparar el cambio de contraseña. Inténtalo de nuevo.");
+      return;
+    }
 
     void (async () => {
-      const supabase = createBrowserSupabase();
+      // Cliente aislado: en esta pantalla el intercambio lo hacemos explícitamente
+      // para impedir que el código PKCE de un solo uso se consuma dos veces.
+      const supabase = createBrowserClient(url, key, {
+        isSingleton: false,
+        auth: { detectSessionInUrl: false },
+      });
       const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
 
       if (exchangeError) {
