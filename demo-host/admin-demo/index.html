@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>Panel de gestión (demo) · Jesús Losada</title>
+  <meta name="theme-color" content="#172A3A">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../admin.css">
+</head>
+<body>
+  <!-- Acceso simulado: no hay autenticación real en la demo -->
+  <section class="login" id="login" aria-labelledby="login-t">
+    <form class="login-card" id="login-form">
+      <span class="mono">JL</span>
+      <h1 id="login-t">Acceso al panel</h1>
+      <p class="login-sub">Jesús Losada · Gestor inmobiliario</p>
+      <label class="fld"><span>Usuario</span><input value="gestor (demo)" readonly></label>
+      <label class="fld"><span>Contraseña</span><input type="password" value="demodemo" readonly></label>
+      <button class="b b-dark b-block" type="submit">Entrar a la demo</button>
+      <p class="login-note">Vista demo del panel de gestión. En la versión real cada inmobiliaria tiene su propio acceso privado.</p>
+      <a class="login-back" href="../">← Volver a la web</a>
+    </form>
+  </section>
+
+  <div class="demo-strip">Vista demo del panel de gestión · los cambios no se guardan <a href="../">Ver la web</a></div>
+
+  <div class="app">
+    <aside class="side">
+      <div class="side-brand"><span class="mono">JL</span><div><b>Jesús Losada</b><small>Panel privado</small></div></div>
+      <nav class="side-nav">
+        <a class="on" href="#inmuebles"><i>▦</i>Inmuebles</a>
+        <a href="#solicitudes"><i>✉</i>Solicitudes</a>
+        <button type="button" data-soon><i>◔</i>Estadísticas</button>
+        <button type="button" data-soon><i>⚙</i>Ajustes de la web</button>
+      </nav>
+      <a class="side-web" href="../" target="_blank" rel="noopener">Abrir mi web ↗</a>
+    </aside>
+
+    <main class="main">
+      <header class="top">
+        <div>
+          <p class="hello">Hola, Jesús</p>
+          <h1>Tus inmuebles</h1>
+        </div>
+        <button class="b b-albero" type="button" id="add">+ Añadir inmueble</button>
+      </header>
+
+      <section class="stats" id="stats" aria-label="Resumen"></section>
+
+      <section class="tools" id="inmuebles">
+        <label class="search"><span class="sr">Buscar</span><input id="q" type="search" placeholder="Buscar por título o localidad"></label>
+        <div class="filters" id="filters" role="group" aria-label="Filtrar por estado"></div>
+      </section>
+
+      <section class="list" id="list" aria-live="polite"></section>
+
+      <section class="leads" id="solicitudes">
+        <h2>Últimas solicitudes desde tu web</h2>
+        <p class="leads-sub">Ejemplos de lo que te llegaría cuando alguien rellena un formulario.</p>
+        <ul>
+          <li><span class="lt lt-v">Valoración</span><div><b>Piso en Bormujos</b><small>Quiere vender · pide visita esta semana</small></div><em>Hoy</em></li>
+          <li><span class="lt lt-i">Información</span><div><b>Ático con terraza en Tomares</b><small>Pregunta por la plaza de garaje</small></div><em>Ayer</em></li>
+          <li><span class="lt lt-a">Alquilar</span><div><b>Casa en Umbrete</b><small>Propietario que quiere alquilar</small></div><em>Lun</em></li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <nav class="tabbar" aria-label="Panel">
+    <a class="on" href="#inmuebles"><i>▦</i>Inmuebles</a>
+    <button type="button" id="add-m"><i>＋</i>Añadir</button>
+    <a href="#solicitudes"><i>✉</i>Solicitudes</a>
+    <a href="../"><i>↗</i>Mi web</a>
+  </nav>
+
+  <!-- Editor de inmueble -->
+  <dialog class="editor" id="editor" aria-labelledby="ed-title">
+    <form id="ed-form" novalidate>
+      <header class="ed-head">
+        <button type="button" class="ed-x" aria-label="Cerrar">×</button>
+        <h2 id="ed-title">Editar inmueble</h2>
+        <button type="submit" class="b b-albero b-sm">Guardar</button>
+      </header>
+      <div class="ed-body">
+        <div class="ed-sec">
+          <p class="ed-label">Fotografías</p>
+          <div class="photos" id="photos"></div>
+          <p class="hint">Pulsa una foto para ponerla de portada. En la demo, las fotos que subas solo se ven en tu pantalla.</p>
+        </div>
+        <div class="ed-sec">
+          <label class="fld"><span>Título</span><input name="titulo" required></label>
+          <div class="g2">
+            <label class="fld"><span>Precio</span><div class="money"><input name="precio" inputmode="numeric" required><em id="ed-unit">€</em></div></label>
+            <div class="fld"><span>Operación</span>
+              <div class="seg2"><label><input type="radio" name="operacion" value="venta"><span>Venta</span></label><label><input type="radio" name="operacion" value="alquiler"><span>Alquiler</span></label></div>
+            </div>
+          </div>
+          <div class="g2">
+            <label class="fld"><span>Estado</span>
+              <select name="estado"><option value="disponible">Disponible</option><option value="reservado">Reservado</option><option value="vendido">Vendido</option><option value="alquilado">Alquilado</option></select>
+            </label>
+            <label class="fld"><span>Tipo de inmueble</span>
+              <select name="tipo"><option>Piso</option><option>Casa</option><option>Chalet</option><option>Ático</option><option>Dúplex</option><option>Local</option></select>
+            </label>
+          </div>
+          <label class="fld"><span>Descripción</span><textarea name="descripcion" rows="4"></textarea></label>
+        </div>
+        <div class="ed-sec">
+          <div class="g4">
+            <label class="fld"><span>Habitaciones</span><input name="hab" type="number" min="0" inputmode="numeric"></label>
+            <label class="fld"><span>Baños</span><input name="banos" type="number" min="0" inputmode="numeric"></label>
+            <label class="fld"><span>Metros</span><input name="m2" type="number" min="0" inputmode="numeric"></label>
+            <label class="fld"><span>Localidad</span><input name="localidad"></label>
+          </div>
+          <p class="ed-label">Características</p>
+          <div class="feats" id="feats"></div>
+          <label class="toggle"><input type="checkbox" name="destacado"><span></span>Destacar en la portada de la web</label>
+        </div>
+      </div>
+      <footer class="ed-foot">
+        <button type="button" class="b b-ghost danger" id="ed-del">Eliminar</button>
+        <button type="submit" class="b b-dark">Guardar y publicar</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <dialog class="confirm" id="confirm">
+    <p id="confirm-t">¿Eliminar este inmueble?</p>
+    <small>Dejará de verse en tu web.</small>
+    <div><button class="b b-ghost" type="button" value="no">Cancelar</button><button class="b b-danger" type="button" value="si">Eliminar</button></div>
+  </dialog>
+
+  <div class="toast" role="status"></div>
+
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/data.js"></script>
+  <script src="../admin.js"></script>
+</body>
+</html>

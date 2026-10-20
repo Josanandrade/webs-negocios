@@ -2,15 +2,280 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>Jesús Losada · Gestor Inmobiliario</title>
+  <meta name="description" content="Jesús Losada, gestor inmobiliario. Compra, venta y alquiler de viviendas con un único interlocutor de principio a fin.">
+  <meta name="theme-color" content="#172A3A">
+  <meta property="og:title" content="Jesús Losada · Gestor Inmobiliario">
+  <meta property="og:description" content="Vende, compra o alquila con un gestor que te acompaña de principio a fin.">
+  <meta property="og:image" content="assets/og.svg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Work+Sans:wght@400;500;600;700&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip" href="#inmuebles">Saltar al contenido</a>
+
+  <header class="nav" id="top">
+    <a class="brand" href="#top" aria-label="Jesús Losada, inicio">
+      <span class="mono">JL</span>
+      <span class="brand-txt"><b>Jesús Losada</b><small>Gestor inmobiliario</small></span>
+    </a>
+    <nav class="menu" id="menu" aria-label="Principal">
+      <a href="#inmuebles">Inmuebles</a>
+      <a href="#vender">Vender</a>
+      <a href="#gestor">Tu gestor</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#contacto">Contacto</a>
+      <a class="menu-cta" href="#vender">Valorar mi vivienda</a>
+    </nav>
+    <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><span></span><span></span></button>
+  </header>
+
   <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="dot"></span>Gestor inmobiliario · <span data-zona>Sevilla y el Aljarafe</span></p>
+        <h1>Vende, compra o alquila con alguien que te acompaña <em>de principio a fin.</em></h1>
+        <p class="lead">Sin pasar de mano en mano. Un mismo gestor para valorar, enseñar, negociar y llegar a la firma, y que te cuenta cada paso.</p>
+        <div class="hero-actions">
+          <a class="btn btn-dark" href="#inmuebles">Ver inmuebles</a>
+          <a class="btn btn-line" href="#vender">Quiero vender</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="arch"><img src="assets/inmuebles/ext-adosado.svg" alt="" width="800" height="560"></div>
+        <div class="card-visit">
+          <span class="mono mono-lg">JL</span>
+          <div>
+            <p class="cv-name">Jesús Losada</p>
+            <p class="cv-role">Gestor inmobiliario</p>
+          </div>
+          <p class="cv-sign">Jesús Losada</p>
+          <p class="cv-note">“Te atiendo yo, de la primera visita a la notaría.”</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUSCADOR -->
+    <section class="finder-wrap" aria-labelledby="finder-title">
+      <form class="finder" id="finder">
+        <h2 id="finder-title" class="finder-title">¿Qué buscas?</h2>
+        <div class="seg" role="radiogroup" aria-label="Operación">
+          <label><input type="radio" name="op" value="venta" checked><span>Comprar</span></label>
+          <label><input type="radio" name="op" value="alquiler"><span>Alquilar</span></label>
+        </div>
+        <label class="field"><span>Tipo de inmueble</span>
+          <select name="tipo"><option value="">Todos</option><option>Piso</option><option>Casa</option><option>Chalet</option><option>Ático</option></select>
+        </label>
+        <label class="field"><span>Localidad / zona</span>
+          <select name="loc" id="f-loc"><option value="">Toda la zona</option></select>
+        </label>
+        <label class="field"><span>Precio máximo</span>
+          <select name="max" id="f-max"></select>
+        </label>
+        <button class="btn btn-albero" type="submit">Buscar inmuebles</button>
+      </form>
+    </section>
+
+    <!-- INMUEBLES -->
+    <section class="sec" id="inmuebles">
+      <div class="sec-head">
+        <p class="kicker">Inmuebles</p>
+        <h2 id="list-title">Viviendas en venta</h2>
+        <p class="sec-sub" id="list-sub">Una selección de lo que tengo ahora mismo. Pulsa en cualquiera para ver la ficha completa.</p>
+      </div>
+      <div class="chips" id="chips" aria-live="polite"></div>
+      <div class="grid" id="grid"></div>
+      <div class="empty" id="empty" hidden>
+        <p><b>Ahora mismo no hay nada con esos filtros.</b> Cuéntame qué buscas y te aviso en cuanto entre algo que encaje.</p>
+        <a class="btn btn-dark" data-wa="Hola Jesús, busco vivienda y no he encontrado nada con estos filtros en tu web. ¿Me avisas si entra algo?">Avísame por WhatsApp</a>
+      </div>
+    </section>
+
+    <!-- TU GESTOR -->
+    <section class="gestor" id="gestor">
+      <div class="gestor-in">
+        <div class="gestor-card">
+          <div class="gc-top"><span class="mono mono-xl">JL</span></div>
+          <p class="gc-name">Jesús Losada</p>
+          <p class="gc-role">Tu gestor inmobiliario</p>
+          <p class="gc-sign">Jesús Losada</p>
+        </div>
+        <div class="gestor-copy">
+          <p class="kicker light">Tu gestor inmobiliario</p>
+          <h2>Una persona, un teléfono y tu operación de principio a fin.</h2>
+          <p class="gestor-lead">Detrás de esta web no hay una gran oficina con un comercial distinto cada semana. Hay un gestor que conoce tu casa, conoce la zona y está pendiente de que todo llegue a buen puerto.</p>
+          <ol class="pledges">
+            <li><b>Te atiendo yo.</b> Desde la primera llamada hasta la entrega de llaves hablas siempre con la misma persona.</li>
+            <li><b>Una valoración honesta.</b> Un precio razonado con lo que de verdad se vende en tu zona, no una cifra para enamorarte.</li>
+            <li><b>El papeleo, resuelto.</b> Documentación, certificado energético, notaría y coordinación con el banco si hay hipoteca.</li>
+            <li><b>Sabes en qué punto está.</b> Te cuento cada visita, cada oferta y cada paso sin que tengas que preguntar.</li>
+          </ol>
+          <a class="btn btn-albero" data-wa="Hola Jesús, me gustaría hablar contigo sobre una vivienda.">Hablar con Jesús</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- VENDER / ALQUILAR -->
+    <section class="sec owners" id="vender">
+      <div class="owners-copy">
+        <div class="tabs" role="tablist" aria-label="Propietarios">
+          <button role="tab" aria-selected="true" data-mode="vender">Vender</button>
+          <button role="tab" aria-selected="false" data-mode="alquilar">Alquilar</button>
+        </div>
+        <div class="owners-text" data-for="vender">
+          <p class="kicker">Propietarios</p>
+          <h2>¿Quieres vender tu vivienda?</h2>
+          <p>Antes de poner un precio, voy a verla. Te digo lo que vale con datos de la zona, qué conviene arreglar y qué no, y cómo la vamos a enseñar. Tú decides con toda la información delante.</p>
+          <ul class="ticks">
+            <li>Visita y valoración sin compromiso.</li>
+            <li>Fotos, ficha y difusión cuidadas.</li>
+            <li>Filtro de compradores antes de cada visita.</li>
+            <li>Acompañamiento hasta la notaría.</li>
+          </ul>
+        </div>
+        <div class="owners-text" data-for="alquilar" hidden>
+          <p class="kicker">Propietarios</p>
+          <h2>¿Quieres alquilar tu propiedad?</h2>
+          <p>Busco inquilinos solventes, reviso la documentación, preparo el contrato y te ayudo con la fianza y los suministros. Si quieres, también me ocupo del día a día.</p>
+          <ul class="ticks">
+            <li>Precio de alquiler acorde a la zona.</li>
+            <li>Selección y comprobación de inquilinos.</li>
+            <li>Contrato, inventario y entrega de llaves.</li>
+            <li>Gestión integral opcional.</li>
+          </ul>
+        </div>
+      </div>
+      <form class="form paper" id="valora-form" novalidate>
+        <p class="form-title" id="valora-title">Solicitar valoración</p>
+        <label class="field"><span>Nombre</span><input name="nombre" autocomplete="name" required></label>
+        <div class="row2">
+          <label class="field"><span>Teléfono</span><input name="telefono" type="tel" autocomplete="tel" inputmode="tel" required></label>
+          <label class="field"><span>Email</span><input name="email" type="email" autocomplete="email"></label>
+        </div>
+        <div class="row2">
+          <label class="field"><span>Localidad</span><input name="localidad" required placeholder="Ej. Bormujos"></label>
+          <label class="field"><span>Tipo de inmueble</span>
+            <select name="tipo"><option>Piso</option><option>Casa</option><option>Chalet</option><option>Ático</option><option>Local</option><option>Otro</option></select>
+          </label>
+        </div>
+        <button class="btn btn-dark btn-block" type="submit" id="valora-btn">Quiero valorar mi vivienda</button>
+        <p class="form-note">Al enviar se abre WhatsApp con tus datos ya escritos. Nada se guarda en esta demo.</p>
+        <p class="form-ok" hidden>Gracias. Jesús te llamará para concretar la visita.</p>
+      </form>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="sec servicios" id="servicios">
+      <div class="sec-head">
+        <p class="kicker">Servicios</p>
+        <h2>Lo que hago por ti</h2>
+      </div>
+      <ol class="serv">
+        <li><span class="n">01</span><div><h3>Compra y venta</h3><p>Te ayudo a vender bien o a encontrar la casa que buscas, con visitas filtradas y negociación clara.</p></div></li>
+        <li><span class="n">02</span><div><h3>Alquiler</h3><p>Para propietarios e inquilinos: precio, selección, contrato y entrega de llaves.</p></div></li>
+        <li><span class="n">03</span><div><h3>Valoración de inmuebles</h3><p>Un precio razonado, con comparables de la zona y explicado sin tecnicismos.</p></div></li>
+        <li><span class="n">04</span><div><h3>Gestión integral</h3><p>Me ocupo de cobros, incidencias y renovaciones para que tu alquiler no te quite tiempo.</p></div></li>
+        <li><span class="n">05</span><div><h3>Asesoramiento</h3><p>Herencias, cambios de titularidad, plusvalía, documentación previa a la venta: te oriento antes de dar el paso.</p></div></li>
+        <li><span class="n">06</span><div><h3>Marketing inmobiliario</h3><p>Buenas fotos, una ficha bien escrita y presencia en tu propia web y en los portales.</p></div></li>
+      </ol>
+    </section>
+
+    <!-- PANEL -->
+    <section class="panel-promo" id="panel">
+      <div class="pp-copy">
+        <p class="kicker">Para tu inmobiliaria</p>
+        <h2>Gestiona tus inmuebles desde tu propio panel</h2>
+        <p>Publica una vivienda, modifica su precio o cambia su estado a reservada, vendida o alquilada desde un panel privado. Los cambios se reflejan automáticamente en tu web.</p>
+        <ul class="ticks">
+          <li>Sube fotos desde el móvil, en el momento.</li>
+          <li>Marca destacados para que salgan primero.</li>
+          <li>Sin depender de nadie para actualizar tu web.</li>
+        </ul>
+        <a class="btn btn-dark" href="admin-demo/">Ver cómo gestionarías tus inmuebles</a>
+      </div>
+      <a class="pp-device" href="admin-demo/" aria-label="Abrir la vista demo del panel">
+        <div class="dev-bar"><span></span><span></span><span></span><b>Panel · Jesús Losada</b></div>
+        <div class="dev-stats">
+          <div><b>12</b><small>Publicados</small></div><div><b>8</b><small>Disponibles</small></div><div><b>2</b><small>Reservados</small></div>
+        </div>
+        <div class="dev-rows">
+          <div class="dev-row"><img src="assets/inmuebles/ext-adosado.svg" alt=""><span><b>Casa en Mairena del Aljarafe</b><small>289.000 € · Venta</small></span><em class="st st-disponible">Disponible</em></div>
+          <div class="dev-row"><img src="assets/inmuebles/ext-piso.svg" alt=""><span><b>Piso en Sevilla</b><small>219.000 € · Venta</small></span><em class="st st-reservado">Reservado</em></div>
+          <div class="dev-row"><img src="assets/inmuebles/ext-chalet.svg" alt=""><span><b>Chalet en Bollullos</b><small>1.200 €/mes · Alquiler</small></span><em class="st st-alquilado">Alquilado</em></div>
+        </div>
+        <div class="dev-add">+ Añadir inmueble</div>
+      </a>
+    </section>
+
+    <!-- SOBRE MÍ + ZONA -->
+    <section class="sec about" id="sobre">
+      <div class="about-copy">
+        <p class="kicker">Sobre mí</p>
+        <h2>Cerca, a mano y con conocimiento de la zona.</h2>
+        <p>Trabajo como gestor inmobiliario en <span data-zona>Sevilla y el Aljarafe</span>. Mi forma de trabajar es sencilla: pocas operaciones a la vez, bien llevadas, y trato directo con cada cliente.</p>
+        <p>Si vendes, quiero que sepas en todo momento cómo va tu casa. Si compras, prefiero enseñarte tres viviendas que encajan antes que diez que no. Y si tienes dudas sobre papeles, plazos o impuestos, me las preguntas a mí.</p>
+        <p class="sign">Jesús Losada</p>
+      </div>
+      <figure class="about-map">
+        <div id="home-map"></div>
+        <figcaption>Zona de trabajo: <span data-zona>Sevilla y el Aljarafe</span>. Mapa orientativo.</figcaption>
+      </figure>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="sec contact" id="contacto">
+      <div class="contact-copy">
+        <p class="kicker">Contacto</p>
+        <h2>Cuéntame qué necesitas</h2>
+        <p>Escríbeme por WhatsApp o déjame tus datos y te llamo yo.</p>
+        <ul class="contact-list">
+          <li><a class="cl-wa" data-wa="Hola Jesús, te escribo desde tu web."><span class="ic">WA</span><span><small>WhatsApp</small><b>Escríbeme ahora</b></span></a></li>
+          <li data-tel hidden><a data-tel hidden><span class="ic">☎</span><span><small>Teléfono</small><b data-tel-label></b></span></a></li>
+          <li><div><span class="ic">◎</span><span><small>Zona de trabajo</small><b data-zona>Sevilla y el Aljarafe</b></span></div></li>
+          <li><a data-email hidden></a></li>
+        </ul>
+      </div>
+      <form class="form" id="contact-form" novalidate>
+        <label class="field"><span>Nombre</span><input name="nombre" autocomplete="name" required></label>
+        <label class="field"><span>Teléfono</span><input name="telefono" type="tel" autocomplete="tel" inputmode="tel" required></label>
+        <label class="field"><span>¿En qué te ayudo?</span>
+          <select name="motivo"><option>Quiero comprar</option><option>Quiero vender</option><option>Busco alquiler</option><option>Quiero alquilar mi vivienda</option><option>Otra consulta</option></select>
+        </label>
+        <label class="field"><span>Mensaje</span><textarea name="mensaje" rows="3" placeholder="Zona, presupuesto, plazos…"></textarea></label>
+        <button class="btn btn-albero btn-block" type="submit">Enviar</button>
+        <p class="form-note">Se abre WhatsApp con tu mensaje. Nada se guarda en esta demo.</p>
+      </form>
+    </section>
   </main>
+
+  <footer class="foot">
+    <div class="foot-in">
+      <div class="foot-brand">
+        <span class="mono">JL</span>
+        <p><b>Jesús Losada</b><br>Gestor inmobiliario · <span data-zona>Sevilla y el Aljarafe</span></p>
+      </div>
+      <nav class="foot-nav" aria-label="Pie">
+        <a href="#inmuebles">Inmuebles</a><a href="#vender">Vender</a><a href="#vender" data-tab="alquilar">Alquilar tu propiedad</a><a href="#servicios">Servicios</a><a href="#contacto">Contacto</a><a href="admin-demo/">Acceso gestor</a>
+      </nav>
+      <p class="foot-legal">Web de demostración. Los inmuebles mostrados son ejemplos ficticios.</p>
+    </div>
+  </footer>
+
+  <a class="fab" data-wa="Hola Jesús, te escribo desde tu web." aria-label="Escribir por WhatsApp">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.7 3.7 0 0 0-1.1 2.7 6.4 6.4 0 0 0 1.3 3.4 14.6 14.6 0 0 0 5.6 5c2.1.9 2.9 1 4 .8a3.4 3.4 0 0 0 2.2-1.6 2.8 2.8 0 0 0 .2-1.6c-.1-.1-.3-.2-.6-.3z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
