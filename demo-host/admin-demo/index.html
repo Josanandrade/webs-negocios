@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Panel de gestión · Julio Puig Real Estate (demo)</title>
+  <meta name="theme-color" content="#13191B">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova:ital,wght@0,500;1,400&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div class="demo-flag">Vista demo del panel de gestión · los cambios se guardan solo en este navegador</div>
+
+  <!-- acceso -->
+  <section class="login" id="login">
+    <div class="login__card">
+      <span class="mark">JP</span>
+      <h1>Panel de Julio Puig Real Estate</h1>
+      <p>Acceso privado para gestionar los inmuebles de tu web.</p>
+      <form id="loginForm">
+        <label class="f"><span>Usuario</span><input value="julio" autocomplete="off" readonly></label>
+        <label class="f"><span>Contraseña</span><input type="password" value="demo-demo" readonly></label>
+        <button class="b b--ink b--block" type="submit">Entrar al panel</button>
+      </form>
+      <p class="login__hint">En la demo no hace falta contraseña: pulsa "Entrar al panel".</p>
+    </div>
+  </section>
+
+  <div class="app" id="app" hidden>
+    <aside class="side">
+      <a class="side__brand" href="../"><span class="mark">JP</span><span>Julio Puig<small>Panel de gestión</small></span></a>
+      <nav class="side__nav" id="tabs">
+        <button class="is-on" data-tab="inmuebles"><svg><use href="../assets/icons.svg#home"/></svg><span>Inmuebles</span></button>
+        <button data-tab="solicitudes"><svg><use href="../assets/icons.svg#inbox"/></svg><span>Solicitudes</span><i class="badge">3</i></button>
+        <button data-tab="ajustes"><svg><use href="../assets/icons.svg#cog"/></svg><span>Ajustes</span></button>
+        <a href="../" target="_blank" rel="noopener"><svg><use href="../assets/icons.svg#eye"/></svg><span>Ver mi web</span></a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <!-- INMUEBLES -->
+      <section data-view="inmuebles">
+        <header class="mh">
+          <div>
+            <p class="mh__k">Panel de control</p>
+            <h1 class="mh__t">Tus inmuebles</h1>
+          </div>
+          <button class="b b--ink" id="addBtn"><svg><use href="../assets/icons.svg#plus"/></svg>Añadir inmueble</button>
+        </header>
+
+        <div class="stats" id="stats"></div>
+
+        <div class="tools">
+          <label class="search"><svg><use href="../assets/icons.svg#search"/></svg><input id="q" type="search" placeholder="Buscar por título, localidad o referencia"></label>
+          <div class="chips" id="stChips">
+            <button class="is-on" data-st="">Todos</button>
+            <button data-st="disponible">Disponibles</button>
+            <button data-st="reservado">Reservados</button>
+            <button data-st="vendido">Vendidos</button>
+            <button data-st="alquilado">Alquilados</button>
+          </div>
+        </div>
+
+        <div class="list" id="list" role="table" aria-label="Inmuebles">
+        </div>
+        <p class="foot-note">¿Quieres volver a empezar? <button class="lnk" id="resetBtn">Restablecer la demo</button></p>
+      </section>
+
+      <!-- SOLICITUDES (maqueta) -->
+      <section data-view="solicitudes" hidden>
+        <header class="mh"><div><p class="mh__k">Desde tu web</p><h1 class="mh__t">Solicitudes recibidas</h1></div></header>
+        <p class="muted">Cada formulario de la web llega aquí y a tu correo o WhatsApp. Ejemplos de demostración:</p>
+        <div class="inbox">
+          <article><span class="tagx tagx--sand">Valoración</span><h3>Quiere vender un piso en Gelves</h3><p>3 dormitorios · pide visita para valorar</p><time>Hoy, 10:42</time></article>
+          <article><span class="tagx">Información</span><h3>Pregunta por JP-103 · Chalet en Palomares del Río</h3><p>Quiere verlo el fin de semana</p><time>Ayer, 19:05</time></article>
+          <article><span class="tagx tagx--green">Alquiler</span><h3>Busca alquiler en Coria del Río</h3><p>2 dormitorios, hasta 800 €/mes</p><time>Lunes, 12:30</time></article>
+        </div>
+      </section>
+
+      <!-- AJUSTES (maqueta) -->
+      <section data-view="ajustes" hidden>
+        <header class="mh"><div><p class="mh__k">Tu web</p><h1 class="mh__t">Ajustes</h1></div></header>
+        <div class="settings">
+          <label class="f"><span>Teléfono de contacto</span><input value="633 71 77 14"></label>
+          <label class="f"><span>WhatsApp</span><input value="633 71 77 14"></label>
+          <label class="f"><span>Email donde recibes solicitudes</span><input value="juliopuig.inmobiliaria@gmail.com"></label>
+          <label class="f"><span>Zona de trabajo</span><input value="Coria del Río, Gelves, La Puebla del Río, Sevilla…"></label>
+          <p class="muted">En la demo estos campos son solo de muestra.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- EDITOR -->
+  <div class="sheet" id="sheet" hidden>
+    <div class="sheet__bg" data-close></div>
+    <form class="sheet__panel" id="editor" novalidate>
+      <header class="sheet__h">
+        <div><p class="mh__k" id="edKicker">Editar inmueble</p><h2 id="edTitle">—</h2></div>
+        <button type="button" class="ib" data-close aria-label="Cerrar"><svg><use href="../assets/icons.svg#close"/></svg></button>
+      </header>
+      <div class="sheet__body">
+        <fieldset class="grp">
+          <legend>Fotografías</legend>
+          <div class="photos" id="photos"></div>
+          <p class="hint">Arrastra para cambiar el orden. La primera es la portada.</p>
+        </fieldset>
+
+        <fieldset class="grp">
+          <legend>Datos principales</legend>
+          <label class="f"><span>Título</span><input name="title" required></label>
+          <div class="row2">
+            <div class="f"><span>Operación</span>
+              <div class="seg" id="segOp"><label><input type="radio" name="op" value="venta"><span>Venta</span></label><label><input type="radio" name="op" value="alquiler"><span>Alquiler</span></label></div>
+            </div>
+            <label class="f"><span>Precio <em id="priceUnit">(€)</em></span><input name="price" inputmode="numeric" required></label>
+          </div>
+          <div class="f"><span>Estado</span>
+            <div class="seg seg--4" id="segSt">
+              <label><input type="radio" name="status" value="disponible"><span>Disponible</span></label>
+              <label><input type="radio" name="status" value="reservado"><span>Reservado</span></label>
+              <label><input type="radio" name="status" value="vendido"><span>Vendido</span></label>
+              <label><input type="radio" name="status" value="alquilado"><span>Alquilado</span></label>
+            </div>
+          </div>
+          <label class="sw"><input type="checkbox" name="featured"><span class="sw__ui"></span><span>Destacar en la portada</span></label>
+          <label class="f"><span>Descripción</span><textarea name="description" rows="4"></textarea></label>
+        </fieldset>
+
+        <fieldset class="grp">
+          <legend>Características</legend>
+          <div class="row2">
+            <label class="f"><span>Tipo de inmueble</span>
+              <select name="type"><option>Piso</option><option>Ático</option><option>Casa</option><option>Casa adosada</option><option>Casa pareada</option><option>Chalet</option><option>Casa de campo</option><option>Loft</option></select>
+            </label>
+            <label class="f"><span>Localidad</span><select name="town" id="edTown"></select></label>
+          </div>
+          <div class="row3">
+            <label class="f"><span>Habitaciones</span><input name="beds" inputmode="numeric"></label>
+            <label class="f"><span>Baños</span><input name="baths" inputmode="numeric"></label>
+            <label class="f"><span>Metros</span><input name="m2" inputmode="numeric"></label>
+          </div>
+          <div class="ticks" id="feats"></div>
+        </fieldset>
+      </div>
+      <footer class="sheet__f">
+        <button type="button" class="b b--danger" id="delBtn"><svg><use href="../assets/icons.svg#trash"/></svg><span>Eliminar</span></button>
+        <div class="sheet__fr">
+          <button type="button" class="b b--line" data-close>Cancelar</button>
+          <button type="submit" class="b b--ink">Guardar cambios</button>
+        </div>
+      </footer>
+    </form>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="../data.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

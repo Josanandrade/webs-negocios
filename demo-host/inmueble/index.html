@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Inmueble · Julio Puig Real Estate</title>
+  <meta name="theme-color" content="#F7F4EE">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body data-base="../">
+  <header class="top">
+    <div class="wrap top__in">
+      <a class="brand" href="../" aria-label="Julio Puig Real Estate, inicio">
+        <span class="brand__mark" aria-hidden="true">JP</span>
+        <span class="brand__name">Julio Puig<small>Real Estate</small></span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Principal">
+        <a href="../#inmuebles">Inmuebles</a>
+        <a href="../#vender">Vender</a>
+        <a href="../#servicios">Servicios</a>
+        <a href="../#julio">Sobre Julio</a>
+        <a href="../#contacto">Contacto</a>
+        <a class="btn btn--ink nav__cta" href="../#vender">Valorar mi vivienda</a>
+      </nav>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú">
+        <svg><use href="../assets/icons.svg#menu"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap" id="detail"></main>
+
+  <section class="related">
+    <div class="wrap">
+      <p class="eyebrow">También te puede interesar</p>
+      <div class="grid" id="related"></div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="wrap foot__grid">
+      <div>
+        <a class="brand brand--light" href="../"><span class="brand__mark">JP</span><span class="brand__name">Julio Puig<small>Real Estate</small></span></a>
+        <p class="foot__txt">Compra, venta y alquiler de viviendas en Coria del Río y alrededores.</p>
+      </div>
+      <nav aria-label="Pie">
+        <a href="../#inmuebles">Inmuebles</a><a href="../#vender">Vender</a><a href="../#servicios">Servicios</a><a href="../#julio">Sobre Julio</a><a href="../#contacto">Contacto</a>
+      </nav>
+      <div class="foot__c" id="footContact"></div>
+    </div>
+    <div class="wrap foot__legal">
+      <span>© <span id="year"></span> Julio Puig Real Estate</span>
+      <span>Web de demostración: los inmuebles mostrados son ejemplos ficticios.</span>
+    </div>
+  </footer>
+
+  <div class="bar" id="bar"></div>
+  <a class="fab" id="fab" href="../#contacto" aria-label="Escribir por WhatsApp"><svg><use href="../assets/icons.svg#wa"/></svg><span>WhatsApp</span></a>
+
+  <script src="../data.js"></script>
+  <script src="../main.js"></script>
+</body>
+</html>
