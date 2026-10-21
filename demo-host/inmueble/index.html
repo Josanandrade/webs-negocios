@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es" data-root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Inmueble · Inmobiliaria Alves</title>
+  <meta name="description" content="Inmobiliaria Alves, Sevilla. Viviendas en venta y alquiler, valoración de tu inmueble y trato directo por teléfono o WhatsApp.">
+  <meta name="theme-color" content="#F6F2EA">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400;500;600;700&family=Funnel+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="page-ficha">
+  <a class="skip" href="#ficha">Saltar al inmueble</a>
+<header class="hdr">
+    <div class="wrap hdr__in">
+      <a class="logo" href="../#inicio" aria-label="Inmobiliaria Alves, inicio">
+        <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 19 20 7l14 12v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2Z" fill="currentColor"/><circle cx="20" cy="23" r="5.2" fill="var(--naranja)"/><path d="M20 28v5" stroke="var(--cal)" stroke-width="2.4" stroke-linecap="round"/></svg>
+        <span class="logo__txt"><b>Alves</b><small>Inmobiliaria · Sevilla</small></span>
+      </a>
+      <nav class="nav" id="menu" aria-label="Principal">
+        <a href="../?op=venta#inmuebles">Comprar</a>
+        <a href="../?op=alquiler#inmuebles">Alquilar</a>
+        <a href="../#vender">Vender</a>
+        <a href="../#valoracion">Valorar</a>
+        <a href="../#servicios">Servicios</a>
+        <a href="../#contacto">Contacto</a>
+        <a class="nav__phone" data-tel href="../#">Llamar al <span data-phone-text>619 214 928</span></a>
+      </nav>
+      <a class="btn btn--wa hdr__cta" data-wa href="../#">WhatsApp</a>
+      <button class="hdr__burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main id="ficha" class="ficha">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Ruta"><a href="../#inmuebles">Inmuebles</a><span aria-hidden="true">/</span><span data-crumb></span></nav>
+      <div id="fichaRoot"></div>
+    </div>
+  </main>
+
+<footer class="ftr">
+    <div class="wrap ftr__in">
+      <div>
+        <a class="logo logo--light" href="../#inicio" aria-label="Inmobiliaria Alves, inicio">
+          <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 19 20 7l14 12v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2Z" fill="currentColor"/><circle cx="20" cy="23" r="5.2" fill="var(--naranja)"/><path d="M20 28v5" stroke="var(--tinta)" stroke-width="2.4" stroke-linecap="round"/></svg>
+          <span class="logo__txt"><b>Alves</b><small>Inmobiliaria · Sevilla</small></span>
+        </a>
+      </div>
+      <nav class="ftr__nav" aria-label="Pie">
+        <a href="../?op=venta#inmuebles">Comprar</a>
+        <a href="../?op=alquiler#inmuebles">Alquilar</a>
+        <a href="../#vender">Vender</a>
+        <a href="../#valoracion">Valorar</a>
+        <a href="../#contacto">Contacto</a>
+      </nav>
+      <div class="ftr__contact">
+        <a data-tel href="../#">+34 <span data-phone-text>619 214 928</span></a>
+        <a data-wa href="../#">WhatsApp</a>
+      </div>
+    </div>
+    <div class="wrap ftr__legal">
+      <p>© <span data-year>2026</span> Inmobiliaria Alves · Sevilla</p>
+      <p>Web de demostración. Los inmuebles, precios e imágenes son ilustrativos y no corresponden a viviendas reales.</p>
+    </div>
+  </footer>
+
+  <nav class="dock is-on" aria-label="Contacto rápido">
+    <a class="dock__btn" data-tel href="#"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>Llamar</a>
+    <a class="dock__btn dock__btn--wa" data-wa-ficha href="#"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.8L4 20Z"/></svg>WhatsApp</a>
+  </nav>
+
+  <dialog class="lb" id="lightbox" aria-label="Galería">
+    <button class="iconbtn lb__close" type="button" data-lb-close aria-label="Cerrar"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <button class="iconbtn lb__nav lb__prev" type="button" data-lb="-1" aria-label="Anterior"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+    <img alt="" width="1200" height="800">
+    <button class="iconbtn lb__nav lb__next" type="button" data-lb="1" aria-label="Siguiente"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <p class="lb__count"></p>
+  </dialog>
+
+  <script src="../assets/data.js"></script>
+  <script src="../assets/app.js"></script>
+  <script src="ficha.js"></script>
+</body>
+</html>

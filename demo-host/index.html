@@ -2,15 +2,390 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <title>Inmobiliaria Alves · Comprar, alquilar y vender en Sevilla</title>
+  <meta name="description" content="Inmobiliaria Alves, Sevilla. Viviendas en venta y alquiler, valoración de tu inmueble y trato directo por teléfono o WhatsApp.">
+  <meta name="theme-color" content="#F6F2EA">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400;500;600;700&family=Funnel+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#inmuebles">Saltar a los inmuebles</a>
+
+  <header class="hdr">
+    <div class="wrap hdr__in">
+      <a class="logo" href="#inicio" aria-label="Inmobiliaria Alves, inicio">
+        <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 19 20 7l14 12v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2Z" fill="currentColor"/><circle cx="20" cy="23" r="5.2" fill="var(--naranja)"/><path d="M20 28v5" stroke="var(--cal)" stroke-width="2.4" stroke-linecap="round"/></svg>
+        <span class="logo__txt"><b>Alves</b><small>Inmobiliaria · Sevilla</small></span>
+      </a>
+      <nav class="nav" id="menu" aria-label="Principal">
+        <a href="#inmuebles" data-op-link="venta">Comprar</a>
+        <a href="#inmuebles" data-op-link="alquiler">Alquilar</a>
+        <a href="#vender">Vender</a>
+        <a href="#valoracion">Valorar</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#contacto">Contacto</a>
+        <a class="nav__phone" data-tel href="#">Llamar al <span data-phone-text>619 214 928</span></a>
+      </nav>
+      <a class="btn btn--wa hdr__cta" data-wa href="#">WhatsApp</a>
+      <button class="hdr__burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow hero__in" style="--d:0">Inmobiliaria en Sevilla</p>
+          <h1 class="hero__title hero__in" style="--d:1">Tu casa en Sevilla, <em>de tú a tú.</em></h1>
+          <p class="hero__lead hero__in" style="--d:2">Compra, alquila o vende con una inmobiliaria que te atiende en persona, te coge el teléfono y te contesta por WhatsApp.</p>
+
+          <form class="search hero__in" style="--d:3" id="search" role="search" aria-label="Buscar inmuebles">
+            <div class="seg" role="radiogroup" aria-label="Operación" data-seg>
+              <span class="seg__pill" aria-hidden="true"></span>
+              <label><input type="radio" name="op" value="venta" checked><span>Comprar</span></label>
+              <label><input type="radio" name="op" value="alquiler"><span>Alquilar</span></label>
+            </div>
+            <div class="search__fields">
+              <label class="field"><span>Zona</span>
+                <select name="zone" data-zones><option value="">Toda Sevilla</option></select>
+              </label>
+              <label class="field"><span>Tipo</span>
+                <select name="type" data-types><option value="">Cualquiera</option></select>
+              </label>
+              <label class="field"><span>Dormitorios</span>
+                <select name="beds"><option value="0">Indiferente</option><option value="1">1 o más</option><option value="2">2 o más</option><option value="3">3 o más</option><option value="4">4 o más</option></select>
+              </label>
+              <button class="btn btn--primary search__go" type="submit">Buscar <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+            </div>
+          </form>
+
+          <ul class="hero__trust hero__in" style="--d:4">
+            <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Atención directa por teléfono y WhatsApp</li>
+            <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Te acompañamos hasta la firma</li>
+          </ul>
+        </div>
+
+        <div class="hero__visual hero__in" style="--d:2">
+          <figure class="hero__frame">
+            <img src="assets/img/hero-calle.svg" alt="Ilustración de una calle sevillana con naranjos" width="1200" height="800">
+          </figure>
+          <a class="hero__card" id="heroCard" href="#" aria-live="polite">
+            <img alt="" width="1200" height="800">
+            <span class="hero__cardbody">
+              <small data-k="loc"></small>
+              <b data-k="title"></b>
+              <span data-k="price"></span>
+            </span>
+            <span class="hero__cardgo" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+          <a class="hero__chip" data-wa href="#">
+            <span class="dot" aria-hidden="true"></span>
+            <span><small>WhatsApp</small><b data-phone-text>619 214 928</b></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACCESOS -->
+    <section class="paths" aria-label="¿Qué necesitas?">
+      <div class="wrap paths__grid">
+        <a class="path" href="#inmuebles" data-op-link="venta" data-reveal style="--i:0">
+          <span class="path__n">01</span><b>Comprar</b><span>Viviendas en venta en Sevilla y alrededores.</span>
+        </a>
+        <a class="path" href="#inmuebles" data-op-link="alquiler" data-reveal style="--i:1">
+          <span class="path__n">02</span><b>Alquilar</b><span>Pisos y locales en alquiler de larga temporada.</span>
+        </a>
+        <a class="path" href="#vender" data-reveal style="--i:2">
+          <span class="path__n">03</span><b>Vender o alquilar tu casa</b><span>Nos ocupamos de todo el proceso.</span>
+        </a>
+        <a class="path path--accent" href="#valoracion" data-reveal style="--i:3">
+          <span class="path__n">04</span><b>Valorar mi inmueble</b><span>Cuéntanos tu vivienda y te llamamos.</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- DESTACADOS -->
+    <section class="sec" id="destacados">
+      <div class="wrap">
+        <div class="sec__head">
+          <div>
+            <p class="eyebrow">Selección</p>
+            <h2 class="sec__title">Inmuebles destacados</h2>
+          </div>
+          <div class="carousel__nav">
+            <button class="iconbtn" type="button" data-car="-1" aria-label="Anterior"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+            <button class="iconbtn" type="button" data-car="1" aria-label="Siguiente"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <div class="carousel" id="featured" tabindex="0" aria-label="Inmuebles destacados"></div>
+    </section>
+
+    <!-- LISTADO + FILTROS -->
+    <section class="sec sec--list" id="inmuebles">
+      <div class="wrap">
+        <div class="sec__head">
+          <div>
+            <p class="eyebrow">Cartera</p>
+            <h2 class="sec__title">Encuentra tu inmueble</h2>
+          </div>
+          <p class="sec__note">Inmuebles de ejemplo para esta demo.</p>
+        </div>
+
+        <div class="listing">
+          <aside class="filters" id="filters" aria-label="Filtros">
+            <div class="filters__sheet">
+              <div class="filters__top">
+                <h3>Filtros</h3>
+                <button class="iconbtn filters__close" type="button" data-filters-close aria-label="Cerrar filtros"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+              </div>
+              <form id="filterForm">
+                <div class="seg seg--block" role="radiogroup" aria-label="Operación" data-seg>
+                  <span class="seg__pill" aria-hidden="true"></span>
+                  <label><input type="radio" name="op" value="venta" checked><span>Comprar</span></label>
+                  <label><input type="radio" name="op" value="alquiler"><span>Alquilar</span></label>
+                  <label><input type="radio" name="op" value=""><span>Todo</span></label>
+                </div>
+                <label class="field"><span>Zona</span><select name="zone" data-zones><option value="">Toda Sevilla</option></select></label>
+                <fieldset class="chips"><legend>Tipo</legend><div data-type-chips></div></fieldset>
+                <div class="field-row">
+                  <label class="field"><span>Precio mín.</span><input name="min" type="number" inputmode="numeric" min="0" step="1000" placeholder="0 €"></label>
+                  <label class="field"><span>Precio máx.</span><input name="max" type="number" inputmode="numeric" min="0" step="1000" placeholder="Sin límite"></label>
+                </div>
+                <fieldset class="chips chips--beds"><legend>Dormitorios</legend>
+                  <div>
+                    <label class="chip"><input type="radio" name="beds" value="0" checked><span>Todos</span></label>
+                    <label class="chip"><input type="radio" name="beds" value="1"><span>1+</span></label>
+                    <label class="chip"><input type="radio" name="beds" value="2"><span>2+</span></label>
+                    <label class="chip"><input type="radio" name="beds" value="3"><span>3+</span></label>
+                    <label class="chip"><input type="radio" name="beds" value="4"><span>4+</span></label>
+                  </div>
+                </fieldset>
+                <fieldset class="chips"><legend>Características</legend><div data-extra-chips></div></fieldset>
+                <label class="check"><input type="checkbox" name="favs"><span>Solo mis favoritos</span></label>
+                <div class="filters__actions">
+                  <button class="btn btn--ghost" type="reset">Limpiar</button>
+                  <button class="btn btn--primary filters__apply" type="button" data-filters-close>Ver inmuebles</button>
+                </div>
+              </form>
+            </div>
+          </aside>
+
+          <div class="results">
+            <div class="results__bar">
+              <p class="results__count" aria-live="polite"><b data-count>0</b> <span data-count-label>inmuebles</span></p>
+              <div class="results__tools">
+                <button class="btn btn--ghost results__filterbtn" type="button" data-filters-open>
+                  <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>
+                  Filtros <span class="badge" data-active-count hidden></span>
+                </button>
+                <label class="sort"><span class="sr">Ordenar</span>
+                  <select id="sort">
+                    <option value="rec">Recomendados</option>
+                    <option value="asc">Precio: menor a mayor</option>
+                    <option value="desc">Precio: mayor a menor</option>
+                    <option value="m2">Más metros</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+            <div class="grid" id="grid"></div>
+            <div class="empty" id="empty" hidden>
+              <b>No hay inmuebles con esos filtros.</b>
+              <p>Prueba a quitar alguno o cuéntanos qué buscas y te avisamos cuando entre algo.</p>
+              <div class="empty__actions">
+                <button class="btn btn--ghost" type="button" data-reset>Quitar filtros</button>
+                <a class="btn btn--wa" data-wa="Hola, estoy buscando un inmueble en Sevilla y me gustaría que me avisarais si entra algo que encaje." href="#">Avísame por WhatsApp</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="scrim" data-filters-close hidden></div>
+    </section>
+
+    <!-- CAPTACIÓN -->
+    <section class="sec sec--dark" id="vender">
+      <div class="wrap sell">
+        <div class="sell__copy" data-reveal>
+          <p class="eyebrow eyebrow--light">Propietarios</p>
+          <h2 class="sec__title">¿Vendes o alquilas tu vivienda?</h2>
+          <p class="lead">Déjala en nuestras manos. Te explicamos cada paso con claridad, sin letra pequeña, y te mantenemos informado de cada visita.</p>
+          <div class="sell__ctas">
+            <a class="btn btn--primary" href="#valoracion">Valorar mi vivienda</a>
+            <a class="btn btn--light" data-wa="Hola, quiero vender o alquilar mi vivienda y me gustaría hablar con vosotros." href="#">Hablar por WhatsApp</a>
+          </div>
+        </div>
+        <ol class="steps">
+          <li data-reveal style="--i:0"><span>1</span><div><b>Nos cuentas</b><p>Hablamos por teléfono o WhatsApp sobre tu vivienda y lo que necesitas.</p></div></li>
+          <li data-reveal style="--i:1"><span>2</span><div><b>Visitamos y valoramos</b><p>Vemos el inmueble y te damos un precio razonado según el mercado de la zona.</p></div></li>
+          <li data-reveal style="--i:2"><span>3</span><div><b>Lo presentamos bien</b><p>Fotos, descripción y difusión para que llegue a quien de verdad lo busca.</p></div></li>
+          <li data-reveal style="--i:3"><span>4</span><div><b>Visitas y firma</b><p>Filtramos interesados, organizamos visitas y te acompañamos hasta el final.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- VALORACIÓN -->
+    <section class="sec" id="valoracion">
+      <div class="wrap val">
+        <div class="val__intro" data-reveal>
+          <p class="eyebrow">Valoración</p>
+          <h2 class="sec__title">¿Cuánto vale tu inmueble?</h2>
+          <p class="lead">Rellena estos datos en un minuto. Te contactamos para concertar una visita y darte una valoración ajustada a tu vivienda, sin compromiso.</p>
+          <p class="val__note">Por responsabilidad no damos cifras automáticas: cada casa es distinta y el precio se calcula viéndola.</p>
+        </div>
+
+        <form class="wizard" id="wizard" novalidate data-reveal>
+          <div class="wizard__progress" aria-hidden="true"><span></span></div>
+          <p class="wizard__step-label"><span data-step-n>1</span> de 3</p>
+
+          <fieldset class="wizard__step is-active" data-step="1">
+            <legend>¿Qué quieres hacer?</legend>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="goal" value="vender" checked><span><b>Vender</b><small>Quiero saber por cuánto vender.</small></span></label>
+              <label class="opt"><input type="radio" name="goal" value="alquilar"><span><b>Alquilar</b><small>Quiero saber cuánto pedir de renta.</small></span></label>
+            </div>
+            <label class="field"><span>Tipo de inmueble</span><select name="vtype" data-types></select></label>
+          </fieldset>
+
+          <fieldset class="wizard__step" data-step="2">
+            <legend>Cuéntanos tu inmueble</legend>
+            <label class="field"><span>Zona o barrio</span><input name="vzone" type="text" placeholder="Ej. Triana" required autocomplete="off"></label>
+            <div class="field-row">
+              <label class="field"><span>Metros aprox.</span><input name="vm2" type="number" inputmode="numeric" min="10" placeholder="Ej. 90" required></label>
+              <label class="field"><span>Dormitorios</span><select name="vbeds"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5 o más</option></select></label>
+            </div>
+            <label class="field"><span>Estado</span>
+              <select name="vstate"><option>Para entrar a vivir</option><option>Buen estado</option><option>Necesita reforma</option></select>
+            </label>
+          </fieldset>
+
+          <fieldset class="wizard__step" data-step="3">
+            <legend>¿Cómo te contactamos?</legend>
+            <label class="field"><span>Nombre</span><input name="vname" type="text" autocomplete="given-name" required></label>
+            <label class="field"><span>Teléfono</span><input name="vphone" type="tel" autocomplete="tel" inputmode="tel" required></label>
+            <label class="check"><input type="checkbox" name="vok" required><span>Acepto que Inmobiliaria Alves use estos datos para contactarme sobre mi valoración.</span></label>
+          </fieldset>
+
+          <div class="wizard__done" data-step="done" hidden>
+            <span class="wizard__tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+            <b>¡Listo! Envía tu solicitud por WhatsApp.</b>
+            <p data-summary></p>
+            <a class="btn btn--wa" id="wizardWa" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+            <button class="linkbtn" type="button" data-wizard-restart>Empezar de nuevo</button>
+          </div>
+
+          <div class="wizard__nav">
+            <button class="btn btn--ghost" type="button" data-prev disabled>Atrás</button>
+            <button class="btn btn--primary" type="button" data-next>Continuar</button>
+          </div>
+          <p class="wizard__err" role="alert"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="sec sec--soft" id="servicios">
+      <div class="wrap">
+        <div class="sec__head">
+          <div>
+            <p class="eyebrow">Servicios</p>
+            <h2 class="sec__title">Lo que hacemos por ti</h2>
+          </div>
+          <div class="seg seg--tabs" role="tablist" aria-label="Tipo de cliente" data-seg data-tabs>
+            <span class="seg__pill" aria-hidden="true"></span>
+            <label><input type="radio" name="svc" value="prop" checked role="tab" aria-controls="svc-prop"><span>Propietarios</span></label>
+            <label><input type="radio" name="svc" value="buy" role="tab" aria-controls="svc-buy"><span>Compradores e inquilinos</span></label>
+          </div>
+        </div>
+        <div class="svc" id="svc-prop" role="tabpanel">
+          <article class="svc__item" data-reveal style="--i:0"><h3>Valoración de tu inmueble</h3><p>Precio de salida razonado según la vivienda, su estado y la zona.</p></article>
+          <article class="svc__item" data-reveal style="--i:1"><h3>Venta</h3><p>Preparamos el anuncio, lo difundimos y gestionamos visitas y ofertas.</p></article>
+          <article class="svc__item" data-reveal style="--i:2"><h3>Alquiler</h3><p>Buscamos inquilino, revisamos la solvencia y preparamos el contrato.</p></article>
+          <article class="svc__item" data-reveal style="--i:3"><h3>Papeleo y firma</h3><p>Te orientamos con la documentación y te acompañamos a notaría.</p></article>
+        </div>
+        <div class="svc" id="svc-buy" role="tabpanel" hidden>
+          <article class="svc__item"><h3>Búsqueda a medida</h3><p>Nos dices qué necesitas y te avisamos cuando aparece algo que encaje.</p></article>
+          <article class="svc__item"><h3>Visitas sin prisas</h3><p>Organizamos las visitas en horarios que te vengan bien.</p></article>
+          <article class="svc__item"><h3>Negociación</h3><p>Te ayudamos a hacer una oferta sensata y a cerrar el acuerdo.</p></article>
+          <article class="svc__item"><h3>Hasta la firma</h3><p>Te explicamos cada paso: reserva, arras, financiación y notaría.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="sec" id="contacto">
+      <div class="wrap contact">
+        <div class="contact__card" data-reveal>
+          <p class="eyebrow eyebrow--light">Contacto</p>
+          <h2 class="sec__title">Hablemos de tu casa</h2>
+          <p class="lead">Llámanos o escríbenos por WhatsApp. Te responde una persona, no un formulario automático.</p>
+          <a class="contact__phone" data-tel href="#"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg><span>+34 <span data-phone-text>619 214 928</span></span></a>
+          <div class="contact__ctas">
+            <a class="btn btn--wa" data-wa href="#">Escribir por WhatsApp</a>
+            <a class="btn btn--light" data-tel href="#">Llamar ahora</a>
+          </div>
+          <p class="contact__zone"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Sevilla</p>
+        </div>
+
+        <form class="contact__form" id="contactForm" novalidate data-reveal>
+          <h3>Déjanos tu mensaje</h3>
+          <div class="field-row">
+            <label class="field"><span>Nombre</span><input name="name" type="text" autocomplete="name" required></label>
+            <label class="field"><span>Teléfono</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label>
+          </div>
+          <label class="field"><span>Me interesa</span>
+            <select name="topic"><option>Comprar</option><option>Alquilar</option><option>Vender mi vivienda</option><option>Poner mi vivienda en alquiler</option><option>Otra consulta</option></select>
+          </label>
+          <label class="field"><span>Mensaje</span><textarea name="msg" rows="4" placeholder="Cuéntanos qué buscas o qué necesitas"></textarea></label>
+          <label class="check"><input type="checkbox" name="ok" required><span>Acepto que Inmobiliaria Alves use estos datos para responder a mi consulta.</span></label>
+          <button class="btn btn--primary" type="submit">Enviar por WhatsApp</button>
+          <p class="form__hint">Se abrirá WhatsApp con tu mensaje listo para enviar.</p>
+          <p class="wizard__err" role="alert"></p>
+        </form>
+      </div>
+    </section>
   </main>
+
+  <footer class="ftr">
+    <div class="wrap ftr__in">
+      <div>
+        <a class="logo logo--light" href="#inicio" aria-label="Inmobiliaria Alves, inicio">
+          <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 19 20 7l14 12v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2Z" fill="currentColor"/><circle cx="20" cy="23" r="5.2" fill="var(--naranja)"/><path d="M20 28v5" stroke="var(--tinta)" stroke-width="2.4" stroke-linecap="round"/></svg>
+          <span class="logo__txt"><b>Alves</b><small>Inmobiliaria · Sevilla</small></span>
+        </a>
+      </div>
+      <nav class="ftr__nav" aria-label="Pie">
+        <a href="#inmuebles" data-op-link="venta">Comprar</a>
+        <a href="#inmuebles" data-op-link="alquiler">Alquilar</a>
+        <a href="#vender">Vender</a>
+        <a href="#valoracion">Valorar</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <div class="ftr__contact">
+        <a data-tel href="#">+34 <span data-phone-text>619 214 928</span></a>
+        <a data-wa href="#">WhatsApp</a>
+      </div>
+    </div>
+    <div class="wrap ftr__legal">
+      <p>© <span data-year>2026</span> Inmobiliaria Alves · Sevilla</p>
+      <p>Web de demostración. Los inmuebles, precios e imágenes son ilustrativos y no corresponden a viviendas reales.</p>
+    </div>
+  </footer>
+
+  <nav class="dock" aria-label="Contacto rápido">
+    <a class="dock__btn" data-tel href="#"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>Llamar</a>
+    <a class="dock__btn dock__btn--wa" data-wa href="#"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.8L4 20Z"/></svg>WhatsApp</a>
+  </nav>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/app.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
