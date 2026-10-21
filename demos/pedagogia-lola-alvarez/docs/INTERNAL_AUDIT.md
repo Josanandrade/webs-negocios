@@ -26,4 +26,3 @@ Una búsqueda web ("Lola Álvarez" pedagogía Pilas Sevilla) no devolvió nada s
 ## Pendiente con material real
 - Foto de Lola o del espacio (sustituiría o acompañaría el cuaderno del hero).
 - Dirección y horario si quiere publicarlos.
-EOF
