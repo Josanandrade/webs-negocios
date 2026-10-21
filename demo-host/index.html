@@ -2,15 +2,578 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>Semilla · Academia de Apoyo Escolar en Bollullos de la Mitación</title>
+  <meta name="description" content="Academia de Apoyo Escolar Semilla, en Bollullos de la Mitación. Acompañamiento por etapas, método de estudio y seguimiento personalizado con la familia. Pide información por WhatsApp.">
+  <meta name="theme-color" content="#102A26">
+  <meta property="og:title" content="Semilla · Apoyo escolar en Bollullos de la Mitación">
+  <meta property="og:description" content="Aprender con calma, crecer con confianza. Pide información por WhatsApp.">
+  <meta property="og:image" content="assets/og.svg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Hedvig+Letters+Serif:opsz@12..24&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip" href="#etapas">Saltar al contenido</a>
+
+  <header class="nav" id="top">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="Semilla, Academia de Apoyo Escolar, inicio">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <ellipse cx="20" cy="27" rx="9.5" ry="7.5" fill="currentColor"/>
+          <path d="M20 21 C20 15 20 12 20 8" stroke="var(--brote)" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+          <path d="M20 13 C23 8.5 28 8 31 9 C30 13 25 15.5 20 14.5Z" fill="var(--brote)"/>
+          <path d="M20 16 C17.5 12.5 13 12 10.5 13 C11.5 16.5 15.5 18 20 17Z" fill="var(--brote)" opacity=".7"/>
+        </svg>
+        <span class="brand-text">
+          <strong>Semilla</strong>
+          <small>Academia de Apoyo Escolar</small>
+        </span>
+      </a>
+      <nav class="menu" id="menu" aria-label="Principal">
+        <a href="#etapas">Etapas</a>
+        <a href="#metodo">Método</a>
+        <a href="#seguimiento">Seguimiento</a>
+        <a href="#horarios">Horarios</a>
+        <a href="#familias">Familias</a>
+        <a href="#faq">Dudas</a>
+      </nav>
+      <a class="btn btn-sm btn-ink nav-cta" href="#info">Pide información</a>
+      <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+    </div>
+  </header>
+
   <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow" data-reveal><span class="dot"></span>Apoyo escolar · Bollullos de la Mitación</p>
+          <h1 class="display" data-reveal>
+            Aprender con calma,
+            <span class="hl">crecer
+              <svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16 C 60 6, 120 20, 180 11 S 270 6, 296 13"/></svg>
+            </span>
+            con confianza.
+          </h1>
+          <p class="lead" data-reveal>En Semilla acompañamos a cada alumno en sus estudios con un plan a su medida y una relación cercana con la familia. Porque estudiar mejor empieza por entender cómo aprende cada uno.</p>
+          <div class="hero-ctas" data-reveal>
+            <a class="btn btn-ink" href="#info">Pide información
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg>
+            </a>
+            <a class="btn btn-ghost js-wa" href="https://wa.me/34645177628" target="_blank" rel="noopener">
+              <svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.4 9.4 0 0 0-8.1 14.2L2.6 21.5l4.9-1.3A9.4 9.4 0 1 0 12 2.5Zm0 17.1c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3a7.8 7.8 0 1 1 6.7 3.6Zm4.3-5.8c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.4 6.4 0 0 1-3.2-2.8c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1c0 1.2.9 2.4 1 2.6.1.2 1.8 2.7 4.3 3.8 1.6.7 2.2.7 3 .6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.2Z"/></svg>
+              645 177 628
+            </a>
+          </div>
+          <ul class="hero-stages" data-reveal aria-label="Etapas">
+            <li><span class="sw sw-1"></span>Primaria</li>
+            <li><span class="sw sw-2"></span>ESO</li>
+            <li><span class="sw sw-3"></span>Bachillerato</li>
+          </ul>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+          <div class="sheet">
+            <div class="sheet-head">
+              <span class="mono">Plan de estudio</span>
+              <span class="mono muted">curso 26/27</span>
+            </div>
+            <svg class="sprout" viewBox="0 0 320 340">
+              <defs>
+                <linearGradient id="soil" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#D9CDB4"/><stop offset="1" stop-color="#C4B494"/></linearGradient>
+              </defs>
+              <!-- level guides -->
+              <g class="guides">
+                <line x1="20" x2="300" y1="232" y2="232"/>
+                <line x1="20" x2="300" y1="152" y2="152"/>
+                <line x1="20" x2="300" y1="72" y2="72"/>
+              </g>
+              <g class="tags mono">
+                <text x="300" y="226" text-anchor="end">Primaria</text>
+                <text x="300" y="146" text-anchor="end">ESO</text>
+                <text x="300" y="66" text-anchor="end">Bachillerato</text>
+              </g>
+              <path class="soil" d="M30 300 Q160 280 290 300 L290 330 L30 330Z" fill="url(#soil)"/>
+              <ellipse class="seed" cx="160" cy="300" rx="16" ry="11" fill="#102A26"/>
+              <path class="stem" d="M160 292 C 158 250, 166 220, 160 180 S 152 110, 162 50"/>
+              <path class="leaf l1" d="M160 240 C 135 222 108 226 96 236 C 112 256 140 256 160 240Z"/>
+              <path class="leaf l2" d="M161 168 C 188 146 218 150 230 160 C 214 182 184 184 161 168Z"/>
+              <path class="leaf l3" d="M159 112 C 134 90 104 92 92 102 C 108 124 138 126 159 112Z"/>
+              <path class="leaf l4" d="M162 54 C 176 30 198 24 212 28 C 206 50 186 62 162 54Z"/>
+              <circle class="bud" cx="162" cy="48" r="6"/>
+            </svg>
+          </div>
+          <div class="float f1">
+            <span class="check"><svg viewBox="0 0 16 16"><path d="M3.5 8.5 6.5 11.5 12.5 5"/></svg></span>
+            <div><b>Esta semana</b><span>Organizar el examen y repasar con calma</span></div>
+          </div>
+          <div class="float f2">
+            <span class="mono tiny">Nota para la familia</span>
+            <p>“Hoy ha preguntado sus dudas sin miedo.”</p>
+            <span class="mono tiny muted">ejemplo ilustrativo</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VALUE STRIP -->
+    <section class="strip" aria-label="Lo que nos importa">
+      <div class="marquee">
+        <div class="marquee-track">
+          <span>Escuchar antes de enseñar</span><i></i>
+          <span>Un plan para cada alumno</span><i></i>
+          <span>Método antes que memoria</span><i></i>
+          <span>La familia, siempre informada</span><i></i>
+          <span>Hábito y autonomía</span><i></i>
+          <span>Escuchar antes de enseñar</span><i></i>
+          <span>Un plan para cada alumno</span><i></i>
+          <span>Método antes que memoria</span><i></i>
+          <span>La familia, siempre informada</span><i></i>
+          <span>Hábito y autonomía</span><i></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPAS -->
+    <section class="section" id="etapas">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="kicker mono">01 · Apoyo por etapas</p>
+          <h2 class="h2">Cada etapa pide un acompañamiento distinto.</h2>
+          <p class="sec-lead">No necesita lo mismo un niño que empieza a leer con soltura que un alumno preparando sus exámenes de Bachillerato. Por eso adaptamos el apoyo al momento de cada uno.</p>
+        </header>
+
+        <div class="stages" data-reveal>
+          <div class="tabs" role="tablist" aria-label="Etapas educativas">
+            <span class="tab-pill" aria-hidden="true"></span>
+            <button role="tab" id="t-pri" aria-controls="p-pri" aria-selected="true" class="tab" data-stage="1">Primaria</button>
+            <button role="tab" id="t-eso" aria-controls="p-eso" aria-selected="false" class="tab" data-stage="2" tabindex="-1">ESO</button>
+            <button role="tab" id="t-bach" aria-controls="p-bach" aria-selected="false" class="tab" data-stage="3" tabindex="-1">Bachillerato</button>
+          </div>
+
+          <div class="panels">
+            <article class="panel is-active" role="tabpanel" id="p-pri" aria-labelledby="t-pri" data-stage="1">
+              <div class="panel-copy">
+                <p class="panel-tag mono">Raíces</p>
+                <h3>Bases sólidas y ganas de aprender.</h3>
+                <p>En Primaria se construye todo lo que viene después. Trabajamos para que el alumno gane seguridad, entienda lo que hace y empiece a organizarse solo.</p>
+                <ul class="focus">
+                  <li>Comprensión lectora y expresión</li>
+                  <li>Cálculo y razonamiento</li>
+                  <li>Rutina de deberes y estudio</li>
+                  <li>Confianza para preguntar</li>
+                </ul>
+              </div>
+              <div class="panel-art">
+                <svg viewBox="0 0 200 200" aria-hidden="true">
+                  <circle cx="100" cy="100" r="86" class="pa-bg"/>
+                  <path d="M40 150 Q100 136 160 150" class="pa-line"/>
+                  <ellipse cx="100" cy="146" rx="14" ry="9" class="pa-ink"/>
+                  <path d="M100 138 C100 120 100 108 101 96" class="pa-stem"/>
+                  <path d="M101 108 C116 92 134 92 142 96 C134 112 116 116 101 108Z" class="pa-leaf"/>
+                  <path d="M100 116 C86 104 70 104 64 108 C70 122 86 124 100 116Z" class="pa-leaf alt"/>
+                </svg>
+              </div>
+            </article>
+
+            <article class="panel" role="tabpanel" id="p-eso" aria-labelledby="t-eso" data-stage="2" hidden>
+              <div class="panel-copy">
+                <p class="panel-tag mono">Tallo</p>
+                <h3>Organización, método y constancia.</h3>
+                <p>Llegan más asignaturas, más exámenes y más autonomía. Les ayudamos a planificarse, a estudiar con técnica y a reforzar lo que más les cuesta antes de que se acumule.</p>
+                <ul class="focus">
+                  <li>Planificar la semana y los exámenes</li>
+                  <li>Técnicas de estudio y resumen</li>
+                  <li>Refuerzo de las materias que cuestan</li>
+                  <li>Agenda, tiempos y concentración</li>
+                </ul>
+              </div>
+              <div class="panel-art">
+                <svg viewBox="0 0 200 200" aria-hidden="true">
+                  <circle cx="100" cy="100" r="86" class="pa-bg"/>
+                  <path d="M40 162 Q100 148 160 162" class="pa-line"/>
+                  <path d="M100 160 C98 130 104 100 100 60" class="pa-stem"/>
+                  <path d="M101 128 C120 110 142 112 150 118 C140 136 118 138 101 128Z" class="pa-leaf"/>
+                  <path d="M100 100 C80 84 60 86 52 92 C60 110 82 112 100 100Z" class="pa-leaf alt"/>
+                  <path d="M101 74 C116 58 134 58 142 62 C134 78 116 82 101 74Z" class="pa-leaf"/>
+                </svg>
+              </div>
+            </article>
+
+            <article class="panel" role="tabpanel" id="p-bach" aria-labelledby="t-bach" data-stage="3" hidden>
+              <div class="panel-copy">
+                <p class="panel-tag mono">Fruto</p>
+                <h3>Exigencia, con alguien al lado.</h3>
+                <p>Bachillerato es intenso y va rápido. Acompañamos para mantener el ritmo del curso, estudiar de forma autónoma y llegar a cada examen con un plan claro.</p>
+                <ul class="focus">
+                  <li>Preparación de exámenes con tiempo</li>
+                  <li>Estudio autónomo y constante</li>
+                  <li>Resolver dudas de contenidos exigentes</li>
+                  <li>Gestión del estrés y del calendario</li>
+                </ul>
+              </div>
+              <div class="panel-art">
+                <svg viewBox="0 0 200 200" aria-hidden="true">
+                  <circle cx="100" cy="100" r="86" class="pa-bg"/>
+                  <path d="M40 170 Q100 156 160 170" class="pa-line"/>
+                  <path d="M100 168 C96 130 106 90 100 40" class="pa-stem"/>
+                  <path d="M101 140 C122 122 146 124 154 130 C144 150 120 152 101 140Z" class="pa-leaf"/>
+                  <path d="M100 112 C78 96 56 98 48 104 C56 124 80 126 100 112Z" class="pa-leaf alt"/>
+                  <path d="M101 84 C120 66 142 66 150 72 C142 90 120 94 101 84Z" class="pa-leaf"/>
+                  <circle cx="100" cy="38" r="12" class="pa-sun"/>
+                </svg>
+              </div>
+            </article>
+          </div>
+          <p class="note">¿Tu hijo está en otro curso o tiene necesidades concretas? Cuéntanoslo y te confirmamos cómo podemos ayudar.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- METODO -->
+    <section class="section section-tint" id="metodo">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="kicker mono">02 · Metodología</p>
+          <h2 class="h2">Enseñar a estudiar, no solo a aprobar.</h2>
+          <p class="sec-lead">Nuestra forma de trabajar se apoya en cuatro ideas sencillas que se notan en el día a día.</p>
+        </header>
+        <ol class="method">
+          <li class="m-card" data-reveal>
+            <span class="m-num mono">01</span>
+            <svg class="m-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 30c0-9 6-16 14-16s14 7 14 16"/><path d="M18 30a6 6 0 0 0 12 0"/><circle cx="24" cy="10" r="2"/></svg>
+            <h3>Escuchar primero</h3>
+            <p>Antes de abrir un libro, conocemos al alumno: cómo estudia, qué le cuesta y qué le motiva.</p>
+          </li>
+          <li class="m-card" data-reveal>
+            <span class="m-num mono">02</span>
+            <svg class="m-ico" viewBox="0 0 48 48" aria-hidden="true"><rect x="10" y="8" width="28" height="34" rx="4"/><path d="M17 18h14M17 25h14M17 32h8"/></svg>
+            <h3>Un plan a su medida</h3>
+            <p>Objetivos claros y realistas, ajustados a su curso, su ritmo y su calendario de exámenes.</p>
+          </li>
+          <li class="m-card" data-reveal>
+            <span class="m-num mono">03</span>
+            <svg class="m-ico" viewBox="0 0 48 48" aria-hidden="true"><circle cx="18" cy="20" r="8"/><circle cx="32" cy="28" r="8"/><path d="M22 34l-6 6M26 14l6-6"/></svg>
+            <h3>Método antes que memoria</h3>
+            <p>Entender, esquematizar, repasar. Herramientas que sirven para esta asignatura y para las siguientes.</p>
+          </li>
+          <li class="m-card" data-reveal>
+            <span class="m-num mono">04</span>
+            <svg class="m-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 40V18"/><path d="M24 26c-6-1-10-5-11-11 6 0 10 4 11 11Z"/><path d="M24 22c1-7 5-11 11-11-1 6-5 10-11 11Z"/></svg>
+            <h3>Hábito y autonomía</h3>
+            <p>Queremos que, poco a poco, el alumno necesite menos ayuda y confíe más en sí mismo.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- SEGUIMIENTO -->
+    <section class="section" id="seguimiento">
+      <div class="wrap follow">
+        <div class="follow-copy">
+          <header class="sec-head left" data-reveal>
+            <p class="kicker mono">03 · Seguimiento personalizado</p>
+            <h2 class="h2">Así es el acompañamiento, paso a paso.</h2>
+          </header>
+          <ol class="steps" id="steps">
+            <li class="step" data-reveal>
+              <span class="step-dot"></span>
+              <h3>Primera conversación</h3>
+              <p>Nos cuentas cómo está yendo el curso y qué os preocupa. Sin compromiso.</p>
+            </li>
+            <li class="step" data-reveal>
+              <span class="step-dot"></span>
+              <h3>Conocer su punto de partida</h3>
+              <p>Vemos con el alumno qué domina, dónde se atasca y cómo se organiza.</p>
+            </li>
+            <li class="step" data-reveal>
+              <span class="step-dot"></span>
+              <h3>Plan de trabajo</h3>
+              <p>Definimos prioridades y un calendario que encaje con su semana.</p>
+            </li>
+            <li class="step" data-reveal>
+              <span class="step-dot"></span>
+              <h3>Sesiones con objetivo</h3>
+              <p>Cada sesión tiene un para qué: un tema, un examen, un hábito.</p>
+            </li>
+            <li class="step" data-reveal>
+              <span class="step-dot"></span>
+              <h3>Revisión con la familia</h3>
+              <p>Compartimos avances y ajustamos el plan cuando hace falta.</p>
+            </li>
+          </ol>
+        </div>
+
+        <aside class="notebook" data-reveal aria-label="Ejemplo de cuaderno de seguimiento">
+          <div class="nb-head">
+            <div>
+              <span class="mono tiny muted">Cuaderno de seguimiento</span>
+              <strong>Alumno/a · 2º ESO</strong>
+            </div>
+            <span class="badge mono">Ejemplo</span>
+          </div>
+          <div class="nb-week mono">
+            <span>L</span><span class="on">M</span><span>X</span><span class="on">J</span><span>V</span>
+          </div>
+          <ul class="nb-goals">
+            <li class="done"><span class="box"></span>Planificar los exámenes del trimestre</li>
+            <li class="done"><span class="box"></span>Hacer esquema del tema 4</li>
+            <li><span class="box"></span>Repasar con preguntas tipo examen</li>
+            <li><span class="box"></span>Revisar agenda con la familia</li>
+          </ul>
+          <div class="nb-note">
+            <span class="mono tiny">Observación del día</span>
+            <p>Se organiza mejor cuando empieza por lo que más le cuesta.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- HORARIOS -->
+    <section class="section section-tint" id="horarios">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="kicker mono">04 · Horarios y grupos</p>
+          <h2 class="h2">Un hueco en la semana que encaje con la vuestra.</h2>
+          <p class="sec-lead">Este espacio está preparado para publicar los horarios y grupos de cada curso. Mientras tanto, pregúntanos la disponibilidad para la etapa de tu hijo.</p>
+        </header>
+
+        <div class="board" data-reveal>
+          <div class="board-top">
+            <div class="chips" role="group" aria-label="Filtrar por etapa">
+              <button class="chip is-on" data-filter="all" aria-pressed="true">Todas</button>
+              <button class="chip" data-filter="1" aria-pressed="false">Primaria</button>
+              <button class="chip" data-filter="2" aria-pressed="false">ESO</button>
+              <button class="chip" data-filter="3" aria-pressed="false">Bachillerato</button>
+            </div>
+            <span class="badge mono">Horarios por publicar</span>
+          </div>
+          <div class="grid-wrap">
+            <div class="week" role="table" aria-label="Plantilla de horario semanal">
+              <div class="w-row w-head" role="row">
+                <span role="columnheader"></span>
+                <span role="columnheader">Lunes</span><span role="columnheader">Martes</span><span role="columnheader">Miércoles</span><span role="columnheader">Jueves</span><span role="columnheader">Viernes</span>
+              </div>
+              <div class="w-row" role="row">
+                <span class="w-time mono" role="rowheader">Franja 1</span>
+                <span class="slot" data-s="1" role="cell">Primaria</span>
+                <span class="slot" data-s="2" role="cell">ESO</span>
+                <span class="slot" data-s="1" role="cell">Primaria</span>
+                <span class="slot" data-s="2" role="cell">ESO</span>
+                <span class="slot empty" role="cell"></span>
+              </div>
+              <div class="w-row" role="row">
+                <span class="w-time mono" role="rowheader">Franja 2</span>
+                <span class="slot" data-s="2" role="cell">ESO</span>
+                <span class="slot" data-s="3" role="cell">Bachillerato</span>
+                <span class="slot" data-s="2" role="cell">ESO</span>
+                <span class="slot" data-s="3" role="cell">Bachillerato</span>
+                <span class="slot" data-s="1" role="cell">Primaria</span>
+              </div>
+              <div class="w-row" role="row">
+                <span class="w-time mono" role="rowheader">Franja 3</span>
+                <span class="slot" data-s="3" role="cell">Bachillerato</span>
+                <span class="slot empty" role="cell"></span>
+                <span class="slot" data-s="3" role="cell">Bachillerato</span>
+                <span class="slot empty" role="cell"></span>
+                <span class="slot" data-s="2" role="cell">ESO</span>
+              </div>
+            </div>
+          </div>
+          <p class="board-foot">Distribución orientativa para la maqueta. <a href="#info">Pregúntanos qué huecos hay disponibles →</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAMILIAS -->
+    <section class="section families" id="familias">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="kicker mono">05 · Para familias y alumnos</p>
+          <h2 class="h2">Un equipo con la familia, y un sitio tranquilo para el alumno.</h2>
+        </header>
+        <div class="duo">
+          <article class="duo-card" data-reveal>
+            <p class="duo-tag mono">Para las familias</p>
+            <h3>Saber cómo va, sin tener que adivinarlo.</h3>
+            <ul class="ticks">
+              <li>Una persona de referencia a la que preguntar.</li>
+              <li>Información clara sobre en qué se está trabajando.</li>
+              <li>Os avisamos si algo se atasca, antes de que se haga grande.</li>
+              <li>Respeto por el ritmo y la forma de ser de cada niño.</li>
+            </ul>
+          </article>
+          <article class="duo-card light" data-reveal>
+            <p class="duo-tag mono">Para el alumno</p>
+            <h3>Un lugar donde preguntar no da vergüenza.</h3>
+            <ul class="ticks">
+              <li>Explicaciones con calma, las veces que haga falta.</li>
+              <li>Aprender a organizarte y a estudiar por tu cuenta.</li>
+              <li>Ver por ti mismo lo que vas consiguiendo.</li>
+              <li>Menos agobio antes de los exámenes.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- INFO / CTA -->
+    <section class="section" id="info">
+      <div class="wrap">
+        <div class="cta-card" data-reveal>
+          <div class="cta-copy">
+            <p class="kicker mono">06 · Pide información</p>
+            <h2 class="h2">Cuéntanos un poco y te respondemos por WhatsApp.</h2>
+            <p>Sin compromiso. Te explicamos cómo trabajamos, la disponibilidad y lo que necesites saber para decidir con tranquilidad.</p>
+            <div class="cta-contact">
+              <a class="contact-line js-wa" href="https://wa.me/34645177628" target="_blank" rel="noopener">
+                <span class="cl-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.4 9.4 0 0 0-8.1 14.2L2.6 21.5l4.9-1.3A9.4 9.4 0 1 0 12 2.5Zm0 17.1c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3a7.8 7.8 0 1 1 6.7 3.6Z"/></svg></span>
+                <span><small>WhatsApp</small>+34 645 177 628</span>
+              </a>
+              <a class="contact-line" href="tel:+34645177628">
+                <span class="cl-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.6l1.4 4-1.9 1.3a12 12 0 0 0 6.5 6.5l1.3-1.9 4 1.4v2.6a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></svg></span>
+                <span><small>Llamar</small>645 177 628</span>
+              </a>
+              <div class="contact-line static">
+                <span class="cl-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+                <span><small>Dónde</small>Bollullos de la Mitación (Sevilla)</span>
+              </div>
+            </div>
+          </div>
+
+          <form class="form" id="form" novalidate>
+            <fieldset>
+              <legend>¿En qué etapa está?</legend>
+              <div class="seg" id="seg">
+                <label><input type="radio" name="etapa" value="Primaria" checked><span>Primaria</span></label>
+                <label><input type="radio" name="etapa" value="ESO"><span>ESO</span></label>
+                <label><input type="radio" name="etapa" value="Bachillerato"><span>Bachillerato</span></label>
+                <label><input type="radio" name="etapa" value="Otra etapa"><span>Otra</span></label>
+              </div>
+            </fieldset>
+            <div class="row2">
+              <label class="field">
+                <span>Tu nombre</span>
+                <input name="nombre" autocomplete="name" placeholder="Nombre de la madre, padre o tutor">
+              </label>
+              <label class="field">
+                <span>Curso</span>
+                <input name="curso" placeholder="Ej. 4º de Primaria">
+              </label>
+            </div>
+            <fieldset>
+              <legend>¿Qué os gustaría trabajar?</legend>
+              <div class="tags-pick">
+                <label><input type="checkbox" name="foco" value="organización y hábito de estudio"><span>Organización</span></label>
+                <label><input type="checkbox" name="foco" value="técnicas de estudio"><span>Técnicas de estudio</span></label>
+                <label><input type="checkbox" name="foco" value="refuerzo de alguna asignatura"><span>Refuerzo de asignaturas</span></label>
+                <label><input type="checkbox" name="foco" value="preparar exámenes"><span>Exámenes</span></label>
+                <label><input type="checkbox" name="foco" value="ganar confianza"><span>Confianza</span></label>
+              </div>
+            </fieldset>
+            <label class="field">
+              <span>Algo más que quieras contarnos <em>(opcional)</em></span>
+              <textarea name="mensaje" rows="3" placeholder="Horario que os viene mejor, asignaturas, dudas…"></textarea>
+            </label>
+            <div class="preview" aria-live="polite">
+              <span class="mono tiny muted">Tu mensaje</span>
+              <p id="preview"></p>
+            </div>
+            <button class="btn btn-ink btn-block" type="submit">Pide información por WhatsApp
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg>
+            </button>
+            <p class="fine">Se abrirá WhatsApp con el mensaje preparado. Nada se envía hasta que tú lo decidas.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section-tint" id="faq">
+      <div class="wrap faq-wrap">
+        <header class="sec-head left" data-reveal>
+          <p class="kicker mono">07 · Preguntas frecuentes</p>
+          <h2 class="h2">Lo que suelen preguntarnos.</h2>
+          <p class="sec-lead">¿No encuentras tu duda? <a href="#info">Escríbenos</a> y te respondemos.</p>
+        </header>
+        <div class="faq" data-reveal>
+          <details>
+            <summary>¿Para qué cursos ofrecéis apoyo?<span class="plus"></span></summary>
+            <div class="ans"><div><p>Organizamos el apoyo por etapas: Primaria, ESO y Bachillerato. Cuéntanos el curso concreto y te confirmamos la disponibilidad y la mejor forma de ayudar.</p></div></div>
+          </details>
+          <details>
+            <summary>¿Es solo para alumnos que van mal?<span class="plus"></span></summary>
+            <div class="ans"><div><p>No. También viene muy bien para coger hábito, organizarse mejor, preparar exámenes con tiempo o ganar seguridad, aunque las notas sean buenas.</p></div></div>
+          </details>
+          <details>
+            <summary>¿Cómo es el primer contacto?<span class="plus"></span></summary>
+            <div class="ans"><div><p>Una conversación tranquila para conocer la situación del alumno y lo que buscáis. A partir de ahí os proponemos cómo podríamos trabajar.</p></div></div>
+          </details>
+          <details>
+            <summary>¿Cómo sabré cómo va mi hijo o mi hija?<span class="plus"></span></summary>
+            <div class="ans"><div><p>Mantenemos el contacto con la familia para contaros en qué se está trabajando y cómo va. Si algo se atasca, os lo decimos pronto.</p></div></div>
+          </details>
+          <details>
+            <summary>¿Qué horarios y grupos tenéis?<span class="plus"></span></summary>
+            <div class="ans"><div><p>Los horarios dependen de la etapa y del curso. Escríbenos por WhatsApp y te contamos qué huecos hay disponibles.</p></div></div>
+          </details>
+          <details>
+            <summary>¿Cuánto cuesta?<span class="plus"></span></summary>
+            <div class="ans"><div><p>Te informamos de las condiciones según la etapa y el horario que necesitéis. Pregúntanos sin compromiso.</p></div></div>
+          </details>
+          <details>
+            <summary>¿Dónde estáis?<span class="plus"></span></summary>
+            <div class="ans"><div><p>En Bollullos de la Mitación (Sevilla). Te damos la dirección exacta cuando nos escribas.</p></div></div>
+          </details>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="foot">
+    <div class="wrap foot-grid">
+      <div>
+        <a class="brand on-dark" href="#top" aria-label="Semilla, inicio">
+          <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+            <ellipse cx="20" cy="27" rx="9.5" ry="7.5" fill="currentColor"/>
+            <path d="M20 21 C20 15 20 12 20 8" stroke="var(--brote)" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+            <path d="M20 13 C23 8.5 28 8 31 9 C30 13 25 15.5 20 14.5Z" fill="var(--brote)"/>
+            <path d="M20 16 C17.5 12.5 13 12 10.5 13 C11.5 16.5 15.5 18 20 17Z" fill="var(--brote)" opacity=".7"/>
+          </svg>
+          <span class="brand-text"><strong>Semilla</strong><small>Academia de Apoyo Escolar</small></span>
+        </a>
+        <p class="foot-claim">Aprender con calma, crecer con confianza.</p>
+      </div>
+      <div class="foot-col">
+        <span class="mono tiny">Contacto</span>
+        <a class="js-wa" href="https://wa.me/34645177628" target="_blank" rel="noopener">WhatsApp · +34 645 177 628</a>
+        <a href="tel:+34645177628">Teléfono · 645 177 628</a>
+        <span>Bollullos de la Mitación, Sevilla</span>
+      </div>
+      <div class="foot-col">
+        <span class="mono tiny">Secciones</span>
+        <a href="#etapas">Etapas</a>
+        <a href="#metodo">Metodología</a>
+        <a href="#horarios">Horarios y grupos</a>
+        <a href="#faq">Preguntas frecuentes</a>
+      </div>
+    </div>
+    <div class="wrap foot-base">
+      <span>© <span id="y">2026</span> Academia de Apoyo Escolar Semilla</span>
+      <span>Bollullos de la Mitación</span>
+    </div>
+  </footer>
+
+  <a class="wa-fab js-wa" href="https://wa.me/34645177628" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.4 9.4 0 0 0-8.1 14.2L2.6 21.5l4.9-1.3A9.4 9.4 0 1 0 12 2.5Zm0 17.1c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3a7.8 7.8 0 1 1 6.7 3.6Zm4.3-5.8c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.4 6.4 0 0 1-3.2-2.8c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1c0 1.2.9 2.4 1 2.6.1.2 1.8 2.7 4.3 3.8 1.6.7 2.2.7 3 .6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.2Z"/></svg>
+    <span>Pide información</span>
+  </a>
+
+  <script src="main.js" defer></script>
 </body>
 </html>
