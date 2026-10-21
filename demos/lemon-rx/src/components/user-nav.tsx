@@ -4,8 +4,8 @@ import { usePathname } from "next/navigation";
 import { IntentLink } from "@/components/intent-link";
 
 const ITEMS = [
-  { href: "/", label: "Semana", match: (p: string) => p === "/" },
   { href: "/home", label: "Home", match: (p: string) => p.startsWith("/home") },
+  { href: "/", label: "Semana", match: (p: string) => p === "/" },
   { href: "/ranking", label: "Ranking", match: (p: string) => p.startsWith("/ranking") },
   { href: "/rms", label: "RM's", match: (p: string) => p.startsWith("/rms") },
   { href: "/historial", label: "Historial", match: (p: string) => p.startsWith("/historial") },
