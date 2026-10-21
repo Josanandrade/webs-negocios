@@ -2,15 +2,393 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <title>Lola Álvarez · Pedagogía en Pilas</title>
+  <meta name="description" content="Acompañamiento pedagógico individualizado en Pilas (Sevilla). Primera información por WhatsApp.">
+  <meta name="theme-color" content="#F6F2EA">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@300..700&family=Hedvig+Letters+Serif:opsz@12..24&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <header class="top" id="top">
+    <div class="wrap top__inner">
+      <a class="brand" href="#inicio" aria-label="Lola Álvarez, pedagogía. Ir al inicio">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="currentColor"/><path d="M11 25c3-7 6-12 9-12s1.5 9 4.5 9S28 16 30 14" fill="none" stroke="#F6F2EA" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </span>
+        <span class="brand__text"><strong>Lola Álvarez</strong><small>Pedagogía · Pilas</small></span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Principal">
+        <a href="#areas">Áreas</a>
+        <a href="#metodo">Metodología</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#familias">Familias</a>
+        <a href="#preguntas">Preguntas</a>
+      </nav>
+      <a class="btn btn--small btn--ink top__cta" href="https://wa.me/34652489038?text=Hola%20Lola%2C%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n." target="_blank" rel="noopener">Escribir</a>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><span></span><span></span></button>
+    </div>
+    <div class="menu" id="menu" hidden>
+      <a href="#areas">Áreas de apoyo</a>
+      <a href="#metodo">Metodología</a>
+      <a href="#proceso">Cómo es el proceso</a>
+      <a href="#familias">Para familias</a>
+      <a href="#preguntas">Preguntas frecuentes</a>
+      <a class="btn btn--wa" href="https://wa.me/34652489038" target="_blank" rel="noopener">WhatsApp · 652 489 038</a>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow" data-hero="0"><span class="dot"></span>Acompañamiento educativo en Pilas</p>
+          <h1 class="hero__title" data-hero="1">
+            Aprender con calma,<br>
+            <em>con alguien al lado.</em>
+          </h1>
+          <p class="hero__lead" data-hero="2">
+            Un espacio pedagógico pensado para que cada niño, niña o adolescente encuentre su manera de aprender. Y para que la familia no tenga que recorrer ese camino sola.
+          </p>
+          <div class="hero__actions" data-hero="3">
+            <a class="btn btn--accent" href="#contacto">Pedir primera información</a>
+            <a class="btn btn--ghost" href="#proceso">Ver cómo trabajamos</a>
+          </div>
+          <ul class="hero__notes" data-hero="4">
+            <li>Atención individualizada</li>
+            <li>A su ritmo</li>
+            <li>Con la familia</li>
+          </ul>
+        </div>
+
+        <figure class="hero__art" data-hero="2" aria-hidden="true">
+          <div class="sheet sheet--back"></div>
+          <div class="sheet sheet--mid"></div>
+          <div class="sheet sheet--front">
+            <div class="sheet__head">
+              <span>Cuaderno de acompañamiento</span>
+              <span class="sheet__date">Semana 1 → hoy</span>
+            </div>
+            <div class="sheet__tags">
+              <span class="tag tag--lav">Observar</span>
+              <span class="tag tag--mint">Ajustar</span>
+              <span class="tag tag--apri">Avanzar</span>
+            </div>
+            <svg class="path" viewBox="0 0 420 260">
+              <defs>
+                <linearGradient id="g" x1="0" x2="1">
+                  <stop offset="0" stop-color="#C6BFD9"/>
+                  <stop offset=".55" stop-color="#3F5D97"/>
+                  <stop offset="1" stop-color="#3F5D97"/>
+                </linearGradient>
+              </defs>
+              <g class="rules">
+                <line x1="0" y1="52" x2="420" y2="52"/><line x1="0" y1="104" x2="420" y2="104"/>
+                <line x1="0" y1="156" x2="420" y2="156"/><line x1="0" y1="208" x2="420" y2="208"/>
+              </g>
+              <path class="path__line" pathLength="1" d="M18 196c22-4 26-46 4-52-22-6-28 40 0 40 30 0 34-68 8-70-24-2-18 52 18 50 36-2 30-56 56-58 30-2 18 50 48 54 34 4 30-48 62-58 32-10 34 30 62 22 30-8 38-46 68-62 22-12 44-20 62-24"/>
+              <circle class="path__end" cx="404" cy="58" r="7"/>
+            </svg>
+          </div>
+          <div class="note">
+            <span class="note__k">Hoy</span>
+            <span class="note__v">“Lo he entendido yo solo.”</span>
+            <span class="note__s">Pequeños pasos que se notan</span>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- PRINCIPIOS -->
+    <section class="ribbon" aria-label="Principios">
+      <div class="wrap ribbon__inner">
+        <p class="reveal"><strong>Sin prisas.</strong> Cada proceso tiene su tiempo.</p>
+        <p class="reveal"><strong>Sin etiquetas.</strong> Miramos a la persona, no solo a las notas.</p>
+        <p class="reveal"><strong>En equipo.</strong> Alumno, familia y pedagoga, en la misma dirección.</p>
+      </div>
+    </section>
+
+    <!-- ÁREAS -->
+    <section class="section" id="areas">
+      <div class="wrap">
+        <header class="head reveal">
+          <p class="kicker">01 · Áreas de apoyo</p>
+          <h2>Donde podemos <em>acompañar</em></h2>
+          <p class="head__lead">Son ámbitos generales en los que suele centrarse el apoyo educativo. Lo que se trabaja con cada alumno se concreta después de conocerle, nunca antes.</p>
+        </header>
+
+        <div class="areas">
+          <article class="area reveal" style="--tone:var(--lav)">
+            <div class="area__icon"><svg viewBox="0 0 48 48"><rect x="9" y="10" width="30" height="30" rx="5"/><path d="M16 20h16M16 27h10M16 34h6"/><path d="M30 31l3 3 6-7"/></svg></div>
+            <h3>Organización y hábitos de estudio</h3>
+            <p>Planificar la tarde, ordenar materiales, saber por dónde empezar y cuándo parar.</p>
+          </article>
+          <article class="area reveal" style="--tone:var(--mint)">
+            <div class="area__icon"><svg viewBox="0 0 48 48"><path d="M8 13c6-2 11-2 16 2 5-4 10-4 16-2v24c-6-2-11-2-16 2-5-4-10-4-16-2z"/><path d="M24 15v24"/></svg></div>
+            <h3>Lectura, escritura y comprensión</h3>
+            <p>Leer con más seguridad, entender lo que se lee y expresarlo por escrito con orden.</p>
+          </article>
+          <article class="area reveal" style="--tone:var(--apri)">
+            <div class="area__icon"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="15"/><path d="M24 15v9l6 4"/></svg></div>
+            <h3>Atención y ritmo de trabajo</h3>
+            <p>Encontrar rutinas y estrategias que ayuden a sostener la concentración en el estudio.</p>
+          </article>
+          <article class="area reveal" style="--tone:var(--sky)">
+            <div class="area__icon"><svg viewBox="0 0 48 48"><path d="M12 36l8-20 8 14 4-6 6 12z"/><circle cx="34" cy="13" r="3"/></svg></div>
+            <h3>Técnicas y estrategias de estudio</h3>
+            <p>Resumir, esquematizar, repasar y preparar exámenes de una forma que tenga sentido para él o ella.</p>
+          </article>
+          <article class="area reveal" style="--tone:var(--rose)">
+            <div class="area__icon"><svg viewBox="0 0 48 48"><path d="M24 39s-13-7.6-13-17a7 7 0 0 1 13-3.6A7 7 0 0 1 37 22c0 9.4-13 17-13 17z"/></svg></div>
+            <h3>Motivación y confianza al aprender</h3>
+            <p>Recuperar las ganas, tolerar el error y ganar autonomía poco a poco.</p>
+          </article>
+          <article class="area reveal" style="--tone:var(--sand)">
+            <div class="area__icon"><svg viewBox="0 0 48 48"><path d="M8 34h10V24h10V14h12"/><path d="M34 9l6 5-6 5"/></svg></div>
+            <h3>Momentos de cambio escolar</h3>
+            <p>Cambios de etapa, de centro o de ritmo: transiciones que se viven mejor acompañadas.</p>
+          </article>
+        </div>
+        <p class="areas__foot reveal">¿No ves aquí lo que os preocupa? Cuéntalo igualmente. La primera conversación sirve justo para eso.</p>
+      </div>
+    </section>
+
+    <!-- METODOLOGÍA -->
+    <section class="section section--tint" id="metodo">
+      <div class="wrap method">
+        <header class="head reveal">
+          <p class="kicker">02 · Metodología individualizada</p>
+          <h2>Un plan hecho <em>a su medida</em>, no al revés</h2>
+          <p class="head__lead">No hay un programa cerrado que aplicar a todos. Hay una persona concreta, con su forma de pensar, sus intereses y su momento. A partir de ahí se construye el trabajo.</p>
+        </header>
+
+        <div class="method__body">
+          <div class="tabs reveal" role="tablist" aria-label="Claves de la metodología">
+            <button role="tab" aria-selected="true" aria-controls="m-1" id="t-1" data-i="0"><span>01</span>Conocer</button>
+            <button role="tab" aria-selected="false" aria-controls="m-2" id="t-2" data-i="1" tabindex="-1"><span>02</span>Adaptar</button>
+            <button role="tab" aria-selected="false" aria-controls="m-3" id="t-3" data-i="2" tabindex="-1"><span>03</span>Acompañar</button>
+            <button role="tab" aria-selected="false" aria-controls="m-4" id="t-4" data-i="3" tabindex="-1"><span>04</span>Revisar</button>
+            <span class="tabs__pill" aria-hidden="true"></span>
+          </div>
+
+          <div class="panels reveal">
+            <div class="panel is-active" role="tabpanel" id="m-1" aria-labelledby="t-1">
+              <h3>Primero, conocer a quien aprende</h3>
+              <p>Antes de proponer nada, se escucha a la familia y se observa cómo trabaja el alumno: qué le resulta fácil, dónde se atasca y qué le motiva.</p>
+              <ul class="checks"><li>Escucha sin juicios</li><li>Mirada global, no solo académica</li><li>Su ritmo como punto de partida</li></ul>
+            </div>
+            <div class="panel" role="tabpanel" id="m-2" aria-labelledby="t-2" hidden>
+              <h3>Adaptar la forma, no rebajar la meta</h3>
+              <p>Cada objetivo se aborda con materiales y estrategias que encajan con su manera de aprender, para que el esfuerzo se traduzca en avances.</p>
+              <ul class="checks"><li>Objetivos claros y alcanzables</li><li>Recursos variados</li><li>Aprender haciendo</li></ul>
+            </div>
+            <div class="panel" role="tabpanel" id="m-3" aria-labelledby="t-3" hidden>
+              <h3>Acompañar sin hacer por él o ella</h3>
+              <p>El objetivo es que gane autonomía. Se acompaña de cerca al principio y se va dando espacio a medida que crece la confianza.</p>
+              <ul class="checks"><li>Autonomía progresiva</li><li>El error como parte del proceso</li><li>Refuerzo de lo que sí funciona</li></ul>
+            </div>
+            <div class="panel" role="tabpanel" id="m-4" aria-labelledby="t-4" hidden>
+              <h3>Revisar y ajustar con la familia</h3>
+              <p>El plan está vivo. Se revisa periódicamente lo que funciona y lo que no, y se comparte con la familia de forma clara y cercana.</p>
+              <ul class="checks"><li>Seguimiento continuo</li><li>Comunicación sencilla</li><li>Cambios cuando hacen falta</li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section class="section" id="proceso">
+      <div class="wrap">
+        <header class="head reveal">
+          <p class="kicker">03 · Cómo es el proceso</p>
+          <h2>Del primer mensaje <em>al día a día</em></h2>
+          <p class="head__lead">Un recorrido sencillo, sin compromisos al principio. Así suele ser el acompañamiento paso a paso.</p>
+        </header>
+
+        <div class="steps" id="steps">
+          <span class="steps__rail" aria-hidden="true"><span class="steps__fill" id="stepsFill"></span></span>
+          <ol class="steps__list">
+          <li class="step reveal">
+            <span class="step__n">1</span>
+            <div><h3>Primer contacto</h3><p>Nos escribes por WhatsApp contando brevemente qué os preocupa. Respondemos para resolver dudas iniciales y buscar un momento para hablar.</p></div>
+          </li>
+          <li class="step reveal">
+            <span class="step__n">2</span>
+            <div><h3>Conversación con la familia</h3><p>Un rato tranquilo para escuchar: cómo está, cómo vive el colegio o el instituto, qué habéis probado y qué esperáis.</p></div>
+          </li>
+          <li class="step reveal">
+            <span class="step__n">3</span>
+            <div><h3>Conocer al alumno o alumna</h3><p>Primeras sesiones para crear confianza y observar cómo aprende. Sin presión y sin exámenes.</p></div>
+          </li>
+          <li class="step reveal">
+            <span class="step__n">4</span>
+            <div><h3>Plan de acompañamiento</h3><p>Se proponen objetivos concretos y la forma de trabajarlos, y se comparten con la familia antes de empezar.</p></div>
+          </li>
+          <li class="step reveal">
+            <span class="step__n">5</span>
+            <div><h3>Seguimiento y ajustes</h3><p>Sesiones con continuidad y momentos de puesta en común para ver avances y reajustar lo necesario.</p></div>
+          </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAMILIAS -->
+    <section class="families" id="familias">
+      <div class="wrap families__grid">
+        <div class="families__copy">
+          <p class="kicker kicker--light reveal">04 · Para familias</p>
+          <h2 class="reveal">Sabemos que <em>preocupa</em>.<br>Por eso la familia forma parte.</h2>
+          <p class="reveal">Las tardes de deberes que acaban en discusión, las notas que no reflejan el esfuerzo, la sensación de no saber cómo ayudar. Es habitual, y tiene camino.</p>
+          <a class="btn btn--light reveal" href="#contacto">Hablar de vuestro caso</a>
+        </div>
+        <ul class="promises">
+          <li class="promise reveal">
+            <span class="promise__i" aria-hidden="true"></span>
+            <div><h3>Os escuchamos primero</h3><p>Nadie conoce mejor a vuestro hijo o hija que vosotros. Vuestra mirada es el punto de partida.</p></div>
+          </li>
+          <li class="promise reveal">
+            <span class="promise__i" aria-hidden="true"></span>
+            <div><h3>Comunicación clara</h3><p>Sabréis qué se trabaja, por qué y cómo va. Sin tecnicismos.</p></div>
+          </li>
+          <li class="promise reveal">
+            <span class="promise__i" aria-hidden="true"></span>
+            <div><h3>Orientación para casa</h3><p>Pautas sencillas para acompañar el estudio en casa sin que se convierta en una batalla.</p></div>
+          </li>
+          <li class="promise reveal">
+            <span class="promise__i" aria-hidden="true"></span>
+            <div><h3>Un mismo rumbo</h3><p>Si la familia lo considera útil, se busca que el trabajo vaya en la misma línea que el centro educativo.</p></div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="section contact" id="contacto">
+      <div class="wrap contact__grid">
+        <div class="contact__copy reveal">
+          <p class="kicker">05 · Primera información</p>
+          <h2>Empezar es tan sencillo como <em>escribir</em></h2>
+          <p>Cuéntanos lo básico y te respondemos por WhatsApp. Sin compromiso: la primera conversación sirve para conocernos y ver si este acompañamiento encaja con lo que necesitáis.</p>
+          <a class="phone" href="tel:+34652489038">
+            <span>Teléfono y WhatsApp</span>
+            <strong>652 489 038</strong>
+          </a>
+          <p class="contact__place">Pilas · Sevilla</p>
+        </div>
+
+        <form class="composer reveal" id="composer" novalidate>
+          <div class="composer__head">
+            <span class="composer__avatar" aria-hidden="true">LA</span>
+            <div><strong>Lola Álvarez</strong><small>Pedagogía · Pilas</small></div>
+          </div>
+
+          <label class="field">
+            <span>Tu nombre</span>
+            <input type="text" name="nombre" autocomplete="given-name" placeholder="Por ejemplo, Carmen">
+          </label>
+
+          <label class="field">
+            <span>Curso o etapa</span>
+            <input type="text" name="curso" placeholder="Por ejemplo, 3.º de Primaria">
+          </label>
+
+          <fieldset class="field">
+            <legend>¿Qué os gustaría trabajar?</legend>
+            <div class="chips" id="chips">
+              <button type="button" class="chip" aria-pressed="false">Organización</button>
+              <button type="button" class="chip" aria-pressed="false">Lectura y escritura</button>
+              <button type="button" class="chip" aria-pressed="false">Atención</button>
+              <button type="button" class="chip" aria-pressed="false">Técnicas de estudio</button>
+              <button type="button" class="chip" aria-pressed="false">Motivación</button>
+              <button type="button" class="chip" aria-pressed="false">Aún no lo sé</button>
+            </div>
+          </fieldset>
+
+          <div class="bubble" aria-live="polite">
+            <span class="bubble__label">Tu mensaje</span>
+            <p id="preview">Hola Lola, me gustaría recibir información sobre el acompañamiento pedagógico.</p>
+          </div>
+
+          <button class="btn btn--wa btn--block" type="submit">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3z" fill="currentColor"/></svg>
+            Enviar por WhatsApp
+          </button>
+          <p class="composer__fine">Se abrirá WhatsApp con el mensaje preparado. No se guarda ningún dato en esta web.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section--tint" id="preguntas">
+      <div class="wrap faq">
+        <header class="head reveal">
+          <p class="kicker">06 · Preguntas frecuentes</p>
+          <h2>Lo que suelen <em>preguntar</em> las familias</h2>
+        </header>
+        <div class="faq__list">
+          <details class="qa reveal">
+            <summary>¿En qué se diferencia de una academia o de unas clases particulares?<i aria-hidden="true"></i></summary>
+            <div class="qa__a"><div><p>El foco no está solo en sacar adelante una asignatura, sino en cómo aprende el alumno: sus hábitos, su forma de organizarse, su confianza. El trabajo es individualizado y se comparte con la familia.</p></div></div>
+          </details>
+          <details class="qa reveal">
+            <summary>¿Cómo sé si mi hijo o hija lo necesita?<i aria-hidden="true"></i></summary>
+            <div class="qa__a"><div><p>No hace falta tenerlo claro para escribir. Si notáis que se frustra, que el esfuerzo no da resultado o que las tardes de estudio se han vuelto difíciles, una primera conversación puede ayudar a ordenar ideas.</p></div></div>
+          </details>
+          <details class="qa reveal">
+            <summary>¿Cómo es la primera toma de contacto?<i aria-hidden="true"></i></summary>
+            <div class="qa__a"><div><p>Empieza con un mensaje por WhatsApp al 652 489 038. A partir de ahí se busca un momento para hablar con calma con la familia y explicar cómo se trabajaría en vuestro caso.</p></div></div>
+          </details>
+          <details class="qa reveal">
+            <summary>¿Cuánto dura el acompañamiento?<i aria-hidden="true"></i></summary>
+            <div class="qa__a"><div><p>Depende de cada alumno y de los objetivos que se marquen. Se revisa a lo largo del proceso y siempre se habla con la familia antes de cualquier cambio.</p></div></div>
+          </details>
+          <details class="qa reveal">
+            <summary>¿Participa la familia en el proceso?<i aria-hidden="true"></i></summary>
+            <div class="qa__a"><div><p>Sí. La familia está informada de lo que se trabaja y recibe orientaciones para acompañar en casa. El objetivo es remar todos en la misma dirección.</p></div></div>
+          </details>
+          <details class="qa reveal">
+            <summary>¿Dónde y cuándo son las sesiones? ¿Qué precio tienen?<i aria-hidden="true"></i></summary>
+            <div class="qa__a"><div><p>Horarios, lugar y tarifas se explican personalmente en la primera conversación, para poder ajustarlos a cada familia. Escríbenos y te informamos sin compromiso.</p></div></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CIERRE -->
+    <section class="closing">
+      <div class="wrap closing__inner reveal">
+        <svg class="closing__line" viewBox="0 0 600 60" aria-hidden="true"><path pathLength="1" d="M4 40c40-26 70 18 110-6s60-20 100 0 70 14 110-8 80-18 120 0 70 10 150-14"/></svg>
+        <h2>Cada paso cuenta.<br><em>El primero también.</em></h2>
+        <a class="btn btn--accent" href="https://wa.me/34652489038?text=Hola%20Lola%2C%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n%20sobre%20el%20acompa%C3%B1amiento%20pedag%C3%B3gico." target="_blank" rel="noopener">Escribir por WhatsApp</a>
+      </div>
+    </section>
   </main>
+
+  <footer class="foot">
+    <div class="wrap foot__inner">
+      <div class="brand brand--foot">
+        <span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="currentColor"/><path d="M11 25c3-7 6-12 9-12s1.5 9 4.5 9S28 16 30 14" fill="none" stroke="#F6F2EA" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+        <span class="brand__text"><strong>Lola Álvarez</strong><small>Pedagogía · Apoyo educativo</small></span>
+      </div>
+      <p>Pilas, Sevilla · <a href="tel:+34652489038">652 489 038</a> · <a href="https://wa.me/34652489038" target="_blank" rel="noopener">WhatsApp</a></p>
+      <p class="foot__fine">© <span id="year">2026</span> Lola Álvarez · Pedagogía</p>
+    </div>
+  </footer>
+
+  <a class="fab" id="fab" href="https://wa.me/34652489038?text=Hola%20Lola%2C%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n." target="_blank" rel="noopener" aria-label="Escribir por WhatsApp al 652 489 038">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3z" fill="currentColor"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="main.js" defer></script>
 </body>
 </html>
