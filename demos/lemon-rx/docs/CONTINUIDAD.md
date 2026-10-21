@@ -164,6 +164,26 @@ Estado: **VALIDADO**.
 - Resultado validado por Jose: la navegación inicial se percibe mucho más fluida.
 - No se tocaron Supabase, resultados, notas, programación, IDs de bloques ni `save_week_content`.
 
+### 21/10/2026 — UX móvil, Panel, Home social y notificaciones
+Estado: **VALIDADO**.
+
+- Corregido el scroll excesivo de Semana: al cerrar un día se desmonta el contenido pesado y la página recupera su altura real.
+- Panel Admin aligerado: primera vista centrada en KPI; `Seguimiento` queda plegado y carga sus datos solo al abrirlo.
+- Seguimiento permite `Semana en curso`, `4 semanas`, `8 semanas` y `12 semanas`.
+- `Usuarios` sale de la navegación principal Admin y queda dentro de `Ajustes`, conservando invitación, búsqueda, filtros y ficha.
+- Home social automático: máximo un post por atleta y día; los bloques posteriores actualizan el mismo post.
+- Cada post muestra resultados, kilos y notas; cada bloque permite desplegar la programación original del día mediante `Ver entrenamiento`.
+- Reacciones validadas: 👍 ❤️ 🔥 💪 👏 😂 🍆 🍑 💦 🔩 🦍 🍼 🛴 😍.
+- Comentarios, respuestas y reacciones a comentarios validados.
+- Campana de notificaciones para todos los roles, con contador de no leídas y centro persistente.
+- Se notifican reacciones a entrenamientos, comentarios, respuestas y reacciones a comentarios; no se generan avisos por acciones propias.
+- Web Push generalizado a usuarios activos que concedan permiso.
+- Se creó un aviso interno de activación para las 13 cuentas existentes en el momento de la implantación.
+- El botón `CREAR` de Admin vuelve a estar centrado físicamente en móvil.
+- Atletas entran por defecto en `Home`; el logo Lemon RX y la PWA también usan Home como inicio.
+- Navegación del atleta en móvil queda fija abajo; en escritorio se conserva navegación superior.
+- Jose confirma el 21/10/2026 que todo este bloque está validado.
+
 ## 6. Estrategia comercial futura — HIPÓTESIS, NO PRODUCTO ACTUAL
 
 Fecha: 15/10/2026.
@@ -219,7 +239,7 @@ Esto permitiría en el futuro:
 ## 8. Riesgos técnicos abiertos
 
 - Riesgo crítico histórico: `save_week_content` puede eliminar bloques ausentes y las FK de logs/resultados usan `ON DELETE CASCADE`; por tanto, preservar IDs de bloques es obligatorio y no se debe sustituir el RPC sin migración segura.
-- Node 20 observado frente a dependencias Supabase que recomiendan versiones más nuevas.
+- Runtime Node 20 observado en producción hasta 21/10; cambio a Node 22 preparado en Fase 2 de rendimiento y pendiente de quedar efectivamente desplegado/validado.
 - Errores puntuales `refresh_token_already_used` a investigar si se reproducen.
 - Vulnerabilidades high reportadas por npm: analizar individualmente; no usar `npm audit fix --force` a ciegas.
 - Pruebas RLS todavía mejorables/automatizables.
@@ -251,4 +271,17 @@ Orden:
 
 ### Siguiente bloque técnico propuesto
 
-**Rendimiento Fase 2**: reducir invalidaciones y refrescos demasiado amplios después de guardar resultados/notas/hecho. Debe hacerse acción por acción y con validación manual porque afecta a la frescura de datos. No tocar `save_week_content` ni los IDs de bloques.
+**Rendimiento Fase 2**: optimización móvil guiada por trazas reales. El 21/10/2026 se detectó que el warm-up de rutas y el prefetch en `touchstart`, que fueron útiles en una fase anterior, ahora provocan peticiones privadas duplicadas y concurrencia innecesaria al haber crecido la app. Cambio preparado: una pulsación móvil = una navegación, sin precarga global; Home paginado; Node 22. Después de validarlo se abordarán, si siguen siendo necesarios, el ranking por día/bloque y las invalidaciones demasiado amplias al guardar. No tocar `save_week_content` ni los IDs de bloques.
+
+## 11. Diagnóstico de escalabilidad — 21/10/2026
+
+Estado: **DIAGNÓSTICO CONFIRMADO / OPTIMIZACIÓN PENDIENTE DE VALIDACIÓN**.
+
+- Volumen real en el momento del análisis: 13 perfiles, 66 bloques, ~280 logs, ~147 resultados y ~78 posts; no hay volumen suficiente para justificar esperas de varios segundos.
+- Railway no está cerca de saturación: CPU y RAM observadas muy por debajo de capacidad.
+- PostgreSQL ejecuta la mayoría de consultas relevantes en milisegundos.
+- Las esperas largas aparecen principalmente en la cadena de peticiones dinámicas Railway → Supabase/gateway/auth, especialmente cuando se lanzan varias rutas en paralelo.
+- Se observaron peticiones móviles duplicadas por combinación de prefetch en `touchstart` + navegación real y precarga secuencial automática de múltiples rutas.
+- Se observaron picos de varios segundos en Home, Semana, Ranking y Panel Admin aunque el tiempo SQL interno fuera bajo.
+- Consecuencia: la prioridad no es aumentar máquina ni crear una app nativa, sino reducir round-trips, datos iniciales, invalidaciones y trabajo concurrente no solicitado.
+- Objetivo comercial: 500+ usuarios registrados/activos es compatible conceptualmente con la arquitectura, pero antes de vender se exigirá prueba de carga por concurrencia real y dimensionamiento de Supabase/Railway de producción.
