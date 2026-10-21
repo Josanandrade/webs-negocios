@@ -17,7 +17,8 @@ Auditoría inicial: 13/10/2026.
 - Supabase JS: 2.117.3
 - Supabase SSR: 0.12.7
 - Web Push: 3.6.7
-- Runtime observado: Node 20.20.2
+- Runtime productivo observado a 21/10/2026 antes de Fase 2: Node 20.20.2
+- Cambio preparado: Node 22 (`>=22 <23`), pendiente de despliegue efectivo por pausa de builds de Railway.
 
 ## 2. Infraestructura
 
@@ -40,9 +41,17 @@ Fuente:
 Dominio:
 - `lemon-rx-production.up.railway.app`
 
+Región observada:
+- Europa (`europe-west4`).
+
 ### Supabase
 
 Conexión `Lemon RX` disponible y verificada.
+
+Proyecto:
+- región `eu-west-1`;
+- estado observado 21/10/2026: `ACTIVE_HEALTHY`;
+- PostgreSQL 17.
 
 Reglas:
 - cualquier cambio de esquema/RLS debe verificarse contra el proyecto Lemon RX correcto;
@@ -84,10 +93,13 @@ Rutas públicas/auth:
 - `/nueva-contrasena`
 
 Zona atleta:
-- `/`
+- `/home` — inicio por defecto;
+- `/` — Semana/programación;
 - `/ranking`
 - `/historial`
+- `/rms`
 - `/cuenta`
+- `/notificaciones`
 
 Administración:
 - `/admin`
@@ -107,6 +119,7 @@ Administración:
 - Los atletas solo modifican su propia actividad/resultados.
 - Los admins tienen acceso ampliado mediante funciones/policies controladas.
 - No mover la seguridad exclusivamente a frontend.
+- `getViewer()` usa `supabase.auth.getClaims()` para verificar JWT y después recupera perfil + settings.
 
 ## 6. Modelo de datos — estado validado
 
@@ -185,6 +198,45 @@ Regla:
 - Se creó baseline de los RM existentes en el momento de implantar el histórico.
 - No se reconstruye ni inventa la evolución exacta de RM previa a ese momento.
 
+### Home social
+
+Estado: **VALIDADO 21/10/2026**.
+
+Entidades:
+- `workout_posts` — una publicación por `program_key + user_id + training_date`;
+- `workout_post_blocks` — proyección de bloques completados y resultados;
+- `workout_post_reactions`;
+- `workout_post_comments`;
+- `workout_comment_reactions`.
+
+Reglas:
+- los triggers sincronizan `block_logs`/`block_results` con el post diario;
+- un bloque desmarcado deja de aparecer en la proyección social y el post puede desaparecer si no queda ningún bloque;
+- los datos privados originales no se abren directamente: la capa social es una proyección controlada;
+- RLS exige usuario autenticado con acceso al programa;
+- cada usuario modifica únicamente sus reacciones/comentarios propios dentro de las políticas definidas.
+
+### Notificaciones
+
+Estado: **VALIDADO 21/10/2026**.
+
+Entidad:
+- `app_notifications`.
+
+Características:
+- destinatario, actor, tipo, post/comentario, emoji, título, cuerpo, href, read_at y created_at;
+- índice por destinatario/fecha;
+- índice parcial para no leídas;
+- RLS: cada usuario solo puede consultar y marcar sus propios avisos;
+- triggers para reacción a post, comentario/respuesta y reacción a comentario;
+- acciones propias no generan notificación para el mismo usuario.
+
+Web Push:
+- `save_push_subscription` admite usuarios activos con acceso, no solo admins;
+- `user_push_targets` obtiene destinos de un usuario para envío servidor;
+- `PUSH_SECRET` sigue siendo exclusivamente servidor;
+- endpoints expirados deben limpiarse.
+
 ## 7. Ranking
 
 Flujo protegido:
@@ -206,6 +258,10 @@ Funciones relevantes existentes:
 
 La UI de General/Masculina/Femenina se filtra localmente una vez que los datos están cargados; no requiere nueva navegación al servidor.
 
+Riesgo de escala identificado 21/10/2026:
+- `week_leaderboard_v2` devuelve todos los resultados puntuables de la semana aunque Ranking muestre un día concreto;
+- con cientos de atletas debe evolucionar hacia lectura por día/bloques solicitados para evitar payload y cálculo innecesarios.
+
 ## 8. Historial y contexto
 
 ### Historial de usuario
@@ -217,7 +273,7 @@ La UI de General/Masculina/Femenina se filtra localmente una vez que los datos e
 
 - `movement_training_history(p_movement_id uuid, p_exclude_block_id uuid)`.
 - Lectura del usuario autenticado.
-- Recupera hasta los últimos 3 entrenamientos anteriores del mismo movimiento.
+- Recupera hasta los últimos 3 entrenamientos anteriores completados del mismo movimiento.
 - Compatible con bloques antiguos y constructor unificado.
 - Excluye el bloque actual.
 
@@ -226,8 +282,10 @@ La UI de General/Masculina/Femenina se filtra localmente una vez que los datos e
 Funciones principales:
 - `athlete_evolution_metrics(p_user_id uuid, p_weeks integer, p_as_of date)`
 - `coach_evolution_metrics(p_weeks integer, p_as_of date)`
+- `coach_current_week_metrics(p_as_of date)` para semana en curso.
 
 Ventanas de UI vigentes:
+- semana en curso;
 - 4 semanas;
 - 8 semanas;
 - 12 semanas.
@@ -252,8 +310,12 @@ Reglas:
 
 ## 10. Panel de evolución de coach/admin
 
-- Panel admin consume `coach_evolution_metrics`.
-- Muestra cumplimiento medio y métricas agregadas útiles.
+Estado de UX: **VALIDADO 21/10/2026**.
+
+- El Panel carga KPI básicos primero.
+- `Seguimiento` está plegado por defecto y carga sus datos solo cuando se abre.
+- Semana en curso usa `coach_current_week_metrics`.
+- Histórico conserva 4/8/12 semanas.
 - No se muestra una posición WOD media global porque no aporta contexto útil al coach.
 - Incluye listado de usuarios con bloques pendientes, ordenados desde menor cumplimiento.
 - Los admins con `show_evolution_as_athlete=true` aparecen como atletas en este panel.
@@ -267,45 +329,22 @@ Cambios de frontend/navegación validados:
    - La URL se actualiza sin provocar una navegación completa para ese filtro.
 
 2. **Semana progresiva**
-   - Los bloques de cada día no se montan hasta que ese día se abre por primera vez.
-   - Una vez montados se conservan para reaperturas rápidas.
-   - Se conserva el comportamiento móvil ya validado de scroll, tamaños y foco del día.
+   - Los bloques de cada día no se montan hasta que ese día se abre.
+   - Desde 21/10, al cerrar un día se desmonta su contenido pesado para corregir scroll/altura residual.
+   - Se conserva el comportamiento móvil validado de tamaños y foco.
 
-3. **Menos prefetch**
-   - navegación principal/admin, periodos de evolución y fichas de usuarios evitan precargas innecesarias donde podían disparar consultas dinámicas no solicitadas.
-
-4. **Evolución diferida**
+3. **Evolución diferida**
    - Panel admin y Cuenta muestran primero el contenido principal;
-   - Evolución se resuelve dentro de `Suspense`/carga progresiva y no bloquea la primera pintura de la página.
+   - Evolución/Seguimiento no bloquean la primera pintura.
 
-5. **Warm-up secuencial de rutas principales**
-   - después de entrar en Lemon RX, el cliente prepara rutas privadas importantes en segundo plano de una en una;
-   - prioridad inicial: Semana y Usuarios;
-   - después se preparan otras rutas frecuentes con separación temporal para no volver a crear picos de peticiones;
-   - el prefetch por intención (hover/foco/touch) se mantiene como respaldo.
-
-6. **Code-splitting en Semana**
+4. **Code-splitting en Semana**
    - `BlockTracker`, trackers de Strength/Weightlifting, historial contextual y ranking de fuerza se cargan de forma diferida;
-   - su código deja de formar parte obligatoria del coste inicial de Semana y se solicita cuando el usuario abre un día por primera vez;
+   - su código deja de formar parte obligatoria del coste inicial de Semana y se solicita cuando hace falta;
    - la lógica de negocio de esos componentes no se modificó.
 
-Diagnóstico de la incidencia de lentitud inicial:
-- el volumen actual de datos era pequeño y no justificaba esperas de varios segundos;
-- las consultas internas de Supabase observadas eran rápidas, mientras que algunas primeras peticiones desde Railway podían acumular varios segundos de tiempo total;
-- la estrategia adoptada es reducir el coste del cold-start percibido y preparar de forma controlada las rutas que el usuario previsiblemente abrirá después.
-
-Validación:
-- build Next y TypeScript correctos;
-- Railway producción SUCCESS;
-- Jose confirma que la navegación ahora se percibe mucho más fluida.
-
-No se modificaron en esta fase:
-- Supabase;
-- esquema/RLS;
-- `save_week_content`;
-- resultados;
-- notas;
-- IDs de bloques.
+5. **Warm-up/prefetch histórico**
+   - fue validado el 16/10 en una app más pequeña;
+   - queda expresamente supersedido por Fase 2 desde 21/10 porque las trazas posteriores muestran que, con más rutas y Home social, genera concurrencia y duplicados en móvil.
 
 ## 12. Comunicaciones
 
@@ -319,10 +358,14 @@ No se modificaron en esta fase:
 - Debe mantenerse separada la acción de invitar de la aprobación efectiva del acceso cuando se requiera validación manual.
 
 ### Web Push
-- admins pueden activar suscripción;
-- avisos por nuevos registros;
+Estado: **VALIDADO 21/10/2026**.
+
+- admins y atletas activos con acceso pueden activar suscripción;
+- avisos sociales pueden enviarse fuera de la app si existe suscripción;
+- admins mantienen avisos por nuevos registros;
 - `PUSH_SECRET` nunca en cliente;
-- limpiar endpoints expirados.
+- limpiar endpoints expirados;
+- la campana in-app es la fuente persistente aunque no exista permiso Push.
 
 ## 13. RLS y seguridad
 
@@ -331,7 +374,8 @@ Patrón protegido:
 - `authenticated`: propietario/rol/visibilidad;
 - admin: acceso ampliado controlado;
 - atleta: actividad propia;
-- programación: lectura condicionada a visibilidad/acceso.
+- programación: lectura condicionada a visibilidad/acceso;
+- social/notificaciones: lectura controlada por acceso al programa y destinatario cuando corresponde.
 
 No introducir atajos administrativos desde cliente.
 
@@ -339,11 +383,11 @@ Los advisors de Supabase deben revisarse periódicamente. No convertir automáti
 
 ## 14. Incidencias técnicas abiertas
 
-### T1 — Node 20
-Railway usa Node 20.20.2. Evaluar actualización de runtime solo en entorno seguro y con smoke tests completos; no hacerlo como efecto colateral de otra tarea.
+### T1 — Runtime Node
+Hasta la mañana del 21/10 Railway usa Node 20.20.2. La versión actual de Supabase JS ya exige/recomienda Node 22+. El cambio de engine a `>=22 <23` está fusionado en `main`, pero su despliegue está bloqueado temporalmente por una incidencia global de builds de Railway; no considerar resuelto hasta verificar build y runtime.
 
 ### T2 — `refresh_token_already_used`
-Se observaron errores puntuales de refresh token. No corregir sin reproducir y entender flujo de cookies/solicitudes concurrentes.
+Se observaron errores puntuales de refresh token. No corregir sin reproducir y entender flujo de cookies/solicitudes concurrentes. La Fase 2 reduce peticiones concurrentes innecesarias y puede disminuir la probabilidad de carreras de sesión.
 
 ### T3 — vulnerabilidades npm
 No ejecutar `npm audit fix --force` automáticamente.
@@ -353,6 +397,9 @@ Mejorar automatización de pruebas de permisos antes de cambios de esquema relev
 
 ### T5 — escalabilidad del motor coach
 `coach_evolution_metrics` es suficiente para el volumen actual, pero debe revisarse antes de escalar a cientos de atletas. Futuro candidato: cálculo conjunto/agrupado en DB en vez de repetir cálculos individuales.
+
+### T6 — advisors de FK sin índice
+Supabase reporta varias FK sin índice como aviso de rendimiento. No son la causa de los picos actuales: los filtros/join principales de `weeks`, `days`, `workout_blocks`, `block_logs`, `block_results`, posts y notificaciones ya cuentan con índices relevantes. Revisar las FK secundarias de forma selectiva antes de escala grande; no añadir índices indiscriminadamente.
 
 ## 15. Dirección técnica futura — comercialización / white-label
 
@@ -386,23 +433,52 @@ Regla:
 
 Si se comercializa, será necesario definir técnicamente qué significa **atleta activo** de manera auditable. Todavía no implementar billing sobre esta hipótesis.
 
-## 17. Siguiente fase de rendimiento
+## 17. Rendimiento Fase 2 — diagnóstico 21/10/2026
 
-**Fase 2 — invalidaciones al guardar.**
+Estado: **CÓDIGO FUSIONADO / PENDIENTE DE DESPLIEGUE Y VALIDACIÓN**.
 
-Objetivo:
-- reducir `revalidatePath` demasiado amplios después de guardar hecho/nota/resultado;
-- invalidar solo las vistas realmente afectadas;
-- mantener datos inmediatamente frescos después del guardado.
+Evidencia observada:
+- tablas muy pequeñas: ~13 perfiles, 66 bloques, 280 logs, 147 resultados, 78 posts;
+- CPU Railway media ~0,1% y RAM ~0,12 GB en la ventana observada;
+- SQL de aplicación generalmente en pocos milisegundos;
+- pese a ello, peticiones SSR móviles llegaron a varios segundos: Home ~5,6 s, Semana ~5,9 s, Ranking ~15,8 s y Panel Admin >20 s en ejemplos observados;
+- en Supabase se observaron tiempos de gateway/origen de varios segundos mientras `x_envoy_upstream_service_time`/ejecución DB seguía en pocos milisegundos;
+- se observaron varias llamadas simultáneas a JWKS/Auth y lecturas repetidas durante ráfagas de navegación;
+- `NavigationWarmup` precargaba entre 5 y 7 rutas privadas después de cada pantalla;
+- `IntentLink` hacía `router.prefetch()` en `touchstart` y después llegaba la navegación real, produciendo duplicados visibles en logs.
 
-Reglas de ejecución:
-- hacerlo acción por acción;
-- validar manualmente cada flujo;
-- no tocar `save_week_content`;
-- no cambiar IDs de bloques;
-- rollback sencillo si una pantalla quedara con datos obsoletos.
+Cambios de bajo riesgo fusionados en PR #37:
+1. eliminar `NavigationWarmup` del layout;
+2. eliminar prefetch en touch/focus y conservarlo solo con hover real de puntero fino en escritorio;
+3. paginar Home a 15 publicaciones por página para limitar payload y DOM;
+4. fijar Node 22.
 
-## 18. Checklist técnico obligatorio
+No toca:
+- RLS;
+- Supabase schema;
+- resultados/notas;
+- programación;
+- rankings;
+- `save_week_content`;
+- IDs de bloques.
+
+Siguiente escalón si la Fase 2 no basta:
+- RPC Ranking por día/bloques en vez de semana completa;
+- leaderboard de Semana bajo demanda al abrir clasificación;
+- comentarios sociales bajo demanda;
+- actualizaciones optimistas y reducción de `revalidatePath('/home')` completo tras una reacción/comentario;
+- cache selectiva solo para datos compartidos y no sensibles;
+- prueba de carga real antes de vender a programaciones con cientos de atletas.
+
+## 18. Escalabilidad objetivo
+
+- 500 usuarios registrados o activos NO implican por sí solos 500 usuarios concurrentes.
+- La arquitectura Next.js + Railway + Supabase puede servir cientos de usuarios si cada interacción dispara un número acotado de consultas y payloads.
+- El objetivo antes de comercializar es medir concurrencia: por ejemplo 25/50/100 usuarios simultáneos en Home/Semana/Ranking/guardados.
+- Dimensionar Supabase/Railway por concurrencia y consumo real, no solo por número de cuentas.
+- Una app nativa no elimina estos cuellos: usaría la misma autenticación, API y base de datos. La prioridad es optimizar backend/orquestación web; una app de stores sería una decisión de distribución/UX posterior.
+
+## 19. Checklist técnico obligatorio
 
 Antes de cada cambio:
 - ¿qué flujo toca?
@@ -418,7 +494,7 @@ Antes de cada cambio:
 - ¿regresión login + programación + admin?
 - ¿queda DESPLEGADO/PENDIENTE o VALIDADO por Jose?
 
-## 19. Regla documental
+## 20. Regla documental
 
 Tras cada bloque relevante:
 - `CONTINUIDAD.md`: estado, decisiones, prioridades y memoria del proyecto.
