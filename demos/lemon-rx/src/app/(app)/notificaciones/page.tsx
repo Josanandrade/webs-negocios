@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { getViewer } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { vapidPublicKey } from "@/lib/push";
 import { PushOptIn } from "@/components/push-opt-in";
-import { markAllNotificationsRead, markNotificationRead } from "../notification-actions";
+import { markAllNotificationsRead, openNotification } from "../notification-actions";
 
 export const metadata: Metadata = { title: "Notificaciones" };
 
@@ -42,16 +41,15 @@ export default async function NotificationsPage({ searchParams }: PageProps<"/no
     {(sp.activar === "1" || activation) && <div className="mt-6"><PushOptIn publicKey={vapidPublicKey()} notificationId={activation?.id} compact /></div>}
 
     {notifications.length === 0 ? <p className="mt-8 border-y border-line py-6 text-[15px] text-chalk-3">Todavía no tienes notificaciones.</p> : <ul className="mt-8 divide-y divide-line border-t border-line">
-      {notifications.map((notification) => <li key={notification.id} className={`relative border-b border-line ${notification.read_at ? "opacity-65" : ""}`}>
-        <form action={async () => { "use server"; await markNotificationRead(notification.id); }}>
-          <button type="submit" className="absolute inset-0 z-0" aria-label="Marcar como leída" tabIndex={-1} />
+      {notifications.map((notification) => <li key={notification.id} className={`border-b border-line ${notification.read_at ? "opacity-65" : ""}`}>
+        <form action={openNotification.bind(null, notification.id, notification.href)}>
+          <button type="submit" className="day-trigger block w-full py-4 pr-3 text-left">
+            <span className="flex items-start gap-3">
+              <span className={`mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ${notification.read_at ? "bg-line-strong" : "bg-lemon"}`} aria-hidden />
+              <span className="min-w-0 flex-1"><span className="block text-[15px] font-bold text-chalk">{notification.title}</span>{notification.body && <span className="mt-1 block text-[14px] leading-[1.45] text-chalk-2">{notification.body}</span>}<span className="mt-1.5 block text-[12px] text-chalk-3">{timeAgo(notification.created_at)}</span></span>
+            </span>
+          </button>
         </form>
-        <Link href={notification.href} className="day-trigger relative z-10 block py-4 pr-3">
-          <div className="flex items-start gap-3">
-            <span className={`mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ${notification.read_at ? "bg-line-strong" : "bg-lemon"}`} aria-hidden />
-            <div className="min-w-0 flex-1"><p className="text-[15px] font-bold text-chalk">{notification.title}</p>{notification.body && <p className="mt-1 text-[14px] leading-[1.45] text-chalk-2">{notification.body}</p>}<p className="mt-1.5 text-[12px] text-chalk-3">{timeAgo(notification.created_at)}</p></div>
-          </div>
-        </Link>
       </li>)}
     </ul>}
   </main>;
