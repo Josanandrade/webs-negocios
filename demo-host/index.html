@@ -2,15 +2,431 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <title>Peñaflor Inmobiliaria · Viviendas en Camas y el Aljarafe</title>
+  <meta name="description" content="Compra, venta y alquiler de viviendas en Camas y el Aljarafe. Consulta inmuebles, pide visita por WhatsApp o solicita la valoración de tu casa.">
+  <meta name="theme-color" content="#0E2A30">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300..800&family=Hedvig+Letters+Serif:opsz@12..24&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
-  </main>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 2.9 2.9 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.6 11.6 0 0 0 4.4 3.9c1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3Z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 3h3l2 5-2.5 1.5a11 11 0 0 0 7 7L16 14l5 2v3a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2Z"/></symbol>
+  <symbol id="i-bed" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M3 18V6m0 8h18v4M3 14V11h7a3 3 0 0 1 3 3m0-3h5a3 3 0 0 1 3 3"/></symbol>
+  <symbol id="i-bath" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 12h16v2a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-2Zm2 0V6a2 2 0 0 1 4 0M7 19l-1 2m11-2 1 2"/></symbol>
+  <symbol id="i-area" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 9V4h5M20 15v5h-5M4 4l6 6m10 10-6-6M15 4h5v5M9 20H4v-5"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20s-7.5-4.6-9-9.4C2 7.3 4.3 4.5 7.3 4.5c2 0 3.6 1.1 4.7 2.8 1.1-1.7 2.7-2.8 4.7-2.8 3 0 5.3 2.8 4.3 6.1-1.5 4.8-9 9.4-9 9.4Z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h10m4 0h2M4 17h4m4 0h8"/><circle cx="16" cy="7" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="10" cy="17" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 8h16M4 16h10"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4 4"/></symbol>
+</svg>
+
+<a class="skip" href="#catalogo">Saltar al catálogo</a>
+
+<header class="top" data-top>
+  <div class="top__in wrap">
+    <a class="brand" href="#inicio" aria-label="Peñaflor Inmobiliaria, inicio">
+      <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="currentColor"/><path d="M9 21 20 11l11 10" fill="none" stroke="#D7F25C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 27c3.5-2 6.5 2 10 0s6.5 2 10 0" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><path d="M10 32c3.5-2 6.5 2 10 0s6.5 2 10 0" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <span class="brand__txt"><b>Peñaflor</b><small>Inmobiliaria</small></span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#catalogo" data-op-link="venta">Comprar</a>
+      <a href="#catalogo" data-op-link="alquiler">Alquilar</a>
+      <a href="#vender">Vender</a>
+      <a href="#valorar">Valorar mi casa</a>
+      <a href="#servicios">Servicios</a>
+    </nav>
+    <div class="top__act">
+      <button class="saved-btn" type="button" data-saved-btn aria-label="Ver guardados">
+        <svg><use href="#i-heart"/></svg><span data-saved-count>0</span>
+      </button>
+      <a class="btn btn--wa btn--sm top__wa" data-wa href="#" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg><span>WhatsApp</span></a>
+      <button class="menu-btn" type="button" data-menu-open aria-label="Abrir menú" aria-expanded="false"><svg><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="menu" data-menu hidden>
+  <div class="menu__scrim" data-menu-close></div>
+  <div class="menu__panel" role="dialog" aria-modal="true" aria-label="Menú">
+    <button class="icon-btn menu__x" type="button" data-menu-close aria-label="Cerrar menú"><svg><use href="#i-close"/></svg></button>
+    <a href="#catalogo" data-op-link="venta" data-menu-close>Comprar</a>
+    <a href="#catalogo" data-op-link="alquiler" data-menu-close>Alquilar</a>
+    <a href="#vender" data-menu-close>Vender</a>
+    <a href="#valorar" data-menu-close>Valorar mi casa</a>
+    <a href="#servicios" data-menu-close>Servicios</a>
+    <a href="#contacto" data-menu-close>Contacto</a>
+    <div class="menu__foot">
+      <a class="btn btn--wa" data-wa href="#" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Escribir por WhatsApp</a>
+      <a class="btn btn--ghost-dark" data-tel href="#"><svg><use href="#i-phone"/></svg><span data-phone></span></a>
+    </div>
+  </div>
+</div>
+
+<main id="inicio">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="hero__in wrap">
+      <div class="hero__copy">
+        <p class="eyebrow reveal"><span class="dot"></span>Camas · Aljarafe · Sevilla</p>
+        <h1 class="hero__title reveal">Tu próxima casa,<br><em>a este lado del río.</em></h1>
+        <p class="hero__lead reveal">Pisos, casas y chalets en venta y alquiler entre Camas y el Aljarafe. Busca, guarda tus favoritos y pide visita por WhatsApp en un toque.</p>
+
+        <form class="search reveal" data-search autocomplete="off">
+          <div class="seg" role="tablist" aria-label="Operación" data-seg="hero">
+            <span class="seg__pill" aria-hidden="true"></span>
+            <button type="button" role="tab" aria-selected="true" data-op="venta">Comprar</button>
+            <button type="button" role="tab" aria-selected="false" data-op="alquiler">Alquilar</button>
+          </div>
+          <div class="search__fields">
+            <label class="field">
+              <span>Zona</span>
+              <select data-s-zone><option value="">Todas las zonas</option></select>
+            </label>
+            <label class="field">
+              <span>Tipo</span>
+              <select data-s-type><option value="">Cualquier tipo</option></select>
+            </label>
+            <label class="field">
+              <span>Dormitorios</span>
+              <select data-s-beds>
+                <option value="0">Indiferente</option><option value="1">1 o más</option><option value="2">2 o más</option><option value="3">3 o más</option><option value="4">4 o más</option>
+              </select>
+            </label>
+            <button class="btn btn--lime search__go" type="submit">
+              <svg><use href="#i-search"/></svg>
+              <span>Ver <b data-s-count>0</b> <span data-s-noun>viviendas</span></span>
+            </button>
+          </div>
+        </form>
+
+        <ul class="hero__trust reveal">
+          <li><svg><use href="#i-check"/></svg>Atención directa por WhatsApp</li>
+          <li><svg><use href="#i-check"/></svg>Valoración de tu vivienda sin compromiso</li>
+        </ul>
+      </div>
+
+      <div class="deck-wrap reveal">
+        <div class="deck" data-deck aria-roledescription="carrusel" aria-label="Inmuebles destacados"></div>
+        <div class="deck__ctrl">
+          <span class="deck__hint"><span class="hand" aria-hidden="true"></span>Desliza para ver más</span>
+          <button class="icon-btn icon-btn--light" type="button" data-deck-next aria-label="Siguiente inmueble"><svg><use href="#i-arrow"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ZONAS -->
+  <section class="zones wrap" aria-label="Buscar por zona">
+    <p class="zones__lbl">Busca por zona</p>
+    <div class="zones__row" data-zones></div>
+  </section>
+
+  <!-- DESTACADOS -->
+  <section class="featured" id="destacados">
+    <div class="wrap sec-head">
+      <div>
+        <p class="kicker">Destacados</p>
+        <h2 class="h2 reveal">Viviendas que <em>merecen una visita</em></h2>
+      </div>
+      <div class="rail-ctrl">
+        <button class="icon-btn" type="button" data-rail-prev aria-label="Anterior"><svg style="transform:scaleX(-1)"><use href="#i-arrow"/></svg></button>
+        <button class="icon-btn" type="button" data-rail-next aria-label="Siguiente"><svg><use href="#i-arrow"/></svg></button>
+      </div>
+    </div>
+    <div class="rail" data-rail></div>
+    <div class="wrap"><div class="rail-progress"><span data-rail-bar></span></div></div>
+  </section>
+
+  <!-- CATÁLOGO -->
+  <section class="catalog" id="catalogo">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="kicker">Catálogo</p>
+          <h2 class="h2 reveal">Todas las viviendas, <em>a tu medida</em></h2>
+        </div>
+      </div>
+
+      <div class="filters" data-filters>
+        <div class="filters__row">
+          <div class="seg seg--light" role="tablist" aria-label="Operación" data-seg="cat">
+            <span class="seg__pill" aria-hidden="true"></span>
+            <button type="button" role="tab" aria-selected="true" data-op="venta">Comprar</button>
+            <button type="button" role="tab" aria-selected="false" data-op="alquiler">Alquilar</button>
+          </div>
+          <button class="btn btn--soft filters__more" type="button" data-more aria-expanded="false"><svg><use href="#i-sliders"/></svg>Más filtros<span class="badge" data-more-badge hidden></span></button>
+        </div>
+
+        <div class="chips" data-type-chips role="group" aria-label="Tipo de inmueble"></div>
+
+        <div class="filters__panel" data-more-panel>
+          <div class="filters__grid">
+            <div class="fgroup">
+              <p class="fgroup__lbl">Precio máximo <output data-price-out></output></p>
+              <input type="range" class="range" data-price min="0" max="100" step="1" value="100" aria-label="Precio máximo">
+            </div>
+            <div class="fgroup">
+              <p class="fgroup__lbl">Dormitorios</p>
+              <div class="pills" data-beds role="group" aria-label="Dormitorios mínimos">
+                <button type="button" data-v="0" aria-pressed="true">Todos</button>
+                <button type="button" data-v="1" aria-pressed="false">1+</button>
+                <button type="button" data-v="2" aria-pressed="false">2+</button>
+                <button type="button" data-v="3" aria-pressed="false">3+</button>
+                <button type="button" data-v="4" aria-pressed="false">4+</button>
+              </div>
+            </div>
+            <div class="fgroup">
+              <p class="fgroup__lbl">Zona</p>
+              <select class="select" data-f-zone aria-label="Zona"><option value="">Todas las zonas</option></select>
+            </div>
+            <div class="fgroup">
+              <p class="fgroup__lbl">Que tenga</p>
+              <div class="pills" data-extras role="group" aria-label="Extras">
+                <button type="button" data-v="piscina" aria-pressed="false">Piscina</button>
+                <button type="button" data-v="terraza" aria-pressed="false">Terraza</button>
+                <button type="button" data-v="jardin" aria-pressed="false">Jardín</button>
+                <button type="button" data-v="garaje" aria-pressed="false">Garaje</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="filters__bar">
+          <p class="count" aria-live="polite"><b data-count>0</b> <span data-count-noun>viviendas</span><span class="count__zone" data-count-zone></span></p>
+          <div class="filters__bar-r">
+            <button class="link-btn" type="button" data-reset hidden>Limpiar filtros</button>
+            <label class="sort"><span class="sr">Ordenar</span>
+              <select data-sort>
+                <option value="rel">Destacados primero</option>
+                <option value="asc">Precio: más bajo</option>
+                <option value="desc">Precio: más alto</option>
+                <option value="m2">Más metros</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid" data-grid></div>
+      <div class="empty" data-empty hidden>
+        <p class="empty__t">No hay viviendas con esos filtros… todavía.</p>
+        <p>Cuéntanos qué buscas y te avisamos cuando entre algo que encaje.</p>
+        <div class="empty__act">
+          <button class="btn btn--soft" type="button" data-reset>Quitar filtros</button>
+          <a class="btn btn--wa" data-wa-search href="#" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Avisadme por WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VENDER -->
+  <section class="sell" id="vender">
+    <div class="wrap sell__in">
+      <div class="sell__copy">
+        <p class="kicker kicker--lime">Para propietarios</p>
+        <h2 class="h2 h2--light reveal">¿Estás pensando <em>en vender?</em></h2>
+        <p class="sell__lead reveal">Vender bien no es poner un cartel. Es fijar un precio que atraiga compradores reales, enseñar la casa como merece y acompañarte hasta la notaría.</p>
+        <a class="btn btn--lime" href="#valorar">Quiero saber cuánto vale mi casa<svg><use href="#i-arrow"/></svg></a>
+      </div>
+      <ol class="steps" data-steps>
+        <li class="step"><span class="step__n">01</span><div><h3>Valoración</h3><p>Visitamos tu vivienda y la comparamos con lo que se vende de verdad en tu zona.</p></div></li>
+        <li class="step"><span class="step__n">02</span><div><h3>Presentación</h3><p>Fotos cuidadas, una ficha clara y difusión para que llegue a quien la busca.</p></div></li>
+        <li class="step"><span class="step__n">03</span><div><h3>Visitas filtradas</h3><p>Solo enseñamos la casa a compradores con interés real y capacidad de compra.</p></div></li>
+        <li class="step"><span class="step__n">04</span><div><h3>Hasta la firma</h3><p>Negociación, arras, documentación y notaría: te acompañamos en cada paso.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- VALORACIÓN -->
+  <section class="value" id="valorar">
+    <div class="wrap value__in">
+      <div class="value__copy">
+        <p class="kicker">Valoración de vivienda</p>
+        <h2 class="h2 reveal">¿Cuánto vale <em>tu casa hoy?</em></h2>
+        <p class="reveal">Responde a cuatro preguntas en menos de un minuto. Con esos datos te contactamos para darte una valoración real, basada en tu calle y en las ventas recientes de la zona, no en un algoritmo genérico.</p>
+        <ul class="ticks">
+          <li><svg><use href="#i-check"/></svg>Sin compromiso de venta</li>
+          <li><svg><use href="#i-check"/></svg>Te respondemos por WhatsApp o llamada, como prefieras</li>
+        </ul>
+      </div>
+
+      <form class="wiz" data-wiz novalidate>
+        <div class="wiz__top">
+          <p class="wiz__step"><span data-wiz-n>1</span> de 4</p>
+          <div class="wiz__bar"><span data-wiz-bar></span></div>
+        </div>
+        <div class="wiz__viewport">
+          <fieldset class="wiz__pane is-on" data-pane="1">
+            <legend>¿Qué tipo de vivienda es?</legend>
+            <div class="opts" data-opts="type">
+              <button type="button" data-v="Piso">Piso</button>
+              <button type="button" data-v="Ático">Ático</button>
+              <button type="button" data-v="Casa">Casa</button>
+              <button type="button" data-v="Adosado">Adosado</button>
+              <button type="button" data-v="Chalet">Chalet</button>
+              <button type="button" data-v="Local">Local</button>
+            </div>
+          </fieldset>
+          <fieldset class="wiz__pane" data-pane="2">
+            <legend>¿Dónde está?</legend>
+            <div class="opts opts--zones" data-opts="zone"></div>
+          </fieldset>
+          <fieldset class="wiz__pane" data-pane="3">
+            <legend>Cuéntanos un poco más</legend>
+            <div class="wiz__row">
+              <label class="field field--light"><span>Superficie aprox.</span><span class="unit"><input type="number" inputmode="numeric" min="20" max="2000" placeholder="90" data-w-m2><i>m²</i></span></label>
+              <div class="field field--light"><span>Dormitorios</span>
+                <div class="stepper" data-stepper>
+                  <button type="button" data-d="-1" aria-label="Menos dormitorios">−</button><output data-w-beds>3</output><button type="button" data-d="1" aria-label="Más dormitorios">+</button>
+                </div>
+              </div>
+            </div>
+            <p class="field__lbl">Estado</p>
+            <div class="opts opts--sm" data-opts="state">
+              <button type="button" data-v="A estrenar o reformada">Reformada</button>
+              <button type="button" data-v="Buen estado">Buen estado</button>
+              <button type="button" data-v="Necesita reforma">Para reformar</button>
+            </div>
+          </fieldset>
+          <fieldset class="wiz__pane" data-pane="4">
+            <legend>¿Cómo te contactamos?</legend>
+            <label class="field field--light"><span>Nombre</span><input type="text" autocomplete="given-name" placeholder="Tu nombre" data-w-name required></label>
+            <label class="field field--light"><span>Teléfono</span><input type="tel" autocomplete="tel" inputmode="tel" placeholder="600 000 000" data-w-tel required></label>
+            <label class="check"><input type="checkbox" data-w-ok required><span>Acepto que me contacten para la valoración.</span></label>
+          </fieldset>
+          <div class="wiz__pane wiz__done" data-pane="5">
+            <div class="done__ic"><svg><use href="#i-check"/></svg></div>
+            <p class="done__t">¡Hecho, <span data-w-hi></span>!</p>
+            <p>Para que te llegue la respuesta antes, envíanos el resumen por WhatsApp. Ya va escrito.</p>
+            <a class="btn btn--wa" data-w-wa href="#" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Enviar resumen por WhatsApp</a>
+            <button class="link-btn" type="button" data-w-restart>Valorar otra vivienda</button>
+          </div>
+        </div>
+        <p class="wiz__err" data-wiz-err role="alert"></p>
+        <div class="wiz__nav" data-wiz-nav>
+          <button class="btn btn--soft" type="button" data-wiz-back>Atrás</button>
+          <button class="btn btn--ink" type="button" data-wiz-next>Siguiente<svg><use href="#i-arrow"/></svg></button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="services" id="servicios">
+    <div class="wrap">
+      <div class="sec-head sec-head--center">
+        <div>
+          <p class="kicker">Servicios</p>
+          <h2 class="h2 reveal">Te acompañamos <em>de principio a fin</em></h2>
+        </div>
+        <div class="seg seg--light seg--wide" role="tablist" aria-label="Servicios para" data-seg="svc">
+          <span class="seg__pill" aria-hidden="true"></span>
+          <button type="button" role="tab" aria-selected="true" data-svc="comprar">Si compras</button>
+          <button type="button" role="tab" aria-selected="false" data-svc="vender">Si vendes</button>
+        </div>
+      </div>
+      <div class="svc" data-svc-panel="comprar">
+        <article class="svc__card"><span class="svc__n">01</span><h3>Búsqueda a medida</h3><p>Nos dices qué necesitas y te avisamos cuando entra algo que encaja, antes de que se publique en todas partes.</p></article>
+        <article class="svc__card"><span class="svc__n">02</span><h3>Visitas organizadas</h3><p>Agrupamos las visitas para que veas varias opciones en una misma mañana o tarde.</p></article>
+        <article class="svc__card"><span class="svc__n">03</span><h3>Orientación hipotecaria</h3><p>Te ayudamos a entender qué cuota puedes asumir y qué gastos tendrá la compra.</p></article>
+        <article class="svc__card"><span class="svc__n">04</span><h3>Negociación y firma</h3><p>Revisamos la documentación, negociamos el precio y te acompañamos hasta la notaría.</p></article>
+      </div>
+      <div class="svc" data-svc-panel="vender" hidden>
+        <article class="svc__card"><span class="svc__n">01</span><h3>Valoración de mercado</h3><p>Un precio de salida realista, basado en ventas cercanas y en el estado de tu vivienda.</p></article>
+        <article class="svc__card"><span class="svc__n">02</span><h3>Fotos y ficha que venden</h3><p>Presentamos tu casa con buenas imágenes y una descripción honesta y atractiva.</p></article>
+        <article class="svc__card"><span class="svc__n">03</span><h3>Compradores filtrados</h3><p>Comprobamos interés y financiación antes de cada visita para no perder el tiempo.</p></article>
+        <article class="svc__card"><span class="svc__n">04</span><h3>Gestión completa</h3><p>Certificado energético, arras, notaría y trámites: nos ocupamos del papeleo.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCAL -->
+  <section class="local">
+    <div class="wrap local__in">
+      <figure class="local__img reveal"><img src="assets/img/panorama.svg" alt="Ilustración de la orilla del Guadalquivir vista desde Camas" loading="lazy" width="1200" height="800"></figure>
+      <div class="local__copy">
+        <p class="kicker">Inmobiliaria de aquí</p>
+        <h2 class="h2 reveal">Conocemos la zona <em>porque vivimos en ella</em></h2>
+        <p class="reveal">Camas, Castilleja, Tomares, Santiponce, Valencina, Gines… Cada pueblo del Aljarafe tiene su ritmo, sus calles con más demanda y sus precios. Esa cercanía es lo que nos permite valorar bien, enseñar mejor y responder rápido.</p>
+        <div class="local__cta">
+          <a class="btn btn--wa" data-wa href="#" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Hablar con nosotros</a>
+          <a class="btn btn--soft" data-tel href="#"><svg><use href="#i-phone"/></svg><span data-phone></span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contact" id="contacto">
+    <div class="wrap contact__in">
+      <div>
+        <p class="kicker kicker--lime">Contacto</p>
+        <h2 class="h2 h2--light reveal">Cuéntanos qué buscas <em>y te escribimos hoy</em></h2>
+        <div class="contact__ways">
+          <a class="way" data-wa href="#" target="_blank" rel="noopener"><span class="way__ic way__ic--wa"><svg><use href="#i-wa"/></svg></span><span><small>WhatsApp</small><b data-phone></b></span><svg class="way__go"><use href="#i-arrow"/></svg></a>
+          <a class="way" data-tel href="#"><span class="way__ic"><svg><use href="#i-phone"/></svg></span><span><small>Llamar</small><b data-phone></b></span><svg class="way__go"><use href="#i-arrow"/></svg></a>
+          <div class="way way--static"><span class="way__ic"><svg><use href="#i-pin"/></svg></span><span><small>Zona de trabajo</small><b>Camas y el Aljarafe</b></span></div>
+        </div>
+      </div>
+      <form class="cform" data-cform novalidate>
+        <div class="cform__seg" role="group" aria-label="Quiero">
+          <button type="button" aria-pressed="true" data-v="comprar">Comprar</button>
+          <button type="button" aria-pressed="false" data-v="alquilar">Alquilar</button>
+          <button type="button" aria-pressed="false" data-v="vender">Vender</button>
+        </div>
+        <label class="field field--dark"><span>Nombre</span><input type="text" autocomplete="given-name" placeholder="Tu nombre" data-c-name required></label>
+        <label class="field field--dark"><span>Mensaje</span><textarea rows="3" placeholder="Busco piso de 3 dormitorios en Camas, hasta 200.000 €…" data-c-msg></textarea></label>
+        <p class="wiz__err" data-c-err role="alert"></p>
+        <button class="btn btn--lime btn--block" type="submit"><svg><use href="#i-wa"/></svg>Enviar por WhatsApp</button>
+        <p class="cform__note">Se abrirá WhatsApp con tu mensaje ya escrito. No guardamos nada en esta web.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <div class="foot__brand">
+      <b>Peñaflor Inmobiliaria</b>
+      <span>Compra, venta y alquiler en Camas y el Aljarafe</span>
+    </div>
+    <nav class="foot__nav" aria-label="Pie">
+      <a href="#catalogo">Catálogo</a><a href="#vender">Vender</a><a href="#valorar">Valoración</a><a href="#contacto">Contacto</a>
+    </nav>
+    <p class="foot__demo">Demo orientativa: inmuebles, precios e imágenes son de ejemplo.</p>
+  </div>
+</footer>
+
+<!-- Barra móvil -->
+<div class="mbar" data-mbar>
+  <a class="mbar__call" data-tel href="#" aria-label="Llamar"><svg><use href="#i-phone"/></svg></a>
+  <a class="btn btn--wa mbar__wa" data-wa href="#" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Escríbenos por WhatsApp</a>
+</div>
+
+<!-- Ficha -->
+<div class="sheet" data-sheet hidden>
+  <div class="sheet__scrim" data-sheet-close></div>
+  <article class="sheet__panel" role="dialog" aria-modal="true" aria-labelledby="sh-title" data-sheet-panel tabindex="-1">
+    <div class="sheet__grab" data-sheet-grab><span></span></div>
+    <button class="icon-btn sheet__x" type="button" data-sheet-close aria-label="Cerrar ficha"><svg><use href="#i-close"/></svg></button>
+    <div class="sheet__body" data-sheet-body></div>
+  </article>
+</div>
+
+<div class="toast" data-toast role="status" aria-live="polite"></div>
+
+<script src="assets/data.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
