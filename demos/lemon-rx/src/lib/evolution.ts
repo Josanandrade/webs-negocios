@@ -69,11 +69,13 @@ export type CoachEvolution = {
     avg_compliance_pct: number | null;
     athletes_improving_wods: number;
     athletes_improving_rm: number;
+    completed_blocks?: number;
   };
   athletes: CoachEvolutionAthlete[];
 };
 
 export type EvolutionWindow = 4 | 8 | 12;
+export type CoachEvolutionWindow = 1 | EvolutionWindow;
 
 function n(value: unknown) {
   return value == null ? null : Number(value);
@@ -138,9 +140,12 @@ export async function getAthleteEvolution(userId: string, weeks: EvolutionWindow
   };
 }
 
-export async function getCoachEvolution(weeks: EvolutionWindow = 4): Promise<CoachEvolution | null> {
+export async function getCoachEvolution(weeks: CoachEvolutionWindow = 1): Promise<CoachEvolution | null> {
   const supabase = await createClient();
-  const { data, error } = await supabase.rpc("coach_evolution_metrics", { p_weeks: weeks });
+  const request = weeks === 1
+    ? supabase.rpc("coach_current_week_metrics")
+    : supabase.rpc("coach_evolution_metrics", { p_weeks: weeks });
+  const { data, error } = await request;
   if (error || !data) return null;
   const raw = data as CoachEvolution;
   return {
@@ -150,6 +155,7 @@ export async function getCoachEvolution(weeks: EvolutionWindow = 4): Promise<Coa
       avg_compliance_pct: n(raw.summary?.avg_compliance_pct),
       athletes_improving_wods: Number(raw.summary?.athletes_improving_wods ?? 0),
       athletes_improving_rm: Number(raw.summary?.athletes_improving_rm ?? 0),
+      completed_blocks: raw.summary?.completed_blocks == null ? undefined : Number(raw.summary.completed_blocks),
     },
     athletes: Array.isArray(raw.athletes) ? raw.athletes.map((row) => ({
       ...row,
