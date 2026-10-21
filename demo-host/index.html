@@ -1,16 +1,370 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>Inmo Ángel Machuca · Inmobiliaria en Sanlúcar la Mayor</title>
+  <meta name="description" content="Compra, alquila o vende tu vivienda en Sanlúcar la Mayor con Inmo Ángel Machuca. Escríbenos por WhatsApp al 650 870 711.">
+  <meta name="theme-color" content="#F7F4EE">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=Wix+Madefor+Text:wght@400;500;600;700&family=Fragment+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.replace('no-js','js')</script>
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.2-.3-.2-.7-.4Z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 4h3l1.5 4-2 1.3a11 11 0 0 0 7.2 7.2L16 14.5l4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m15 6-6 6 6 6"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m9 6 6 6-6 6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.6-7.5 10-7.5 10Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-bed" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M3 18V7m0 7h18v4M3 11h6a2 2 0 0 1 2 2v1m10 0v-2a3 3 0 0 0-3-3h-7"/></symbol>
+    <symbol id="i-bath" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 12h16v2a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-2Zm2 0V6a2 2 0 0 1 4 0M7 19l-1 2m11-2 1 2"/></symbol>
+    <symbol id="i-area" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 9V4h5M20 9V4h-5M4 15v5h5m11-5v5h-5"/></symbol>
+    <symbol id="i-plot" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M3 20 8 4l8 3 5 13H3Zm5-16 2 16m6-13-2 13"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h10m4 0h2M4 17h4m4 0h8"/><circle cx="16" cy="7" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="10" cy="17" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  </svg>
+
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="hdr" id="hdr">
+    <div class="wrap hdr__in">
+      <a class="logo" href="#top" aria-label="Inmo Ángel Machuca, inicio">
+        <span class="logo__mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40"><path d="M8 34V19a12 12 0 0 1 24 0v15" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="20" cy="24" r="5" fill="var(--sol)"/><path d="M5 34h30" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+        </span>
+        <span class="logo__txt"><small>Inmo</small><b>Ángel Machuca</b></span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="#inmuebles" data-go="venta">Comprar</a>
+        <a href="#inmuebles" data-go="alquiler">Alquilar</a>
+        <a href="#vender">Vender</a>
+        <a href="#proceso">Cómo trabajamos</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <div class="hdr__cta">
+        <button class="fav-pill" id="favPill" type="button" aria-label="Ver inmuebles guardados">
+          <svg><use href="#i-heart"/></svg><span id="favCount">0</span>
+        </button>
+        <a class="btn btn--wa btn--sm hide-sm" data-wa="Hola, os escribo desde la web de Inmo Ángel Machuca." href="#"><svg><use href="#i-wa"/></svg>WhatsApp</a>
+        <button class="burger" id="burger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="sheet"><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="sheet" id="sheet" hidden>
+    <nav class="sheet__nav" aria-label="Menú móvil">
+      <a href="#inmuebles" data-go="venta">Comprar</a>
+      <a href="#inmuebles" data-go="alquiler">Alquilar</a>
+      <a href="#vender">Vender mi vivienda</a>
+      <a href="#proceso">Cómo trabajamos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="sheet__foot">
+      <a class="btn btn--wa btn--lg" data-wa="Hola, os escribo desde la web de Inmo Ángel Machuca." href="#"><svg><use href="#i-wa"/></svg>Escribir por WhatsApp</a>
+      <a class="btn btn--line btn--lg" href="tel:+34650870711"><svg><use href="#i-phone"/></svg>650 870 711</a>
+    </div>
+  </div>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="wrap">
+        <div class="hero__head">
+          <p class="eyebrow reveal"><span class="dot"></span>Inmobiliaria en Sanlúcar la Mayor</p>
+          <h1 class="hero__title reveal">Casas con <em>luz propia</em> en Sanlúcar la Mayor.</h1>
+          <p class="hero__lead reveal">Compra, alquila o vende con Inmo Ángel Machuca. Busca, guarda tus favoritos y escríbenos por WhatsApp en un toque.</p>
+        </div>
+
+        <div class="hero__stage reveal">
+          <figure class="hero__img">
+            <img src="assets/img/hero.svg" alt="Ilustración de una casa blanca con porche y piscina al atardecer, con las torres solares al fondo" width="1200" height="800" fetchpriority="high">
+          </figure>
+
+          <form class="search" id="heroSearch" role="search" aria-label="Buscar inmuebles">
+            <div class="seg" role="tablist" aria-label="Operación" data-seg>
+              <span class="seg__pill" aria-hidden="true"></span>
+              <button type="button" role="tab" aria-selected="true" data-val="venta">Comprar</button>
+              <button type="button" role="tab" aria-selected="false" data-val="alquiler">Alquilar</button>
+            </div>
+            <div class="search__fields">
+              <label class="field">
+                <span>Tipo de inmueble</span>
+                <select name="tipo" id="hsTipo"><option value="">Todos</option></select>
+              </label>
+              <label class="field">
+                <span>Precio máximo</span>
+                <select name="precio" id="hsPrecio"></select>
+              </label>
+              <label class="field">
+                <span>Habitaciones</span>
+                <select name="hab" id="hsHab">
+                  <option value="0">Cualquiera</option><option value="1">1 o más</option><option value="2">2 o más</option><option value="3">3 o más</option><option value="4">4 o más</option>
+                </select>
+              </label>
+              <button class="btn btn--sol search__go" type="submit"><svg><use href="#i-search"/></svg><span>Buscar</span></button>
+            </div>
+          </form>
+        </div>
+
+        <div class="hero__aside reveal">
+          <a class="hero__sell" href="#vender">
+            <span class="hero__sell-ico" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+            <span><b>¿Tienes una vivienda para vender?</b><small>Cuéntanos qué tienes y te llamamos.</small></span>
+          </a>
+          <a class="hero__wa" data-wa="Hola, os escribo desde la web de Inmo Ángel Machuca." href="#"><svg><use href="#i-wa"/></svg>650 870 711</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESTACADOS -->
+    <section class="sec feat" id="destacados" aria-labelledby="featTitle">
+      <div class="wrap">
+        <div class="sec__head">
+          <div>
+            <p class="eyebrow reveal">Selección</p>
+            <h2 class="sec__title reveal" id="featTitle">Inmuebles destacados</h2>
+          </div>
+          <div class="feat__nav reveal">
+            <button class="icon-btn" type="button" id="featPrev" aria-label="Anterior"><svg><use href="#i-left"/></svg></button>
+            <button class="icon-btn" type="button" id="featNext" aria-label="Siguiente"><svg><use href="#i-right"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <div class="feat__track" id="featTrack" tabindex="0" aria-label="Carrusel de inmuebles destacados"></div>
+    </section>
+
+    <!-- LISTADO -->
+    <section class="sec list" id="inmuebles" aria-labelledby="listTitle">
+      <div class="wrap">
+        <div class="sec__head">
+          <div>
+            <p class="eyebrow reveal">Cartera</p>
+            <h2 class="sec__title reveal" id="listTitle">Todos los inmuebles</h2>
+          </div>
+          <p class="list__count" aria-live="polite"><b id="count">0</b> <span id="countLabel">inmuebles</span></p>
+        </div>
+
+        <div class="filters" id="filters">
+          <div class="filters__row">
+            <div class="seg seg--sm" role="tablist" aria-label="Operación" data-seg id="fOp">
+              <span class="seg__pill" aria-hidden="true"></span>
+              <button type="button" role="tab" aria-selected="true" data-val="venta">Comprar</button>
+              <button type="button" role="tab" aria-selected="false" data-val="alquiler">Alquilar</button>
+            </div>
+            <div class="chips" id="fTipo" role="group" aria-label="Tipo de inmueble"></div>
+            <button class="filters__more" type="button" id="fMore" aria-expanded="false" aria-controls="fRowB"><svg><use href="#i-sliders"/></svg>Precio, habitaciones y orden<b id="fMoreN"></b></button>
+          </div>
+          <div class="filters__row filters__row--b" id="fRowB">
+            <label class="mini">
+              <span>Precio máx.</span>
+              <select id="fPrecio"></select>
+            </label>
+            <div class="mini">
+              <span id="habLbl">Habitaciones</span>
+              <div class="rooms" id="fHab" role="group" aria-labelledby="habLbl">
+                <button type="button" data-val="0" aria-pressed="true">Todas</button>
+                <button type="button" data-val="1" aria-pressed="false">1+</button>
+                <button type="button" data-val="2" aria-pressed="false">2+</button>
+                <button type="button" data-val="3" aria-pressed="false">3+</button>
+                <button type="button" data-val="4" aria-pressed="false">4+</button>
+              </div>
+            </div>
+            <label class="mini">
+              <span>Ordenar</span>
+              <select id="fOrden">
+                <option value="rel">Destacados primero</option>
+                <option value="asc">Precio: menor a mayor</option>
+                <option value="desc">Precio: mayor a menor</option>
+                <option value="m2">Más metros</option>
+              </select>
+            </label>
+            <button class="toggle-fav" type="button" id="fFav" aria-pressed="false"><svg><use href="#i-heart"/></svg>Solo guardados</button>
+          </div>
+        </div>
+
+        <div class="grid" id="grid"></div>
+        <div class="empty" id="empty" hidden>
+          <p class="empty__t">No hay inmuebles con estos filtros.</p>
+          <p class="empty__p">Prueba a ampliar el precio o las habitaciones, o cuéntanos qué buscas y te avisamos.</p>
+          <div class="empty__a">
+            <button class="btn btn--line" type="button" id="reset">Quitar filtros</button>
+            <a class="btn btn--wa" data-wa-search href="#"><svg><use href="#i-wa"/></svg>Avisadme por WhatsApp</a>
+          </div>
+        </div>
+        <p class="list__note">Inmuebles e imágenes de ejemplo para la demo.</p>
+      </div>
+    </section>
+
+    <!-- VENDER -->
+    <section class="sell" id="vender" aria-labelledby="sellTitle">
+      <div class="wrap sell__in">
+        <div class="sell__copy">
+          <p class="eyebrow eyebrow--light reveal">Propietarios</p>
+          <h2 class="sell__title reveal" id="sellTitle">¿Quieres vender tu vivienda en Sanlúcar?</h2>
+          <p class="sell__lead reveal">Te acompañamos desde la primera visita hasta la firma en notaría. Tú nos cuentas qué tienes; nosotros nos ocupamos de que se vea bien y llegue a quien la busca.</p>
+          <ul class="sell__list">
+            <li class="reveal"><span class="tick"><svg><use href="#i-check"/></svg></span><div><b>Valoración con criterio</b><p>Precio de salida razonado según la vivienda y la zona.</p></div></li>
+            <li class="reveal"><span class="tick"><svg><use href="#i-check"/></svg></span><div><b>Presentación cuidada</b><p>Fotos, descripción y ficha propia en esta web, lista para compartir.</p></div></li>
+            <li class="reveal"><span class="tick"><svg><use href="#i-check"/></svg></span><div><b>Visitas filtradas</b><p>Solo enseñamos tu casa a compradores con interés real.</p></div></li>
+            <li class="reveal"><span class="tick"><svg><use href="#i-check"/></svg></span><div><b>Hasta la firma</b><p>Negociación, papeles y notaría, sin que tengas que perseguir a nadie.</p></div></li>
+          </ul>
+        </div>
+
+        <form class="wizard reveal" id="wizard" novalidate aria-labelledby="wizTitle">
+          <div class="wizard__top">
+            <p class="wizard__kicker" id="wizTitle">Quiero vender mi vivienda</p>
+            <p class="wizard__step"><span id="wizNum">1</span> de 3</p>
+          </div>
+          <div class="wizard__bar"><span id="wizBar"></span></div>
+
+          <div class="wizard__viewport" id="wizView">
+            <fieldset class="wstep is-on" data-step="1">
+              <legend>¿Qué tipo de inmueble es?</legend>
+              <div class="opt-grid" id="wTipo"></div>
+            </fieldset>
+
+            <fieldset class="wstep" data-step="2" hidden>
+              <legend>Cuéntanos un poco más</legend>
+              <label class="field field--light"><span>Zona o calle</span><input name="zona" autocomplete="street-address" placeholder="Ej.: centro de Sanlúcar la Mayor"></label>
+              <div class="two">
+                <label class="field field--light"><span>Metros aprox.</span><input name="m2" inputmode="numeric" placeholder="Ej.: 120"></label>
+                <label class="field field--light"><span>Habitaciones</span>
+                  <select name="hab"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5 o más</option><option>No aplica</option></select>
+                </label>
+              </div>
+              <label class="field field--light"><span>¿Cuándo te gustaría vender?</span>
+                <select name="plazo"><option>Lo antes posible</option><option>En los próximos meses</option><option>Solo quiero saber cuánto vale</option></select>
+              </label>
+            </fieldset>
+
+            <fieldset class="wstep" data-step="3" hidden>
+              <legend>¿Cómo te contactamos?</legend>
+              <label class="field field--light"><span>Nombre</span><input name="nombre" autocomplete="name" required placeholder="Tu nombre"></label>
+              <label class="field field--light"><span>Teléfono</span><input name="tel" type="tel" autocomplete="tel" inputmode="tel" required placeholder="6XX XXX XXX"></label>
+              <p class="wizard__hint">Al enviar se abre WhatsApp con tu mensaje ya escrito. Nada se guarda en esta web.</p>
+            </fieldset>
+          </div>
+
+          <div class="wizard__actions">
+            <button class="btn btn--ghost-light" type="button" id="wizBack" hidden><svg class="flip"><use href="#i-arrow"/></svg>Atrás</button>
+            <button class="btn btn--sol" type="button" id="wizNext">Continuar<svg><use href="#i-arrow"/></svg></button>
+            <button class="btn btn--wa" type="submit" id="wizSend" hidden><svg><use href="#i-wa"/></svg>Enviar por WhatsApp</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section class="sec proc" id="proceso" aria-labelledby="procTitle">
+      <div class="wrap">
+        <div class="sec__head sec__head--center">
+          <p class="eyebrow reveal">Cómo trabajamos</p>
+          <h2 class="sec__title reveal" id="procTitle">Un proceso claro, paso a paso</h2>
+          <div class="seg seg--sm reveal" role="tablist" aria-label="Proceso" data-seg id="procSeg">
+            <span class="seg__pill" aria-hidden="true"></span>
+            <button type="button" role="tab" aria-selected="true" data-val="comprar">Si compras</button>
+            <button type="button" role="tab" aria-selected="false" data-val="vender">Si vendes</button>
+          </div>
+        </div>
+
+        <ol class="steps is-on" data-proc="comprar">
+          <li class="step reveal"><span class="step__n">01</span><h3>Nos cuentas qué buscas</h3><p>Zona, presupuesto, habitaciones y lo que no puede faltar. Por WhatsApp o en persona.</p></li>
+          <li class="step reveal"><span class="step__n">02</span><h3>Seleccionamos opciones</h3><p>Te enviamos solo los inmuebles que encajan, con fotos y ficha completa.</p></li>
+          <li class="step reveal"><span class="step__n">03</span><h3>Visitas</h3><p>Organizamos las visitas a tu ritmo y resolvemos dudas sobre cada vivienda.</p></li>
+          <li class="step reveal"><span class="step__n">04</span><h3>Oferta y reserva</h3><p>Te ayudamos a negociar y a dejar la reserva bien atada por escrito.</p></li>
+          <li class="step reveal"><span class="step__n">05</span><h3>Notaría y llaves</h3><p>Coordinamos la documentación hasta la firma y la entrega de llaves.</p></li>
+        </ol>
+        <ol class="steps" data-proc="vender" hidden>
+          <li class="step"><span class="step__n">01</span><h3>Visita y valoración</h3><p>Vemos la vivienda contigo y fijamos un precio de salida razonado.</p></li>
+          <li class="step"><span class="step__n">02</span><h3>Preparación</h3><p>Fotos, descripción y documentación revisada antes de publicar.</p></li>
+          <li class="step"><span class="step__n">03</span><h3>Publicación</h3><p>Ficha propia en la web, compartible por WhatsApp, y difusión entre compradores.</p></li>
+          <li class="step"><span class="step__n">04</span><h3>Visitas y negociación</h3><p>Filtramos interesados, enseñamos la casa y te traemos ofertas serias.</p></li>
+          <li class="step"><span class="step__n">05</span><h3>Firma</h3><p>Arras, notaría y entrega de llaves con todo en orden.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="sec contact" id="contacto" aria-labelledby="contactTitle">
+      <div class="wrap contact__in">
+        <div class="contact__card reveal">
+          <p class="eyebrow">Contacto directo</p>
+          <h2 class="sec__title" id="contactTitle">Hablemos por WhatsApp</h2>
+          <p class="contact__lead">Pregunta por un inmueble, pide una visita o cuéntanos qué buscas. Sin formularios eternos.</p>
+          <a class="contact__wa" data-wa="Hola, os escribo desde la web de Inmo Ángel Machuca." href="#">
+            <span class="contact__wa-ico"><svg><use href="#i-wa"/></svg></span>
+            <span><small>WhatsApp</small><b>+34 650 870 711</b></span>
+            <svg class="contact__wa-arrow"><use href="#i-arrow"/></svg>
+          </a>
+          <div class="contact__meta">
+            <a href="tel:+34650870711"><svg><use href="#i-phone"/></svg>Llamar al 650 870 711</a>
+            <span><svg><use href="#i-pin"/></svg>Sanlúcar la Mayor (Sevilla)</span>
+          </div>
+        </div>
+
+        <form class="quick reveal" id="quick" novalidate>
+          <p class="quick__t">Mensaje rápido</p>
+          <div class="quick__chips" role="group" aria-label="Motivo">
+            <button type="button" class="qchip" aria-pressed="true" data-val="Busco vivienda para comprar">Comprar</button>
+            <button type="button" class="qchip" aria-pressed="false" data-val="Busco vivienda en alquiler">Alquilar</button>
+            <button type="button" class="qchip" aria-pressed="false" data-val="Quiero vender mi vivienda">Vender</button>
+            <button type="button" class="qchip" aria-pressed="false" data-val="Tengo una consulta">Otra consulta</button>
+          </div>
+          <label class="field"><span>Nombre</span><input name="nombre" autocomplete="name" placeholder="Tu nombre"></label>
+          <label class="field"><span>Mensaje</span><textarea name="msg" rows="3" placeholder="Ej.: busco casa con patio, 3 dormitorios, hasta 200.000 €"></textarea></label>
+          <button class="btn btn--ink btn--lg" type="submit"><svg><use href="#i-wa"/></svg>Enviar por WhatsApp</button>
+        </form>
+      </div>
+    </section>
   </main>
+
+  <footer class="ftr">
+    <div class="wrap ftr__in">
+      <a class="logo logo--ftr" href="#top" aria-label="Inmo Ángel Machuca, inicio">
+        <span class="logo__mark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 34V19a12 12 0 0 1 24 0v15" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="20" cy="24" r="5" fill="var(--sol)"/><path d="M5 34h30" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+        <span class="logo__txt"><small>Inmo</small><b>Ángel Machuca</b></span>
+      </a>
+      <nav class="ftr__nav" aria-label="Pie">
+        <a href="#inmuebles" data-go="venta">Comprar</a>
+        <a href="#inmuebles" data-go="alquiler">Alquilar</a>
+        <a href="#vender">Vender</a>
+        <a href="#proceso">Cómo trabajamos</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <div class="ftr__c">
+        <a href="tel:+34650870711">650 870 711</a>
+        <span>Sanlúcar la Mayor (Sevilla)</span>
+      </div>
+      <p class="ftr__demo">Demo con inmuebles e imágenes de ejemplo.</p>
+    </div>
+  </footer>
+
+  <a class="fab" id="fab" data-wa="Hola, os escribo desde la web de Inmo Ángel Machuca." href="#" aria-label="Escribir por WhatsApp"><svg><use href="#i-wa"/></svg></a>
+
+  <!-- FICHA DE INMUEBLE -->
+  <div class="drawer" id="drawer" hidden>
+    <div class="drawer__scrim" data-close></div>
+    <article class="drawer__panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="dTitle" tabindex="-1">
+      <div class="drawer__grab" id="grab" aria-hidden="true"><span></span></div>
+      <button class="drawer__x icon-btn" type="button" data-close aria-label="Cerrar ficha"><svg><use href="#i-close"/></svg></button>
+      <div class="drawer__body" id="dBody"></div>
+    </article>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script src="assets/data.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
