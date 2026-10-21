@@ -6,11 +6,11 @@ import { IntentLink } from "@/components/intent-link";
 const ITEMS = [
   { href: "/admin", label: "Panel", match: (p: string) => p === "/admin" },
   { href: "/", label: "Programación", match: (p: string) => p === "/" },
+  { href: "/home", label: "Home", match: (p: string) => p.startsWith("/home") },
   { href: "/ranking", label: "Ranking", match: (p: string) => p.startsWith("/ranking") },
   { href: "/rms", label: "RM's", match: (p: string) => p.startsWith("/rms") },
   { href: "/admin/programacion", label: "Crear", match: (p: string) => p.startsWith("/admin/programacion") },
-  { href: "/admin/usuarios", label: "Usuarios", match: (p: string) => p.startsWith("/admin/usuarios") },
-  { href: "/admin/ajustes", label: "Ajustes", match: (p: string) => p.startsWith("/admin/ajustes") },
+  { href: "/admin/ajustes", label: "Ajustes", match: (p: string) => p.startsWith("/admin/ajustes") || p.startsWith("/admin/usuarios") },
 ];
 
 const MOBILE_ITEMS = ITEMS.filter((item) => item.label !== "Crear");

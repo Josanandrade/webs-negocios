@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { BlockView } from "@/components/block-tracker";
 import type { StrengthBlockView } from "@/components/strength-block-tracker";
 import type { FreeStrengthBlockView } from "@/components/free-strength-block-tracker";
@@ -32,10 +32,13 @@ const StrengthRankingPanel = dynamic(
 export type ExtendedBlockView = BlockView & { suggestedSets?: { reps: number; percentage: number; kg: number }[]; builderSectionsView?: BuilderSectionView[] };
 export type DayView = { date: string; name: string; short: string; isToday: boolean; blocks: ExtendedBlockView[] };
 
+const CLOSE_ANIMATION_MS = 240;
+
 export function WeekDays({ days, meId }: { days: DayView[]; meId: string }) {
   const { toast, show } = useToast();
   const [open, setOpen] = useState<string | null>(null);
   const [mountedDays, setMountedDays] = useState<Set<string>>(() => new Set());
+  const unmountTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
 
   useEffect(() => {
     const mobile = window.matchMedia("(max-width: 767px)");
@@ -55,17 +58,46 @@ export function WeekDays({ days, meId }: { days: DayView[]; meId: string }) {
     };
   }, [open]);
 
-  function toggle(date: string, trigger: HTMLElement) {
-    const opening = open !== date;
-    if (opening) {
+  useEffect(() => () => {
+    Object.values(unmountTimers.current).forEach(clearTimeout);
+  }, []);
+
+  function mountDay(date: string) {
+    const pending = unmountTimers.current[date];
+    if (pending) {
+      clearTimeout(pending);
+      delete unmountTimers.current[date];
+    }
+    setMountedDays((current) => {
+      if (current.has(date)) return current;
+      const next = new Set(current);
+      next.add(date);
+      return next;
+    });
+  }
+
+  function unmountDayAfterClose(date: string) {
+    const pending = unmountTimers.current[date];
+    if (pending) clearTimeout(pending);
+    unmountTimers.current[date] = setTimeout(() => {
       setMountedDays((current) => {
-        if (current.has(date)) return current;
+        if (!current.has(date)) return current;
         const next = new Set(current);
-        next.add(date);
+        next.delete(date);
         return next;
       });
-    }
+      delete unmountTimers.current[date];
+    }, CLOSE_ANIMATION_MS);
+  }
+
+  function toggle(date: string, trigger: HTMLElement) {
+    const previous = open;
+    const opening = open !== date;
+    if (opening) mountDay(date);
     setOpen(opening ? date : null);
+
+    if (previous && previous !== date) unmountDayAfterClose(previous);
+    if (!opening) unmountDayAfterClose(date);
 
     if (opening && window.matchMedia("(max-width: 767px)").matches) {
       window.setTimeout(() => {

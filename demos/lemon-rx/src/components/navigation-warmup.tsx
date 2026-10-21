@@ -14,8 +14,8 @@ export function NavigationWarmup({ isAdmin }: { isAdmin: boolean }) {
 
   useEffect(() => {
     const routes = isAdmin
-      ? ["/", "/admin/usuarios", "/ranking", "/rms", "/admin", "/admin/ajustes", "/cuenta"]
-      : ["/", "/ranking", "/rms", "/historial", "/cuenta"];
+      ? ["/", "/home", "/ranking", "/rms", "/admin", "/admin/ajustes", "/cuenta"]
+      : ["/", "/home", "/ranking", "/rms", "/historial", "/cuenta"];
     const pending = routes.filter((route) => route !== pathname);
     let cancelled = false;
     let stepTimer: ReturnType<typeof setTimeout> | null = null;
@@ -26,8 +26,6 @@ export function NavigationWarmup({ isAdmin }: { isAdmin: boolean }) {
       if (cancelled || index >= pending.length) return;
       router.prefetch(pending[index]);
       index += 1;
-      // Semana y Usuarios son las dos rutas más importantes. Damos tiempo a
-      // cada petición antes de preparar la siguiente para no crear una ráfaga.
       stepTimer = setTimeout(prefetchNext, index < 2 ? 1400 : 900);
     };
 
