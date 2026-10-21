@@ -7,9 +7,9 @@ import { forwardRef, useRef, type AnchorHTMLAttributes } from "react";
 type Props = LinkProps & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps>;
 
 /**
- * Link sin prefetch automático. Solo prepara el destino cuando el usuario
- * muestra intención real de navegar: hover/foco o inicio de toque.
- * Evita la precarga masiva de rutas privadas, pero reduce la espera del clic.
+ * En móvil una pulsación debe producir una sola navegación. El prefetch manual
+ * en touchstart competía con el clic real y duplicaba peticiones privadas.
+ * Conservamos una preparación suave solo para ratón/trackpad con hover real.
  */
 export const IntentLink = forwardRef<HTMLAnchorElement, Props>(function IntentLink(
   { href, onMouseEnter, onMouseLeave, onFocus, onTouchStart, prefetch: _prefetch, ...props },
@@ -19,13 +19,14 @@ export const IntentLink = forwardRef<HTMLAnchorElement, Props>(function IntentLi
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const prefetched = useRef(false);
 
-  function prepare(delay = 0) {
-    if (prefetched.current) return;
+  function prepareDesktop() {
+    if (prefetched.current || typeof window === "undefined") return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     if (timer.current) clearTimeout(timer.current);
     timer.current = setTimeout(() => {
       prefetched.current = true;
       router.prefetch(String(href));
-    }, delay);
+    }, 90);
   }
 
   function cancelHover() {
@@ -42,21 +43,15 @@ export const IntentLink = forwardRef<HTMLAnchorElement, Props>(function IntentLi
       href={href}
       prefetch={false}
       onMouseEnter={(event) => {
-        prepare(70);
+        prepareDesktop();
         onMouseEnter?.(event);
       }}
       onMouseLeave={(event) => {
         cancelHover();
         onMouseLeave?.(event);
       }}
-      onFocus={(event) => {
-        prepare();
-        onFocus?.(event);
-      }}
-      onTouchStart={(event) => {
-        prepare();
-        onTouchStart?.(event);
-      }}
+      onFocus={(event) => onFocus?.(event)}
+      onTouchStart={(event) => onTouchStart?.(event)}
     />
   );
 });

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Avatar } from "@/components/avatar";
 import { NoAccess } from "@/components/no-access";
 import { SocialBlockProgram } from "@/components/social-block-program";
@@ -11,6 +12,7 @@ import { addPostComment, toggleCommentReaction, togglePostReaction } from "./act
 export const metadata: Metadata = { title: "Home" };
 
 const EMOJIS = ["👍", "❤️", "🔥", "💪", "👏", "😂", "🍆", "🍑", "💦", "🔩", "🦍", "🍼", "🛴", "😍"] as const;
+const PAGE_SIZE = 15;
 
 type ReactionRow = { user_id: string; emoji: string };
 type CommentReactionRow = { user_id: string; emoji: string };
@@ -20,7 +22,13 @@ type SocialBlockRow = { post_id: string; block_id: string; block_title: string; 
 type SocialPostRow = { id: string; user_id: string; training_date: string; athlete_name: string; athlete_avatar_url: string | null; first_completed_at: string; updated_at: string; workout_post_blocks: SocialBlockRow[]; workout_post_reactions: ReactionRow[]; workout_post_comments: CommentRow[] };
 type SourceBlock = { id: string; content: string; sets_count: number | null; reps_per_set: number | null; movement_id: string | null; strength_scheme: StrengthSchemeRow[] | null; is_complex: boolean; complex_movements: ComplexMovementRow[] | null; is_emom: boolean; emom_reps: number | null; emom_interval_seconds: number | null; emom_rounds: number | null; emom_percentage: number | null; builder_sections: BuilderSection[] | null };
 
-export default async function HomePage() {
+export default async function HomePage({ searchParams }: PageProps<"/home">) {
+  const sp = await searchParams;
+  const rawPage = Array.isArray(sp.pagina) ? sp.pagina[0] : sp.pagina;
+  const parsedPage = Number.parseInt(rawPage ?? "1", 10);
+  const page = Number.isFinite(parsedPage) && parsedPage > 0 ? Math.min(parsedPage, 1000) : 1;
+  const offset = (page - 1) * PAGE_SIZE;
+
   const viewer = await getViewer();
   if (!viewer.canViewProgram) return <NoAccess name={viewer.profile.full_name.split(" ")[0]} pending={viewer.profile.access_status === "pending"} />;
 
@@ -29,10 +37,13 @@ export default async function HomePage() {
     .from("workout_posts")
     .select(`id, user_id, training_date, athlete_name, athlete_avatar_url, first_completed_at, updated_at, workout_post_blocks(post_id, block_id, block_title, block_score_type, block_position, completed_at, note, result), workout_post_reactions(user_id, emoji), workout_post_comments(id, post_id, user_id, parent_comment_id, author_name, author_avatar_url, body, created_at, workout_comment_reactions(user_id, emoji))`)
     .order("updated_at", { ascending: false })
-    .limit(40)
+    .order("id", { ascending: false })
+    .range(offset, offset + PAGE_SIZE)
     .returns<SocialPostRow[]>();
 
-  const posts = data ?? [];
+  const rows = data ?? [];
+  const hasOlder = rows.length > PAGE_SIZE;
+  const posts = rows.slice(0, PAGE_SIZE);
   const blockIds = [...new Set(posts.flatMap((post) => post.workout_post_blocks.map((block) => block.block_id)))];
   const { data: sourceRows } = blockIds.length ? await supabase
     .from("workout_blocks")
@@ -59,7 +70,7 @@ export default async function HomePage() {
     <p className="eyebrow">Lemon RX</p>
     <h1 className="mt-1 font-display text-[40px] font-extrabold uppercase leading-none md:text-[48px]">Home</h1>
     <p className="mt-3 max-w-xl text-[16px] leading-[1.5] text-chalk-2">La actividad de la comunidad se actualiza automáticamente según se completan los bloques.</p>
-    {error ? <p className="mt-8 border-y border-line py-5 text-[15px] text-chalk-3">No se ha podido cargar la actividad.</p> : posts.length === 0 ? <section className="mt-10 border-y border-line py-8"><h2 className="font-display text-[24px] font-bold uppercase">Todavía no hay actividad</h2><p className="mt-2 text-[16px] text-chalk-3">Cuando alguien marque su primer bloque como hecho aparecerá aquí automáticamente.</p></section> : <div className="mt-8 space-y-5">{posts.map((post) => <PostCard key={post.id} post={post} me={me} sourceMap={sourceMap} movementNames={movementNames} />)}</div>}
+    {error ? <p className="mt-8 border-y border-line py-5 text-[15px] text-chalk-3">No se ha podido cargar la actividad.</p> : posts.length === 0 ? <section className="mt-10 border-y border-line py-8"><h2 className="font-display text-[24px] font-bold uppercase">{page === 1 ? "Todavía no hay actividad" : "No hay más actividad"}</h2><p className="mt-2 text-[16px] text-chalk-3">{page === 1 ? "Cuando alguien marque su primer bloque como hecho aparecerá aquí automáticamente." : "Has llegado al final de esta parte del timeline."}</p>{page > 1 && <Link href="/home" className="btn-secondary mt-6">Volver a lo más reciente</Link>}</section> : <><div className="mt-8 space-y-5">{posts.map((post) => <PostCard key={post.id} post={post} me={me} sourceMap={sourceMap} movementNames={movementNames} />)}</div><nav aria-label="Páginas del timeline" className="mt-8 flex items-center justify-between gap-3 border-t border-line pt-5">{page > 1 ? <Link href={page === 2 ? "/home" : `/home?pagina=${page - 1}`} className="btn-secondary">← Más recientes</Link> : <span />}{hasOlder && <Link href={`/home?pagina=${page + 1}`} className="btn-secondary ml-auto">Anteriores →</Link>}</nav></>}
   </main>;
 }
 
