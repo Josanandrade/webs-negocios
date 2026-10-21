@@ -158,7 +158,8 @@ Estado: **VALIDADO**.
 - los siete días pueden permanecer cerrados;
 - en móvil, con todos cerrados, se conserva el comportamiento de scroll ya validado;
 - al abrir un día se posiciona correctamente bajo la cabecera;
-- los bloques de un día se preparan al abrirlo por primera vez y las reaperturas posteriores son inmediatas;
+- los bloques de un día se preparan al abrirlo por primera vez;
+- al cerrar un día, el contenido pesado se desmonta para evitar que la página conserve una altura/scroll excesivo;
 - los componentes pesados de registro de resultados, Strength/Weightlifting, historial contextual y ranking de fuerza se cargan cuando hacen falta, no como coste obligatorio al entrar en Semana.
 
 ## 8. Actividad, notas y resultados
@@ -268,14 +269,17 @@ Métricas principales:
 Estado: **VALIDADO**.
 
 Ubicación:
-- panel principal del Admin, debajo de los KPI principales.
+- panel principal del Admin.
 
-Incluye:
-- cumplimiento medio;
-- atletas que mejoran en WODs;
-- atletas que mejoran algún RM;
-- listado individual con cumplimiento, posición WOD media y fuerza;
-- selector 4/8/12 semanas.
+El Panel carga primero la información esencial y deja **Seguimiento** plegado por defecto. Los datos de seguimiento se solicitan cuando el admin abre ese bloque.
+
+Ventanas disponibles:
+- Semana en curso;
+- 4 semanas;
+- 8 semanas;
+- 12 semanas.
+
+Para históricos 4/8/12 semanas se conservan las métricas comparativas validadas. En semana en curso se priorizan cumplimiento, atletas con actividad y bloques completados hasta hoy.
 
 No mostrar una **posición WOD media global** de todos los usuarios, porque no aporta una lectura útil al coach.
 
@@ -317,18 +321,15 @@ El admin puede editar el sexo Hombre/Mujer del usuario desde su perfil.
 
 ## 16. Panel Admin
 
-Incluye:
+Estado de la carga principal: **VALIDADO 21/10/2026**.
+
+Primera vista:
 - semana actual;
 - estado;
-- accesos a programación y usuarios;
-- total de atletas;
-- accesos activos/pendientes;
-- pagos pendientes;
-- registros pendientes;
-- evolución de atletas;
-- actividad/notas recientes, situada por debajo del bloque de evolución.
+- KPI de atletas/accesos/pagos;
+- accesos rápidos.
 
-La carga de Evolución no debe bloquear la aparición de los KPI y contenido principal del panel.
+`Seguimiento` es plegable y no debe cargar evolución, notas o registros pendientes hasta abrirse. La carga de estas métricas no debe bloquear la aparición del Panel principal.
 
 ## 17. Gestión de usuarios
 
@@ -341,12 +342,14 @@ El admin puede:
 - editar sexo;
 - consultar actividad e historial.
 
+Desde 21/10/2026 `Usuarios` ya no ocupa una pestaña principal del Admin. Se accede desde `Ajustes → Usuarios`, conservando invitación, búsqueda por nombre/email/teléfono, filtros y todas las herramientas existentes.
+
 ## 18. Ajustes y comunicaciones
 
 ### Ajustes
 - bloqueo automático por impago;
 - visibilidad de semanas pasadas;
-- Web Push de admin;
+- gestión de Usuarios;
 - Mostrar mi evolución como atleta para admins.
 
 ### Email al publicar
@@ -358,23 +361,29 @@ El admin puede:
 - existe flujo de invitación por email;
 - la invitación no sustituye la aprobación manual del admin.
 
+### Web Push y campana
+Estado: **VALIDADO 21/10/2026**.
+
+- Todos los roles disponen de una campana de notificaciones junto a Cuenta.
+- El contador muestra avisos no leídos.
+- El centro persistente informa de reacciones a publicaciones, comentarios, respuestas y reacciones a comentarios.
+- No se notifica una acción propia al mismo usuario.
+- El usuario puede marcar una o todas como leídas.
+- Web Push es opcional y requiere permiso explícito del navegador/dispositivo.
+- Una cuenta que no active Push sigue conservando los avisos en la campana.
+- Se envió un aviso in-app a las 13 cuentas existentes para solicitar activación de Push.
+
 ## 19. Rendimiento y navegación — Fase 1
 
-Estado: **VALIDADO 16/10/2026**.
+Estado: **VALIDADO 16/10/2026**, con una parte revisada posteriormente por crecimiento funcional.
 
-Comportamientos protegidos:
+Comportamientos protegidos que siguen vigentes:
 - Ranking General/Masculina/Femenina cambia localmente sin recarga completa;
-- Semana prepara cada día solo cuando el usuario lo abre por primera vez;
-- una vez abierto, el contenido permanece disponible para reapertura rápida;
-- se reducen precargas automáticas de rutas/fichas/periodos que el usuario no ha solicitado;
-- Panel y Cuenta muestran primero el contenido principal y cargan Evolución después;
-- al entrar en Lemon RX se preparan en segundo plano y de forma secuencial las pantallas principales, priorizando Semana y Usuarios, para reducir la espera de la primera visita sin lanzar todas las rutas a la vez;
-- Semana no obliga a descargar desde el principio todos los componentes pesados de trackers/historial/ranking de fuerza;
-- la mejora debe conservar la sensación de fluidez validada también en la primera entrada a Semana y Usuarios, no solo en visitas repetidas.
+- Semana prepara cada día solo cuando el usuario lo abre;
+- Panel y Cuenta muestran primero el contenido principal;
+- Semana no obliga a descargar desde el principio todos los componentes pesados de trackers/historial/ranking de fuerza.
 
-Resultado de validación: Jose confirma que tras la ampliación de esta fase la app se percibe **mucho más fluida**.
-
-Esta fase no cambia la lógica de resultados, notas, programación ni datos.
+La estrategia de warm-up secuencial y prefetch por toque, aunque fue útil y se validó en una versión anterior, deja de considerarse contrato protegido desde el diagnóstico del 21/10/2026: con Home, notificaciones y más rutas empezó a generar peticiones duplicadas/concurrentes en móvil y se sustituye en la Fase 2.
 
 ## 20. Comportamientos que no debemos romper
 
@@ -396,8 +405,11 @@ Esta fase no cambia la lógica de resultados, notas, programación ni datos.
 - Admins como atletas con opt-out individual.
 - Gestión de usuarios.
 - Emails sin duplicados.
-- Push.
-- Rendimiento y experiencia móvil ya validados.
+- Campana y Push.
+- Home social automático y una sola publicación diaria por atleta.
+- Notas visibles antes de desplegar un bloque de Home.
+- Detalle `Ver entrenamiento` dentro del bloque social.
+- Navegación móvil inferior y Home como inicio de atletas.
 
 ## 21. Estrategia comercial futura — no funcional todavía
 
@@ -421,14 +433,22 @@ Nada de este bloque se considera todavía funcionalidad implementada.
 
 ## 22. Próximo bloque de rendimiento
 
-**Fase 2: optimizar el refresco después de guardar.**
+**Fase 2: reducir trabajo de navegación y después optimizar refrescos al guardar.**
 
-Objetivo funcional:
-- que marcar hecho, guardar nota o resultado se sienta más rápido;
-- actualizar únicamente las zonas afectadas;
-- evitar que el usuario vea información antigua después del guardado.
+Primer subbloque preparado 21/10/2026:
+- una pulsación móvil debe provocar una sola navegación;
+- eliminar la precarga automática global de pestañas privadas;
+- mantener prefetch solo cuando existe hover real en escritorio;
+- Home debe cargar un número acotado de publicaciones por página;
+- actualizar runtime a Node 22.
 
-Debe hacerse acción por acción y validarse antes de protegerlo como comportamiento definitivo.
+Estado: **CÓDIGO PREPARADO / PENDIENTE DE DESPLIEGUE Y VALIDACIÓN** por una pausa global de builds de Railway detectada el 21/10/2026.
+
+Después de validar este subbloque:
+- revisar Ranking para cargar solo el día/bloques solicitados;
+- revisar Semana para no adjuntar rankings masivos que no se han abierto;
+- reducir `revalidatePath` demasiado amplios tras reacciones, hecho, nota y resultado;
+- mantener datos inmediatamente frescos después del guardado.
 
 ## 23. Método para nuevas funcionalidades
 
@@ -452,3 +472,28 @@ Pasos concretos.
 - DESPLEGADO / PENDIENTE DE VALIDACIÓN
 - VALIDADO
 - REVERTIDO
+
+## 24. Home social — VALIDADO 21/10/2026
+
+- Home es la pantalla de entrada por defecto del atleta y de la PWA.
+- El sistema crea automáticamente como máximo una publicación por atleta y fecha de entrenamiento.
+- Marcar más bloques el mismo día actualiza esa publicación en lugar de crear otra.
+- No existe creación manual de posts.
+- La tarjeta muestra bloques completados, resultado, división cuando corresponde, kilos/series y nota.
+- La nota se ve antes de desplegar el bloque.
+- `Ver entrenamiento` muestra la programación original del bloque: contenido, movimientos, series, reps, porcentajes, descansos, Complex/EMOM y notas de programación recuperables.
+- Reacciones disponibles: 👍 ❤️ 🔥 💪 👏 😂 🍆 🍑 💦 🔩 🦍 🍼 🛴 😍.
+- Comentarios a nivel de publicación, respuestas y reacciones a comentarios.
+
+## 25. Navegación móvil — VALIDADO 21/10/2026
+
+Atleta móvil:
+- barra fija inferior;
+- orden principal: `Home · Semana · Ranking · RM's · Historial`;
+- Cuenta y campana permanecen en cabecera;
+- el logo Lemon RX lleva a Home.
+
+Admin móvil:
+- navegación inferior propia;
+- `CREAR` centrado físicamente en cabecera;
+- `Usuarios` se gestiona desde Ajustes.
