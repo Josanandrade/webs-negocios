@@ -14,7 +14,7 @@ function str(form: FormData, key: string) {
 }
 
 function safeNext(next: string) {
-  return next.startsWith("/") && !next.startsWith("//") ? next : "/";
+  return next.startsWith("/") && !next.startsWith("//") ? next : null;
 }
 
 async function origin() {
@@ -31,13 +31,17 @@ export async function signIn(_: AuthState, form: FormData): Promise<AuthState> {
   if (!email || !password) return { error: "Introduce tu email y contraseña.", email };
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data: auth, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) {
     if (error.code === "email_not_confirmed")
       return { error: "Confirma tu email antes de entrar. Revisa tu bandeja de entrada.", email };
     return { error: "Email o contraseña incorrectos.", email };
   }
-  redirect(safeNext(str(form, "next")));
+
+  const requested = safeNext(str(form, "next"));
+  if (requested) redirect(requested);
+  const { data: profile } = await supabase.from("profiles").select("role").eq("id", auth.user.id).maybeSingle<{ role: "admin" | "athlete" }>();
+  redirect(profile?.role === "admin" ? "/admin" : "/home");
 }
 
 export async function signUp(_: AuthState, form: FormData): Promise<AuthState> {
@@ -58,7 +62,7 @@ export async function signUp(_: AuthState, form: FormData): Promise<AuthState> {
     password,
     options: {
       data: { full_name: fullName.slice(0, 120), sex },
-      emailRedirectTo: `${await origin()}/auth/callback`,
+      emailRedirectTo: `${await origin()}/auth/callback?next=/home`,
     },
   });
 
@@ -82,7 +86,7 @@ export async function signUp(_: AuthState, form: FormData): Promise<AuthState> {
       sex,
     };
   }
-  redirect("/");
+  redirect("/home");
 }
 
 export async function requestPasswordReset(_: AuthState, form: FormData): Promise<AuthState> {
