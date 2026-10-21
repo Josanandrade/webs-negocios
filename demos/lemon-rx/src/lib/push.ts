@@ -3,11 +3,6 @@ import webpush from "web-push";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { supabaseEnv } from "@/lib/supabase/env";
 
-// Notificaciones al móvil (Web Push) para los admins. Necesita en Railway
-// VAPID_PUBLIC_KEY y VAPID_PRIVATE_KEY (las claves que identifican a la app
-// ante Apple y Google) y PUSH_SECRET para avisar de registros nuevos. Si faltan,
-// la app funciona igual y simplemente no avisa.
-
 export type PushTarget = { endpoint: string; p256dh: string; auth: string };
 export type PushMessage = { title: string; body: string; url: string; tag?: string };
 
@@ -19,7 +14,6 @@ export function pushConfigured() {
   return Boolean(process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY);
 }
 
-/** Envía la notificación a cada dispositivo. Devuelve los que ya no existen, para borrarlos. */
 export async function sendPush(targets: PushTarget[], message: PushMessage) {
   const publicKey = process.env.VAPID_PUBLIC_KEY;
   const privateKey = process.env.VAPID_PRIVATE_KEY;
@@ -49,16 +43,32 @@ export async function sendPush(targets: PushTarget[], message: PushMessage) {
   return { sent, gone };
 }
 
-/**
- * Avisa a los admins de un registro nuevo. Se llama justo después del registro,
- * sin sesión, así que la base de datos exige PUSH_SECRET para dar los destinos.
- */
+function systemDb() {
+  const { url, key } = supabaseEnv();
+  return createSupabaseClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
+}
+
+export async function notifyUser(recipientId: string, message: PushMessage) {
+  const token = process.env.PUSH_SECRET;
+  if (!token || !pushConfigured()) return 0;
+  const db = systemDb();
+  const { data, error } = await db.rpc("user_push_targets", { p_recipient: recipientId, p_token: token });
+  if (error) {
+    console.error("Aviso social:", error.message);
+    return 0;
+  }
+  const targets = (data ?? []) as PushTarget[];
+  if (targets.length === 0) return 0;
+  const { sent, gone } = await sendPush(targets, message);
+  if (gone.length > 0) await db.rpc("forget_push_subscriptions", { p_endpoints: gone, p_token: token });
+  return sent;
+}
+
 export async function notifyAdminsOfSignup(userId: string) {
   const token = process.env.PUSH_SECRET;
   if (!token || !pushConfigured()) return;
 
-  const { url, key } = supabaseEnv();
-  const db = createSupabaseClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
+  const db = systemDb();
   const { data, error } = await db.rpc("signup_push_targets", { p_user_id: userId, p_token: token });
   if (error) {
     console.error("Aviso de registro:", error.message);
