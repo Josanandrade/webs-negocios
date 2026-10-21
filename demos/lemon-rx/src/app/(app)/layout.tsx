@@ -6,7 +6,6 @@ import { AdminNav } from "@/components/admin-nav";
 import { UserNav } from "@/components/user-nav";
 import { Avatar } from "@/components/avatar";
 import { IntentLink } from "@/components/intent-link";
-import { NavigationWarmup } from "@/components/navigation-warmup";
 import { PushOptIn } from "@/components/push-opt-in";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
@@ -21,7 +20,6 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   return (
     <div className="min-h-dvh pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0">
-      <NavigationWarmup isAdmin={isAdmin} />
       <header className="sticky top-0 z-20 border-b border-line bg-ink pt-[env(safe-area-inset-top)]">
         <div className="relative mx-auto flex h-14 max-w-5xl items-center justify-between gap-2 px-4 md:h-16 md:px-6">
           <IntentLink href={isAdmin ? "/admin" : "/home"} className="press -mx-1 shrink-0 px-1 py-2" aria-label="Lemon RX, inicio"><Wordmark className="text-[26px] md:text-[28px]" /></IntentLink>
