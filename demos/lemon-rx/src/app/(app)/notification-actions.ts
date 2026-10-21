@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { getViewer } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 
@@ -52,6 +53,12 @@ export async function markNotificationRead(id: string): Promise<void> {
     .eq("recipient_id", viewer.profile.id);
   revalidatePath("/notificaciones");
   revalidatePath("/", "layout");
+}
+
+export async function openNotification(id: string, href: string): Promise<never> {
+  const safeHref = href.startsWith("/") && !href.startsWith("//") ? href : "/notificaciones";
+  await markNotificationRead(id);
+  redirect(safeHref);
 }
 
 export async function markAllNotificationsRead(): Promise<void> {
