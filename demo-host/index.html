@@ -2,15 +2,433 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <title>Moreno &amp; Casado · Reformas y Proyectos · Sevilla y Aljarafe</title>
+  <meta name="description" content="Reformas integrales, cocinas, baños, locales y redistribución de espacios en Sevilla y el Aljarafe. Pide tu presupuesto por WhatsApp.">
+  <meta name="theme-color" content="#EFECE6">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Noto+Serif+Display:ital,wght@0,300..700;1,300..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preload" as="image" href="assets/img/hero-salon-cocina.svg">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <header class="top" data-top>
+    <div class="top__in">
+      <a class="brand" href="#" aria-label="Moreno &amp; Casado, inicio">
+        <span class="brand__mark" aria-hidden="true">M<i>&amp;</i>C</span>
+        <span class="brand__txt"><b>Moreno &amp; Casado</b><small>Reformas y Proyectos</small></span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="#servicios">Servicios</a>
+        <a href="#redistribucion">Proyectos</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#antes-despues">Antes / después</a>
+        <a href="#proceso">Proceso</a>
+      </nav>
+      <a class="btn btn--ink btn--sm top__cta" href="#presupuesto">Pedir presupuesto</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-btn>
+        <span></span><span></span><span class="sr">Menú</span>
+      </button>
+    </div>
+    <div class="menu" id="menu" data-menu hidden>
+      <nav aria-label="Menú móvil">
+        <a href="#servicios"><em>01</em>Servicios</a>
+        <a href="#redistribucion"><em>02</em>Proyectos</a>
+        <a href="#portfolio"><em>03</em>Portfolio</a>
+        <a href="#antes-despues"><em>04</em>Antes / después</a>
+        <a href="#proceso"><em>05</em>Proceso</a>
+        <a href="#presupuesto"><em>06</em>Presupuesto</a>
+      </nav>
+      <a class="btn btn--wa" href="https://wa.me/34660094939" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp 660 094 939</a>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-t">
+      <div class="hero__meta wrap">
+        <span class="mono">Lámina 00 — Portada</span>
+        <span class="mono">Sevilla · Aljarafe</span>
+      </div>
+      <div class="hero__grid wrap">
+        <div class="hero__copy">
+          <p class="eyebrow" data-r><span class="dot"></span>Reformas y proyectos</p>
+          <h1 id="hero-t" class="hero__t" data-split>
+            <span>Reformar</span>
+            <span>es volver</span>
+            <span>a <em>proyectar</em></span>
+            <span>tu espacio.</span>
+          </h1>
+          <p class="hero__lead" data-r>Reformas integrales, cocinas, baños y locales en Sevilla y el Aljarafe. Antes de levantar una sola baldosa, pensamos la distribución, la luz y cómo vas a vivir el espacio.</p>
+          <div class="hero__ctas" data-r>
+            <a class="btn btn--ink" href="#presupuesto">Solicitar presupuesto <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn--line" href="https://wa.me/34660094939?text=Hola%2C%20quer%C3%ADa%20informaci%C3%B3n%20sobre%20una%20reforma." target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a>
+          </div>
+        </div>
+
+        <figure class="hero__img" data-clip>
+          <img src="assets/img/hero-salon-cocina.svg" alt="Ilustración de un salón cocina abierto con isla, ventanal lateral y suelo de madera" width="1600" height="1067" fetchpriority="high">
+          <svg class="cota cota--h" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M1 2v6M99 2v6M1 5h98"/></svg>
+          <span class="cota__lbl mono">Salón · cocina abiertos</span>
+          <figcaption class="tag">Imagen demostrativa</figcaption>
+        </figure>
+
+        <figure class="hero__img2" data-clip data-delay="1">
+          <img src="assets/img/cocina-despues.svg" alt="Ilustración de cocina con isla oscura y encimera clara" width="1600" height="1067" loading="eager">
+          <figcaption class="mono">Fig. 02 — Cocina</figcaption>
+        </figure>
+      </div>
+
+      <div class="hero__strip wrap" data-r>
+        <ul class="strip">
+          <li><span class="mono">01</span>Reformas integrales</li>
+          <li><span class="mono">02</span>Cocinas</li>
+          <li><span class="mono">03</span>Baños</li>
+          <li><span class="mono">04</span>Locales</li>
+          <li><span class="mono">05</span>Proyectos y redistribución</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- MANIFIESTO -->
+    <section class="manifest wrap" aria-label="Enfoque">
+      <p class="manifest__t" data-words>Una reforma no empieza en la obra. Empieza en el <em>plano</em>: qué tabique sobra, por dónde entra la luz, dónde se cocina, dónde se descansa. Lo demás es ejecutarlo <em>con cuidado</em>.</p>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="services" id="servicios" aria-labelledby="serv-t">
+      <div class="wrap">
+        <header class="sec-h">
+          <span class="mono sec-h__n">§ 01</span>
+          <h2 id="serv-t" class="sec-h__t" data-r>Qué <em>hacemos</em></h2>
+          <p class="sec-h__p" data-r>Cinco tipos de trabajo, un mismo criterio: entender el espacio antes de tocarlo.</p>
+        </header>
+
+        <ol class="svc" data-svc>
+          <li class="svc__i" data-r data-img="assets/img/hero-salon-cocina.svg">
+            <a href="#presupuesto" data-tipo="Reforma integral">
+              <span class="svc__n mono">01</span>
+              <span class="svc__t">Reformas integrales</span>
+              <span class="svc__d">La vivienda completa como un solo proyecto: distribución, instalaciones y acabados pensados juntos, no por partes.</span>
+              <span class="svc__go" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+              <img class="svc__thumb" src="assets/img/hero-salon-cocina.svg" alt="" loading="lazy">
+            </a>
+          </li>
+          <li class="svc__i" data-r data-img="assets/img/cocina-despues.svg">
+            <a href="#presupuesto" data-tipo="Cocina">
+              <span class="svc__n mono">02</span>
+              <span class="svc__t">Cocinas</span>
+              <span class="svc__d">Cocinas cerradas, abiertas o con isla. Recorridos de trabajo, almacenaje y la relación con el salón.</span>
+              <span class="svc__go" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+              <img class="svc__thumb" src="assets/img/cocina-despues.svg" alt="" loading="lazy">
+            </a>
+          </li>
+          <li class="svc__i" data-r data-img="assets/img/bano-despues.svg">
+            <a href="#presupuesto" data-tipo="Baño">
+              <span class="svc__n mono">03</span>
+              <span class="svc__t">Baños</span>
+              <span class="svc__d">Del baño de bañera al plato de ducha, revestimientos, mueble y luz. Espacios pequeños resueltos con precisión.</span>
+              <span class="svc__go" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+              <img class="svc__thumb" src="assets/img/bano-despues.svg" alt="" loading="lazy">
+            </a>
+          </li>
+          <li class="svc__i" data-r data-img="assets/img/local-comercial.svg">
+            <a href="#presupuesto" data-tipo="Local">
+              <span class="svc__n mono">04</span>
+              <span class="svc__t">Locales</span>
+              <span class="svc__d">Adecuación de locales para que el espacio trabaje para el negocio: circulación, mostrador, exposición e iluminación.</span>
+              <span class="svc__go" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+              <img class="svc__thumb" src="assets/img/local-comercial.svg" alt="" loading="lazy">
+            </a>
+          </li>
+          <li class="svc__i" data-r data-img="assets/img/comedor.svg">
+            <a href="#redistribucion" data-tipo="Proyecto y redistribución">
+              <span class="svc__n mono">05</span>
+              <span class="svc__t">Proyectos y redistribución</span>
+              <span class="svc__d">Replantear cómo se organiza la casa: abrir, unir o dividir estancias según cómo vives hoy.</span>
+              <span class="svc__go" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+              <img class="svc__thumb" src="assets/img/comedor.svg" alt="" loading="lazy">
+            </a>
+          </li>
+        </ol>
+      </div>
+      <div class="svc-float" aria-hidden="true" data-svc-float><img alt=""></div>
+    </section>
+
+    <!-- REDISTRIBUCIÓN -->
+    <section class="plan" id="redistribucion" aria-labelledby="plan-t">
+      <div class="wrap plan__grid">
+        <div class="plan__copy">
+          <span class="mono sec-h__n">§ 02</span>
+          <h2 id="plan-t" class="sec-h__t" data-r>Proyectos y <em>redistribución</em></h2>
+          <p data-r>Muchas casas no necesitan más metros, necesitan otros metros. Mover un tabique, abrir la cocina al salón o ganar un baño cambia la forma de vivir más que cualquier acabado.</p>
+          <p data-r>Antes de presupuestar, se dibuja: así ves la propuesta sobre plano y decides con información.</p>
+          <div class="seg" role="tablist" aria-label="Ver planta" data-r>
+            <button role="tab" aria-selected="true" data-plan="antes">Planta actual</button>
+            <button role="tab" aria-selected="false" data-plan="despues">Propuesta</button>
+            <span class="seg__pill" aria-hidden="true"></span>
+          </div>
+          <ul class="legend mono" data-r>
+            <li><i class="lg lg--keep"></i>Muro existente</li>
+            <li><i class="lg lg--out"></i>Se elimina</li>
+            <li><i class="lg lg--new"></i>Tabique nuevo</li>
+          </ul>
+        </div>
+
+        <figure class="plan__fig" data-r data-planfig data-state="antes">
+          <svg viewBox="0 0 640 440" role="img" aria-labelledby="plan-svg-t">
+            <title id="plan-svg-t">Planta de vivienda ilustrativa: en la propuesta la cocina se abre al salón y el baño se amplía</title>
+            <defs>
+              <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="1.2"/></pattern>
+            </defs>
+            <g class="pl-grid">
+              <path d="M40 0V440M120 0V440M200 0V440M280 0V440M360 0V440M440 0V440M520 0V440M600 0V440M0 40H640M0 120H640M0 200H640M0 280H640M0 360H640"/>
+            </g>
+            <!-- cotas -->
+            <g class="pl-dim">
+              <path d="M60 24H580M60 18v12M580 18v12"/>
+              <text x="320" y="16">planta tipo · sin escala</text>
+              <path d="M600 60V400M594 60h12M594 400h12"/>
+            </g>
+            <!-- muros exteriores -->
+            <rect class="pl-ext" x="60" y="60" width="520" height="340"/>
+            <!-- huecos de fachada -->
+            <g class="pl-win"><path d="M110 60h90M330 60h110M600 140v0M580 120v90M110 400h80M380 400h120"/></g>
+            <!-- muros que se mantienen -->
+            <g class="pl-keep">
+              <path d="M330 60V220"/>
+              <path d="M330 280V400"/>
+              <path d="M330 280H380M420 280H580"/>
+              <path d="M450 280V400"/>
+            </g>
+            <!-- muros que se eliminan -->
+            <g class="pl-out">
+              <path d="M60 200H230"/>
+              <path d="M230 60V160"/>
+              <path d="M450 330H580"/>
+            </g>
+            <!-- tabiques nuevos -->
+            <g class="pl-new">
+              <path pathLength="1" d="M60 330H140V400"/>
+              <path pathLength="1" d="M410 280V400"/>
+            </g>
+            <!-- isla (propuesta) -->
+            <rect class="pl-island" x="140" y="180" width="120" height="36" rx="2"/>
+            <!-- etiquetas antes -->
+            <g class="pl-lbl pl-lbl--antes">
+              <text x="145" y="122">Cocina</text><text x="145" y="140" class="s">cerrada</text>
+              <text x="200" y="305">Comedor</text>
+              <text x="455" y="170">Salón</text>
+              <text x="390" y="345">Dorm.</text>
+              <text x="515" y="310" class="s">Trastero</text>
+              <text x="515" y="372">Aseo</text>
+            </g>
+            <!-- etiquetas después -->
+            <g class="pl-lbl pl-lbl--despues">
+              <text x="200" y="112">Cocina abierta</text><text x="200" y="130" class="s">con isla</text>
+              <text x="240" y="295">Salón · comedor</text>
+              <text x="100" y="370">Desp.</text>
+              <text x="455" y="170">Dormitorio</text>
+              <text x="370" y="345" class="s">Vestidor</text>
+              <text x="515" y="345">Baño amplio</text>
+            </g>
+          </svg>
+          <figcaption class="mono">Plano ilustrativo de ejemplo · no corresponde a una obra real</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section class="portfolio" id="portfolio" aria-labelledby="port-t">
+      <div class="wrap">
+        <header class="sec-h sec-h--row">
+          <div>
+            <span class="mono sec-h__n">§ 03</span>
+            <h2 id="port-t" class="sec-h__t" data-r>Portfolio <em>visual</em></h2>
+          </div>
+          <div class="chips" role="group" aria-label="Filtrar portfolio" data-r>
+            <button class="chip is-on" data-f="all" aria-pressed="true">Todo</button>
+            <button class="chip" data-f="integral" aria-pressed="false">Integrales</button>
+            <button class="chip" data-f="cocina" aria-pressed="false">Cocinas</button>
+            <button class="chip" data-f="bano" aria-pressed="false">Baños</button>
+            <button class="chip" data-f="local" aria-pressed="false">Locales</button>
+          </div>
+        </header>
+        <p class="note mono" data-r>Galería de muestra con escenas ilustradas. Aquí irán las fotografías reales de las obras de Moreno &amp; Casado.</p>
+
+        <ul class="gal" data-gal>
+          <li class="gal__i gal__i--xl" data-cat="integral">
+            <button class="gal__b" data-lb="assets/img/hero-salon-cocina.svg" data-cap="Salón y cocina en un mismo espacio">
+              <img src="assets/img/hero-salon-cocina.svg" alt="Ilustración de salón y cocina abiertos" loading="lazy">
+              <span class="gal__c"><span class="mono">A-01</span>Salón y cocina en un mismo espacio</span>
+            </button>
+          </li>
+          <li class="gal__i" data-cat="cocina">
+            <button class="gal__b" data-lb="assets/img/cocina-despues.svg" data-cap="Cocina con isla y columnas">
+              <img src="assets/img/cocina-despues.svg" alt="Ilustración de cocina con isla" loading="lazy">
+              <span class="gal__c"><span class="mono">C-02</span>Cocina con isla y columnas</span>
+            </button>
+          </li>
+          <li class="gal__i gal__i--tall" data-cat="bano">
+            <button class="gal__b" data-lb="assets/img/bano-despues.svg" data-cap="Baño con ducha de obra">
+              <img src="assets/img/bano-despues.svg" alt="Ilustración de baño con ducha y mueble suspendido" loading="lazy">
+              <span class="gal__c"><span class="mono">B-03</span>Baño con ducha de obra</span>
+            </button>
+          </li>
+          <li class="gal__i" data-cat="integral">
+            <button class="gal__b" data-lb="assets/img/dormitorio.svg" data-cap="Dormitorio con cabecero de lamas">
+              <img src="assets/img/dormitorio.svg" alt="Ilustración de dormitorio con pared verde y cabecero de madera" loading="lazy">
+              <span class="gal__c"><span class="mono">A-04</span>Dormitorio con cabecero de lamas</span>
+            </button>
+          </li>
+          <li class="gal__i gal__i--wide" data-cat="local">
+            <button class="gal__b" data-lb="assets/img/local-comercial.svg" data-cap="Local con mostrador y exposición">
+              <img src="assets/img/local-comercial.svg" alt="Ilustración de local comercial con mostrador y estanterías" loading="lazy">
+              <span class="gal__c"><span class="mono">L-05</span>Local con mostrador y exposición</span>
+            </button>
+          </li>
+          <li class="gal__i" data-cat="integral">
+            <button class="gal__b" data-lb="assets/img/comedor.svg" data-cap="Comedor con arco de paso">
+              <img src="assets/img/comedor.svg" alt="Ilustración de comedor con arco y ventanal" loading="lazy">
+              <span class="gal__c"><span class="mono">A-06</span>Comedor con arco de paso</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ANTES / DESPUÉS -->
+    <section class="ba" id="antes-despues" aria-labelledby="ba-t">
+      <div class="wrap">
+        <header class="sec-h sec-h--row">
+          <div>
+            <span class="mono sec-h__n">§ 04</span>
+            <h2 id="ba-t" class="sec-h__t" data-r>Antes <span class="slash">/</span> <em>después</em></h2>
+          </div>
+          <div class="seg seg--dark" role="tablist" aria-label="Elegir estancia" data-r>
+            <button role="tab" aria-selected="true" data-ba="cocina">Cocina</button>
+            <button role="tab" aria-selected="false" data-ba="bano">Baño</button>
+            <span class="seg__pill" aria-hidden="true"></span>
+          </div>
+        </header>
+
+        <div class="cmp" data-cmp style="--pos:50%">
+          <img class="cmp__a" src="assets/img/cocina-despues.svg" alt="Después: cocina abierta con isla" data-after>
+          <div class="cmp__b"><img src="assets/img/cocina-antes.svg" alt="Antes: cocina cerrada con azulejo y muebles de madera" data-before></div>
+          <span class="cmp__lbl cmp__lbl--b mono">Antes</span>
+          <span class="cmp__lbl cmp__lbl--a mono">Después</span>
+          <div class="cmp__h" aria-hidden="true"><span><svg><use href="#i-drag"/></svg></span></div>
+          <input class="cmp__r" type="range" min="0" max="100" value="50" step="0.5" aria-label="Deslizar para comparar antes y después">
+        </div>
+        <p class="ba__cap" data-r><span class="mono" data-ba-cap>Cocina — se elimina el tabique, se abre al salón y se renuevan suelo, mobiliario e iluminación.</span><span class="mono ba__dem">Comparativa ilustrada de ejemplo</span></p>
+      </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section class="process" id="proceso" aria-labelledby="proc-t">
+      <div class="wrap process__grid">
+        <div class="process__h">
+          <span class="mono sec-h__n">§ 05</span>
+          <h2 id="proc-t" class="sec-h__t" data-r>De la idea <em>a la entrega</em></h2>
+          <p data-r>Un recorrido claro, para que sepas en qué punto está tu reforma y qué viene después.</p>
+          <a class="btn btn--line" href="#presupuesto" data-r>Empezar por el paso 1</a>
+        </div>
+        <ol class="steps" data-steps>
+          <li class="step" data-r>
+            <span class="step__n">1</span>
+            <div><h3>Primera conversación</h3><p>Nos cuentas qué quieres cambiar y por qué. Fotos, medidas aproximadas o un plano, si lo tienes, ayudan desde el principio.</p></div>
+          </li>
+          <li class="step" data-r>
+            <span class="step__n">2</span>
+            <div><h3>Visita y toma de medidas</h3><p>Vemos el espacio en persona: estado actual, instalaciones, luz y lo que condiciona la obra.</p></div>
+          </li>
+          <li class="step" data-r>
+            <span class="step__n">3</span>
+            <div><h3>Propuesta y presupuesto</h3><p>Distribución, materiales y presupuesto desglosado para que decidas sabiendo qué incluye cada partida.</p></div>
+          </li>
+          <li class="step" data-r>
+            <span class="step__n">4</span>
+            <div><h3>Obra</h3><p>Ejecución ordenada por fases, con un punto de contacto para resolver dudas durante los trabajos.</p></div>
+          </li>
+          <li class="step" data-r>
+            <span class="step__n">5</span>
+            <div><h3>Entrega</h3><p>Repaso final juntos, limpieza y entrega del espacio listo para vivir o abrir al público.</p></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- PRESUPUESTO -->
+    <section class="quote" id="presupuesto" aria-labelledby="q-t">
+      <div class="wrap quote__grid">
+        <div class="quote__h">
+          <span class="mono sec-h__n">§ 06</span>
+          <h2 id="q-t" class="quote__t" data-r>Cuéntanos tu <em>proyecto</em>.</h2>
+          <p data-r>Rellena tres datos y se abrirá WhatsApp con el mensaje preparado. Sin compromiso.</p>
+          <div class="quote__direct" data-r>
+            <a class="phone" href="tel:+34660094939"><span class="mono">Teléfono</span>660 094 939</a>
+            <a class="phone" href="https://wa.me/34660094939" target="_blank" rel="noopener"><span class="mono">WhatsApp</span>+34 660 094 939</a>
+            <p class="phone"><span class="mono">Zona de trabajo</span>Sevilla y Aljarafe</p>
+          </div>
+        </div>
+
+        <form class="form" data-form data-r novalidate>
+          <fieldset>
+            <legend class="mono">01 — Tipo de trabajo</legend>
+            <div class="opts">
+              <label><input type="radio" name="tipo" value="Reforma integral" checked><span>Reforma integral</span></label>
+              <label><input type="radio" name="tipo" value="Cocina"><span>Cocina</span></label>
+              <label><input type="radio" name="tipo" value="Baño"><span>Baño</span></label>
+              <label><input type="radio" name="tipo" value="Local"><span>Local</span></label>
+              <label><input type="radio" name="tipo" value="Proyecto y redistribución"><span>Redistribución</span></label>
+            </div>
+          </fieldset>
+          <div class="row2">
+            <label class="fld"><span class="mono">02 — Localidad</span><input name="zona" type="text" placeholder="p. ej. Mairena del Aljarafe" autocomplete="address-level2"></label>
+            <label class="fld"><span class="mono">03 — Superficie aprox.</span><input name="m2" type="text" inputmode="numeric" placeholder="m² (si lo sabes)"></label>
+          </div>
+          <label class="fld"><span class="mono">04 — Qué te gustaría cambiar</span><textarea name="msg" rows="3" placeholder="Abrir la cocina al salón, cambiar bañera por ducha…"></textarea></label>
+          <div class="form__end">
+            <button class="btn btn--wa btn--lg" type="submit"><svg aria-hidden="true"><use href="#i-wa"/></svg>Enviar por WhatsApp</button>
+            <p class="mono form__fine">Se abrirá WhatsApp con tu mensaje. No se guarda ningún dato en esta web.</p>
+          </div>
+        </form>
+      </div>
+    </section>
   </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <p class="foot__big" aria-hidden="true">Moreno <em>&amp;</em> Casado</p>
+      <div class="foot__row">
+        <p>Reformas y Proyectos<br>Sevilla · Aljarafe</p>
+        <p><a href="tel:+34660094939">660 094 939</a><br><a href="https://wa.me/34660094939" target="_blank" rel="noopener">WhatsApp</a></p>
+        <p class="mono foot__demo">Demo de diseño. Imágenes ilustrativas, no corresponden a obras reales.</p>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-fab" href="https://wa.me/34660094939?text=Hola%2C%20quer%C3%ADa%20pedir%20presupuesto%20para%20una%20reforma." target="_blank" rel="noopener" aria-label="Escribir por WhatsApp" data-fab>
+    <svg aria-hidden="true"><use href="#i-wa"/></svg><span>Presupuesto</span>
+  </a>
+
+  <dialog class="lb" data-lb-dlg aria-label="Imagen ampliada">
+    <figure><img alt=""><figcaption class="mono"></figcaption></figure>
+    <button class="lb__x" type="button" aria-label="Cerrar" data-lb-close>×</button>
+  </dialog>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-drag" viewBox="0 0 24 24"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3Z"/></symbol>
+  </svg>
+
+  <script src="main.js" defer></script>
 </body>
 </html>
