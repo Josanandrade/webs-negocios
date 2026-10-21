@@ -1,5 +1,9 @@
+"use client";
+
 import Link from "next/link";
-import type { CoachEvolution, EvolutionWindow } from "@/lib/evolution";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useTransition } from "react";
+import type { CoachEvolution, CoachEvolutionWindow } from "@/lib/evolution";
 
 function value(n: number | null, suffix = "") {
   return n == null ? "—" : `${n.toLocaleString("es-ES", { maximumFractionDigits: 1 })}${suffix}`;
@@ -10,7 +14,11 @@ function averagePosition(position: number | null, participants: number | null) {
   return `${Math.round(position)}/${Math.max(1, Math.round(participants))}`;
 }
 
-export function CoachEvolutionPanel({ evolution, weeks }: { evolution: CoachEvolution | null; weeks: EvolutionWindow }) {
+export function CoachEvolutionPanel({ evolution, weeks }: { evolution: CoachEvolution | null; weeks: CoachEvolutionWindow }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [changing, startTransition] = useTransition();
   const athletes = [...(evolution?.athletes ?? [])].sort((a, b) => {
     const aa = a.current.compliance.pct ?? 101;
     const bb = b.current.compliance.pct ?? 101;
@@ -19,19 +27,34 @@ export function CoachEvolutionPanel({ evolution, weeks }: { evolution: CoachEvol
   const complianceRows = athletes
     .filter((a) => a.current.compliance.programmed > 0)
     .sort((a, b) => a.current.compliance.completed - b.current.compliance.completed || (a.current.compliance.pct ?? 101) - (b.current.compliance.pct ?? 101) || a.full_name.localeCompare(b.full_name, "es"));
+  const currentWeek = weeks === 1;
+  const activeThisWeek = athletes.filter((a) => a.current.compliance.completed > 0).length;
+  const completedThisWeek = evolution?.summary.completed_blocks ?? athletes.reduce((sum, a) => sum + a.current.compliance.completed, 0);
+
+  function changeWindow(value: string) {
+    const next = value === "4" ? 4 : value === "8" ? 8 : value === "12" ? 12 : 1;
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("seguimiento", "1");
+    params.set("evolucion", String(next));
+    startTransition(() => router.replace(`${pathname}?${params.toString()}`, { scroll: false }));
+  }
 
   return (
-    <section className="mt-10" aria-labelledby="coach-evolution-title">
+    <div aria-labelledby="coach-evolution-title">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="eyebrow">Seguimiento</p>
-          <h2 id="coach-evolution-title" className="font-display text-[24px] font-bold uppercase">Evolución de atletas</h2>
+          <p className="eyebrow">Datos</p>
+          <h3 id="coach-evolution-title" className="font-display text-[24px] font-bold uppercase">Evolución de atletas</h3>
         </div>
-        <nav className="flex gap-1" aria-label="Periodo de evolución del panel">
-          {([4, 8, 12] as EvolutionWindow[]).map((n) => (
-            <Link key={n} href={`/admin?evolucion=${n}`} prefetch={false} className={`press rounded-md px-3 py-2 text-[13px] font-bold ${weeks === n ? "bg-lemon text-ink" : "bg-panel text-chalk-2"}`}>{n} sem</Link>
-          ))}
-        </nav>
+        <label className="min-w-[180px]">
+          <span className="sr-only">Periodo de seguimiento</span>
+          <select value={String(weeks)} onChange={(e) => changeWindow(e.target.value)} disabled={changing} className="field min-h-11 py-2 text-[14px] font-semibold">
+            <option value="1">Semana en curso</option>
+            <option value="4">Últimas 4 semanas</option>
+            <option value="8">Últimas 8 semanas</option>
+            <option value="12">Últimas 12 semanas</option>
+          </select>
+        </label>
       </div>
 
       {!evolution ? (
@@ -40,8 +63,8 @@ export function CoachEvolutionPanel({ evolution, weeks }: { evolution: CoachEvol
         <>
           <dl className="mt-4 grid grid-cols-1 gap-px overflow-hidden rounded-lg bg-line sm:grid-cols-3">
             <Stat label="Cumplimiento medio" value={value(evolution.summary.avg_compliance_pct, "%")} />
-            <Stat label="Mejoran en WODs" value={String(evolution.summary.athletes_improving_wods)} />
-            <Stat label="Mejoran algún RM" value={String(evolution.summary.athletes_improving_rm)} />
+            {currentWeek ? <Stat label="Atletas con actividad" value={String(activeThisWeek)} /> : <Stat label="Mejoran en WODs" value={String(evolution.summary.athletes_improving_wods)} />}
+            {currentWeek ? <Stat label="Bloques completados" value={String(completedThisWeek)} /> : <Stat label="Mejoran algún RM" value={String(evolution.summary.athletes_improving_rm)} />}
           </dl>
 
           <details className="mt-3 rounded-lg border border-line bg-panel px-4 py-3">
@@ -85,10 +108,10 @@ export function CoachEvolutionPanel({ evolution, weeks }: { evolution: CoachEvol
               </ul>
             </div>
           )}
-          <p className="mt-3 text-[12px] leading-[1.45] text-chalk-3">Ordenados por cumplimiento para detectar quién puede necesitar seguimiento. El cumplimiento solo cuenta bloques programados hasta hoy. La posición WOD media se calcula dentro de la misma división en los WODs comparables.</p>
+          <p className="mt-3 text-[12px] leading-[1.45] text-chalk-3">{currentWeek ? "La semana en curso cuenta desde el lunes hasta hoy. " : ""}Ordenados por cumplimiento para detectar quién puede necesitar seguimiento. El cumplimiento solo cuenta bloques programados hasta hoy. La posición WOD media se calcula dentro de la misma división y sexo en los WODs comparables.</p>
         </>
       )}
-    </section>
+    </div>
   );
 }
 
