@@ -34,7 +34,7 @@ export default async function AdminHome({ searchParams }: { searchParams: Promis
   if (settings.auto_block_unpaid) withAccessQuery.eq("payment_status", "paid");
 
   const [weekResult, athletesResult, withAccessResult, pendingPaymentResult] = await Promise.all([
-    supabase.from("weeks").select("id, status").eq("start_date", thisWeek).maybeSingle<{ id: string; status: string }>(),
+    supabase.from("weeks").select("id, status").eq("start_date", thisWeek).maybeSingle<{ id: string; status: "draft" | "published" }>(),
     supabase.from("profiles").select("id", { count: "exact", head: true }).eq("role", "athlete"),
     withAccessQuery,
     supabase.from("profiles").select("id", { count: "exact", head: true }).eq("role", "athlete").eq("payment_status", "pending"),
