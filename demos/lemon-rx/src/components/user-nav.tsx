@@ -11,8 +11,33 @@ const ITEMS = [
   { href: "/historial", label: "Historial", match: (p: string) => p.startsWith("/historial") },
 ];
 
-export function UserNav() {
+export function UserNav({ variant }: { variant: "top" | "bottom" }) {
   const pathname = usePathname();
+
+  if (variant === "top") {
+    return (
+      <nav aria-label="Principal" className="hidden min-w-0 md:block">
+        <ul className="flex items-center gap-1">
+          {ITEMS.map((item) => {
+            const active = item.match(pathname);
+            return (
+              <li key={item.href}>
+                <IntentLink
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`press relative flex h-11 items-center px-2 font-display text-[14px] font-bold uppercase tracking-[0.04em] ${active ? "text-chalk" : "text-chalk-3 hover:text-chalk"}`}
+                >
+                  {item.label}
+                  {active && <span className="absolute inset-x-2 bottom-1 h-[3px] bg-lemon" aria-hidden />}
+                </IntentLink>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    );
+  }
+
   return (
     <nav aria-label="Principal" className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-ink pb-[env(safe-area-inset-bottom)] md:hidden">
       <ul className="grid w-full grid-cols-5">
