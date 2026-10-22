@@ -41,13 +41,13 @@ export default async function HomePage({ searchParams }: PageProps<"/home">) {
   const sourceBlocks = sourceRows ?? [];
   const movementIds = [...new Set(sourceBlocks.flatMap((block) => { const ids: string[] = []; if (block.movement_id) ids.push(block.movement_id); for (const row of block.complex_movements ?? []) ids.push(row.movement_id); for (const section of block.builder_sections ?? []) for (const item of section.items) { if (item.type === "exercise") ids.push(item.movement_id); if (item.type === "complex") for (const movement of item.movements) ids.push(movement.movement_id); } return ids; }))];
   const reactionUserIds = [...new Set(posts.flatMap((post) => [...post.workout_post_reactions.map((reaction) => reaction.user_id), ...post.workout_post_comments.flatMap((comment) => (comment.workout_comment_reactions ?? []).map((reaction) => reaction.user_id))]))];
-  const [{ data: movements }, reactionProfilesResult] = await Promise.all([
-    movementIds.length ? supabase.from("movements").select("id, name").in("id", movementIds).returns<Array<{ id: string; name: string }>>() : Promise.resolve({ data: [] as Array<{ id: string; name: string }> }),
-    reactionUserIds.length ? supabase.rpc("social_reaction_actor_names", { p_user_ids: reactionUserIds }).returns<Array<{ user_id: string; full_name: string }>>() : Promise.resolve({ data: [] as Array<{ user_id: string; full_name: string }> }),
-  ]);
+  const movementsPromise = movementIds.length ? supabase.from("movements").select("id, name").in("id", movementIds).returns<Array<{ id: string; name: string }>>() : Promise.resolve({ data: [] as Array<{ id: string; name: string }> });
+  const reactionProfilesPromise = reactionUserIds.length ? supabase.rpc("social_reaction_actor_names", { p_user_ids: reactionUserIds }).returns<Array<{ user_id: string; full_name: string }>>() : Promise.resolve({ data: [] as Array<{ user_id: string; full_name: string }> });
+  const [movementsResult, reactionProfilesResult] = await Promise.all([movementsPromise, reactionProfilesPromise]);
+  const movements = movementsResult.data ?? [];
   const reactionProfiles = reactionProfilesResult.data ?? [];
   const sourceMap = new Map(sourceBlocks.map((block) => [block.id, block]));
-  const movementNames = Object.fromEntries((movements ?? []).map((row) => [row.id, row.name]));
+  const movementNames = Object.fromEntries(movements.map((row) => [row.id, row.name]));
   const reactionNames: Names = Object.fromEntries(reactionProfiles.map((row) => [row.user_id, row.full_name || "Atleta"]));
   const me = viewer.profile.id;
 
