@@ -17,10 +17,27 @@ Auditoría inicial: 13/10/2026.
 - Supabase JS: 2.117.3
 - Supabase SSR: 0.12.7
 - Web Push: 3.6.7
-- Runtime productivo observado a 21/10/2026 antes de Fase 2: Node 20.20.2
-- Cambio preparado: Node 22 (`>=22 <23`), pendiente de despliegue efectivo por pausa de builds de Railway.
+- Runtime productivo actual: Node 22 (`>=22 <23`)
+- Producción web actual: Vercel
+- Alias estable: `https://lemon-rx.vercel.app`
+- Región Functions Vercel: Dublín (`dub1`)
 
 ## 2. Infraestructura
+
+### Vercel
+
+Estado: **PRODUCCIÓN ACTIVA / VALIDADA 22/10/2026**.
+
+Proyecto Vercel:
+- Project ID `prj_GN1NzVeXFmr9fXdySTVR0n0nhGpd`
+- nombre interno del proyecto: `webs-negocios`
+- root: `demos/lemon-rx`
+- framework: Next.js
+- Node: 22.x
+- región de Functions: `dub1`
+- alias público estable: `lemon-rx.vercel.app`
+
+El commit de producción validado para este bloque es `3740789dac08a2d778d65d93ed8bf112aaef1d35`.
 
 ### Railway
 
@@ -30,19 +47,10 @@ Proyecto:
 Servicio:
 - `Lemon Rx`
 
-Entorno:
-- production
-
-Fuente:
-- GitHub `Josanandrade/webs-negocios`
-- branch `main`
-- root `/demos/lemon-rx`
-
-Dominio:
+Dominio histórico/fallback:
 - `lemon-rx-production.up.railway.app`
 
-Región observada:
-- Europa (`europe-west4`).
+Railway se mantiene temporalmente como fallback durante la transición, pero ya no es el hosting principal de Lemon RX.
 
 ### Supabase
 
@@ -81,6 +89,9 @@ Reglas:
 - no documentar valores secretos;
 - no introducir `service_role` en cliente;
 - mantener secretos de Resend/Push solo en servidor.
+
+Pendiente de cierre de migración de hosting:
+- completar configuración/rotación segura de Resend y Push en Vercel antes de retirar Railway definitivamente.
 
 ## 4. Arquitectura funcional
 
@@ -186,10 +197,15 @@ Estado validado:
 - accesorios;
 - compatibilidad con bloques históricos;
 - cálculo de `total_load`;
-- ranking por carga total.
+- ranking por carga total;
+- modo de registro por movimiento: `Kilos` o `Hecho`;
+- un mismo bloque puede combinar movimientos con peso y movimientos sin peso.
 
-Regla:
-- preservar compatibilidad con resultados existentes al cambiar estructura.
+Compatibilidad:
+- se reutiliza la capacidad ya existente de `track_load` por movimiento;
+- los movimientos `track_load=false` ahora pueden registrarse explícitamente como hechos;
+- resultados mixtos se guardan de forma compatible con históricos existentes;
+- no se cambian IDs de bloques ni se reescriben resultados anteriores.
 
 ### RM e histórico
 
@@ -200,7 +216,7 @@ Regla:
 
 ### Home social
 
-Estado: **VALIDADO 21/10/2026**.
+Estado: **VALIDADO 22/10/2026**.
 
 Entidades:
 - `workout_posts` — una publicación por `program_key + user_id + training_date`;
@@ -214,7 +230,26 @@ Reglas:
 - un bloque desmarcado deja de aparecer en la proyección social y el post puede desaparecer si no queda ningún bloque;
 - los datos privados originales no se abren directamente: la capa social es una proyección controlada;
 - RLS exige usuario autenticado con acceso al programa;
-- cada usuario modifica únicamente sus reacciones/comentarios propios dentro de las políticas definidas.
+- cada usuario modifica únicamente sus reacciones/comentarios propios dentro de las políticas definidas;
+- todos los emojis de reacción permanecen visibles por defecto;
+- se agrupan reacciones por emoji mostrando contador y nombres de autores;
+- comentarios muestran el hilo más reciente por defecto y los anteriores quedan plegables/minimizables.
+
+### RPC social de nombres
+
+Migración: `20261022101500_social_reaction_actor_names.sql`.
+
+Función:
+- `social_reaction_actor_names(uuid[])`.
+
+Objetivo:
+- resolver nombres de autores de reacciones sin abrir lectura general de `profiles` a atletas.
+
+Seguridad:
+- `SECURITY DEFINER` con `search_path=public`;
+- solo usuarios autenticados y activos pueden ejecutarla;
+- solo devuelve perfiles incluidos en la lista solicitada que realmente aparecen como autores de reacciones sociales;
+- no relaja las RLS generales de `profiles`.
 
 ### Notificaciones
 
@@ -258,7 +293,7 @@ Funciones relevantes existentes:
 
 La UI de General/Masculina/Femenina se filtra localmente una vez que los datos están cargados; no requiere nueva navegación al servidor.
 
-Riesgo de escala identificado 21/10/2026:
+Riesgo de escala:
 - `week_leaderboard_v2` devuelve todos los resultados puntuables de la semana aunque Ranking muestre un día concreto;
 - con cientos de atletas debe evolucionar hacia lectura por día/bloques solicitados para evitar payload y cálculo innecesarios.
 
@@ -320,31 +355,33 @@ Estado de UX: **VALIDADO 21/10/2026**.
 - Incluye listado de usuarios con bloques pendientes, ordenados desde menor cumplimiento.
 - Los admins con `show_evolution_as_athlete=true` aparecen como atletas en este panel.
 
-## 11. Rendimiento — Fase 1 VALIDADA 16/10/2026
+## 11. Rendimiento
 
-Cambios de frontend/navegación validados:
+### Fase 1 — VALIDADA 16/10/2026
 
-1. **Ranking local**
-   - General/Masculina/Femenina se filtra en cliente con los datos ya cargados.
-   - La URL se actualiza sin provocar una navegación completa para ese filtro.
+- Ranking General/Masculina/Femenina filtrado en cliente.
+- Semana progresiva y code-splitting.
+- Evolución diferida.
+- El warm-up/prefetch histórico queda supersedido por Fase 2.
 
-2. **Semana progresiva**
-   - Los bloques de cada día no se montan hasta que ese día se abre.
-   - Desde 21/10, al cerrar un día se desmonta su contenido pesado para corregir scroll/altura residual.
-   - Se conserva el comportamiento móvil validado de tamaños y foco.
+### Fase 2 — VALIDADA 22/10/2026
 
-3. **Evolución diferida**
-   - Panel admin y Cuenta muestran primero el contenido principal;
-   - Evolución/Seguimiento no bloquean la primera pintura.
+Cambios:
+1. `NavigationWarmup` deja de ejecutarse desde el layout privado.
+2. `IntentLink` elimina prefetch en `touchstart`/focus y mantiene prefetch solo con hover real de puntero fino en escritorio.
+3. Home se pagina a 15 publicaciones por página.
+4. Runtime sube a Node 22.
+5. Vercel despliega Functions en Dublín, cerca de Supabase Irlanda.
 
-4. **Code-splitting en Semana**
-   - `BlockTracker`, trackers de Strength/Weightlifting, historial contextual y ranking de fuerza se cargan de forma diferida;
-   - su código deja de formar parte obligatoria del coste inicial de Semana y se solicita cuando hace falta;
-   - la lógica de negocio de esos componentes no se modificó.
+Resultado observado:
+- Jose confirma que Vercel va sensiblemente mejor en un primer vistazo y valida posteriormente la versión con los cambios funcionales sobre esa base.
 
-5. **Warm-up/prefetch histórico**
-   - fue validado el 16/10 en una app más pequeña;
-   - queda expresamente supersedido por Fase 2 desde 21/10 porque las trazas posteriores muestran que, con más rutas y Home social, genera concurrencia y duplicados en móvil.
+No toca:
+- RLS general;
+- resultados/notas históricos;
+- `save_week_content`;
+- IDs de bloques;
+- lógica de rankings existente.
 
 ## 12. Comunicaciones
 
@@ -358,7 +395,7 @@ Cambios de frontend/navegación validados:
 - Debe mantenerse separada la acción de invitar de la aprobación efectiva del acceso cuando se requiera validación manual.
 
 ### Web Push
-Estado: **VALIDADO 21/10/2026**.
+Estado funcional previo: **VALIDADO 21/10/2026**.
 
 - admins y atletas activos con acceso pueden activar suscripción;
 - avisos sociales pueden enviarse fuera de la app si existe suscripción;
@@ -366,6 +403,9 @@ Estado: **VALIDADO 21/10/2026**.
 - `PUSH_SECRET` nunca en cliente;
 - limpiar endpoints expirados;
 - la campana in-app es la fuente persistente aunque no exista permiso Push.
+
+Nota de migración de hosting:
+- antes de retirar Railway debe completarse y probarse la configuración de secretos VAPID/PUSH en Vercel.
 
 ## 13. RLS y seguridad
 
@@ -379,15 +419,15 @@ Patrón protegido:
 
 No introducir atajos administrativos desde cliente.
 
-Los advisors de Supabase deben revisarse periódicamente. No convertir automáticamente todos los avisos en cambios: distinguir recomendaciones genéricas de riesgos reales del flujo actual.
+La RPC `social_reaction_actor_names` se usa específicamente para evitar abrir `profiles` a otros atletas al mostrar nombres en reacciones sociales.
 
 ## 14. Incidencias técnicas abiertas
 
-### T1 — Runtime Node
-Hasta la mañana del 21/10 Railway usa Node 20.20.2. La versión actual de Supabase JS ya exige/recomienda Node 22+. El cambio de engine a `>=22 <23` está fusionado en `main`, pero su despliegue está bloqueado temporalmente por una incidencia global de builds de Railway; no considerar resuelto hasta verificar build y runtime.
+### T1 — Migración completa de hosting
+Vercel ya sirve producción y Node 22. Pendiente rotación/configuración final de secretos de Resend/Push y retirada posterior de Railway cuando quede verificado todo el flujo de comunicaciones.
 
 ### T2 — `refresh_token_already_used`
-Se observaron errores puntuales de refresh token. No corregir sin reproducir y entender flujo de cookies/solicitudes concurrentes. La Fase 2 reduce peticiones concurrentes innecesarias y puede disminuir la probabilidad de carreras de sesión.
+Se observaron errores puntuales de refresh token. No corregir sin reproducir y entender flujo de cookies/solicitudes concurrentes. Fase 2 reduce peticiones concurrentes innecesarias.
 
 ### T3 — vulnerabilidades npm
 No ejecutar `npm audit fix --force` automáticamente.
@@ -396,10 +436,10 @@ No ejecutar `npm audit fix --force` automáticamente.
 Mejorar automatización de pruebas de permisos antes de cambios de esquema relevantes.
 
 ### T5 — escalabilidad del motor coach
-`coach_evolution_metrics` es suficiente para el volumen actual, pero debe revisarse antes de escalar a cientos de atletas. Futuro candidato: cálculo conjunto/agrupado en DB en vez de repetir cálculos individuales.
+`coach_evolution_metrics` es suficiente para el volumen actual, pero debe revisarse antes de escalar a cientos de atletas.
 
 ### T6 — advisors de FK sin índice
-Supabase reporta varias FK sin índice como aviso de rendimiento. No son la causa de los picos actuales: los filtros/join principales de `weeks`, `days`, `workout_blocks`, `block_logs`, `block_results`, posts y notificaciones ya cuentan con índices relevantes. Revisar las FK secundarias de forma selectiva antes de escala grande; no añadir índices indiscriminadamente.
+Revisar las FK secundarias de forma selectiva antes de escala grande; no añadir índices indiscriminadamente.
 
 ## 15. Dirección técnica futura — comercialización / white-label
 
@@ -410,15 +450,6 @@ Lemon RX podría evolucionar desde una única programación a una plataforma par
 Arquitectura futura probable:
 
 `organization/programming -> boxes -> athletes`
-
-Posibles entidades/campos futuros:
-- organización/tenant;
-- branding de organización;
-- boxes/sedes;
-- membresía de usuario en organización/box;
-- roles por organización;
-- programas/niveles;
-- medición de atletas activos por ciclo de facturación.
 
 Regla:
 - NO construir multi-tenancy todavía;
@@ -433,52 +464,23 @@ Regla:
 
 Si se comercializa, será necesario definir técnicamente qué significa **atleta activo** de manera auditable. Todavía no implementar billing sobre esta hipótesis.
 
-## 17. Rendimiento Fase 2 — diagnóstico 21/10/2026
-
-Estado: **CÓDIGO FUSIONADO / PENDIENTE DE DESPLIEGUE Y VALIDACIÓN**.
-
-Evidencia observada:
-- tablas muy pequeñas: ~13 perfiles, 66 bloques, 280 logs, 147 resultados, 78 posts;
-- CPU Railway media ~0,1% y RAM ~0,12 GB en la ventana observada;
-- SQL de aplicación generalmente en pocos milisegundos;
-- pese a ello, peticiones SSR móviles llegaron a varios segundos: Home ~5,6 s, Semana ~5,9 s, Ranking ~15,8 s y Panel Admin >20 s en ejemplos observados;
-- en Supabase se observaron tiempos de gateway/origen de varios segundos mientras `x_envoy_upstream_service_time`/ejecución DB seguía en pocos milisegundos;
-- se observaron varias llamadas simultáneas a JWKS/Auth y lecturas repetidas durante ráfagas de navegación;
-- `NavigationWarmup` precargaba entre 5 y 7 rutas privadas después de cada pantalla;
-- `IntentLink` hacía `router.prefetch()` en `touchstart` y después llegaba la navegación real, produciendo duplicados visibles en logs.
-
-Cambios de bajo riesgo fusionados en PR #37:
-1. eliminar `NavigationWarmup` del layout;
-2. eliminar prefetch en touch/focus y conservarlo solo con hover real de puntero fino en escritorio;
-3. paginar Home a 15 publicaciones por página para limitar payload y DOM;
-4. fijar Node 22.
-
-No toca:
-- RLS;
-- Supabase schema;
-- resultados/notas;
-- programación;
-- rankings;
-- `save_week_content`;
-- IDs de bloques.
-
-Siguiente escalón si la Fase 2 no basta:
-- RPC Ranking por día/bloques en vez de semana completa;
-- leaderboard de Semana bajo demanda al abrir clasificación;
-- comentarios sociales bajo demanda;
-- actualizaciones optimistas y reducción de `revalidatePath('/home')` completo tras una reacción/comentario;
-- cache selectiva solo para datos compartidos y no sensibles;
-- prueba de carga real antes de vender a programaciones con cientos de atletas.
-
-## 18. Escalabilidad objetivo
+## 17. Escalabilidad objetivo
 
 - 500 usuarios registrados o activos NO implican por sí solos 500 usuarios concurrentes.
-- La arquitectura Next.js + Railway + Supabase puede servir cientos de usuarios si cada interacción dispara un número acotado de consultas y payloads.
+- La arquitectura Next.js + Vercel + Supabase puede servir cientos de usuarios si cada interacción dispara un número acotado de consultas y payloads.
 - El objetivo antes de comercializar es medir concurrencia: por ejemplo 25/50/100 usuarios simultáneos en Home/Semana/Ranking/guardados.
-- Dimensionar Supabase/Railway por concurrencia y consumo real, no solo por número de cuentas.
-- Una app nativa no elimina estos cuellos: usaría la misma autenticación, API y base de datos. La prioridad es optimizar backend/orquestación web; una app de stores sería una decisión de distribución/UX posterior.
+- Dimensionar Supabase/Vercel por concurrencia y consumo real, no solo por número de cuentas.
+- Una app nativa no elimina estos cuellos: usaría la misma autenticación, API y base de datos.
 
-## 19. Checklist técnico obligatorio
+Siguientes candidatos de rendimiento, solo si las métricas lo justifican:
+- RPC Ranking por día/bloques en vez de semana completa;
+- leaderboard de Semana bajo demanda;
+- comentarios sociales bajo demanda;
+- reducción de `revalidatePath('/home')` completo tras una reacción/comentario;
+- cache selectiva para datos compartidos no sensibles;
+- prueba de carga real antes de venta a gran escala.
+
+## 18. Checklist técnico obligatorio
 
 Antes de cada cambio:
 - ¿qué flujo toca?
@@ -494,7 +496,7 @@ Antes de cada cambio:
 - ¿regresión login + programación + admin?
 - ¿queda DESPLEGADO/PENDIENTE o VALIDADO por Jose?
 
-## 20. Regla documental
+## 19. Regla documental
 
 Tras cada bloque relevante:
 - `CONTINUIDAD.md`: estado, decisiones, prioridades y memoria del proyecto.
