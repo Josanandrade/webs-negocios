@@ -14,6 +14,7 @@ export type FreeStrengthDraft = {
     section_id: string;
     count: number;
     exercises: Array<{ item_id: string; weights: string[] }>;
+    completed_item_ids: string[];
   }>;
 };
 
@@ -25,6 +26,10 @@ function parseKg(value: unknown) {
   const n = Number(raw);
   if (!Number.isFinite(n) || n <= 0 || n > 2000) return null;
   return Math.round(n * 100) / 100;
+}
+
+function completionItems(section: BuilderSection) {
+  return section.items.filter((item) => (item.type === "exercise" || item.type === "complex") && !item.track_load);
 }
 
 export async function saveFreeStrengthResult(blockId: string, draft: FreeStrengthDraft): Promise<Result> {
@@ -39,8 +44,8 @@ export async function saveFreeStrengthResult(blockId: string, draft: FreeStrengt
   const maxComplexBlock = isSingleMaxLoadComplexBlock(block.builder_sections);
   let totalLoadKg = 0;
   let maxKg: number | null = null;
-  let trackedCount = 0;
-  const savedSections: Array<{ section_id: string; count: number; exercises: Array<{ item_id: string; weights: number[] }> }> = [];
+  let recordableCount = 0;
+  const savedSections: Array<{ section_id: string; count: number; exercises: Array<{ item_id: string; weights: number[] }>; completed_item_ids: string[] }> = [];
 
   for (const section of block.builder_sections) {
     const submitted = submittedSections.find((row) => row.section_id === section.id);
@@ -49,7 +54,7 @@ export async function saveFreeStrengthResult(blockId: string, draft: FreeStrengt
 
     const savedExercises: Array<{ item_id: string; weights: number[] }> = [];
     for (const item of trackedBuilderItems(section)) {
-      trackedCount += 1;
+      recordableCount += 1;
       const exercise = submitted?.exercises?.find((row) => row.item_id === item.id);
       const expected = expectedWeightCount(item, count);
       const rawWeights = Array.isArray(exercise?.weights) ? exercise.weights.slice(0, expected) : [];
@@ -73,11 +78,19 @@ export async function saveFreeStrengthResult(blockId: string, draft: FreeStrengt
       }
       savedExercises.push({ item_id: item.id, weights });
     }
-    savedSections.push({ section_id: section.id, count, exercises: savedExercises });
+
+    const doneItems = completionItems(section);
+    recordableCount += doneItems.length;
+    const submittedDone = new Set(Array.isArray(submitted?.completed_item_ids) ? submitted.completed_item_ids : []);
+    for (const item of doneItems) {
+      if (!submittedDone.has(item.id)) return { ok: false, error: "Marca como hechos todos los movimientos pendientes antes de guardar." };
+    }
+    const completedItemIds = doneItems.map((item) => item.id);
+    savedSections.push({ section_id: section.id, count, exercises: savedExercises, completed_item_ids: completedItemIds });
   }
 
-  if (!trackedCount || maxKg == null) return { ok: false, error: "Este bloque no tiene ningún ejercicio con carga para registrar." };
-  const reps_detail = JSON.stringify({ version: 2, sections: savedSections });
+  if (!recordableCount) return { ok: false, error: "Este bloque no tiene ningún movimiento para registrar." };
+  const reps_detail = JSON.stringify({ version: 3, sections: savedSections });
   const { error } = await supabase.from("block_results").upsert({
     user_id: viewer.profile.id,
     block_id: blockId,
@@ -87,7 +100,7 @@ export async function saveFreeStrengthResult(blockId: string, draft: FreeStrengt
     rounds: null,
     reps: null,
     kg: maxKg,
-    total_load: maxComplexBlock ? null : Math.round(totalLoadKg * 100) / 100,
+    total_load: maxKg == null || maxComplexBlock ? null : Math.round(totalLoadKg * 100) / 100,
     as_prescribed: null,
     reps_detail,
   }, { onConflict: "user_id,block_id" });
