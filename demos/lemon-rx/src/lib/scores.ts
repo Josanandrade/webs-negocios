@@ -61,8 +61,27 @@ export function loadSetWeights(detail: string): number[] | null {
 
 export function formatLoadWeights(detail: string) {
   const values = loadSetWeights(detail);
-  if (!values) return null;
-  return values.map((kg, i) => `Serie ${i + 1}: ${formatKg(kg)} kg`);
+  if (values) return values.map((kg, i) => `Serie ${i + 1}: ${formatKg(kg)} kg`);
+  // Un JSON estructurado de fuerza debe ser interpretado por su vista específica,
+  // nunca caer al fallback que imprime reps_detail como texto.
+  if (detail.trim() && safeTextDetail(detail) == null) return [];
+  return null;
+}
+
+/**
+ * Devuelve detalle escrito por una persona, pero nunca estructuras JSON internas.
+ * Esto actúa como última barrera para que reps_detail técnico no llegue a la UI.
+ */
+export function safeTextDetail(detail: string | null | undefined): string | null {
+  const value = detail?.trim();
+  if (!value) return null;
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (parsed !== null && typeof parsed === "object") return null;
+  } catch {
+    // No es JSON: puede mostrarse como texto introducido por el atleta.
+  }
+  return value;
 }
 
 export function formatScore(type: ScoreType, s: Score) {
@@ -121,7 +140,7 @@ export function emptyDraft(s?: Score | null, setsCount?: number | null): ScoreDr
     kg: s?.kg != null ? String(Number(s.kg)).replace(".", ",") : "",
     setKgs: Array.from({ length: count }, (_, i) => savedSets?.[i] != null ? formatKg(savedSets[i]) : ""),
     prescribed: s?.as_prescribed == null ? "" : s.as_prescribed ? "yes" : "no",
-    detail: savedSets ? "" : s?.reps_detail ?? "",
+    detail: savedSets ? "" : safeTextDetail(s?.reps_detail) ?? "",
   };
 }
 

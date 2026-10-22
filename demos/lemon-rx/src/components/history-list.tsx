@@ -1,9 +1,18 @@
 import Link from "next/link";
-import { divisionLabel, formatKg, formatLoadWeights, formatScore, hasDivision } from "@/lib/scores";
+import { divisionLabel, formatKg, formatLoadWeights, formatScore, hasDivision, safeTextDetail } from "@/lib/scores";
 import { DAY_NAMES, isoDayOfWeek, shortDate } from "@/lib/dates";
 import type { BuilderSection, HistoryEntry, Score } from "@/lib/types";
 
 type HistoryDisplayEntry = HistoryEntry & { builder_sections?: BuilderSection[] | null };
+
+type SavedStrengthResult = {
+  version?: number;
+  sections?: Array<{
+    section_id?: string;
+    exercises?: Array<{ item_id?: string; weights?: unknown[] }>;
+    completed_item_ids?: string[];
+  }>;
+};
 
 function fold(s: string) {
   return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
@@ -12,19 +21,25 @@ function fold(s: string) {
 function unifiedStrengthLines(detail: string, builder: BuilderSection[] | null | undefined): string[] | null {
   if (!detail) return null;
   try {
-    const parsed = JSON.parse(detail) as { version?: number; sections?: Array<{ section_id?: string; exercises?: Array<{ weights?: unknown[] }> }> };
-    if (parsed?.version !== 2 || !Array.isArray(parsed.sections)) return null;
-    const labels = new Map((builder ?? []).map((section) => [section.id, section.label || "Bloque"]));
+    const parsed = JSON.parse(detail) as SavedStrengthResult;
+    if ((parsed?.version !== 2 && parsed?.version !== 3) || !Array.isArray(parsed.sections)) return null;
+    const builderSections = builder ?? [];
     const lines: string[] = [];
-    for (const section of parsed.sections) {
-      const label = section.section_id ? labels.get(section.section_id) ?? "Bloque" : "Bloque";
-      const exercises = Array.isArray(section.exercises) ? section.exercises : [];
+    for (const savedSection of parsed.sections) {
+      const section = savedSection.section_id ? builderSections.find((candidate) => candidate.id === savedSection.section_id) : null;
+      const label = section?.label || "Bloque";
+      const exercises = Array.isArray(savedSection.exercises) ? savedSection.exercises : [];
       exercises.forEach((exercise, index) => {
         const weights = Array.isArray(exercise.weights) ? exercise.weights.map(Number).filter((kg) => Number.isFinite(kg) && kg > 0) : [];
         if (!weights.length) return;
         const exerciseLabel = exercises.length > 1 ? ` · Ejercicio ${index + 1}` : "";
         lines.push(`${label}${exerciseLabel}: ${weights.map((kg) => `${formatKg(kg)} kg`).join(" / ")}`);
       });
+      for (const itemId of savedSection.completed_item_ids ?? []) {
+        const item = section?.items.find((candidate) => (candidate.type === "exercise" || candidate.type === "complex") && candidate.id === itemId);
+        const kind = item?.type === "complex" ? "Complex" : "Movimiento";
+        lines.push(`${label} · ${kind}: ✓ Hecho`);
+      }
     }
     return lines.length ? lines : null;
   } catch {
@@ -75,7 +90,7 @@ function HistoryRow({ e }: { e: HistoryDisplayEntry }) {
     reps_detail: e.reps_detail ?? "",
   };
   const strengthLines = e.score_type === "load" ? (unifiedStrengthLines(score.reps_detail, e.builder_sections) ?? formatLoadWeights(score.reps_detail)) : null;
-  const safeFreeDetail = e.score_type !== "load" && score.reps_detail ? score.reps_detail : null;
+  const safeFreeDetail = e.score_type !== "load" ? safeTextDetail(score.reps_detail) : null;
 
   return (
     <li className="border-b border-line py-3 last:border-b-0">

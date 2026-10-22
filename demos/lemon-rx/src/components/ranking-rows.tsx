@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Avatar } from "@/components/avatar";
-import { divisionLabel, formatKg, formatScore, isRanked } from "@/lib/scores";
+import { divisionLabel, formatKg, formatScore, isRanked, safeTextDetail } from "@/lib/scores";
 import type { Block, LeaderboardRow, RankingDayActivityRow, Score, ScoreType } from "@/lib/types";
 
 export function ordinal(n: number) {
@@ -16,6 +16,15 @@ type RankingRowsProps = {
   dayBlocks?: Block[];
   detailsByUser?: Record<string, RankingDayActivityRow[]>;
   movementNames?: Record<string, string>;
+};
+
+type SavedStrengthResult = {
+  version?: number;
+  sections?: Array<{
+    section_id: string;
+    exercises?: Array<{ item_id: string; weights?: number[] }>;
+    completed_item_ids?: string[];
+  }>;
 };
 
 /** Filas de una clasificación. En Ranking puede desplegar la sesión completa del atleta. */
@@ -32,6 +41,7 @@ export function RankingRows({ rows, type, meId, dayBlocks, detailsByUser, moveme
       {rows.map((r) => {
         const me = r.user_id === meId;
         const open = canExpand && openUser === r.user_id;
+        const safeDetail = safeTextDetail(r.reps_detail);
         const summary = (
           <>
             {ranked && <span className="w-9 shrink-0 font-display text-[18px] font-bold">{ordinal(r.position)}</span>}
@@ -61,8 +71,8 @@ export function RankingRows({ rows, type, meId, dayBlocks, detailsByUser, moveme
             ) : (
               <div className="flex items-center gap-3 py-2.5">{summary}</div>
             )}
-            {!ranked && !r.as_prescribed && r.reps_detail && !canExpand && (
-              <p className="mt-1 pb-2.5 pl-12 whitespace-pre-wrap text-[15px] leading-[1.45] text-chalk-3">{r.reps_detail}</p>
+            {!ranked && !r.as_prescribed && safeDetail && !canExpand && (
+              <p className="mt-1 pb-2.5 pl-12 whitespace-pre-wrap text-[15px] leading-[1.45] text-chalk-3">{safeDetail}</p>
             )}
             {open && dayBlocks && detailsByUser && (
               <AthleteDayDetails
@@ -91,7 +101,7 @@ function AthleteDayDetails({ blocks, activity, movementNames }: {
         const row = byBlock.get(block.id);
         const score = row?.has_result ? toScore(row) : null;
         const extra = row?.has_result ? loadDetails(block, row, movementNames) : [];
-        const genericDetail = row?.has_result && block.score_type !== "load" && row.reps_detail ? row.reps_detail : null;
+        const genericDetail = row?.has_result && block.score_type !== "load" ? safeTextDetail(row.reps_detail) : null;
         return (
           <div key={block.id} className="border-b border-line py-3 last:border-b-0">
             <div className="flex flex-wrap items-start justify-between gap-2">
@@ -108,7 +118,7 @@ function AthleteDayDetails({ blocks, activity, movementNames }: {
                 {row?.division && block.score_type !== "load" && <p className="text-[12px] uppercase tracking-[0.06em] text-chalk-3">{divisionLabel(row.division)}</p>}
               </div>
             </div>
-            {extra.length > 0 && <div className="mt-2 space-y-1">{extra.map((line, i) => <p key={i} className="text-[13px] text-chalk-2">{line}</p>)}</div>}
+            {extra.length > 0 && <div className="mt-2 space-y-1">{extra.map((line, i) => <p key={`${line}-${i}`} className="text-[13px] text-chalk-2">{line}</p>)}</div>}
             {genericDetail && <p className="mt-2 whitespace-pre-wrap text-[13px] text-chalk-2">{genericDetail}</p>}
             <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] font-semibold uppercase tracking-[0.05em]">
               <span className={row?.done ? "text-lemon" : "text-chalk-3"}>{row?.done ? "✓ Hecho" : "No marcado como hecho"}</span>
@@ -139,6 +149,15 @@ function toScore(row: RankingDayActivityRow): Score {
   };
 }
 
+function strengthItemName(block: Block, sectionId: string, itemId: string, movementNames: Record<string, string>) {
+  const section = block.builder_sections?.find((candidate) => candidate.id === sectionId);
+  const item = section?.items.find((candidate) => (candidate.type === "exercise" || candidate.type === "complex") && candidate.id === itemId);
+  let name = "Movimiento";
+  if (item?.type === "exercise") name = movementNames[item.movement_id] ?? "Ejercicio";
+  if (item?.type === "complex") name = `Complex · ${item.movements.map((movement) => movementNames[movement.movement_id] ?? "Movimiento").join(" + ")}`;
+  return { section, item, name };
+}
+
 function loadDetails(block: Block, row: RankingDayActivityRow, movementNames: Record<string, string>): string[] {
   const raw = row.reps_detail;
   if (!raw) return row.kg != null ? [`Peso máximo: ${formatKg(row.kg)} kg`] : [];
@@ -148,27 +167,30 @@ function loadDetails(block: Block, row: RankingDayActivityRow, movementNames: Re
       const weights = parsed.map(Number).filter((value) => Number.isFinite(value) && value > 0);
       return weights.length ? [`Pesos: ${weights.map((kg) => `${formatKg(kg)} kg`).join(" · ")}`] : [];
     }
-    if (parsed && typeof parsed === "object" && (parsed as { version?: unknown }).version === 2) {
-      const saved = parsed as { sections?: Array<{ section_id: string; exercises?: Array<{ item_id: string; weights?: number[] }> }> };
-      const sections = Array.isArray(saved.sections) ? saved.sections : [];
-      const lines: string[] = [];
-      for (const savedSection of sections) {
-        const section = block.builder_sections?.find((candidate) => candidate.id === savedSection.section_id);
-        for (const exercise of savedSection.exercises ?? []) {
-          const item = section?.items.find((candidate) => (candidate.type === "exercise" || candidate.type === "complex") && candidate.id === exercise.item_id);
-          const weights = (exercise.weights ?? []).map(Number).filter((value) => Number.isFinite(value) && value > 0);
-          if (!weights.length) continue;
-          let name = "Carga";
-          if (item?.type === "exercise") name = movementNames[item.movement_id] ?? "Ejercicio";
-          if (item?.type === "complex") name = `Complex · ${item.movements.map((movement) => movementNames[movement.movement_id] ?? "Movimiento").join(" + ")}`;
-          lines.push(`${section?.label ? `${section.label} · ` : ""}${name}: ${weights.map((kg) => `${formatKg(kg)} kg`).join(" · ")}`);
+    if (parsed && typeof parsed === "object") {
+      const saved = parsed as SavedStrengthResult;
+      if ((saved.version === 2 || saved.version === 3) && Array.isArray(saved.sections)) {
+        const lines: string[] = [];
+        for (const savedSection of saved.sections) {
+          for (const exercise of savedSection.exercises ?? []) {
+            const { section, name } = strengthItemName(block, savedSection.section_id, exercise.item_id, movementNames);
+            const weights = (exercise.weights ?? []).map(Number).filter((value) => Number.isFinite(value) && value > 0);
+            if (!weights.length) continue;
+            lines.push(`${section?.label ? `${section.label} · ` : ""}${name}: ${weights.map((kg) => `${formatKg(kg)} kg`).join(" · ")}`);
+          }
+          for (const itemId of savedSection.completed_item_ids ?? []) {
+            const { section, name } = strengthItemName(block, savedSection.section_id, itemId, movementNames);
+            lines.push(`${section?.label ? `${section.label} · ` : ""}${name}: ✓ Hecho`);
+          }
         }
+        if (row.total_load != null) lines.push(`Volumen total: ${formatKg(row.total_load)} kg`);
+        return lines;
       }
-      if (row.total_load != null) lines.push(`Volumen total: ${formatKg(row.total_load)} kg`);
-      return lines;
+      return [];
     }
   } catch {
-    return [raw];
+    const text = safeTextDetail(raw);
+    return text ? [text] : [];
   }
-  return [raw];
+  return [];
 }
