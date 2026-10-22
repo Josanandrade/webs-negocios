@@ -26,7 +26,9 @@ Además, desde el 15/10/2026 se conserva como dirección estratégica futura con
 - Aplicación: `demos/lemon-rx`
 - Rama productiva: `main`
 - Rama documental: `docs/lemon-rx-continuidad`
-- Railway project: `terrific-compassion`
+- Producción web actual: Vercel, alias estable `https://lemon-rx.vercel.app`
+- Región Functions Vercel: Dublín (`dub1`)
+- Railway project: `terrific-compassion` (se mantiene como fallback temporal)
 - Railway service: `Lemon Rx`
 - Dominio Railway: `lemon-rx-production.up.railway.app`
 - Supabase: conexión `Lemon RX` disponible desde 13/10/2026 y utilizable para verificar/gestionar el proyecto real.
@@ -65,6 +67,7 @@ La mención antigua de que Supabase Lemon RX no era accesible queda superada.
 - RX e Intermedio cuando corresponde.
 - Historial individual.
 - Strength/Weightlifting con porcentajes sobre RM, RM 1–5, cálculo de kilos, Complex y volumen total.
+- En Strength/Weightlifting cada movimiento puede configurarse para registrar `Kilos` o `Hecho`, pudiendo coexistir ambos modos dentro del mismo bloque.
 - En historial no deben mostrarse códigos JSON/técnicos; los resultados de fuerza se traducen a texto humano.
 
 ### Ranking
@@ -184,6 +187,21 @@ Estado: **VALIDADO**.
 - Navegación del atleta en móvil queda fija abajo; en escritorio se conserva navegación superior.
 - Jose confirma el 21/10/2026 que todo este bloque está validado.
 
+### 22/10/2026 — Vercel, Rendimiento Fase 2, fuerza mixta y social visible
+Estado: **VALIDADO / ONLINE**.
+
+- Producción principal de Lemon RX pasa a Vercel con URL estable `https://lemon-rx.vercel.app`; Railway se conserva temporalmente como fallback.
+- Vercel ejecuta Functions en Dublín (`dub1`) y Node 22.
+- Rendimiento Fase 2 validado en uso real: se eliminan warm-up global y prefetch móvil duplicado; Home queda paginado a 15 publicaciones por página.
+- Strength/Weightlifting: cada movimiento puede configurarse individualmente como `Kilos` o `Hecho`.
+- Un mismo bloque puede mezclar ambos tipos, por ejemplo Front Squat con kilos y Air Cossack Squat marcado como hecho.
+- Resultados históricos siguen siendo compatibles y no se cambian IDs de bloques.
+- Home mantiene todos los emojis visibles por defecto.
+- Debajo de las reacciones se muestra el total y, por emoji, el número de reacciones y quién reaccionó.
+- Comentarios: el hilo más reciente queda visible por defecto; los anteriores se pueden desplegar y la sección completa se puede minimizar.
+- Para mostrar nombres de autores de reacciones sin abrir `profiles`, se usa una RPC limitada que solo devuelve nombres de usuarios que realmente tienen reacciones sociales y solo a usuarios activos autenticados.
+- Jose valida expresamente este bloque el 22/10/2026.
+
 ## 6. Estrategia comercial futura — HIPÓTESIS, NO PRODUCTO ACTUAL
 
 Fecha: 15/10/2026.
@@ -239,10 +257,10 @@ Esto permitiría en el futuro:
 ## 8. Riesgos técnicos abiertos
 
 - Riesgo crítico histórico: `save_week_content` puede eliminar bloques ausentes y las FK de logs/resultados usan `ON DELETE CASCADE`; por tanto, preservar IDs de bloques es obligatorio y no se debe sustituir el RPC sin migración segura.
-- Runtime Node 20 observado en producción hasta 21/10; cambio a Node 22 preparado en Fase 2 de rendimiento y pendiente de quedar efectivamente desplegado/validado.
 - Errores puntuales `refresh_token_already_used` a investigar si se reproducen.
 - Vulnerabilidades high reportadas por npm: analizar individualmente; no usar `npm audit fix --force` a ciegas.
 - Pruebas RLS todavía mejorables/automatizables.
+- Pendiente completar en Vercel la migración segura de secretos/servicios de email y Push antes de retirar Railway definitivamente.
 
 ## 9. Método de validación
 
@@ -271,17 +289,17 @@ Orden:
 
 ### Siguiente bloque técnico propuesto
 
-**Rendimiento Fase 2**: optimización móvil guiada por trazas reales. El 21/10/2026 se detectó que el warm-up de rutas y el prefetch en `touchstart`, que fueron útiles en una fase anterior, ahora provocan peticiones privadas duplicadas y concurrencia innecesaria al haber crecido la app. Cambio preparado: una pulsación móvil = una navegación, sin precarga global; Home paginado; Node 22. Después de validarlo se abordarán, si siguen siendo necesarios, el ranking por día/bloque y las invalidaciones demasiado amplias al guardar. No tocar `save_week_content` ni los IDs de bloques.
+Tras validar Rendimiento Fase 2, los siguientes candidatos solo se abordarán si las métricas reales lo justifican: ranking por día/bloques en lugar de semana completa, leaderboard de Semana bajo demanda, comentarios sociales bajo demanda, reducción de `revalidatePath` amplios y pruebas de carga por concurrencia. No tocar `save_week_content` ni los IDs de bloques.
 
 ## 11. Diagnóstico de escalabilidad — 21/10/2026
 
-Estado: **DIAGNÓSTICO CONFIRMADO / OPTIMIZACIÓN PENDIENTE DE VALIDACIÓN**.
+Estado: **DIAGNÓSTICO CONFIRMADO / FASE 2 VALIDADA 22/10/2026**.
 
 - Volumen real en el momento del análisis: 13 perfiles, 66 bloques, ~280 logs, ~147 resultados y ~78 posts; no hay volumen suficiente para justificar esperas de varios segundos.
-- Railway no está cerca de saturación: CPU y RAM observadas muy por debajo de capacidad.
-- PostgreSQL ejecuta la mayoría de consultas relevantes en milisegundos.
-- Las esperas largas aparecen principalmente en la cadena de peticiones dinámicas Railway → Supabase/gateway/auth, especialmente cuando se lanzan varias rutas en paralelo.
+- Railway no estaba cerca de saturación: CPU y RAM observadas muy por debajo de capacidad.
+- PostgreSQL ejecutaba la mayoría de consultas relevantes en milisegundos.
+- Las esperas largas aparecían principalmente en la cadena de peticiones dinámicas Railway → Supabase/gateway/auth, especialmente cuando se lanzaban varias rutas en paralelo.
 - Se observaron peticiones móviles duplicadas por combinación de prefetch en `touchstart` + navegación real y precarga secuencial automática de múltiples rutas.
-- Se observaron picos de varios segundos en Home, Semana, Ranking y Panel Admin aunque el tiempo SQL interno fuera bajo.
-- Consecuencia: la prioridad no es aumentar máquina ni crear una app nativa, sino reducir round-trips, datos iniciales, invalidaciones y trabajo concurrente no solicitado.
-- Objetivo comercial: 500+ usuarios registrados/activos es compatible conceptualmente con la arquitectura, pero antes de vender se exigirá prueba de carga por concurrencia real y dimensionamiento de Supabase/Railway de producción.
+- Fase 2 elimina esas precargas móviles/globales, pagina Home y usa Node 22.
+- Primer vistazo de Jose en Vercel: rendimiento perceptiblemente mejor; posteriormente valida el bloque funcional desplegado.
+- Objetivo comercial: 500+ usuarios registrados/activos sigue requiriendo prueba de carga por concurrencia real antes de vender a escala.
