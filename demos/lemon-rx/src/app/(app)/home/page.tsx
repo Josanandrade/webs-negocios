@@ -19,7 +19,6 @@ type SocialResult = Partial<Score> & { division?: Division | null };
 type SocialBlockRow = { post_id: string; block_id: string; block_title: string; block_score_type: ScoreType; block_position: number; completed_at: string; note: string; result: SocialResult | null };
 type SocialPostRow = { id: string; user_id: string; training_date: string; athlete_name: string; athlete_avatar_url: string | null; first_completed_at: string; updated_at: string; workout_post_blocks: SocialBlockRow[]; workout_post_reactions: ReactionRow[]; workout_post_comments: CommentRow[] };
 type SourceBlock = { id: string; content: string; sets_count: number | null; reps_per_set: number | null; movement_id: string | null; strength_scheme: StrengthSchemeRow[] | null; is_complex: boolean; complex_movements: ComplexMovementRow[] | null; is_emom: boolean; emom_reps: number | null; emom_interval_seconds: number | null; emom_rounds: number | null; emom_percentage: number | null; builder_sections: BuilderSection[] | null };
-
 type Names = Record<string, string>;
 
 export default async function HomePage({ searchParams }: PageProps<"/home">) {
@@ -44,11 +43,11 @@ export default async function HomePage({ searchParams }: PageProps<"/home">) {
   const reactionUserIds = [...new Set(posts.flatMap((post) => [...post.workout_post_reactions.map((reaction) => reaction.user_id), ...post.workout_post_comments.flatMap((comment) => (comment.workout_comment_reactions ?? []).map((reaction) => reaction.user_id))]))];
   const [{ data: movements }, { data: reactionProfiles }] = await Promise.all([
     movementIds.length ? supabase.from("movements").select("id, name").in("id", movementIds).returns<Array<{ id: string; name: string }>>() : Promise.resolve({ data: [] as Array<{ id: string; name: string }> }),
-    reactionUserIds.length ? supabase.from("profiles").select("id, full_name").in("id", reactionUserIds).returns<Array<{ id: string; full_name: string }>>() : Promise.resolve({ data: [] as Array<{ id: string; full_name: string }> }),
+    reactionUserIds.length ? supabase.rpc("social_reaction_actor_names", { p_user_ids: reactionUserIds }).returns<Array<{ user_id: string; full_name: string }>>() : Promise.resolve({ data: [] as Array<{ user_id: string; full_name: string }> }),
   ]);
   const sourceMap = new Map(sourceBlocks.map((block) => [block.id, block]));
   const movementNames = Object.fromEntries((movements ?? []).map((row) => [row.id, row.name]));
-  const reactionNames: Names = Object.fromEntries((reactionProfiles ?? []).map((row) => [row.id, row.full_name || "Atleta"]));
+  const reactionNames: Names = Object.fromEntries((reactionProfiles ?? []).map((row) => [row.user_id, row.full_name || "Atleta"]));
   const me = viewer.profile.id;
 
   return <main className="mx-auto max-w-2xl px-4 pb-24 pt-6 md:px-6 md:pb-16 md:pt-10">
