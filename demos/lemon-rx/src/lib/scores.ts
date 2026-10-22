@@ -61,8 +61,11 @@ export function loadSetWeights(detail: string): number[] | null {
 
 export function formatLoadWeights(detail: string) {
   const values = loadSetWeights(detail);
-  if (!values) return null;
-  return values.map((kg, i) => `Serie ${i + 1}: ${formatKg(kg)} kg`);
+  if (values) return values.map((kg, i) => `Serie ${i + 1}: ${formatKg(kg)} kg`);
+  // Un JSON estructurado de fuerza debe ser interpretado por su vista específica,
+  // nunca caer al fallback que imprime reps_detail como texto.
+  if (detail.trim() && safeTextDetail(detail) == null) return [];
+  return null;
 }
 
 /**
