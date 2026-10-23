@@ -171,14 +171,17 @@ El atleta con acceso puede:
 
 ### Navegación de Semana
 
-Estado: **VALIDADO**.
+Estado: **VALIDADO 23/10/2026**.
 
 - los siete días pueden permanecer cerrados;
 - en móvil, con todos cerrados, se conserva el comportamiento de scroll ya validado;
 - al abrir un día se posiciona correctamente bajo la cabecera;
 - los bloques de un día se preparan al abrirlo por primera vez;
 - al cerrar un día, el contenido pesado se desmonta para evitar que la página conserve una altura/scroll excesivo;
-- los componentes pesados de registro de resultados, Strength/Weightlifting, historial contextual y ranking de fuerza se cargan cuando hacen falta, no como coste obligatorio al entrar en Semana.
+- los componentes pesados de registro de resultados, Strength/Weightlifting, historial contextual y ranking de fuerza se cargan cuando hacen falta, no como coste obligatorio al entrar en Semana;
+- desde Rendimiento Fase 3, entrar en Semana no descarga la clasificación completa de la semana;
+- al abrir un día con bloques puntuables se carga únicamente el leaderboard de ese día;
+- si ese día se cierra y vuelve a abrirse durante la misma visita, la clasificación ya cargada se reutiliza.
 
 ## 8. Actividad, notas y resultados
 
@@ -199,7 +202,8 @@ Reglas validadas:
 - resultados privados no se abren directamente a otros atletas;
 - General / Masculina / Femenina;
 - Strength/Weightlifting usa ranking único por carga cuando no aplica RX/Intermedio;
-- en la vista detallada se puede pulsar un atleta para ver su sesión completa, incluidos resultados y notas visibles dentro de este contexto.
+- en la vista detallada se puede pulsar un atleta para ver su sesión completa, incluidos resultados y notas visibles dentro de este contexto;
+- desde Rendimiento Fase 3, solo se descargan los resultados puntuables del día visible, manteniendo exactamente las mismas posiciones, empates, divisiones y cargas que antes.
 
 ### Navegación de filtros
 
@@ -367,6 +371,16 @@ Estado: **VALIDADO 22/10/2026 / ONLINE EN VERCEL**.
 - producción estable en `https://lemon-rx.vercel.app`;
 - Functions en región Dublín.
 
+### Fase 3
+Estado: **VALIDADO 23/10/2026 / ONLINE EN VERCEL**.
+
+- Ranking solicita únicamente la clasificación del día visible, no toda la semana;
+- Semana no descarga ningún leaderboard global al entrar;
+- al abrir un día con bloques puntuables se carga solo la clasificación de ese día;
+- la clasificación diaria ya cargada se reutiliza durante esa visita;
+- Home deja de invalidar el layout privado completo al reaccionar o comentar y refresca solo Home;
+- no cambia ningún criterio de posición, empate, sexo, división, peso o `total_load`.
+
 ## 20. Comportamientos que no debemos romper
 
 - Registro/login/recuperación.
@@ -381,6 +395,8 @@ Estado: **VALIDADO 22/10/2026 / ONLINE EN VERCEL**.
 - Registro por movimiento `Kilos` / `Hecho` dentro de Strength/Weightlifting.
 - Rankings General/Masculina/Femenina.
 - Ranking de Strength/Weightlifting.
+- Ranking diario debe mantener exactamente reglas/posiciones aunque la lectura esté optimizada por día.
+- Semana no debe volver a cargar leaderboard semanal completo como coste obligatorio inicial.
 - Historial legible sin JSON técnico.
 - Historial contextual de movimientos.
 - Mi evolución y panel del coach.
@@ -435,10 +451,11 @@ Admin móvil:
 - `CREAR` centrado físicamente en cabecera;
 - `Usuarios` se gestiona desde Ajustes.
 
-## 24. Hosting productivo — VALIDADO 22/10/2026
+## 24. Hosting productivo — VALIDADO 23/10/2026
 
 - URL estable que se comparte con usuarios: `https://lemon-rx.vercel.app`.
 - Cada deployment puede tener una URL técnica única, pero los usuarios deben usar siempre la URL estable.
+- Tras cada despliegue validado, debe verificarse que `lemon-rx.vercel.app` apunta exactamente al deployment READY correcto antes de cerrar el bloque.
 - Railway queda como fallback temporal hasta cerrar configuración/rotación de secretos y comunicaciones.
 
 ## 25. Método para nuevas funcionalidades
