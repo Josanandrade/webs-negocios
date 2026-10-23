@@ -19,6 +19,7 @@ Además, desde el 15/10/2026 se conserva como dirección estratégica futura con
 7. No introducir cambios de arquitectura de forma silenciosa.
 8. Mantener Lemon RX separado de AvanttAI salvo decisión expresa.
 9. Antes de cualquier cambio con riesgo, identificar qué funcionalidades existentes pueden verse afectadas.
+10. En Vercel, no cerrar un despliegue como productivo hasta verificar que `lemon-rx.vercel.app` apunta al deployment READY del commit validado.
 
 ## 3. Infraestructura y accesos
 
@@ -77,6 +78,7 @@ La mención antigua de que Supabase Lemon RX no era accesible queda superada.
 - Ranking de Strength/Weightlifting implementado como ranking único, ordenado por mayor carga, sin RX/Intermedio.
 - Rankings competitivos separados por sexo cuando corresponde.
 - En vistas donde hay clasificación general diaria, el orden se recalcula por resultado y mantiene separación RX/Intermedio.
+- Desde Fase 3, el Ranking principal carga únicamente el día visible y Semana solicita clasificaciones solo al abrir el día correspondiente.
 
 ### Evolución
 - Historial contextual de movimientos validado: desde Strength/Weightlifting se pueden consultar los últimos 3 entrenamientos previos del mismo movimiento.
@@ -202,6 +204,20 @@ Estado: **VALIDADO / ONLINE**.
 - Para mostrar nombres de autores de reacciones sin abrir `profiles`, se usa una RPC limitada que solo devuelve nombres de usuarios que realmente tienen reacciones sociales y solo a usuarios activos autenticados.
 - Jose valida expresamente este bloque el 22/10/2026.
 
+### 23/10/2026 — Rendimiento Fase 3
+Estado: **VALIDADO / ONLINE**.
+
+- Se crea `day_leaderboard_v2` para obtener únicamente el leaderboard del día visible.
+- Ranking principal deja de cargar la semana completa.
+- Paridad comprobada con datos reales: 21 filas antiguas frente a 21 nuevas y 0 diferencias en posiciones/resultados.
+- Esta semana de referencia tenía 120 resultados puntuables totales frente a 21–39 por día; el ahorro evita traer entre 3× y casi 6× más filas de las necesarias según el día.
+- Semana ya no descarga un leaderboard global al entrar: solo carga la clasificación del día cuando el usuario abre un día con bloques puntuables.
+- Una clasificación diaria ya cargada se reutiliza durante esa visita.
+- Home deja de invalidar todo el layout privado después de reaccionar o comentar; solo revalida `/home`.
+- No se cambian reglas de ranking, empates, divisiones, sexo, pesos, `total_load`, programación, IDs de bloque ni históricos.
+- Preview validada por Jose; PR #40 fusionado a `main` en commit `ba9e97e9bb013d8df67dc2081dcf215da48b3df6`.
+- Deployment productivo Vercel READY y `lemon-rx.vercel.app` verificado explícitamente contra ese deployment.
+
 ## 6. Estrategia comercial futura — HIPÓTESIS, NO PRODUCTO ACTUAL
 
 Fecha: 15/10/2026.
@@ -261,6 +277,7 @@ Esto permitiría en el futuro:
 - Vulnerabilidades high reportadas por npm: analizar individualmente; no usar `npm audit fix --force` a ciegas.
 - Pruebas RLS todavía mejorables/automatizables.
 - Pendiente completar en Vercel la migración segura de secretos/servicios de email y Push antes de retirar Railway definitivamente.
+- Advisors siguen mostrando FK secundarias sin índice; revisar selectivamente con métricas, no añadir índices indiscriminadamente.
 
 ## 9. Método de validación
 
@@ -289,17 +306,18 @@ Orden:
 
 ### Siguiente bloque técnico propuesto
 
-Tras validar Rendimiento Fase 2, los siguientes candidatos solo se abordarán si las métricas reales lo justifican: ranking por día/bloques en lugar de semana completa, leaderboard de Semana bajo demanda, comentarios sociales bajo demanda, reducción de `revalidatePath` amplios y pruebas de carga por concurrencia. No tocar `save_week_content` ni los IDs de bloques.
+Tras validar Rendimiento Fase 3, los siguientes candidatos son: comentarios sociales bajo demanda para aligerar Home, cache selectiva de datos compartidos no sensibles, reducir lecturas de catálogos a los IDs realmente necesarios y pruebas de carga 25/50/100 usuarios concurrentes. Revisar también `coach_evolution_metrics` antes de escalar a cientos de atletas. No tocar `save_week_content` ni los IDs de bloques.
 
 ## 11. Diagnóstico de escalabilidad — 21/10/2026
 
-Estado: **DIAGNÓSTICO CONFIRMADO / FASE 2 VALIDADA 22/10/2026**.
+Estado: **DIAGNÓSTICO CONFIRMADO / FASE 3 VALIDADA 23/10/2026**.
 
-- Volumen real en el momento del análisis: 13 perfiles, 66 bloques, ~280 logs, ~147 resultados y ~78 posts; no hay volumen suficiente para justificar esperas de varios segundos.
+- Volumen real en el momento del análisis inicial: 13 perfiles, 66 bloques, ~280 logs, ~147 resultados y ~78 posts; no había volumen suficiente para justificar esperas de varios segundos.
 - Railway no estaba cerca de saturación: CPU y RAM observadas muy por debajo de capacidad.
 - PostgreSQL ejecutaba la mayoría de consultas relevantes en milisegundos.
 - Las esperas largas aparecían principalmente en la cadena de peticiones dinámicas Railway → Supabase/gateway/auth, especialmente cuando se lanzaban varias rutas en paralelo.
 - Se observaron peticiones móviles duplicadas por combinación de prefetch en `touchstart` + navegación real y precarga secuencial automática de múltiples rutas.
-- Fase 2 elimina esas precargas móviles/globales, pagina Home y usa Node 22.
-- Primer vistazo de Jose en Vercel: rendimiento perceptiblemente mejor; posteriormente valida el bloque funcional desplegado.
+- Fase 2 eliminó esas precargas móviles/globales, paginó Home y llevó producción a Node 22/Vercel Dublín.
+- Fase 3 reduce payload y cálculo innecesario en Ranking/Semana y evita invalidación global de layout tras interacción social.
+- En la semana usada para validar Fase 3 había 120 resultados puntuables totales y solo 21–39 por día, confirmando el beneficio de lectura diaria.
 - Objetivo comercial: 500+ usuarios registrados/activos sigue requiriendo prueba de carga por concurrencia real antes de vender a escala.
