@@ -2,15 +2,332 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Servicio Propiedad Inmobiliaria · Coria del Río</title>
+  <meta name="description" content="Compraventa y alquiler de viviendas en Coria del Río y su entorno. Oficina en C/ Agrupación Artística Coriana, 29.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#F3EEE3">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..700&family=Martian+Mono:wght@400;500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip" href="#inmuebles">Saltar a los inmuebles</a>
+
+  <header class="top" id="top">
+    <div class="wrap top__in">
+      <a class="brand" href="#" aria-label="Servicio Propiedad Inmobiliaria, inicio">
+        <span class="brand__seal" aria-hidden="true">SP</span>
+        <span class="brand__txt"><b>Servicio Propiedad</b><small>Inmobiliaria · Coria del Río</small></span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="#inmuebles">Inmuebles</a>
+        <a href="#vender">Vender o alquilar</a>
+        <a href="#gestion">Su cartera</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <a class="btn btn--ink btn--sm" href="tel:+34954778451"><svg width="16" height="16" aria-hidden="true"><use href="#i-phone"/></svg><span>954 77 84 51</span></a>
+    </div>
+  </header>
+
   <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow reveal">Agencia inmobiliaria en Coria del Río</p>
+          <h1 class="hero__title reveal">
+            <span class="line">Cada casa</span>
+            <span class="line">tiene su <em>ficha.</em></span>
+            <span class="line line--small">Y cada ficha, alguien que la cuida.</span>
+          </h1>
+          <p class="hero__lead reveal">Compraventa y alquiler de viviendas, locales y solares en Coria del Río y su entorno. Le atendemos en persona, en nuestra oficina de Coria del Río.</p>
+          <div class="hero__cta reveal">
+            <a class="btn btn--lacre" href="#inmuebles">Ver inmuebles <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn--line" href="#vender">Quiero vender mi vivienda</a>
+          </div>
+        </div>
+
+        <div class="fichero" aria-label="Inmuebles destacados (ejemplo)">
+          <div class="fichero__stack" id="fichero"></div>
+          <div class="seal" aria-hidden="true">
+            <svg viewBox="0 0 120 120">
+              <defs><path id="seal-path" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"/></defs>
+              <text><textPath href="#seal-path" textLength="286" lengthAdjust="spacing">SERVICIO PROPIEDAD · CORIA DEL RÍO · INMOBILIARIA ·</textPath></text>
+            </svg>
+            <span>SP</span>
+          </div>
+          <div class="fichero__ctrl">
+            <button class="iconbtn" id="fichero-prev" aria-label="Ficha anterior"><svg width="18" height="18"><use href="#i-left"/></svg></button>
+            <span class="fichero__count mono" id="fichero-count">01 / 06</span>
+            <button class="iconbtn" id="fichero-next" aria-label="Ficha siguiente"><svg width="18" height="18"><use href="#i-right"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <form class="wrap search reveal" id="search" role="search">
+        <div class="search__field">
+          <span class="search__lbl">Operación</span>
+          <div class="seg" role="radiogroup" aria-label="Operación">
+            <button type="button" class="seg__b is-on" data-op="todas" role="radio" aria-checked="true">Todas</button>
+            <button type="button" class="seg__b" data-op="venta" role="radio" aria-checked="false">Venta</button>
+            <button type="button" class="seg__b" data-op="alquiler" role="radio" aria-checked="false">Alquiler</button>
+          </div>
+        </div>
+        <label class="search__field">
+          <span class="search__lbl">Tipo</span>
+          <select id="f-type"><option value="">Cualquiera</option><option>Casa</option><option>Piso</option><option>Adosado</option><option>Ático</option><option>Chalet</option><option>Local</option><option>Solar</option></select>
+        </label>
+        <label class="search__field">
+          <span class="search__lbl">Zona</span>
+          <select id="f-zone"><option value="">Coria y entorno</option><option value="Coria">Coria del Río</option><option value="Entorno">Pueblos del entorno</option></select>
+        </label>
+        <button class="btn btn--ink search__go" type="submit">Buscar <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </form>
+
+      <svg class="river" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30 C 180 6, 360 54, 540 30 S 900 6, 1080 30 S 1300 50, 1440 26"/></svg>
+    </section>
+
+    <!-- INMUEBLES -->
+    <section class="sec" id="inmuebles">
+      <div class="wrap">
+        <div class="sec__head">
+          <div>
+            <p class="eyebrow reveal">Cartera</p>
+            <h2 class="reveal">Inmuebles en Coria y su entorno</h2>
+          </div>
+          <p class="demo-note reveal"><span class="tag tag--demo">Inmuebles de ejemplo</span> Los inmuebles de esta demo son ilustrativos: en la web final se mostraría la cartera real de la agencia.</p>
+        </div>
+        <div class="results-bar">
+          <p class="mono" id="results-count" aria-live="polite"></p>
+          <button class="linkbtn" id="results-reset" hidden>Quitar filtros</button>
+        </div>
+        <div class="grid" id="grid"></div>
+      </div>
+    </section>
+
+    <!-- CÓMO TRABAJAMOS -->
+    <section class="sec sec--paper">
+      <div class="wrap steps">
+        <div class="steps__intro">
+          <p class="eyebrow reveal">Cómo trabajamos</p>
+          <h2 class="reveal">Del primer café a la firma, con la misma persona.</h2>
+        </div>
+        <ol class="steps__list">
+          <li class="reveal"><span class="mono">01</span><h3>Valoración</h3><p>Visitamos la vivienda y le damos un precio realista según el mercado de Coria y el Aljarafe.</p></li>
+          <li class="reveal"><span class="mono">02</span><h3>Ficha y difusión</h3><p>Preparamos la ficha del inmueble y la publicamos en nuestra propia web.</p></li>
+          <li class="reveal"><span class="mono">03</span><h3>Visitas filtradas</h3><p>Atendemos cada consulta y solo enseñamos la casa a quien de verdad encaja.</p></li>
+          <li class="reveal"><span class="mono">04</span><h3>Hasta la firma</h3><p>Le acompañamos en reserva, documentación y notaría.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- VENDER -->
+    <section class="sec sell" id="vender">
+      <div class="wrap sell__grid">
+        <div class="sell__copy">
+          <p class="eyebrow reveal">Propietarios</p>
+          <h2 class="reveal">¿Quiere vender o alquilar su vivienda?</h2>
+          <p class="reveal">Cuéntenos en tres pasos qué tiene y le llamamos para concertar una visita de valoración. Sin compromiso.</p>
+          <ul class="ticks reveal">
+            <li>Valoración en persona</li>
+            <li>Su inmueble publicado en esta web</li>
+            <li>Le informamos de cada consulta</li>
+          </ul>
+        </div>
+
+        <form class="wizard reveal" id="wizard" novalidate>
+          <div class="wizard__bar"><span id="wiz-bar"></span></div>
+          <p class="mono wizard__step" id="wiz-step">Paso 1 de 3</p>
+
+          <fieldset class="wizard__pane is-on" data-pane="1">
+            <legend>¿Qué quiere hacer?</legend>
+            <div class="chips" data-name="op">
+              <button type="button" class="chip" data-v="Vender">Vender</button>
+              <button type="button" class="chip" data-v="Alquilar">Alquilar</button>
+            </div>
+            <legend class="legend2">¿Qué tipo de inmueble?</legend>
+            <div class="chips" data-name="tipo">
+              <button type="button" class="chip" data-v="Piso">Piso</button>
+              <button type="button" class="chip" data-v="Casa">Casa</button>
+              <button type="button" class="chip" data-v="Adosado">Adosado</button>
+              <button type="button" class="chip" data-v="Chalet">Chalet</button>
+              <button type="button" class="chip" data-v="Local">Local</button>
+              <button type="button" class="chip" data-v="Solar">Solar</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="wizard__pane" data-pane="2">
+            <legend>¿Dónde está?</legend>
+            <label class="field"><span>Zona o calle</span><input name="zona" placeholder="Ej.: Coria centro, cerca de la Plaza" autocomplete="off"></label>
+            <label class="field"><span>Superficie aproximada (m²)</span><input name="m2" inputmode="numeric" placeholder="Ej.: 90"></label>
+          </fieldset>
+
+          <fieldset class="wizard__pane" data-pane="3">
+            <legend>¿Cómo le contactamos?</legend>
+            <label class="field"><span>Nombre</span><input name="nombre" autocomplete="name" placeholder="Su nombre"></label>
+            <label class="field"><span>Teléfono</span><input name="tel" type="tel" autocomplete="tel" placeholder="6XX XX XX XX"></label>
+          </fieldset>
+
+          <div class="wizard__pane wizard__done" data-pane="4">
+            <p class="tag tag--demo">Simulación</p>
+            <h3>Así llegaría su solicitud</h3>
+            <p>En la web final, esta solicitud entraría directamente en el área de gestión de la agencia, en el apartado <b>Propietarios</b>:</p>
+            <div class="lead-card" id="wiz-preview"></div>
+            <p class="small">No se ha enviado ningún dato: esta demo no guarda ni transmite información.</p>
+            <a class="btn btn--line btn--sm" href="panel-demo/#propietarios">Ver en la vista previa del panel <svg width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+
+          <div class="wizard__nav">
+            <button type="button" class="btn btn--ghost btn--sm" id="wiz-back" hidden>Atrás</button>
+            <button type="button" class="btn btn--lacre" id="wiz-next" disabled>Continuar</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- GESTIÓN (comercial) -->
+    <section class="sec gestion" id="gestion">
+      <div class="wrap gestion__grid">
+        <div class="gestion__copy">
+          <p class="eyebrow eyebrow--light reveal">Vista previa · desarrollo final</p>
+          <h2 class="reveal">Gestiona tu cartera desde un único lugar.</h2>
+          <p class="reveal">Esta web no tendría por qué ser solo un escaparate. En la versión final, la agencia podría disponer de un área privada para llevar sus inmuebles sin depender de grandes portales ni de nadie más.</p>
+          <ol class="gestion__list">
+            <li class="reveal"><span><b>Su propia web,</b> con su nombre y su cartera.</span></li>
+            <li class="reveal"><span><b>Sus inmuebles viven aquí,</b> no en un portal ajeno.</span></li>
+            <li class="reveal"><span><b>Sin pedir cada cambio:</b> añadir, editar u ocultar en minutos.</span></li>
+            <li class="reveal"><span><b>Reservado, vendido, alquilado</b> con un clic.</span></li>
+            <li class="reveal"><span><b>Consultas de compradores</b> asociadas a cada inmueble.</span></li>
+            <li class="reveal"><span><b>Solicitudes de propietarios</b> en el mismo sistema.</span></li>
+            <li class="reveal"><span><b>Ampliable:</b> en el futuro, conectable con otras herramientas.</span></li>
+          </ol>
+          <div class="gestion__cta reveal">
+            <a class="btn btn--paper" href="panel-demo/">Ver cómo funcionaría <svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <p class="small">Vista previa estática con datos de demostración. No es un acceso real.</p>
+          </div>
+        </div>
+
+        <a class="mock reveal" href="panel-demo/" aria-label="Abrir la vista previa del área de gestión">
+          <div class="mock__chrome"><i></i><i></i><i></i><span class="mono">Vista previa · área de gestión</span></div>
+          <div class="mock__body">
+            <aside class="mock__side">
+              <span class="mock__logo">SP</span>
+              <span class="is-on"></span><span></span><span></span><span></span>
+            </aside>
+            <div class="mock__main">
+              <div class="mock__kpis">
+                <div><small>Publicados</small><b id="mk-pub">6</b></div>
+                <div><small>Disponibles</small><b>3</b></div>
+                <div><small>Consultas</small><b id="mk-leads">23</b></div>
+              </div>
+              <div class="mock__rows" id="mock-rows"></div>
+            </div>
+            <div class="mock__toast" id="mock-toast"><b>Nueva consulta</b><span>María L. · REF-001</span></div>
+          </div>
+          <span class="mock__stamp mono">DEMO VISUAL</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="sec contact" id="contacto">
+      <div class="wrap contact__grid">
+        <div>
+          <p class="eyebrow reveal">Contacto</p>
+          <h2 class="reveal">Pásese por la oficina o llámenos.</h2>
+          <dl class="contact__dl reveal">
+            <div><dt>Dirección</dt><dd>C/ Agrupación Artística Coriana, 29 · Casa 2<br>41100 Coria del Río, Sevilla</dd></div>
+            <div><dt>Teléfono</dt><dd><a href="tel:+34954778451">954 77 84 51</a></dd></div>
+            <div><dt>Horario</dt><dd>Llámenos para concertar cita.</dd></div>
+          </dl>
+          <div class="contact__cta reveal">
+            <a class="btn btn--lacre" href="tel:+34954778451"><svg width="16" height="16" aria-hidden="true"><use href="#i-phone"/></svg> Llamar ahora</a>
+            <a class="btn btn--line" href="https://www.google.com/maps/search/?api=1&query=Calle+Agrupaci%C3%B3n+Art%C3%ADstica+Coriana+29+Coria+del+R%C3%ADo" target="_blank" rel="noopener">Cómo llegar</a>
+          </div>
+        </div>
+        <div class="map reveal" aria-hidden="true">
+          <svg viewBox="0 0 520 380">
+            <rect width="520" height="380" fill="#E9E2D2"/>
+            <path class="map__river" d="M380 -10 C 360 80, 420 140, 400 220 S 330 330, 360 400" stroke="#9FB4B9" stroke-width="54" fill="none"/>
+            <path d="M380 -10 C 360 80, 420 140, 400 220 S 330 330, 360 400" stroke="#C9D6D8" stroke-width="2" stroke-dasharray="6 10" fill="none"/>
+            <g stroke="#FBF8F1" stroke-width="12" fill="none" stroke-linecap="round">
+              <path d="M0 120 H340"/><path d="M40 0 V380"/><path d="M0 250 C 120 240, 220 280, 330 260"/><path d="M180 0 C 170 120, 200 220, 190 380"/><path d="M60 330 L330 180"/>
+            </g>
+            <g fill="#D8CDB6">
+              <rect x="60" y="20" width="100" height="82" rx="4"/><rect x="60" y="138" width="100" height="94" rx="4"/><rect x="204" y="20" width="120" height="82" rx="4"/><rect x="210" y="140" width="110" height="60" rx="4"/><rect x="60" y="270" width="96" height="70" rx="4"/><rect x="214" y="286" width="100" height="70" rx="4"/>
+            </g>
+            <text x="430" y="200" font-family="Martian Mono, monospace" font-size="11" fill="#4F6D78" transform="rotate(-80 430 200)">GUADALQUIVIR</text>
+            <g class="map__pin" transform="translate(196 150)">
+              <circle r="26" fill="#9A2E22" opacity=".18"/>
+              <path d="M0 -34 c-13 0 -22 10 -22 22 c0 16 22 34 22 34 s22 -18 22 -34 c0 -12 -9 -22 -22 -22z" fill="#9A2E22"/>
+              <text y="-6" text-anchor="middle" font-family="Besley, serif" font-weight="800" font-size="13" fill="#F3EEE3">SP</text>
+            </g>
+          </svg>
+          <p class="map__note mono">Plano ilustrativo</p>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="foot">
+    <div class="wrap foot__in">
+      <div class="brand brand--foot"><span class="brand__seal" aria-hidden="true">SP</span><span class="brand__txt"><b>Servicio Propiedad Inmobiliaria S.L.</b><small>Coria del Río · Sevilla</small></span></div>
+      <p class="small">Web de demostración. Los inmuebles mostrados son ejemplos ilustrativos y no forman parte de la cartera real de la agencia.</p>
+      <a class="small" href="panel-demo/">Vista previa del área de gestión</a>
+    </div>
+  </footer>
+
+  <!-- Ficha de inmueble -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer__scrim" data-close></div>
+    <article class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="d-title">
+      <button class="iconbtn drawer__x" data-close aria-label="Cerrar"><svg width="18" height="18"><use href="#i-x"/></svg></button>
+      <div class="drawer__media" id="d-media"></div>
+      <div class="drawer__body">
+        <p class="tag tag--demo">Inmueble de ejemplo</p>
+        <p class="mono drawer__ref" id="d-ref"></p>
+        <h3 id="d-title"></h3>
+        <p class="drawer__zone" id="d-zone"></p>
+        <p class="drawer__price" id="d-price"></p>
+        <ul class="specs" id="d-specs"></ul>
+        <p id="d-desc"></p>
+        <ul class="feats" id="d-feats"></ul>
+
+        <form class="ask" id="ask" novalidate>
+          <h4>Preguntar por este inmueble</h4>
+          <label class="field"><span>Nombre</span><input name="nombre" autocomplete="name" required></label>
+          <label class="field"><span>Teléfono</span><input name="tel" type="tel" autocomplete="tel" required></label>
+          <label class="field"><span>Mensaje</span><textarea name="msg" rows="3">Quería saber si podemos visitarla esta semana.</textarea></label>
+          <button class="btn btn--lacre" type="submit">Enviar consulta</button>
+          <a class="btn btn--line" href="tel:+34954778451">Llamar</a>
+        </form>
+        <div class="ask-done" id="ask-done" hidden>
+          <p class="tag tag--demo">Simulación</p>
+          <h4>Así llegaría esta consulta</h4>
+          <p>En la versión final, la consulta quedaría guardada en el área de gestión, asociada a <b id="ask-ref"></b>:</p>
+          <div class="lead-card" id="ask-preview"></div>
+          <p class="small">No se ha enviado ningún dato.</p>
+          <a class="btn btn--line btn--sm" href="panel-demo/#consultas">Ver en la vista previa del panel</a>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 18V7M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5M7 11.5a1.5 1.5 0 1 0 0-.01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-bath" viewBox="0 0 24 24"><path d="M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4zM6 12V6a2 2 0 0 1 4 0M7 19l-1 2M17 19l1 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-area" viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h5V4M15 20v-5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <script src="shared.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

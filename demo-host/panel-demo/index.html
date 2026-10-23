@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vista previa del área de gestión · Servicio Propiedad Inmobiliaria</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#1C1B18">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Besley:wght@600;700;800&family=Martian+Mono:wght@400;500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <div class="ribbon" role="note">
+    <span class="ribbon__dot" aria-hidden="true"></span>
+    <p><b>Vista previa del área de gestión</b><span class="ribbon__sep">·</span><span>Demo visual — funcionalidad disponible en el desarrollo final</span><span class="ribbon__sep">·</span><span class="ribbon__data">Datos de demostración</span></p>
+    <a href="../" class="ribbon__back">← Volver a la web</a>
+  </div>
+
+  <div class="app">
+    <aside class="side" aria-label="Navegación del panel">
+      <div class="side__brand">
+        <span class="seal">SP</span>
+        <span><b>Servicio Propiedad</b><small>Área de gestión</small></span>
+      </div>
+      <nav class="side__nav">
+        <a href="#resumen" data-view="resumen"><svg><use href="#p-home"/></svg><span>Resumen</span></a>
+        <a href="#inmuebles" data-view="inmuebles"><svg><use href="#p-house"/></svg><span>Inmuebles</span><em id="n-props"></em></a>
+        <a href="#nuevo" data-view="nuevo"><svg><use href="#p-plus"/></svg><span>Nuevo inmueble</span></a>
+        <a href="#consultas" data-view="consultas"><svg><use href="#p-chat"/></svg><span>Consultas</span><em class="hot" id="n-leads"></em></a>
+        <a href="#propietarios" data-view="propietarios"><svg><use href="#p-key"/></svg><span>Propietarios</span><em class="hot" id="n-owners"></em></a>
+      </nav>
+      <div class="side__soon">
+        <p class="mono">En el desarrollo final</p>
+        <span><svg><use href="#p-cal"/></svg>Agenda de visitas</span>
+        <span><svg><use href="#p-plug"/></svg>Integraciones</span>
+      </div>
+      <div class="side__foot">
+        <span class="side__av">·</span>
+        <span><b>Sin cuenta real</b><small>Vista previa sin acceso</small></span>
+      </div>
+    </aside>
+
+    <main class="main" id="main" tabindex="-1">
+      <!-- RESUMEN -->
+      <section class="view" data-view="resumen" aria-labelledby="h-resumen">
+        <header class="vh">
+          <div>
+            <p class="vh__kicker mono" id="today"></p>
+            <h1 id="h-resumen">Resumen de la cartera</h1>
+            <p class="vh__sub">Lo que pasa en su web, de un vistazo.</p>
+          </div>
+          <div class="vh__actions">
+            <a class="b b--ghost" href="../" target="_blank" rel="noopener"><svg><use href="#p-eye"/></svg>Ver web pública</a>
+            <a class="b b--primary" href="#nuevo"><svg><use href="#p-plus"/></svg>Nuevo inmueble</a>
+          </div>
+        </header>
+
+        <div class="kpis" id="kpis"></div>
+
+        <div class="dash">
+          <article class="box box--chart">
+            <header class="box__h"><h2>Consultas recibidas</h2><span class="mono muted">Últimas 8 semanas</span></header>
+            <div class="chart" id="chart"></div>
+          </article>
+          <article class="box">
+            <header class="box__h"><h2>Visitas pendientes</h2><a href="#consultas" class="lnk">Ver consultas</a></header>
+            <ul class="visits" id="visits"></ul>
+          </article>
+          <article class="box">
+            <header class="box__h"><h2>Últimas consultas</h2><a href="#consultas" class="lnk">Bandeja</a></header>
+            <ul class="mini-leads" id="mini-leads"></ul>
+          </article>
+          <article class="box">
+            <header class="box__h"><h2>Inmuebles con más interés</h2><span class="mono muted">Visitas a la ficha</span></header>
+            <ul class="perf" id="perf"></ul>
+          </article>
+          <article class="box box--owners">
+            <header class="box__h"><h2>Quiero vender mi vivienda</h2><a href="#propietarios" class="lnk">Propietarios</a></header>
+            <p class="muted small">Solicitudes nuevas desde el formulario de captación de la web.</p>
+            <ul class="mini-owners" id="mini-owners"></ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- INMUEBLES -->
+      <section class="view" data-view="inmuebles" aria-labelledby="h-inmuebles">
+        <header class="vh">
+          <div>
+            <h1 id="h-inmuebles">Inmuebles</h1>
+            <p class="vh__sub">Lo que publica aquí es lo que aparece en su web. Lo que oculta, desaparece.</p>
+          </div>
+          <div class="vh__actions">
+            <a class="b b--primary" href="#nuevo"><svg><use href="#p-plus"/></svg>Nuevo inmueble</a>
+          </div>
+        </header>
+        <div class="toolbar">
+          <label class="search"><svg><use href="#p-search"/></svg><input id="q" placeholder="Buscar por referencia, título o zona" autocomplete="off"></label>
+          <div class="tabs" id="tabs" role="tablist" aria-label="Filtrar por estado"></div>
+          <div class="viewtoggle" role="group" aria-label="Vista">
+            <button class="is-on" data-mode="table" aria-label="Tabla"><svg><use href="#p-rows"/></svg></button>
+            <button data-mode="cards" aria-label="Tarjetas"><svg><use href="#p-grid"/></svg></button>
+          </div>
+        </div>
+        <div class="tablewrap" id="props-table"></div>
+        <div class="pcards" id="props-cards" hidden></div>
+      </section>
+
+      <!-- NUEVO -->
+      <section class="view" data-view="nuevo" aria-labelledby="h-nuevo">
+        <header class="vh">
+          <div>
+            <p class="vh__kicker mono"><a href="#inmuebles" class="lnk">Inmuebles</a> / Nuevo</p>
+            <h1 id="h-nuevo">Nuevo inmueble</h1>
+            <p class="vh__sub">Rellene la ficha y publíquela. Sin intermediarios ni esperas.</p>
+          </div>
+          <div class="vh__actions">
+            <button type="button" class="b" id="autofill"><svg><use href="#p-edit"/></svg>Rellenar con un ejemplo</button>
+          </div>
+        </header>
+        <div class="newgrid">
+          <form class="nform" id="nform" onsubmit="return false">
+            <fieldset class="box">
+              <legend>Datos principales</legend>
+              <label class="f f--full"><span>Título del anuncio</span><input name="title" placeholder="Ej.: Casa de pueblo con patio en el centro" maxlength="70"></label>
+              <label class="f"><span>Tipo de inmueble</span><select name="type"><option>Piso</option><option>Casa</option><option>Adosado</option><option>Ático</option><option>Chalet</option><option>Local</option><option>Solar</option></select></label>
+              <div class="f"><span>Operación</span><div class="seg" data-name="op"><button type="button" class="is-on" data-v="venta">Venta</button><button type="button" data-v="alquiler">Alquiler</button></div></div>
+              <label class="f"><span>Precio</span><div class="affix"><input name="price" inputmode="numeric" placeholder="0"><em id="price-suffix">€</em></div></label>
+              <label class="f"><span>Estado</span><select name="status"><option value="disponible">Disponible</option><option value="reservado">Reservado</option><option value="vendido">Vendido</option><option value="alquilado">Alquilado</option></select></label>
+              <label class="f f--full"><span>Ubicación</span><input name="zone" placeholder="Ej.: Coria del Río · Centro"></label>
+            </fieldset>
+
+            <fieldset class="box">
+              <legend>Características</legend>
+              <div class="f"><span>Habitaciones</span><div class="step" data-name="beds"><button type="button" data-d="-1" aria-label="Menos">−</button><output>3</output><button type="button" data-d="1" aria-label="Más">+</button></div></div>
+              <div class="f"><span>Baños</span><div class="step" data-name="baths"><button type="button" data-d="-1" aria-label="Menos">−</button><output>1</output><button type="button" data-d="1" aria-label="Más">+</button></div></div>
+              <label class="f"><span>Superficie</span><div class="affix"><input name="m2" inputmode="numeric" placeholder="0"><em>m²</em></div></label>
+              <div class="f f--full"><span>Extras</span>
+                <div class="checks" id="checks"></div>
+              </div>
+              <label class="f f--full"><span>Descripción</span><textarea name="desc" rows="4" maxlength="600" placeholder="Describa la vivienda: distribución, estado, orientación, entorno…"></textarea><small class="count mono" id="desc-count">0 / 600</small></label>
+            </fieldset>
+
+            <fieldset class="box">
+              <legend>Fotografías</legend>
+              <div class="drop" id="drop">
+                <svg><use href="#p-image"/></svg>
+                <p><b>Arrastre aquí las fotos</b> o pulse para elegirlas</p>
+                <small class="muted">JPG o PNG · la primera será la portada</small>
+              </div>
+              <ul class="thumbs" id="thumbs"></ul>
+              <p class="muted small">Imágenes de ejemplo. En esta vista previa no se sube ningún archivo.</p>
+            </fieldset>
+
+            <div class="savebar">
+              <p class="muted small">Demo visual: no se guarda ni publica nada.</p>
+              <div>
+                <button type="button" class="b b--ghost" data-sim="Guardado como borrador">Guardar borrador</button>
+                <button type="button" class="b b--primary" data-sim="Publicado en la web">Publicar en la web</button>
+              </div>
+            </div>
+          </form>
+
+          <aside class="preview">
+            <p class="mono muted">Así se verá en su web</p>
+            <article class="pv" id="pv"></article>
+            <div class="box meter">
+              <div class="meter__h"><b>Ficha completa</b><span class="mono" id="meter-n">0%</span></div>
+              <div class="meter__bar"><span id="meter-bar"></span></div>
+              <ul class="meter__list" id="meter-list"></ul>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- CONSULTAS -->
+      <section class="view" data-view="consultas" aria-labelledby="h-consultas">
+        <header class="vh">
+          <div>
+            <h1 id="h-consultas">Consultas</h1>
+            <p class="vh__sub">Cada mensaje llega asociado al inmueble desde el que se envió.</p>
+          </div>
+        </header>
+        <div class="inbox">
+          <div class="inbox__list">
+            <div class="tabs tabs--sm" id="lead-tabs"></div>
+            <ul id="lead-list"></ul>
+          </div>
+          <article class="inbox__detail" id="lead-detail" aria-live="polite"></article>
+        </div>
+      </section>
+
+      <!-- PROPIETARIOS -->
+      <section class="view" data-view="propietarios" aria-labelledby="h-propietarios">
+        <header class="vh">
+          <div>
+            <h1 id="h-propietarios">Propietarios</h1>
+            <p class="vh__sub">Solicitudes del formulario «Quiero vender mi vivienda». Su web también genera cartera.</p>
+          </div>
+        </header>
+        <div class="pipeline" id="pipeline"></div>
+        <div class="tablewrap" id="owners-table"></div>
+      </section>
+    </main>
+  </div>
+
+  <nav class="tabbar" aria-label="Navegación del panel (móvil)">
+    <a href="#resumen" data-view="resumen"><svg><use href="#p-home"/></svg><span>Resumen</span></a>
+    <a href="#inmuebles" data-view="inmuebles"><svg><use href="#p-house"/></svg><span>Inmuebles</span></a>
+    <a href="#nuevo" data-view="nuevo" class="tabbar__add"><svg><use href="#p-plus"/></svg><span>Nuevo</span></a>
+    <a href="#consultas" data-view="consultas"><svg><use href="#p-chat"/></svg><span>Consultas</span></a>
+    <a href="#propietarios" data-view="propietarios"><svg><use href="#p-key"/></svg><span>Propietarios</span></a>
+  </nav>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="p-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></symbol>
+      <symbol id="p-house" viewBox="0 0 24 24"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></symbol>
+      <symbol id="p-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+      <symbol id="p-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+      <symbol id="p-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l3 3M14 9l2 2"/></symbol>
+      <symbol id="p-cal" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></symbol>
+      <symbol id="p-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M6 8h12v3a6 6 0 0 1-12 0zM12 17v4"/></symbol>
+      <symbol id="p-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="p-eyeoff" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6 0 10 7 10 7a17 17 0 0 1-3.3 4M6.6 6.6C3.8 8.4 2 12 2 12s4 7 10 7a9.6 9.6 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2"/></symbol>
+      <symbol id="p-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+      <symbol id="p-rows" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+      <symbol id="p-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></symbol>
+      <symbol id="p-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16zM14 6l4 4"/></symbol>
+      <symbol id="p-dots" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></symbol>
+      <symbol id="p-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></symbol>
+      <symbol id="p-wa" viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 1a4 4 0 0 1-2-2l1-1-1-2z"/></symbol>
+      <symbol id="p-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
+      <symbol id="p-image" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-8 8"/></symbol>
+      <symbol id="p-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="p-up" viewBox="0 0 24 24"><path d="M7 14l5-5 5 5"/></symbol>
+      <symbol id="p-tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></symbol>
+      <symbol id="p-drag" viewBox="0 0 24 24"><circle cx="9" cy="7" r="1"/><circle cx="15" cy="7" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="17" r="1"/><circle cx="15" cy="17" r="1"/></symbol>
+    </defs>
+  </svg>
+
+  <script src="../shared.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>
