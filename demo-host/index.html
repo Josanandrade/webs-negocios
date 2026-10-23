@@ -2,15 +2,341 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <title>Fincas Encarna · Inmobiliaria en Bellavista, Sevilla</title>
+  <meta name="description" content="Compraventa y alquiler de viviendas en Bellavista y el sur de Sevilla. Valoración de inmuebles. Fincas Encarna, desde 2004.">
+  <meta name="theme-color" content="#F1ECE3">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Geologica:wght@300;400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="top" id="top">
+    <div class="wrap top__in">
+      <a class="brand" href="#top" aria-label="Fincas Encarna, inicio">
+        <span class="seal" aria-hidden="true">
+          <svg viewBox="0 0 44 44"><rect x="1" y="1" width="42" height="42" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 34V10h12M10 22h9M26 34V10h10M26 22h8M26 34h10" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>
+        </span>
+        <span class="brand__txt"><b>Fincas Encarna</b><small>Gestión inmobiliaria · desde 2004</small></span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Principal">
+        <a href="#inmuebles">Inmuebles</a>
+        <a href="#vender">Vender</a>
+        <a href="#valoracion">Valoración</a>
+        <a href="#agencia">La agencia</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <a class="btn btn--ink top__call" href="tel:+34670764040"><span class="dot" aria-hidden="true"></span>670 764 040</a>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow reveal"><span class="mono">Nº 29</span> Agencia inmobiliaria en Bellavista, Sevilla</p>
+          <h1 class="hero__title reveal">
+            <span class="line">Tu casa en Sevilla,</span>
+            <span class="line"><em>bien medida.</em></span>
+          </h1>
+          <p class="hero__lead reveal">Compramos, vendemos y alquilamos viviendas en Bellavista y el sur de Sevilla. Y antes de poner precio, la valoramos con el oficio de una agencia que lleva en el barrio desde 2004.</p>
+
+          <form class="search reveal" id="search" role="search" aria-label="Buscar inmuebles">
+            <div class="seg" role="radiogroup" aria-label="Operación">
+              <button type="button" class="seg__btn is-on" data-op="venta" role="radio" aria-checked="true">Comprar</button>
+              <button type="button" class="seg__btn" data-op="alquiler" role="radio" aria-checked="false">Alquilar</button>
+              <span class="seg__thumb" aria-hidden="true"></span>
+            </div>
+            <label class="field">
+              <span>Tipo</span>
+              <select id="s-type"><option value="">Todos</option><option>Piso</option><option>Casa</option><option>Ático</option><option>Chalet</option><option>Local</option></select>
+            </label>
+            <label class="field">
+              <span>Zona</span>
+              <select id="s-zone"><option value="">Toda Sevilla</option><option>Bellavista</option><option>La Palmera</option><option>Heliópolis</option><option>Pedro Salvador</option><option>Dos Hermanas</option></select>
+            </label>
+            <button class="btn btn--red search__go" type="submit">Buscar <span aria-hidden="true">→</span></button>
+          </form>
+        </div>
+
+        <figure class="sheet reveal" aria-label="Plano ilustrado de una vivienda de ejemplo">
+          <div class="sheet__paper">
+            <svg class="plan" viewBox="0 0 420 330" aria-hidden="true">
+              <defs>
+                <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#A33A2B" stroke-width="1" opacity=".35"/></pattern>
+              </defs>
+              <g class="grid">
+                <path d="M0 30H420M0 60H420M0 90H420M0 120H420M0 150H420M0 180H420M0 210H420M0 240H420M0 270H420M0 300H420M30 0V330M60 0V330M90 0V330M120 0V330M150 0V330M180 0V330M210 0V330M240 0V330M270 0V330M300 0V330M330 0V330M360 0V330M390 0V330"/>
+              </g>
+              <rect class="room room--terraza" x="300" y="40" width="90" height="96" fill="url(#hatch)"/>
+              <g class="walls">
+                <path class="draw" d="M40 40 H300 V136 H390 V290 H40 Z"/>
+                <path class="draw" d="M180 40 V150 M40 150 H120 M140 150 H230 M230 150 V290 M230 214 H300 M300 136 V200 M300 230 V290 M120 150 V290 M120 230 H40" />
+                <path class="draw thin" d="M300 40 H390 V136"/>
+              </g>
+              <g class="doors">
+                <path class="draw thin" d="M120 150 A20 20 0 0 1 140 170 M230 194 A20 20 0 0 0 250 214 M300 200 A30 30 0 0 1 300 230"/>
+              </g>
+              <g class="labels">
+                <text x="110" y="92">Salón</text><text x="110" y="108" class="m">24,6 m²</text>
+                <text x="240" y="92">Dorm. 1</text><text x="240" y="108" class="m">13,2 m²</text>
+                <text x="345" y="84">Terraza</text><text x="345" y="100" class="m">7,8 m²</text>
+                <text x="80" y="196">Cocina</text><text x="80" y="212" class="m">9,1 m²</text>
+                <text x="175" y="210">Dorm. 2</text><text x="175" y="226" class="m">11,4 m²</text>
+                <text x="345" y="176">Dorm. 3</text><text x="345" y="192" class="m">10,2 m²</text>
+                <text x="265" y="258">Baño</text>
+                <text x="80" y="266">Baño</text>
+              </g>
+              <g class="cotas">
+                <path d="M40 22 H300 M40 16 V28 M300 16 V28 M408 136 V290 M402 136 H414 M402 290 H414"/>
+                <text x="170" y="15">12,40 m</text>
+                <text x="0" y="0" transform="translate(418 214) rotate(90)">7,60 m</text>
+              </g>
+            </svg>
+            <div class="cartouche">
+              <div><span class="mono">Ref.</span> EJ-101</div>
+              <div><span class="mono">Sup.</span> <b data-count="96">0</b> m²</div>
+              <div><span class="mono">Escala</span> 1:100</div>
+            </div>
+          </div>
+          <figcaption class="tag tag--sheet">Plano de ejemplo</figcaption>
+          <div class="valcard" aria-hidden="true">
+            <span class="mono">Valoración orientativa</span>
+            <b><span data-count="168" data-suffix=".000 €">0</span></b>
+            <span class="valcard__bar"><i></i></span>
+            <small>Comparables en el barrio · estado · planta</small>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- CINTA -->
+    <div class="ribbon" aria-hidden="true">
+      <div class="ribbon__track">
+        <span>Compraventa</span><i>✦</i><span>Alquiler</span><i>✦</i><span>Valoración de inmuebles</span><i>✦</i><span>Peritaciones</span><i>✦</i><span>Bellavista · Sevilla</span><i>✦</i><span>Desde 2004</span><i>✦</i>
+        <span>Compraventa</span><i>✦</i><span>Alquiler</span><i>✦</i><span>Valoración de inmuebles</span><i>✦</i><span>Peritaciones</span><i>✦</i><span>Bellavista · Sevilla</span><i>✦</i><span>Desde 2004</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- INMUEBLES -->
+    <section class="sec" id="inmuebles">
+      <div class="wrap">
+        <div class="sec__head">
+          <div>
+            <p class="kicker reveal"><span class="mono">01</span> Cartera</p>
+            <h2 class="reveal">Inmuebles en <em>nuestra</em> web,<br>sin portales de por medio.</h2>
+          </div>
+          <div class="filters reveal" role="group" aria-label="Filtrar por operación">
+            <button class="chip is-on" data-f="todos">Todos</button>
+            <button class="chip" data-f="venta">Venta</button>
+            <button class="chip" data-f="alquiler">Alquiler</button>
+          </div>
+        </div>
+        <p class="demo-note reveal"><span class="pill">Datos de demostración</span> Los inmuebles de esta sección son ejemplos para enseñar cómo se verían. No forman parte de la cartera real de la agencia.</p>
+        <div class="grid-list" id="list" aria-live="polite"></div>
+        <p class="empty" id="empty" hidden>No hay inmuebles de ejemplo con esos filtros. <button class="link" id="reset">Ver todos</button></p>
+      </div>
+    </section>
+
+    <!-- VENDER -->
+    <section class="sec sec--red" id="vender">
+      <div class="wrap sell">
+        <div class="sell__copy">
+          <p class="kicker reveal"><span class="mono">02</span> Propietarios</p>
+          <h2 class="reveal">¿Quieres vender o alquilar tu vivienda?</h2>
+          <p class="reveal">Cuéntanos qué tienes y dónde está. Te llamamos, la visitamos y te damos un precio razonado: lo que vale hoy en tu calle, no lo que nos gustaría que valiera.</p>
+          <ol class="steps reveal">
+            <li><b>Nos cuentas</b><span>Zona, tipo y metros. Dos minutos.</span></li>
+            <li><b>La visitamos</b><span>Medimos, fotografiamos y miramos comparables.</span></li>
+            <li><b>Precio y plan</b><span>Te explicamos el valor y cómo la vamos a mover.</span></li>
+          </ol>
+        </div>
+        <form class="card form reveal" id="sell-form" novalidate>
+          <h3>Quiero vender mi vivienda</h3>
+          <div class="seg seg--light" role="radiogroup" aria-label="Qué quieres hacer">
+            <button type="button" class="seg__btn is-on" data-v="vender" role="radio" aria-checked="true">Vender</button>
+            <button type="button" class="seg__btn" data-v="alquilar" role="radio" aria-checked="false">Alquilar</button>
+            <span class="seg__thumb" aria-hidden="true"></span>
+          </div>
+          <label class="in"><span>Nombre</span><input name="nombre" autocomplete="name" required></label>
+          <label class="in"><span>Teléfono</span><input name="tel" type="tel" inputmode="tel" autocomplete="tel" required pattern="[0-9 +]{9,}"></label>
+          <div class="in-row">
+            <label class="in"><span>Zona o calle</span><input name="zona" required></label>
+            <label class="in"><span>Tipo</span><select name="tipo"><option>Piso</option><option>Casa</option><option>Ático</option><option>Chalet</option><option>Local</option><option>Otro</option></select></label>
+          </div>
+          <button class="btn btn--red btn--block" type="submit">Enviar por WhatsApp</button>
+          <p class="form__msg" role="status" aria-live="polite"></p>
+          <small class="form__legal">Se abrirá WhatsApp con tu mensaje listo para enviar. No guardamos nada en esta web.</small>
+        </form>
+      </div>
+    </section>
+
+    <!-- VALORACIÓN -->
+    <section class="sec" id="valoracion">
+      <div class="wrap val">
+        <div class="val__intro">
+          <p class="kicker reveal"><span class="mono">03</span> Valoración</p>
+          <h2 class="reveal">Un precio se <em>demuestra</em>.</h2>
+          <p class="reveal">La valoración y la peritación de inmuebles forman parte de nuestra actividad desde el principio. Por eso cuando te decimos un precio, te enseñamos de dónde sale.</p>
+        </div>
+        <div class="val__cards">
+          <article class="vc reveal">
+            <span class="vc__n mono">A</span>
+            <h3>Comparables reales</h3>
+            <p>Viviendas parecidas, vendidas o en venta, en tu misma zona.</p>
+          </article>
+          <article class="vc reveal">
+            <span class="vc__n mono">B</span>
+            <h3>Estado y metros</h3>
+            <p>Superficie, planta, orientación, reformas y lo que hay que arreglar.</p>
+          </article>
+          <article class="vc reveal">
+            <span class="vc__n mono">C</span>
+            <h3>Precio con margen</h3>
+            <p>Un rango para salir al mercado y un mínimo por debajo del cual no conviene bajar.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- GESTIÓN (sección comercial) -->
+    <section class="sec sec--ink" id="gestion">
+      <div class="wrap mgmt">
+        <div class="mgmt__copy">
+          <p class="kicker kicker--light reveal"><span class="mono">04</span> Área de gestión · simulación</p>
+          <h2 class="reveal">Gestiona tu cartera desde <em>un único lugar</em>.</h2>
+          <p class="reveal">En el desarrollo final, la agencia tendría un acceso privado para publicar, editar, ocultar o marcar como vendido cualquier inmueble de su web, sin pedir cada cambio a nadie. Las consultas de compradores y las solicitudes de propietarios llegarían al mismo sitio.</p>
+          <ul class="ticks reveal">
+            <li>Los inmuebles viven en tu propia web</li>
+            <li>Consultas asociadas a cada inmueble</li>
+            <li>Solicitudes de “quiero vender” en la misma bandeja</li>
+          </ul>
+          <a class="btn btn--paper reveal" href="panel-demo/">Ver cómo funcionaría <span aria-hidden="true">→</span></a>
+          <p class="fine reveal">Vista previa visual de una posible funcionalidad del desarrollo final. No es un acceso real ni está operativo.</p>
+        </div>
+        <div class="mock reveal" aria-hidden="true">
+          <div class="mock__bar"><i></i><i></i><i></i><span>Área de gestión · vista previa</span></div>
+          <div class="mock__body">
+            <aside class="mock__side">
+              <span class="mock__logo">FE</span>
+              <b class="on"></b><b></b><b></b><b></b><b></b>
+            </aside>
+            <div class="mock__main">
+              <div class="mock__kpis">
+                <div><small>Publicados</small><b>8</b></div>
+                <div><small>Consultas</small><b class="kpi-tick">12</b></div>
+                <div><small>Visitas</small><b>4</b></div>
+              </div>
+              <div class="mock__rows">
+                <div class="mrow"><span class="mthumb t0"></span><span class="mtxt"><b>EJ-101 · Piso 3 dorm.</b><small>Bellavista · 168.000 €</small></span><span class="st st--ok" data-cycle>Disponible</span></div>
+                <div class="mrow"><span class="mthumb t1"></span><span class="mtxt"><b>EJ-102 · Casa adosada</b><small>Pedro Salvador · 245.000 €</small></span><span class="st st--res">Reservado</span></div>
+                <div class="mrow"><span class="mthumb t2"></span><span class="mtxt"><b>EJ-103 · Ático</b><small>La Palmera · 289.000 €</small></span><span class="st st--ok">Disponible</span></div>
+                <div class="mrow"><span class="mthumb t3"></span><span class="mtxt"><b>EJ-106 · Chalet</b><small>Dos Hermanas · 395.000 €</small></span><span class="st st--sold">Vendido</span></div>
+              </div>
+              <div class="mock__lead"><span class="ava">ML</span><span><b>María López</b> · interesada en EJ-101<small>“¿Podemos visitarla esta semana?”</small></span><em>Nueva</em></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AGENCIA -->
+    <section class="sec" id="agencia">
+      <div class="wrap agency">
+        <div class="agency__num reveal" aria-hidden="true"><span data-count="2004" data-plain="1">2004</span></div>
+        <div class="agency__copy">
+          <p class="kicker reveal"><span class="mono">05</span> La agencia</p>
+          <h2 class="reveal">Más de veinte años en el mismo barrio.</h2>
+          <p class="reveal">Fincas Encarna es una agencia inmobiliaria de Bellavista, en el sur de Sevilla, constituida en 2004. Nos dedicamos a la compraventa y el alquiler de inmuebles y a su valoración y peritación.</p>
+          <p class="reveal">Una agencia de barrio: trato directo, cercanía con la zona y la costumbre de conocer bien cada casa antes de enseñarla.</p>
+          <dl class="facts reveal">
+            <div><dt>Desde</dt><dd>2004</dd></div>
+            <div><dt>Oficina</dt><dd>Bellavista</dd></div>
+            <div><dt>Servicios</dt><dd>Venta · Alquiler · Valoración</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="sec sec--paper2" id="contacto">
+      <div class="wrap contact">
+        <div>
+          <p class="kicker reveal"><span class="mono">06</span> Contacto</p>
+          <h2 class="reveal">Pásate, llama o escríbenos.</h2>
+          <div class="contact__actions reveal">
+            <a class="cbtn" href="tel:+34670764040"><span class="cbtn__k mono">Teléfono</span><b>670 764 040</b><span class="arrow" aria-hidden="true">↗</span></a>
+            <a class="cbtn wa-only" href="#" data-wa="Hola, os escribo desde vuestra web."><span class="cbtn__k mono">WhatsApp</span><b>Escribir ahora</b><span class="arrow" aria-hidden="true">↗</span></a>
+            <a class="cbtn" href="https://www.google.com/maps/search/?api=1&query=Calle+Guadalajara+29+41014+Sevilla" target="_blank" rel="noopener"><span class="cbtn__k mono">Oficina</span><b>Calle Guadalajara, 29 · 41014 Sevilla</b><span class="arrow" aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <div class="map reveal" aria-label="Plano ilustrado de la zona de Bellavista">
+          <svg viewBox="0 0 400 300" role="img" aria-label="Ubicación aproximada de la oficina en Bellavista">
+            <rect width="400" height="300" fill="#E8E0D2"/>
+            <g fill="#F5F1EA" stroke="#D3C8B6">
+              <rect x="20" y="20" width="110" height="70" rx="4"/><rect x="150" y="20" width="90" height="70" rx="4"/><rect x="260" y="20" width="120" height="70" rx="4"/>
+              <rect x="20" y="110" width="70" height="80" rx="4"/><rect x="110" y="110" width="130" height="80" rx="4"/><rect x="260" y="110" width="120" height="80" rx="4"/>
+              <rect x="20" y="210" width="110" height="70" rx="4"/><rect x="150" y="210" width="90" height="70" rx="4"/><rect x="260" y="210" width="120" height="70" rx="4"/>
+            </g>
+            <path class="route" d="M0 100 H400 M0 200 H400 M140 0 V300 M250 0 V300" stroke="#fff" stroke-width="12" fill="none"/>
+            <rect x="30" y="230" width="90" height="40" rx="4" fill="#B9C49A" opacity=".8"/>
+            <text x="300" y="96" font-family="Azeret Mono" font-size="9" fill="#7A6E60">C/ GUADALAJARA</text>
+            <g class="pin" transform="translate(196 150)">
+              <circle r="26" fill="#A33A2B" opacity=".14" class="pulse"/>
+              <path d="M0 -4 C -12 -4 -16 -20 0 -34 C 16 -20 12 -4 0 -4 Z" fill="#A33A2B" transform="translate(0 4)"/>
+              <circle cy="-14" r="4.5" fill="#F1ECE3"/>
+            </g>
+          </svg>
+          <span class="tag tag--map">Plano orientativo</span>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="foot">
+    <div class="wrap foot__in">
+      <div class="brand brand--foot"><span class="brand__txt"><b>Fincas Encarna</b><small>Sociedad de Gestión Inmobiliaria S.L.</small></span></div>
+      <p>Calle Guadalajara, 29 · 41014 Sevilla · <a href="tel:+34670764040">670 764 040</a></p>
+      <p class="foot__fine">Inmuebles e ilustraciones de esta web son ejemplos de demostración.</p>
+    </div>
+  </footer>
+
+  <a class="wa-float wa-only" href="#" data-wa="Hola, os escribo desde vuestra web." aria-label="Escribir por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3a.5.5 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg>
+  </a>
+
+  <!-- Ficha en panel lateral -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer__scrim" data-close></div>
+    <article class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="d-title" tabindex="-1">
+      <button class="drawer__x" data-close aria-label="Cerrar ficha">×</button>
+      <div class="drawer__art" id="d-art"></div>
+      <div class="drawer__body">
+        <span class="pill">Inmueble de ejemplo</span>
+        <p class="mono d-ref" id="d-ref"></p>
+        <h3 id="d-title"></h3>
+        <p class="d-price" id="d-price"></p>
+        <ul class="d-specs" id="d-specs"></ul>
+        <p id="d-text"></p>
+        <ul class="d-tags" id="d-tags"></ul>
+        <div class="d-cta">
+          <a class="btn btn--red wa-only" id="d-wa" href="#">Preguntar por WhatsApp</a>
+          <a class="btn btn--line" href="tel:+34670764040">Llamar</a>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/art.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

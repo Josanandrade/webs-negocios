@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Vista previa del área de gestión · Fincas Encarna</title>
+  <meta name="theme-color" content="#1A1613">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&family=Geologica:wght@300;400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <div class="banner" role="note">
+    <span class="banner__tag">Vista previa del área de gestión</span>
+    <span class="banner__txt">Demo visual — funcionalidad disponible en el desarrollo final. Datos de demostración, ningún botón guarda cambios.</span>
+    <a class="banner__back" href="../">← Volver a la web</a>
+  </div>
+
+  <div class="app">
+    <aside class="side" id="side">
+      <div class="side__brand">
+        <span class="side__logo" aria-hidden="true">
+          <svg viewBox="0 0 44 44"><path d="M10 34V10h12M10 22h9M26 34V10h10M26 22h8M26 34h10" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        </span>
+        <span><b>Fincas Encarna</b><small>Área de gestión</small></span>
+      </div>
+      <nav class="side__nav" aria-label="Secciones del panel">
+        <a href="#resumen" data-view="resumen"><svg viewBox="0 0 20 20"><path d="M3 3h6v8H3zM11 3h6v5h-6zM11 10h6v7h-6zM3 13h6v4H3z"/></svg>Resumen</a>
+        <a href="#inmuebles" data-view="inmuebles"><svg viewBox="0 0 20 20"><path d="M3 9l7-6 7 6v8H3z M8 17v-5h4v5"/></svg>Inmuebles<span class="cnt">10</span></a>
+        <a href="#nuevo" data-view="nuevo"><svg viewBox="0 0 20 20"><path d="M10 4v12M4 10h12"/></svg>Nuevo inmueble</a>
+        <a href="#consultas" data-view="consultas"><svg viewBox="0 0 20 20"><path d="M3 4h14v9H8l-4 3v-3H3z"/></svg>Consultas<span class="cnt cnt--hot">3</span></a>
+        <a href="#propietarios" data-view="propietarios"><svg viewBox="0 0 20 20"><path d="M10 10a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 17c1-3.5 3.7-5 7-5s6 1.5 7 5"/></svg>Propietarios<span class="cnt cnt--hot">2</span></a>
+      </nav>
+      <div class="side__future">
+        <span class="mono">Más adelante</span>
+        <p>Conexión con otras herramientas de gestión, agenda compartida y exportación de la cartera.</p>
+      </div>
+      <div class="side__who">
+        <span class="ava ava--ink">FE</span>
+        <span><b>Vista de demostración</b><small>Sin acceso real · sin cuenta</small></span>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="bar">
+        <button class="bar__menu" id="menu" aria-label="Abrir menú del panel" aria-expanded="false" aria-controls="side"><span></span><span></span><span></span></button>
+        <div class="bar__title"><span class="mono" id="crumb">Área de gestión</span><h1 id="view-title">Resumen</h1></div>
+        <label class="bar__search"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.5"/><path d="M13 13l4 4"/></svg><input id="q" placeholder="Buscar referencia o zona…" aria-label="Buscar inmuebles"></label>
+        <a class="btn btn--red" href="#nuevo"><span aria-hidden="true">+</span> Nuevo inmueble</a>
+      </header>
+
+      <!-- RESUMEN -->
+      <section class="view" id="v-resumen" data-title="Resumen">
+        <p class="hello">Buenos días. Así iría tu cartera esta semana <span class="pill">Datos de demostración</span></p>
+        <div class="kpis" id="kpis"></div>
+        <div class="dash">
+          <article class="panel panel--chart">
+            <header><h2>Consultas recibidas desde la web</h2><span class="mono">Últimas 8 semanas</span></header>
+            <div class="chart" id="chart"></div>
+            <ul class="legend"><li><i class="l1"></i>Desde la ficha del inmueble</li><li><i class="l2"></i>WhatsApp</li></ul>
+          </article>
+          <article class="panel">
+            <header><h2>Próximas visitas</h2><span class="mono">Esta semana</span></header>
+            <ul class="agenda" id="agenda"></ul>
+          </article>
+          <article class="panel panel--hint">
+            <span class="hint__ico" aria-hidden="true">↻</span>
+            <h2>Lo que cambias aquí, cambia en tu web</h2>
+            <p>En el desarrollo final, al marcar un inmueble como vendido o al publicar uno nuevo, la web pública se actualizaría al momento. Sin llamar a nadie, sin esperar.</p>
+            <a class="btn btn--line" href="#inmuebles">Ver la cartera</a>
+          </article>
+          <article class="panel">
+            <header><h2>Actividad reciente</h2></header>
+            <ul class="feed" id="feed"></ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- INMUEBLES -->
+      <section class="view" id="v-inmuebles" data-title="Inmuebles" hidden>
+        <div class="toolbar">
+          <div class="tabs" role="tablist" aria-label="Filtrar por estado" id="st-tabs"></div>
+          <div class="toggle" role="group" aria-label="Vista">
+            <button class="is-on" data-layout="table" aria-pressed="true">Tabla</button>
+            <button data-layout="cards" aria-pressed="false">Tarjetas</button>
+          </div>
+        </div>
+        <div class="panel panel--flush">
+          <table class="tbl" id="tbl">
+            <thead><tr><th>Inmueble</th><th>Tipo</th><th>Ubicación</th><th class="r">Precio</th><th>Estado</th><th>Web</th><th class="r">Acciones</th></tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+          <div class="pcards" id="pcards" hidden></div>
+          <p class="none" id="none" hidden>Ningún inmueble coincide con la búsqueda.</p>
+        </div>
+        <p class="foot-note">Todos los inmuebles son <b>de ejemplo</b>. Las acciones muestran lo que pasaría, pero no modifican nada.</p>
+      </section>
+
+      <!-- NUEVO -->
+      <section class="view" id="v-nuevo" data-title="Nuevo inmueble" hidden>
+        <div class="new">
+          <form class="panel form" id="new-form" onsubmit="return false">
+            <fieldset>
+              <legend>Datos principales</legend>
+              <label class="in in--wide"><span>Título</span><input id="f-title" value="Piso luminoso con balcón en Bellavista"></label>
+              <label class="in"><span>Tipo de inmueble</span><select id="f-type"><option>Piso</option><option>Casa</option><option>Ático</option><option>Chalet</option><option>Local</option><option>Garaje</option></select></label>
+              <div class="in"><span>Operación</span>
+                <div class="seg" id="f-op"><button type="button" class="is-on" data-v="venta">Venta</button><button type="button" data-v="alquiler">Alquiler</button></div>
+              </div>
+              <label class="in"><span>Precio</span><div class="affix"><input id="f-price" inputmode="numeric" value="159000"><b id="f-unit">€</b></div></label>
+              <label class="in"><span>Ubicación</span><input id="f-zone" value="Bellavista, Sevilla"></label>
+              <label class="in in--s"><span>Habitaciones</span><input id="f-beds" type="number" min="0" value="3"></label>
+              <label class="in in--s"><span>Baños</span><input id="f-baths" type="number" min="0" value="1"></label>
+              <label class="in in--s"><span>Superficie</span><div class="affix"><input id="f-m2" type="number" min="0" value="84"><b>m²</b></div></label>
+            </fieldset>
+            <fieldset>
+              <legend>Descripción</legend>
+              <label class="in in--wide"><span>Descripción</span><textarea id="f-text" rows="4">Piso exterior en segunda planta, con balcón a la calle, cocina amueblada y dos armarios empotrados. Cerca del Metro y de colegios.</textarea></label>
+              <div class="in in--wide"><span>Características</span>
+                <div class="feats" id="feats">
+                  <button type="button" class="is-on">Ascensor</button><button type="button" class="is-on">Balcón</button><button type="button">Terraza</button><button type="button" class="is-on">Aire acondicionado</button><button type="button">Garaje</button><button type="button">Trastero</button><button type="button">Piscina</button><button type="button">Amueblado</button>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Fotografías</legend>
+              <div class="photos">
+                <div class="drop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V5M7 10l5-5 5 5M4 19h16"/></svg><b>Arrastra las fotos aquí</b><small>o pulsa para elegirlas desde el móvil</small></div>
+                <div class="thumbs" id="thumbs"></div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Estado y publicación</legend>
+              <div class="states" id="f-state">
+                <button type="button" class="sb sb--ok is-on" data-s="disponible">Disponible</button>
+                <button type="button" class="sb sb--res" data-s="reservado">Reservado</button>
+                <button type="button" class="sb sb--sold" data-s="vendido">Vendido</button>
+                <button type="button" class="sb sb--sold" data-s="alquilado">Alquilado</button>
+                <button type="button" class="sb sb--draft" data-s="borrador">Borrador</button>
+              </div>
+            </fieldset>
+            <div class="form__actions">
+              <button type="button" class="btn btn--line" data-sim="El inmueble se guardaría como borrador, sin aparecer en la web.">Guardar borrador</button>
+              <button type="button" class="btn btn--red" data-sim="El inmueble se publicaría al momento en la web de Fincas Encarna.">Publicar en la web</button>
+            </div>
+          </form>
+          <aside class="preview">
+            <span class="mono">Así se vería en tu web</span>
+            <div class="pv" id="pv"></div>
+            <p class="preview__note">Vista previa en directo de este formulario de demostración. No se guarda ni se publica nada.</p>
+          </aside>
+        </div>
+      </section>
+
+      <!-- CONSULTAS -->
+      <section class="view" id="v-consultas" data-title="Consultas" hidden>
+        <div class="toolbar">
+          <div class="tabs" id="lead-tabs" role="tablist" aria-label="Filtrar consultas">
+            <button class="is-on" data-f="todas">Todas</button><button data-f="nueva">Nuevas</button><button data-f="atendida">Atendidas</button>
+          </div>
+          <span class="pill pill--soft">Datos de demostración</span>
+        </div>
+        <div class="leads">
+          <ul class="panel panel--flush llist" id="llist"></ul>
+          <article class="panel ldetail" id="ldetail" aria-live="polite"></article>
+        </div>
+      </section>
+
+      <!-- PROPIETARIOS -->
+      <section class="view" id="v-propietarios" data-title="Propietarios" hidden>
+        <div class="funnel" id="funnel"></div>
+        <div class="panel panel--flush">
+          <header class="ph"><h2>Solicitudes “Quiero vender mi vivienda”</h2><span class="pill pill--soft">Datos de demostración</span></header>
+          <table class="tbl tbl--own">
+            <thead><tr><th>Nombre</th><th>Teléfono</th><th>Zona</th><th>Tipo de inmueble</th><th>Fecha de solicitud</th><th>Estado</th><th class="r">Acciones</th></tr></thead>
+            <tbody id="owners"></tbody>
+          </table>
+        </div>
+        <p class="foot-note">Cada formulario “Quiero vender” de la web llegaría aquí. Tu web no solo enseña inmuebles: también te trae cartera nueva.</p>
+      </section>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+  <div class="scrim" id="scrim" hidden></div>
+
+  <script src="../assets/data.js"></script>
+  <script src="../assets/art.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>
