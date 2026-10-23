@@ -24,15 +24,32 @@ export async function getActivity(userId: string, blockIds: string[]): Promise<A
   };
 }
 
+function leaderboardByBlock(data: LeaderboardRow[] | null | undefined): Record<string, LeaderboardRow[]> {
+  const byBlock: Record<string, LeaderboardRow[]> = {};
+  for (const row of data ?? []) {
+    (byBlock[row.block_id] ??= []).push({
+      ...row,
+      kg: row.kg == null ? null : Number(row.kg),
+      total_load: row.total_load == null ? null : Number(row.total_load),
+      position: Number(row.position),
+      total: Number(row.total),
+    });
+  }
+  return byBlock;
+}
+
 export async function getWeekLeaderboard(weekId: string | null): Promise<Record<string, LeaderboardRow[]>> {
   if (!weekId) return {};
   const supabase = await createClient();
   const { data } = await supabase.rpc("week_leaderboard_v2", { p_week_id: weekId });
-  const byBlock: Record<string, LeaderboardRow[]> = {};
-  for (const row of (data ?? []) as LeaderboardRow[]) {
-    (byBlock[row.block_id] ??= []).push({ ...row, kg: row.kg == null ? null : Number(row.kg), total_load: row.total_load == null ? null : Number(row.total_load), position: Number(row.position), total: Number(row.total) });
-  }
-  return byBlock;
+  return leaderboardByBlock((data ?? []) as LeaderboardRow[]);
+}
+
+export async function getDayLeaderboard(weekId: string | null, date: string): Promise<Record<string, LeaderboardRow[]>> {
+  if (!weekId) return {};
+  const supabase = await createClient();
+  const { data } = await supabase.rpc("day_leaderboard_v2", { p_week_id: weekId, p_date: date });
+  return leaderboardByBlock((data ?? []) as LeaderboardRow[]);
 }
 
 export async function getRankingDayAthleteActivity(weekId: string | null, date: string): Promise<RankingDayActivityRow[]> {
