@@ -2,15 +2,233 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Inmo Abades · Inmobiliaria en Sevilla Centro</title>
+  <meta name="description" content="Compra, venta y alquiler de pisos, áticos y casas en el centro histórico de Sevilla.">
+  <meta name="theme-color" content="#FBF7EF">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=Golos+Text:wght@400..700&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#inmuebles">Saltar a los inmuebles</a>
+
+  <header class="top" data-top>
+    <a class="plaque" href="#inicio" aria-label="Inmo Abades, inicio">
+      <span class="plaque__tile"><span>Inmo</span><b>Abades</b></span>
+      <span class="plaque__area">Sevilla Centro</span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#inmuebles">Inmuebles</a>
+      <a href="#vender">Vender</a>
+      <a href="#gestion">Área de gestión</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a class="btn btn--ink btn--sm" href="#contacto">Contactar</a>
+  </header>
+
+  <main id="inicio">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__copy">
+        <p class="eyebrow reveal">Inmobiliaria · Casco histórico de Sevilla</p>
+        <h1 class="hero__title reveal">Detrás de cada <em>cancela</em>, una casa por descubrir.</h1>
+        <p class="hero__lead reveal">Pisos, áticos y casas-patio en el centro de Sevilla. Compra, venta y alquiler con trato directo, de puerta a puerta.</p>
+
+        <form class="finder reveal" data-finder>
+          <div class="seg" role="radiogroup" aria-label="Operación">
+            <button type="button" role="radio" aria-checked="true" data-op="venta">Comprar</button>
+            <button type="button" role="radio" aria-checked="false" data-op="alquiler">Alquilar</button>
+            <span class="seg__thumb" aria-hidden="true"></span>
+          </div>
+          <label class="finder__field">
+            <span>Barrio</span>
+            <select data-zone>
+              <option value="">Todo el centro</option>
+            </select>
+          </label>
+          <label class="finder__field">
+            <span>Tipo</span>
+            <select data-type>
+              <option value="">Cualquiera</option>
+            </select>
+          </label>
+          <button class="btn btn--almagra finder__go" type="submit">Ver inmuebles <span aria-hidden="true">→</span></button>
+        </form>
+      </div>
+
+      <div class="hero__visual" aria-hidden="true">
+        <div class="gate">
+          <div class="gate__patio" data-hero-art></div>
+          <div class="gate__leaf gate__leaf--l"><svg viewBox="0 0 100 300" preserveAspectRatio="none"><use href="#reja"/></svg></div>
+          <div class="gate__leaf gate__leaf--r"><svg viewBox="0 0 100 300" preserveAspectRatio="none"><use href="#reja"/></svg></div>
+          <div class="gate__arch"></div>
+        </div>
+        <div class="live" data-live>
+          <span class="live__dot"></span>
+          <div>
+            <small>Nuevo en la web</small>
+            <strong data-live-title>—</strong>
+            <span data-live-meta>—</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BARRIOS -->
+    <div class="streets" aria-label="Barrios en los que trabajamos">
+      <div class="streets__track" data-streets></div>
+    </div>
+
+    <!-- INMUEBLES -->
+    <section class="section" id="inmuebles">
+      <div class="section__head">
+        <div>
+          <p class="eyebrow reveal">En cartera</p>
+          <h2 class="reveal">Inmuebles en el centro</h2>
+        </div>
+        <div class="chips reveal" role="group" aria-label="Filtrar por operación">
+          <button type="button" class="chip is-on" data-filter="">Todos</button>
+          <button type="button" class="chip" data-filter="venta">Venta</button>
+          <button type="button" class="chip" data-filter="alquiler">Alquiler</button>
+        </div>
+      </div>
+      <p class="demo-note reveal"><span>Inmuebles de ejemplo</span> Datos de demostración para ilustrar cómo se vería la cartera en la web.</p>
+      <p class="count" data-count aria-live="polite"></p>
+      <div class="grid" data-grid></div>
+    </section>
+
+    <!-- VENDER -->
+    <section class="sell" id="vender">
+      <div class="sell__copy">
+        <p class="eyebrow eyebrow--light reveal">Propietarios</p>
+        <h2 class="reveal">¿Quieres vender o alquilar tu casa en el centro?</h2>
+        <p class="reveal">Cuéntanos qué tienes y dónde está. Te llamamos para verla, valorarla y explicarte cómo la presentaríamos.</p>
+        <ol class="steps">
+          <li class="reveal"><b>01</b><span>Visita y valoración</span></li>
+          <li class="reveal"><b>02</b><span>Fotos y ficha cuidada</span></li>
+          <li class="reveal"><b>03</b><span>Publicación en esta web</span></li>
+          <li class="reveal"><b>04</b><span>Visitas con interesados reales</span></li>
+        </ol>
+      </div>
+      <form class="sell__form reveal" data-sell novalidate>
+        <h3>Quiero vender mi vivienda</h3>
+        <label>Nombre<input name="nombre" autocomplete="name" required placeholder="Tu nombre"></label>
+        <label>Teléfono<input name="tel" type="tel" autocomplete="tel" inputmode="tel" required placeholder="600 000 000"></label>
+        <div class="row">
+          <label>Zona<select name="zona" data-zone-sell></select></label>
+          <label>Tipo<select name="tipo">
+            <option>Piso</option><option>Ático</option><option>Casa</option><option>Local</option><option>Otro</option>
+          </select></label>
+        </div>
+        <button class="btn btn--almagra btn--block" type="submit">Solicitar valoración</button>
+        <p class="sell__fine">Formulario de demostración: no se envía ningún dato.</p>
+        <div class="sell__done" data-sell-done hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p><b>Así funcionaría.</b> En la web final, esta solicitud llegaría al área de gestión de Inmo Abades, en la bandeja de propietarios.</p>
+          <a class="link" href="panel-demo/#propietarios">Ver dónde aparecería →</a>
+        </div>
+      </form>
+    </section>
+
+    <!-- GESTIÓN -->
+    <section class="manage" id="gestion">
+      <div class="manage__copy">
+        <p class="eyebrow reveal">Para Inmo Abades</p>
+        <h2 class="reveal">Gestiona tu cartera desde un único lugar</h2>
+        <p class="reveal">Esta web no sería solo un escaparate. En el desarrollo final, la inmobiliaria tendría un área privada para publicar, editar u ocultar inmuebles, marcarlos como reservados o vendidos y recibir las consultas sin depender de nadie.</p>
+        <ul class="ticks">
+          <li class="reveal">Tus inmuebles viven en tu propia web, no en un portal.</li>
+          <li class="reveal">Cambias precio, fotos o estado tú mismo, en un minuto.</li>
+          <li class="reveal">Cada consulta llega asociada a su inmueble.</li>
+          <li class="reveal">Las solicitudes de propietarios entran en el mismo sitio.</li>
+        </ul>
+        <a class="btn btn--ink reveal" href="panel-demo/">Ver cómo funcionaría <span aria-hidden="true">→</span></a>
+        <p class="manage__fine reveal">Simulación visual de una posible funcionalidad del desarrollo final. No es un acceso real.</p>
+      </div>
+
+      <a class="mock reveal" href="panel-demo/" aria-label="Abrir la vista previa del área de gestión">
+        <div class="mock__bar"><i></i><i></i><i></i><span>Vista previa · Área de gestión</span></div>
+        <div class="mock__body">
+          <div class="mock__side">
+            <b>IA</b><span class="on"></span><span></span><span></span><span></span>
+          </div>
+          <div class="mock__main">
+            <div class="mock__kpis">
+              <div><small>Publicados</small><strong>7</strong></div>
+              <div><small>Consultas</small><strong data-mock-leads>12</strong></div>
+              <div><small>Visitas</small><strong>4</strong></div>
+            </div>
+            <div class="mock__rows">
+              <div class="mock__row"><span class="th" data-mock-art="0"></span><span class="tx"><b>AB-101</b> Santa Cruz</span><span class="pill pill--ok">Disponible</span></div>
+              <div class="mock__row"><span class="th" data-mock-art="1"></span><span class="tx"><b>AB-102</b> Alfalfa</span><span class="pill pill--ok" data-mock-flip>Disponible</span></div>
+              <div class="mock__row"><span class="th" data-mock-art="2"></span><span class="tx"><b>AB-103</b> San Bartolomé</span><span class="pill pill--ok">Disponible</span></div>
+            </div>
+          </div>
+          <div class="mock__toast" data-mock-toast><b>Nueva consulta</b> AB-104 · “¿Podemos verlo el jueves?”</div>
+        </div>
+        <span class="mock__tag">Demo visual</span>
+      </a>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="contact" id="contacto">
+      <div class="contact__card reveal">
+        <p class="eyebrow">Contacto</p>
+        <h2>Hablemos de tu próxima casa</h2>
+        <p>Trabajamos en el casco histórico de Sevilla. Escríbenos o déjanos tus datos y te llamamos.</p>
+        <div class="contact__actions" data-contact></div>
+      </div>
+    </section>
   </main>
+
+  <footer class="foot">
+    <span class="plaque__tile plaque__tile--sm"><span>Inmo</span><b>Abades</b></span>
+    <p>Inmobiliaria · Sevilla Centro</p>
+    <p class="foot__fine">Inmuebles, imágenes y precios de ejemplo. Las ilustraciones no corresponden a inmuebles reales.</p>
+  </footer>
+
+  <!-- FICHA -->
+  <dialog class="sheet" data-sheet aria-labelledby="sheet-title">
+    <div class="sheet__inner">
+      <button class="sheet__close" type="button" data-close aria-label="Cerrar">×</button>
+      <div class="sheet__art" data-sheet-art></div>
+      <div class="sheet__body">
+        <p class="sheet__ref"><span data-sheet-ref></span> · <span data-sheet-zone></span><span class="tag-demo">Inmueble de ejemplo</span></p>
+        <h3 id="sheet-title" data-sheet-title></h3>
+        <p class="sheet__price" data-sheet-price></p>
+        <ul class="facts" data-sheet-facts></ul>
+        <p data-sheet-blurb></p>
+        <ul class="feats" data-sheet-feats></ul>
+        <form class="ask" data-ask>
+          <label>Tu nombre<input required autocomplete="name" placeholder="Nombre"></label>
+          <label>Mensaje<textarea rows="2" placeholder="Quería saber si podemos visitarla esta semana."></textarea></label>
+          <button class="btn btn--almagra btn--block" type="submit">Pedir visita</button>
+          <p class="ask__done" data-ask-done hidden>En la web final, esta consulta llegaría al panel de Inmo Abades asociada a <b data-ask-ref></b>. <a class="link" href="panel-demo/#consultas">Ver cómo →</a></p>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="reja" viewBox="0 0 100 300">
+      <g fill="none" stroke="currentColor" stroke-width="3.2">
+        <rect x="3" y="3" width="94" height="294"/>
+        <path d="M3 60h94M3 240h94"/>
+        <path d="M20 60v180M40 60v180M60 60v180M80 60v180"/>
+        <path d="M20 30c0-14 20-14 20 0s20 14 20 0 20-14 20 0"/>
+        <path d="M20 270c0 14 20 14 20 0s20-14 20 0 20 14 20 0"/>
+        <circle cx="50" cy="150" r="16"/>
+        <path d="M34 150c-8-16-14-16-14 0s6 16 14 0M66 150c8-16 14-16 14 0s-6 16-14 0"/>
+      </g>
+    </symbol>
+  </svg>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/art.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

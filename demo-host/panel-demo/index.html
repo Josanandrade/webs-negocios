@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Vista previa del área de gestión · Inmo Abades</title>
+  <meta name="theme-color" content="#1B1714">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=Golos+Text:wght@400..700&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <div class="banner" role="note">
+    <span class="banner__tag">Vista previa del área de gestión</span>
+    <span class="banner__txt">Demo visual — funcionalidad disponible en el desarrollo final. Nada de lo que hagas aquí se guarda.</span>
+    <a class="banner__back" href="../">← Volver a la web</a>
+  </div>
+
+  <div class="app">
+    <aside class="side" aria-label="Secciones del panel">
+      <div class="side__brand">
+        <span class="tile"><i>Inmo</i><b>Abades</b></span>
+        <small>Área de gestión</small>
+      </div>
+      <nav class="side__nav" data-nav>
+        <span class="side__ind" aria-hidden="true" data-ind></span>
+        <a href="#resumen" data-view="resumen"><svg viewBox="0 0 24 24"><path d="M4 13h6V4H4zM14 20h6v-9h-6zM4 20h6v-4H4zM14 4v4h6V4z"/></svg><span>Resumen</span></a>
+        <a href="#inmuebles" data-view="inmuebles"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6"/></svg><span>Inmuebles</span><em data-badge-props></em></a>
+        <a href="#nuevo" data-view="nuevo"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>Nuevo inmueble</span></a>
+        <a href="#consultas" data-view="consultas"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg><span>Consultas</span><em class="hot" data-badge-leads></em></a>
+        <a href="#propietarios" data-view="propietarios"><svg viewBox="0 0 24 24"><path d="M15 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM5 20c0-4 3-6 7-6s7 2 7 6"/></svg><span>Propietarios</span><em class="hot" data-badge-owners></em></a>
+      </nav>
+      <div class="side__soon">
+        <b>Próximamente</b>
+        <span>Conexión con otras herramientas de gestión (CRM, calendario, portales si algún día los quieres).</span>
+      </div>
+      <div class="side__foot">
+        <span class="dot"></span> Modo demostración · sin cuenta real
+      </div>
+    </aside>
+
+    <main class="main" id="main">
+      <!-- RESUMEN -->
+      <section class="view" id="v-resumen" data-v="resumen" aria-labelledby="h-resumen">
+        <header class="vh">
+          <div>
+            <p class="vh__eyebrow">Resumen <span class="demo-chip">Datos de demostración</span></p>
+            <h1 id="h-resumen">Tu cartera, de un vistazo</h1>
+          </div>
+          <a class="btn btn--primary" href="#nuevo"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Nuevo inmueble</a>
+        </header>
+
+        <div class="kpis" data-kpis></div>
+
+        <div class="cols">
+          <article class="panel panel--chart">
+            <header><h2>Consultas desde la web</h2><span class="muted">Últimas 8 semanas</span></header>
+            <div class="chart" data-chart></div>
+          </article>
+          <article class="panel">
+            <header><h2>Próximas visitas</h2><a class="muted link" href="#consultas">Ver consultas</a></header>
+            <ul class="agenda" data-agenda></ul>
+          </article>
+        </div>
+
+        <div class="cols cols--b">
+          <article class="panel">
+            <header><h2>Más vistos esta semana</h2></header>
+            <ol class="rank" data-rank></ol>
+          </article>
+          <article class="panel">
+            <header><h2>Actividad reciente</h2></header>
+            <ul class="feed" data-feed></ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- INMUEBLES -->
+      <section class="view" id="v-inmuebles" data-v="inmuebles" aria-labelledby="h-inm" hidden>
+        <header class="vh">
+          <div>
+            <p class="vh__eyebrow">Inmuebles <span class="demo-chip">Inmuebles de ejemplo</span></p>
+            <h1 id="h-inm">Gestión de inmuebles</h1>
+          </div>
+          <a class="btn btn--primary" href="#nuevo"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Nuevo inmueble</a>
+        </header>
+
+        <div class="toolbar">
+          <div class="tabs" role="tablist" aria-label="Filtrar por estado" data-tabs>
+            <span class="tabs__ind" data-tabs-ind aria-hidden="true"></span>
+          </div>
+          <label class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg><input type="search" placeholder="Buscar por referencia, barrio…" data-q aria-label="Buscar inmuebles"></label>
+          <div class="toggle" role="group" aria-label="Vista">
+            <button type="button" aria-pressed="true" data-layout="table">Tabla</button>
+            <button type="button" aria-pressed="false" data-layout="cards">Tarjetas</button>
+          </div>
+        </div>
+
+        <div class="table-wrap" data-table-wrap>
+          <table class="table">
+            <thead>
+              <tr><th>Inmueble</th><th>Tipo</th><th>Ubicación</th><th class="num">Precio</th><th>Estado</th><th>En la web</th><th><span class="sr">Acciones</span></th></tr>
+            </thead>
+            <tbody data-rows></tbody>
+          </table>
+        </div>
+        <div class="pcards" data-pcards hidden></div>
+        <p class="empty" data-empty hidden>No hay inmuebles con este filtro.</p>
+      </section>
+
+      <!-- NUEVO -->
+      <section class="view" id="v-nuevo" data-v="nuevo" aria-labelledby="h-new" hidden>
+        <header class="vh">
+          <div>
+            <p class="vh__eyebrow">Nuevo inmueble <span class="demo-chip">Formulario de demostración</span></p>
+            <h1 id="h-new">Publicar un inmueble</h1>
+          </div>
+        </header>
+
+        <div class="newgrid">
+          <form class="panel form" data-new>
+            <fieldset>
+              <legend>Datos principales</legend>
+              <label class="f f--full">Título<input data-in="title" value="Piso con patio en San Vicente"></label>
+              <label class="f">Tipo de inmueble<select data-in="type"><option>Piso</option><option>Ático</option><option>Casa</option><option>Dúplex</option><option>Apartamento</option><option>Local</option></select></label>
+              <div class="f">
+                <span>Operación</span>
+                <div class="seg" data-seg>
+                  <button type="button" aria-pressed="true" data-op="venta">Venta</button>
+                  <button type="button" aria-pressed="false" data-op="alquiler">Alquiler</button>
+                </div>
+              </div>
+              <label class="f">Precio<span class="affix"><input data-in="price" inputmode="numeric" value="295000"><i data-affix>€</i></span></label>
+              <label class="f">Ubicación<input data-in="zone" value="San Vicente"></label>
+            </fieldset>
+            <fieldset>
+              <legend>Distribución</legend>
+              <label class="f f--third">Habitaciones<input data-in="beds" type="number" min="0" value="2"></label>
+              <label class="f f--third">Baños<input data-in="baths" type="number" min="0" value="1"></label>
+              <label class="f f--third">Superficie<span class="affix"><input data-in="m2" type="number" min="0" value="82"><i>m²</i></span></label>
+              <label class="f f--full">Descripción<textarea rows="3" data-in="blurb">Dos dormitorios en una finca tradicional con patio de vecinos, a un paso de la Alameda.</textarea></label>
+            </fieldset>
+            <fieldset>
+              <legend>Características</legend>
+              <div class="feats" data-feats></div>
+            </fieldset>
+            <fieldset>
+              <legend>Fotografías</legend>
+              <div class="photos">
+                <div class="drop"><svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg><b>Arrastra las fotos aquí</b><span>o pulsa para elegirlas · JPG o PNG</span></div>
+                <div class="thumbs" data-thumbs></div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Estado</legend>
+              <label class="f">Estado<select data-in="status"><option value="disponible">Disponible</option><option value="reservado">Reservado</option><option value="borrador">Borrador</option></select></label>
+            </fieldset>
+            <div class="form__actions">
+              <button class="btn btn--ghost" type="button" data-sim="Borrador guardado (simulación). En la versión final quedaría oculto en la web hasta que lo publiques.">Guardar borrador</button>
+              <button class="btn btn--primary" type="submit">Publicar en la web</button>
+            </div>
+          </form>
+
+          <aside class="preview">
+            <p class="preview__label">Así se vería en tu web</p>
+            <article class="pv">
+              <div class="pv__art" data-pv-art></div>
+              <div class="pv__body">
+                <span class="pv__ref"><span data-pv-ref>AB-109</span> · <span data-pv-zone></span></span>
+                <h3 data-pv-title></h3>
+                <strong data-pv-price></strong>
+                <span class="pv__facts" data-pv-facts></span>
+                <span class="pill" data-pv-status></span>
+              </div>
+            </article>
+            <p class="preview__fine">La vista previa se actualiza mientras escribes. Nada se publica de verdad.</p>
+          </aside>
+        </div>
+      </section>
+
+      <!-- CONSULTAS -->
+      <section class="view" id="v-consultas" data-v="consultas" aria-labelledby="h-leads" hidden>
+        <header class="vh">
+          <div>
+            <p class="vh__eyebrow">Consultas <span class="demo-chip">Datos de demostración</span></p>
+            <h1 id="h-leads">Consultas desde la web</h1>
+          </div>
+        </header>
+        <div class="inbox">
+          <ul class="inbox__list" data-leads role="listbox" aria-label="Consultas"></ul>
+          <article class="inbox__detail panel" data-lead aria-live="polite"></article>
+        </div>
+      </section>
+
+      <!-- PROPIETARIOS -->
+      <section class="view" id="v-propietarios" data-v="propietarios" aria-labelledby="h-own" hidden>
+        <header class="vh">
+          <div>
+            <p class="vh__eyebrow">Captación <span class="demo-chip">Datos de demostración</span></p>
+            <h1 id="h-own">Propietarios que quieren vender</h1>
+          </div>
+        </header>
+        <div class="callout">
+          <svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7M5 10v10h14V10"/></svg>
+          <p><b>Tu web también genera cartera.</b> Cada vez que alguien rellena “Quiero vender mi vivienda” en la web, la solicitud aparece aquí con sus datos, lista para llamar.</p>
+        </div>
+        <div class="table-wrap">
+          <table class="table table--owners">
+            <thead><tr><th>Nombre</th><th>Teléfono</th><th>Zona</th><th>Tipo de inmueble</th><th>Solicitud</th><th>Estado</th><th><span class="sr">Acciones</span></th></tr></thead>
+            <tbody data-owners></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" role="status" aria-live="polite" data-toast></div>
+
+  <script src="../assets/data.js"></script>
+  <script src="../assets/art.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>
