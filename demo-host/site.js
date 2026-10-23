@@ -1,5 +1,6 @@
 (() => {
   const googleReserveUrl = 'https://www.google.com/maps/reserve/v/dine/c/1mcuuJA8h04';
+
   document.querySelectorAll('a.btn, a.mobile-cta').forEach((link) => {
     if (/reserv/i.test(link.textContent || '')) {
       link.href = googleReserveUrl;
@@ -8,6 +9,77 @@
     }
   });
 
+  /* Responsive mobile navigation */
+  const header = document.querySelector('.site-header');
+  const nav = header?.querySelector('.nav');
+  const desktopNav = nav?.querySelector('.nav-links');
+  const desktopReserve = nav?.querySelector('a.btn');
+
+  if (header && nav && desktopNav) {
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'menu-toggle';
+    toggle.setAttribute('aria-label', 'Abrir menú');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.innerHTML = '<span></span><span></span><span></span>';
+    nav.appendChild(toggle);
+
+    const mobileMenu = document.createElement('div');
+    mobileMenu.className = 'mobile-menu';
+    mobileMenu.setAttribute('aria-hidden', 'true');
+
+    const mobileNav = document.createElement('nav');
+    mobileNav.className = 'mobile-menu__nav';
+    mobileNav.setAttribute('aria-label', 'Navegación móvil');
+
+    [...desktopNav.querySelectorAll('a')].forEach((link) => {
+      const clone = link.cloneNode(true);
+      mobileNav.appendChild(clone);
+    });
+
+    const reserve = document.createElement('a');
+    reserve.className = 'btn mobile-menu__reserve';
+    reserve.href = desktopReserve?.href || googleReserveUrl;
+    reserve.target = '_blank';
+    reserve.rel = 'noopener';
+    reserve.textContent = 'Reservar con Google';
+
+    mobileMenu.appendChild(mobileNav);
+    mobileMenu.appendChild(reserve);
+    header.appendChild(mobileMenu);
+
+    const closeMenu = () => {
+      toggle.classList.remove('is-open');
+      mobileMenu.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Abrir menú');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('menu-open');
+    };
+
+    const openMenu = () => {
+      toggle.classList.add('is-open');
+      mobileMenu.classList.add('is-open');
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Cerrar menú');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('menu-open');
+    };
+
+    toggle.addEventListener('click', () => {
+      mobileMenu.classList.contains('is-open') ? closeMenu() : openMenu();
+    });
+
+    mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && mobileMenu.classList.contains('is-open')) closeMenu();
+    });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900) closeMenu();
+    });
+  }
+
+  /* Automatic homepage slider */
   const slider = document.querySelector('[data-hero-slider]');
   if (slider) {
     const slides = [...slider.querySelectorAll('[data-slide]')];
@@ -46,6 +118,7 @@
     restart();
   }
 
+  /* Interactive gallery lightbox */
   const gallery = document.querySelector('[data-gallery]');
   const lightbox = document.querySelector('[data-lightbox]');
   if (gallery && lightbox) {
