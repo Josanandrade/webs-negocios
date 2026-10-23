@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getViewer } from "@/lib/auth";
 import { getAdjacentPublished, getPublishedWeek } from "@/lib/program";
-import { getActivity, getRankingDayAthleteActivity, getWeekLeaderboard } from "@/lib/activity";
+import { getActivity, getDayLeaderboard, getRankingDayAthleteActivity } from "@/lib/activity";
 import { getMovements } from "@/lib/strength";
 import { hasBoard } from "@/lib/scores";
 import type { Sex } from "@/lib/types";
@@ -40,7 +40,7 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
   const dayBlocks = allOn(day);
   const blockIds = blocks.map((block) => block.id);
   const [board, activity, dayActivity, movements] = await Promise.all([
-    getWeekLeaderboard(week?.id ?? null),
+    getDayLeaderboard(week?.id ?? null, day),
     getActivity(meId, blockIds),
     getRankingDayAthleteActivity(week?.id ?? null, day),
     getMovements(),
