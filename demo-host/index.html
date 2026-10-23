@@ -2,15 +2,232 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <title>Maite Bartrina Díaz · Inmuebles en Los Remedios, Sevilla</title>
+  <meta name="description" content="Compra, venta y alquiler de viviendas en Los Remedios y Sevilla con trato directo.">
+  <meta name="theme-color" content="#F4EFE7">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=Golos+Text:wght@400..700&family=Fragment+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="top" data-top>
+    <a class="brand" href="#inicio" aria-label="Maite Bartrina Díaz, inicio">
+      <span class="mono" aria-hidden="true">MB</span>
+      <span class="brand-name">Maite Bartrina <em>Díaz</em></span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#inmuebles">Inmuebles</a>
+      <a href="#vender">Vender</a>
+      <a href="#barrio">Los Remedios</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a class="btn btn-ink btn-sm top-cta" href="#contacto" data-cta-label>Hablar con Maite</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-btn>
+      <span></span><span></span><span class="sr">Menú</span>
+    </button>
+  </header>
+  <div class="menu" id="menu" data-menu hidden>
+    <a href="#inmuebles">Inmuebles</a>
+    <a href="#vender">Vender mi vivienda</a>
+    <a href="#barrio">Los Remedios</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <p class="eyebrow reveal">Inmobiliaria · Los Remedios, Sevilla</p>
+        <h1 class="hero-title reveal" style="--d:80ms">
+          <span class="ht-line">Maite</span>
+          <span class="ht-line">Bartrina <em>Díaz</em></span>
+          <svg class="firma" viewBox="0 0 420 40" aria-hidden="true"><path d="M4 26 C 60 6, 110 34, 160 20 S 260 4, 300 22 S 380 30, 416 12" /></svg>
+        </h1>
+        <p class="hero-lead reveal" style="--d:180ms">Comprar, vender o alquilar en Los Remedios y en Sevilla con trato directo y cercano, desde la primera visita hasta la firma.</p>
+        <div class="hero-actions reveal" style="--d:260ms">
+          <a class="btn btn-alm" href="#inmuebles">Ver inmuebles</a>
+          <a class="btn btn-line" href="#vender">Quiero vender mi vivienda</a>
+        </div>
+        <ul class="hero-facts reveal" style="--d:340ms" aria-label="Lo que hacemos">
+          <li><b>Venta</b><span>pisos, áticos, casas</span></li>
+          <li><b>Alquiler</b><span>viviendas y locales</span></li>
+          <li><b>Valoración</b><span>de su vivienda</span></li>
+        </ul>
+      </div>
+
+      <div class="hero-art" aria-hidden="true" data-parallax>
+        <div class="street">
+          <svg class="street-svg" viewBox="0 0 640 520" preserveAspectRatio="xMidYMax slice" data-street></svg>
+        </div>
+        <article class="ficha" data-ficha>
+          <div class="ficha-tag">Inmueble de ejemplo</div>
+          <div class="ficha-art" data-ficha-art></div>
+          <div class="ficha-body">
+            <p class="ficha-ref" data-ficha-ref>REF-001</p>
+            <p class="ficha-title" data-ficha-title>Piso con balcón</p>
+            <p class="ficha-meta"><span data-ficha-meta>3 hab · 118 m²</span><b data-ficha-price>385.000 €</b></p>
+          </div>
+          <div class="ficha-dots" data-ficha-dots></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CINTA -->
+    <div class="cinta" aria-hidden="true">
+      <div class="cinta-track">
+        <span>República Argentina</span><i></i><span>Asunción</span><i></i><span>Virgen de Luján</span><i></i><span>Juan Sebastián Elcano</span><i></i><span>Parque de los Príncipes</span><i></i><span>Real de la Feria</span><i></i><span>Plaza de Cuba</span><i></i>
+        <span>República Argentina</span><i></i><span>Asunción</span><i></i><span>Virgen de Luján</span><i></i><span>Juan Sebastián Elcano</span><i></i><span>Parque de los Príncipes</span><i></i><span>Real de la Feria</span><i></i><span>Plaza de Cuba</span><i></i>
+      </div>
+    </div>
+
+    <!-- INMUEBLES -->
+    <section class="sec" id="inmuebles">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow reveal">Cartera</p>
+          <h2 class="reveal">Inmuebles <em>en su propia web</em></h2>
+        </div>
+        <div class="filtros reveal" role="tablist" aria-label="Filtrar por operación" data-filtros>
+          <button role="tab" aria-selected="true" data-f="todos">Todos</button>
+          <button role="tab" aria-selected="false" data-f="venta">Venta</button>
+          <button role="tab" aria-selected="false" data-f="alquiler">Alquiler</button>
+          <span class="filtros-pill" data-pill aria-hidden="true"></span>
+        </div>
+      </div>
+      <p class="aviso reveal"><span class="aviso-dot"></span>Inmuebles de ejemplo · datos de demostración. Las fichas reales se cargarían desde el área de gestión.</p>
+      <div class="grid" data-grid></div>
+    </section>
+
+    <!-- VENDER -->
+    <section class="sec vender" id="vender">
+      <div class="vender-copy">
+        <p class="eyebrow reveal">Propietarios</p>
+        <h2 class="reveal">¿Vende o alquila su vivienda <em>en Los Remedios?</em></h2>
+        <p class="lead reveal">Cuéntenos qué tiene y le llamamos para verla, valorarla y explicarle cómo la presentaríamos.</p>
+        <ol class="pasos">
+          <li class="reveal"><span>01</span><div><b>Nos cuenta</b><p>Zona, tipo de inmueble y cuándo le viene bien.</p></div></li>
+          <li class="reveal" style="--d:80ms"><span>02</span><div><b>La visitamos</b><p>Valoración realista según el mercado del barrio.</p></div></li>
+          <li class="reveal" style="--d:160ms"><span>03</span><div><b>La publicamos</b><p>En esta web, con ficha propia, fotos y referencia.</p></div></li>
+        </ol>
+      </div>
+      <form class="card form reveal" data-form="vender" novalidate>
+        <p class="form-title">Quiero vender mi vivienda</p>
+        <label>Nombre<input name="nombre" autocomplete="name" required></label>
+        <label>Teléfono<input name="tel" type="tel" inputmode="tel" autocomplete="tel" required pattern="[0-9 +]{9,}"></label>
+        <div class="row2">
+          <label>Zona<select name="zona"><option>Los Remedios</option><option>Triana</option><option>Tablada</option><option>Otra zona de Sevilla</option></select></label>
+          <label>Tipo<select name="tipo"><option>Piso</option><option>Ático</option><option>Casa</option><option>Local</option></select></label>
+        </div>
+        <button class="btn btn-alm btn-block" type="submit">Enviar solicitud</button>
+        <p class="form-note">Formulario de demostración: no se envía ningún dato.</p>
+        <div class="form-ok" data-ok hidden>
+          <p><b>Así funcionaría.</b> En la web final, esta solicitud llegaría al área de gestión de Maite, en la bandeja de propietarios.</p>
+          <a class="link" href="panel-demo/#propietarios">Ver dónde aparecería →</a>
+        </div>
+      </form>
+    </section>
+
+    <!-- BARRIO -->
+    <section class="barrio" id="barrio">
+      <div class="barrio-art" aria-hidden="true">
+        <svg viewBox="0 0 1200 260" preserveAspectRatio="none" class="rio"><path d="M0 170 C 200 120, 380 210, 600 160 S 1000 110, 1200 150 V260 H0z" /></svg>
+      </div>
+      <div class="barrio-in">
+        <p class="eyebrow reveal">El barrio</p>
+        <h2 class="reveal">Los Remedios, <em>entre el río y el Real</em></h2>
+        <div class="barrio-cols">
+          <p class="reveal">Avenidas anchas con plátanos de sombra, fincas de los años 50 y 60 con balcones y toldos, el parque de los Príncipes y la Feria a un paseo. Un barrio que se vende por sí mismo cuando se explica bien.</p>
+          <p class="reveal" style="--d:80ms">Cada ficha cuenta la planta, la orientación, si hay ascensor y portero, y lo que hay a cinco minutos andando: lo que de verdad pregunta quien busca piso aquí.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL PROMO -->
+    <section class="promo" id="gestion">
+      <div class="promo-copy">
+        <p class="promo-flag reveal">Simulación · posible funcionalidad del desarrollo final</p>
+        <h2 class="reveal">Gestiona tu cartera <em>desde un único lugar</em></h2>
+        <ul class="promo-list">
+          <li class="reveal">Añade un inmueble, súbelo con sus fotos y aparece en tu web.</li>
+          <li class="reveal" style="--d:60ms">Márcalo como reservado, vendido o alquilado sin pedirle el cambio a nadie.</li>
+          <li class="reveal" style="--d:120ms">Las consultas de compradores llegan asociadas a cada referencia.</li>
+          <li class="reveal" style="--d:180ms">Las solicitudes de propietarios entran en la misma bandeja.</li>
+        </ul>
+        <a class="btn btn-alm reveal" href="panel-demo/">Ver cómo funcionaría</a>
+        <p class="promo-note reveal">Vista previa estática del área de gestión: no hay cuentas ni datos reales.</p>
+      </div>
+      <div class="promo-shot reveal" aria-hidden="true">
+        <div class="shot">
+          <div class="shot-bar"><i></i><i></i><i></i><span>Área de gestión · vista previa</span></div>
+          <div class="shot-body">
+            <div class="shot-side"><b>MB</b><span class="on"></span><span></span><span></span><span></span></div>
+            <div class="shot-main">
+              <div class="shot-kpis"><div><small>Publicados</small><b>5</b></div><div><small>Consultas</small><b>12</b></div><div><small>Visitas</small><b>3</b></div></div>
+              <div class="shot-rows" data-shot-rows></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="sec contacto" id="contacto">
+      <div>
+        <p class="eyebrow reveal">Contacto</p>
+        <h2 class="reveal">Hablemos de <em>su próxima casa</em></h2>
+        <p class="lead reveal">Escríbanos qué busca o qué quiere vender y le respondemos personalmente.</p>
+        <div class="contact-cards reveal" data-contact></div>
+        <p class="contact-zone reveal"><span class="pin" aria-hidden="true"></span>Los Remedios · Sevilla</p>
+      </div>
+      <form class="card form reveal" data-form="contacto" novalidate>
+        <label>Nombre<input name="nombre" autocomplete="name" required></label>
+        <label>Teléfono o email<input name="contacto" autocomplete="email" required></label>
+        <label>Mensaje<textarea name="msg" rows="4" placeholder="Busco un piso de 3 dormitorios en Los Remedios…"></textarea></label>
+        <button class="btn btn-ink btn-block" type="submit">Enviar mensaje</button>
+        <p class="form-note">Formulario de demostración: no se envía ningún dato.</p>
+        <div class="form-ok" data-ok hidden>
+          <p><b>Así funcionaría.</b> El mensaje llegaría a la bandeja de consultas del área de gestión.</p>
+          <a class="link" href="panel-demo/#consultas">Ver la bandeja de consultas →</a>
+        </div>
+      </form>
+    </section>
   </main>
+
+  <footer class="foot">
+    <div class="foot-brand"><span class="mono" aria-hidden="true">MB</span><span>Maite Bartrina Díaz<br><small>Inmobiliaria · Los Remedios, Sevilla</small></span></div>
+    <p class="foot-note">Web de demostración. Los inmuebles, precios y consultas mostrados son ejemplos.</p>
+    <a class="link" href="panel-demo/">Vista previa del área de gestión</a>
+  </footer>
+
+  <a class="fab" href="#contacto" data-fab aria-label="Contactar">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+  </a>
+
+  <dialog class="sheet" data-sheet aria-labelledby="sheet-title">
+    <div class="sheet-in">
+      <button class="sheet-x" type="button" data-close aria-label="Cerrar">×</button>
+      <div class="sheet-art" data-s-art></div>
+      <div class="sheet-body">
+        <p class="sheet-tag">Inmueble de ejemplo · datos de demostración</p>
+        <p class="sheet-ref" data-s-ref></p>
+        <h3 id="sheet-title" data-s-title></h3>
+        <p class="sheet-price" data-s-price></p>
+        <dl class="sheet-dl" data-s-dl></dl>
+        <p data-s-desc></p>
+        <ul class="sheet-tags" data-s-extras></ul>
+        <a class="btn btn-alm btn-block" href="#contacto" data-close>Pedir información o visita</a>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/art.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
