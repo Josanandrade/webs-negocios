@@ -26,7 +26,7 @@ Auditoría inicial: 13/10/2026.
 
 ### Vercel
 
-Estado: **PRODUCCIÓN ACTIVA / VALIDADA 22/10/2026**.
+Estado: **PRODUCCIÓN ACTIVA / VALIDADA 23/10/2026**.
 
 Proyecto Vercel:
 - Project ID `prj_GN1NzVeXFmr9fXdySTVR0n0nhGpd`
@@ -37,7 +37,11 @@ Proyecto Vercel:
 - región de Functions: `dub1`
 - alias público estable: `lemon-rx.vercel.app`
 
-El commit de producción validado para este bloque es `3740789dac08a2d778d65d93ed8bf112aaef1d35`.
+El commit de producción validado tras Rendimiento Fase 3 es `ba9e97e9bb013d8df67dc2081dcf215da48b3df6`.
+
+Regla operativa de despliegue:
+- no dar un cambio por pasado a producción hasta comprobar explícitamente que `lemon-rx.vercel.app` apunta al deployment READY del commit validado;
+- los aliases automáticos de Vercel no sustituyen esta verificación del alias estable personalizado.
 
 ### Railway
 
@@ -288,14 +292,13 @@ Comportamiento validado:
 - detalles expandibles de la sesión del atleta en Ranking.
 
 Funciones relevantes existentes:
-- `week_leaderboard_v2(p_week_id uuid)`
-- `ranking_day_athlete_activity(p_week_id uuid, p_date date)`
+- `day_leaderboard_v2(p_week_id uuid, p_date date)` — lectura principal optimizada desde Fase 3;
+- `week_leaderboard_v2(p_week_id uuid)` — compatibilidad/uso legado donde todavía corresponda;
+- `ranking_day_athlete_activity(p_week_id uuid, p_date date)`.
 
 La UI de General/Masculina/Femenina se filtra localmente una vez que los datos están cargados; no requiere nueva navegación al servidor.
 
-Riesgo de escala:
-- `week_leaderboard_v2` devuelve todos los resultados puntuables de la semana aunque Ranking muestre un día concreto;
-- con cientos de atletas debe evolucionar hacia lectura por día/bloques solicitados para evitar payload y cálculo innecesarios.
+Desde Fase 3, `/ranking` solicita solo el leaderboard del día visible. La nueva RPC conserva las mismas reglas de orden, empates, divisiones, sexo, `total_load` y posiciones. La paridad se comprobó con datos reales: 21 filas antiguas vs 21 nuevas y 0 diferencias.
 
 ## 8. Historial y contexto
 
@@ -383,6 +386,33 @@ No toca:
 - IDs de bloques;
 - lógica de rankings existente.
 
+### Fase 3 — VALIDADA 23/10/2026 / ONLINE
+
+Cambios:
+1. Nueva RPC `day_leaderboard_v2(p_week_id, p_date)` para limitar ranking a los bloques del día solicitado.
+2. `/ranking` deja de descargar resultados puntuables de toda la semana y usa la RPC diaria.
+3. Semana deja de cargar el leaderboard completo al entrar. El leaderboard se solicita solo al abrir un día con bloques puntuables.
+4. Los leaderboard diarios cargados en Semana se mantienen en memoria durante esa visita para no repetir la lectura al cerrar/reabrir el mismo día.
+5. Home social deja de ejecutar `revalidatePath('/', 'layout')` tras reacciones/comentarios; solo revalida `/home`.
+6. La nueva RPC se concedió únicamente a `authenticated` y `service_role`; no a `anon`.
+
+Validación de paridad:
+- semana de prueba: 120 resultados puntuables totales;
+- días reales observados: 21–39 resultados;
+- comparación de un día: función semanal filtrada 21 filas, función diaria 21 filas, 0 diferencias.
+
+Resultado:
+- Jose valida la Preview el 23/10/2026;
+- PR #40 fusionado a `main` en `ba9e97e9bb013d8df67dc2081dcf215da48b3df6`;
+- deployment productivo READY en Vercel y alias `lemon-rx.vercel.app` verificado explícitamente contra ese deployment.
+
+No toca:
+- reglas de ranking, posiciones, empates, divisiones o sexos;
+- programación o IDs de bloques;
+- resultados/notas históricos;
+- `save_week_content`;
+- lógica de guardado deportivo.
+
 ## 12. Comunicaciones
 
 ### Publicación de semana
@@ -421,6 +451,8 @@ No introducir atajos administrativos desde cliente.
 
 La RPC `social_reaction_actor_names` se usa específicamente para evitar abrir `profiles` a otros atletas al mostrar nombres en reacciones sociales.
 
+`day_leaderboard_v2` es `SECURITY DEFINER` y valida sesión/acceso a la semana; su `EXECUTE` está revocado para `PUBLIC`/`anon` y concedido a `authenticated`/`service_role`.
+
 ## 14. Incidencias técnicas abiertas
 
 ### T1 — Migración completa de hosting
@@ -439,7 +471,7 @@ Mejorar automatización de pruebas de permisos antes de cambios de esquema relev
 `coach_evolution_metrics` es suficiente para el volumen actual, pero debe revisarse antes de escalar a cientos de atletas.
 
 ### T6 — advisors de FK sin índice
-Revisar las FK secundarias de forma selectiva antes de escala grande; no añadir índices indiscriminadamente.
+Revisar las FK secundarias de forma selectiva antes de escala grande; no añadir índices indiscriminadamente. Advisor del 23/10/2026 mantiene 17 FK secundarias sin índice; no se añadieron índices a ciegas porque no son el cuello principal medido en Fase 3.
 
 ## 15. Dirección técnica futura — comercialización / white-label
 
@@ -472,13 +504,17 @@ Si se comercializa, será necesario definir técnicamente qué significa **atlet
 - Dimensionar Supabase/Vercel por concurrencia y consumo real, no solo por número de cuentas.
 - Una app nativa no elimina estos cuellos: usaría la misma autenticación, API y base de datos.
 
-Siguientes candidatos de rendimiento, solo si las métricas lo justifican:
-- RPC Ranking por día/bloques en vez de semana completa;
+Completado en Fase 3:
+- RPC Ranking por día en vez de semana completa;
 - leaderboard de Semana bajo demanda;
-- comentarios sociales bajo demanda;
-- reducción de `revalidatePath('/home')` completo tras una reacción/comentario;
+- eliminación de la invalidación global del layout tras interacción social.
+
+Siguientes candidatos de rendimiento, solo si las métricas lo justifican:
+- comentarios sociales bajo demanda para evitar traer todos los hilos/reacciones de 15 posts en la carga inicial;
 - cache selectiva para datos compartidos no sensibles;
-- prueba de carga real antes de venta a gran escala.
+- revisar lecturas de catálogos/movimientos para pedir solo IDs necesarios;
+- prueba de carga real 25/50/100 usuarios simultáneos antes de venta a gran escala;
+- revisar `coach_evolution_metrics` antes de cientos de atletas.
 
 ## 18. Checklist técnico obligatorio
 
@@ -495,6 +531,7 @@ Antes de cada cambio:
 - ¿prueba manual del flujo?
 - ¿regresión login + programación + admin?
 - ¿queda DESPLEGADO/PENDIENTE o VALIDADO por Jose?
+- si se despliega a Vercel, ¿`lemon-rx.vercel.app` apunta al deployment READY del commit validado?
 
 ## 19. Regla documental
 
