@@ -2,15 +2,244 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Golden Center · Inmobiliaria en el centro de Sevilla</title>
+  <meta name="description" content="Grupo Inmobiliario Goldencenter. Venta y alquiler de pisos, casas, locales y naves en Sevilla. C/ Gerona, 17.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#1A1714">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300..700&family=Martian+Mono:wght@400;500&family=Noto+Serif+Display:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip" href="#cartera">Saltar a los inmuebles</a>
+
+  <header class="top" data-top>
+    <a class="brand" href="#" aria-label="Golden Center, inicio">
+      <span class="seal" aria-hidden="true"><svg viewBox="0 0 48 48"><use href="assets/icons.svg#seal"/></svg></span>
+      <span class="brand-text"><b>Golden Center</b><small>Grupo Inmobiliario</small></span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#cartera">Inmuebles</a>
+      <a href="#vender">Vender o alquilar</a>
+      <a href="#como">Cómo trabajamos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a class="btn btn-ink btn-sm top-cta" data-tel href="tel:+34954214142">
+      <svg class="i" aria-hidden="true"><use href="assets/icons.svg#phone"/></svg><span>954 21 41 42</span>
+    </a>
+  </header>
+
   <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow" data-in><span class="dot"></span>Inmobiliaria en el centro · C/ Gerona, 17</p>
+        <h1 class="display" data-in>
+          <span class="line">El centro</span>
+          <span class="line">de Sevilla,</span>
+          <span class="line"><em>llave en mano.</em></span>
+        </h1>
+        <p class="lead" data-in>Venta y alquiler de pisos, casas, locales y naves en Sevilla y provincia. Te enseñamos la casa, negociamos contigo y te acompañamos hasta el día de la firma.</p>
+        <div class="hero-actions" data-in>
+          <a class="btn btn-lacre" href="#cartera">Ver inmuebles <svg class="i" aria-hidden="true"><use href="assets/icons.svg#arrow"/></svg></a>
+          <a class="btn btn-ghost" href="#vender">Quiero vender mi vivienda</a>
+        </div>
+        <dl class="hero-facts" data-in>
+          <div><dt>Venta</dt><dd>Pisos, casas y fincas</dd></div>
+          <div><dt>Alquiler</dt><dd>Viviendas y oficinas</dd></div>
+          <div><dt>Profesional</dt><dd>Locales y naves</dd></div>
+        </dl>
+      </div>
+
+      <div class="hero-keys" aria-label="Inmuebles destacados de ejemplo">
+        <div class="keyring" aria-hidden="true">
+          <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="46" fill="none" stroke="url(#ringg)" stroke-width="7"/><defs><linearGradient id="ringg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#F1D78C"/><stop offset=".5" stop-color="#B8893A"/><stop offset="1" stop-color="#E9C878"/></linearGradient></defs></svg>
+        </div>
+        <ol class="tags" data-tags></ol>
+        <div class="tags-foot">
+          <span class="sample-pill">Inmuebles de ejemplo</span>
+          <div class="tags-ctrl">
+            <button class="icon-btn" data-tag-prev aria-label="Anterior"><svg class="i"><use href="assets/icons.svg#chev-l"/></svg></button>
+            <span class="tags-count" data-tag-count>1 / 4</span>
+            <button class="icon-btn" data-tag-next aria-label="Siguiente"><svg class="i"><use href="assets/icons.svg#chev-r"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>San Julián</span><span>Santa Catalina</span><span>Nervión</span><span>Feria</span><span>Encarnación</span><span>La Salle</span><span>Arenal</span><span>Santa Cruz</span><span>Puerta Carmona</span><span>El Rocío</span><span>Carmona</span>
+        <span>San Julián</span><span>Santa Catalina</span><span>Nervión</span><span>Feria</span><span>Encarnación</span><span>La Salle</span><span>Arenal</span><span>Santa Cruz</span><span>Puerta Carmona</span><span>El Rocío</span><span>Carmona</span>
+      </div>
+    </div>
+
+    <!-- CARTERA -->
+    <section class="section cartera" id="cartera">
+      <div class="section-head">
+        <div>
+          <p class="kicker" data-in>Cartera</p>
+          <h2 class="h2" data-in>Casas que conocemos <em>por dentro</em>.</h2>
+        </div>
+        <p class="demo-note" data-in><svg class="i" aria-hidden="true"><use href="assets/icons.svg#info"/></svg>Inmuebles de ejemplo con datos de demostración. En la web final aquí aparecería la cartera real, gestionada desde su panel.</p>
+      </div>
+
+      <div class="filters" data-in>
+        <div class="seg" role="tablist" aria-label="Operación" data-seg>
+          <span class="seg-pill" aria-hidden="true"></span>
+          <button role="tab" aria-selected="true" data-op="todos">Todos</button>
+          <button role="tab" aria-selected="false" data-op="venta">Venta</button>
+          <button role="tab" aria-selected="false" data-op="alquiler">Alquiler</button>
+        </div>
+        <div class="chips" data-chips aria-label="Tipo de inmueble"></div>
+        <p class="count" aria-live="polite" data-count></p>
+      </div>
+
+      <div class="grid" data-grid></div>
+    </section>
+
+    <!-- CÓMO -->
+    <section class="section como" id="como">
+      <p class="kicker" data-in>Cómo trabajamos</p>
+      <h2 class="h2" data-in>Del primer café <em>a la notaría</em>.</h2>
+      <ol class="steps" data-steps>
+        <li data-in><span class="step-n">01</span><h3>Escuchamos</h3><p>Qué buscas, por dónde y con qué presupuesto. Sin rellenar veinte formularios.</p></li>
+        <li data-in><span class="step-n">02</span><h3>Enseñamos</h3><p>Visitas a las casas que encajan, con alguien que las conoce y te cuenta lo que no sale en las fotos.</p></li>
+        <li data-in><span class="step-n">03</span><h3>Negociamos</h3><p>Precio, plazos y condiciones, entre comprador y propietario, con los papeles claros.</p></li>
+        <li data-in><span class="step-n">04</span><h3>Firmamos</h3><p>Arras, financiación y notaría. Te acompañamos hasta que tienes las llaves.</p></li>
+      </ol>
+    </section>
+
+    <!-- VENDER -->
+    <section class="vender" id="vender">
+      <div class="vender-inner">
+        <div class="vender-copy">
+          <p class="kicker kicker-gold" data-in>Propietarios</p>
+          <h2 class="h2" data-in>¿Vendes o alquilas <em>tu casa</em>?</h2>
+          <p data-in>Cuéntanos qué tienes y dónde. Te llamamos, la vemos contigo y te decimos un precio realista para el barrio, sin compromiso.</p>
+          <ul class="ticks" data-in>
+            <li>Valoración según lo que se vende de verdad en tu zona</li>
+            <li>Fotos, ficha y publicación en nuestra web</li>
+            <li>Filtramos las visitas: solo gente con interés real</li>
+          </ul>
+        </div>
+        <form class="form-card" data-sell-form data-in novalidate>
+          <div class="form-head"><span>Quiero vender mi vivienda</span><span class="mono">Paso <b data-sell-step>1</b>/2</span></div>
+          <div class="form-steps" data-sell-steps>
+            <fieldset class="fs" data-fs="1">
+              <legend class="sr">Tu inmueble</legend>
+              <div class="opt-row" role="radiogroup" aria-label="Qué quieres hacer">
+                <label class="opt"><input type="radio" name="op" value="vender" checked><span>Vender</span></label>
+                <label class="opt"><input type="radio" name="op" value="alquilar"><span>Alquilar</span></label>
+              </div>
+              <label class="field"><span>Tipo de inmueble</span>
+                <select name="tipo"><option>Piso</option><option>Casa</option><option>Ático</option><option>Local</option><option>Nave</option><option>Otro</option></select>
+              </label>
+              <label class="field"><span>Zona o barrio</span><input name="zona" placeholder="Ej. Macarena, Triana, Nervión…" autocomplete="off"></label>
+              <button type="button" class="btn btn-gold w100" data-sell-next>Continuar <svg class="i" aria-hidden="true"><use href="assets/icons.svg#arrow"/></svg></button>
+            </fieldset>
+            <fieldset class="fs" data-fs="2" hidden>
+              <legend class="sr">Tus datos</legend>
+              <label class="field"><span>Nombre</span><input name="nombre" autocomplete="name" required></label>
+              <label class="field"><span>Teléfono</span><input name="tel" type="tel" inputmode="tel" autocomplete="tel" required></label>
+              <div class="row2">
+                <button type="button" class="btn btn-ghost-light" data-sell-back>Atrás</button>
+                <button type="submit" class="btn btn-gold">Enviar por WhatsApp</button>
+              </div>
+              <p class="tiny">Se abrirá WhatsApp con tu mensaje preparado. En la web final, la solicitud llegaría también al panel de gestión.</p>
+            </fieldset>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- PANEL TEASER -->
+    <section class="section gestion" id="gestion">
+      <div class="gestion-copy">
+        <p class="kicker" data-in>Para la inmobiliaria</p>
+        <h2 class="h2" data-in>Gestiona tu cartera desde <em>un único lugar</em>.</h2>
+        <p data-in>En una versión desarrollada para Golden Center, la web tendría un acceso privado para publicar, editar, ocultar o marcar como vendido cada inmueble, sin tener que pedir cada cambio a nadie. Las consultas de compradores y las solicitudes de propietarios llegarían al mismo sitio.</p>
+        <ul class="gest-list" data-in>
+          <li><svg class="i" aria-hidden="true"><use href="assets/icons.svg#home"/></svg><span><b>Tus inmuebles, en tu web.</b> Los subes una vez y aparecen aquí al momento.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="assets/icons.svg#chat"/></svg><span><b>Consultas por inmueble.</b> Cada mensaje llega con su referencia.</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="assets/icons.svg#key"/></svg><span><b>Captación de propietarios.</b> El formulario de vender alimenta tu cartera.</span></li>
+        </ul>
+        <div class="gestion-actions" data-in>
+          <a class="btn btn-ink" href="panel-demo/">Ver cómo funcionaría <svg class="i" aria-hidden="true"><use href="assets/icons.svg#arrow"/></svg></a>
+          <span class="sim-note">Simulación visual de una posible funcionalidad. No hay cuentas ni acceso real.</span>
+        </div>
+      </div>
+
+      <a class="mock" href="panel-demo/" aria-label="Abrir la vista previa del área de gestión" data-mock data-in>
+        <div class="mock-bar"><i></i><i></i><i></i><span>Vista previa · área de gestión</span></div>
+        <div class="mock-body">
+          <aside class="mock-side"><span class="seal mini"><svg viewBox="0 0 48 48"><use href="assets/icons.svg#seal"/></svg></span><i class="on"></i><i></i><i></i><i></i></aside>
+          <div class="mock-main">
+            <div class="mock-kpis"><div><b data-mk="pub">10</b><span>Publicados</span></div><div><b data-mk="res">2</b><span>Reservados</span></div><div><b>6</b><span>Consultas</span></div></div>
+            <div class="mock-rows">
+              <div class="mock-row"><img src="assets/img/casco-albero.svg" alt=""><span><b>GC-101</b> San Julián</span><em class="st st-disponible">Disponible</em></div>
+              <div class="mock-row" data-mock-row><img src="assets/img/bloque-lasalle.svg" alt=""><span><b>GC-109</b> La Salle</span><em class="st st-disponible" data-mock-st>Disponible</em></div>
+              <div class="mock-row"><img src="assets/img/atico-giralda.svg" alt=""><span><b>GC-102</b> Santa Catalina</span><em class="st st-reservado">Reservado</em></div>
+            </div>
+            <div class="mock-toast" data-mock-toast>GC-109 marcado como reservado</div>
+          </div>
+          <span class="mock-cursor" data-mock-cursor aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 2l16 9-7 2-3 7z" fill="#1A1714" stroke="#fff" stroke-width="1.5"/></svg></span>
+        </div>
+        <span class="mock-label">Demo visual</span>
+      </a>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="section contacto" id="contacto">
+      <div class="contact-card" data-in>
+        <div>
+          <p class="kicker">Oficina</p>
+          <h2 class="h2">Pásate por <em>Gerona, 17</em>.</h2>
+          <p>Entre Santa Catalina y San Pedro, en pleno casco antiguo. Si prefieres, te llamamos nosotros.</p>
+        </div>
+        <ul class="contact-list">
+          <li><svg class="i" aria-hidden="true"><use href="assets/icons.svg#pin"/></svg><span>C/ Gerona, 17<br>Sevilla</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="assets/icons.svg#phone"/></svg><a href="tel:+34954214142">954 21 41 42</a></li>
+          <li><svg class="i" aria-hidden="true"><use href="assets/icons.svg#whatsapp"/></svg><a data-wa="Hola, escribo desde la web de Golden Center." href="#">Escríbenos por WhatsApp</a></li>
+        </ul>
+        <div class="street" aria-hidden="true">
+          <svg viewBox="0 0 400 220">
+            <rect width="400" height="220" fill="#EFE7D8"/>
+            <path d="M-10 150 C80 120 140 170 230 130 S360 80 410 100" stroke="#fff" stroke-width="34" fill="none"/>
+            <path d="M120 -10 C140 60 150 120 170 230" stroke="#fff" stroke-width="26" fill="none"/>
+            <path d="M300 -10 L270 230" stroke="#fff" stroke-width="18" fill="none"/>
+            <g fill="#E2D6C0"><rect x="20" y="20" width="80" height="70" rx="6"/><rect x="190" y="20" width="70" height="80" rx="6"/><rect x="300" y="130" width="90" height="80" rx="6"/><rect x="20" y="180" width="110" height="40" rx="6"/></g>
+            <text x="210" y="122" font-family="Martian Mono, monospace" font-size="10" fill="#8B7B63" transform="rotate(-14 210 122)">C/ GERONA</text>
+            <g class="pin"><circle cx="180" cy="128" r="16" fill="#9B2C1F"/><circle cx="180" cy="128" r="6" fill="#F1D78C"/></g>
+          </svg>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="foot">
+    <div class="foot-row">
+      <a class="brand light" href="#"><span class="seal" aria-hidden="true"><svg viewBox="0 0 48 48"><use href="assets/icons.svg#seal"/></svg></span><span class="brand-text"><b>Golden Center</b><small>Grupo Inmobiliario</small></span></a>
+      <p>C/ Gerona, 17 · Sevilla · <a href="tel:+34954214142">954 21 41 42</a></p>
+    </div>
+    <p class="foot-demo">Web de demostración preparada para Grupo Inmobiliario Goldencenter. Inmuebles, imágenes y datos de la cartera son de ejemplo y no corresponden a operaciones reales.</p>
+  </footer>
+
+  <!-- Ficha -->
+  <div class="sheet" data-sheet hidden>
+    <div class="sheet-backdrop" data-close></div>
+    <article class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title" tabindex="-1">
+      <button class="icon-btn sheet-x" data-close aria-label="Cerrar"><svg class="i"><use href="assets/icons.svg#x"/></svg></button>
+      <div class="sheet-body" data-sheet-body></div>
+    </article>
+  </div>
+
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+
+  <script src="assets/data.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

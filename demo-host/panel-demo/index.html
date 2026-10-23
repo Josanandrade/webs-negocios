@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vista previa del área de gestión · Golden Center</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#1A1714">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300..700&family=Martian+Mono:wght@400;500&family=Noto+Serif+Display:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <div class="demo-banner" role="note">
+    <span class="db-badge">Demo visual</span>
+    <p><b>Vista previa del área de gestión.</b> Funcionalidad disponible en el desarrollo final: aquí no hay cuentas, ni acceso real, y nada de lo que toques se guarda.</p>
+    <a class="db-back" href="../#gestion"><svg class="i"><use href="../assets/icons.svg#chev-l"/></svg>Volver a la web</a>
+  </div>
+
+  <div class="app">
+    <aside class="side" aria-label="Secciones del panel">
+      <a class="side-brand" href="#resumen">
+        <span class="seal"><svg viewBox="0 0 48 48"><use href="../assets/icons.svg#seal"/></svg></span>
+        <span><b>Golden Center</b><small>Área de gestión</small></span>
+      </a>
+      <nav class="side-nav" data-nav>
+        <span class="side-ind" aria-hidden="true"></span>
+        <a href="#resumen" data-view="resumen"><svg class="i"><use href="../assets/icons.svg#grid"/></svg><span>Resumen</span></a>
+        <a href="#inmuebles" data-view="inmuebles"><svg class="i"><use href="../assets/icons.svg#home"/></svg><span>Inmuebles</span><em data-n="inmuebles"></em></a>
+        <a href="#nuevo" data-view="nuevo"><svg class="i"><use href="../assets/icons.svg#plus"/></svg><span>Nuevo inmueble</span></a>
+        <a href="#consultas" data-view="consultas"><svg class="i"><use href="../assets/icons.svg#inbox"/></svg><span>Consultas</span><em class="hot" data-n="consultas"></em></a>
+        <a href="#propietarios" data-view="propietarios"><svg class="i"><use href="../assets/icons.svg#key"/></svg><span>Propietarios</span><em data-n="propietarios"></em></a>
+      </nav>
+      <div class="side-foot">
+        <a class="side-web" href="../" target="_blank" rel="noopener"><svg class="i"><use href="../assets/icons.svg#globe"/></svg><span>Ver la web pública</span><svg class="i sm"><use href="../assets/icons.svg#external"/></svg></a>
+        <div class="side-demo"><span class="dot"></span>Datos de demostración</div>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="bar">
+        <div>
+          <p class="crumb" data-crumb>Resumen</p>
+          <h1 class="title" data-title>Tu cartera, de un vistazo</h1>
+        </div>
+        <div class="bar-actions">
+          <label class="search"><svg class="i"><use href="../assets/icons.svg#search"/></svg><input type="search" placeholder="Buscar referencia, barrio…" data-global-search aria-label="Buscar"></label>
+          <button class="icon-btn" data-demo="Notificaciones" aria-label="Notificaciones"><svg class="i"><use href="../assets/icons.svg#bell"/></svg><span class="ping"></span></button>
+          <a class="btn btn-ink" href="#nuevo"><svg class="i"><use href="../assets/icons.svg#plus"/></svg><span>Nuevo inmueble</span></a>
+        </div>
+      </header>
+
+      <main class="view" data-view-root tabindex="-1"></main>
+    </div>
+  </div>
+
+  <div class="menu" data-menu hidden role="menu"></div>
+  <div class="toast" data-toast role="status" aria-live="polite"><span class="toast-ico"><svg class="i"><use href="../assets/icons.svg#check"/></svg></span><div><b data-toast-t></b><span data-toast-s></span></div></div>
+
+  <script src="../assets/data.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>
