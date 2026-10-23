@@ -2,11 +2,12 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
+import { loadDayLeaderboard } from "@/app/(app)/leaderboard-actions";
 import type { BlockView } from "@/components/block-tracker";
 import type { StrengthBlockView } from "@/components/strength-block-tracker";
 import type { FreeStrengthBlockView } from "@/components/free-strength-block-tracker";
 import { Toast, useToast } from "@/components/toast";
-import type { BuilderSectionView } from "@/lib/types";
+import type { BuilderSectionView, LeaderboardRow } from "@/lib/types";
 
 const BlockTracker = dynamic(
   () => import("@/components/block-tracker").then((mod) => mod.BlockTracker),
@@ -31,13 +32,16 @@ const StrengthRankingPanel = dynamic(
 
 export type ExtendedBlockView = BlockView & { suggestedSets?: { reps: number; percentage: number; kg: number }[]; builderSectionsView?: BuilderSectionView[] };
 export type DayView = { date: string; name: string; short: string; isToday: boolean; blocks: ExtendedBlockView[] };
+type DayLeaderboard = Record<string, LeaderboardRow[]>;
 
 const CLOSE_ANIMATION_MS = 240;
 
-export function WeekDays({ days, meId }: { days: DayView[]; meId: string }) {
+export function WeekDays({ days, meId, weekId }: { days: DayView[]; meId: string; weekId: string }) {
   const { toast, show } = useToast();
   const [open, setOpen] = useState<string | null>(null);
   const [mountedDays, setMountedDays] = useState<Set<string>>(() => new Set());
+  const [boardsByDay, setBoardsByDay] = useState<Record<string, DayLeaderboard | null>>({});
+  const loadingBoards = useRef<Set<string>>(new Set());
   const unmountTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
 
   useEffect(() => {
@@ -76,6 +80,22 @@ export function WeekDays({ days, meId }: { days: DayView[]; meId: string }) {
     });
   }
 
+  function ensureDayLeaderboard(day: DayView) {
+    if (boardsByDay[day.date] !== undefined || loadingBoards.current.has(day.date)) return;
+    const needsLeaderboard = day.blocks.some((block) => block.score_type !== "none");
+    if (!needsLeaderboard) {
+      setBoardsByDay((current) => ({ ...current, [day.date]: {} }));
+      return;
+    }
+
+    loadingBoards.current.add(day.date);
+    setBoardsByDay((current) => ({ ...current, [day.date]: null }));
+    void loadDayLeaderboard(weekId, day.date)
+      .then((boards) => setBoardsByDay((current) => ({ ...current, [day.date]: boards })))
+      .catch(() => setBoardsByDay((current) => ({ ...current, [day.date]: {} })))
+      .finally(() => loadingBoards.current.delete(day.date));
+  }
+
   function unmountDayAfterClose(date: string) {
     const pending = unmountTimers.current[date];
     if (pending) clearTimeout(pending);
@@ -90,14 +110,17 @@ export function WeekDays({ days, meId }: { days: DayView[]; meId: string }) {
     }, CLOSE_ANIMATION_MS);
   }
 
-  function toggle(date: string, trigger: HTMLElement) {
+  function toggle(day: DayView, trigger: HTMLElement) {
     const previous = open;
-    const opening = open !== date;
-    if (opening) mountDay(date);
-    setOpen(opening ? date : null);
+    const opening = open !== day.date;
+    if (opening) {
+      mountDay(day.date);
+      ensureDayLeaderboard(day);
+    }
+    setOpen(opening ? day.date : null);
 
-    if (previous && previous !== date) unmountDayAfterClose(previous);
-    if (!opening) unmountDayAfterClose(date);
+    if (previous && previous !== day.date) unmountDayAfterClose(previous);
+    if (!opening) unmountDayAfterClose(day.date);
 
     if (opening && window.matchMedia("(max-width: 767px)").matches) {
       window.setTimeout(() => {
@@ -120,18 +143,25 @@ export function WeekDays({ days, meId }: { days: DayView[]; meId: string }) {
     const empty = day.blocks.length === 0;
     const isOpen = open === day.date;
     const isMounted = mountedDays.has(day.date);
+    const dayBoards = boardsByDay[day.date];
+    const needsLeaderboard = day.blocks.some((block) => block.score_type !== "none");
+    const leaderboardReady = !needsLeaderboard || (dayBoards !== undefined && dayBoards !== null);
     const panelId = `dia-${day.date}`;
     if (empty) return <li key={day.date} className="border-b border-line"><div className={`flex ${rowHeight} items-center justify-between gap-4 px-1 text-chalk-3/70`}><DayLabel day={day} /><span className="text-[14px]">Sin sesión</span></div></li>;
-    return <li key={day.date} className="border-b border-line"><h2><button type="button" aria-expanded={isOpen} aria-controls={panelId} onClick={(e) => toggle(day.date, e.currentTarget)} className={`day-trigger group flex ${rowHeight} w-full items-center justify-between gap-4 px-1 text-left`}><DayLabel day={day} /><span className="flex items-center gap-3"><DayProgress blocks={day.blocks} /><Chevron open={isOpen} /></span></button></h2><div id={panelId} role="region" aria-label={`${day.name} ${day.short}`} className="accordion-panel" data-open={isOpen} inert={!isOpen}><div>{isMounted && <div className="space-y-7 px-1 pb-8 pt-1">{day.blocks.map((block) => {
-      if (block.score_type !== "load") return <BlockTracker key={block.id} block={block} meId={meId} notify={show} />;
-      const tracker = Array.isArray(block.builder_sections)
-        ? <FreeStrengthBlockTracker block={block as FreeStrengthBlockView} notify={show} />
-        : <StrengthBlockTracker block={block as StrengthBlockView} notify={show} />;
-      return <div key={block.id} className="space-y-7">{tracker}<BlockMovementHistory blockId={block.id} /><StrengthRankingPanel rows={block.board} meId={meId} /></div>;
-    })}</div>}</div></div></li>;
+    return <li key={day.date} className="border-b border-line"><h2><button type="button" aria-expanded={isOpen} aria-controls={panelId} onClick={(e) => toggle(day, e.currentTarget)} className={`day-trigger group flex ${rowHeight} w-full items-center justify-between gap-4 px-1 text-left`}><DayLabel day={day} /><span className="flex items-center gap-3"><DayProgress blocks={day.blocks} /><Chevron open={isOpen} /></span></button></h2><div id={panelId} role="region" aria-label={`${day.name} ${day.short}`} className="accordion-panel" data-open={isOpen} inert={!isOpen}><div>{isMounted && (!leaderboardReady ? <DayLoading /> : <div className="space-y-7 px-1 pb-8 pt-1">{day.blocks.map((block) => {
+      const blockWithBoard: ExtendedBlockView = { ...block, board: dayBoards?.[block.id] ?? [] };
+      if (blockWithBoard.score_type !== "load") return <BlockTracker key={blockWithBoard.id} block={blockWithBoard} meId={meId} notify={show} />;
+      const tracker = Array.isArray(blockWithBoard.builder_sections)
+        ? <FreeStrengthBlockTracker block={blockWithBoard as FreeStrengthBlockView} notify={show} />
+        : <StrengthBlockTracker block={blockWithBoard as StrengthBlockView} notify={show} />;
+      return <div key={blockWithBoard.id} className="space-y-7">{tracker}<BlockMovementHistory blockId={blockWithBoard.id} /><StrengthRankingPanel rows={blockWithBoard.board} meId={meId} /></div>;
+    })}</div>)}</div></div></li>;
   })}</ol><Toast toast={toast} className="bottom-[calc(5rem+env(safe-area-inset-bottom))] md:bottom-8" /></>;
 }
 
+function DayLoading() {
+  return <div className="space-y-5 px-1 pb-8 pt-3" aria-label="Cargando entrenamiento"><BlockLoading /><BlockLoading /></div>;
+}
 function BlockLoading() {
   return <div className="border-t border-line py-6" aria-hidden><div className="skeleton h-5 w-36" /><div className="skeleton mt-4 h-11 w-full" /></div>;
 }
