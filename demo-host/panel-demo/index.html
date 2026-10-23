@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Vista previa del área de gestión · Giraldilla</title>
+  <meta name="theme-color" content="#1C1712">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Golos+Text:wght@400;500;600;700&family=Noto+Serif+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <a class="skip" href="#view">Saltar al contenido</a>
+
+  <div class="preview-bar" role="note">
+    <div class="preview-bar__in">
+      <span class="preview-bar__pill">Vista previa del área de gestión</span>
+      <span class="preview-bar__txt">Demo visual — funcionalidad disponible en el desarrollo final. No hay acceso, cuenta ni datos reales: nada de lo que toque aquí se guarda.</span>
+      <a class="preview-bar__back" href="../#gestion">← Volver a la web</a>
+    </div>
+  </div>
+
+  <div class="app">
+    <aside class="side" aria-label="Navegación del panel">
+      <div class="side__brand">
+        <span class="side__mark" data-vane-mark></span>
+        <span><b>Giraldilla</b><small>Área de gestión</small></span>
+      </div>
+      <nav class="side__nav" data-nav>
+        <span class="side__ind" aria-hidden="true" data-ind></span>
+        <a href="#resumen" data-view="resumen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h6V4H4zM14 20h6v-9h-6zM4 20h6v-4H4zM14 4v4h6V4z"/></svg><span>Resumen</span></a>
+        <a href="#inmuebles" data-view="inmuebles"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7M5 9.5V20h14V9.5M10 20v-6h4v6"/></svg><span>Inmuebles</span><em data-c="inm"></em></a>
+        <a href="#nuevo" data-view="nuevo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Nuevo inmueble</span></a>
+        <a href="#consultas" data-view="consultas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/></svg><span>Consultas</span><em class="is-hot" data-c="con"></em></a>
+        <a href="#propietarios" data-view="propietarios"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 11a4 4 0 118 0 4 4 0 01-8 0zM3 21c1-4 4.5-6 8-6M17 14v6M14 17h6"/></svg><span>Propietarios</span><em class="is-hot" data-c="pro"></em></a>
+      </nav>
+      <div class="side__foot">
+        <p class="side__soon">Próximamente en el desarrollo final</p>
+        <span class="side__ghost"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Agenda de visitas</span>
+        <span class="side__ghost"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7h8M8 12h8M8 17h5M5 3h14v18H5z"/></svg>Exportar a otras herramientas</span>
+        <p class="side__demo"><span class="dot" aria-hidden="true"></span>Sin sesión · datos de demostración</p>
+      </div>
+    </aside>
+
+    <main class="main" id="view" tabindex="-1" data-main></main>
+  </div>
+
+  <nav class="tabbar" aria-label="Navegación del panel (móvil)" data-tabbar>
+    <a href="#resumen" data-view="resumen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h6V4H4zM14 20h6v-9h-6zM4 20h6v-4H4zM14 4v4h6V4z"/></svg>Resumen</a>
+    <a href="#inmuebles" data-view="inmuebles"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7M5 9.5V20h14V9.5M10 20v-6h4v6"/></svg>Inmuebles</a>
+    <a href="#nuevo" data-view="nuevo" class="tabbar__add"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="sr">Nuevo inmueble</span></a>
+    <a href="#consultas" data-view="consultas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/></svg>Consultas</a>
+    <a href="#propietarios" data-view="propietarios"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 11a4 4 0 118 0 4 4 0 01-8 0zM3 21c1-4 4.5-6 8-6M17 14v6M14 17h6"/></svg>Captación</a>
+  </nav>
+
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+
+  <script src="../assets/data.js"></script>
+  <script src="../assets/art.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>

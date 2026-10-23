@@ -4,13 +4,321 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <title>Giraldilla Servicios Inmobiliarios · Sevilla</title>
+  <meta name="description" content="Pisos, casas y locales en venta y alquiler en Sevilla. Demo de diseño con inmuebles de ejemplo.">
+  <meta name="theme-color" content="#1C1712">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Golos+Text:wght@400;500;600;700&family=Noto+Serif+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <div class="ribbon" role="note">
+    <span class="ribbon__dot" aria-hidden="true"></span>
+    Demo de diseño · Inmuebles, nombres y cifras: <strong>datos de demostración</strong>
+  </div>
+
+  <header class="top" data-top>
+    <div class="top__in">
+      <a class="brand" href="#main" aria-label="Giraldilla Servicios Inmobiliarios, inicio">
+        <span class="brand__mark" data-vane-mark></span>
+        <span class="brand__txt">
+          <span class="brand__name">Giraldilla</span>
+          <span class="brand__sub">Servicios Inmobiliarios</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="#inmuebles">Inmuebles</a>
+        <a href="#vender">Vender su casa</a>
+        <a href="#proceso">Cómo trabajamos</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <a class="btn btn--ink btn--sm top__cta" href="#contacto">Pedir información</a>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="mnav" data-burger>
+        <span></span><span></span><span class="sr">Menú</span>
+      </button>
+    </div>
+    <nav class="mnav" id="mnav" aria-label="Móvil" data-mnav hidden>
+      <a href="#inmuebles">Inmuebles</a>
+      <a href="#vender">Vender su casa</a>
+      <a href="#proceso">Cómo trabajamos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__copy">
+        <p class="eyebrow" data-in>Agencia inmobiliaria · Sevilla</p>
+        <h1 class="hero__title" data-in>
+          Hacia donde mire Sevilla,<br>
+          <em>le buscamos casa.</em>
+        </h1>
+        <p class="hero__lead" data-in>
+          Compra, venta y alquiler de pisos, casas y locales, con la cartera publicada aquí mismo: en la web de la agencia, sin pasar por terceros.
+        </p>
+
+        <form class="finder" data-in data-finder aria-label="Buscar inmuebles">
+          <div class="seg" role="radiogroup" aria-label="Operación">
+            <button type="button" role="radio" aria-checked="true" data-op="venta">Comprar</button>
+            <button type="button" role="radio" aria-checked="false" data-op="alquiler">Alquilar</button>
+            <span class="seg__pill" aria-hidden="true"></span>
+          </div>
+          <label class="finder__field">
+            <span>Barrio</span>
+            <select data-finder-barrio>
+              <option value="">Toda Sevilla</option>
+            </select>
+          </label>
+          <button class="btn btn--bronze" type="submit">Ver inmuebles</button>
+        </form>
+
+        <p class="hero__links" data-in>
+          <a href="#vender" class="link-arrow">¿Quiere vender? Le preparamos una valoración</a>
+        </p>
+      </div>
+
+      <div class="hero__dial" data-in>
+        <div class="dial" data-dial>
+          <svg class="dial__svg" viewBox="0 0 400 400" aria-hidden="true">
+            <defs>
+              <radialGradient id="dialbg" cx=".5" cy=".45" r=".6">
+                <stop offset="0" stop-color="#FBF7F0"/>
+                <stop offset="1" stop-color="#EFE5D3"/>
+              </radialGradient>
+              <linearGradient id="bronze" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#C79A5B"/>
+                <stop offset=".5" stop-color="#9A6B34"/>
+                <stop offset="1" stop-color="#5E3F1C"/>
+              </linearGradient>
+              <linearGradient id="patina" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#5DB3A2"/>
+                <stop offset="1" stop-color="#2D7C6E"/>
+              </linearGradient>
+            </defs>
+            <circle cx="200" cy="200" r="190" fill="url(#dialbg)"/>
+            <circle cx="200" cy="200" r="190" fill="none" stroke="#1C1712" stroke-opacity=".12"/>
+            <circle cx="200" cy="200" r="150" fill="none" stroke="#1C1712" stroke-opacity=".1" stroke-dasharray="2 6"/>
+            <g data-ticks></g>
+            <g class="vane" data-vane>
+              <line x1="200" y1="200" x2="200" y2="96" stroke="#9A6B34" stroke-width="4" stroke-linecap="round"/>
+              <path d="M187 104 L200 76 L213 104 Z" fill="url(#bronze)"/>
+              <line x1="200" y1="200" x2="200" y2="318" stroke="#9A6B34" stroke-width="4" stroke-linecap="round"/>
+              <path d="M202 262 h44 l-14 20 l14 20 h-44 z" fill="url(#patina)"/>
+              <path d="M202 262 h44 l-14 20 l14 20 h-44 z" fill="none" stroke="#1C1712" stroke-opacity=".2"/>
+              <circle cx="200" cy="322" r="6" fill="url(#bronze)"/>
+            </g>
+            <circle cx="200" cy="200" r="16" fill="#1C1712"/>
+            <circle cx="200" cy="200" r="6" fill="#C79A5B"/>
+          </svg>
+          <ul class="dial__barrios" data-barrios aria-label="Barrios"></ul>
+        </div>
+        <article class="pick" data-pick aria-live="polite"></article>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track" data-ticker></div>
+    </div>
+
+    <!-- INMUEBLES -->
+    <section class="sec" id="inmuebles">
+      <div class="sec__head">
+        <p class="eyebrow" data-in>Cartera</p>
+        <h2 class="sec__title" data-in>Inmuebles <em>disponibles</em></h2>
+        <p class="sec__lead" data-in>Vista de cómo se presentaría la cartera. Todas las fichas son <strong>inmuebles de ejemplo</strong>: la agencia publicaría aquí los suyos desde su área privada.</p>
+      </div>
+
+      <div class="filters" data-in>
+        <div class="chips" role="group" aria-label="Filtrar por operación" data-chips>
+          <button type="button" class="chip is-on" data-f="todos" aria-pressed="true">Todos</button>
+          <button type="button" class="chip" data-f="venta" aria-pressed="false">En venta</button>
+          <button type="button" class="chip" data-f="alquiler" aria-pressed="false">En alquiler</button>
+        </div>
+        <label class="sel">
+          <span class="sr">Tipo de inmueble</span>
+          <select data-tipo>
+            <option value="">Todos los tipos</option>
+            <option>Piso</option><option>Ático</option><option>Casa</option><option>Local</option>
+          </select>
+        </label>
+        <p class="filters__count" data-count aria-live="polite"></p>
+      </div>
+
+      <div class="grid" data-grid></div>
+      <p class="empty" data-empty hidden>No hay inmuebles de ejemplo con esos filtros.</p>
+    </section>
+
+    <!-- VENDER -->
+    <section class="sell" id="vender">
+      <div class="sell__copy">
+        <p class="eyebrow eyebrow--light" data-in>Propietarios</p>
+        <h2 class="sec__title sec__title--light" data-in>¿Vende o alquila <em>su vivienda?</em></h2>
+        <p class="sell__lead" data-in>Cuéntenos qué tiene y dónde. Le llamamos para valorarlo y explicarle cómo lo presentaríamos.</p>
+        <ul class="sell__list" data-in>
+          <li><span>01</span>Valoración según el barrio y el estado real del inmueble</li>
+          <li><span>02</span>Ficha propia en esta web, con fotos y plano</li>
+          <li><span>03</span>Visitas filtradas y seguimiento de cada interesado</li>
+        </ul>
+      </div>
+
+      <form class="wizard" data-wizard novalidate data-in>
+        <div class="wizard__top">
+          <p class="wizard__label">Quiero vender mi vivienda</p>
+          <ol class="wizard__steps" aria-label="Pasos">
+            <li class="is-on">Inmueble</li><li>Zona</li><li>Contacto</li>
+          </ol>
+        </div>
+        <div class="wizard__viewport">
+          <fieldset class="wstep is-on" data-step="0">
+            <legend>¿Qué tipo de inmueble es?</legend>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="w-tipo" value="Piso"><span>Piso</span></label>
+              <label class="opt"><input type="radio" name="w-tipo" value="Casa"><span>Casa</span></label>
+              <label class="opt"><input type="radio" name="w-tipo" value="Ático"><span>Ático</span></label>
+              <label class="opt"><input type="radio" name="w-tipo" value="Local"><span>Local</span></label>
+            </div>
+            <div class="opts opts--sm" role="group" aria-label="Operación">
+              <label class="opt opt--sm"><input type="radio" name="w-op" value="Venta" checked><span>Vender</span></label>
+              <label class="opt opt--sm"><input type="radio" name="w-op" value="Alquiler"><span>Alquilar</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="wstep" data-step="1">
+            <legend>¿En qué zona está?</legend>
+            <div class="opts opts--wrap" data-w-barrios></div>
+          </fieldset>
+          <fieldset class="wstep" data-step="2">
+            <legend>¿Cómo le llamamos?</legend>
+            <label class="field"><span>Nombre</span><input name="w-nombre" autocomplete="off" placeholder="Su nombre"></label>
+            <label class="field"><span>Teléfono</span><input name="w-tel" inputmode="tel" autocomplete="off" placeholder="600 000 000"></label>
+            <p class="field__note">Demo: este formulario no envía ningún dato.</p>
+          </fieldset>
+          <div class="wstep wdone" data-step="3" tabindex="-1">
+            <p class="wdone__k">Así llegaría su solicitud</p>
+            <div class="lead-row" data-lead-row></div>
+            <p class="wdone__txt">En la versión final, esta solicitud entraría en el área de gestión de la agencia, en <strong>Captación de propietarios</strong>.</p>
+            <a class="link-arrow" href="panel-demo/#propietarios">Ver cómo aparecería en el panel</a>
+          </div>
+        </div>
+        <div class="wizard__nav">
+          <button type="button" class="btn btn--ghost-light" data-w-prev disabled>Atrás</button>
+          <button type="button" class="btn btn--bronze" data-w-next>Continuar</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- GESTIÓN (sección comercial para la agencia) -->
+    <section class="mgmt" id="gestion" aria-labelledby="mgmt-title">
+      <div class="mgmt__note" data-in>
+        <span class="tag tag--patina">Vista previa</span>
+        Simulación de una posible funcionalidad del desarrollo final
+      </div>
+      <div class="mgmt__grid">
+        <div class="mgmt__copy">
+          <h2 class="sec__title" id="mgmt-title" data-in>Gestiona tu cartera <em>desde un único lugar</em></h2>
+          <p class="sec__lead" data-in>Esta web no tendría que ser solo un escaparate. Con un área privada, la propia agencia podría publicar, editar u ocultar inmuebles, y las consultas llegarían ya asociadas a cada referencia.</p>
+          <ul class="ticks" data-in>
+            <li>Sus inmuebles viven en su propia web, sin depender de un portal.</li>
+            <li>Añadir, editar, ocultar o marcar como vendido, sin pedir cada cambio.</li>
+            <li>Consultas de compradores asociadas al inmueble que las genera.</li>
+            <li>Las solicitudes de propietarios entran en el mismo sitio.</li>
+          </ul>
+          <div class="mgmt__cta" data-in>
+            <a class="btn btn--ink" href="panel-demo/">Ver cómo funcionaría</a>
+            <span class="mgmt__fine">Demo visual, sin acceso ni datos reales.</span>
+          </div>
+        </div>
+
+        <div class="stage" data-stage aria-label="Animación: un cambio en el panel se refleja en la web" role="img">
+          <div class="browser">
+            <div class="browser__bar"><i></i><i></i><i></i><span>Área de gestión · vista previa</span></div>
+            <div class="mini">
+              <aside class="mini__side"><b></b><b class="on"></b><b></b><b></b></aside>
+              <div class="mini__main">
+                <div class="mini__kpis"><span><em>7</em>publicados</span><span><em>4</em>disponibles</span><span><em>6</em>consultas</span></div>
+                <div class="mini__rows" data-mini-rows></div>
+              </div>
+            </div>
+            <span class="cursor" data-cursor aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 2l15 11-7 1 4 8-3 1-4-8-5 5z" fill="#1C1712" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+          <div class="phone">
+            <div class="phone__notch"></div>
+            <div class="phone__screen" data-phone></div>
+          </div>
+          <span class="sync" data-sync aria-hidden="true">Web actualizada</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section class="sec" id="proceso">
+      <div class="sec__head">
+        <p class="eyebrow" data-in>Cómo trabajamos</p>
+        <h2 class="sec__title" data-in>De la primera visita <em>a la notaría</em></h2>
+      </div>
+      <ol class="steps">
+        <li class="step" data-in><span class="step__n">I</span><h3>Valoración</h3><p>Visitamos el inmueble y estudiamos precios del barrio para fijar un precio de salida realista.</p></li>
+        <li class="step" data-in><span class="step__n">II</span><h3>Presentación</h3><p>Fotografías, descripción y ficha propia en esta web, lista para compartir por WhatsApp.</p></li>
+        <li class="step" data-in><span class="step__n">III</span><h3>Visitas</h3><p>Filtramos a los interesados y le contamos qué ha opinado cada uno.</p></li>
+        <li class="step" data-in><span class="step__n">IV</span><h3>Cierre</h3><p>Acompañamiento en arras, documentación y firma ante notario.</p></li>
+      </ol>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="contact" id="contacto">
+      <div class="contact__copy">
+        <p class="eyebrow" data-in>Contacto</p>
+        <h2 class="sec__title" data-in>Hablemos de <em>su casa</em></h2>
+        <p class="sec__lead" data-in>Pregunte por un inmueble o cuéntenos qué busca.</p>
+        <div class="contact__pending" data-in>
+          <span class="tag">Pendiente</span>
+          Teléfono, WhatsApp, dirección y horario de la agencia se incorporarán en la versión final.
+        </div>
+      </div>
+      <form class="cform" data-cform novalidate data-in>
+        <label class="field"><span>Nombre</span><input name="nombre" autocomplete="off" placeholder="Su nombre"></label>
+        <label class="field"><span>Teléfono</span><input name="tel" inputmode="tel" autocomplete="off" placeholder="600 000 000"></label>
+        <label class="field"><span>Me interesa</span>
+          <select name="ref" data-cref><option value="">Busco algo concreto</option></select>
+        </label>
+        <label class="field field--full"><span>Mensaje</span><textarea name="msg" rows="3" placeholder="Cuéntenos qué necesita"></textarea></label>
+        <div class="cform__foot">
+          <button class="btn btn--ink" type="submit">Enviar consulta</button>
+          <span class="field__note">Demo: no se envía ningún dato.</span>
+        </div>
+      </form>
+    </section>
   </main>
+
+  <footer class="foot">
+    <div class="foot__in">
+      <div class="brand brand--foot">
+        <span class="brand__mark" data-vane-mark></span>
+        <span class="brand__txt"><span class="brand__name">Giraldilla</span><span class="brand__sub">Servicios Inmobiliarios · Sevilla</span></span>
+      </div>
+      <p class="foot__fine">Demo de diseño. No es la web oficial de la agencia. Inmuebles, personas y cifras son datos de demostración.</p>
+    </div>
+  </footer>
+
+  <!-- Ficha de inmueble -->
+  <div class="drawer" data-drawer hidden>
+    <div class="drawer__scrim" data-close></div>
+    <section class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="d-title" tabindex="-1">
+      <button class="drawer__x" type="button" data-close aria-label="Cerrar ficha">×</button>
+      <div class="drawer__body" data-drawer-body></div>
+    </section>
+  </div>
+
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/art.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
