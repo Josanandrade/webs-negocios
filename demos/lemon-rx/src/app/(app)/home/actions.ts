@@ -49,7 +49,6 @@ export async function togglePostReaction(formData: FormData) {
   }
 
   revalidatePath("/home");
-  revalidatePath("/", "layout");
 }
 
 export async function addPostComment(formData: FormData) {
@@ -98,7 +97,6 @@ export async function addPostComment(formData: FormData) {
   }
 
   revalidatePath("/home");
-  revalidatePath("/", "layout");
 }
 
 export async function toggleCommentReaction(formData: FormData) {
@@ -129,5 +127,4 @@ export async function toggleCommentReaction(formData: FormData) {
   }
 
   revalidatePath("/home");
-  revalidatePath("/", "layout");
 }
