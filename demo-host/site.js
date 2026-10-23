@@ -1,4 +1,13 @@
 (() => {
+  const googleReserveUrl = 'https://www.google.com/maps/reserve/v/dine/c/1mcuuJA8h04';
+  document.querySelectorAll('a.btn, a.mobile-cta').forEach((link) => {
+    if (/reserv/i.test(link.textContent || '')) {
+      link.href = googleReserveUrl;
+      link.target = '_blank';
+      link.rel = 'noopener';
+    }
+  });
+
   const slider = document.querySelector('[data-hero-slider]');
   if (slider) {
     const slides = [...slider.querySelectorAll('[data-slide]')];
@@ -29,15 +38,11 @@
 
     function restart() {
       window.clearInterval(timer);
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        timer = window.setInterval(() => show(index + 1), 5200);
-      }
+      timer = window.setInterval(() => show(index + 1), 2600);
     }
 
     prev?.addEventListener('click', () => { show(index - 1); restart(); });
     next?.addEventListener('click', () => { show(index + 1); restart(); });
-    slider.addEventListener('mouseenter', () => window.clearInterval(timer));
-    slider.addEventListener('mouseleave', restart);
     restart();
   }
 
