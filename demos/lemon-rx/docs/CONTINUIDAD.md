@@ -218,6 +218,22 @@ Estado: **VALIDADO / ONLINE**.
 - Preview validada por Jose; PR #40 fusionado a `main` en commit `ba9e97e9bb013d8df67dc2081dcf215da48b3df6`.
 - Deployment productivo Vercel READY y `lemon-rx.vercel.app` verificado explícitamente contra ese deployment.
 
+### 24/10/2026 — Rendimiento Fase 4
+Estado: **VALIDADO / ONLINE**.
+
+- Home deja de traer todos los comentarios y reacciones a comentarios de los 15 posts en la carga inicial.
+- Nueva RPC `home_comment_previews(uuid[])`: devuelve en lote contador total y solo el hilo más reciente de cada post visible.
+- El hilo más reciente sigue visible por defecto; los comentarios anteriores se cargan únicamente al pulsar `Ver comentarios anteriores`.
+- Comentar, responder y reaccionar a comentarios se mantiene sin cambios funcionales.
+- La RPC es `SECURITY INVOKER`, respeta RLS, no es ejecutable por `anon` y sí por `authenticated`.
+- Lecturas independientes de Home se paralelizan.
+- Semana deja de cargar el catálogo completo de movimientos y solicita solo IDs usados en la semana visible.
+- Ranking hace lo mismo, limitado a los movimientos usados en el día visible.
+- Jose valida expresamente la Preview el 24/10/2026.
+- PR #41 fusionado a `main` en commit `8e3a3ee6003ee9fc8f127c2c25dcd33452714fd3`.
+- Deployment productivo Vercel READY y `lemon-rx.vercel.app` reasignado y verificado contra ese deployment.
+- No se cambian resultados, notas, pesos, RM, posiciones, empates, reglas de ranking, programación ni IDs de bloque.
+
 ## 6. Estrategia comercial futura — HIPÓTESIS, NO PRODUCTO ACTUAL
 
 Fecha: 15/10/2026.
@@ -306,11 +322,11 @@ Orden:
 
 ### Siguiente bloque técnico propuesto
 
-Tras validar Rendimiento Fase 3, los siguientes candidatos son: comentarios sociales bajo demanda para aligerar Home, cache selectiva de datos compartidos no sensibles, reducir lecturas de catálogos a los IDs realmente necesarios y pruebas de carga 25/50/100 usuarios concurrentes. Revisar también `coach_evolution_metrics` antes de escalar a cientos de atletas. No tocar `save_week_content` ni los IDs de bloques.
+Tras validar Rendimiento Fase 4, los siguientes candidatos son: cache selectiva de datos compartidos no sensibles, pruebas de carga 25/50/100 usuarios concurrentes y revisión de `coach_evolution_metrics` antes de escalar a cientos de atletas. No tocar `save_week_content` ni los IDs de bloques.
 
 ## 11. Diagnóstico de escalabilidad — 21/10/2026
 
-Estado: **DIAGNÓSTICO CONFIRMADO / FASE 3 VALIDADA 23/10/2026**.
+Estado: **DIAGNÓSTICO CONFIRMADO / FASE 4 VALIDADA 24/10/2026**.
 
 - Volumen real en el momento del análisis inicial: 13 perfiles, 66 bloques, ~280 logs, ~147 resultados y ~78 posts; no había volumen suficiente para justificar esperas de varios segundos.
 - Railway no estaba cerca de saturación: CPU y RAM observadas muy por debajo de capacidad.
@@ -319,5 +335,6 @@ Estado: **DIAGNÓSTICO CONFIRMADO / FASE 3 VALIDADA 23/10/2026**.
 - Se observaron peticiones móviles duplicadas por combinación de prefetch en `touchstart` + navegación real y precarga secuencial automática de múltiples rutas.
 - Fase 2 eliminó esas precargas móviles/globales, paginó Home y llevó producción a Node 22/Vercel Dublín.
 - Fase 3 reduce payload y cálculo innecesario en Ranking/Semana y evita invalidación global de layout tras interacción social.
+- Fase 4 reduce todavía más la carga inicial de Home y evita leer catálogos completos de movimientos en Semana/Ranking.
 - En la semana usada para validar Fase 3 había 120 resultados puntuables totales y solo 21–39 por día, confirmando el beneficio de lectura diaria.
 - Objetivo comercial: 500+ usuarios registrados/activos sigue requiriendo prueba de carga por concurrencia real antes de vender a escala.
