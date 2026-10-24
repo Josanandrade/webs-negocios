@@ -9,6 +9,19 @@ import { createClient } from "@/lib/supabase/server";
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const EMOJIS = new Set(["👍", "❤️", "🔥", "💪", "👏", "😂", "🍆", "🍑", "💦", "🔩", "🦍", "🍼", "🛴", "😍"]);
 
+type LazyCommentReaction = { user_id: string; emoji: string };
+type LazyComment = {
+  id: string;
+  post_id: string;
+  user_id: string;
+  parent_comment_id: string | null;
+  author_name: string;
+  author_avatar_url: string | null;
+  body: string;
+  created_at: string;
+  workout_comment_reactions: LazyCommentReaction[];
+};
+
 async function socialViewer() {
   const viewer = await getViewer();
   if (!viewer.canViewProgram) return null;
@@ -127,4 +140,24 @@ export async function toggleCommentReaction(formData: FormData) {
   }
 
   revalidatePath("/home");
+}
+
+export async function loadPostComments(postId: string): Promise<{ comments: LazyComment[]; names: Record<string, string> }> {
+  const viewer = await socialViewer();
+  if (!viewer || !UUID.test(postId)) return { comments: [], names: {} };
+
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("workout_post_comments")
+    .select("id, post_id, user_id, parent_comment_id, author_name, author_avatar_url, body, created_at, workout_comment_reactions(user_id, emoji)")
+    .eq("post_id", postId)
+    .order("created_at", { ascending: true })
+    .returns<LazyComment[]>();
+  const comments = data ?? [];
+  const reactionUserIds = [...new Set(comments.flatMap((comment) => (comment.workout_comment_reactions ?? []).map((reaction) => reaction.user_id)))];
+  if (reactionUserIds.length === 0) return { comments, names: {} };
+
+  const { data: profiles } = await supabase.rpc("social_reaction_actor_names", { p_user_ids: reactionUserIds });
+  const names = Object.fromEntries(((profiles ?? []) as Array<{ user_id: string; full_name: string }>).map((row) => [row.user_id, row.full_name || "Atleta"]));
+  return { comments, names };
 }
