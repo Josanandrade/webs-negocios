@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getViewer } from "@/lib/auth";
 import { getAdjacentPublished, getPublishedWeek } from "@/lib/program";
 import { getActivity, getDayLeaderboard, getRankingDayAthleteActivity } from "@/lib/activity";
-import { getMovements } from "@/lib/strength";
+import { getMovementsByIds } from "@/lib/strength";
 import { hasBoard } from "@/lib/scores";
 import type { Sex } from "@/lib/types";
 import { isIsoDate, mondayOf, todayIso, weekDates } from "@/lib/dates";
@@ -39,11 +39,27 @@ export default async function RankingPage({ searchParams }: PageProps<"/ranking"
   const blocks = scoredOn(day);
   const dayBlocks = allOn(day);
   const blockIds = blocks.map((block) => block.id);
+  const usedMovementIds: string[] = [];
+  for (const block of dayBlocks) {
+    if (block.movement_id) usedMovementIds.push(block.movement_id);
+    if (block.rm_reference_movement_id) usedMovementIds.push(block.rm_reference_movement_id);
+    for (const row of block.complex_movements ?? []) usedMovementIds.push(row.movement_id);
+    for (const section of block.builder_sections ?? []) {
+      for (const item of section.items) {
+        if (item.type === "exercise") usedMovementIds.push(item.movement_id);
+        if (item.type === "complex") {
+          if (item.rm_reference_movement_id) usedMovementIds.push(item.rm_reference_movement_id);
+          for (const movement of item.movements) usedMovementIds.push(movement.movement_id);
+        }
+      }
+    }
+  }
+  const movementIds = [...new Set(usedMovementIds)];
   const [board, activity, dayActivity, movements] = await Promise.all([
     getDayLeaderboard(week?.id ?? null, day),
     getActivity(meId, blockIds),
     getRankingDayAthleteActivity(week?.id ?? null, day),
-    getMovements(),
+    getMovementsByIds(movementIds),
   ]);
 
   const movementNames = Object.fromEntries(movements.map((movement) => [movement.id, movement.name]));
