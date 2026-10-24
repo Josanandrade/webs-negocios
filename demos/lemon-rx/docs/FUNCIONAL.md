@@ -171,7 +171,7 @@ El atleta con acceso puede:
 
 ### Navegación de Semana
 
-Estado: **VALIDADO 23/10/2026**.
+Estado: **VALIDADO 24/10/2026**.
 
 - los siete días pueden permanecer cerrados;
 - en móvil, con todos cerrados, se conserva el comportamiento de scroll ya validado;
@@ -181,7 +181,8 @@ Estado: **VALIDADO 23/10/2026**.
 - los componentes pesados de registro de resultados, Strength/Weightlifting, historial contextual y ranking de fuerza se cargan cuando hacen falta, no como coste obligatorio al entrar en Semana;
 - desde Rendimiento Fase 3, entrar en Semana no descarga la clasificación completa de la semana;
 - al abrir un día con bloques puntuables se carga únicamente el leaderboard de ese día;
-- si ese día se cierra y vuelve a abrirse durante la misma visita, la clasificación ya cargada se reutiliza.
+- si ese día se cierra y vuelve a abrirse durante la misma visita, la clasificación ya cargada se reutiliza;
+- desde Rendimiento Fase 4, Semana solo carga los movimientos realmente utilizados en la semana visible, no el catálogo completo.
 
 ## 8. Actividad, notas y resultados
 
@@ -203,7 +204,8 @@ Reglas validadas:
 - General / Masculina / Femenina;
 - Strength/Weightlifting usa ranking único por carga cuando no aplica RX/Intermedio;
 - en la vista detallada se puede pulsar un atleta para ver su sesión completa, incluidos resultados y notas visibles dentro de este contexto;
-- desde Rendimiento Fase 3, solo se descargan los resultados puntuables del día visible, manteniendo exactamente las mismas posiciones, empates, divisiones y cargas que antes.
+- desde Rendimiento Fase 3, solo se descargan los resultados puntuables del día visible, manteniendo exactamente las mismas posiciones, empates, divisiones y cargas que antes;
+- desde Rendimiento Fase 4, solo se cargan los movimientos que intervienen en los bloques del día visible.
 
 ### Navegación de filtros
 
@@ -381,6 +383,18 @@ Estado: **VALIDADO 23/10/2026 / ONLINE EN VERCEL**.
 - Home deja de invalidar el layout privado completo al reaccionar o comentar y refresca solo Home;
 - no cambia ningún criterio de posición, empate, sexo, división, peso o `total_load`.
 
+### Fase 4
+Estado: **VALIDADO 24/10/2026 / ONLINE EN VERCEL**.
+
+- Home conserva el comentario/hilo más reciente visible por defecto.
+- Los comentarios anteriores ya no forman parte de la carga inicial de los 15 posts: se cargan únicamente al pulsar `Ver comentarios anteriores`.
+- Comentar, responder y reaccionar a comentarios se mantiene igual para el usuario.
+- Las reacciones de post siguen siempre visibles con sus contadores y nombres.
+- Las lecturas independientes de Home se paralelizan.
+- Semana y Ranking dejan de cargar el catálogo completo de movimientos y solicitan solo los movimientos necesarios para la vista actual.
+- No cambia ningún criterio de ranking, peso, RM, resultado, nota o programación.
+- Jose valida la Preview el 24/10/2026 y la versión queda online en `https://lemon-rx.vercel.app`.
+
 ## 20. Comportamientos que no debemos romper
 
 - Registro/login/recuperación.
@@ -411,7 +425,7 @@ Estado: **VALIDADO 23/10/2026 / ONLINE EN VERCEL**.
 - Navegación móvil inferior y Home como inicio de atletas.
 - Todos los emojis sociales visibles por defecto.
 - Resumen por emoji con contador y nombres de quienes reaccionaron.
-- Comentario más reciente visible por defecto y comentarios anteriores desplegables.
+- Comentario más reciente visible por defecto y comentarios anteriores cargados bajo demanda.
 
 ## 21. Estrategia comercial futura — no funcional todavía
 
@@ -423,7 +437,7 @@ Hipótesis comercial a conservar:
 
 Nada de este bloque se considera todavía funcionalidad implementada.
 
-## 22. Home social — VALIDADO 22/10/2026
+## 22. Home social — VALIDADO 24/10/2026
 
 - Home es la pantalla de entrada por defecto del atleta y de la PWA.
 - El sistema crea automáticamente como máximo una publicación por atleta y fecha de entrenamiento.
@@ -435,7 +449,7 @@ Nada de este bloque se considera todavía funcionalidad implementada.
 - Debajo se muestra el total de reacciones y, para cada emoji usado, el número y los nombres de quienes reaccionaron.
 - Comentarios a nivel de publicación, respuestas y reacciones a comentarios.
 - La sección de comentarios aparece abierta por defecto con el hilo más reciente visible.
-- Los comentarios anteriores quedan en un bloque desplegable.
+- Los comentarios anteriores se cargan bajo demanda al pulsar `Ver comentarios anteriores` y después pueden minimizarse.
 - La sección completa de comentarios puede minimizarse.
 
 ## 23. Navegación móvil — VALIDADO 21/10/2026
@@ -451,11 +465,12 @@ Admin móvil:
 - `CREAR` centrado físicamente en cabecera;
 - `Usuarios` se gestiona desde Ajustes.
 
-## 24. Hosting productivo — VALIDADO 23/10/2026
+## 24. Hosting productivo — VALIDADO 24/10/2026
 
 - URL estable que se comparte con usuarios: `https://lemon-rx.vercel.app`.
 - Cada deployment puede tener una URL técnica única, pero los usuarios deben usar siempre la URL estable.
 - Tras cada despliegue validado, debe verificarse que `lemon-rx.vercel.app` apunta exactamente al deployment READY correcto antes de cerrar el bloque.
+- Rendimiento Fase 4 queda en producción sobre commit `8e3a3ee6003ee9fc8f127c2c25dcd33452714fd3`.
 - Railway queda como fallback temporal hasta cerrar configuración/rotación de secretos y comunicaciones.
 
 ## 25. Método para nuevas funcionalidades
