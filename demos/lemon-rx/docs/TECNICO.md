@@ -26,7 +26,7 @@ Auditoría inicial: 13/10/2026.
 
 ### Vercel
 
-Estado: **PRODUCCIÓN ACTIVA / VALIDADA 23/10/2026**.
+Estado: **PRODUCCIÓN ACTIVA / VALIDADA 24/10/2026**.
 
 Proyecto Vercel:
 - Project ID `prj_GN1NzVeXFmr9fXdySTVR0n0nhGpd`
@@ -37,7 +37,7 @@ Proyecto Vercel:
 - región de Functions: `dub1`
 - alias público estable: `lemon-rx.vercel.app`
 
-El commit de producción validado tras Rendimiento Fase 3 es `ba9e97e9bb013d8df67dc2081dcf215da48b3df6`.
+El commit de producción validado tras Rendimiento Fase 4 es `8e3a3ee6003ee9fc8f127c2c25dcd33452714fd3`.
 
 Regla operativa de despliegue:
 - no dar un cambio por pasado a producción hasta comprobar explícitamente que `lemon-rx.vercel.app` apunta al deployment READY del commit validado;
@@ -220,7 +220,7 @@ Compatibilidad:
 
 ### Home social
 
-Estado: **VALIDADO 22/10/2026**.
+Estado: **VALIDADO 24/10/2026**.
 
 Entidades:
 - `workout_posts` — una publicación por `program_key + user_id + training_date`;
@@ -237,7 +237,8 @@ Reglas:
 - cada usuario modifica únicamente sus reacciones/comentarios propios dentro de las políticas definidas;
 - todos los emojis de reacción permanecen visibles por defecto;
 - se agrupan reacciones por emoji mostrando contador y nombres de autores;
-- comentarios muestran el hilo más reciente por defecto y los anteriores quedan plegables/minimizables.
+- comentarios muestran el hilo más reciente por defecto;
+- desde Fase 4, la carga inicial de Home no arrastra todos los comentarios/reacciones de los 15 posts: solo recibe contador + hilo más reciente y carga los anteriores bajo demanda.
 
 ### RPC social de nombres
 
@@ -254,6 +255,24 @@ Seguridad:
 - solo usuarios autenticados y activos pueden ejecutarla;
 - solo devuelve perfiles incluidos en la lista solicitada que realmente aparecen como autores de reacciones sociales;
 - no relaja las RLS generales de `profiles`.
+
+### RPC de previews de comentarios
+
+Migración: `20261024003000_home_comment_previews.sql`.
+
+Función:
+- `home_comment_previews(uuid[])`.
+
+Objetivo:
+- devolver en una sola lectura para los posts visibles el contador total de comentarios y únicamente el hilo más reciente con sus reacciones;
+- evitar que la consulta principal de Home crezca linealmente con todo el historial social de cada post.
+
+Seguridad:
+- `SECURITY INVOKER`;
+- respeta las RLS de `workout_post_comments` y `workout_comment_reactions`;
+- `anon` no tiene `EXECUTE`;
+- `authenticated` y `service_role` sí;
+- validado con advisors y consulta de permisos el 24/10/2026.
 
 ### Notificaciones
 
@@ -299,6 +318,8 @@ Funciones relevantes existentes:
 La UI de General/Masculina/Femenina se filtra localmente una vez que los datos están cargados; no requiere nueva navegación al servidor.
 
 Desde Fase 3, `/ranking` solicita solo el leaderboard del día visible. La nueva RPC conserva las mismas reglas de orden, empates, divisiones, sexo, `total_load` y posiciones. La paridad se comprobó con datos reales: 21 filas antiguas vs 21 nuevas y 0 diferencias.
+
+Desde Fase 4, Ranking carga solo los movimientos que aparecen en los bloques del día visible, no el catálogo completo.
 
 ## 8. Historial y contexto
 
@@ -413,6 +434,35 @@ No toca:
 - `save_week_content`;
 - lógica de guardado deportivo.
 
+### Fase 4 — VALIDADA 24/10/2026 / ONLINE
+
+Cambios:
+1. Home elimina los comentarios y reacciones a comentarios del `select` principal de `workout_posts`.
+2. `home_comment_previews(uuid[])` devuelve en lote contador total + hilo más reciente de cada post visible.
+3. Los comentarios anteriores se solicitan mediante acción servidor solo cuando el usuario pulsa `Ver comentarios anteriores`.
+4. El comportamiento de comentar, responder y reaccionar se conserva.
+5. Lecturas independientes de Home se ejecutan en paralelo cuando no dependen entre sí.
+6. `getMovementsByIds()` permite limitar el catálogo a IDs concretos.
+7. Semana solicita solo movimientos utilizados en la semana visible.
+8. Ranking solicita solo movimientos utilizados en el día visible.
+
+Seguridad y validación:
+- `home_comment_previews` usa `SECURITY INVOKER` y RLS real;
+- `anon` no puede ejecutarla;
+- `authenticated` sí;
+- advisors no detectaron problemas nuevos introducidos por esta función;
+- Preview final READY en `dub1`;
+- Jose valida funcionalmente la Fase 4 el 24/10/2026;
+- PR #41 fusionado a `main` en `8e3a3ee6003ee9fc8f127c2c25dcd33452714fd3`;
+- deployment productivo `dpl_EST5WBs83s4nQtxFHBz5G4SEhwNS` READY y alias `lemon-rx.vercel.app` reasignado a ese deployment.
+
+No toca:
+- programación ni IDs de bloques;
+- resultados, notas o RM;
+- reglas/posiciones de Ranking;
+- `save_week_content`;
+- notificaciones sociales existentes.
+
 ## 12. Comunicaciones
 
 ### Publicación de semana
@@ -453,6 +503,8 @@ La RPC `social_reaction_actor_names` se usa específicamente para evitar abrir `
 
 `day_leaderboard_v2` es `SECURITY DEFINER` y valida sesión/acceso a la semana; su `EXECUTE` está revocado para `PUBLIC`/`anon` y concedido a `authenticated`/`service_role`.
 
+`home_comment_previews` es `SECURITY INVOKER`; no amplía privilegios y se apoya en las RLS de comentarios/reacciones.
+
 ## 14. Incidencias técnicas abiertas
 
 ### T1 — Migración completa de hosting
@@ -471,7 +523,7 @@ Mejorar automatización de pruebas de permisos antes de cambios de esquema relev
 `coach_evolution_metrics` es suficiente para el volumen actual, pero debe revisarse antes de escalar a cientos de atletas.
 
 ### T6 — advisors de FK sin índice
-Revisar las FK secundarias de forma selectiva antes de escala grande; no añadir índices indiscriminadamente. Advisor del 23/10/2026 mantiene 17 FK secundarias sin índice; no se añadieron índices a ciegas porque no son el cuello principal medido en Fase 3.
+Revisar las FK secundarias de forma selectiva antes de escala grande; no añadir índices indiscriminadamente. Advisor del 24/10/2026 mantiene 17 FK secundarias sin índice; no se añadieron índices a ciegas porque no son el cuello principal medido.
 
 ## 15. Dirección técnica futura — comercialización / white-label
 
@@ -509,10 +561,14 @@ Completado en Fase 3:
 - leaderboard de Semana bajo demanda;
 - eliminación de la invalidación global del layout tras interacción social.
 
+Completado en Fase 4:
+- comentarios sociales bajo demanda;
+- preview de comentarios por lote;
+- lecturas independientes de Home paralelizadas;
+- Semana/Ranking dejan de traer el catálogo completo de movimientos.
+
 Siguientes candidatos de rendimiento, solo si las métricas lo justifican:
-- comentarios sociales bajo demanda para evitar traer todos los hilos/reacciones de 15 posts en la carga inicial;
 - cache selectiva para datos compartidos no sensibles;
-- revisar lecturas de catálogos/movimientos para pedir solo IDs necesarios;
 - prueba de carga real 25/50/100 usuarios simultáneos antes de venta a gran escala;
 - revisar `coach_evolution_metrics` antes de cientos de atletas.
 
