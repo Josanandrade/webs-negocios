@@ -28,6 +28,18 @@ export async function getMovements(): Promise<Movement[]> {
   return (data ?? []) as Movement[];
 }
 
+export async function getMovementsByIds(movementIds: string[]): Promise<Movement[]> {
+  const ids = [...new Set(movementIds.filter(Boolean))];
+  if (ids.length === 0) return [];
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("movements")
+    .select("id, name, group_name, sort_order, is_rm_eligible")
+    .in("id", ids)
+    .order("name", { ascending: true });
+  return (data ?? []) as Movement[];
+}
+
 export async function getUserRms(userId: string): Promise<UserRm[]> {
   const supabase = await createClient();
   const { data } = await supabase
