@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220"><defs><radialGradient id="g" cx=".7" cy=".25" r=".7"><stop offset="0" stop-color="#FFE6C0"/><stop offset="1" stop-color="#C9D7E0"/></radialGradient></defs><rect width="320" height="220" fill="url(#g)"/>
+<rect x="44" y="70" width="150" height="100" rx="16" fill="#17233A"/>
+<g><circle cx="80" cy="104" r="16" fill="#E9A15E"/><circle cx="120" cy="104" r="16" fill="#C46B5C"/><circle cx="160" cy="104" r="16" fill="#8E5A6B"/><circle cx="80" cy="140" r="16" fill="#F4D9C6"/><circle cx="120" cy="140" r="16" fill="#D2553A"/><circle cx="160" cy="140" r="16" fill="#4F5D73"/></g>
+<g transform="rotate(-30 240 120)"><rect x="232" y="40" width="14" height="120" rx="7" fill="#F8FAFB"/><rect x="232" y="100" width="14" height="10" fill="#C9D7E0"/><path d="M230 40c0-22 9-30 9-30s9 8 9 30Z" fill="#22324F"/></g>
+<g transform="rotate(-12 280 140)"><rect x="276" y="70" width="10" height="110" rx="5" fill="#E46F3A"/><path d="M274 70c0-16 7-22 7-22s7 6 7 22Z" fill="#17233A"/></g>
+</svg>
