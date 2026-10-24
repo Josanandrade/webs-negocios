@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getViewer } from "@/lib/auth";
 import { getAdjacentPublished, getPublishedWeek } from "@/lib/program";
 import { getActivity } from "@/lib/activity";
-import { getMovements, getUserRm1Map } from "@/lib/strength";
+import { getMovementsByIds, getUserRm1Map } from "@/lib/strength";
 import { DAY_NAMES, currentWeekStart, isIsoDate, mondayOf, shortDate, todayIso, weekDates, weekRangeShort } from "@/lib/dates";
 import { NoAccess } from "@/components/no-access";
 import { WeekDays, type DayView } from "@/components/day-accordion";
@@ -26,6 +26,22 @@ export default async function ProgramPage({ searchParams }: PageProps<"/">) {
   const me = viewer.profile.id;
   const blocks = week?.days.flatMap((d) => d.workout_blocks) ?? [];
   const blockIds = blocks.map((b) => b.id);
+  const usedMovementIds: string[] = [];
+  for (const block of blocks) {
+    if (block.movement_id) usedMovementIds.push(block.movement_id);
+    if (block.rm_reference_movement_id) usedMovementIds.push(block.rm_reference_movement_id);
+    for (const row of block.complex_movements ?? []) usedMovementIds.push(row.movement_id);
+    for (const section of block.builder_sections ?? []) {
+      for (const item of section.items) {
+        if (item.type === "exercise") usedMovementIds.push(item.movement_id);
+        if (item.type === "complex") {
+          if (item.rm_reference_movement_id) usedMovementIds.push(item.rm_reference_movement_id);
+          for (const movement of item.movements) usedMovementIds.push(movement.movement_id);
+        }
+      }
+    }
+  }
+  const movementIds = [...new Set(usedMovementIds)];
   const classicRmMovementIds = blocks
     .filter((b) => b.score_type === "load" && !Array.isArray(b.builder_sections))
     .map((b) => b.is_complex ? b.rm_reference_movement_id : b.movement_id)
@@ -38,7 +54,7 @@ export default async function ProgramPage({ searchParams }: PageProps<"/">) {
     }),
   ));
   const rmMovementIds = [...classicRmMovementIds, ...builderRmMovementIds];
-  const [activity, rm1Map, movements] = await Promise.all([getActivity(me, blockIds), getUserRm1Map(me, rmMovementIds), getMovements()]);
+  const [activity, rm1Map, movements] = await Promise.all([getActivity(me, blockIds), getUserRm1Map(me, rmMovementIds), getMovementsByIds(movementIds)]);
   const movementMap = Object.fromEntries(movements.map((m) => [m.id, m.name]));
 
   const days: DayView[] = weekDates(start).map((date, i) => {
