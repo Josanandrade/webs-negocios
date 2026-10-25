@@ -1,4 +1,11 @@
-@import url('https://db.onlinewebfonts.com/c/49e447241526d323a33f981b91b2d302?family=P22+Victorian+W00+Swashes');
+/* P22 Victorian W00 Swashes — source: OnlineWebFonts, CC BY 4.0 */
+@font-face{
+  font-family:"P22 Victorian W00 Swashes";
+  src:url("/assets/fonts/p22-victorian.woff2") format("woff2");
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
 
 :root{
   --bg:#050505;
@@ -91,7 +98,7 @@ h3{font-size:clamp(2.2rem,3vw,3rem)}
 .badge{display:inline-flex;margin-bottom:1rem;color:#aaa;font-size:1.5rem}
 
 .split-banner{display:grid;grid-template-columns:1fr 1fr;min-height:630px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.split-banner__image{background:url('https://lamalcontenta.es/Imagenes/Galeria/slider3.1.jpg') center/cover;filter:saturate(.85)}
+.split-banner__image{background:url('/assets/gallery/slider3.1.jpg') center/cover;filter:saturate(.85)}
 .split-banner__copy{background:#080808;padding:clamp(3rem,7vw,7rem);display:flex;flex-direction:column;justify-content:center}
 .split-banner__copy p{max-width:54ch;margin:1.2rem 0 1.9rem;color:#c0c0c0;font-size:1.75rem}
 
