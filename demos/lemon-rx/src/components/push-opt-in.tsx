@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useTransition } from "react";
-import { markNotificationRead, saveUserPushSubscription } from "@/app/(app)/notification-actions";
+import { markNotificationRead, removeUserPushSubscription, saveUserPushSubscription } from "@/app/(app)/notification-actions";
 
 type State = "loading" | "hidden" | "ios-install" | "unsupported" | "denied" | "off" | "on";
 
@@ -11,6 +11,14 @@ function base64UrlToBytes(value: string) {
   const bytes = new Uint8Array(raw.length);
   for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
   return bytes;
+}
+
+function usesPublicKey(sub: PushSubscription, publicKey: string) {
+  const current = sub.options.applicationServerKey;
+  if (!current) return false;
+  const actual = new Uint8Array(current);
+  const expected = base64UrlToBytes(publicKey);
+  return actual.length === expected.length && actual.every((byte, index) => byte === expected[index]);
 }
 
 function isIos() {
@@ -35,7 +43,12 @@ export function PushOptIn({ publicKey, notificationId, compact = false }: { publ
       else if (!("serviceWorker" in navigator) || !("PushManager" in window) || !("Notification" in window)) next = isIos() && !isStandalone() ? "ios-install" : "unsupported";
       else if (Notification.permission === "denied") next = "denied";
       else {
-        const sub = await (await registration()).pushManager.getSubscription();
+        let sub = await (await registration()).pushManager.getSubscription();
+        if (sub && !usesPublicKey(sub, publicKey)) {
+          await removeUserPushSubscription(sub.endpoint);
+          await sub.unsubscribe();
+          sub = null;
+        }
         if (sub) await saveUserPushSubscription(sub.toJSON() as Parameters<typeof saveUserPushSubscription>[0]);
         next = sub ? "on" : "off";
       }
@@ -57,7 +70,13 @@ export function PushOptIn({ publicKey, notificationId, compact = false }: { publ
         if (permission !== "granted") return setState(permission === "denied" ? "denied" : "off");
         const reg = await registration();
         await navigator.serviceWorker.ready;
-        const sub = (await reg.pushManager.getSubscription()) ?? (await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: base64UrlToBytes(publicKey) }));
+        let sub = await reg.pushManager.getSubscription();
+        if (sub && !usesPublicKey(sub, publicKey)) {
+          await removeUserPushSubscription(sub.endpoint);
+          await sub.unsubscribe();
+          sub = null;
+        }
+        sub ??= await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: base64UrlToBytes(publicKey) });
         const result = await saveUserPushSubscription(sub.toJSON() as Parameters<typeof saveUserPushSubscription>[0]);
         if (!result.ok) return setState("off");
         if (notificationId) await markNotificationRead(notificationId);
