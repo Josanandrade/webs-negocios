@@ -14,6 +14,14 @@ function base64UrlToBytes(value: string) {
   return bytes;
 }
 
+function usesPublicKey(sub: PushSubscription, publicKey: string) {
+  const current = sub.options.applicationServerKey;
+  if (!current) return false;
+  const actual = new Uint8Array(current);
+  const expected = base64UrlToBytes(publicKey);
+  return actual.length === expected.length && actual.every((byte, index) => byte === expected[index]);
+}
+
 function isIos() {
   return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 }
@@ -41,7 +49,12 @@ export function PushSettings({ publicKey }: { publicKey: string | null }) {
         next = isIos() && !isStandalone() ? "ios-install" : "unsupported";
       else if (Notification.permission === "denied") next = "denied";
       else {
-        const sub = await (await registration()).pushManager.getSubscription();
+        let sub = await (await registration()).pushManager.getSubscription();
+        if (sub && !usesPublicKey(sub, publicKey)) {
+          await removePushSubscription(sub.endpoint);
+          await sub.unsubscribe();
+          sub = null;
+        }
         // Mantiene el dispositivo vinculado a la cuenta con la que se ha entrado.
         if (sub) await savePushSubscription(sub.toJSON() as Parameters<typeof savePushSubscription>[0]);
         next = sub ? "on" : "off";
@@ -64,9 +77,13 @@ export function PushSettings({ publicKey }: { publicKey: string | null }) {
         }
         const reg = await registration();
         await navigator.serviceWorker.ready;
-        const sub =
-          (await reg.pushManager.getSubscription()) ??
-          (await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: base64UrlToBytes(publicKey) }));
+        let sub = await reg.pushManager.getSubscription();
+        if (sub && !usesPublicKey(sub, publicKey)) {
+          await removePushSubscription(sub.endpoint);
+          await sub.unsubscribe();
+          sub = null;
+        }
+        sub ??= await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: base64UrlToBytes(publicKey) });
         const result = await savePushSubscription(sub.toJSON() as Parameters<typeof savePushSubscription>[0]);
         if (!result.ok) return show(result.error, "error");
         setState("on");
