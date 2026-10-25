@@ -18,28 +18,21 @@ jobs:
         with:
           ref: prod/la-malcontenta
 
-      - name: Download La Malcontenta assets
+      - name: Download images and font
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p demo-host/assets/gallery demo-host/assets/fonts
-
           for n in 1 2 3 4; do
-            curl -k --fail --location \
-              --resolve lamalcontenta.es:443:191.96.144.216 \
-              "https://lamalcontenta.es/Imagenes/Galeria/slider${n}.1.jpg" \
-              -o "demo-host/assets/gallery/slider${n}.1.jpg"
+            curl -k --fail --location --resolve lamalcontenta.es:443:191.96.144.216 "https://lamalcontenta.es/Imagenes/Galeria/slider${n}.1.jpg" -o "demo-host/assets/gallery/slider${n}.1.jpg"
           done
-
-          curl --fail --location \
-            "https://db.onlinewebfonts.com/t/49e447241526d323a33f981b91b2d302.woff2" \
-            -o "demo-host/assets/fonts/p22-victorian.woff2"
+          curl --fail --location "https://db.onlinewebfonts.com/t/49e447241526d323a33f981b91b2d302.woff2" -o "demo-host/assets/fonts/p22-victorian.woff2"
 
       - name: Rewrite asset references
-        shell: python
+        shell: bash
         run: |
+          python3 - <<'PY'
           from pathlib import Path
-
           root = Path("demo-host")
           replacements = {
               "https://lamalcontenta.es/Imagenes/Galeria/slider1.1.jpg": "/assets/gallery/slider1.1.jpg",
@@ -47,7 +40,6 @@ jobs:
               "https://lamalcontenta.es/Imagenes/Galeria/slider3.1.jpg": "/assets/gallery/slider3.1.jpg",
               "https://lamalcontenta.es/Imagenes/Galeria/slider4.1.jpg": "/assets/gallery/slider4.1.jpg",
           }
-
           for path in list(root.glob("*.html")) + [root / "styles.css", root / "site.js"]:
               if not path.exists():
                   continue
@@ -55,23 +47,16 @@ jobs:
               for old, new in replacements.items():
                   text = text.replace(old, new)
               path.write_text(text, encoding="utf-8")
-
           css_path = root / "styles.css"
           css = css_path.read_text(encoding="utf-8")
           old_import = "@import url('https://db.onlinewebfonts.com/c/49e447241526d323a33f981b91b2d302?family=P22+Victorian+W00+Swashes');"
-          local_face = '''/* P22 Victorian W00 Swashes — source: OnlineWebFonts, CC BY 4.0 */
-@font-face{
-  font-family:"P22 Victorian W00 Swashes";
-  src:url("/assets/fonts/p22-victorian.woff2") format("woff2");
-  font-weight:400;
-  font-style:normal;
-  font-display:swap;
-}'''
+          local_face = "/* P22 Victorian W00 Swashes — source: OnlineWebFonts, CC BY 4.0 */\n@font-face{\n  font-family:\"P22 Victorian W00 Swashes\";\n  src:url(\"/assets/fonts/p22-victorian.woff2\") format(\"woff2\");\n  font-weight:400;\n  font-style:normal;\n  font-display:swap;\n}"
           if old_import in css:
               css = css.replace(old_import, local_face, 1)
           elif "/assets/fonts/p22-victorian.woff2" not in css:
               raise SystemExit("Expected font import was not found")
           css_path.write_text(css, encoding="utf-8")
+          PY
 
       - name: Verify assets
         shell: bash
@@ -83,6 +68,7 @@ jobs:
           test -s demo-host/assets/gallery/slider4.1.jpg
           test -s demo-host/assets/fonts/p22-victorian.woff2
           ! grep -R "lamalcontenta.es/Imagenes" demo-host/*.html demo-host/styles.css demo-host/site.js
+          grep -q "/assets/fonts/p22-victorian.woff2" demo-host/styles.css
 
       - name: Commit localized assets
         shell: bash
