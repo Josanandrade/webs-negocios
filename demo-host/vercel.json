@@ -1,12 +1,26 @@
 {
   "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/index", "destination": "/", "permanent": true },
+
     { "source": "/menu.html", "destination": "/carta.html", "permanent": true },
     { "source": "/menu", "destination": "/carta.html", "permanent": true },
+
     { "source": "/menuDegustacion.html", "destination": "/degustacion.html", "permanent": true },
     { "source": "/menuDegustacion", "destination": "/degustacion.html", "permanent": true },
+
     { "source": "/menuNavidad.html", "destination": "/navidad.html", "permanent": true },
     { "source": "/menuNavidad", "destination": "/navidad.html", "permanent": true },
+
+    { "source": "/vinos", "destination": "/vinos.html", "permanent": true },
+    { "source": "/cartaVinos.html", "destination": "/vinos.html", "permanent": true },
+    { "source": "/cartaVinos", "destination": "/vinos.html", "permanent": true },
+    { "source": "/carta-vinos", "destination": "/vinos.html", "permanent": true },
+    { "source": "/carta-de-vinos", "destination": "/vinos.html", "permanent": true },
+
     { "source": "/fotos.html", "destination": "/galeria.html", "permanent": true },
-    { "source": "/fotos", "destination": "/galeria.html", "permanent": true }
+    { "source": "/fotos", "destination": "/galeria.html", "permanent": true },
+
+    { "source": "/contacto", "destination": "/contacto.html", "permanent": true }
   ]
 }
