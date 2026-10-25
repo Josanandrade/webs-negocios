@@ -5,6 +5,7 @@
 
     { "source": "/menu.html", "destination": "/carta.html", "permanent": true },
     { "source": "/menu", "destination": "/carta.html", "permanent": true },
+    { "source": "/carta", "destination": "/carta.html", "permanent": true },
 
     { "source": "/menuDegustacion.html", "destination": "/degustacion.html", "permanent": true },
     { "source": "/menuDegustacion", "destination": "/degustacion.html", "permanent": true },
