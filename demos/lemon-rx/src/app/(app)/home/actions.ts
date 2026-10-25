@@ -54,7 +54,7 @@ export async function togglePostReaction(formData: FormData) {
         after(() => notifyUser(post.user_id, {
           title: `${actor} ha reaccionado ${emoji}`,
           body: "Ha reaccionado a tu entrenamiento.",
-          url: `/home?post=${postId}#post-${postId}`,
+          url: `/home?post=${postId}#reactions-${postId}`,
           tag: `post-reaction-${postId}-${viewer.profile.id}-${emoji}`,
         }));
       }
@@ -91,8 +91,12 @@ export async function addPostComment(formData: FormData) {
     }
   }
 
-  const { error } = await supabase.from("workout_post_comments").insert({ post_id: postId, user_id: viewer.profile.id, parent_comment_id: parentCommentId, body });
-  if (!error) {
+  const { data: insertedComment, error } = await supabase
+    .from("workout_post_comments")
+    .insert({ post_id: postId, user_id: viewer.profile.id, parent_comment_id: parentCommentId, body })
+    .select("id")
+    .single<{ id: string }>();
+  if (!error && insertedComment) {
     const { data: post } = await supabase.from("workout_posts").select("user_id").eq("id", postId).maybeSingle<{ user_id: string }>();
     const actor = viewer.profile.full_name || "Un compañero";
     const recipients = new Set<string>();
@@ -103,8 +107,8 @@ export async function addPostComment(formData: FormData) {
       after(() => notifyUser(recipient, {
         title: isReply ? `${actor} ha respondido a tu comentario` : `${actor} ha comentado tu entrenamiento`,
         body: body.slice(0, 180),
-        url: `/home?post=${postId}#post-${postId}`,
-        tag: `comment-${postId}-${viewer.profile.id}-${Date.now()}`,
+        url: `/home?post=${postId}&comment=${insertedComment.id}#comment-${insertedComment.id}`,
+        tag: `comment-${insertedComment.id}-${recipient}`,
       }));
     }
   }
@@ -132,7 +136,7 @@ export async function toggleCommentReaction(formData: FormData) {
         after(() => notifyUser(comment.user_id, {
           title: `${actor} ha reaccionado ${emoji} a tu comentario`,
           body: "Ha reaccionado a un comentario que dejaste en Home.",
-          url: `/home?post=${comment.post_id}#post-${comment.post_id}`,
+          url: `/home?post=${comment.post_id}&comment=${commentId}#comment-${commentId}`,
           tag: `comment-reaction-${commentId}-${viewer.profile.id}-${emoji}`,
         }));
       }
