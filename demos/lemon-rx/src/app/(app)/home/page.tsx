@@ -13,6 +13,7 @@ import { CommentsPanel, type CommentPreview, type CommentReactionRow, type Comme
 export const metadata: Metadata = { title: "Home" };
 const EMOJIS = ["👍", "❤️", "🔥", "💪", "👏", "😂", "🍆", "🍑", "💦", "🔩", "🦍", "🍼", "🛴", "😍"] as const;
 const PAGE_SIZE = 15;
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 type ReactionRow = { user_id: string; emoji: string };
 type SocialResult = Partial<Score> & { division?: Division | null };
 type SocialBlockRow = { post_id: string; block_id: string; block_title: string; block_score_type: ScoreType; block_position: number; completed_at: string; note: string; result: SocialResult | null };
@@ -36,6 +37,10 @@ type CommentPreviewRpcRow = {
 export default async function HomePage({ searchParams }: PageProps<"/home">) {
   const sp = await searchParams;
   const rawPage = Array.isArray(sp.pagina) ? sp.pagina[0] : sp.pagina;
+  const rawTargetPost = Array.isArray(sp.post) ? sp.post[0] : sp.post;
+  const rawTargetComment = Array.isArray(sp.comment) ? sp.comment[0] : sp.comment;
+  const targetPostId = rawTargetPost && UUID.test(rawTargetPost) ? rawTargetPost : null;
+  const targetCommentId = targetPostId && rawTargetComment && UUID.test(rawTargetComment) ? rawTargetComment : null;
   const parsedPage = Number.parseInt(rawPage ?? "1", 10);
   const page = Number.isFinite(parsedPage) && parsedPage > 0 ? Math.min(parsedPage, 1000) : 1;
   const offset = (page - 1) * PAGE_SIZE;
@@ -43,10 +48,15 @@ export default async function HomePage({ searchParams }: PageProps<"/home">) {
   if (!viewer.canViewProgram) return <NoAccess name={viewer.profile.full_name.split(" ")[0]} pending={viewer.profile.access_status === "pending"} />;
 
   const supabase = await createClient();
-  const { data, error } = await supabase.from("workout_posts")
-    .select(`id, user_id, training_date, athlete_name, athlete_avatar_url, first_completed_at, updated_at, workout_post_blocks(post_id, block_id, block_title, block_score_type, block_position, completed_at, note, result), workout_post_reactions(user_id, emoji)`)
-    .order("updated_at", { ascending: false }).order("id", { ascending: false }).range(offset, offset + PAGE_SIZE).returns<SocialPostRow[]>();
-  const rows = data ?? []; const hasOlder = rows.length > PAGE_SIZE; const posts = rows.slice(0, PAGE_SIZE);
+  const baseQuery = supabase.from("workout_posts")
+    .select(`id, user_id, training_date, athlete_name, athlete_avatar_url, first_completed_at, updated_at, workout_post_blocks(post_id, block_id, block_title, block_score_type, block_position, completed_at, note, result), workout_post_reactions(user_id, emoji)`);
+  const postQuery = targetPostId
+    ? baseQuery.eq("id", targetPostId).limit(1)
+    : baseQuery.order("updated_at", { ascending: false }).order("id", { ascending: false }).range(offset, offset + PAGE_SIZE);
+  const { data, error } = await postQuery.returns<SocialPostRow[]>();
+  const rows = data ?? [];
+  const hasOlder = targetPostId ? false : rows.length > PAGE_SIZE;
+  const posts = targetPostId ? rows : rows.slice(0, PAGE_SIZE);
 
   const blockIds = [...new Set(posts.flatMap((post) => post.workout_post_blocks.map((block) => block.block_id)))];
   const postIds = posts.map((post) => post.id);
@@ -100,17 +110,18 @@ export default async function HomePage({ searchParams }: PageProps<"/home">) {
 
   return <main className="mx-auto max-w-2xl px-4 pb-24 pt-6 md:px-6 md:pb-16 md:pt-10">
     <p className="eyebrow">Lemon RX</p><h1 className="mt-1 font-display text-[40px] font-extrabold uppercase leading-none md:text-[48px]">Home</h1><p className="mt-3 max-w-xl text-[16px] leading-[1.5] text-chalk-2">La actividad de la comunidad se actualiza automáticamente según se completan los bloques.</p>
-    {error ? <p className="mt-8 border-y border-line py-5 text-[15px] text-chalk-3">No se ha podido cargar la actividad.</p> : posts.length === 0 ? <section className="mt-10 border-y border-line py-8"><h2 className="font-display text-[24px] font-bold uppercase">{page === 1 ? "Todavía no hay actividad" : "No hay más actividad"}</h2><p className="mt-2 text-[16px] text-chalk-3">{page === 1 ? "Cuando alguien marque su primer bloque como hecho aparecerá aquí automáticamente." : "Has llegado al final de esta parte del timeline."}</p>{page > 1 && <Link href="/home" className="btn-secondary mt-6">Volver a lo más reciente</Link>}</section> : <><div className="mt-8 space-y-5">{posts.map((post) => <PostCard key={post.id} post={post} me={me} sourceMap={sourceMap} movementNames={movementNames} reactionNames={reactionNames} commentPreview={commentPreviews.get(post.id) ?? { commentCount: 0, rootCount: 0, comments: [] }} />)}</div><nav aria-label="Páginas del timeline" className="mt-8 flex items-center justify-between gap-3 border-t border-line pt-5">{page > 1 ? <Link href={page === 2 ? "/home" : `/home?pagina=${page - 1}`} className="btn-secondary">← Más recientes</Link> : <span />}{hasOlder && <Link href={`/home?pagina=${page + 1}`} className="btn-secondary ml-auto">Anteriores →</Link>}</nav></>}
+    {targetPostId && <Link href="/home" className="btn-secondary mt-5 inline-flex">← Volver a Home</Link>}
+    {error ? <p className="mt-8 border-y border-line py-5 text-[15px] text-chalk-3">No se ha podido cargar la actividad.</p> : posts.length === 0 ? <section className="mt-10 border-y border-line py-8"><h2 className="font-display text-[24px] font-bold uppercase">{targetPostId ? "Entrenamiento no encontrado" : page === 1 ? "Todavía no hay actividad" : "No hay más actividad"}</h2><p className="mt-2 text-[16px] text-chalk-3">{targetPostId ? "Puede que este entrenamiento ya no esté disponible." : page === 1 ? "Cuando alguien marque su primer bloque como hecho aparecerá aquí automáticamente." : "Has llegado al final de esta parte del timeline."}</p>{!targetPostId && page > 1 && <Link href="/home" className="btn-secondary mt-6">Volver a lo más reciente</Link>}</section> : <><div className="mt-8 space-y-5">{posts.map((post) => <PostCard key={post.id} post={post} me={me} sourceMap={sourceMap} movementNames={movementNames} reactionNames={reactionNames} commentPreview={commentPreviews.get(post.id) ?? { commentCount: 0, rootCount: 0, comments: [] }} targetCommentId={post.id === targetPostId ? targetCommentId : null} />)}</div>{!targetPostId && <nav aria-label="Páginas del timeline" className="mt-8 flex items-center justify-between gap-3 border-t border-line pt-5">{page > 1 ? <Link href={page === 2 ? "/home" : `/home?pagina=${page - 1}`} className="btn-secondary">← Más recientes</Link> : <span />}{hasOlder && <Link href={`/home?pagina=${page + 1}`} className="btn-secondary ml-auto">Anteriores →</Link>}</nav>}</>}
   </main>;
 }
 
-function PostCard({ post, me, sourceMap, movementNames, reactionNames, commentPreview }: { post: SocialPostRow; me: string; sourceMap: Map<string, SourceBlock>; movementNames: Record<string, string>; reactionNames: Names; commentPreview: CommentPreview }) {
+function PostCard({ post, me, sourceMap, movementNames, reactionNames, commentPreview, targetCommentId }: { post: SocialPostRow; me: string; sourceMap: Map<string, SourceBlock>; movementNames: Record<string, string>; reactionNames: Names; commentPreview: CommentPreview; targetCommentId: string | null }) {
   const blocks = [...post.workout_post_blocks].sort((a, b) => a.block_position - b.block_position || a.block_title.localeCompare(b.block_title, "es"));
   return <article id={`post-${post.id}`} className="scroll-mt-20 overflow-hidden rounded-lg border border-line bg-ink-2">
     <header className="flex items-center gap-3 px-4 py-4"><Avatar url={post.athlete_avatar_url} name={post.athlete_name} size="md" /><div className="min-w-0 flex-1"><h2 className="truncate text-[17px] font-bold">{post.athlete_name || "Atleta"}</h2><p className="text-[13px] text-chalk-3">{dateLabel(post.training_date)} · {blocks.length} {blocks.length === 1 ? "bloque" : "bloques"}</p></div><span className="shrink-0 font-display text-[13px] font-bold uppercase tracking-[0.05em] text-lemon">✓ Hecho</span></header>
     <div className="border-t border-line">{blocks.map((block) => <SocialBlock key={block.block_id} block={block} source={sourceMap.get(block.block_id) ?? null} movementNames={movementNames} />)}</div>
-    <div className="border-t border-line px-4 py-3"><ReactionBar postId={post.id} reactions={post.workout_post_reactions} me={me} names={reactionNames} /></div>
-    <CommentsPanel postId={post.id} me={me} preview={commentPreview} initialNames={reactionNames} />
+    <div id={`reactions-${post.id}`} className="scroll-mt-24 border-t border-line px-4 py-3"><ReactionBar postId={post.id} reactions={post.workout_post_reactions} me={me} names={reactionNames} /></div>
+    <CommentsPanel postId={post.id} me={me} preview={commentPreview} initialNames={reactionNames} targetCommentId={targetCommentId} />
   </article>;
 }
 
