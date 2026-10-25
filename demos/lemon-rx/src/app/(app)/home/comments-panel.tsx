@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { Avatar } from "@/components/avatar";
 import { addPostComment, loadPostComments, toggleCommentReaction } from "./actions";
 
@@ -26,19 +26,21 @@ export type CommentPreview = {
   comments: CommentRow[];
 };
 
-export function CommentsPanel({ postId, me, preview, initialNames }: { postId: string; me: string; preview: CommentPreview; initialNames: Names }) {
+export function CommentsPanel({ postId, me, preview, initialNames, targetCommentId = null }: { postId: string; me: string; preview: CommentPreview; initialNames: Names; targetCommentId?: string | null }) {
   const [loadedComments, setLoadedComments] = useState<CommentRow[] | null>(null);
   const [loadedNames, setLoadedNames] = useState<Names>({});
   const [isPending, startTransition] = useTransition();
 
   const initialThreads = useMemo(() => buildThreads(preview.comments), [preview.comments]);
-  const latest = initialThreads.roots[0] ?? null;
-  const latestReplies = latest ? initialThreads.replies.get(latest.id) ?? [] : [];
-  const olderCount = Math.max(0, preview.rootCount - (latest ? 1 : 0));
-  const names = { ...initialNames, ...loadedNames };
-
+  const initialLatest = initialThreads.roots[0] ?? null;
   const loadedThreads = useMemo(() => buildThreads(loadedComments ?? []), [loadedComments]);
+  const latest = loadedComments ? loadedThreads.roots.find((root) => root.id === initialLatest?.id) ?? initialLatest : initialLatest;
+  const latestReplies = latest ? (loadedComments ? loadedThreads.replies.get(latest.id) ?? initialThreads.replies.get(latest.id) ?? [] : initialThreads.replies.get(latest.id) ?? []) : [];
+  const olderCount = Math.max(0, preview.rootCount - (initialLatest ? 1 : 0));
+  const names = { ...initialNames, ...loadedNames };
   const olderRoots = loadedThreads.roots.filter((root) => root.id !== latest?.id);
+  const previewHasTarget = Boolean(targetCommentId && preview.comments.some((comment) => comment.id === targetCommentId));
+  const loadedHasTarget = Boolean(targetCommentId && loadedComments?.some((comment) => comment.id === targetCommentId));
 
   function loadOlder() {
     if (isPending || loadedComments) return;
@@ -48,6 +50,23 @@ export function CommentsPanel({ postId, me, preview, initialNames }: { postId: s
       setLoadedNames(result.names);
     });
   }
+
+  useEffect(() => {
+    if (!targetCommentId || previewHasTarget || loadedComments) return;
+    startTransition(async () => {
+      const result = await loadPostComments(postId);
+      setLoadedComments(result.comments);
+      setLoadedNames(result.names);
+    });
+  }, [loadedComments, postId, previewHasTarget, startTransition, targetCommentId]);
+
+  useEffect(() => {
+    if (!targetCommentId || (!previewHasTarget && !loadedHasTarget)) return;
+    const frame = requestAnimationFrame(() => {
+      document.getElementById(`comment-${targetCommentId}`)?.scrollIntoView({ block: "center" });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [loadedHasTarget, previewHasTarget, targetCommentId]);
 
   return <details open className="border-t border-line">
     <summary className="day-trigger flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-[14px] font-semibold text-chalk-2 marker:hidden">
@@ -103,7 +122,7 @@ function CommentThread({ comment, replies, me, postId, names }: { comment: Comme
 }
 
 function Comment({ comment, me, names, compact = false }: { comment: CommentRow; me: string; names: Names; compact?: boolean }) {
-  return <div className="flex items-start gap-2.5">
+  return <div id={`comment-${comment.id}`} className="scroll-mt-24 flex items-start gap-2.5">
     <Avatar url={comment.author_avatar_url} name={comment.author_name} size="sm" />
     <div className="min-w-0 flex-1">
       <p className="text-[13px] leading-tight"><span className="font-bold text-chalk">{comment.author_name}</span> <span className="text-chalk-3">· {timeLabel(comment.created_at)}</span></p>
