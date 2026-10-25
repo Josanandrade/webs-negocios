@@ -1,0 +1,12 @@
+{
+  "redirects": [
+    { "source": "/menu.html", "destination": "/carta.html", "permanent": true },
+    { "source": "/menu", "destination": "/carta.html", "permanent": true },
+    { "source": "/menuDegustacion.html", "destination": "/degustacion.html", "permanent": true },
+    { "source": "/menuDegustacion", "destination": "/degustacion.html", "permanent": true },
+    { "source": "/menuNavidad.html", "destination": "/navidad.html", "permanent": true },
+    { "source": "/menuNavidad", "destination": "/navidad.html", "permanent": true },
+    { "source": "/fotos.html", "destination": "/galeria.html", "permanent": true },
+    { "source": "/fotos", "destination": "/galeria.html", "permanent": true }
+  ]
+}
