@@ -13,6 +13,8 @@ type NotificationRow = {
   title: string;
   body: string;
   href: string;
+  post_id: string | null;
+  comment_id: string | null;
   read_at: string | null;
   created_at: string;
 };
@@ -23,7 +25,7 @@ export default async function NotificationsPage({ searchParams }: PageProps<"/no
   const supabase = await createClient();
   const { data } = await supabase
     .from("app_notifications")
-    .select("id, kind, title, body, href, read_at, created_at")
+    .select("id, kind, title, body, href, post_id, comment_id, read_at, created_at")
     .eq("recipient_id", viewer.profile.id)
     .order("created_at", { ascending: false })
     .limit(100)
@@ -42,7 +44,7 @@ export default async function NotificationsPage({ searchParams }: PageProps<"/no
 
     {notifications.length === 0 ? <p className="mt-8 border-y border-line py-6 text-[15px] text-chalk-3">Todavía no tienes notificaciones.</p> : <ul className="mt-8 divide-y divide-line border-t border-line">
       {notifications.map((notification) => <li key={notification.id} className={`border-b border-line ${notification.read_at ? "opacity-65" : ""}`}>
-        <form action={openNotification.bind(null, notification.id, notification.href)}>
+        <form action={openNotification.bind(null, notification.id, notificationHref(notification))}>
           <button type="submit" className="day-trigger block w-full py-4 pr-3 text-left">
             <span className="flex items-start gap-3">
               <span className={`mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ${notification.read_at ? "bg-line-strong" : "bg-lemon"}`} aria-hidden />
@@ -53,6 +55,15 @@ export default async function NotificationsPage({ searchParams }: PageProps<"/no
       </li>)}
     </ul>}
   </main>;
+}
+
+function notificationHref(notification: NotificationRow) {
+  if (!notification.post_id) return notification.href;
+  if ((notification.kind === "comment" || notification.kind === "reply" || notification.kind === "comment_reaction") && notification.comment_id) {
+    return `/home?post=${notification.post_id}&comment=${notification.comment_id}#comment-${notification.comment_id}`;
+  }
+  if (notification.kind === "post_reaction") return `/home?post=${notification.post_id}#reactions-${notification.post_id}`;
+  return notification.href;
 }
 
 function timeAgo(iso: string) {
