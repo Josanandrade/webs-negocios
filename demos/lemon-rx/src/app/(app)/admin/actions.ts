@@ -59,7 +59,6 @@ export async function saveWeek(weekId: string, days: DayInput[]): Promise<Result
         content: String(b.content).slice(0, 20000),
         score_type: SCORE_TYPE_VALUES.includes(b.score_type) ? b.score_type : "none",
       }))
-      // Un bloque completamente vacío no se guarda.
       .filter((b) => b.title.trim() || b.content.trim());
     clean.push({ date: day.date, blocks });
   }
@@ -92,12 +91,6 @@ export async function setWeekStatus(weekId: string, status: WeekStatus): Promise
   return { ok: true, notified };
 }
 
-/**
- * Avisa por email a todos los usuarios la primera vez que se publica una
- * semana. La base de datos marca la semana como avisada antes de enviar, así
- * que despublicar y volver a publicar no repite el email. El envío se hace
- * después de responder, para que publicar no espere al correo.
- */
 async function notifyWeekPublished(weekId: string, startDate: string) {
   if (!emailConfigured()) return 0;
   const supabase = await createClient();
@@ -113,7 +106,6 @@ async function notifyWeekPublished(weekId: string, startDate: string) {
       await sendEmails(recipients.map((r) => weekPublishedEmail(r, range, url)));
     } catch (err) {
       console.error("Aviso de semana publicada no enviado", err);
-      // Sin marcar: la próxima vez que se publique se vuelve a intentar.
       await supabase.from("weeks").update({ notified_at: null }).eq("id", weekId);
     }
   });
@@ -124,7 +116,6 @@ export async function deleteWeek(weekId: string): Promise<Result> {
   await requireAdmin();
   if (!UUID.test(weekId)) return { ok: false, error: "Semana no válida." };
   const supabase = await createClient();
-  // Solo se borran borradores; una semana publicada hay que despublicarla antes.
   const { error, count } = await supabase
     .from("weeks")
     .delete({ count: "exact" })
@@ -185,7 +176,7 @@ export async function setSetting(key: "auto_block_unpaid" | "show_past_weeks", v
 type PushSubscriptionInput = { endpoint: string; keys: { p256dh: string; auth: string } };
 
 export async function savePushSubscription(sub: PushSubscriptionInput): Promise<Result> {
-  await requireAdmin();
+  const viewer = await requireAdmin();
   const endpoint = String(sub?.endpoint ?? "");
   const p256dh = String(sub?.keys?.p256dh ?? "");
   const auth = String(sub?.keys?.auth ?? "");
@@ -193,7 +184,23 @@ export async function savePushSubscription(sub: PushSubscriptionInput): Promise<
 
   const supabase = await createClient();
   const { error } = await supabase.rpc("save_push_subscription", { p_endpoint: endpoint, p_p256dh: p256dh, p_auth: auth });
-  if (error) return { ok: false, error: "No se han podido activar las notificaciones." };
+  if (error) {
+    console.error("Guardar suscripción push:", error.message);
+    return { ok: false, error: "No se han podido guardar las notificaciones en el servidor." };
+  }
+
+  const { data: confirmed, error: confirmError } = await supabase
+    .from("push_subscriptions")
+    .select("endpoint")
+    .eq("user_id", viewer.profile.id)
+    .eq("endpoint", endpoint)
+    .maybeSingle();
+
+  if (confirmError || !confirmed) {
+    console.error("Confirmar suscripción push:", confirmError?.message ?? "fila no encontrada");
+    return { ok: false, error: "El móvil ha dado permiso, pero el servidor no ha confirmado la suscripción." };
+  }
+
   return { ok: true };
 }
 
