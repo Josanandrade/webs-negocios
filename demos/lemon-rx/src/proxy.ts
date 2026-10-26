@@ -5,6 +5,10 @@ const LEGACY_RAILWAY_HOST = "lemon-rx-production.up.railway.app";
 const VERCEL_ORIGIN = "https://webs-negocios.vercel.app";
 
 export async function proxy(request: NextRequest) {
+  if (request.nextUrl.pathname === "/health") {
+    return new NextResponse("OK", { status: 200 });
+  }
+
   const host = (request.headers.get("host") ?? "").split(":")[0].toLowerCase();
 
   if (host === LEGACY_RAILWAY_HOST) {
