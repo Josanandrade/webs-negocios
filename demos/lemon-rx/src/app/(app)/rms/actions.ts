@@ -5,7 +5,7 @@ import { getViewer } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-type Result = { ok: true } | { ok: false; error: string };
+type Result = { ok: true; message?: string } | { ok: false; error: string };
 type RmValues = { rm_1: number | null; rm_2: number | null; rm_3: number | null; rm_4: number | null; rm_5: number | null };
 
 function kg(value: unknown) {
@@ -77,7 +77,7 @@ export async function saveMovementRms(movementId: string, values: { rm_1?: strin
   }
   revalidatePath("/rms");
   revalidatePath("/");
-  return { ok: true };
+  return { ok: true, message: "RM guardados correctamente." };
 }
 
 export async function addMovement(name: string, groupName = "Other"): Promise<Result> {
@@ -86,11 +86,33 @@ export async function addMovement(name: string, groupName = "Other"): Promise<Re
   const clean = name.trim().replace(/\s+/g, " ");
   if (clean.length < 2 || clean.length > 80) return { ok: false, error: "Escribe un nombre válido." };
   const supabase = await createClient();
+
+  const { data: existing, error: lookupError } = await supabase
+    .from("movements")
+    .select("id, is_active")
+    .ilike("name", clean)
+    .limit(1)
+    .maybeSingle<{ id: string; is_active: boolean }>();
+
+  if (lookupError) return { ok: false, error: "No se ha podido comprobar el catálogo de movimientos." };
+
+  if (existing) {
+    if (existing.is_active) return { ok: false, error: "Ese movimiento ya existe y está activo." };
+    const { error } = await supabase
+      .from("movements")
+      .update({ is_active: true, is_rm_eligible: true, updated_at: new Date().toISOString() })
+      .eq("id", existing.id);
+    if (error) return { ok: false, error: "El movimiento existe, pero no se ha podido reactivar." };
+    revalidatePath("/rms");
+    revalidatePath("/admin/programacion", "layout");
+    return { ok: true, message: "Movimiento reactivado y guardado correctamente." };
+  }
+
   const { error } = await supabase.from("movements").insert({ name: clean, group_name: groupName.trim() || "Other", created_by: viewer.profile.id, sort_order: 9999, is_rm_eligible: true });
   if (error) return { ok: false, error: error.code === "23505" ? "Ese movimiento ya existe." : "No se ha podido añadir el movimiento." };
   revalidatePath("/rms");
   revalidatePath("/admin/programacion", "layout");
-  return { ok: true };
+  return { ok: true, message: "Movimiento guardado correctamente." };
 }
 
 export async function setMovementRmEligibility(movementId: string, enabled: boolean): Promise<Result> {
@@ -102,7 +124,7 @@ export async function setMovementRmEligibility(movementId: string, enabled: bool
   if (error) return { ok: false, error: "No se ha podido actualizar el movimiento." };
   revalidatePath("/rms");
   revalidatePath("/");
-  return { ok: true };
+  return { ok: true, message: enabled ? "Movimiento activado para RM." : "Movimiento ocultado de RM." };
 }
 
 export async function removeMovement(movementId: string): Promise<Result> {
@@ -114,5 +136,5 @@ export async function removeMovement(movementId: string): Promise<Result> {
   if (error) return { ok: false, error: "No se ha podido eliminar el movimiento." };
   revalidatePath("/rms");
   revalidatePath("/admin/programacion", "layout");
-  return { ok: true };
+  return { ok: true, message: "Movimiento eliminado del catálogo." };
 }
