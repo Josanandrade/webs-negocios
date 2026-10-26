@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Barlow, Barlow_Condensed } from "next/font/google";
+import { GlobalToast } from "@/components/toast";
 import "./globals.css";
 
 const body = Barlow({
@@ -34,7 +35,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es" className={`${body.variable} ${display.variable} antialiased`}>
-      <body className="min-h-dvh">{children}</body>
+      <body className="min-h-dvh">
+        {children}
+        <GlobalToast />
+      </body>
     </html>
   );
 }
