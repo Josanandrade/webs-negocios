@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth";
-import { vapidPublicKey } from "@/lib/push";
 import { SettingsForm } from "./settings-form";
 import { PushSettings } from "./push-settings";
 import { AdminEvolutionSetting } from "./admin-evolution-setting";
@@ -27,7 +26,7 @@ export default async function SettingsPage() {
 
       <SettingsForm settings={settings} />
       <AdminEvolutionSetting initialValue={profile.show_evolution_as_athlete} />
-      <PushSettings publicKey={vapidPublicKey()} />
+      <PushSettings />
     </main>
   );
 }
