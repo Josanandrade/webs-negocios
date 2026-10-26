@@ -20,6 +20,7 @@ Además, desde el 15/10/2026 se conserva como dirección estratégica futura con
 8. Mantener Lemon RX separado de AvanttAI salvo decisión expresa.
 9. Antes de cualquier cambio con riesgo, identificar qué funcionalidades existentes pueden verse afectadas.
 10. En Vercel, no cerrar un despliegue como productivo hasta verificar que `lemon-rx.vercel.app` apunta al deployment READY del commit validado.
+11. Antes de redactar, maquetar o enviar cualquier email de Lemon RX, consultar esta documentación y recuperar la plantilla/HTML ya validada. **No recrear ni reinterpretar el branding desde cero.** Solo cambiar contenido variable (asunto, textos, fechas, enlaces o CTA) manteniendo intactos estructura, fondo oscuro, colores, tipografía, jerarquía visual, espaciados y sello de marca. Si no se puede recuperar con certeza la plantilla validada, no enviar el email hasta localizarla.
 
 ## 3. Infraestructura y accesos
 
@@ -93,6 +94,8 @@ La mención antigua de que Supabase Lemon RX no era accesible queda superada.
 ### Comunicaciones
 - Email al publicar una semana por primera vez mediante Resend si está configurado.
 - Evita duplicados al despublicar/republicar.
+- Todo email de Lemon RX debe reutilizar la plantilla visual validada; no se permite sustituirla por una maquetación genérica ni reinterpretar el branding.
+- Antes de un envío manual o automático se debe comprobar que el HTML conserva el branding Lemon RX y que los enlaces usan el dominio canónico vigente.
 - Web Push a administradores por nuevos registros si lo activan.
 
 ## 5. Bloques validados y protegidos
@@ -126,7 +129,7 @@ Estado: **VALIDADO**.
 
 - El atleta registra los pesos reales por ronda/serie.
 - El sistema calcula el total de kilos movidos.
-- El ranking utiliza el total cuando corresponde.
+- El ranking utiliza ese total cuando corresponde.
 - Los datos previos se han preservado.
 
 ### 13/10/2026 — Invitaciones
@@ -233,6 +236,18 @@ Estado: **VALIDADO / ONLINE**.
 - PR #41 fusionado a `main` en commit `8e3a3ee6003ee9fc8f127c2c25dcd33452714fd3`.
 - Deployment productivo Vercel READY y `lemon-rx.vercel.app` reasignado y verificado contra ese deployment.
 - No se cambian resultados, notas, pesos, RM, posiciones, empates, reglas de ranking, programación ni IDs de bloque.
+
+### 26/10/2026 — Branding de emails Lemon RX
+Estado: **REGLA VALIDADA Y PROTEGIDA**.
+
+- Incidente: un envío manual utilizó una maquetación recreada en vez de reutilizar la plantilla visual ya validada de Lemon RX, alterando el branding percibido.
+- A partir de este punto, cualquier email manual o automático debe partir de la plantilla/HTML validada existente.
+- No crear una nueva plantilla por comodidad ni reconstruir el diseño a partir de una descripción.
+- Solo se modifican los elementos variables necesarios: asunto, contenido, fechas, CTA y enlaces.
+- Se deben conservar fondo oscuro, colores, tipografía, jerarquía, espaciados, estructura y sello visual de Lemon RX.
+- Antes de enviar, consultar la documentación viva y comprobar la plantilla real previamente utilizada.
+- Si la plantilla exacta no está disponible o no puede verificarse, el email no se envía hasta recuperarla.
+- El dominio canónico para enlaces de la app es `https://lemon-rx.vercel.app`.
 
 ## 6. Estrategia comercial futura — HIPÓTESIS, NO PRODUCTO ACTUAL
 
