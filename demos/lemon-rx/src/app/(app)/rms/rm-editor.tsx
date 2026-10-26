@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { addMovement, removeMovement, saveMovementRms, setMovementRmEligibility } from "./actions";
 import type { Movement, UserRm } from "@/lib/strength";
 import { MovementPicker } from "@/components/movement-picker";
-import { Toast, useToast } from "@/components/toast";
+import { notifyToast } from "@/components/toast";
 
 type Props = { movements: Movement[]; rms: UserRm[]; isAdmin: boolean };
 
@@ -13,7 +13,6 @@ function value(v: number | null | undefined) { return v == null ? "" : String(Nu
 
 export function RmEditor({ movements, rms, isAdmin }: Props) {
   const router = useRouter();
-  const { toast, show } = useToast();
   const rmMovements = useMemo(() => movements.filter((movement) => movement.is_rm_eligible), [movements]);
   const initial = useMemo(() => Object.fromEntries(rms.map((r) => [r.movement_id, { rm_1: value(r.rm_1), rm_2: value(r.rm_2), rm_3: value(r.rm_3), rm_4: value(r.rm_4), rm_5: value(r.rm_5) }])), [rms]);
   const [drafts, setDrafts] = useState<Record<string, Record<string, string>>>(initial);
@@ -30,7 +29,7 @@ export function RmEditor({ movements, rms, isAdmin }: Props) {
   function save() {
     startTransition(async () => {
       const result = await saveMovementRms(selected, current);
-      if (result.ok) show(result.message ?? "RM guardados correctamente."); else show(result.error, "error");
+      if (result.ok) notifyToast(result.message ?? "RM guardados correctamente."); else notifyToast(result.error, "error");
     });
   }
 
@@ -53,8 +52,7 @@ export function RmEditor({ movements, rms, isAdmin }: Props) {
           </div>
         )}
       </div>
-      {isAdmin && <div className="mt-6"><MovementAdmin movements={movements} notify={show} onRefresh={() => router.refresh()} /></div>}
-      <Toast toast={toast} className="bottom-[calc(5rem+env(safe-area-inset-bottom))] md:bottom-8" />
+      {isAdmin && <div className="mt-6"><MovementAdmin movements={movements} notify={notifyToast} onRefresh={() => router.refresh()} /></div>}
     </>
   );
 }
