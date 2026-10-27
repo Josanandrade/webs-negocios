@@ -2,15 +2,361 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Webs Negocios · Demo</title>
-  <style>body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#f6f6f6;color:#111}main{max-width:680px;padding:32px;text-align:center}h1{margin-bottom:12px}p{line-height:1.6;color:#555}</style>
+  <meta name="googlebot" content="noindex,nofollow">
+  <title>Vida Mía · Centro boutique de entrenamiento</title>
+  <meta name="description" content="Vida Mía, centro boutique de entrenamiento personal. Entrenamiento 1:1, en pareja y en grupos reducidos, con un plan hecho para ti. Reserva tu sesión de prueba.">
+  <meta name="theme-color" content="#EFE9E1">
+  <meta property="og:title" content="Vida Mía · Centro boutique de entrenamiento">
+  <meta property="og:description" content="Entrena con alguien que sabe tu nombre. Entrenamiento personal, en pareja y en grupos reducidos.">
+  <meta property="og:image" content="assets/og.svg">
+  <script>document.documentElement.classList.add("js")</script>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,300..600;1,300..600&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Doto:wght@800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip" href="#entrenamientos">Saltar al contenido</a>
+
+  <!-- Símbolos reutilizables -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="logo" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="58" fill="currentColor"/>
+        <circle cx="60" cy="60" r="50" fill="none" stroke="var(--logo-ink, #EFE9E1)" stroke-opacity=".35" stroke-width=".8"/>
+        <path id="ring" d="M60 60 m-41 0 a41 41 0 1 1 82 0 a41 41 0 1 1 -82 0" fill="none"/>
+        <text font-family="Geist, sans-serif" font-size="7.4" letter-spacing="2.6" fill="var(--logo-ink, #EFE9E1)" fill-opacity=".8"><textPath href="#ring" startOffset="2%">CENTRO BOUTIQUE · DE ENTRENAMIENTO ·</textPath></text>
+        <text x="60" y="64.5" text-anchor="middle" font-family="'Noto Serif Display', serif" font-size="14.5" letter-spacing="1.6" fill="var(--logo-ink, #EFE9E1)">VIDA MÍA</text>
+      </symbol>
+      <symbol id="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="check" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"/></symbol>
+      <symbol id="ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor"/></symbol>
+      <symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21Z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+      <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="phone" viewBox="0 0 24 24"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#inicio" aria-label="Vida Mía, inicio">
+        <span class="brand-logo" data-logo><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#logo"/></svg></span>
+        <span class="brand-text"><b>Vida Mía</b><small>Centro boutique de entrenamiento</small></span>
+      </a>
+      <nav class="nav-links" aria-label="Principal">
+        <a href="#entrenamientos">Entrenamientos</a>
+        <a href="#metodo">Método</a>
+        <a href="#tarifas">Tarifas</a>
+        <a href="#sala">La sala</a>
+        <a href="#faq">Dudas</a>
+      </nav>
+      <a class="btn btn-ink nav-cta" href="#contacto">Reserva tu prueba</a>
+      <button class="menu-btn" type="button" aria-label="Abrir menú" aria-haspopup="dialog" aria-controls="sheet"><span></span><span></span></button>
+    </div>
+  </header>
+
   <main>
-    <h1>Webs Negocios · Demo</h1>
-    <p>Esta rama sirve como base para las demos comerciales publicadas mediante Cloudflare Pages.</p>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow" data-in><span class="dot" aria-hidden="true"></span>Centro boutique de entrenamiento</p>
+          <h1 class="hero-title" data-split>Entrena con alguien que sabe <em>tu&nbsp;nombre.</em></h1>
+          <p class="hero-lead" data-in>En Vida Mía cada sesión se prepara para ti: pocas personas por sala, un plan que se ajusta semana a semana y un sitio cálido al que apetece volver.</p>
+          <div class="hero-actions" data-in>
+            <a class="btn btn-brick btn-lg" href="#contacto">Reserva tu sesión de prueba <svg class="i" aria-hidden="true"><use href="#arrow"/></svg></a>
+            <a class="btn btn-ghost btn-lg" href="#tarifas">Ver tarifas</a>
+          </div>
+          <ul class="hero-facts" data-in>
+            <li><b>1:1</b><span>Personal, en pareja o en grupo reducido</span></li>
+            <li><b>100%</b><span>Plan a medida desde la primera valoración</span></li>
+            <li><b>Cita</b><span>Siempre con hora reservada para ti</span></li>
+          </ul>
+        </div>
+
+        <div class="hero-visual" data-in>
+          <figure class="photo photo--hero brick" data-photo="hero" data-label="Foto de la sala">
+            <div class="duct" aria-hidden="true"></div>
+            <div class="led" role="img" aria-label="Cronómetro de intervalos de la sala">
+              <span class="led-round"><i>R</i><span id="ledRound">3</span></span>
+              <span class="led-time" id="ledTime">00:40</span>
+              <span class="led-state" id="ledState">TRABAJO</span>
+            </div>
+            <div class="floor" aria-hidden="true"></div>
+          </figure>
+
+          <article class="session-card" aria-label="Ejemplo de sesión">
+            <header>
+              <span class="mono">Sesión de hoy</span>
+              <span class="pill"><span class="live"></span>En curso</span>
+            </header>
+            <ol class="session-list" id="sessionList">
+              <li><span class="tick"><svg aria-hidden="true"><use href="#check"/></svg></span>Movilidad y activación<em>10′</em></li>
+              <li><span class="tick"><svg aria-hidden="true"><use href="#check"/></svg></span>Remo por intervalos<em>12′</em></li>
+              <li><span class="tick"><svg aria-hidden="true"><use href="#check"/></svg></span>Fuerza con sacos<em>20′</em></li>
+              <li><span class="tick"><svg aria-hidden="true"><use href="#check"/></svg></span>Vuelta a la calma<em>8′</em></li>
+            </ol>
+            <div class="session-bar"><span id="sessionBar"></span></div>
+          </article>
+
+          <div class="note-chip"><span class="mono">Hecho a tu medida</span> Coach contigo toda la sesión</div>
+        </div>
+      </div>
+
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <span>Entrenamiento personal</span><i>✦</i><span>Grupos reducidos</span><i>✦</i><span>Entrenamiento en pareja</span><i>✦</i><span>Fuerza</span><i>✦</i><span>Remo y air bike</span><i>✦</i><span>Movilidad</span><i>✦</i><span>Salud a cualquier edad</span><i>✦</i>
+          <span>Entrenamiento personal</span><i>✦</i><span>Grupos reducidos</span><i>✦</i><span>Entrenamiento en pareja</span><i>✦</i><span>Fuerza</span><i>✦</i><span>Remo y air bike</span><i>✦</i><span>Movilidad</span><i>✦</i><span>Salud a cualquier edad</span><i>✦</i>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ENTRENAMIENTOS ============ -->
+    <section class="trainings dark" id="entrenamientos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow eyebrow--light" data-in><span class="num">01</span>Entrenamientos</p>
+          <h2 class="h2" data-in>Cinco maneras de entrenar. <em>Una sola forma de cuidarte.</em></h2>
+          <p class="section-lead" data-in>Elige cómo quieres entrenar y te contamos cómo es una sesión de verdad: cuánto dura, con quién la compartes y qué vas a hacer.</p>
+        </div>
+
+        <div class="tr-layout" data-in>
+          <div class="tr-list" role="tablist" aria-label="Tipos de entrenamiento" id="trList">
+            <span class="tr-indicator" aria-hidden="true"></span>
+          </div>
+          <div class="tr-panel" role="tabpanel" id="trPanel" aria-live="polite">
+            <div class="tr-panel-inner" id="trPanelInner"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MÉTODO ============ -->
+    <section class="method" id="metodo">
+      <div class="wrap">
+        <div class="section-head section-head--row">
+          <div>
+            <p class="eyebrow" data-in><span class="num">02</span>Método Vida Mía</p>
+            <h2 class="h2" data-in>Primero te escuchamos. <em>Después entrenamos.</em></h2>
+          </div>
+          <p class="section-lead" data-in>Nada de tablas genéricas. Tu plan nace de una conversación y evoluciona contigo, ronda a ronda.</p>
+        </div>
+
+        <ol class="rounds">
+          <li class="round" data-in>
+            <span class="round-led">R1</span>
+            <h3>Valoración inicial</h3>
+            <p>Hablamos de tus objetivos, tu historial y tus molestias. Vemos cómo te mueves antes de mover un solo peso.</p>
+          </li>
+          <li class="round" data-in>
+            <span class="round-led">R2</span>
+            <h3>Plan a tu medida</h3>
+            <p>Diseñamos tu entrenamiento según tu punto de partida, tu agenda y lo que quieres conseguir.</p>
+          </li>
+          <li class="round" data-in>
+            <span class="round-led">R3</span>
+            <h3>Entrenas acompañado</h3>
+            <p>Tu entrenador está contigo toda la sesión: corrige, ajusta cargas y te empuja cuando hace falta.</p>
+          </li>
+          <li class="round" data-in>
+            <span class="round-led">R4</span>
+            <h3>Revisamos y avanzamos</h3>
+            <p>Medimos tu progreso con regularidad y ajustamos el plan. Lo que funciona se queda; lo que no, cambia.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ MANIFIESTO ============ -->
+    <section class="manifesto brick" aria-label="Nuestra filosofía">
+      <div class="wrap">
+        <blockquote data-in>
+          <p>Aquí no vienes a perderte entre máquinas. Vienes a que alguien te espere, te corrija y <em>se alegre de verte avanzar.</em></p>
+          <footer><span class="sig">Vida Mía</span><span class="mono">Centro boutique de entrenamiento</span></footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ============ TARIFAS ============ -->
+    <section class="pricing" id="tarifas">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <p class="eyebrow" data-in><span class="num">03</span>Tarifas</p>
+          <h2 class="h2" data-in>Elige cuántos días. <em>Nosotros ponemos el resto.</em></h2>
+          <div class="freq" role="radiogroup" aria-label="Sesiones por semana" id="freq" data-in>
+            <span class="freq-pill" aria-hidden="true"></span>
+            <button type="button" role="radio" aria-checked="false" data-freq="1">1<small>/semana</small></button>
+            <button type="button" role="radio" aria-checked="true" data-freq="2">2<small>/semana</small></button>
+            <button type="button" role="radio" aria-checked="false" data-freq="3">3<small>/semana</small></button>
+          </div>
+          <p class="sample-note" data-in><span class="sample-badge">Precios de ejemplo</span>Pendientes de confirmar con el centro</p>
+        </div>
+
+        <div class="plans" id="plans"></div>
+
+        <div class="extras" data-in>
+          <div class="extra"><span>Valoración inicial</span><b>Sin coste</b></div>
+          <div class="extra"><span>Sesión suelta personal</span><b>45 €</b></div>
+          <div class="extra"><span>Bono 10 sesiones personales</span><b>390 €</b></div>
+          <div class="extra"><span>Sin matrícula · sin permanencia</span><b>✓</b></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LA SALA ============ -->
+    <section class="space" id="sala">
+      <div class="wrap">
+        <div class="section-head section-head--row">
+          <div>
+            <p class="eyebrow" data-in><span class="num">04</span>La sala</p>
+            <h2 class="h2" data-in>Ladrillo visto, madera y <em>el material justo.</em></h2>
+          </div>
+          <p class="section-lead" data-in>Un espacio pequeño a propósito: sin colas, sin ruido de fondo y con todo pensado para que tu hora rinda.</p>
+        </div>
+
+        <div class="bento">
+          <figure class="photo brick tile tile--a" data-photo="sala-1" data-label="La sala" data-in><figcaption>La sala</figcaption></figure>
+          <figure class="photo navy tile tile--b" data-photo="sala-2" data-label="Remo y air bike" data-in><figcaption>Remo y air bike</figcaption></figure>
+          <figure class="photo wood tile tile--c" data-photo="sala-3" data-label="Zona de fuerza" data-in><figcaption>Zona de fuerza</figcaption></figure>
+          <figure class="photo ink tile tile--d" data-photo="sala-4" data-label="Trabajo con sacos" data-in><figcaption>Trabajo con sacos</figcaption></figure>
+          <figure class="photo brick tile tile--e" data-photo="sala-5" data-label="El equipo" data-in><figcaption>El equipo</figcaption></figure>
+        </div>
+
+        <ul class="kit" data-in>
+          <li>Remo Concept2</li><li>Air bike</li><li>Sacos de arena</li><li>Poleas y anillas</li><li>Cronómetro de intervalos</li><li>Peso libre</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="faq" id="faq">
+      <div class="wrap faq-grid">
+        <div>
+          <p class="eyebrow" data-in><span class="num">05</span>Dudas frecuentes</p>
+          <h2 class="h2" data-in>Lo que todo el mundo pregunta <em>antes de empezar.</em></h2>
+        </div>
+        <div class="acc" data-in>
+          <details class="acc-item" name="faq">
+            <summary>¿Necesito experiencia o estar en forma?<span class="acc-icon"><svg aria-hidden="true"><use href="#plus"/></svg></span></summary>
+            <div class="acc-body"><div><p>No. Empezamos siempre con una valoración y adaptamos cada ejercicio a tu nivel. Hay quien llega sin haber pisado nunca un gimnasio.</p></div></div>
+          </details>
+          <details class="acc-item" name="faq">
+            <summary>¿Cuántas personas hay en cada sesión?<span class="acc-icon"><svg aria-hidden="true"><use href="#plus"/></svg></span></summary>
+            <div class="acc-body"><div><p>Depende de la modalidad: tú solo en el entrenamiento personal, dos en pareja y un grupo reducido en el resto, para que el entrenador pueda corregir a cada uno.</p></div></div>
+          </details>
+          <details class="acc-item" name="faq">
+            <summary>¿Cómo reservo mis sesiones?<span class="acc-icon"><svg aria-hidden="true"><use href="#plus"/></svg></span></summary>
+            <div class="acc-body"><div><p>Trabajamos con cita previa. Al empezar fijamos tus días y horas, y si un día no puedes venir lo cambiamos con antelación.</p></div></div>
+          </details>
+          <details class="acc-item" name="faq">
+            <summary>Tengo una lesión o molestias, ¿puedo entrenar?<span class="acc-icon"><svg aria-hidden="true"><use href="#plus"/></svg></span></summary>
+            <div class="acc-body"><div><p>Cuéntanoslo en la valoración. Adaptamos el plan a tu situación y, si hace falta, lo coordinamos con tu fisio o tu médico.</p></div></div>
+          </details>
+          <details class="acc-item" name="faq">
+            <summary>¿Puedo probar antes de decidirme?<span class="acc-icon"><svg aria-hidden="true"><use href="#plus"/></svg></span></summary>
+            <div class="acc-body"><div><p>Claro. Escríbenos y reservamos tu sesión de prueba para que conozcas la sala, el método y a tu entrenador.</p></div></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACTO ============ -->
+    <section class="contact dark" id="contacto">
+      <div class="wrap contact-grid">
+        <div class="contact-copy">
+          <p class="eyebrow eyebrow--light" data-in><span class="num">06</span>Contacto</p>
+          <h2 class="h2" data-in>Tu primera sesión empieza <em>con un mensaje.</em></h2>
+          <p class="section-lead" data-in>Cuéntanos qué buscas y te proponemos día y hora para tu sesión de prueba. Respondemos personalmente, sin bots.</p>
+          <ul class="channels" id="channels" data-in></ul>
+        </div>
+
+        <form class="form" id="form" novalidate data-in>
+          <div class="form-step">
+            <span class="label">¿Cómo te gustaría entrenar?</span>
+            <div class="chips" role="radiogroup" aria-label="Modalidad" id="modeChips">
+              <label class="chip"><input type="radio" name="modalidad" value="Entrenamiento personal"><span>Personal 1:1</span></label>
+              <label class="chip"><input type="radio" name="modalidad" value="Entrenamiento en pareja"><span>En pareja</span></label>
+              <label class="chip"><input type="radio" name="modalidad" value="Grupo reducido"><span>Grupo reducido</span></label>
+              <label class="chip"><input type="radio" name="modalidad" value="Aún no lo sé" checked><span>Aún no lo sé</span></label>
+            </div>
+          </div>
+          <div class="form-step">
+            <span class="label">¿Qué te gustaría conseguir?</span>
+            <div class="chips" role="radiogroup" aria-label="Objetivo">
+              <label class="chip"><input type="radio" name="objetivo" value="Ponerme en forma" checked><span>Ponerme en forma</span></label>
+              <label class="chip"><input type="radio" name="objetivo" value="Ganar fuerza"><span>Ganar fuerza</span></label>
+              <label class="chip"><input type="radio" name="objetivo" value="Perder peso"><span>Perder peso</span></label>
+              <label class="chip"><input type="radio" name="objetivo" value="Moverme sin dolor"><span>Moverme sin dolor</span></label>
+            </div>
+          </div>
+          <div class="form-step">
+            <span class="label">¿Cuándo te viene mejor?</span>
+            <div class="chips">
+              <label class="chip"><input type="checkbox" name="horario" value="mañanas"><span>Mañanas</span></label>
+              <label class="chip"><input type="checkbox" name="horario" value="mediodía"><span>Mediodía</span></label>
+              <label class="chip"><input type="checkbox" name="horario" value="tardes"><span>Tardes</span></label>
+            </div>
+          </div>
+          <div class="fields">
+            <label class="field"><span>Nombre</span><input name="nombre" autocomplete="given-name" required placeholder="Tu nombre"></label>
+            <label class="field"><span>Teléfono</span><input name="telefono" type="tel" autocomplete="tel" inputmode="tel" required placeholder="600 000 000"></label>
+          </div>
+          <label class="field"><span>Mensaje <small>(opcional)</small></span><textarea name="mensaje" rows="3" placeholder="Cualquier cosa que debamos saber: lesiones, objetivos, horarios…"></textarea></label>
+          <label class="consent"><input type="checkbox" name="privacidad" required><span>Acepto que Vida Mía use mis datos para responder a mi solicitud.</span></label>
+          <button class="btn btn-brick btn-lg btn-block" type="submit" id="submitBtn"><span class="btn-label">Quiero mi sesión de prueba</span><svg class="i" aria-hidden="true"><use href="#arrow"/></svg></button>
+        </form>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <a class="brand brand--footer" href="#inicio" aria-label="Vida Mía, volver arriba">
+          <span class="brand-logo" data-logo><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#logo"/></svg></span>
+        </a>
+        <nav class="footer-links" aria-label="Pie de página">
+          <a href="#entrenamientos">Entrenamientos</a><a href="#metodo">Método</a><a href="#tarifas">Tarifas</a><a href="#sala">La sala</a><a href="#contacto">Contacto</a>
+          <a href="https://www.instagram.com/vidamiaentrenamiento/" target="_blank" rel="noopener">Instagram</a>
+        </nav>
+      </div>
+      <p class="wordmark" aria-hidden="true">Vida <em>Mía</em></p>
+      <div class="footer-bottom">
+        <span>© <span id="year">2026</span> Vida Mía · Centro boutique de entrenamiento</span>
+        <span class="mono">Aviso legal · Privacidad · Cookies</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CTA fija en móvil -->
+  <div class="dock" id="dock">
+    <a class="btn btn-brick btn-block" href="#contacto">Reserva tu sesión de prueba</a>
+  </div>
+
+  <!-- Menú móvil tipo hoja inferior -->
+  <div class="sheet-overlay" id="sheetOverlay" hidden></div>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Menú" hidden>
+    <div class="sheet-handle" aria-hidden="true"></div>
+    <nav class="sheet-links">
+      <a href="#entrenamientos">Entrenamientos</a>
+      <a href="#metodo">Método</a>
+      <a href="#tarifas">Tarifas</a>
+      <a href="#sala">La sala</a>
+      <a href="#faq">Dudas</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a class="btn btn-brick btn-lg btn-block" href="#contacto">Reserva tu sesión de prueba</a>
+  </div>
+
+  <!-- Toasts -->
+  <ol class="toaster" id="toaster" aria-live="polite"></ol>
+
+  <script src="main.js" defer></script>
 </body>
 </html>
