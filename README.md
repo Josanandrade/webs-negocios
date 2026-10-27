@@ -1,6 +1,6 @@
 # Webs Negocios
 
-Repositorio de captación y demostraciones web de AvanttAI.
+Repositorio de captación y demostraciones web para negocios.
 
 ## Objetivo
 
