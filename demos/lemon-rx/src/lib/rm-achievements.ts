@@ -6,6 +6,12 @@ export type RmAchievement = {
   previous_kg: number | string | null;
 };
 
+export type RmCelebration = {
+  id: string;
+  achievementIds: string[];
+  message: string;
+};
+
 function formatKg(value: number | string) {
   const number = Number(value);
   return Number.isInteger(number) ? String(number) : String(Math.round(number * 100) / 100).replace(".", ",");
