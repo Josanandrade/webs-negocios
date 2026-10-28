@@ -597,3 +597,68 @@ Tras cada bloque relevante:
 - `TECNICO.md`: arquitectura, datos, seguridad, infraestructura e incidencias.
 
 No documentar como VALIDADO algo que solo haya sido desplegado para probar.
+
+## 20. Ranking en vivo y arquitectura de RM sociales — VALIDADO 28/10/2026
+
+### Refresco de ranking
+
+- Las acciones de guardado/edición/borrado de resultados revalidan las rutas afectadas y fuerzan `refresh()` del árbol servidor cuando corresponde.
+- `day-accordion.tsx` vuelve a solicitar `loadDayLeaderboard` para el día que permanece abierto cuando llegan datos servidor actualizados, evitando conservar en memoria una clasificación obsoleta.
+- Se mantiene la estrategia de Fase 3: solo se recarga el leaderboard del día visible, no la semana completa.
+
+### Detección y promoción automática de RM
+
+Migraciones aplicadas:
+- `20261028090000_rm_social_achievements.sql`;
+- `20261028093000_rm_social_previous_snapshot_fix.sql`;
+- `20261028094500_rm_social_indexes.sql`;
+- `20261028102000_rm_home_opt_in.sql`.
+
+Cambios de datos:
+- `user_rm_history` incorpora `source_block_id` para relacionar un histórico con el bloque que originó el nuevo RM.
+- `workout_post_achievements` registra el logro de RM y mantiene movimiento, número de RM, kilos, kilos anteriores, histórico, fuente, bloque de origen y fecha.
+- `workout_post_achievements.post_id` es nullable para permitir logros privados pendientes de compartir.
+- `shared_at` registra cuándo se hizo pública la consecución.
+- Existe unicidad por `(history_id, rm_number)` para evitar duplicados del mismo logro privado.
+
+Funciones/triggers relevantes:
+- `private.sync_rm_achievement_from_history` crea el logro privado al aparecer una mejora en histórico;
+- `private.promote_rm1_from_block` promueve el 1RM cuando la carga válida registrada supera el RM actual;
+- `private.sync_rm_from_block_result` enlaza el guardado de resultados con la promoción de RM;
+- `private.sync_workout_social` conserva la sincronización social del entrenamiento diario sin obligar a publicar el logro de RM.
+
+Regla validada:
+- la promoción automática solo sube el RM; una carga inferior no reduce automáticamente la marca guardada;
+- para este flujo, el máximo de kilos registrado en el movimiento se usa como candidato a 1RM cuando supera la marca actual, según la decisión de producto validada.
+
+### Privacidad y publicación opcional en Home
+
+- Un logro nuevo se inserta con `post_id = NULL` y `shared_at = NULL`.
+- El RM queda actualizado aunque el logro nunca se publique.
+- La policy de lectura permite que los miembros con acceso vean logros compartidos y que el propietario vea además sus propios logros pendientes.
+- La publicación solo ocurre mediante la RPC `public.share_rm_achievements(uuid[])` después de una acción explícita del atleta.
+- La RPC valida sesión autenticada, acceso al programa, límite de IDs y propiedad de todos los logros solicitados.
+- `PUBLIC`/`anon` no tienen ejecución; el flujo se concede a `authenticated` y valida `auth.uid()` internamente.
+- Al compartir, se crea o reutiliza el `workout_posts` diario y el logro se vincula a ese post, reutilizando reacciones y comentarios ya existentes.
+- Si no se comparte, no se crea post social por el RM.
+
+### Celebración UI
+
+- `RmCelebrationDialog` está montado en el layout privado para funcionar tanto desde resultados de entrenamiento como desde edición manual de RM.
+- La versión validada ocupa `100dvh` y funciona como pantalla completa, no como toast/popup inferior.
+- La casilla de compartir se inicializa en `false` y el cierre/continuación sin compartir no llama a la RPC social.
+- `sessionStorage` evita repetir la misma celebración dentro de la sesión una vez cerrada.
+
+### Validación y producción
+
+- Se probaron transaccionalmente detección privada, ausencia de `post_id` antes de compartir y publicación posterior mediante RPC, haciendo `ROLLBACK` para no dejar residuos de prueba.
+- La publicación real de prueba Back Squat 140 kg se eliminó después de confirmar que no contenía comentarios, reacciones ni otros bloques; no se modificó el RM del usuario.
+- PR #42 introdujo ranking en vivo + RM automáticos/sociales.
+- PR #43 convirtió el compartir en opt-in privado por defecto.
+- PR #44 convirtió la felicitación en experiencia a pantalla completa.
+- Commit productivo validado actual para la celebración: `9e0252311b842daea00b2ec67b32f9552535e55d`.
+- `lemon-rx.vercel.app` fue verificado sobre deployment READY y Jose valida el flujo completo el 28/10/2026.
+
+### Nota de seguridad
+
+Los advisors de Supabase siguen mostrando avisos preexistentes y también identifican RPC `SECURITY DEFINER` ejecutables por usuarios autenticados. `share_rm_achievements` es intencionadamente callable por `authenticated`, pero valida identidad, acceso y propiedad dentro de la función. No considerar el proyecto "sin warnings" por este cambio.
