@@ -495,3 +495,19 @@ Pasos concretos.
 - DESPLEGADO / PENDIENTE DE VALIDACIÓN
 - VALIDADO
 - REVERTIDO
+
+## 26. Nuevos RM, ranking inmediato y compartir en Home — VALIDADO 28/10/2026
+
+- Tras guardar, editar o eliminar un resultado, el ranking del día abierto se actualiza sin que el atleta tenga que salir y volver a entrar.
+- Si un atleta registra en Strength/Weightlifting una carga superior a su 1RM actual de ese movimiento, Lemon RX actualiza automáticamente el 1RM al nuevo máximo registrado.
+- La mejora manual de un RM usa el mismo flujo de reconocimiento del logro.
+- Conseguir un nuevo RM muestra una celebración a pantalla completa y claramente protagonista.
+- La celebración incluye el movimiento, el nuevo RM y, cuando existe marca anterior, la mejora conseguida.
+- El RM queda guardado independientemente de que el atleta decida compartirlo o no.
+- La publicación del logro en Home es voluntaria.
+- La casilla `Compartir este logro en HOME` viene desmarcada por defecto.
+- Si el atleta continúa sin marcarla, no se crea ninguna publicación social por ese RM.
+- Si la marca, el logro se publica en Home y utiliza el sistema existente de reacciones y comentarios.
+- Cerrar la celebración tampoco publica el logro.
+- Los logros ya compartidos anteriormente se conservan; la nueva regla aplica al flujo de nuevos logros.
+- Jose valida expresamente este comportamiento completo el 28/10/2026.
