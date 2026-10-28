@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getViewer } from "@/lib/auth";
 import { getAdjacentPublished, getPublishedWeek } from "@/lib/program";
 import { getActivity } from "@/lib/activity";
+import { recentBlockRmCelebration } from "@/lib/rm-achievements-server";
 import { getMovementsByIds, getUserRm1Map } from "@/lib/strength";
 import { DAY_NAMES, currentWeekStart, isIsoDate, mondayOf, shortDate, todayIso, weekDates, weekRangeShort } from "@/lib/dates";
 import { NoAccess } from "@/components/no-access";
@@ -54,7 +55,12 @@ export default async function ProgramPage({ searchParams }: PageProps<"/">) {
     }),
   ));
   const rmMovementIds = [...classicRmMovementIds, ...builderRmMovementIds];
-  const [activity, rm1Map, movements] = await Promise.all([getActivity(me, blockIds), getUserRm1Map(me, rmMovementIds), getMovementsByIds(movementIds)]);
+  const [activity, rm1Map, movements, rmCelebration] = await Promise.all([
+    getActivity(me, blockIds),
+    getUserRm1Map(me, rmMovementIds),
+    getMovementsByIds(movementIds),
+    recentBlockRmCelebration(me),
+  ]);
   const movementMap = Object.fromEntries(movements.map((m) => [m.id, m.name]));
 
   const days: DayView[] = weekDates(start).map((date, i) => {
@@ -111,7 +117,7 @@ export default async function ProgramPage({ searchParams }: PageProps<"/">) {
   return (
     <main className="mx-auto max-w-2xl px-4 pb-2 pt-6 md:px-6 md:pb-16 md:pt-10">
       <div className="flex items-end justify-between gap-3"><div><p className="eyebrow">{label}</p><h1 className="mt-1 font-display text-[44px] font-extrabold uppercase leading-[0.9] tracking-[0.005em] sm:text-[56px]"><span className="sr-only">Semana del </span>{weekRangeShort(start)}</h1></div><WeekPager prev={adjacent.prev} next={adjacent.next} /></div>
-      <div className="mt-8" key={start}>{week ? <div className="enter"><WeekDays days={days} meId={me} weekId={week.id} /></div> : <EmptyWeek isCurrent={start === thisWeek} latest={adjacent.prev} />}</div>
+      <div className="mt-8" key={start}>{week ? <div className="enter"><WeekDays days={days} meId={me} weekId={week.id} rmCelebration={rmCelebration} /></div> : <EmptyWeek isCurrent={start === thisWeek} latest={adjacent.prev} />}</div>
       {start !== thisWeek && <p className="mt-8"><Link href="/" className="press inline-flex h-11 items-center text-[15px] font-semibold text-chalk-2 hover:text-chalk">Ir a la semana actual</Link></p>}
     </main>
   );
