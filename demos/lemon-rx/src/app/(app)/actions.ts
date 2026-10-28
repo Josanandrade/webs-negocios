@@ -1,7 +1,8 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { refresh, revalidatePath } from "next/cache";
 import { getViewer } from "@/lib/auth";
+import { blockRmAchievementMessage } from "@/lib/rm-achievements-server";
 import { createClient } from "@/lib/supabase/server";
 import { parseScore, type ScoreDraft } from "@/lib/scores";
 import type { Division, ScoreType } from "@/lib/types";
@@ -10,7 +11,7 @@ import type { Division, ScoreType } from "@/lib/types";
 // sesión y el acceso; la RLS vuelve a exigir que user_id sea el suyo, que
 // tenga acceso a la programación y que el bloque sea visible para él.
 
-type Result = { ok: true } | { ok: false; error: string };
+type Result = { ok: true; message?: string } | { ok: false; error: string };
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const NOTE_MAX = 2000;
@@ -50,6 +51,7 @@ export async function saveBlockResult(blockId: string, division: Division, draft
   const userId = await athlete(blockId);
   if (!userId) return { ok: false, error: "No se ha podido guardar el resultado." };
 
+  const startedAt = new Date().toISOString();
   const supabase = await createClient();
   // El tipo de resultado lo marca el bloque (y la RLS confirma que puede verlo).
   const { data: block } = await supabase
@@ -84,8 +86,12 @@ export async function saveBlockResult(blockId: string, division: Division, draft
     .from("block_logs")
     .upsert({ user_id: userId, block_id: blockId, done: true }, { onConflict: "user_id,block_id" });
 
+  const message = await blockRmAchievementMessage(userId, blockId, startedAt);
   revalidatePath("/", "layout");
-  return { ok: true };
+  revalidatePath("/ranking");
+  revalidatePath("/home");
+  refresh();
+  return { ok: true, message };
 }
 
 export async function deleteBlockResult(blockId: string): Promise<Result> {
@@ -95,5 +101,8 @@ export async function deleteBlockResult(blockId: string): Promise<Result> {
   const { error } = await supabase.from("block_results").delete().eq("user_id", userId).eq("block_id", blockId);
   if (error) return { ok: false, error: "No se ha podido borrar el resultado." };
   revalidatePath("/", "layout");
+  revalidatePath("/ranking");
+  revalidatePath("/home");
+  refresh();
   return { ok: true };
 }

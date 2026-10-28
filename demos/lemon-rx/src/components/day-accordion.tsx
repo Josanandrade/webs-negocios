@@ -33,16 +33,18 @@ const StrengthRankingPanel = dynamic(
 export type ExtendedBlockView = BlockView & { suggestedSets?: { reps: number; percentage: number; kg: number }[]; builderSectionsView?: BuilderSectionView[] };
 export type DayView = { date: string; name: string; short: string; isToday: boolean; blocks: ExtendedBlockView[] };
 type DayLeaderboard = Record<string, LeaderboardRow[]>;
+type RmCelebration = { id: string; message: string } | null;
 
 const CLOSE_ANIMATION_MS = 240;
 
-export function WeekDays({ days, meId, weekId }: { days: DayView[]; meId: string; weekId: string }) {
+export function WeekDays({ days, meId, weekId, rmCelebration = null }: { days: DayView[]; meId: string; weekId: string; rmCelebration?: RmCelebration }) {
   const { toast, show } = useToast();
   const [open, setOpen] = useState<string | null>(null);
   const [mountedDays, setMountedDays] = useState<Set<string>>(() => new Set());
   const [boardsByDay, setBoardsByDay] = useState<Record<string, DayLeaderboard | null>>({});
   const loadingBoards = useRef<Set<string>>(new Set());
   const unmountTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
+  const previousDays = useRef(days);
 
   useEffect(() => {
     const mobile = window.matchMedia("(max-width: 767px)");
@@ -65,6 +67,49 @@ export function WeekDays({ days, meId, weekId }: { days: DayView[]; meId: string
   useEffect(() => () => {
     Object.values(unmountTimers.current).forEach(clearTimeout);
   }, []);
+
+  useEffect(() => {
+    if (previousDays.current === days) return;
+    previousDays.current = days;
+
+    if (!open) {
+      setBoardsByDay({});
+      return;
+    }
+
+    const day = days.find((row) => row.date === open);
+    if (!day) {
+      setBoardsByDay({});
+      return;
+    }
+
+    const needsLeaderboard = day.blocks.some((block) => block.score_type !== "none");
+    loadingBoards.current.delete(day.date);
+    if (!needsLeaderboard) {
+      setBoardsByDay((current) => ({ ...current, [day.date]: {} }));
+      return;
+    }
+
+    loadingBoards.current.add(day.date);
+    setBoardsByDay((current) => ({ ...current, [day.date]: null }));
+    void loadDayLeaderboard(weekId, day.date)
+      .then((boards) => setBoardsByDay((current) => ({ ...current, [day.date]: boards })))
+      .catch(() => setBoardsByDay((current) => ({ ...current, [day.date]: {} })))
+      .finally(() => loadingBoards.current.delete(day.date));
+  }, [days, open, weekId]);
+
+  useEffect(() => {
+    if (!rmCelebration) return;
+    const key = `lemon-rx:rm-celebration:${rmCelebration.id}`;
+    try {
+      if (window.sessionStorage.getItem(key)) return;
+      window.sessionStorage.setItem(key, "1");
+    } catch {
+      // Si sessionStorage está bloqueado, mostramos el aviso igualmente.
+    }
+    const timer = window.setTimeout(() => show(rmCelebration.message), 120);
+    return () => window.clearTimeout(timer);
+  }, [rmCelebration, show]);
 
   function mountDay(date: string) {
     const pending = unmountTimers.current[date];

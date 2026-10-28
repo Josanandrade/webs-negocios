@@ -1,13 +1,14 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { refresh, revalidatePath } from "next/cache";
 import { getViewer } from "@/lib/auth";
+import { blockRmAchievementMessage } from "@/lib/rm-achievements-server";
 import { createClient } from "@/lib/supabase/server";
 import type { BuilderSection } from "@/lib/types";
 import { expectedWeightCount, isMaxLoadComplex, isSingleMaxLoadComplexBlock, repsPerWeight, trackedBuilderItems } from "@/lib/unified-strength";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-type Result = { ok: true } | { ok: false; error: string };
+type Result = { ok: true; message?: string } | { ok: false; error: string };
 
 export type FreeStrengthDraft = {
   sections: Array<{
@@ -36,6 +37,7 @@ export async function saveFreeStrengthResult(blockId: string, draft: FreeStrengt
   const viewer = await getViewer();
   if (!viewer.canViewProgram || !UUID.test(blockId)) return { ok: false, error: "No se ha podido guardar el resultado." };
 
+  const startedAt = new Date().toISOString();
   const supabase = await createClient();
   const { data: block } = await supabase.from("workout_blocks").select("score_type, builder_sections").eq("id", blockId).maybeSingle<FreeStrengthBlockRow>();
   if (!block || block.score_type !== "load" || !Array.isArray(block.builder_sections) || !block.builder_sections.length) return { ok: false, error: "Este bloque no usa el constructor de fuerza." };
@@ -106,7 +108,10 @@ export async function saveFreeStrengthResult(blockId: string, draft: FreeStrengt
   }, { onConflict: "user_id,block_id" });
   if (error) return { ok: false, error: "No se ha podido guardar el resultado. Revisa tu conexión." };
   await supabase.from("block_logs").upsert({ user_id: viewer.profile.id, block_id: blockId, done: true }, { onConflict: "user_id,block_id" });
+  const message = await blockRmAchievementMessage(viewer.profile.id, blockId, startedAt);
   revalidatePath("/", "layout");
   revalidatePath("/ranking");
-  return { ok: true };
+  revalidatePath("/home");
+  refresh();
+  return { ok: true, message };
 }
