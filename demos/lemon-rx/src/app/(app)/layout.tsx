@@ -1,20 +1,23 @@
 import { getViewer } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { vapidPublicKey } from "@/lib/push";
+import { recentRmCelebration } from "@/lib/rm-achievements-server";
 import { Wordmark } from "@/components/wordmark";
 import { AdminNav } from "@/components/admin-nav";
 import { UserNav } from "@/components/user-nav";
 import { Avatar } from "@/components/avatar";
 import { IntentLink } from "@/components/intent-link";
 import { PushOptIn } from "@/components/push-opt-in";
+import { RmCelebrationDialog } from "@/components/rm-celebration-dialog";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const viewer = await getViewer();
   const { isAdmin, profile } = viewer;
   const supabase = await createClient();
-  const [{ count: unread }, { data: activation }] = await Promise.all([
+  const [{ count: unread }, { data: activation }, rmCelebration] = await Promise.all([
     supabase.from("app_notifications").select("id", { count: "exact", head: true }).eq("recipient_id", profile.id).is("read_at", null),
     supabase.from("app_notifications").select("id").eq("recipient_id", profile.id).eq("kind", "system").is("read_at", null).like("href", "/notificaciones?activar=1%").order("created_at", { ascending: false }).limit(1).maybeSingle<{ id: string }>(),
+    recentRmCelebration(profile.id),
   ]);
   const unreadCount = unread ?? 0;
 
@@ -45,6 +48,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         </div>
       </header>
       {children}
+      <RmCelebrationDialog celebration={rmCelebration} />
       {activation?.id && <PushOptIn publicKey={vapidPublicKey()} notificationId={activation.id} />}
       {isAdmin ? <AdminNav variant="bottom" /> : <UserNav variant="bottom" />}
       <span className="sr-only">Sesión iniciada como {profile.full_name || profile.email}</span>
