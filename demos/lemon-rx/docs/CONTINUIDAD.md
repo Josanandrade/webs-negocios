@@ -353,3 +353,19 @@ Estado: **DIAGNÓSTICO CONFIRMADO / FASE 4 VALIDADA 24/10/2026**.
 - Fase 4 reduce todavía más la carga inicial de Home y evita leer catálogos completos de movimientos en Semana/Ranking.
 - En la semana usada para validar Fase 3 había 120 resultados puntuables totales y solo 21–39 por día, confirmando el beneficio de lectura diaria.
 - Objetivo comercial: 500+ usuarios registrados/activos sigue requiriendo prueba de carga por concurrencia real antes de vender a escala.
+
+## 12. 28/10/2026 — Ranking en vivo, RM automáticos y celebración social
+Estado: **VALIDADO / ONLINE**.
+
+- Guardar, editar o eliminar un resultado refresca el ranking visible sin obligar al atleta a salir y volver a entrar en el día.
+- Los bloques de Strength/Weightlifting pueden promover automáticamente un nuevo 1RM cuando la carga registrada supera el RM actual del movimiento.
+- Guardar o mejorar manualmente un RM mantiene el mismo flujo de logro.
+- La mejora del RM se guarda siempre aunque el usuario no quiera publicarla en Home.
+- Los logros de RM son privados por defecto: no se crea publicación social hasta que el atleta marca expresamente `Compartir este logro en HOME`.
+- La casilla de compartir aparece desmarcada por defecto.
+- Si se comparte, el logro se integra en la publicación diaria y reutiliza reacciones y comentarios existentes.
+- La felicitación de nuevo RM se muestra a pantalla completa, con jerarquía visual de logro (`NUEVO RÉCORD PERSONAL`, trofeo, `¡VAMOS!`, movimiento, kilos y mejora respecto al RM anterior).
+- El atleta puede cerrar o continuar sin compartir; el RM permanece guardado.
+- La publicación de prueba Back Squat 140 kg usada durante la validación fue eliminada de Home sin modificar el RM almacenado.
+- Producción validada en `https://lemon-rx.vercel.app`; commit productivo de la celebración a pantalla completa: `9e0252311b842daea00b2ec67b32f9552535e55d`.
+- Jose valida expresamente el flujo completo el 28/10/2026.
