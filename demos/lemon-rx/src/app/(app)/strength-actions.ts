@@ -1,13 +1,14 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { refresh, revalidatePath } from "next/cache";
 import { getViewer } from "@/lib/auth";
+import { blockRmAchievementMessage } from "@/lib/rm-achievements-server";
 import { createClient } from "@/lib/supabase/server";
 import { loadSetWeights, parseScore, type ScoreDraft } from "@/lib/scores";
 import type { BuilderSection, ComplexMovementRow, StrengthSchemeRow } from "@/lib/types";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-type Result = { ok: true } | { ok: false; error: string };
+type Result = { ok: true; message?: string } | { ok: false; error: string };
 
 type StrengthBlockRow = {
   score_type: string;
@@ -81,6 +82,7 @@ export async function saveFreeStrengthResult(blockId: string, draft: FreeStrengt
   const viewer = await getViewer();
   if (!viewer.canViewProgram || !UUID.test(blockId)) return { ok: false, error: "No se ha podido guardar el resultado." };
 
+  const startedAt = new Date().toISOString();
   const supabase = await createClient();
   const { data: block } = await supabase
     .from("workout_blocks")
@@ -137,15 +139,19 @@ export async function saveFreeStrengthResult(blockId: string, draft: FreeStrengt
   }, { onConflict: "user_id,block_id" });
   if (error) return { ok: false, error: "No se ha podido guardar el resultado. Revisa tu conexión." };
   await supabase.from("block_logs").upsert({ user_id: viewer.profile.id, block_id: blockId, done: true }, { onConflict: "user_id,block_id" });
+  const message = await blockRmAchievementMessage(viewer.profile.id, blockId, startedAt);
   revalidatePath("/", "layout");
   revalidatePath("/ranking");
-  return { ok: true };
+  revalidatePath("/home");
+  refresh();
+  return { ok: true, message };
 }
 
 export async function saveStrengthResult(blockId: string, draft: ScoreDraft): Promise<Result> {
   const viewer = await getViewer();
   if (!viewer.canViewProgram || !UUID.test(blockId)) return { ok: false, error: "No se ha podido guardar el resultado." };
 
+  const startedAt = new Date().toISOString();
   const supabase = await createClient();
   const { data: block } = await supabase
     .from("workout_blocks")
@@ -181,7 +187,10 @@ export async function saveStrengthResult(blockId: string, draft: ScoreDraft): Pr
   }, { onConflict: "user_id,block_id" });
   if (error) return { ok: false, error: "No se ha podido guardar el resultado. Revisa tu conexión." };
   await supabase.from("block_logs").upsert({ user_id: viewer.profile.id, block_id: blockId, done: true }, { onConflict: "user_id,block_id" });
+  const message = await blockRmAchievementMessage(viewer.profile.id, blockId, startedAt);
   revalidatePath("/", "layout");
   revalidatePath("/ranking");
-  return { ok: true };
+  revalidatePath("/home");
+  refresh();
+  return { ok: true, message };
 }
