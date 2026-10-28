@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import type { BuilderSection } from "@/lib/types";
 import { expectedWeightCount, isMaxLoadComplex, isSingleMaxLoadComplexBlock, repsPerWeight, trackedBuilderItems } from "@/lib/unified-strength";
 
-const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 type Result = { ok: true; message?: string } | { ok: false; error: string };
 
 export type FreeStrengthDraft = {
