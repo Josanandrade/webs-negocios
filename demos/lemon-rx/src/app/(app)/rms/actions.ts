@@ -1,7 +1,8 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { refresh, revalidatePath } from "next/cache";
 import { getViewer } from "@/lib/auth";
+import { historyRmAchievementMessage } from "@/lib/rm-achievements-server";
 import { createClient } from "@/lib/supabase/server";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -45,6 +46,7 @@ export async function saveMovementRms(movementId: string, values: { rm_1?: strin
   const allEmpty = Object.values(parsed).every((v) => v == null);
   const changed = !rmsEqual(previous, parsed);
   const recordedAt = new Date().toISOString();
+  let historyId: number | null = null;
 
   if (allEmpty) {
     const { error } = await supabase.from("user_rms").delete().eq("user_id", viewer.profile.id).eq("movement_id", movementId);
@@ -66,18 +68,23 @@ export async function saveMovementRms(movementId: string, values: { rm_1?: strin
     const { error } = await supabase.from("user_rms").upsert({ user_id: viewer.profile.id, movement_id: movementId, ...parsed, updated_at: recordedAt }, { onConflict: "user_id,movement_id" });
     if (error) return { ok: false, error: "No se han podido actualizar tus RM." };
     if (changed) {
-      await supabase.from("user_rm_history").insert({
+      const { data: history } = await supabase.from("user_rm_history").insert({
         user_id: viewer.profile.id,
         movement_id: movementId,
         ...parsed,
         source: "user_update",
         recorded_at: recordedAt,
-      });
+      }).select("id").maybeSingle<{ id: number }>();
+      historyId = history?.id ?? null;
     }
   }
+
+  const celebration = historyId == null ? undefined : await historyRmAchievementMessage(historyId);
   revalidatePath("/rms");
   revalidatePath("/");
-  return { ok: true, message: "RM guardados correctamente." };
+  revalidatePath("/home");
+  refresh();
+  return { ok: true, message: celebration ?? "RM guardados correctamente." };
 }
 
 export async function addMovement(name: string, groupName = "Other"): Promise<Result> {
