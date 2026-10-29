@@ -2,12 +2,12 @@
   "redirects": [
     {
       "source": "/demos/panel-campana-60",
-      "destination": "/demos/panel-campana-57/",
+      "destination": "/demos/panel-campana-67/",
       "permanent": false
     },
     {
       "source": "/demos/panel-campana-60/",
-      "destination": "/demos/panel-campana-57/",
+      "destination": "/demos/panel-campana-67/",
       "permanent": false
     }
   ]
