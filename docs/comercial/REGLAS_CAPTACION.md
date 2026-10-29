@@ -86,8 +86,46 @@ Valor que debemos transmitir según sector:
 - Verificar información pública antes de incluirla.
 - Las reservas/formularios de demos son simulados salvo que se decida expresamente otra cosa.
 - Añadir `noindex, nofollow`.
-- Evitar que todas las demos parezcan la misma plantilla con colores distintos.
-- El diseño debe ser coherente con el sector y el negocio.
+
+### Regla crítica de diseño — la demo es la tarjeta de venta
+
+- **No crear una plantilla única cambiando nombre, colores y textos.** Si dos demos pueden confundirse al verlas sin leer el nombre, el trabajo no está terminado.
+- Cada demo debe tener **una dirección visual propia**, inspirada en la identidad que el negocio ya proyecta públicamente: sector, tono, nombre, colores visibles, tipo de trabajo, estilo de fotos, ubicación y cliente objetivo.
+- No es obligatorio reproducir la marca al 100 %, pero sí debe existir una sensación clara de “esto está pensado para mi negocio”.
+- En una misma campaña deben alternarse de forma visible:
+  - composición del hero;
+  - navegación;
+  - tipografía/escala tipográfica;
+  - estructura y orden de secciones;
+  - tratamiento de servicios;
+  - forma de mostrar reseñas/confianza;
+  - densidad visual, fondos, bordes y movimiento;
+  - CTA y narrativa comercial.
+- Se pueden reutilizar utilidades técnicas o componentes invisibles, pero **no el aspecto final completo**.
+- La personalización debe centrarse en lo que vende ese negocio: por ejemplo, antes/después para pulidos o chapa, urgencia para desatascos, portfolio para eventos, detalle y resultado para estética, confianza técnica para talleres, etc.
+- Evitar visuales decorativos que interfieran con el contenido. **Ningún contenedor circular, máscara, recorte, overflow o animación puede cortar nombres, valoraciones, reseñas, CTA o información comercial.**
+- Las reseñas y valoraciones deben mostrarse siempre con espacio suficiente y legibilidad completa en escritorio y móvil.
+- Antes de dar una demo por terminada, hacer QA visual mínimo en escritorio y móvil y comprobar:
+  1. que no hay texto cortado o superpuesto;
+  2. que ningún dato importante queda fuera de una máscara o `overflow:hidden`;
+  3. que el primer pantallazo transmite identidad propia;
+  4. que el CTA principal se entiende en menos de 5 segundos;
+  5. que la página no parece una copia evidente de otra demo de la misma campaña.
+
+## Panel de campaña de leads
+
+A partir del 29/10/2026, toda campaña de captación con demos debe entregarse también mediante un **panel operativo único**.
+
+El panel debe incluir, para cada lead:
+
+- nombre del negocio y zona;
+- botón **Ver demo**;
+- mensaje de contacto personalizado completo;
+- botón **Copiar mensaje**;
+- botón **Abrir WhatsApp** con número y texto ya precargados cuando el canal esté confirmado;
+- buscador/filtro cuando la campaña tenga suficientes leads como para que ayude.
+
+El panel es parte del flujo estándar del proyecto porque permite revisar, contactar y controlar la campaña sin copiar enlaces y teléfonos manualmente. El botón de WhatsApp debe abrir la conversación y precargar el mensaje, pero **nunca enviar automáticamente**.
 
 ## Mensajería
 
@@ -142,6 +180,14 @@ Decisión:
 - Valora la propuesta y deja la puerta abierta para el futuro.
 - No marcar como perdido definitivo; mantener como `contacted` con nota “puerta abierta”.
 - Seguimiento largo: aproximadamente 90 días.
+
+### Campaña 30 demos Sevilla/Aljarafe — 29/10/2026
+
+- Un sistema de demos demasiado basado en un único renderer produjo páginas visualmente casi idénticas.
+- Aunque el texto, colores y datos fueran distintos, el resultado no transmitía suficiente personalización comercial.
+- Además, una composición circular con `overflow` llegó a cortar la valoración/reseñas, lo que se considera un fallo de QA grave porque afecta información de confianza.
+- Decisión permanente: **priorizar variedad estructural y personalidad por negocio sobre velocidad de producción**.
+- El panel de campaña con mensaje + demo + acceso directo a WhatsApp sí resultó útil y pasa a ser estándar del proyecto.
 
 ## Regla operativa a partir de ahora
 
