@@ -14,9 +14,12 @@ Documento vivo para evitar repetir errores y mantener criterios consistentes en 
 Antes de invertir tiempo en una demo, comprobar siempre:
 
 1. **Web propia**
-   - Si el negocio ya tiene una web propia moderna y funcional, normalmente se descarta.
+   - Si el negocio ya tiene una web propia moderna, profesional, responsive y funcional, normalmente se descarta.
+   - **Una web propia antigua, pobre, desactualizada o claramente mejorable sí puede seguir siendo un buen lead.** En ese caso la propuesta debe plantearse como renovación/mejora, no como “no tenéis web”.
    - Una simple ficha en directorio, Facebook, Instagram o Google Sites no equivale necesariamente a una web propia útil; revisar caso por caso.
    - Si la web está “en construcción”, se descarta igualmente salvo decisión expresa.
+   - Antes de aceptar un lead, buscar expresamente su nombre + web/dominio y abrir la web cuando exista. No basta con que Google/Maps no muestre un enlace.
+   - Si la web actual está bien resuelta y no existe un problema comercial claro que podamos mejorar, **descartar aunque el negocio sea atractivo**.
 
 2. **Sistema de reservas**
    - Comprobar expresamente Booksy, Fresha, Treatwell, Doctoralia u otras plataformas relevantes del sector.
@@ -42,11 +45,13 @@ Antes de invertir tiempo en una demo, comprobar siempre:
 
 Buscamos principalmente negocios locales que:
 
-- no tengan web propia;
+- no tengan web propia o tengan una web claramente antigua/mejorable;
 - no tengan un sistema de reservas online bien resuelto;
 - gestionen citas, reservas o solicitudes manualmente por teléfono, WhatsApp, Instagram o Facebook;
 - tengan suficiente actividad/reputación como para que una web propia pueda aportar valor;
 - puedan beneficiarse de automatizar parte de la gestión.
+
+Siempre que sea posible, **priorizar negocios con estructura empresarial visible** frente a perfiles claramente unipersonales: local comercial, showroom, taller, centro, varias personas en el equipo, varias sedes, sociedad mercantil, volumen de reseñas o actividad que indiquen una operativa de negocio estable.
 
 No limitar la búsqueda a peluquerías. Rotar sectores:
 
@@ -60,6 +65,10 @@ No limitar la búsqueda a peluquerías. Rotar sectores:
 - restauración;
 - deporte/fitness;
 - mascotas;
+- automoción;
+- hogar, reformas y decoración;
+- ocio y eventos;
+- comercios especializados;
 - otros negocios locales con un problema claro que resolver.
 
 ## Propuesta comercial
@@ -188,6 +197,13 @@ Decisión:
 - Además, una composición circular con `overflow` llegó a cortar la valoración/reseñas, lo que se considera un fallo de QA grave porque afecta información de confianza.
 - Decisión permanente: **priorizar variedad estructural y personalidad por negocio sobre velocidad de producción**.
 - El panel de campaña con mensaje + demo + acceso directo a WhatsApp sí resultó útil y pasa a ser estándar del proyecto.
+
+### 3M Motor Gobacars — 29/10/2026
+
+- Se detectó inicialmente como posible lead de compraventa de vehículos.
+- Revisión manual posterior: dispone de una web actual y bien resuelta.
+- Decisión: **descartado de la segunda tanda de 30 leads**.
+- Aprendizaje: comprobar la web real de cada candidato antes de consolidarlo; una empresa atractiva no es automáticamente un buen lead.
 
 ## Regla operativa a partir de ahora
 
