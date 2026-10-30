@@ -135,6 +135,46 @@ No se reutiliza como base reconocible:
 
 Test obligatorio: si se ocultara el nombre del negocio y dos demos parecieran la misma web, una de ellas debe rediseñarse.
 
+## Estándar obligatorio para demos ecommerce
+
+Toda demo de tienda online debe incluir un **panel de administración funcional dentro de la propia demo**. La referencia obligatoria de estructura y comportamiento es el panel de `demos/ropa-sevilla/admin/`.
+
+El panel debe tener navegación lateral real entre vistas independientes, como mínimo:
+
+- Resumen;
+- Productos;
+- Pedidos;
+- Stock;
+- Clientes;
+- Facturación;
+- Envíos;
+- Configuración.
+
+No se acepta que varios elementos del menú apunten simplemente a bloques de una misma pantalla y den la sensación de no funcionar. Cada opción debe activar su propia vista, con contenido y acciones coherentes.
+
+El panel debe ser funcional, no decorativo. Como mínimo debe permitir:
+
+- crear y editar productos;
+- modificar precios y stock;
+- consultar pedidos;
+- cambiar el estado de los pedidos;
+- detectar stock bajo;
+- mostrar clientes derivados de pedidos;
+- mostrar una vista de facturación coherente con las ventas simuladas;
+- mostrar información de envíos/entregas;
+- modificar ajustes básicos de la tienda dentro de la demo.
+
+Además, la tienda debe incluir una **simulación de compra real**. Cuando un usuario complete una compra:
+
+1. se genera un pedido nuevo;
+2. el pedido aparece automáticamente en la vista `Pedidos` del admin;
+3. se descuenta el stock comprado;
+4. se actualizan los indicadores del `Resumen`;
+5. se actualizan `Clientes` y `Facturación` cuando corresponda;
+6. el pedido puede avanzar por estados desde el panel.
+
+La sincronización puede ser local para la demo, pero debe percibirse como un flujo real y consistente entre tienda y administración.
+
 ## Control de calidad antes de publicar
 
 Ninguna demo se añade al panel ni se marca como lista hasta comprobar:
@@ -152,6 +192,8 @@ Ninguna demo se añade al panel ni se marca como lista hasta comprobar:
 11. Funciona correctamente en móvil.
 12. La ruta pública en producción responde correctamente.
 13. La versión revisada en producción es la misma que se mostrará al lead.
+14. Si es ecommerce, el panel admin cumple el estándar de Ropa Sevilla y todas sus secciones funcionan.
+15. Si es ecommerce, una compra simulada se refleja correctamente en pedidos, stock, clientes y facturación.
 
 ## Orden de trabajo para tandas
 
@@ -177,7 +219,10 @@ Queda descartado como forma de trabajo:
 - copiar el mismo orden de secciones;
 - publicar antes de revisar visualmente;
 - llamar “personalizada” a una demo que podría enviarse a otro negocio cambiando el nombre;
-- sacrificar calidad para terminar una tanda antes.
+- sacrificar calidad para terminar una tanda antes;
+- crear paneles admin que parezcan tener secciones pero en realidad muestren todo en una misma pantalla;
+- crear paneles admin meramente visuales, sin acciones funcionales;
+- crear ecommerce sin sincronización compra → pedido → stock → cliente → facturación.
 
 ## Criterio de aceptación
 
