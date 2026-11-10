@@ -130,3 +130,10 @@ Estado: **EN DESARROLLO — MIGRACIÓN BASE APLICADA EN SUPABASE; UI Y CONTROL D
 - Corte horario comprobado: 04-11 22:59:59 UTC visible, 04-11 23:00:00 UTC invisible (medianoche Madrid en horario de invierno). Función devuelve false para publicaciones posteriores.
 - Tras `ROLLBACK`, confirmado `enabled=false`, `cutoff_date=null`. No se modificaron pagos ni periodos.
 - **Pendiente**: prueba de sesión web real de Aida, revisar vías alternativas (RPCs), QA de UI y resolver diferencia entre corte piloto DB y filtro de la rama antes de activar.
+
+## QA adicional de accesos indirectos — 10-11-2026
+- Transacción con rol `authenticated` y JWT simulado de Aida, cutoff 05-11-2026: RLS devuelve 177 posts, 599 bloques, 2 logros vinculados, 8 comentarios, 108 reacciones a posts y 1 reacción a comentario; cifras de filas visibles, no de totales históricos.
+- Consulta `workout_posts` para fechas posteriores al corte devuelve 0. RPC `home_comment_previews` (SECURITY INVOKER) y consulta directa de comentarios sobre un post visible en la prueba no filtran información restringida; se necesita una prueba adicional con ID conocido de post oculto para concluir cobertura completa de RPC.
+- Identificadas RPC `social_reaction_actor_names` y `share_rm_achievements` SECURITY DEFINER; deben revisarse por separado antes de habilitar piloto real.
+- Se comprobó después de ROLLBACK: piloto de Aida `enabled=false`, `cutoff_date=null`.
+- **Sin despliegue web, sin prueba de navegador de Aida, sin activar bloqueo.**
