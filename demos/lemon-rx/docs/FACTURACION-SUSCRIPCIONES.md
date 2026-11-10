@@ -66,3 +66,11 @@ Estado: **EN DESARROLLO — MIGRACIÓN BASE APLICADA EN SUPABASE; UI Y CONTROL D
 - Sin cambio de `has_program_access`, `can_view_week`, `payment_status` ni `access_status`; por tanto no se activa bloqueo nuevo.
 - El advisor de seguridad sigue señalando avisos de funciones SECURITY DEFINER preexistentes que requieren revisión separada, sin atribuirlos a las tablas nuevas.
 - Pendiente: frontend, acciones admin, validación de migración de usuarios, avisos Resend y protección completa de acceso.
+
+## Avance interfaz 10-11-2026
+- Rama de desarrollo: `feat/lemon-rx-billing-subscriptions`.
+- Nueva ruta admin `/admin/facturacion` con formulario de pago/cortesía, listado de últimos 300 movimientos y anulación auditada.
+- Acciones servidor con `requireAdmin`, validación de fechas, importe y atleta; escritura a tabla con RLS.
+- Acceso desde `/admin/usuarios` mediante enlace a Facturación.
+- Sin despliegue a producción ni ejecución de pagos reales de prueba.
+- Pendiente: build/typecheck y QA visual en preview; mejorar confirmación de anulación y filtros, evitar solapamientos no deseados, decidir formato DD-MM-AAAA editable, y conectar permisos/cron.
