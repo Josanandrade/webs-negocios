@@ -1,4 +1,6 @@
 -- PREPARADO, NO EJECUTAR SIN QA Y FECHAS REALES DE LOS ATLETAS.
+-- QA a coste cero: revisión estática + pruebas locales sin conexión a producción.
+-- El entorno disponible no incluye PostgreSQL, Docker ni Supabase CLI: NO afirmar QA de RLS real.
 -- Home: acceso permanente a publicaciones anteriores a la caducidad.
 -- Función de RLS evalúa SIEMPRE el usuario autenticado, nunca un user_id recibido.
 create schema if not exists lemon_rx_internal;
@@ -16,7 +18,7 @@ create or replace function public.can_view_home_post(p_first_completed_at timest
 returns boolean language sql stable security definer set search_path=''
 as $$
  select case
-  when (select not enforce_home_freeze from lemon_rx_internal.subscription_flags where singleton=true) then true
+  when coalesce((select not enforce_home_freeze from lemon_rx_internal.subscription_flags where singleton=true),true) then true
   when auth.uid() is null then false
   when exists(select 1 from public.profiles p where p.id=auth.uid() and p.role='admin') then true
   when exists (
