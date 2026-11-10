@@ -4,6 +4,7 @@ import { Avatar } from "@/components/avatar";
 import { NoAccess } from "@/components/no-access";
 import { SocialBlockProgram } from "@/components/social-block-program";
 import { getViewer } from "@/lib/auth";
+import { getSubscriptionAccess, SUBSCRIPTION_ENFORCEMENT_ENABLED } from "@/lib/subscription-access";
 import { createClient } from "@/lib/supabase/server";
 import { divisionLabel, formatKg, formatScore, loadSetWeights } from "@/lib/scores";
 import type { BuilderSection, ComplexMovementRow, Division, Score, ScoreType, StrengthSchemeRow } from "@/lib/types";
@@ -47,6 +48,11 @@ export default async function HomePage({ searchParams }: PageProps<"/home">) {
   const offset = (page - 1) * PAGE_SIZE;
   const viewer = await getViewer();
   if (!viewer.canViewProgram) return <NoAccess name={viewer.profile.full_name.split(" ")[0]} pending={viewer.profile.access_status === "pending"} />;
+
+  if (SUBSCRIPTION_ENFORCEMENT_ENABLED && !viewer.isAdmin) {
+    const subscription = await getSubscriptionAccess(viewer.profile.id, false);
+    if (!subscription.homeAllowed) return <NoAccess name={viewer.profile.full_name.split(" ")[0]} pending={false} />;
+  }
 
   const supabase = await createClient();
   const baseQuery = supabase.from("workout_posts")
