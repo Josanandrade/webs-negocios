@@ -81,3 +81,10 @@ Estado: **EN DESARROLLO — MIGRACIÓN BASE APLICADA EN SUPABASE; UI Y CONTROL D
 - Verificado en Supabase: 11 atletas actualmente `paid`, 0 periodos nuevos, 0 con acceso simulado para la semana del 16/11 sin periodos. `can_view_week` sigue utilizando el control anterior.
 - **Bloqueante para activar:** migrar explícitamente a los 11 atletas vigentes con fechas reales, o una política transitoria de derechos que no invente vencimientos. No crear fechas arbitrarias.
 - Pendientes antes de activación: pruebas con periodos ficticios en entorno aislado, proteger endpoints/RPC y datos históricos, confirmar Home y rankings, comprobar build y experiencia del panel.
+
+## Decisión adicional 10-11-2026: Home bloqueada desde el día de vencimiento
+- Regla confirmada: **programación** conserva la semana del vencimiento completa, pero **Home** no muestra contenido nuevo desde el mismo día de caducidad. Contenido histórico anterior a ese día, RM, estadísticas y acceso a cuenta se conservan.
+- Función preview-only `subscription_home_entitlement(user_id,content_date,today)` añadida en Supabase; permite contenido Home con fecha `>= starts_on` y `< ends_on` para periodos no anulados. El día `ends_on` ya se considera restringido en Home. Admin exento.
+- Función no conectada aún a Home ni a RLS. No afirmar bloqueo activo hasta auditar rutas/consultas y proteger servidor/RPC.
+- **Punto de UX a revisar:** en formulario `ends_on` figura como 'fin de cobertura (inclusive)' para la programación; la Home utiliza el mismo día como fecha de corte. Mostrar esta diferencia claramente en el panel.
+- Pendiente comprobar la implementación exacta de Home (ruta, tablas y APIs), y no restringir datos históricos/RM accidentalmente.
