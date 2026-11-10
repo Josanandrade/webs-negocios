@@ -14,10 +14,11 @@ export type SubscriptionAccess = {
   homeAllowed: boolean;
   canViewWeek: (weekStart: string) => boolean;
   expiry: string | null;
+  homeFreezeDate: string | null;
 };
 
 export async function getSubscriptionAccess(userId: string, isAdmin: boolean, today = todayIso()): Promise<SubscriptionAccess> {
-  if (isAdmin) return { activeToday: true, homeAllowed: true, expiry: null, canViewWeek: () => true };
+  if (isAdmin) return { activeToday: true, homeAllowed: true, expiry: null, homeFreezeDate: null, canViewWeek: () => true };
   const supabase = await createClient();
   const { data, error } = await supabase.from("athlete_subscription_periods")
     .select("starts_on,ends_on")
@@ -31,6 +32,7 @@ export async function getSubscriptionAccess(userId: string, isAdmin: boolean, to
   const activeToday = periods.some(p => p.starts_on <= today && today <= p.ends_on);
   return {
     activeToday, homeAllowed, expiry: periods[0]?.ends_on ?? null,
+    homeFreezeDate: homeAllowed ? null : periods[0]?.ends_on ?? today,
     canViewWeek: (weekStart: string) => periods.some(p => {
       const monday = mondayOf(p.ends_on);
       return weekStart <= monday && weekStart <= p.ends_on &&
