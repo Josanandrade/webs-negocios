@@ -95,3 +95,11 @@ Estado: **EN DESARROLLO — MIGRACIÓN BASE APLICADA EN SUPABASE; UI Y CONTROL D
 - Interpretación de la última petición: desde el día de vencimiento **no se puede abrir Home**, no solo ocultar posts recientes. La programación mantiene acceso a la semana completa. Confirmar esta interpretación antes de activar si se desea consultar Home histórica.
 - **NO activar el interruptor aún**: faltan migración de fechas de los 11 atletas, RLS y protección de RPC/tablas relacionadas, y pruebas de compilación, seguridad y UX. La restricción de página por sí sola no protege acceso directo a datos vía API.
 - Recordatorios Resend aún no implementados ni activados.
+
+## CORRECCIÓN EXPLÍCITA 10-11-2026 — Home congelada, nunca cerrada
+- La instrucción confirmada del usuario **sustituye** cualquier mención anterior de bloqueo total de `/home`.
+- El atleta caducado puede **abrir Home siempre** y leer publicaciones publicadas antes de las 00:00 (Europe/Madrid) de `ends_on`. No ve publicaciones nuevas desde ese día.
+- Filtrar por `first_completed_at`, **no** por `training_date` ni por `updated_at`, para que una publicación nueva de entrenamiento antiguo no se cuele. Los posts antiguos siguen visibles; reacciones/comentarios sobre ellos no se bloquean.
+- Código corregido en `src/app/(app)/home/page.tsx`, `home/actions.ts`, `src/lib/subscription-access.ts`; detrás de feature flag apagada.
+- **Pendiente de seguridad antes de activar**: proteger las consultas directas de Supabase, RPC de comentarios y el acceso a posts por ID; comprobar si ediciones y comentarios nuevos de publicaciones antiguas deben congelarse también. La lógica actual filtra posts, pero no congela sus comentarios ni reacciones.
+- La función preview-only `subscription_home_entitlement` en Supabase sigue siendo experimental y **no representa el acceso a la página Home**; no conectarla como guardia de ruta.
