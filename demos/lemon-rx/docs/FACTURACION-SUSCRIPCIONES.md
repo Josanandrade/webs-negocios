@@ -88,3 +88,10 @@ Estado: **EN DESARROLLO — MIGRACIÓN BASE APLICADA EN SUPABASE; UI Y CONTROL D
 - Función no conectada aún a Home ni a RLS. No afirmar bloqueo activo hasta auditar rutas/consultas y proteger servidor/RPC.
 - **Punto de UX a revisar:** en formulario `ends_on` figura como 'fin de cobertura (inclusive)' para la programación; la Home utiliza el mismo día como fecha de corte. Mostrar esta diferencia claramente en el panel.
 - Pendiente comprobar la implementación exacta de Home (ruta, tablas y APIs), y no restringir datos históricos/RM accidentalmente.
+
+## Avance de integración en rama (10-11-2026)
+- Añadido `src/lib/subscription-access.ts` con interruptor `LEMON_RX_SUBSCRIPTION_ENFORCEMENT` **desactivado por defecto**.
+- Preparadas comprobaciones de acceso en la página `/` (semanas), `/home` y acciones sociales (reacciones, comentarios, carga diferida), condicionadas al interruptor.
+- Interpretación de la última petición: desde el día de vencimiento **no se puede abrir Home**, no solo ocultar posts recientes. La programación mantiene acceso a la semana completa. Confirmar esta interpretación antes de activar si se desea consultar Home histórica.
+- **NO activar el interruptor aún**: faltan migración de fechas de los 11 atletas, RLS y protección de RPC/tablas relacionadas, y pruebas de compilación, seguridad y UX. La restricción de página por sí sola no protege acceso directo a datos vía API.
+- Recordatorios Resend aún no implementados ni activados.
