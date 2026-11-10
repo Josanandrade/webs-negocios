@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getViewer } from "@/lib/auth";
+import { getSubscriptionAccess, SUBSCRIPTION_ENFORCEMENT_ENABLED } from "@/lib/subscription-access";
 import { getAdjacentPublished, getPublishedWeek } from "@/lib/program";
 import { getActivity } from "@/lib/activity";
 import { recentBlockRmCelebration } from "@/lib/rm-achievements-server";
@@ -22,6 +23,10 @@ export default async function ProgramPage({ searchParams }: PageProps<"/">) {
   const start = isIsoDate(sp.semana) ? mondayOf(sp.semana) : thisWeek;
   const [viewer, week, adjacent] = await Promise.all([getViewer(), getPublishedWeek(start), getAdjacentPublished(start)]);
   if (!viewer.canViewProgram) return <NoAccess name={viewer.profile.full_name.split(" ")[0]} pending={viewer.profile.access_status === "pending"} />;
+  if (SUBSCRIPTION_ENFORCEMENT_ENABLED && !viewer.isAdmin) {
+    const subscription = await getSubscriptionAccess(viewer.profile.id, false);
+    if (!subscription.canViewWeek(start)) return <NoAccess name={viewer.profile.full_name.split(" ")[0]} pending={false} />;
+  }
 
   const today = todayIso();
   const me = viewer.profile.id;
