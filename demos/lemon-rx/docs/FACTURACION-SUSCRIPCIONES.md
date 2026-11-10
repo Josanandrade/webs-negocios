@@ -137,3 +137,9 @@ Estado: **EN DESARROLLO — MIGRACIÓN BASE APLICADA EN SUPABASE; UI Y CONTROL D
 - Identificadas RPC `social_reaction_actor_names` y `share_rm_achievements` SECURITY DEFINER; deben revisarse por separado antes de habilitar piloto real.
 - Se comprobó después de ROLLBACK: piloto de Aida `enabled=false`, `cutoff_date=null`.
 - **Sin despliegue web, sin prueba de navegador de Aida, sin activar bloqueo.**
+
+## QA con ID conocido de publicación oculta — 10-11-2026
+- Simulación transaccional con cutoff 05-11-2026 y JWT de Aida: publicación oculta seleccionada antes de cambiar a rol authenticated. Lectura directa del post, sus comentarios, sus bloques, sus reacciones y RPC `home_comment_previews` devuelve 0 filas. `ROLLBACK` al finalizar.
+- Revisadas RPC con SECURITY DEFINER: `social_reaction_actor_names` puede devolver nombres de usuarios que reaccionaron a publicaciones ocultas si se suministran sus UUID; la salida no incluye posts, pero requiere decidir si restringirla. `share_rm_achievements` permite compartir RM del propio usuario, lo que podría crear actividad nueva durante congelación; no debe confundirse congelación de lectura con bloqueo de publicación.
+- Verificado de nuevo: `enabled=false`, `cutoff_date=null`. Sin restricciones activas.
+- Pendiente: prueba con navegador real y comprobación de publicación de nuevo RM, comportamiento de Home con comentarios posteriores al vencimiento y build del frontend.
