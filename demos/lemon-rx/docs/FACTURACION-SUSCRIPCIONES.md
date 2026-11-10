@@ -123,3 +123,10 @@ Estado: **EN DESARROLLO — MIGRACIÓN BASE APLICADA EN SUPABASE; UI Y CONTROL D
 - Verificado por SQL: fila desactivada y esquema privado sin USAGE para authenticated. Sin periodos registrados, sin cambios en pagos o datos deportivos.
 - **IMPORTANTE**: todavía NO hay políticas RLS conectadas a esta función ni se ha habilitado el piloto; no se debe anunciar como prueba funcional de congelación completada.
 - Próximo paso: conectar RLS de forma que afecte solo al piloto, verificar con sesión real de Aida y rollback. Mantener producción sin cambios visibles hasta entonces.
+
+## RLS piloto instalado y prueba transaccional — 10-11-2026
+- Aplicada migración `lemon_rx_home_freeze_pilot_rls_off` en Supabase de Lemon RX: políticas SELECT de posts, bloques, logros compartidos, comentarios, reacciones y reacciones a comentarios requieren que el post padre sea visible.
+- Simulación SQL con `SET LOCAL ROLE authenticated`, JWT sub de Aida y `BEGIN/ROLLBACK`, sin mantener cambios: con piloto apagado 195 posts visibles; con fecha ficticia 05-11-2026 y piloto temporalmente encendido dentro de transacción 177 posts visibles.
+- Corte horario comprobado: 04-11 22:59:59 UTC visible, 04-11 23:00:00 UTC invisible (medianoche Madrid en horario de invierno). Función devuelve false para publicaciones posteriores.
+- Tras `ROLLBACK`, confirmado `enabled=false`, `cutoff_date=null`. No se modificaron pagos ni periodos.
+- **Pendiente**: prueba de sesión web real de Aida, revisar vías alternativas (RPCs), QA de UI y resolver diferencia entre corte piloto DB y filtro de la rama antes de activar.
