@@ -74,3 +74,10 @@ Estado: **EN DESARROLLO — MIGRACIÓN BASE APLICADA EN SUPABASE; UI Y CONTROL D
 - Acceso desde `/admin/usuarios` mediante enlace a Facturación.
 - Sin despliegue a producción ni ejecución de pagos reales de prueba.
 - Pendiente: build/typecheck y QA visual en preview; mejorar confirmación de anulación y filtros, evitar solapamientos no deseados, decidir formato DD-MM-AAAA editable, y conectar permisos/cron.
+
+## Avance 10-11-2026 — motor de acceso en modo prueba
+- Se aplicó migración `lemon_rx_billing_entitlement_preview_only`: función `subscription_week_entitlement(user_id,week_start,today)` con acceso exclusivamente service_role.
+- Evalúa periodos pagados/cortesía no anulados; conserva íntegra la semana del vencimiento y no habilita semanas posteriores sin cobertura. No se ha conectado a `can_view_week` ni al frontend: **no está activado**.
+- Verificado en Supabase: 11 atletas actualmente `paid`, 0 periodos nuevos, 0 con acceso simulado para la semana del 16/11 sin periodos. `can_view_week` sigue utilizando el control anterior.
+- **Bloqueante para activar:** migrar explícitamente a los 11 atletas vigentes con fechas reales, o una política transitoria de derechos que no invente vencimientos. No crear fechas arbitrarias.
+- Pendientes antes de activación: pruebas con periodos ficticios en entorno aislado, proteger endpoints/RPC y datos históricos, confirmar Home y rankings, comprobar build y experiencia del panel.
