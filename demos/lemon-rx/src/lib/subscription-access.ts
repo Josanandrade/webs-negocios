@@ -32,7 +32,7 @@ export async function getSubscriptionAccess(userId: string, isAdmin: boolean, to
   const activeToday = periods.some(p => p.starts_on <= today && today <= p.ends_on);
   return {
     activeToday, homeAllowed, expiry: periods[0]?.ends_on ?? null,
-    homeFreezeDate: homeAllowed ? null : periods[0]?.ends_on ?? today,
+    homeFreezeDate: homeAllowed ? null : periods.filter(p => p.starts_on <= today).map(p => p.ends_on).sort().at(-1) ?? today,
     canViewWeek: (weekStart: string) => periods.some(p => {
       const monday = mondayOf(p.ends_on);
       return weekStart <= monday && weekStart <= p.ends_on &&
