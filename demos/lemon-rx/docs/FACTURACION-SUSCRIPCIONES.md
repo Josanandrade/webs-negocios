@@ -111,3 +111,8 @@ Estado: **EN DESARROLLO — MIGRACIÓN BASE APLICADA EN SUPABASE; UI Y CONTROL D
 - Se verificaron 11 atletas paid y 0 periodos nuevos; **no activar el feature flag** hasta establecer migración real y políticas de acceso coherentes.
 - Corregido cálculo del cutoff para ignorar renovaciones que empiezan en el futuro.
 - Pendiente: diseñar migración RLS transaccional con interruptor de base de datos, cobertura de tablas hijas y RPC; pruebas en entorno aislado, compilación y QA antes de despliegue.
+
+## Preparación de RLS Home (10-11-2026)
+- SQL de migración **borrador sin ejecutar**: `docs/sql/home-freeze-rls-DRAFT.sql`. Contempla interruptor en esquema privado, validación por `auth.uid()` y políticas de lectura para posts, bloques, logros, comentarios y reacciones.
+- No se ha aplicado al proyecto Supabase: requiere pruebas de seguridad con JWT de atleta, casos de renovación/cortesía, revisión de funciones RPC y compatibilidad con `has_program_access()`.
+- Las políticas actuales siguen intactas y los 11 atletas conservan el acceso actual. La rama tampoco está desplegada.
