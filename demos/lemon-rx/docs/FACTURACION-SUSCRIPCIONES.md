@@ -143,3 +143,10 @@ Estado: **EN DESARROLLO — MIGRACIÓN BASE APLICADA EN SUPABASE; UI Y CONTROL D
 - Revisadas RPC con SECURITY DEFINER: `social_reaction_actor_names` puede devolver nombres de usuarios que reaccionaron a publicaciones ocultas si se suministran sus UUID; la salida no incluye posts, pero requiere decidir si restringirla. `share_rm_achievements` permite compartir RM del propio usuario, lo que podría crear actividad nueva durante congelación; no debe confundirse congelación de lectura con bloqueo de publicación.
 - Verificado de nuevo: `enabled=false`, `cutoff_date=null`. Sin restricciones activas.
 - Pendiente: prueba con navegador real y comprobación de publicación de nuevo RM, comportamiento de Home con comentarios posteriores al vencimiento y build del frontend.
+
+## Hallazgo crítico de despliegue — 10-11-2026
+- Vercel proyecto `lemon-rx` (ID `prj_GN1NzVeXFmr9fXdySTVR0n0nhGpd`) despliega desde `Josanandrade/Lemon-RX`, rama `main` (último despliegue READY `a3fbd3316c705f990d1303e775f5a765643cf500`).
+- Los cambios de facturación del frontend se estaban desarrollando en `Josanandrade/webs-negocios`, rama `feat/lemon-rx-billing-subscriptions`, ruta `demos/lemon-rx`; **no están desplegados en la aplicación real**.
+- Se ha verificado que `Josanandrade/Lemon-RX/src/app/(app)/home/page.tsx` y `src/lib/auth.ts` existen y son el frontend activo.
+- No copiar archivos a ciegas ni sobrescribir fixes recientes. Preparar rama nueva en `Josanandrade/Lemon-RX`, trasladar cambios con comparación de diffs y QA antes de merge a main.
+- Supabase de producción sí tiene las políticas RLS piloto instaladas pero Aida permanece `enabled=false`.
