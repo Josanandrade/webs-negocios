@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { requireAdmin } from "@/lib/auth";
 import { listProfiles } from "@/lib/users";
 import { InviteForm } from "./invite-form";
@@ -13,6 +14,7 @@ export default async function UsersPage({ searchParams }: PageProps<"/admin/usua
   return (
     <main className="mx-auto max-w-4xl px-4 pb-16 pt-6 md:px-6 md:pt-10">
       <h1 className="font-display text-[40px] font-extrabold uppercase leading-none md:text-[48px]">Usuarios</h1>
+      <Link href="/admin/facturacion" className="btn-secondary mt-5 inline-flex">Facturación y cortesías →</Link>
       <InviteForm />
       <UsersManager
         profiles={profiles}
