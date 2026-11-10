@@ -1,6 +1,6 @@
 # Lemon RX — Facturación y suscripciones (diseño de implementación)
 
-Estado: **EN DESARROLLO — NO DESPLEGADO**. Decisión funcional confirmada el 10-11-2026.
+Estado: **EN DESARROLLO — MIGRACIÓN BASE APLICADA EN SUPABASE; UI Y CONTROL DE ACCESO NO DESPLEGADOS**. Decisión funcional confirmada el 10-11-2026.
 
 ## Regla validada
 - Una suscripción caducada NO desactiva la cuenta ni la sesión.
@@ -58,3 +58,11 @@ Estado: **EN DESARROLLO — NO DESPLEGADO**. Decisión funcional confirmada el 1
 8. Validación del usuario en preview; después despliegue productivo con verificación de alias estable.
 
 **Importante:** Este documento es especificación de desarrollo; no implica que migración, interfaz, cron o permisos estén desplegados.
+
+## Avance 10-11-2026
+- Migración `lemon_rx_billing_periods_foundation` aplicada al proyecto Supabase Lemon RX (`ugkkiihuyuaatulykkba`).
+- Creadas `athlete_subscription_periods` y `subscription_reminder_deliveries`, con RLS, políticas y restricciones.
+- Verificada existencia de ambas tablas y que no hay periodos introducidos.
+- Sin cambio de `has_program_access`, `can_view_week`, `payment_status` ni `access_status`; por tanto no se activa bloqueo nuevo.
+- El advisor de seguridad sigue señalando avisos de funciones SECURITY DEFINER preexistentes que requieren revisión separada, sin atribuirlos a las tablas nuevas.
+- Pendiente: frontend, acciones admin, validación de migración de usuarios, avisos Resend y protección completa de acceso.
