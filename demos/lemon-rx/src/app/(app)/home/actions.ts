@@ -3,7 +3,6 @@
 import { revalidatePath } from "next/cache";
 import { after } from "next/server";
 import { getViewer } from "@/lib/auth";
-import { getSubscriptionAccess, SUBSCRIPTION_ENFORCEMENT_ENABLED } from "@/lib/subscription-access";
 import { notifyUser } from "@/lib/push";
 import { createClient } from "@/lib/supabase/server";
 
@@ -26,10 +25,6 @@ type LazyComment = {
 async function socialViewer() {
   const viewer = await getViewer();
   if (!viewer.canViewProgram) return null;
-  if (SUBSCRIPTION_ENFORCEMENT_ENABLED && !viewer.isAdmin) {
-    const subscription = await getSubscriptionAccess(viewer.profile.id, false);
-    if (!subscription.homeAllowed) return null;
-  }
   return viewer;
 }
 
