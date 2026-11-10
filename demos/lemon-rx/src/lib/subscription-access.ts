@@ -33,7 +33,7 @@ export async function getSubscriptionAccess(userId: string, isAdmin: boolean, to
     activeToday, homeAllowed, expiry: periods[0]?.ends_on ?? null,
     canViewWeek: (weekStart: string) => periods.some(p => {
       const monday = mondayOf(p.ends_on);
-      return weekStart <= monday && weekStart <= p.ends_on && weekStart + "" !== "" &&
+      return weekStart <= monday && weekStart <= p.ends_on &&
         // Week ending Sunday must intersect the subscription's start.
         Date.parse(weekStart + "T00:00:00Z") + 6 * 86400000 >= Date.parse(p.starts_on + "T00:00:00Z");
     }),
