@@ -116,3 +116,10 @@ Estado: **EN DESARROLLO — MIGRACIÓN BASE APLICADA EN SUPABASE; UI Y CONTROL D
 - SQL de migración **borrador sin ejecutar**: `docs/sql/home-freeze-rls-DRAFT.sql`. Contempla interruptor en esquema privado, validación por `auth.uid()` y políticas de lectura para posts, bloques, logros, comentarios y reacciones.
 - No se ha aplicado al proyecto Supabase: requiere pruebas de seguridad con JWT de atleta, casos de renovación/cortesía, revisión de funciones RPC y compatibilidad con `has_program_access()`.
 - Las políticas actuales siguen intactas y los 11 atletas conservan el acceso actual. La rama tampoco está desplegada.
+
+## Piloto de producción — cuenta Aida, confirmado 10-11-2026
+- Usuario confirmó que el perfil `Aida` corresponde a Aida García. Identificador interno `d098c653-8c0c-45c6-a8a9-ef7ed33a9ad7`.
+- Aplicada migración `lemon_rx_aida_home_freeze_pilot_disabled` que crea tabla privada `lemon_rx_internal.home_freeze_pilot`, fila de Aida con `enabled=false`, `cutoff_date=null` y función `public.home_freeze_pilot_can_see(timestamptz)` con identidad desde `auth.uid()`.
+- Verificado por SQL: fila desactivada y esquema privado sin USAGE para authenticated. Sin periodos registrados, sin cambios en pagos o datos deportivos.
+- **IMPORTANTE**: todavía NO hay políticas RLS conectadas a esta función ni se ha habilitado el piloto; no se debe anunciar como prueba funcional de congelación completada.
+- Próximo paso: conectar RLS de forma que afecte solo al piloto, verificar con sesión real de Aida y rollback. Mantener producción sin cambios visibles hasta entonces.
