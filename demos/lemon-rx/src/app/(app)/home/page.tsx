@@ -36,6 +36,14 @@ type CommentPreviewRpcRow = {
   reactions: CommentReactionRow[] | null;
 };
 
+function madridMidnightUtc(iso: string): string {
+  const noon = new Date(iso + "T12:00:00Z");
+  const tz = new Intl.DateTimeFormat("en-US", { timeZone: "Europe/Madrid", timeZoneName: "shortOffset" })
+    .formatToParts(noon).find(p => p.type === "timeZoneName")?.value ?? "GMT+1";
+  const hours = Number(tz.replace("GMT", "")) || 0;
+  return new Date(Date.parse(iso + "T00:00:00Z") - hours * 3600000).toISOString();
+}
+
 export default async function HomePage({ searchParams }: PageProps<"/home">) {
   const sp = await searchParams;
   const rawPage = Array.isArray(sp.pagina) ? sp.pagina[0] : sp.pagina;
@@ -49,17 +57,19 @@ export default async function HomePage({ searchParams }: PageProps<"/home">) {
   const viewer = await getViewer();
   if (!viewer.canViewProgram) return <NoAccess name={viewer.profile.full_name.split(" ")[0]} pending={viewer.profile.access_status === "pending"} />;
 
-  if (SUBSCRIPTION_ENFORCEMENT_ENABLED && !viewer.isAdmin) {
-    const subscription = await getSubscriptionAccess(viewer.profile.id, false);
-    if (!subscription.homeAllowed) return <NoAccess name={viewer.profile.full_name.split(" ")[0]} pending={false} />;
-  }
+  const subscription = SUBSCRIPTION_ENFORCEMENT_ENABLED && !viewer.isAdmin
+    ? await getSubscriptionAccess(viewer.profile.id, false) : null;
+  const freezeDate = subscription?.homeFreezeDate ?? null;
 
   const supabase = await createClient();
   const baseQuery = supabase.from("workout_posts")
     .select(`id, user_id, training_date, athlete_name, athlete_avatar_url, first_completed_at, updated_at, workout_post_blocks(post_id, block_id, block_title, block_score_type, block_position, completed_at, note, result), workout_post_achievements(id, movement_name, rm_number, kg, previous_kg, achieved_at), workout_post_reactions(user_id, emoji)`);
+  // La Home permanece accesible: solo se congelan las publicaciones posteriores al vencimiento.
+  // training_date no sirve: un entrenamiento antiguo puede publicarse después.
+  const filteredQuery = freezeDate ? baseQuery.lt("first_completed_at", madridMidnightUtc(freezeDate)) : baseQuery;
   const postQuery = targetPostId
-    ? baseQuery.eq("id", targetPostId).limit(1)
-    : baseQuery.order("updated_at", { ascending: false }).order("id", { ascending: false }).range(offset, offset + PAGE_SIZE);
+    ? filteredQuery.eq("id", targetPostId).limit(1)
+    : filteredQuery.order("first_completed_at", { ascending: false }).order("id", { ascending: false }).range(offset, offset + PAGE_SIZE);
   const { data, error } = await postQuery.returns<SocialPostRow[]>();
   const rows = data ?? [];
   const hasOlder = targetPostId ? false : rows.length > PAGE_SIZE;
