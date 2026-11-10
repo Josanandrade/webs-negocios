@@ -103,3 +103,11 @@ Estado: **EN DESARROLLO — MIGRACIÓN BASE APLICADA EN SUPABASE; UI Y CONTROL D
 - Código corregido en `src/app/(app)/home/page.tsx`, `home/actions.ts`, `src/lib/subscription-access.ts`; detrás de feature flag apagada.
 - **Pendiente de seguridad antes de activar**: proteger las consultas directas de Supabase, RPC de comentarios y el acceso a posts por ID; comprobar si ediciones y comentarios nuevos de publicaciones antiguas deben congelarse también. La lógica actual filtra posts, pero no congela sus comentarios ni reacciones.
 - La función preview-only `subscription_home_entitlement` en Supabase sigue siendo experimental y **no representa el acceso a la página Home**; no conectarla como guardia de ruta.
+
+## Auditoría de seguridad Home 10-11-2026
+- Inspeccionadas políticas RLS de `workout_posts`, `workout_post_comments`, `workout_post_reactions`, `workout_comment_reactions` y RPC `home_comment_previews` y `social_reaction_actor_names`.
+- Las políticas actuales usan `has_program_access()` y **no** filtran por fecha de publicación. Por tanto **todavía es posible acceder a publicaciones nuevas directamente por Data API si solo se activa el filtro de la página**.
+- Creada función interna preview-only `subscription_home_cutoff_preview(uuid,date)` para obtener fecha de congelación; ejecución revocada a `authenticated`, confirmada con consulta. No cambia políticas RLS.
+- Se verificaron 11 atletas paid y 0 periodos nuevos; **no activar el feature flag** hasta establecer migración real y políticas de acceso coherentes.
+- Corregido cálculo del cutoff para ignorar renovaciones que empiezan en el futuro.
+- Pendiente: diseñar migración RLS transaccional con interruptor de base de datos, cobertura de tablas hijas y RPC; pruebas en entorno aislado, compilación y QA antes de despliegue.
