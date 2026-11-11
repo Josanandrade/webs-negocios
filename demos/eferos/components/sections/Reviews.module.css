@@ -1,0 +1,162 @@
+.section {
+  border-top: 1px solid var(--line);
+}
+
+/* Sin reseñas cargadas: una franja breve con el enlace a Google Maps */
+.compact {
+  padding-block: clamp(3rem, 2rem + 3vw, 5rem);
+}
+
+.summary {
+  grid-column: 1 / span 4;
+  display: grid;
+  gap: 1.1rem;
+  align-content: start;
+}
+
+.compact .summary {
+  grid-column: 1 / span 8;
+}
+
+.title {
+  font-size: var(--step-4);
+  font-stretch: 72%;
+}
+
+.score {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin-top: 0.5rem;
+}
+
+.scoreValue {
+  font-size: clamp(3.5rem, 2rem + 5vw, 6rem);
+  font-weight: 600;
+  font-stretch: 64%;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+}
+
+.scoreMeta {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.fallbackText {
+  max-width: 32rem;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.75rem;
+  margin-top: 0.5rem;
+}
+
+.stars {
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.starsOff {
+  color: var(--chalk-3);
+}
+
+.body {
+  grid-column: 6 / span 7;
+  display: grid;
+  gap: 1.5rem;
+  align-content: start;
+}
+
+.list {
+  border-top: 1px solid var(--ink);
+}
+
+.review {
+  display: grid;
+  gap: 0.9rem;
+  padding-block: 1.5rem;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.reviewStars {
+  font-size: 0.9rem;
+}
+
+.quote p {
+  font-size: var(--step-1);
+  line-height: 1.45;
+  max-width: 40em;
+  /* Textos largos: se recortan y se leen completos en Google Maps */
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: pre-line;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  font-size: 0.92rem;
+}
+
+.avatar {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--chalk-2);
+}
+
+.author {
+  font-weight: 500;
+}
+
+.time {
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.actions {
+  display: flex;
+  gap: 1.25rem;
+  margin-left: auto;
+  color: var(--ink-soft);
+}
+
+.attribution {
+  font-size: 0.72rem;
+}
+
+/* Atribución textual de Google Maps */
+.googleMaps {
+  font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 900px) {
+  .summary,
+  .compact .summary,
+  .body {
+    grid-column: 1 / -1;
+  }
+
+  .body {
+    margin-top: 2.5rem;
+  }
+
+  .actions {
+    margin-left: 0;
+    width: 100%;
+  }
+}

@@ -1,0 +1,139 @@
+.root {
+  display: grid;
+  gap: 1.25rem;
+}
+
+/* Contenedor con scroll horizontal real */
+.strip {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.strip::-webkit-scrollbar {
+  display: none;
+}
+
+.strip:focus-visible {
+  outline-offset: -2px;
+}
+
+/* Táctil: imán por foto, como un gesto nativo */
+@media (hover: none), (pointer: coarse) {
+  .strip {
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+  }
+
+  .shot {
+    scroll-snap-align: start;
+  }
+}
+
+/* Ratón: se puede arrastrar */
+@media (hover: hover) and (pointer: fine) {
+  .strip {
+    cursor: grab;
+  }
+
+  .strip[data-dragging] {
+    cursor: grabbing;
+    user-select: none;
+  }
+}
+
+/* `.strip .track` gana a la regla global ul[role="list"] { padding: 0 } */
+.strip .track {
+  display: flex;
+  gap: clamp(0.75rem, 0.4rem + 1.2vw, 1.5rem);
+  width: max-content;
+  padding-inline: var(--gutter);
+}
+
+/* Alto común para toda la fila; el ancho sale de la proporción de cada foto (--r) */
+.shot {
+  /* Máximo 25rem (400 px): las fotos más pequeñas miden 800 px de ancho y no se amplían */
+  --shot-h: clamp(14rem, 8rem + 20vw, 25rem);
+  flex: none;
+  width: calc(var(--shot-h) * var(--r));
+  max-width: 85vw;
+}
+
+.shot figure {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.shot img {
+  -webkit-user-drag: none;
+}
+
+/* Progreso + flechas */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.progress {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.bar {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.arrow {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: transparent;
+  font-size: 1.1rem;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--dur-hover) ease,
+    color var(--dur-hover) ease,
+    border-color var(--dur-hover) ease,
+    transform var(--dur-press) var(--ease-out);
+}
+
+.arrow:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .arrow:hover:not(:disabled) {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--chalk);
+  }
+}
+
+/* En táctil se navega con el dedo: las flechas sobran */
+@media (hover: none), (pointer: coarse) {
+  .buttons {
+    display: none;
+  }
+}

@@ -1,0 +1,43 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.table th,
+.table td {
+  padding-block: 0.7rem;
+  border-bottom: 1px solid var(--line-pine);
+  text-align: left;
+  font-weight: 400;
+  vertical-align: baseline;
+}
+
+.table td {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+
+.table tr[data-today] th,
+.table tr[data-today] td {
+  color: var(--on-pine);
+  font-weight: 500;
+}
+
+.table tr:not([data-today]) {
+  color: var(--on-pine-soft);
+}
+
+.today {
+  margin-left: 0.6rem;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--accent-light);
+  color: var(--accent-light);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  vertical-align: 0.15em;
+}

@@ -1,0 +1,177 @@
+.section {
+  padding-top: clamp(2rem, 1rem + 3vw, 4rem);
+}
+
+.head {
+  align-items: end;
+  row-gap: 1.25rem;
+  margin-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+}
+
+.title {
+  grid-column: 1 / span 7;
+  font-size: clamp(3.4rem, 1.5rem + 8.6vw, 10.5rem);
+  font-weight: 600;
+  font-stretch: 64%;
+  line-height: 0.82;
+  letter-spacing: -0.045em;
+  /* La palabra sobresale ligeramente a la izquierda: corrige el lado de la T */
+  margin-left: -0.04em;
+}
+
+.intro {
+  grid-column: 9 / span 4;
+  max-width: 26rem;
+  padding-bottom: 0.4rem;
+}
+
+.list {
+  border-top: 1px solid var(--ink);
+}
+
+.list li {
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  align-items: baseline;
+  padding-block: clamp(1.25rem, 0.9rem + 1.2vw, 2rem);
+  text-decoration: none;
+  isolation: isolate;
+  transition: color 280ms ease;
+}
+
+/* Fondo que sube desde la línea inferior en hover */
+.row::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc(var(--gutter) * -1);
+  z-index: -1;
+  background: var(--ink);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 280ms var(--ease-out);
+}
+
+/* Foco de teclado y pulsación táctil: mismo estado que el hover */
+.row:focus-visible,
+.row:active {
+  color: var(--chalk);
+}
+
+.row:focus-visible::before,
+.row:active::before {
+  transform: scaleY(1);
+}
+
+/* El foco se dibuja en el fondo a sangre: contrasta sobre la tinta y no toca el texto */
+.row:focus-visible {
+  outline: none;
+}
+
+.row:focus-visible::before {
+  outline: 2px solid var(--accent-light);
+  outline-offset: -5px;
+}
+
+.kind {
+  grid-column: 1 / span 2;
+  transition: color 280ms ease;
+}
+
+.row:focus-visible .kind,
+.row:active .kind {
+  color: var(--accent-light);
+}
+
+.name {
+  grid-column: 3 / span 5;
+  font-size: var(--step-3);
+  font-weight: 540;
+  font-stretch: 76%;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  transition: transform 280ms var(--ease-out);
+}
+
+.fullName {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: var(--step--1);
+  font-family: var(--font-mono);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  opacity: 0.7;
+}
+
+.summary {
+  grid-column: 8 / span 4;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  opacity: 0.8;
+  max-width: 30em;
+}
+
+.arrow {
+  grid-column: 12;
+  justify-self: end;
+  font-size: var(--step-2);
+  line-height: 1;
+  transition: transform 280ms var(--ease-out);
+}
+
+.row:focus-visible .arrow {
+  transform: translateX(0.3rem) rotate(-45deg);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .row:hover {
+    color: var(--chalk);
+  }
+
+  .row:hover::before {
+    transform: scaleY(1);
+  }
+
+  .row:hover .kind {
+    color: var(--accent-light);
+  }
+
+  .row:hover .name {
+    transform: translateX(0.35rem);
+  }
+
+  .row:hover .arrow {
+    transform: translateX(0.3rem) rotate(-45deg);
+  }
+}
+
+@media (max-width: 900px) {
+  .title,
+  .intro {
+    grid-column: 1 / -1;
+  }
+
+  .kind {
+    grid-column: 1 / span 11;
+    margin-bottom: 0.6rem;
+  }
+
+  .name {
+    grid-column: 1 / span 11;
+  }
+
+  .arrow {
+    grid-column: 12;
+    grid-row: 2;
+  }
+
+  .summary {
+    grid-column: 1 / span 11;
+    margin-top: 0.6rem;
+  }
+}
