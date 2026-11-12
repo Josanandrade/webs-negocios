@@ -241,3 +241,17 @@ Ningún dato de esta lista se ha inventado: o falta, o hay que confirmarlo. Los 
   - Hay que obtener el listado completo de URLs antiguas. `/especialidades/epi` y `/especialidades/terapia-manual` ya se conservan.
 - **Ficha de Google Business:** mantener dirección, teléfono y horario idénticos a la web.
 - **Prueba en dispositivos reales** (iPhone y Android): menú, toques en filas, scroll de «El centro» y enlaces a WhatsApp y teléfono.
+
+
+## Protección del destino de reservas en preview (QA, sin desplegar)
+
+La web de Eferos hace de proxy de reservas: el navegador llama a `/api/reservas` y el servidor reenvía a `AVANTTAI_BOOKING_API_URL`. En el entorno Railway cuyo `RAILWAY_ENVIRONMENT_NAME=preview`, el proxy **debe fallar cerrado (503)** si no existe `AVANTTAI_BOOKING_PREVIEW_APPROVED_TEST_ORIGIN` o si no coincide exactamente con el origen HTTPS de la URL de reservas. Además se rechazan el dominio productivo `avanttai.com` y los dominios Railway productivos comprobados a 12/11/2026. No se muestran variables al navegador ni se cambian los ajustes del despliegue actual.
+
+**Este control no demuestra que una URL sea realmente TEST.** Antes de establecer la variable hay que demostrar que la API usa Core/Auth, Vault, runtime y Stripe TEST, sin dependencia de producción; no se ha identificado todavía esa API aislada. No configurar una URL de producción ni poner a Cristina a reservar con datos reales para probar el circuito.
+
+Pruebas aisladas con Node 22.16 o posterior, sin servidor ni peticiones HTTP reales:
+```sh
+cd demos/eferos
+node --experimental-strip-types --test tests/booking-upstream-safety.test.mjs
+```
+Se probaron 18 escenarios y pasaron en QA local. Sigue pendiente integrar la preview con backend TEST real, ejecutar E2E, validar Core/Auth/Health/Stripe, CI y la formalización RGPD antes de la salida comercial.
