@@ -27,6 +27,8 @@ type ProxyResult = {
   status: number;
 };
 
+import { resolveBookingApiBase } from "./upstream-safety";
+
 const noStore = { "Cache-Control": "no-store" };
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
 const TIME = /^\d{2}:\d{2}$/;
@@ -58,10 +60,11 @@ export function createBookingProxy(options: ProxyOptions = {}) {
   let setupInFlight: Promise<ProxyResult> | null = null;
   const setupTtlMs = 60_000;
 
-  const apiBase = (): string | null => {
-    const base = (options.apiUrl ?? process.env.AVANTTAI_BOOKING_API_URL ?? "").trim().replace(/\/+$/, "");
-    return /^https?:\/\//.test(base) ? base : null;
-  };
+  const apiBase = (): string | null => resolveBookingApiBase({
+    configuredUrl: options.apiUrl ?? process.env.AVANTTAI_BOOKING_API_URL,
+    railwayEnvironment: process.env.RAILWAY_ENVIRONMENT_NAME,
+    approvedTestOrigin: process.env.AVANTTAI_BOOKING_PREVIEW_APPROVED_TEST_ORIGIN,
+  });
 
   const target = (): string | null => {
     const base = apiBase();
