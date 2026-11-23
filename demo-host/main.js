@@ -118,6 +118,14 @@ if (reduce || !('IntersectionObserver' in window)) {
   sections.forEach((el) => so.observe(el));
 }
 
+/* Cabecera oscura sobre la portada, clara en el resto de la página. */
+const nav = document.querySelector('[data-nav]');
+const heroSection = document.querySelector('[data-hero-section]');
+if (nav && heroSection && 'IntersectionObserver' in window) {
+  nav.classList.add('is-night');
+  new IntersectionObserver(([e]) => nav.classList.toggle('is-night', e.isIntersecting), { rootMargin: '-72px 0px 0px 0px', threshold: 0 }).observe(heroSection);
+}
+
 /* Barra fija de WhatsApp en móvil: aparece tras la portada y se oculta en el cierre. */
 const dock = document.querySelector('[data-dock]');
 const finalSection = document.getElementById('consulta');

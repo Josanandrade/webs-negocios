@@ -12,21 +12,21 @@
   <meta property="og:title" content="Margot Ibáñez | Micropigmentación facial">
   <meta property="og:description" content="Belleza que realza, sin transformar. Cejas, labios y ojos diseñados para tu rostro.">
   <meta property="og:image" content="assets/img/margot-retrato-960.webp">
-  <meta name="theme-color" content="#F6F1E9">
+  <meta name="theme-color" content="#121010">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Geist:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="assets/img/margot-retrato-960.webp" type="image/webp">
+  <link rel="preload" href="assets/fonts/gilda-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/jost-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
   <a class="skip" href="#contenido">Saltar al contenido</a>
 
-  <header class="nav" id="inicio">
+  <header class="nav" id="inicio" data-nav>
     <div class="container nav__bar">
-      <a class="nav__brand" href="#inicio">Margot Ibáñez</a>
+      <a class="nav__brand" href="#inicio" aria-label="Margot Ibáñez, inicio">
+        <span class="nav__sign">Margot Ibáñez</span>
+      </a>
       <nav class="nav__menu" id="menu" aria-label="Principal">
         <a href="#tratamientos">Tratamientos</a>
         <a href="#margot">Sobre Margot</a>
@@ -39,53 +39,87 @@
   </header>
 
   <main id="contenido">
-    <section class="hero" aria-labelledby="hero-title">
+    <!-- PORTADA -->
+    <section class="hero" aria-labelledby="hero-title" data-hero-section>
       <div class="container hero__grid">
         <div class="hero__text">
-          <div class="mapped" data-hero style="--h:0">
-            <h1 id="hero-title">Belleza que realza, sin transformar.</h1>
-            <div class="brow" aria-hidden="true">
-              <svg viewBox="0 0 100 28" preserveAspectRatio="none" focusable="false">
-                <path class="brow__arch" pathLength="1" d="M1 22 C 18 12, 40 4, 62 4 C 76 4, 90 10, 99 18"/>
-                <path class="brow__tick" d="M1 16 V28 M62 0 V28 M99 12 V28"/>
-              </svg>
-              <span class="brow__label brow__label--a">inicio</span>
-              <span class="brow__label brow__label--b">arco</span>
-              <span class="brow__label brow__label--c">final</span>
-            </div>
-          </div>
-          <p class="lead hero__lead" data-hero style="--h:2">Micropigmentación de cejas, labios y ojos, diseñada para tu rostro.</p>
+          <h1 id="hero-title" data-hero style="--h:1">Belleza que realza, sin transformar.</h1>
+          <p class="hero__lead" data-hero style="--h:2">Micropigmentación de cejas, labios y ojos, diseñada para tu rostro.</p>
           <div class="hero__actions" data-hero style="--h:3">
-            <a class="btn" href="#consulta" data-wa="">Consultar por WhatsApp</a>
-            <a class="btn btn--quiet" href="#tratamientos">Ver tratamientos</a>
+            <a class="btn btn--pink" href="#consulta" data-wa="">Consultar por WhatsApp</a>
+            <a class="btn btn--ghost" href="#tratamientos">Ver tratamientos</a>
           </div>
         </div>
-        <figure class="hero__photo photo" data-hero style="--h:1">
-          <img src="assets/img/margot-retrato-960.webp" srcset="assets/img/margot-retrato-560.webp 560w, assets/img/margot-retrato-960.webp 960w" sizes="(min-width: 60rem) 36vw, 92vw" width="960" height="1440" alt="Retrato de Margot Ibáñez en blanco y negro" fetchpriority="high">
+
+        <figure class="hero__portrait" data-hero style="--h:1">
+          <img src="assets/img/margot-mapeo-720.webp" srcset="assets/img/margot-mapeo-480.webp 480w, assets/img/margot-mapeo-720.webp 720w" sizes="(min-width: 60rem) 32vw, 92vw" width="720" height="1080" alt="Retrato de Margot Ibáñez en blanco y negro, con las líneas de un diseño de cejas" fetchpriority="high">
+          <svg class="mapping" viewBox="0 0 720 1080" aria-hidden="true" focusable="false">
+            <g class="mapping__lines">
+              <path class="m-line m-line--1" pathLength="1" d="M 319 325 L 334 106"/>
+              <path class="m-line m-line--2" pathLength="1" d="M 319 325 L 283 106"/>
+              <path class="m-line m-line--3" pathLength="1" d="M 319 325 L 214 110"/>
+              <path class="m-line m-line--brow" pathLength="1" d="M 234 189 C 270 182 310 184 342 195 L 458 228"/>
+              <path class="m-line m-line--axis" pathLength="1" d="M 363 138 L 344 520"/>
+              <path class="m-line m-line--lips" pathLength="1" d="M 268 372 C 300 370 350 380 398 396"/>
+            </g>
+            <g class="mapping__points">
+              <circle cx="319" cy="325" r="3.5"/>
+              <circle cx="329" cy="201" r="3"/>
+              <circle cx="295" cy="191" r="3"/>
+              <circle cx="261" cy="202" r="3"/>
+            </g>
+            <g class="mapping__labels">
+              <text x="342" y="96">inicio</text>
+              <text x="276" y="96" text-anchor="middle">arco</text>
+              <text x="208" y="98" text-anchor="end">final</text>
+            </g>
+          </svg>
+          <figcaption class="hero__caption">Primero, estudiar tus facciones. Después, diseñar.</figcaption>
         </figure>
       </div>
     </section>
 
-    <section data-section class="section tratamientos" id="tratamientos" aria-labelledby="trat-title">
+    <!-- FILOSOFÍA -->
+    <section class="band statement" aria-labelledby="statement-title" data-section>
+      <svg class="measure" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path class="measure__arc" pathLength="1" d="M-10 104 C 300 70, 700 18, 1000 22 C 1180 24, 1320 52, 1450 88"/>
+        <path class="measure__ticks" d="M120 0 V120 M1000 0 V120 M1360 0 V120"/>
+      </svg>
+      <div class="container statement__grid">
+        <h2 id="statement-title" class="statement__quote" data-reveal>No existen dos rostros iguales, ni dos mujeres que busquen exactamente lo mismo.</h2>
+        <p class="statement__text" data-reveal>Por eso, cada tratamiento comienza escuchándote. Mi objetivo es comprender lo que necesitas, estudiar tus facciones y diseñar un resultado que encaje contigo, con tu estilo y tu esencia.</p>
+      </div>
+    </section>
+
+    <!-- TRATAMIENTOS -->
+    <section class="section tratamientos" id="tratamientos" aria-labelledby="trat-title" data-section>
       <div class="container">
         <div class="section__head" data-reveal>
           <h2 id="trat-title">Tratamientos</h2>
-          <p class="lead">Cada rostro es único. Por eso cada tratamiento empieza con una valoración y un diseño hecho para ti.</p>
+          <p>Diez tratamientos en tres especialidades. Todos empiezan igual: con una valoración y un diseño hecho para ti.</p>
         </div>
 
         <div class="switch" data-switch>
-          <div class="tabs" role="tablist" aria-label="Tipo de tratamiento" data-reveal>
-            <button class="tab" type="button" role="tab" id="tab-micro" aria-controls="panel-micro" aria-selected="true">Micropigmentación</button>
-            <button class="tab" type="button" role="tab" id="tab-laser" aria-controls="panel-laser" aria-selected="false" tabindex="-1">Eliminación láser</button>
-            <button class="tab" type="button" role="tab" id="tab-piel" aria-controls="panel-piel" aria-selected="false" tabindex="-1">Piel y rostro</button>
+          <div class="tabs" role="tablist" aria-label="Especialidad" data-reveal>
+            <button class="tab" type="button" role="tab" id="tab-micro" aria-controls="panel-micro" aria-selected="true"><span class="tab__n">I</span>Micropigmentación</button>
+            <button class="tab" type="button" role="tab" id="tab-laser" aria-controls="panel-laser" aria-selected="false" tabindex="-1"><span class="tab__n">II</span>Eliminación láser</button>
+            <button class="tab" type="button" role="tab" id="tab-piel" aria-controls="panel-piel" aria-selected="false" tabindex="-1"><span class="tab__n">III</span>Piel y rostro</button>
           </div>
 
-          <!-- MICROPIGMENTACIÓN -->
+          <!-- I · MICROPIGMENTACIÓN -->
           <div class="panel" role="tabpanel" id="panel-micro" aria-labelledby="tab-micro" tabindex="0">
-            <h3 class="panel__title visually-hidden">Micropigmentación</h3>
+            <h3 class="panel__title">Micropigmentación</h3>
 
             <article class="treat" data-reveal>
-              <div class="treat__name"><span class="treat__n" aria-hidden="true">01</span><h4>Cejas</h4></div>
+              <header class="treat__head">
+                <span class="treat__n">01</span>
+                <h4>Cejas</h4>
+                <svg class="glyph" viewBox="0 0 200 110" aria-hidden="true" focusable="false">
+                  <path class="g-guide" pathLength="1" d="M22 104 V20 M128 104 V12 M184 104 V36"/>
+                  <path class="g-draw" pathLength="1" d="M22 80 C 52 62, 96 40, 128 38 C 150 37, 170 46, 184 60 C 170 56, 152 52, 128 54 C 98 57, 58 72, 26 88 Z"/>
+                  <path class="g-hair" pathLength="1" d="M34 80 l8 -10 M48 74 l9 -11 M62 68 l9 -12 M76 62 l10 -12 M90 57 l10 -12 M104 53 l10 -11 M118 50 l10 -10 M132 48 l9 -8 M146 48 l8 -6 M160 51 l7 -5"/>
+                </svg>
+              </header>
               <div class="treat__body">
                 <p class="treat__lead">Define, corrige y armoniza la forma de tus cejas, con más densidad y simetría, siempre adaptadas a las facciones de tu rostro.</p>
                 <ul class="points">
@@ -93,12 +127,19 @@
                   <li>Corrige pequeñas imperfecciones sin perder tu esencia.</li>
                   <li>Menos tiempo de maquillaje y una mirada más expresiva desde que te levantas.</li>
                 </ul>
-                <a class="wa-link" href="#consulta" data-wa="la micropigmentación de cejas">Consultar sobre cejas</a>
               </div>
             </article>
 
             <article class="treat" data-reveal>
-              <div class="treat__name"><span class="treat__n" aria-hidden="true">02</span><h4>Labios</h4></div>
+              <header class="treat__head">
+                <span class="treat__n">02</span>
+                <h4>Labios</h4>
+                <svg class="glyph" viewBox="0 0 200 110" aria-hidden="true" focusable="false">
+                  <path class="g-guide" pathLength="1" d="M100 6 V106 M14 58 H186"/>
+                  <path class="g-draw" pathLength="1" d="M20 58 C 44 48, 66 30, 84 36 C 92 39, 96 42, 100 39 C 104 42, 108 39, 116 36 C 134 30, 156 48, 180 58 C 156 66, 130 92, 100 92 C 70 92, 44 66, 20 58 Z"/>
+                  <path class="g-hair" pathLength="1" d="M24 58 C 60 62, 140 62, 176 58"/>
+                </svg>
+              </header>
               <div class="treat__body">
                 <p class="treat__lead">Un toque de color, definición y naturalidad. Unifica el tono, corrige pequeñas asimetrías y redefine el contorno para un aspecto más fresco y armonioso.</p>
                 <ul class="points">
@@ -106,12 +147,19 @@
                   <li>Ideal si practicas deporte, vas a la piscina o quieres comer y dar besos sin preocuparte del maquillaje.</li>
                   <li>Un poco de gloss y los tendrás perfectos todo el día.</li>
                 </ul>
-                <a class="wa-link" href="#consulta" data-wa="la micropigmentación de labios">Consultar sobre labios</a>
               </div>
             </article>
 
             <article class="treat" data-reveal>
-              <div class="treat__name"><span class="treat__n" aria-hidden="true">03</span><h4>Ojos</h4></div>
+              <header class="treat__head">
+                <span class="treat__n">03</span>
+                <h4>Ojos</h4>
+                <svg class="glyph" viewBox="0 0 200 110" aria-hidden="true" focusable="false">
+                  <path class="g-guide" pathLength="1" d="M16 64 L196 22"/>
+                  <path class="g-draw" pathLength="1" d="M20 62 C 50 30, 118 22, 160 48 C 120 82, 56 86, 20 62 Z"/>
+                  <path class="g-hair" pathLength="1" d="M100 40 m -18 0 a 18 18 0 1 0 36 0 a 18 18 0 1 0 -36 0 M24 58 C 60 28, 122 22, 160 46 L 190 28"/>
+                </svg>
+              </header>
               <div class="treat__body">
                 <p class="treat__lead">Una definición personalizada que aporta intensidad, profundidad y armonía a tu mirada. Tú eliges el acabado:</p>
                 <dl class="options">
@@ -122,17 +170,23 @@
                   <summary>Qué notarás</summary>
                   <p>Una mirada visualmente más abierta, pestañas con mayor sensación de densidad y un diseño adaptado a la forma natural de tus ojos. Olvídate de los delineados irregulares, de las manchas y de repetir el mismo trazo cada mañana. Es ideal si haces deporte, vas a la piscina, llevas una rutina activa, usas gafas o lentillas, o simplemente quieres verte arreglada incluso al despertar.</p>
                 </details>
-                <a class="wa-link" href="#consulta" data-wa="la micropigmentación de ojos">Consultar sobre ojos</a>
+                <p class="treat__sign">Tu mirada, tu esencia… siempre perfectas.</p>
               </div>
             </article>
           </div>
 
-          <!-- LÁSER -->
+          <!-- II · LÁSER -->
           <div class="panel" role="tabpanel" id="panel-laser" aria-labelledby="tab-laser" tabindex="0">
-            <h3 class="panel__title visually-hidden">Eliminación láser</h3>
+            <h3 class="panel__title">Eliminación láser</h3>
 
             <article class="treat" data-reveal>
-              <div class="treat__name"><span class="treat__n" aria-hidden="true">04</span><h4>Tatuajes</h4></div>
+              <header class="treat__head">
+                <span class="treat__n">04</span>
+                <h4>Tatuajes</h4>
+                <svg class="glyph glyph--fade" viewBox="0 0 200 110" aria-hidden="true" focusable="false">
+                  <path class="g-draw" d="M40 70 C 40 40, 70 24, 96 34 C 120 44, 112 72, 92 74 C 74 76, 70 56, 86 52 M120 40 C 140 26, 168 34, 170 56 C 172 78, 148 88, 132 76"/>
+                </svg>
+              </header>
               <div class="treat__body">
                 <p class="treat__lead">¿Quieres eliminar un tatuaje por completo o aclararlo? El láser fragmenta el pigmento poco a poco para que tu organismo lo elimine de forma natural.</p>
                 <ul class="points">
@@ -141,12 +195,17 @@
                   <li>Sin tiempo de recuperación, aunque la piel necesita unos cuidados específicos después.</li>
                   <li>Realizado por personal sanitario con protocolos específicos de seguridad.</li>
                 </ul>
-                <a class="wa-link" href="#consulta" data-wa="la eliminación de tatuajes con láser">Consultar sobre tatuajes</a>
               </div>
             </article>
 
-            <article class="treat" data-reveal>
-              <div class="treat__name"><span class="treat__n" aria-hidden="true">05</span><h4>Micropigmentación de cejas</h4></div>
+            <article class="treat treat--fade" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">05</span>
+                <h4>Micropigmentación de cejas</h4>
+                <svg class="glyph glyph--fade" viewBox="0 0 200 110" aria-hidden="true" focusable="false">
+                  <path class="g-draw" d="M22 80 C 52 62, 96 40, 128 38 C 150 37, 170 46, 184 60 C 170 56, 152 52, 128 54 C 98 57, 58 72, 26 88 Z"/>
+                </svg>
+              </header>
               <div class="treat__body">
                 <p class="treat__lead">¿El color ha cambiado, la forma ya no te favorece o simplemente no te sientes tú con ellas? Tiene solución: eliminamos el pigmento poco a poco para recuperar la naturalidad de tus cejas.</p>
                 <ul class="points">
@@ -155,45 +214,64 @@
                   <li>Puedes hacer vida normal; la zona necesita cuidados específicos durante varios días.</li>
                   <li>Puedes maquillarte la ceja al día siguiente, siempre que la piel esté recuperada.</li>
                 </ul>
-                <a class="wa-link" href="#consulta" data-wa="la eliminación de micropigmentación de cejas">Consultar sobre eliminar cejas</a>
               </div>
             </article>
 
-            <article class="treat" data-reveal>
-              <div class="treat__name"><span class="treat__n" aria-hidden="true">06</span><h4>Micropigmentación de labios</h4></div>
+            <article class="treat treat--fade" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">06</span>
+                <h4>Micropigmentación de labios</h4>
+                <svg class="glyph glyph--fade" viewBox="0 0 200 110" aria-hidden="true" focusable="false">
+                  <path class="g-draw" d="M20 58 C 44 48, 66 30, 84 36 C 92 39, 96 42, 100 39 C 104 42, 108 39, 116 36 C 134 30, 156 48, 180 58 C 156 66, 130 92, 100 92 C 70 92, 44 66, 20 58 Z"/>
+                </svg>
+              </header>
               <div class="treat__body">
                 <p class="treat__lead">¿El color ha virado a tonos oscuros, morados o grises, o ya no te ves con él? Con láser eliminamos o aclaramos el pigmento para que tus labios recuperen su naturalidad.</p>
                 <ul class="points">
                   <li>Cada pigmento reacciona de forma diferente, así que primero lo valoramos.</li>
                   <li>Te acompaño durante todo el proceso: qué podemos conseguir, cuántas sesiones podrían hacer falta y qué cuidados seguir.</li>
                 </ul>
-                <a class="wa-link" href="#consulta" data-wa="la eliminación de micropigmentación de labios">Consultar sobre eliminar labios</a>
+                <p class="treat__sign">Porque tus labios son tuyos, y volver a sentirte cómoda con ellos también importa.</p>
               </div>
             </article>
           </div>
 
-          <!-- PIEL -->
+          <!-- III · PIEL -->
           <div class="panel" role="tabpanel" id="panel-piel" aria-labelledby="tab-piel" tabindex="0">
-            <h3 class="panel__title visually-hidden">Piel y rostro</h3>
+            <h3 class="panel__title">Piel y rostro</h3>
 
-            <article class="treat" data-reveal>
-              <div class="treat__name"><span class="treat__n" aria-hidden="true">07</span><h4>Limpieza y tratamiento facial premium</h4></div>
+            <article class="treat treat--wide" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">07</span>
+                <h4>Limpieza y tratamiento facial premium</h4>
+                <svg class="glyph glyph--face" viewBox="0 0 200 220" aria-hidden="true" focusable="false">
+                  <path class="g-guide" pathLength="1" d="M20 92 H180 M20 140 H180 M20 170 H180"/>
+                  <path class="g-draw" pathLength="1" d="M100 16 C 148 16, 170 62, 168 112 C 166 162, 138 204, 100 206 C 62 204, 34 162, 32 112 C 30 62, 52 16, 100 16 Z"/>
+                  <path class="g-hair" pathLength="1" d="M62 118 c 6 -4 12 -4 18 0 M120 118 c 6 -4 12 -4 18 0 M70 70 c 20 -10 40 -10 60 0 M60 150 c 20 8 60 8 80 0"/>
+                </svg>
+              </header>
               <div class="treat__body">
                 <p class="treat__lead">Mucho más que una limpieza: un ritual de renovación, hidratación y cuidado avanzado para devolverle a tu piel su mejor versión.</p>
                 <ol class="ritual">
-                  <li><strong>Limpieza profunda con paleta ultrasónica</strong> para retirar impurezas, células muertas y exceso de grasa.</li>
-                  <li><strong>Dermapen (microneedling)</strong>, que estimula colágeno y elastina, con vitaminas, péptidos y activos elegidos para tu piel.</li>
-                  <li><strong>Mascarilla personalizada</strong> para aportar hidratación, confort y luminosidad.</li>
-                  <li><strong>Alta frecuencia facial o capilar</strong>, según lo que necesite el tratamiento.</li>
-                  <li><strong>Masaje relajante</strong> en rostro, cuello, brazos y manos.</li>
+                  <li><span class="ritual__step">Limpieza profunda con paleta ultrasónica</span><span class="ritual__text">Retira impurezas, células muertas y exceso de grasa, y deja la piel preparada para los activos.</span></li>
+                  <li><span class="ritual__step">Dermapen, microneedling</span><span class="ritual__text">Estimula colágeno y elastina, con vitaminas, péptidos y activos elegidos según tu piel.</span></li>
+                  <li><span class="ritual__step">Mascarilla personalizada</span><span class="ritual__text">La fórmula más adecuada para aportar hidratación, confort y luminosidad.</span></li>
+                  <li><span class="ritual__step">Alta frecuencia facial o capilar</span><span class="ritual__text">El complemento para la piel o el cuero cabelludo, según lo que necesite el tratamiento.</span></li>
+                  <li><span class="ritual__step">Masaje relajante</span><span class="ritual__text">En rostro, cuello, brazos y manos. Cuidarte también es regalarte tiempo para ti.</span></li>
                 </ol>
-                <p class="treat__note">El resultado que buscamos: una piel más luminosa, fresca, suave e hidratada. Porque tu piel no necesita filtros, necesita cuidados de calidad.</p>
-                <a class="wa-link" href="#consulta" data-wa="la limpieza y tratamiento facial premium">Consultar sobre el facial premium</a>
+                <p class="treat__sign">Tu piel no necesita filtros, necesita cuidados de calidad.</p>
               </div>
             </article>
 
             <article class="treat" data-reveal>
-              <div class="treat__name"><span class="treat__n" aria-hidden="true">08</span><h4>Hollywood Peel</h4></div>
+              <header class="treat__head">
+                <span class="treat__n">08</span>
+                <h4>Hollywood Peel</h4>
+                <svg class="glyph glyph--face" viewBox="0 0 200 220" aria-hidden="true" focusable="false">
+                  <path class="g-draw" pathLength="1" d="M100 16 C 148 16, 170 62, 168 112 C 166 162, 138 204, 100 206 C 62 204, 34 162, 32 112 C 30 62, 52 16, 100 16 Z"/>
+                  <path class="g-dots" d="M70 50 h0.1 M85 46 h0.1 M100 44 h0.1 M115 46 h0.1 M130 50 h0.1 M78 62 h0.1 M92 58 h0.1 M108 58 h0.1 M122 62 h0.1 M100 76 h0.1 M100 92 h0.1 M96 108 h0.1 M104 108 h0.1 M100 124 h0.1 M92 138 h0.1 M108 138 h0.1 M64 132 h0.1 M136 132 h0.1 M58 118 h0.1 M142 118 h0.1"/>
+                </svg>
+              </header>
               <div class="treat__body">
                 <p class="treat__lead">Láser de alta precisión con carbón activo: elimina impurezas, reduce poros y aporta un efecto rejuvenecedor inmediato.</p>
                 <ul class="points">
@@ -202,12 +280,18 @@
                   <li>Ideal para pieles grasas o con tendencia acneica.</li>
                   <li>Sin dolor ni tiempo de recuperación.</li>
                 </ul>
-                <a class="wa-link" href="#consulta" data-wa="el Hollywood Peel">Consultar sobre Hollywood Peel</a>
               </div>
             </article>
 
             <article class="treat" data-reveal>
-              <div class="treat__name"><span class="treat__n" aria-hidden="true">09</span><h4>Fibroblast (Plasma Pen)</h4></div>
+              <header class="treat__head">
+                <span class="treat__n">09</span>
+                <h4>Fibroblast, Plasma Pen</h4>
+                <svg class="glyph glyph--face" viewBox="0 0 200 220" aria-hidden="true" focusable="false">
+                  <path class="g-draw" pathLength="1" d="M100 16 C 148 16, 170 62, 168 112 C 166 162, 138 204, 100 206 C 62 204, 34 162, 32 112 C 30 62, 52 16, 100 16 Z"/>
+                  <path class="g-hair" pathLength="1" d="M60 100 c 8 -6 18 -6 26 0 M114 100 c 8 -6 18 -6 26 0 M74 48 h52 M70 58 h60 M58 116 l -8 6 M142 116 l 8 6 M52 140 c 4 6 8 8 12 8 M148 140 c -4 6 -8 8 -12 8 M86 160 l -4 4 M114 160 l 4 4 M60 176 c 20 22 60 22 80 0"/>
+                </svg>
+              </header>
               <div class="treat__body">
                 <p class="treat__lead">¿Te sobra piel en los párpados o notas tu rostro menos firme? Una alternativa no quirúrgica que, con microestímulos térmicos controlados, activa la reparación natural de la piel.</p>
                 <p class="treat__label">Zonas que podemos valorar</p>
@@ -224,12 +308,18 @@
                   <p>El dispositivo genera un pequeño arco de plasma entre su punta y la piel. Ese efecto térmico, muy localizado, provoca una lesión controlada que activa los mecanismos naturales de reparación y retracción de la piel. Buscamos mejorar visualmente la firmeza, suavizar determinadas arrugas, favorecer la remodelación del colágeno, mejorar la textura y conseguir un aspecto más descansado.</p>
                   <p>Cada rostro es único: cada caso requiere una valoración individual para saber si está indicado y qué resultados son realistas.</p>
                 </details>
-                <a class="wa-link" href="#consulta" data-wa="el Fibroblast (Plasma Pen)">Consultar sobre Fibroblast</a>
               </div>
             </article>
 
             <article class="treat" data-reveal>
-              <div class="treat__name"><span class="treat__n" aria-hidden="true">10</span><h4>Depilación con hilo</h4></div>
+              <header class="treat__head">
+                <span class="treat__n">10</span>
+                <h4>Depilación con hilo</h4>
+                <svg class="glyph" viewBox="0 0 200 110" aria-hidden="true" focusable="false">
+                  <path class="g-draw" pathLength="1" d="M22 80 C 52 62, 96 40, 128 38 C 150 37, 170 46, 184 60 C 170 56, 152 52, 128 54 C 98 57, 58 72, 26 88 Z"/>
+                  <path class="g-hair" pathLength="1" d="M10 30 C 60 50, 120 20, 190 96 M10 50 C 70 26, 130 64, 190 16"/>
+                </svg>
+              </header>
               <div class="treat__body">
                 <p class="treat__lead">Una técnica milenaria, natural y muy precisa que elimina el vello desde la raíz, incluso el más fino, con un acabado limpio y delicado.</p>
                 <ul class="points">
@@ -237,49 +327,51 @@
                   <li>Sin ceras ni productos químicos.</li>
                   <li>No mancha la piel al exponerse al sol, como otras técnicas.</li>
                 </ul>
-                <a class="wa-link" href="#consulta" data-wa="la depilación con hilo">Consultar sobre depilación con hilo</a>
               </div>
             </article>
           </div>
         </div>
+        <div class="treat-close" data-reveal>
+          <h3 class="treat-close__title">¿No sabes cuál es el tuyo?</h3>
+          <p>Cuéntame qué te gustaría mejorar y lo valoramos juntas antes de empezar.</p>
+          <a class="btn" href="#consulta" data-wa="qué tratamiento me conviene">Preguntar por WhatsApp</a>
+        </div>
       </div>
     </section>
 
-    <section data-section class="band-cta" aria-labelledby="duda-title">
-      <div class="container band-cta__inner">
-        <h2 id="duda-title" data-reveal>¿No sabes cuál es el tuyo?</h2>
-        <p data-reveal>Cuéntame qué te gustaría mejorar y lo valoramos juntas antes de empezar.</p>
-        <a class="btn" href="#consulta" data-wa="qué tratamiento me conviene" data-reveal>Preguntar por WhatsApp</a>
-      </div>
-    </section>
-
-    <section data-section class="section about" id="margot" aria-labelledby="margot-title">
+    <!-- SOBRE MARGOT -->
+    <section class="section about" id="margot" aria-labelledby="margot-title" data-section>
       <div class="container about__grid">
         <figure class="about__photo photo" data-reveal>
           <img src="assets/img/margot-sonrisa-960.webp" srcset="assets/img/margot-sonrisa-560.webp 560w, assets/img/margot-sonrisa-960.webp 960w" sizes="(min-width: 60rem) 34vw, 92vw" width="960" height="1280" alt="Margot Ibáñez sonriendo, con gafas y americana" loading="lazy">
+          <span class="marks" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
         </figure>
         <div class="about__text">
           <h2 id="margot-title" data-reveal>Soy Margot Ibáñez.</h2>
-          <p class="lead" data-reveal>Reconocida en el mundo de la micropigmentación con premios internacionales y jurado en congresos nacionales de PMU.</p>
+          <ul class="creds" data-reveal>
+            <li>Premios internacionales de micropigmentación</li>
+            <li>Jurado en congresos nacionales de PMU</li>
+          </ul>
           <div class="about__story" data-reveal>
-            <p>Siempre he sentido una conexión especial con la belleza, los detalles y la capacidad que tenemos de resaltar aquello que nos hace únicas. Con el tiempo, esa pasión se convirtió en mi profesión, y la micropigmentación facial en mi forma de entender la belleza: técnica, sensibilidad, precisión y arte.</p>
-            <p>Por eso, cada tratamiento comienza escuchándote. No existen dos rostros iguales, ni dos mujeres que busquen exactamente lo mismo. Mi objetivo es comprender lo que necesitas, estudiar tus facciones y diseñar un resultado que encaje contigo, con tu estilo y tu esencia.</p>
+            <p>Siempre he sentido una conexión especial con la belleza, los detalles y la capacidad que tenemos de resaltar aquello que nos hace únicas. Con el tiempo, esa pasión se convirtió en mi profesión, y la micropigmentación facial en mi forma de entender la belleza: una combinación de técnica, sensibilidad, precisión y arte.</p>
+            <p>Detrás de mi trabajo hay mucho más que pigmentos y técnicas. Hay dedicación, errores, formación continua, ilusión por evolucionar y un compromiso real con cada paciente que confía en mis manos.</p>
           </div>
           <details class="more" data-reveal>
-            <summary>Leer mi historia completa</summary>
-            <p>Detrás de mi trabajo hay mucho más que pigmentos y técnicas. Hay dedicación, errores, formación continua, ilusión por evolucionar y un compromiso real con cada paciente que confía en mis manos.</p>
+            <summary>Seguir leyendo mi historia</summary>
             <p>Creo en una belleza que no necesita transformar, sino realzar. En unas cejas que armonizan la expresión, unos labios que recuperan su definición y una mirada que refleja seguridad sin perder naturalidad.</p>
             <p>Detrás de cada trabajo hay horas de aprendizaje, atención a cada detalle y el deseo de ofrecerte una experiencia en la que te sientas escuchada, cuidada y segura.</p>
             <p>Sigo creciendo, perfeccionando mis técnicas y descubriendo nuevas formas de ofrecer resultados cada vez más personalizados. Porque para mí, evolucionar profesionalmente también significa aprender a mirar la belleza con más sensibilidad y criterio.</p>
           </details>
           <blockquote class="about__quote" data-reveal>
             <p>Si hay algo que da sentido a todo esto, es saber que cada mujer que sale de mi salón lo hace sintiéndose mejor consigo misma.</p>
+            <footer><span class="about__sign">Margot</span></footer>
           </blockquote>
         </div>
       </div>
     </section>
 
-    <section data-section class="section faq" id="preguntas" aria-labelledby="faq-title">
+    <!-- PREGUNTAS -->
+    <section class="band section faq" id="preguntas" aria-labelledby="faq-title" data-section>
       <div class="container faq__grid">
         <div class="faq__head" data-reveal>
           <h2 id="faq-title">Antes de empezar</h2>
@@ -287,51 +379,54 @@
         </div>
         <div class="faq__list">
           <details class="qa" data-reveal>
-            <summary>¿Cuántas sesiones necesito para eliminar un tatuaje o una micropigmentación?</summary>
+            <summary><span class="qa__n">01</span><span class="qa__q">¿Cuántas sesiones necesito para eliminar un tatuaje o una micropigmentación?</span></summary>
             <p>Depende de cada caso: del color, la profundidad y la antigüedad del pigmento, de la zona y de cómo responda tu piel. En la valoración te explicamos el proceso, los cuidados y las expectativas reales.</p>
           </details>
           <details class="qa" data-reveal>
-            <summary>¿La eliminación con láser tiene tiempo de recuperación?</summary>
+            <summary><span class="qa__n">02</span><span class="qa__q">¿La eliminación con láser tiene tiempo de recuperación?</span></summary>
             <p>No necesitas tiempo de baja y puedes hacer vida normal, aunque la zona requiere unos cuidados específicos durante varios días.</p>
           </details>
           <details class="qa" data-reveal>
-            <summary>¿Quién realiza el tratamiento láser?</summary>
+            <summary><span class="qa__n">03</span><span class="qa__q">¿Quién realiza el tratamiento láser?</span></summary>
             <p>Personal sanitario, con protocolos específicos de seguridad.</p>
           </details>
           <details class="qa" data-reveal>
-            <summary>¿Puedo maquillarme las cejas después de eliminar la micropigmentación?</summary>
+            <summary><span class="qa__n">04</span><span class="qa__q">¿Puedo maquillarme las cejas después de eliminar la micropigmentación?</span></summary>
             <p>Sí, al día siguiente, siempre que la piel esté recuperada.</p>
           </details>
           <details class="qa" data-reveal>
-            <summary>¿Cómo sé si el Fibroblast es para mí?</summary>
+            <summary><span class="qa__n">05</span><span class="qa__q">¿Cómo sé si el Fibroblast es para mí?</span></summary>
             <p>Cada rostro es único. Hacemos una valoración individual para determinar si está indicado en tu caso y qué resultados son realistas.</p>
           </details>
         </div>
       </div>
     </section>
 
-    <section data-section class="final" id="consulta" aria-labelledby="final-title">
+    <!-- CIERRE -->
+    <section class="band final" id="consulta" aria-labelledby="final-title" data-section>
       <div class="container final__grid">
-        <div data-reveal>
-          <h2 id="final-title">Tu mirada, tu esencia.</h2>
-          <p class="lead">Escríbeme por WhatsApp, cuéntame qué buscas y te informo sin compromiso.</p>
+        <div class="final__text">
+          <h2 id="final-title" data-reveal>Tu mirada, tu esencia.</h2>
+          <p data-reveal>Escríbeme por WhatsApp, cuéntame qué buscas y te informo sin compromiso.</p>
         </div>
         <form class="final__form" action="https://wa.me/" method="get" target="_blank" data-wa-form data-reveal>
           <label for="tratamiento">¿Sobre qué te gustaría preguntar?</label>
-          <select id="tratamiento" name="text">
-            <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre tus tratamientos.">Aún no lo sé, quiero orientación</option>
-            <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre la micropigmentación de cejas.">Micropigmentación de cejas</option>
-            <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre la micropigmentación de labios.">Micropigmentación de labios</option>
-            <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre la micropigmentación de ojos.">Micropigmentación de ojos</option>
-            <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre la eliminación de tatuajes con láser.">Eliminación de tatuajes</option>
-            <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre la eliminación de micropigmentación de cejas.">Eliminar micropigmentación de cejas</option>
-            <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre la eliminación de micropigmentación de labios.">Eliminar micropigmentación de labios</option>
-            <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre la limpieza y tratamiento facial premium.">Facial premium</option>
-            <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre el Hollywood Peel.">Hollywood Peel</option>
-            <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre el Fibroblast (Plasma Pen).">Fibroblast (Plasma Pen)</option>
-            <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre la depilación con hilo.">Depilación con hilo</option>
-          </select>
-          <button class="btn btn--light" type="submit">Escribir a Margot por WhatsApp</button>
+          <div class="select">
+            <select id="tratamiento" name="text">
+              <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre tus tratamientos.">Aún no lo sé, quiero orientación</option>
+              <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre la micropigmentación de cejas.">Micropigmentación de cejas</option>
+              <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre la micropigmentación de labios.">Micropigmentación de labios</option>
+              <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre la micropigmentación de ojos.">Micropigmentación de ojos</option>
+              <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre la eliminación de tatuajes con láser.">Eliminación de tatuajes</option>
+              <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre la eliminación de micropigmentación de cejas.">Eliminar micropigmentación de cejas</option>
+              <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre la eliminación de micropigmentación de labios.">Eliminar micropigmentación de labios</option>
+              <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre la limpieza y tratamiento facial premium.">Facial premium</option>
+              <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre el Hollywood Peel.">Hollywood Peel</option>
+              <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre el Fibroblast (Plasma Pen).">Fibroblast (Plasma Pen)</option>
+              <option value="Hola, Margot. He visto tu web y me gustaría recibir información sobre la depilación con hilo.">Depilación con hilo</option>
+            </select>
+          </div>
+          <button class="btn btn--pink" type="submit">Escribir a Margot</button>
           <p class="final__hint">Se abrirá WhatsApp con el mensaje ya escrito. Tú decides si lo envías.</p>
         </form>
       </div>
@@ -340,11 +435,11 @@
 
   <footer class="footer">
     <div class="container footer__grid">
-      <div class="footer__brand" data-reveal>
-        <p class="footer__name">Margot Ibáñez</p>
+      <div class="footer__brand">
+        <p class="footer__sign">Margot Ibáñez</p>
         <p>Micropigmentación facial y estética avanzada.</p>
       </div>
-      <div data-reveal>
+      <div>
         <p class="footer__label">Tratamientos</p>
         <ul>
           <li><a href="#tratamientos" data-tab="tab-micro">Micropigmentación</a></li>
@@ -352,7 +447,7 @@
           <li><a href="#tratamientos" data-tab="tab-piel">Piel y rostro</a></li>
         </ul>
       </div>
-      <div data-reveal>
+      <div>
         <p class="footer__label">Contacto</p>
         <ul>
           <li><a href="#consulta" data-wa="">Escribir por WhatsApp</a></li>

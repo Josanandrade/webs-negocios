@@ -9,16 +9,20 @@
   --color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);
   --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
-  --color-paper: oklch(96.5% 0.016 82); --color-paper-2: oklch(93.5% 0.02 80); --color-paper-3: oklch(89% 0.024 78);
-  --color-ink: oklch(17% 0.012 60); --color-ink-2: oklch(28% 0.014 60); --color-muted: oklch(49% 0.014 65);
-  --color-rule: oklch(80% 0.018 75); --color-rule-2: oklch(66% 0.02 72);
-  --color-white: oklch(99.4% 0.004 80);
-  --color-blush: oklch(94.5% 0.028 8); --color-blush-2: oklch(90% 0.045 6);
-  --color-accent: oklch(72% 0.09 6); --color-accent-ink: oklch(17% 0.012 60); --color-focus: oklch(17% 0.012 60);
-  --color-guide: oklch(72% 0.09 6 / 0.75); --color-wa: oklch(17% 0.012 60);
-  --font-display: "Bodoni Moda", ui-serif, Georgia, serif; --font-body: "Geist", ui-sans-serif, system-ui, sans-serif;
-  --font-outlier: "Geist Mono", ui-monospace, monospace;
-  --radius-card: 0; --radius-pill: 0; --rule-hair: 1px;
+  /* Margot Ibáñez · custom palette from the client's brief: white, beige, black, baby pink in details */
+  --color-paper: oklch(99.3% 0.004 80); --color-paper-2: oklch(96.4% 0.014 78); --color-paper-3: oklch(92.5% 0.024 76);
+  --color-sand: oklch(93.8% 0.022 76);
+  --color-ink: oklch(15.5% 0.008 50); --color-ink-2: oklch(26% 0.01 50); --color-muted: oklch(47% 0.012 60);
+  --color-night: oklch(13.5% 0.006 50); --color-night-2: oklch(21% 0.008 50); --color-on-night: oklch(96.5% 0.012 80); --color-on-night-muted: oklch(78% 0.014 75);
+  --color-rule: oklch(86% 0.014 75); --color-rule-2: oklch(70% 0.016 72); --color-rule-night: oklch(34% 0.01 50);
+  --color-white: oklch(99.7% 0.004 80);
+  --color-blush: oklch(96.6% 0.02 6); --color-blush-2: oklch(93% 0.036 6); --color-blush-line: oklch(84% 0.065 6); --color-blush-night: oklch(91% 0.042 6);
+  --color-accent: oklch(84% 0.065 6); --color-accent-ink: oklch(15.5% 0.008 50); --color-focus: oklch(15.5% 0.008 50);
+  --color-guide: oklch(84% 0.065 6 / 0.9);
+  --font-display: "Gilda Display", "Gilda Fallback", ui-serif, Georgia, serif;
+  --font-body: "Jost", "Jost Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: "Petit Formal Script", cursive;
+  --radius-card: 0; --radius-pill: 999px; --rule-hair: 1px;
   --shadow-card: none;
-  --tracking-display: -0.02em; --display-weight: 400; --display-optical: 96;
+  --tracking-display: -0.012em; --display-weight: 400;
 }
