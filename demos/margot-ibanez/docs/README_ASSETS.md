@@ -22,3 +22,24 @@ El Word no trae fotos de trabajos, así que no hay sección de galería ni antes
 3. 2 o 3 fotos del salón o la cabina (opcional).
 4. Logotipo, si tiene.
 5. Fotos de diplomas o premios, si quiere mostrarlos.
+
+## Fotos de cada tratamiento (ronda 4, 2026-11-23)
+
+Cada tratamiento tiene una ranura (`<div class="treat__media">` en `demo-host/index.html`) que hoy muestra su trazo dibujado. Cuando Margot mande las fotos:
+
+1. Recorta cada foto en vertical 4:5 (por ejemplo 800 × 1000 px), pásala a WebP y guárdala en `demo-host/assets/img/tratamientos/` con estos nombres:
+   `01-cejas.webp`, `02-labios.webp`, `03-ojos.webp`, `04-tatuajes.webp`, `05-eliminar-cejas.webp`, `06-eliminar-labios.webp`, `07-facial-premium.webp`, `08-hollywood-peel.webp`, `09-fibroblast.webp`, `10-hilo.webp`.
+2. En `index.html`, dentro de cada ranura hay un comentario `FOTO NN` con la etiqueta `<img>` ya escrita: sustituye el `<svg class="glyph">` de esa ranura por esa etiqueta y ajusta el texto `alt` si hace falta.
+3. No hay que tocar el CSS: la foto ocupa el mismo sitio, con marco 4:5 y línea rosa, y aparece con un fundido al hacer scroll.
+
+Se puede cambiar un tratamiento y dejar los demás con su trazo; el diseño no se rompe.
+
+## Vídeos
+
+La sección "En vídeo" está en `index.html`, entre "Sobre Margot" y "Preguntas", oculta con `hidden`. Dentro hay dos ejemplos comentados:
+
+- **Vídeo propio (mp4):** guardar `video-1.mp4` (H.264, idealmente menos de 15 MB) y su portada `video-1-portada.webp` en `demo-host/assets/video/`. Se carga solo al pulsar play (`preload="none"`) y usa los controles del navegador.
+- **YouTube o Vimeo:** basta el identificador (lo que va tras `v=` en YouTube o el número de Vimeo) en `data-id`, y `data-embed="youtube"` o `"vimeo"`. No se carga nada de esos servicios hasta que la visitante pulsa "Reproducir vídeo" (YouTube en modo sin cookies). Si no se pone portada en YouTube, se usa la miniatura del propio vídeo.
+- **Vertical (reel):** añadir la clase `video--vertical` a la `<figure>`.
+
+Para publicarla: copiar un ejemplo fuera del comentario, rellenarlo y quitar `hidden` de la `<section>`. Con JavaScript la sección también se muestra sola en cuanto tiene un vídeo.

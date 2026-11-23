@@ -35,9 +35,123 @@ document.querySelectorAll('[data-wa]').forEach((a) => {
   }
 });
 
-/* Formulario final: sin JS envía a wa.me por GET; con JS añade el número. */
-document.querySelectorAll('[data-wa-form]').forEach((form) => {
-  form.action = 'https://wa.me/' + WHATSAPP_NUMBER;
+/* ==========================================================================
+   FORMULARIO DE CONTACTO POR EMAIL (Web3Forms)
+   --------------------------------------------------------------------------
+   La clave va en index.html, en <input name="access_key" value="">.
+   Con clave: envía el mensaje a Web3Forms, que lo reenvía al correo de Margot.
+   Sin clave: valida, pero avisa de que aún no está activo y remite a WhatsApp.
+   ========================================================================== */
+const MAIL_ENDPOINT = 'https://api.web3forms.com/submit';
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+document.querySelectorAll('[data-mail-form]').forEach((form) => {
+  const status = form.querySelector('[data-mail-status]');
+  const button = form.querySelector('button[type="submit"]');
+  const key = form.elements.access_key;
+  const live = () => Boolean(key && key.value.trim());
+
+  if (!live()) {
+    console.warn('[Margot Ibáñez] Formulario sin clave de Web3Forms: el formulario no envía. Ver access_key en index.html');
+  }
+
+  const fields = {
+    nombre: (v) => (v.trim().length >= 2 ? '' : 'Escribe tu nombre.'),
+    email: (v) => (!v.trim() ? 'Escribe tu email para poder responderte.' : EMAIL_RE.test(v.trim()) ? '' : 'Revisa el email: parece incompleto.'),
+    telefono: (v) => (!v.trim() || /^[+\d][\d\s().-]{6,}$/.test(v.trim()) ? '' : 'Revisa el teléfono o déjalo en blanco.'),
+    mensaje: (v) => (v.trim().length >= 5 ? '' : 'Cuéntame en unas palabras qué te gustaría saber.'),
+  };
+
+  const setError = (el, msg) => {
+    const err = document.getElementById(el.getAttribute('aria-describedby'));
+    el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    if (err) { err.textContent = msg; err.hidden = !msg; }
+  };
+
+  const check = (el) => {
+    const msg = el.type === 'checkbox'
+      ? (el.checked ? '' : 'Necesito tu permiso para responderte.')
+      : fields[el.name](el.value);
+    setError(el, msg);
+    return !msg;
+  };
+
+  const inputs = [...Object.keys(fields).map((n) => form.elements[n]), form.elements.consentimiento];
+  inputs.forEach((el) => {
+    el.addEventListener('blur', () => { if (el.value || el.getAttribute('aria-invalid') === 'true') check(el); });
+    el.addEventListener('input', () => { if (el.getAttribute('aria-invalid') === 'true') check(el); });
+    el.addEventListener('change', () => { if (el.type === 'checkbox') check(el); });
+  });
+
+  const say = (text, state) => { status.textContent = text; status.dataset.state = state || ''; };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (button.getAttribute('aria-disabled') === 'true') return;
+    const bad = inputs.filter((el) => !check(el));
+    if (bad.length) { say(''); bad[0].focus(); return; }
+    if (form.elements.botcheck.checked) return; /* bot */
+
+    const data = Object.fromEntries(new FormData(form));
+    const name = data.nombre.trim();
+    data.subject = 'Consulta web: ' + data.tratamiento + ' (' + name + ')';
+
+    if (!live()) {
+      say('El formulario aún no está activo. Mientras tanto, escríbeme por WhatsApp y te respondo encantada.', 'error');
+      return;
+    }
+
+    button.setAttribute('aria-disabled', 'true');
+    const label = button.textContent;
+    button.textContent = 'Enviando…';
+    say('');
+    try {
+      const res = await fetch(MAIL_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || json.success === false) throw new Error(json.message || res.status);
+      form.reset();
+      inputs.forEach((el) => setError(el, ''));
+      say('Gracias, ' + name + '. Tu mensaje me ha llegado y te responderé lo antes posible.', 'ok');
+    } catch (err) {
+      console.error('[Margot Ibáñez] Error al enviar el formulario', err);
+      say('No se ha podido enviar el mensaje. Vuelve a intentarlo en un momento o escríbeme por WhatsApp.', 'error');
+    } finally {
+      button.removeAttribute('aria-disabled');
+      button.textContent = label;
+    }
+  });
+});
+
+/* ==========================================================================
+   VÍDEOS: la sección aparece en cuanto tiene un vídeo dentro.
+   YouTube y Vimeo no se cargan hasta que se pulsa "Reproducir".
+   ========================================================================== */
+document.querySelectorAll('[data-videos]').forEach((sec) => {
+  if (sec.querySelector('.video')) sec.hidden = false;
+});
+
+document.querySelectorAll('[data-embed]').forEach((btn) => {
+  const id = encodeURIComponent(btn.dataset.id || '');
+  const provider = btn.dataset.embed;
+  const img = btn.querySelector('img');
+  if (provider === 'youtube' && img && !img.getAttribute('src')) img.src = 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
+  btn.addEventListener('click', () => {
+    const src = provider === 'vimeo'
+      ? 'https://player.vimeo.com/video/' + id + '?autoplay=1&dnt=1'
+      : 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+    const frame = document.createElement('iframe');
+    frame.src = src;
+    frame.title = btn.dataset.title || 'Vídeo';
+    frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    frame.allowFullscreen = true;
+    frame.loading = 'lazy';
+    btn.replaceWith(frame);
+    frame.focus();
+  });
 });
 
 /* Menú móvil */
