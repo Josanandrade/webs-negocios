@@ -42,27 +42,31 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero__grid">
         <div class="hero__text">
-          <div class="mapped">
+          <div class="mapped" data-hero style="--h:0">
             <h1 id="hero-title">Belleza que realza, sin transformar.</h1>
-            <div class="mapped__guides" aria-hidden="true">
-              <span class="guide guide--a"><span>inicio</span></span>
-              <span class="guide guide--b"><span>arco</span></span>
-              <span class="guide guide--c"><span>final</span></span>
+            <div class="brow" aria-hidden="true">
+              <svg viewBox="0 0 100 28" preserveAspectRatio="none" focusable="false">
+                <path class="brow__arch" pathLength="1" d="M1 22 C 18 12, 40 4, 62 4 C 76 4, 90 10, 99 18"/>
+                <path class="brow__tick" d="M1 16 V28 M62 0 V28 M99 12 V28"/>
+              </svg>
+              <span class="brow__label brow__label--a">inicio</span>
+              <span class="brow__label brow__label--b">arco</span>
+              <span class="brow__label brow__label--c">final</span>
             </div>
           </div>
-          <p class="lead hero__lead">Micropigmentación de cejas, labios y ojos, diseñada para tu rostro.</p>
-          <div class="hero__actions">
+          <p class="lead hero__lead" data-hero style="--h:2">Micropigmentación de cejas, labios y ojos, diseñada para tu rostro.</p>
+          <div class="hero__actions" data-hero style="--h:3">
             <a class="btn" href="#consulta" data-wa="">Consultar por WhatsApp</a>
             <a class="btn btn--quiet" href="#tratamientos">Ver tratamientos</a>
           </div>
         </div>
-        <figure class="hero__photo photo">
+        <figure class="hero__photo photo" data-hero style="--h:1">
           <img src="assets/img/margot-retrato-960.webp" srcset="assets/img/margot-retrato-560.webp 560w, assets/img/margot-retrato-960.webp 960w" sizes="(min-width: 60rem) 36vw, 92vw" width="960" height="1440" alt="Retrato de Margot Ibáñez en blanco y negro" fetchpriority="high">
         </figure>
       </div>
     </section>
 
-    <section class="section tratamientos" id="tratamientos" aria-labelledby="trat-title">
+    <section data-section class="section tratamientos" id="tratamientos" aria-labelledby="trat-title">
       <div class="container">
         <div class="section__head" data-reveal>
           <h2 id="trat-title">Tratamientos</h2>
@@ -241,15 +245,15 @@
       </div>
     </section>
 
-    <section class="band-cta" aria-labelledby="duda-title">
-      <div class="container band-cta__inner" data-reveal>
-        <h2 id="duda-title">¿No sabes cuál es el tuyo?</h2>
-        <p>Cuéntame qué te gustaría mejorar y lo valoramos juntas antes de empezar.</p>
-        <a class="btn" href="#consulta" data-wa="qué tratamiento me conviene">Preguntar por WhatsApp</a>
+    <section data-section class="band-cta" aria-labelledby="duda-title">
+      <div class="container band-cta__inner">
+        <h2 id="duda-title" data-reveal>¿No sabes cuál es el tuyo?</h2>
+        <p data-reveal>Cuéntame qué te gustaría mejorar y lo valoramos juntas antes de empezar.</p>
+        <a class="btn" href="#consulta" data-wa="qué tratamiento me conviene" data-reveal>Preguntar por WhatsApp</a>
       </div>
     </section>
 
-    <section class="section about" id="margot" aria-labelledby="margot-title">
+    <section data-section class="section about" id="margot" aria-labelledby="margot-title">
       <div class="container about__grid">
         <figure class="about__photo photo" data-reveal>
           <img src="assets/img/margot-sonrisa-960.webp" srcset="assets/img/margot-sonrisa-560.webp 560w, assets/img/margot-sonrisa-960.webp 960w" sizes="(min-width: 60rem) 34vw, 92vw" width="960" height="1280" alt="Margot Ibáñez sonriendo, con gafas y americana" loading="lazy">
@@ -275,7 +279,7 @@
       </div>
     </section>
 
-    <section class="section faq" id="preguntas" aria-labelledby="faq-title">
+    <section data-section class="section faq" id="preguntas" aria-labelledby="faq-title">
       <div class="container faq__grid">
         <div class="faq__head" data-reveal>
           <h2 id="faq-title">Antes de empezar</h2>
@@ -306,7 +310,7 @@
       </div>
     </section>
 
-    <section class="final" id="consulta" aria-labelledby="final-title">
+    <section data-section class="final" id="consulta" aria-labelledby="final-title">
       <div class="container final__grid">
         <div data-reveal>
           <h2 id="final-title">Tu mirada, tu esencia.</h2>
@@ -336,11 +340,11 @@
 
   <footer class="footer">
     <div class="container footer__grid">
-      <div class="footer__brand">
+      <div class="footer__brand" data-reveal>
         <p class="footer__name">Margot Ibáñez</p>
         <p>Micropigmentación facial y estética avanzada.</p>
       </div>
-      <div>
+      <div data-reveal>
         <p class="footer__label">Tratamientos</p>
         <ul>
           <li><a href="#tratamientos" data-tab="tab-micro">Micropigmentación</a></li>
@@ -348,7 +352,7 @@
           <li><a href="#tratamientos" data-tab="tab-piel">Piel y rostro</a></li>
         </ul>
       </div>
-      <div>
+      <div data-reveal>
         <p class="footer__label">Contacto</p>
         <ul>
           <li><a href="#consulta" data-wa="">Escribir por WhatsApp</a></li>

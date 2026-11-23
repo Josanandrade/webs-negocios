@@ -14,7 +14,7 @@
   --color-rule: oklch(80% 0.018 75); --color-rule-2: oklch(66% 0.02 72);
   --color-white: oklch(99.4% 0.004 80);
   --color-blush: oklch(94.5% 0.028 8); --color-blush-2: oklch(90% 0.045 6);
-  --color-accent: oklch(17% 0.012 60); --color-accent-ink: oklch(97% 0.012 82); --color-focus: oklch(17% 0.012 60);
+  --color-accent: oklch(72% 0.09 6); --color-accent-ink: oklch(17% 0.012 60); --color-focus: oklch(17% 0.012 60);
   --color-guide: oklch(72% 0.09 6 / 0.75); --color-wa: oklch(17% 0.012 60);
   --font-display: "Bodoni Moda", ui-serif, Georgia, serif; --font-body: "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-outlier: "Geist Mono", ui-monospace, monospace;

@@ -107,10 +107,24 @@ if (reduce || !('IntersectionObserver' in window)) {
   revealables.forEach((el) => io.observe(el));
 }
 
-/* Barra fija de WhatsApp en móvil: se oculta al llegar al cierre. */
+/* Transición entre secciones: al entrar cada sección se dibuja su línea superior. */
+const sections = document.querySelectorAll('[data-section]');
+if (reduce || !('IntersectionObserver' in window)) {
+  sections.forEach((el) => el.classList.add('is-in'));
+} else {
+  const so = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); so.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -15% 0px' });
+  sections.forEach((el) => so.observe(el));
+}
+
+/* Barra fija de WhatsApp en móvil: aparece tras la portada y se oculta en el cierre. */
 const dock = document.querySelector('[data-dock]');
 const finalSection = document.getElementById('consulta');
-if (dock && finalSection && 'IntersectionObserver' in window) {
+const hero = document.querySelector('.hero');
+if (dock && finalSection && hero && 'IntersectionObserver' in window) {
+  dock.classList.add('is-early');
+  new IntersectionObserver(([e]) => dock.classList.toggle('is-early', e.isIntersecting), { threshold: 0.35 }).observe(hero);
   new IntersectionObserver(([e]) => dock.classList.toggle('is-away', e.isIntersecting), { threshold: 0.15 }).observe(finalSection);
 }
 
