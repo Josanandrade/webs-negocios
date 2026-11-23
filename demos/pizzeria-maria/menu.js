@@ -1,6 +1,8 @@
 (() => {
   'use strict';
-  const { categories, items } = window.MARIA_MENU;
+  const { categories } = window.MARIA_MENU;
+  // Solo se muestran los productos con precio confirmado.
+  const items = window.MARIA_MENU.items.filter(item => item.available && item.priceCents != null);
   const filters = document.querySelector('#filters');
   const grid = document.querySelector('#menuGrid');
   const count = document.querySelector('#menuCount');
@@ -8,7 +10,6 @@
   const money = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
   let current = 'Pizza';
   const normalize = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('es');
-  const displayName = text => text.replace(/^\d+\s*[.]?\s*/, '').toLocaleLowerCase('es').replace(/(^|\s)\p{L}/gu, letter => letter.toLocaleUpperCase('es'));
 
   function renderMenu() {
     const query = normalize(search.value.trim());
@@ -25,23 +26,21 @@
     }
     for (const item of list) {
       const card = document.createElement('article');
-      card.className = `dish${item.available ? '' : ' unavailable'}`;
+      card.className = 'dish';
       const category = document.createElement('small');
       category.textContent = item.category;
       const name = document.createElement('h3');
-      name.textContent = displayName(item.name);
+      name.textContent = item.name;
       const description = document.createElement('p');
-      const text = item.description.toLocaleLowerCase('es');
-      description.textContent = text ? text[0].toLocaleUpperCase('es') + text.slice(1) : '';
+      description.textContent = item.description;
       const price = document.createElement('strong');
-      price.className = item.available ? '' : 'unavailableLabel';
-      price.textContent = item.available ? money.format(item.priceCents / 100) : 'No disponible';
+      price.textContent = money.format(item.priceCents / 100);
       card.append(category, name, description, price);
       grid.append(card);
     }
   }
 
-  for (const category of ['Todo', ...categories]) {
+  for (const category of ['Todo', ...categories.filter(name => items.some(item => item.category === name))]) {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'filter';
