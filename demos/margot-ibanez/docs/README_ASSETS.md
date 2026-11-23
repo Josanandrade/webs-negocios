@@ -1,16 +1,24 @@
-# Recursos visuales
+# Recursos visuales · Margot Ibáñez (v2, 2026-11-23)
 
-Todas las imágenes son ilustraciones SVG propias. Ninguna es un trabajo real y todas lo indican en pantalla.
+## Usados
 
-| Archivo | Uso | Sustituir por |
+| Archivo | Origen | Dónde |
 |---|---|---|
-| `demo-host/assets/galeria/cejas-mapeo.svg` | Galería, pieza grande | Foto real de cejas (resultado o mapeo) |
-| `demo-host/assets/galeria/pigmentos.svg` | Galería | Foto de su carta de pigmentos o del estudio |
-| `demo-host/assets/galeria/ojos-linea.svg` | Galería | Foto real de eyeliner |
-| `demo-host/assets/galeria/labios-contorno.svg` | Galería | Foto real de labios |
-| Huecos "Foto real" / "Galería preparada" | Galería | Antes/después reales con permiso de la clienta |
-| Comparador "Mapeo / Diseño final" (SVG inline) | Resultados | Puede convertirse en un antes/después real con dos fotos alineadas |
-| Placa "MI" en Sobre Margot | Retrato | Foto de Margot trabajando |
-| Plano (SVG inline) | Ubicación | Mantener, es orientativo; el botón abre Google Maps |
+| `demo-host/assets/img/margot-retrato-{560,960}.webp` | Retrato en blanco y negro incluido en el Word de Margot (image1) | Portada |
+| `demo-host/assets/img/margot-sonrisa-{560,960}.webp` | Retrato con gafas incluido en el Word de Margot (image2) | Sobre Margot |
 
-No inventar antes/después. Pedir a Margot fotos propias y autorización de las clientas.
+Convertidos a escala de grises y WebP (calidad 78). Se asume que son de Margot y que autoriza su uso: confirmarlo.
+
+Se han eliminado las ilustraciones SVG de la demo anterior (`assets/galeria/`).
+
+## No hay galería
+
+El Word no trae fotos de trabajos, así que no hay sección de galería ni antes/después. No se han generado ni usado imágenes de terceros.
+
+## Pedir a Margot
+
+1. 6 a 12 fotos de trabajos propios (cejas, labios, ojos y, si quiere, eliminación láser), con luz natural, mismo encuadre, y permiso de las clientas para publicarlas. Con ellas se añade una sección "Trabajos" tras los tratamientos.
+2. Confirmar que los dos retratos son suyos y que se pueden publicar, y quién es el fotógrafo si quiere crédito.
+3. 2 o 3 fotos del salón o la cabina (opcional).
+4. Logotipo, si tiene.
+5. Fotos de diplomas o premios, si quiere mostrarlos.
