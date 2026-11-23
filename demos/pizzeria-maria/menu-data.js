@@ -1,7 +1,5 @@
-/* Carta facilitada por el negocio. Los precios ausentes no se estiman. */
+/* Carta de Pizzería María. Para actualizar precios o platos, edita esta lista. available:false = se muestra como «No disponible». */
 window.MARIA_MENU = {
-  "source": "https://www.selfibar.com/digital-menu/pizzeria-maria/menu",
-  "importedAt": "2026-11-18",
   "categories": [
     "Bebidas",
     "Ensaladas",
@@ -20,14 +18,14 @@ window.MARIA_MENU = {
     },
     {
       "category": "Bebidas",
-      "name": "AQUARIUS LIMON",
+      "name": "Aquarius limón",
       "description": "",
       "priceCents": 200,
       "available": true
     },
     {
       "category": "Bebidas",
-      "name": "AQUARIUS NARANJA",
+      "name": "Aquarius naranja",
       "description": "",
       "priceCents": 200,
       "available": true
@@ -41,63 +39,63 @@ window.MARIA_MENU = {
     },
     {
       "category": "Bebidas",
-      "name": "Cerveza Sin",
+      "name": "Cerveza sin alcohol",
       "description": "",
       "priceCents": 150,
       "available": true
     },
     {
       "category": "Bebidas",
-      "name": "COCA COLA",
+      "name": "Coca-Cola",
       "description": "",
       "priceCents": 190,
       "available": true
     },
     {
       "category": "Bebidas",
-      "name": "COCA COLA LIGHT",
+      "name": "Coca-Cola Light",
       "description": "",
       "priceCents": null,
       "available": false
     },
     {
       "category": "Bebidas",
-      "name": "COCA COLA ZERO",
+      "name": "Coca-Cola Zero",
       "description": "",
       "priceCents": 190,
       "available": true
     },
     {
       "category": "Bebidas",
-      "name": "COCA COLA ZERO/ZERO",
+      "name": "Coca-Cola Zero Zero",
       "description": "",
       "priceCents": 190,
       "available": true
     },
     {
       "category": "Bebidas",
-      "name": "FANTA LIMON",
+      "name": "Fanta limón",
       "description": "",
       "priceCents": 190,
       "available": true
     },
     {
       "category": "Bebidas",
-      "name": "FANTA NARANJA",
+      "name": "Fanta naranja",
       "description": "",
       "priceCents": 190,
       "available": true
     },
     {
       "category": "Bebidas",
-      "name": "NESTEA",
+      "name": "Nestea",
       "description": "",
       "priceCents": 190,
       "available": true
     },
     {
       "category": "Bebidas",
-      "name": "NESTEA MARACUYA",
+      "name": "Nestea maracuyá",
       "description": "",
       "priceCents": 190,
       "available": true
@@ -111,119 +109,119 @@ window.MARIA_MENU = {
     },
     {
       "category": "Bebidas",
-      "name": "TINTO DE VERANO",
+      "name": "Tinto de verano",
       "description": "",
       "priceCents": 220,
       "available": true
     },
     {
       "category": "Bebidas",
-      "name": "VINO RIOJA",
+      "name": "Vino Rioja",
       "description": "",
       "priceCents": 300,
       "available": true
     },
     {
       "category": "Bebidas",
-      "name": "ZUMA MELOCOTON",
+      "name": "Zumo de melocotón",
       "description": "",
       "priceCents": null,
       "available": false
     },
     {
       "category": "Bebidas",
-      "name": "ZUMO PIÑA",
+      "name": "Zumo de piña",
       "description": "",
       "priceCents": null,
       "available": false
     },
     {
       "category": "Ensaladas",
-      "name": "10.ANNA",
-      "description": "CON PIMIENTOS CHAMPIÑONES HUEVO DURO JAMON YORK ALCACHOFA Y QUESO",
+      "name": "Anna",
+      "description": "Con pimientos champiñones huevo duro jamón york alcachofa y queso.",
       "priceCents": 1030,
       "available": true
     },
     {
       "category": "Ensaladas",
-      "name": "11.SOPRESA DI TACCHINO",
-      "description": "CON JAMON YORK PECHUGA DE PAVO Y QUESO",
+      "name": "Sorpresa di tacchino",
+      "description": "Con jamón york pechuga de pavo y queso.",
       "priceCents": 1030,
       "available": true
     },
     {
       "category": "Ensaladas",
-      "name": "3.PRIMAVERA",
-      "description": "JAMON YORK Y QUESO",
+      "name": "Primavera",
+      "description": "Jamón york y queso.",
       "priceCents": null,
       "available": false
     },
     {
       "category": "Ensaladas",
-      "name": "5.TROPICAL",
-      "description": "CON COCKTAIL DE FRUTA Y QUESO",
+      "name": "Tropical",
+      "description": "Con cóctel de fruta y queso.",
       "priceCents": null,
       "available": false
     },
     {
       "category": "Ensaladas",
-      "name": "6.RITA",
-      "description": "CON ATUN CEBOLLA Y ACEITUNAS",
+      "name": "Rita",
+      "description": "Con atún cebolla y aceitunas.",
       "priceCents": null,
       "available": false
     },
     {
       "category": "Ensaladas",
-      "name": "7.VEGETARIA",
-      "description": "CON PIMIENTOS CHAMPIÑONES MAIZ Y HUEVO DURO",
+      "name": "Vegetariana",
+      "description": "Con pimientos champiñones maíz y huevo duro.",
       "priceCents": null,
       "available": false
     },
     {
       "category": "Ensaladas",
-      "name": "8.FANTASIA",
-      "description": "CON ATUN CEBOLLA JAMON YORK HUEVO DURO AJO Y QUESO",
+      "name": "Fantasía",
+      "description": "Con atún cebolla jamón york huevo duro ajo y queso.",
       "priceCents": 1180,
       "available": true
     },
     {
       "category": "Ensaladas",
-      "name": "9.NAPOLI",
-      "description": "CON ATUN JAMON YORK ACEITUNAS ALCACHOFAS Y QUESO",
+      "name": "Napoli",
+      "description": "Con atún jamón york aceitunas alcachofas y queso.",
       "priceCents": 1180,
       "available": true
     },
     {
       "category": "Ensaladas",
-      "name": "CESAR",
-      "description": "Pollo,parmesano,salsa cesar y picatoste",
+      "name": "César",
+      "description": "Pollo, parmesano, salsa césar y picatoste.",
       "priceCents": 1180,
       "available": true
     },
     {
       "category": "Ensaladas",
-      "name": "CREMA DE MODENA",
-      "description": "",
+      "name": "Crema de Módena",
+      "description": "Suplemento para tu ensalada.",
       "priceCents": 150,
       "available": true
     },
     {
       "category": "Ensaladas",
-      "name": "ENSALADA de BURRATA",
-      "description": "Rucula,balsamico,anacardos,tomate cherry,burrata D.O y salsa pesto",
+      "name": "Ensalada de burrata",
+      "description": "Rúcula, balsámico, anacardos, tomate cherry, burrata D.O. y salsa pesto.",
       "priceCents": 1080,
       "available": true
     },
     {
       "category": "Antipasti",
-      "name": "Mozzarella Pomodori",
-      "description": "Queso Mozzarella con Tomate",
+      "name": "Mozzarella pomodori",
+      "description": "Queso mozzarella con tomate.",
       "priceCents": 750,
       "available": true
     },
     {
       "category": "Antipasti",
-      "name": "Pan Cabra Nueces y Miel",
+      "name": "Pan con cabra, nueces y miel",
       "description": "",
       "priceCents": 750,
       "available": true
@@ -231,455 +229,455 @@ window.MARIA_MENU = {
     {
       "category": "Antipasti",
       "name": "Pan de ajo con queso",
-      "description": "PAN DE AJO CON QUESO 20CM",
+      "description": "Pan de ajo con queso (20 cm).",
       "priceCents": 600,
       "available": true
     },
     {
       "category": "Antipasti",
-      "name": "PAN DE AJO CON QUESO MEDIANO",
+      "name": "Pan de ajo con queso (mediano)",
       "description": "",
       "priceCents": 800,
       "available": true
     },
     {
       "category": "Antipasti",
-      "name": "Pan de Cabra con pesto y tomate cherry",
+      "name": "Pan de cabra con pesto y tomate cherry",
       "description": "",
       "priceCents": 800,
       "available": true
     },
     {
       "category": "Antipasti",
-      "name": "PATATAS PULLED GRATINADAS",
+      "name": "Patatas pulled gratinadas",
       "description": "",
       "priceCents": 800,
       "available": true
     },
     {
       "category": "Antipasti",
-      "name": "Pomodori Mista",
-      "description": "Tomate con Anchoas oregano y ajo",
+      "name": "Pomodori mista",
+      "description": "Tomate con anchoas orégano y ajo.",
       "priceCents": 680,
       "available": true
     },
     {
       "category": "Antipasti",
-      "name": "PROVOLONE GRATINADO",
+      "name": "Provolone gratinado",
       "description": "",
       "priceCents": 750,
       "available": true
     },
     {
       "category": "Pasta",
-      "name": "13.SPAGHETTI NAPOLI",
-      "description": "CON SALSA DE TOMATE Y QUESO PARMESANO",
+      "name": "Spaghetti Napoli",
+      "description": "Con salsa de tomate y queso parmesano.",
       "priceCents": 780,
       "available": true
     },
     {
       "category": "Pasta",
-      "name": "14 SPAGHETTI ALLA NAPOLETANA",
-      "description": "CON SALSA DE TOMATE ACEITUNAS NEGRAS ALCAPARRAS",
+      "name": "Spaghetti alla napoletana",
+      "description": "Con salsa de tomate aceitunas negras alcaparras.",
       "priceCents": 850,
       "available": true
     },
     {
       "category": "Pasta",
-      "name": "15.SPAGHETTI BOLOGNESE",
-      "description": "SALSA TOMATE CON CARNE PICADA Y QUESO PARMESANO",
+      "name": "Spaghetti bolognese",
+      "description": "Salsa tomate con carne picada y queso parmesano.",
       "priceCents": 930,
       "available": true
     },
     {
       "category": "Pasta",
-      "name": "16.SPAGHETTI CARBONARA",
-      "description": "CON SALSA DE NATA CEBOLLA BACON HUEVO QUESO PARMESANO",
+      "name": "Spaghetti carbonara",
+      "description": "Con salsa de nata cebolla bacon huevo queso parmesano.",
       "priceCents": 930,
       "available": true
     },
     {
       "category": "Pasta",
-      "name": "17. SPAGHETTI VONGOLE",
-      "description": "CON SALSA DE TOMATE ALMEJAS AJO Y PEREJIL",
+      "name": "Spaghetti vongole",
+      "description": "Con salsa de tomate almejas ajo y perejil.",
       "priceCents": 930,
       "available": true
     },
     {
       "category": "Pasta",
-      "name": "18.RIGATONI ARRABIATA",
-      "description": "CON SALSA DE TOMATE BACON Y GUINDILLAS",
+      "name": "Rigatoni all'arrabbiata",
+      "description": "Con salsa de tomate bacon y guindillas.",
       "priceCents": 930,
       "available": true
     },
     {
       "category": "Pasta",
-      "name": "19.RIGATONI BOLOGNESE",
-      "description": "SALSA TOMATE CON CARNE PICADA Y QUESO PARMESANO",
+      "name": "Rigatoni bolognese",
+      "description": "Salsa tomate con carne picada y queso parmesano.",
       "priceCents": 930,
       "available": true
     },
     {
       "category": "Pasta",
-      "name": "20.RIGATONI BROCCOLI",
-      "description": "SALSA DE NATA CON BROCCOLI JAMON YORK Y QUESO PARMESANO",
+      "name": "Rigatoni broccoli",
+      "description": "Salsa de nata con brócoli jamón york y queso parmesano.",
       "priceCents": 930,
       "available": true
     },
     {
       "category": "Pasta",
-      "name": "21.RIGATONI AL 4 QUESO",
-      "description": "CON SALSA DE 4 QUESO",
+      "name": "Rigatoni ai 4 formaggi",
+      "description": "Con salsa de 4 quesos.",
       "priceCents": 1030,
       "available": true
     },
     {
       "category": "Pasta",
-      "name": "22.RIGATONI FRITTI",
-      "description": "CON SALSA DE AJO GUINDILLA TOMATE CHERRY JAMON YORK",
+      "name": "Rigatoni fritti",
+      "description": "Con salsa de ajo guindilla tomate cherry jamón york.",
       "priceCents": 930,
       "available": true
     },
     {
       "category": "Pasta",
-      "name": "23.TORTELLINI ALLA PANA",
-      "description": "CON SALSA DE NATA JAMON YORK Y QUESO",
+      "name": "Tortellini alla panna",
+      "description": "Con salsa de nata jamón york y queso.",
       "priceCents": null,
       "available": false
     },
     {
       "category": "Pasta",
-      "name": "24.LASAGNE AL FORNO",
-      "description": "SALSA TOMATE CON CARNE PICADA JAMON YORK Y QUESO",
+      "name": "Lasagne al forno",
+      "description": "Salsa tomate con carne picada jamón york y queso.",
       "priceCents": 1200,
       "available": true
     },
     {
       "category": "Pasta",
-      "name": "25.CANNELONI AL FORNO",
-      "description": "CON SALSA DE TOMATE CARNE PICADA Y QUESO (GRATINADO)",
+      "name": "Cannelloni al forno",
+      "description": "Con salsa de tomate carne picada y queso (gratinado).",
       "priceCents": null,
       "available": false
     },
     {
       "category": "Pasta",
-      "name": "26.GNOCCI",
-      "description": "CON SALSA DE TOMATE MOZZARELLA Y QUESO (GRATINADO)",
+      "name": "Gnocchi",
+      "description": "Con salsa de tomate mozzarella y queso (gratinado).",
       "priceCents": null,
       "available": false
     },
     {
       "category": "Pasta",
-      "name": "26.SPAGUETTIS AL PESTO",
-      "description": "Salsa pesto,guanciale y tomate seco",
+      "name": "Spaghetti al pesto",
+      "description": "Salsa pesto, guanciale y tomate seco.",
       "priceCents": 930,
       "available": true
     },
     {
       "category": "Pasta",
-      "name": "27.RIGATONI AL FORNO",
-      "description": "SALSA TOMATE CON CARNE PICADA Y QUESO (GRATINADO)",
+      "name": "Rigatoni al forno",
+      "description": "Salsa tomate con carne picada y queso (gratinado).",
       "priceCents": 1200,
       "available": true
     },
     {
       "category": "Pasta",
-      "name": "28.RIGATONNI al TARTUFO",
-      "description": "Aceite de trufa,bacon y salsa de trufa con nata",
+      "name": "Rigatoni al tartufo",
+      "description": "Aceite de trufa, bacon y salsa de trufa con nata.",
       "priceCents": 1180,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "29.MAGHERITA",
-      "description": "CON TOMATE Y QUESO",
+      "name": "Margherita",
+      "description": "Con tomate y queso.",
       "priceCents": 900,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "30.NAPOLETANA",
-      "description": "ANCHOAS AJO ACEITUNAS NEGRAS",
+      "name": "Napoletana",
+      "description": "Anchoas ajo aceitunas negras.",
       "priceCents": 1030,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "31.PROSCIUTTO",
-      "description": "CON JAMON YORK",
+      "name": "Prosciutto",
+      "description": "Con jamón york.",
       "priceCents": 980,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "32.SALAMI",
-      "description": "CON SALAMI",
+      "name": "Salami",
+      "description": "Con salami.",
       "priceCents": 980,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "33.FUNGHI",
-      "description": "CON CHAMPIOÑES",
+      "name": "Funghi",
+      "description": "Con champiñones.",
       "priceCents": 980,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "34.TONNO",
-      "description": "CON ATUN CEBOLLA Y ACEITUNAS NEGRAS",
+      "name": "Tonno",
+      "description": "Con atún cebolla y aceitunas negras.",
       "priceCents": 1030,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "35.INFERNO",
-      "description": "CON SALAMI GUINDILLAS Y PIMIENTOS",
+      "name": "Inferno",
+      "description": "Con salami guindillas y pimientos.",
       "priceCents": 930,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "36.HAWAII",
-      "description": "CON JAMON YORK PIÑA Y  SALAMI",
+      "name": "Hawaii",
+      "description": "Con jamón york piña y salami.",
       "priceCents": 1080,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "37.MARE",
-      "description": "CON ATUN GAMBAS Y ALMEJAS",
+      "name": "Mare",
+      "description": "Con atún gambas y almejas.",
       "priceCents": 1180,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "38.LUCIA",
-      "description": "CON CHAMPIÑONES ATUN JAMON YORK SALAMI PIMIENTOS CEBOLLA Y ACEITUNAS NEGRAS",
+      "name": "Lucia",
+      "description": "Con champiñones atún jamón york salami pimientos cebolla y aceitunas negras.",
       "priceCents": 1200,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "39.MISTA",
-      "description": "CON CHAMPIÑONES JAMON YORK Y SALAMI",
+      "name": "Mista",
+      "description": "Con champiñones jamón york y salami.",
       "priceCents": 1030,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "40. 4 STAGIONI",
-      "description": "CON CHAMPIÑONES ALMEJAS GAMBAS JAMON YORK CEBOLLA ALCACHOFAS",
+      "name": "4 Stagioni",
+      "description": "Con champiñones almejas gambas jamón york cebolla alcachofas.",
       "priceCents": 1030,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "41.VERDURA",
-      "description": "CON ESPINACA BROCOLI Y AJO",
+      "name": "Verdura",
+      "description": "Con espinaca brócoli y ajo.",
       "priceCents": 1030,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "42. 4 FORMAGGI",
-      "description": "CON TOMATE EDAM MOZZARELA QUESO AZUL QUESO PARMESANO",
+      "name": "4 Formaggi",
+      "description": "Con tomate Edam mozzarella queso azul queso parmesano.",
       "priceCents": 1200,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "43.ANGELO",
-      "description": "CON TOMATE NATURAL BROCOLI Y ALCACHOFAS",
+      "name": "Angelo",
+      "description": "Con tomate natural brócoli y alcachofas.",
       "priceCents": 1030,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "44.CALZONE",
-      "description": "CON CHAMPIÑONES SALAMI JAMON YORK HUEVO",
+      "name": "Calzone",
+      "description": "Con champiñones salami jamón york huevo.",
       "priceCents": 1130,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "45.SERRANITO",
-      "description": "CON POLLO PIMIENTO TORTILLA FRESCA TOMATE FRESCO JAMON IBERICO Y ALIOLI",
+      "name": "Serranito",
+      "description": "Con pollo pimiento tortilla fresca tomate fresco jamón ibérico y alioli.",
       "priceCents": 1250,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "46.FERRARI",
-      "description": "CON TOMATE NATURAL Y GUINDILLAS",
+      "name": "Ferrari",
+      "description": "Con tomate natural y guindillas.",
       "priceCents": 930,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "47.MARIA",
-      "description": "CON CHAMPIÑONES TOMATE NATURAL PIMIENTOS CEBOLLA Y AJO",
+      "name": "María",
+      "description": "Con champiñones tomate natural pimientos cebolla y ajo.",
       "priceCents": 1130,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "48.LUIGI",
-      "description": "CON JAMON YORK ESPINACAS QUESO AZUL",
+      "name": "Luigi",
+      "description": "Con jamón york espinacas queso azul.",
       "priceCents": 1080,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "49.RUCULA",
-      "description": "CON TOMATE CHERRY  RUCULA Y AJO",
+      "name": "Rúcula",
+      "description": "Con tomate cherry rúcula y ajo.",
       "priceCents": 1030,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "50.ALL NONNO",
-      "description": "CON RUCULA AJO JAMON SERRANO Y QUESO PARMESANO",
+      "name": "Al nonno",
+      "description": "Con rúcula ajo jamón serrano y queso parmesano.",
       "priceCents": 1200,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "51 .PIZZA CINQUECENTO",
-      "description": "PIZZA 50CM 5 INGREDIENTES BASICOS A ELEGIR",
+      "name": "Cinquecento (50 cm)",
+      "description": "Pizza 50 cm 5 ingredientes basicos a elegir.",
       "priceCents": 2450,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "52.AMERICANA",
-      "description": "CON BACON SALCHICHAS MAIZ Y HUEVO GRUDO",
+      "name": "Americana",
+      "description": "Con bacon salchichas maíz y huevo duro.",
       "priceCents": 1100,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "53.BOLOGNESE",
-      "description": "CON SALSA DE TOMATE Y CARNE PICADA",
+      "name": "Bolognese",
+      "description": "Con salsa de tomate y carne picada.",
       "priceCents": 1080,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "56.BARBACOA",
-      "description": "CON JAMON YORK BACON POLLO Y SALSA BARBACOA",
+      "name": "Barbacoa",
+      "description": "Con jamón york bacon pollo y salsa barbacoa.",
       "priceCents": 1200,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "57.LOLO",
-      "description": "CON JAMON YORK BACON POLLO Y PEPERONI",
+      "name": "Lolo",
+      "description": "Con jamón york bacon pollo y pepperoni.",
       "priceCents": 1200,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "58.CHEF",
-      "description": "CON CHAMPIÑONES JAMON YORK TOMATE NATURAL QUESO AZUL Y CEBOLLAS",
+      "name": "Chef",
+      "description": "Con champiñones jamón york tomate natural queso azul y cebollas.",
       "priceCents": 1200,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "59.CARBONARA",
-      "description": "CON SALSA CARBONARA",
+      "name": "Carbonara",
+      "description": "Con salsa carbonara.",
       "priceCents": 1200,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "60.PESTO",
-      "description": "CON PESTO TOMATE CHERRY Y QUESO DE CABRA",
+      "name": "Pesto",
+      "description": "Con pesto tomate cherry y queso de cabra.",
       "priceCents": 1130,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "61.DIABOLA",
-      "description": "CON TOMATE NATURAL CEBOLLA QUESO AZUL BACON CRUJIENTE Y TABASCO",
+      "name": "Diavola",
+      "description": "Con tomate natural cebolla queso azul bacon crujiente y Tabasco.",
       "priceCents": 1130,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "62.BURGUER",
-      "description": "CARNE PICADA CEBOLLA LECHUGA TOMATE NATURAL PEPINILLO Y SALSA BURGER CASERA",
+      "name": "Burger",
+      "description": "Carne picada cebolla lechuga tomate natural pepinillo y salsa burger casera.",
       "priceCents": 1200,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "63.PASTEL VEGETAL",
-      "description": "CON LECHUGA ATUN TOMATE NATURAL HUEVO DURO Y MAYONESA",
+      "name": "Pastel vegetal",
+      "description": "Con lechuga atún tomate natural huevo duro y mayonesa.",
       "priceCents": 1080,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "64.5 QUESOS",
-      "description": "QUESO AZUL PARMESANO EDAM MOZZARELLA Y QUESO CABRA",
+      "name": "5 Quesos",
+      "description": "Queso azul parmesano Edam mozzarella y queso cabra.",
       "priceCents": 1200,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "65.SELU",
-      "description": "CARNE PICADA  PEPERONI ACEITUNAS NEGRAS GUINDILLA QUESO OREGANO",
+      "name": "Selu",
+      "description": "Carne picada pepperoni aceitunas negras guindilla queso orégano.",
       "priceCents": 1200,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "66.SUPREM",
-      "description": "JAMON YORK BACON CEBOLLA CARNE PICADA SALSA BBQ",
+      "name": "Suprema",
+      "description": "Jamón york bacon cebolla carne picada salsa barbacoa.",
       "priceCents": 1200,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "67.DEL JEFE",
-      "description": "TOMATE NATURAL CARNE PICADA MOZZARELA FRESCA  OREGANO",
+      "name": "Del jefe",
+      "description": "Tomate natural carne picada mozzarella fresca orégano.",
       "priceCents": 1200,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "BURRATA G",
-      "description": "Burrata D.O,guanciale laminado,albahaca y aceite de trufa",
+      "name": "Burrata G",
+      "description": "Burrata D.O., guanciale laminado, albahaca y aceite de trufa.",
       "priceCents": 1300,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "CABRAMELIZADA G",
-      "description": "Queso de cabra y cebolla caramelizada",
+      "name": "Cabramelizada G",
+      "description": "Queso de cabra y cebolla caramelizada.",
       "priceCents": 1300,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "JACK DANIEL G",
-      "description": "Carne picada,cebolla caramelizada,salsa cheddar,bacon y salsa jack daniel",
+      "name": "Jack Daniel's G",
+      "description": "Carne picada, cebolla caramelizada, salsa cheddar, bacon y salsa Jack Daniel's.",
       "priceCents": 1300,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "PIAMONTESA G",
-      "description": "Burrata D.O,rucula,champiñones y salami milano",
+      "name": "Piamontesa G",
+      "description": "Burrata D.O., rúcula, champiñones y salami milano.",
       "priceCents": 1300,
       "available": true
     },
     {
       "category": "Postres",
-      "name": "TARTA de QUESO",
-      "description": "Con dulce de leche,pistacho o mermelada de fresa",
+      "name": "Tarta de queso",
+      "description": "Con dulce de leche, pistacho o mermelada de fresa.",
       "priceCents": 500,
       "available": true
     }

@@ -8,7 +8,6 @@
   const money = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
   let current = 'Pizza';
   const normalize = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('es');
-  const displayName = text => text.replace(/^\d+\s*[.]?\s*/, '').toLocaleLowerCase('es').replace(/(^|\s)\p{L}/gu, letter => letter.toLocaleUpperCase('es'));
 
   function renderMenu() {
     const query = normalize(search.value.trim());
@@ -29,10 +28,9 @@
       const category = document.createElement('small');
       category.textContent = item.category;
       const name = document.createElement('h3');
-      name.textContent = displayName(item.name);
+      name.textContent = item.name;
       const description = document.createElement('p');
-      const text = item.description.toLocaleLowerCase('es');
-      description.textContent = text ? text[0].toLocaleUpperCase('es') + text.slice(1) : '';
+      description.textContent = item.description;
       const price = document.createElement('strong');
       price.className = item.available ? '' : 'unavailableLabel';
       price.textContent = item.available ? money.format(item.priceCents / 100) : 'No disponible';
