@@ -232,12 +232,39 @@ if (reduce || !('IntersectionObserver' in window)) {
   sections.forEach((el) => so.observe(el));
 }
 
-/* Cabecera oscura sobre la portada, clara en el resto de la página. */
+/* Cabecera camaleón: toma el color de fondo del bloque que tiene justo debajo
+   (negro en la portada y el cierre, beige en las bandas, blanco en el resto).
+   Los bloques oscuros llevan data-tone="night" para pasar el texto a claro. */
 const nav = document.querySelector('[data-nav]');
-const heroSection = document.querySelector('[data-hero-section]');
-if (nav && heroSection && 'IntersectionObserver' in window) {
-  nav.classList.add('is-night');
-  new IntersectionObserver(([e]) => nav.classList.toggle('is-night', e.isIntersecting), { rootMargin: '-72px 0px 0px 0px', threshold: 0 }).observe(heroSection);
+if (nav && document.elementsFromPoint) {
+  const bgOf = (el) => {
+    for (let n = el; n && n !== document.documentElement; n = n.parentElement) {
+      const c = getComputedStyle(n).backgroundColor;
+      if (c && c !== 'transparent' && !/rgba?\(.*,\s*0\)$/.test(c)) return { color: c, node: n };
+    }
+    return { color: getComputedStyle(document.body).backgroundColor, node: document.body };
+  };
+  let ticking = false;
+  let last = '';
+  const paint = () => {
+    ticking = false;
+    const y = nav.getBoundingClientRect().bottom + 1;
+    const hit = document.elementsFromPoint(window.innerWidth / 2, y)
+      .find((el) => !nav.contains(el) && !el.closest('[data-dock]'));
+    if (!hit) return;
+    const { color, node } = bgOf(hit);
+    const night = Boolean(node.closest('[data-tone="night"]'));
+    const key = color + night;
+    if (key === last) return;
+    last = key;
+    nav.style.setProperty('--nav-bg', color);
+    nav.classList.toggle('is-night', night);
+  };
+  const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(paint); } };
+  addEventListener('scroll', queue, { passive: true });
+  addEventListener('resize', queue);
+  addEventListener('load', queue);
+  paint();
 }
 
 /* Barra fija de WhatsApp en móvil: aparece tras la portada y se oculta en el cierre. */
