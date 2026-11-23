@@ -22,6 +22,16 @@ Fecha: 2026-11-23. Estado: cliente cerrado, entrega prevista hoy.
 | "Junto al Hotel Vértice" | Sí | Sin confirmar | Confirmar referencia |
 | Valoración | — | Google 4,5 (≈730 reseñas) | Posible sección de reseñas |
 
+## Confirmado por Jose (2026-11-23)
+
+- Horario de Google: L-V 20:00–00:00; S-D 13:30–16:00 y 20:00–00:00 (aplicado).
+- Terraza: sí. Instagram @pizzeria_maria (Instagram no admite tildes). Junto al Hotel Vértice: sí.
+- La "G" se mantiene tal cual viene en la carta del negocio.
+- Los 10 platos sin precio se muestran como «No disponible» (no se ocultan).
+- Dominio: www.pizzeriamaria.es (comprado por Jose).
+- Aviso legal y privacidad: se dejan para el final.
+- Fotos propias: pendientes del dueño.
+
 ## Errores encontrados (antes de esta revisión)
 
 1. `noindex,nofollow,noarchive`: Google no habría indexado la web del cliente.

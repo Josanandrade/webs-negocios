@@ -1,4 +1,4 @@
-/* Carta de Pizzería María. Para actualizar precios o platos, edita esta lista. */
+/* Carta de Pizzería María. Para actualizar precios o platos, edita esta lista. available:false = se muestra como «No disponible». */
 window.MARIA_MENU = {
   "categories": [
     "Bebidas",
@@ -648,28 +648,28 @@ window.MARIA_MENU = {
     },
     {
       "category": "Pizza",
-      "name": "Burrata",
+      "name": "Burrata G",
       "description": "Burrata D.O., guanciale laminado, albahaca y aceite de trufa.",
       "priceCents": 1300,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "Cabramelizada",
+      "name": "Cabramelizada G",
       "description": "Queso de cabra y cebolla caramelizada.",
       "priceCents": 1300,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "Jack Daniel's",
+      "name": "Jack Daniel's G",
       "description": "Carne picada, cebolla caramelizada, salsa cheddar, bacon y salsa Jack Daniel's.",
       "priceCents": 1300,
       "available": true
     },
     {
       "category": "Pizza",
-      "name": "Piamontesa",
+      "name": "Piamontesa G",
       "description": "Burrata D.O., rúcula, champiñones y salami milano.",
       "priceCents": 1300,
       "available": true

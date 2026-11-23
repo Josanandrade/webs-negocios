@@ -1,8 +1,6 @@
 (() => {
   'use strict';
-  const { categories } = window.MARIA_MENU;
-  // Solo se muestran los productos con precio confirmado.
-  const items = window.MARIA_MENU.items.filter(item => item.available && item.priceCents != null);
+  const { categories, items } = window.MARIA_MENU;
   const filters = document.querySelector('#filters');
   const grid = document.querySelector('#menuGrid');
   const count = document.querySelector('#menuCount');
@@ -26,7 +24,7 @@
     }
     for (const item of list) {
       const card = document.createElement('article');
-      card.className = 'dish';
+      card.className = `dish${item.available ? '' : ' unavailable'}`;
       const category = document.createElement('small');
       category.textContent = item.category;
       const name = document.createElement('h3');
@@ -34,13 +32,14 @@
       const description = document.createElement('p');
       description.textContent = item.description;
       const price = document.createElement('strong');
-      price.textContent = money.format(item.priceCents / 100);
+      price.className = item.available ? '' : 'unavailableLabel';
+      price.textContent = item.available ? money.format(item.priceCents / 100) : 'No disponible';
       card.append(category, name, description, price);
       grid.append(card);
     }
   }
 
-  for (const category of ['Todo', ...categories.filter(name => items.some(item => item.category === name))]) {
+  for (const category of ['Todo', ...categories]) {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'filter';
