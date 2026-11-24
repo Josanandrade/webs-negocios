@@ -180,6 +180,15 @@ a:hover { text-decoration-color: var(--color-ink); }
 .js .treat .glyph--fade { opacity: 0; transition: opacity 1.6s var(--ease-out) 0.4s; }
 .js .treat.is-in .glyph--fade { opacity: 1; }
 
+.treat__body > p:not([class]) { color: var(--color-ink-2); }
+
+/* the laser specialist, introduced at the top of the Láser tab */
+.laser-team { margin: 0; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-lg) var(--space-2xl); align-items: end; padding-block: var(--space-2xl); border-bottom: 1px solid var(--color-rule); }
+.laser-team__photos { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-sm); max-width: 30rem; }
+.laser-team__photos .photo { aspect-ratio: 3 / 4; }
+.laser-team figcaption { font-family: var(--font-display); font-size: var(--text-xl); line-height: 1.3; color: var(--color-ink-2); max-width: 30ch; padding-left: var(--space-md); border-left: 2px solid var(--color-blush-line); }
+@media (max-width: 54rem) { .laser-team { grid-template-columns: minmax(0, 1fr); padding-block: var(--space-xl); } }
+
 .points { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-sm); }
 .points li { position: relative; padding-left: 2em; font-size: 1.0625rem; }
 .points li::before { content: ""; position: absolute; left: 0; top: 0.8em; width: 1.2em; border-top: 1px solid var(--color-blush-line); }

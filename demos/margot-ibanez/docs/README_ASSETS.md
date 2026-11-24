@@ -40,3 +40,9 @@ La sección "En vídeo" está en `index.html`, entre "Sobre Margot" y "Preguntas
 - **Vertical (reel):** añadir la clase `video--vertical` a la `<figure>`.
 
 Para publicarla: copiar un ejemplo fuera del comentario, rellenarlo y quitar `hidden` de la `<section>`. Con JavaScript la sección también se muestra sola en cuanto tiene un vídeo.
+
+## Retratos (2026-11-24)
+
+- `margot-portada-{480,720,960}.webp`: Margot sentada, con la franja de color en el rostro (portada). `margot-og-960.jpg` es la misma foto para compartir en redes.
+- `margot-retrato-abrigo-{560,960}.webp`: Margot en blanco y negro con abrigo ("Soy Margot Ibáñez").
+- `laser-especialista-*.webp`: los dos retratos que venían en el Word NO son de Margot, sino de la especialista que hace los tratamientos láser. Ahora están al principio de la pestaña Láser. Falta su nombre.
