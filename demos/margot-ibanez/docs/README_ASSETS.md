@@ -23,16 +23,13 @@ El Word no trae fotos de trabajos, así que no hay sección de galería ni antes
 4. Logotipo, si tiene.
 5. Fotos de diplomas o premios, si quiere mostrarlos.
 
-## Fotos de cada tratamiento (ronda 4, 2026-11-23)
+## Fotos de tratamientos (2026-11-24)
 
-Cada tratamiento tiene una ranura (`<div class="treat__media">` en `demo-host/index.html`) que hoy muestra su trazo dibujado. Cuando Margot mande las fotos:
+Recortadas del cartel "Lista de tratamientos" que envió Margot (16 fotos, unos 220 × 165 px cada una) y guardadas en `demo-host/assets/img/tratamientos/<nombre>.webp` (4:3). Para cambiar una foto basta con sustituir el archivo con el mismo nombre; si es más grande (por ejemplo 800 × 600) se verá más nítida.
 
-1. Recorta cada foto en vertical 4:5 (por ejemplo 800 × 1000 px), pásala a WebP y guárdala en `demo-host/assets/img/tratamientos/` con estos nombres:
-   `01-cejas.webp`, `02-labios.webp`, `03-ojos.webp`, `04-tatuajes.webp`, `05-eliminar-cejas.webp`, `06-eliminar-labios.webp`, `07-facial-premium.webp`, `08-hollywood-peel.webp`, `09-fibroblast.webp`, `10-hilo.webp`.
-2. En `index.html`, dentro de cada ranura hay un comentario `FOTO NN` con la etiqueta `<img>` ya escrita: sustituye el `<svg class="glyph">` de esa ranura por esa etiqueta y ajusta el texto `alt` si hace falta.
-3. No hay que tocar el CSS: la foto ocupa el mismo sitio, con marco 4:5 y línea rosa, y aparece con un fundido al hacer scroll.
+Tres tratamientos del texto original no tienen foto en el cartel y siguen con su trazo dibujado dentro del mismo marco: Hollywood Peel, eliminación de micropigmentación de cejas y eliminación de micropigmentación de labios. Para añadirles foto, sustituye el `<svg>` de su ranura por un `<img>` como el de los demás.
 
-Se puede cambiar un tratamiento y dejar los demás con su trazo; el diseño no se rompe.
+Pedir a Margot: las fotos originales del cartel a más resolución, y fotos para esos tres tratamientos.
 
 ## Vídeos
 
