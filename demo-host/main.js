@@ -295,12 +295,6 @@ document.querySelectorAll('[data-switch]').forEach((sw) => {
       if (on) panel.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-in'));
     });
     if (focus) tab.focus();
-    /* En móvil las pestañas se desplazan en horizontal: deja visible la activa. */
-    const bar = tab.parentElement;
-    if (bar.scrollWidth > bar.clientWidth) {
-      const left = tab.offsetLeft - bar.offsetLeft - 16;
-      bar.scrollTo({ left: Math.max(0, left), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-    }
   };
   tabs.forEach((tab, i) => {
     tab.addEventListener('click', () => select(tab));
