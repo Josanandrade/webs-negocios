@@ -46,3 +46,13 @@ Para publicarla: copiar un ejemplo fuera del comentario, rellenarlo y quitar `hi
 - `margot-portada-{480,720,960}.webp`: Margot sentada, con la franja de color en el rostro (portada). `margot-og-960.jpg` es la misma foto para compartir en redes.
 - `margot-retrato-abrigo-{560,960}.webp`: Margot en blanco y negro con abrigo ("Soy Margot Ibáñez").
 - `laser-especialista-*.webp`: los dos retratos que venían en el Word NO son de Margot, sino de la especialista que hace los tratamientos láser. Ahora están al principio de la pestaña Láser. Falta su nombre.
+
+## Galerías por especialidad (2026-11-25)
+
+Cada pestaña de Tratamientos termina con una galería (`section.gallery[data-gallery]`).
+Carpetas: `demo-host/assets/galeria/<micropigmentacion|cejas-pestanas|facial|laser|cuerpo-unas>/`.
+La plantilla de foto y de vídeo está comentada dentro de cada galería en `index.html`.
+- Foto: miniatura 480×600 (4:5) en `img`, original grande en `data-full`.
+- Vídeo: mp4 en `data-video` y una portada 4:5 en `img`; se reproduce en el visor.
+Los huecos "Foto/Vídeo" se quitan solos en cuanto una galería tiene un elemento real.
+Antes de entregar, borra las galerías que se queden sin material.
