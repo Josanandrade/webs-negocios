@@ -56,3 +56,10 @@ La plantilla de foto y de vídeo está comentada dentro de cada galería en `ind
 - Vídeo: mp4 en `data-video` y una portada 4:5 en `img`; se reproduce en el visor.
 Los huecos "Foto/Vídeo" se quitan solos en cuanto una galería tiene un elemento real.
 Antes de entregar, borra las galerías que se queden sin material.
+
+### Micropigmentación (2026-11-25)
+62 piezas de los zips "Labios" y "Ojos" de Margot (WhatsApp), optimizadas en `assets/galeria/micropigmentacion/`:
+fotos webp (máx. 1200×1600 + miniatura 480×600) y vídeos H.264 720p con portada.
+Foto principal de labios: `labios-foto-16` (original "WhatsApp Image 2026-11-24 at 20.59.37", elegida por Jose).
+Foto principal de ojos: `ojos-foto-16` (original "…09.24.13.jpeg"), propuesta pendiente de validar por Margot.
+Descartada: "…20.59.13" (collage con rótulos en inglés, parece imagen de referencia de terceros).

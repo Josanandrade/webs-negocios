@@ -158,10 +158,46 @@ document.querySelectorAll('[data-embed]').forEach((btn) => {
    Galerías por especialidad + visor a pantalla completa.
    Los huecos vacíos (.gallery__item--empty) se quitan en cuanto hay material real.
    ========================================================================== */
+const GALLERY_PAGE = 8;
 document.querySelectorAll('[data-gallery]').forEach((g) => {
   if (g.querySelector('.gallery__item:not(.gallery__item--empty)')) {
     g.querySelectorAll('.gallery__item--empty').forEach((el) => el.remove());
   }
+  const grid = g.querySelector('[data-gallery-grid]');
+  const more = g.querySelector('[data-gallery-more]');
+  if (!grid) return;
+  const all = [...grid.querySelectorAll('.gallery__item')];
+  let filter = 'all';
+  let expanded = false;
+  const apply = () => {
+    const match = all.filter((it) => filter === 'all' || it.dataset.set === filter);
+    all.forEach((it) => { it.hidden = true; });
+    match.forEach((it, i) => { it.hidden = !expanded && i >= GALLERY_PAGE; });
+    const rest = match.length - GALLERY_PAGE;
+    if (more) {
+      more.hidden = expanded || rest <= 0;
+      more.textContent = `Ver ${rest} más`;
+    }
+  };
+  g.dataset.filter = filter;
+  g.querySelectorAll('[data-filter]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filter = btn.dataset.filter;
+      g.dataset.filter = filter;
+      expanded = false;
+      g.querySelectorAll('[data-filter]').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      apply();
+    });
+  });
+  if (more) {
+    more.addEventListener('click', () => {
+      const first = all.find((it) => it.hidden && (filter === 'all' || it.dataset.set === filter));
+      expanded = true;
+      apply();
+      if (first) first.querySelector('button').focus();
+    });
+  }
+  apply();
 });
 
 const lightbox = document.querySelector('[data-lightbox]');
@@ -200,8 +236,17 @@ if (lightbox && typeof lightbox.showModal === 'function') {
 
   document.querySelectorAll('[data-gallery] .gallery__open').forEach((btn) => {
     btn.addEventListener('click', () => {
-      items = [...btn.closest('[data-gallery]').querySelectorAll('.gallery__open')];
-      index = items.indexOf(btn);
+      const g = btn.closest('[data-gallery]');
+      const set = btn.dataset.lead || g.dataset.filter || 'all';
+      items = [...g.querySelectorAll('.gallery__item .gallery__open')]
+        .filter((b) => set === 'all' || b.closest('.gallery__item').dataset.set === set);
+      index = Math.max(0, items.indexOf(btn));
+      if (btn.dataset.lead) {
+        const leadImg = btn.querySelector('img');
+        const same = items.findIndex((b) => b.dataset.full && leadImg && leadImg.src.endsWith(b.dataset.full));
+        if (same >= 0) index = same;
+      }
+      if (!items.length) return;
       opener = btn;
       render();
       lightbox.showModal();
