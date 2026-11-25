@@ -1,13 +1,22 @@
-# Margot Ibáñez · Micropigmentación Facial (demo)
+# Margot Ibáñez · Micropigmentación facial (web v2)
 
-Demo comercial estática y no indexable para Margot Ibáñez Micropigmentación Facial (Villanueva del Ariscal, Sevilla).
+Web estática y no indexable para Margot Ibáñez, rehecha el 2026-11-23 a partir de los textos que ella misma facilitó (documento "Textos página web"). Sustituye a la demo de prospección del 2026-10-19.
 
-- Versión publicada: `demo-host/` (raíz del repo), servida por el proyecto de Cloudflare Pages ya conectado, una preview por rama.
-- Rama: `demo/margot-ibanez`.
-- No indexable: `<meta name="robots" content="noindex,nofollow,noarchive">`, `demo-host/robots.txt` (`Disallow: /`) y `demo-host/_headers` (`X-Robots-Tag`).
-- Sin Railway, sin Wrangler, sin despliegue manual.
+- Versión publicada: `demo-host/` (index.html, styles.css, tokens.css, base.css, main.js, assets/img/, favicon.svg, robots.txt, _headers).
+- Cloudflare Pages construye una preview por rama desde `demo-host/`.
+- No indexable: meta robots, `robots.txt` (`Disallow: /`) y `_headers` (`X-Robots-Tag`). Quitar las tres cosas al pasar a producción.
 
-Documentación interna (no se publica, está fuera de `demo-host/`):
+## Cambiar el número de WhatsApp
 
-- `docs/INTERNAL_AUDIT.md`: investigación, fuentes, datos confirmados e inferidos.
-- `docs/README_ASSETS.md`: recursos visuales y qué sustituir por fotos reales.
+Está pendiente. Editar la constante al principio de `demo-host/main.js`:
+
+```js
+const WHATSAPP_NUMBER = '34XXXXXXXXX'; // solo dígitos, con prefijo 34
+```
+
+Todos los botones (cabecera, portada, cada tratamiento, banda tras tratamientos, cierre, pie y barra fija en móvil) usan esa constante. Mientras esté vacía, WhatsApp se abre con el mensaje escrito y pide elegir el contacto.
+
+Documentación interna (fuera de `demo-host/`, no se publica):
+
+- `docs/INTERNAL_AUDIT.md`: fuentes, datos confirmados y pendientes.
+- `docs/README_ASSETS.md`: fotos usadas y material que hay que pedir.

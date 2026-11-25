@@ -41,3 +41,29 @@ No se nombran técnicas concretas (microblading, pelo a pelo, efecto polvo, labi
 1. "Me la recomendó una amiga y viendo las redes sociales me dio buena impresión."
 2. "Margot muchas gracias de verdad, estoy encantada!"
 3. "Magnífica, ella es una persona súper especial en todos los sentidos."
+
+---
+
+# v2 · 2026-11-23 · Web a partir de los textos de Margot
+
+Fuente principal: documento Word "Textos página web" con los textos que Margot quiere en su web (Jose lo adjuntó en el hilo del proyecto). No se ha contactado con Margot.
+
+## Confirmado en el Word
+
+- "Mi historia": texto completo. Afirma premios internacionales y que es jurado en congresos nacionales de PMU (se cita tal cual, sin detallar premios que no da).
+- Tratamientos: micropigmentación de cejas, labios (incluye reconstrucción de mucosa deformada, rota o labio leporino) y ojos (eyeliner clásico y softliner ahumado); depilación con hilo; limpieza y tratamiento facial premium (paleta ultrasónica, Dermapen, mascarilla, alta frecuencia, masaje); Fibroblast / Plasma Pen; eliminación láser de tatuajes; eliminación láser de micropigmentación de cejas y de labios; Hollywood Peel.
+- La eliminación láser la realiza "personal sanitario con protocolos específicos de seguridad".
+- Dos retratos en blanco y negro.
+
+## No aparece en el Word (pendiente)
+
+- Número de WhatsApp. La investigación de octubre encontró el 727 74 08 24 (sin confirmar que tenga WhatsApp). No se ha usado.
+- Dirección, localidad y horario. En octubre había un conflicto de direcciones (Inocencio Venegas 15 A frente a Isaac Peral 14, Villanueva del Ariscal). No se muestran.
+- Precios, duración de sesiones, si incluye retoque.
+- Instagram u otras redes, email.
+- Detalle de premios y congresos.
+- Datos para aviso legal y privacidad (titular, NIF).
+
+## Correcciones de texto
+
+Ortografía y claridad: "¡Glos!" pasa a "gloss"; "pPLASMA PEN" a "Plasma Pen"; mayúsculas y emojis eliminados; textos largos resumidos en frases y puntos conservando el sentido. Los textos completos de "Mi historia" y de ojos/Fibroblast están en desplegables.

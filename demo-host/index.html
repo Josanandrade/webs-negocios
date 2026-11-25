@@ -5,418 +5,863 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="googlebot" content="noindex,nofollow">
-  <title>Margot Ibáñez · Micropigmentación Facial · Villanueva del Ariscal</title>
-  <meta name="description" content="Micropigmentación facial de cejas, ojos y labios en Villanueva del Ariscal (Sevilla). Diseño a medida, cita previa por WhatsApp o teléfono.">
-  <meta name="theme-color" content="#1D1817">
+  <title>Margot Ibáñez | Micropigmentación facial y estética avanzada</title>
+  <meta name="description" content="Micropigmentación de cejas, labios y ojos, eliminación láser de tatuajes y micropigmentación, y tratamientos faciales con Margot Ibáñez. Consulta por WhatsApp.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Margot Ibáñez | Micropigmentación facial">
+  <meta property="og:description" content="Belleza que realza, sin transformar. Cejas, labios y ojos diseñados para tu rostro.">
+  <meta property="og:image" content="assets/img/margot-og-960.jpg">
+  <meta name="theme-color" content="#121010">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Albert+Sans:wght@300;400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/gilda-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/jost-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-  <a class="skip" href="#tratamientos">Saltar al contenido</a>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
 
-  <header class="top" id="top">
-    <div class="wrap top__inner">
-      <a class="brand" href="#top" aria-label="Margot Ibáñez, inicio">
-        <span class="brand__mark" aria-hidden="true">MI</span>
-        <span class="brand__name">Margot Ibáñez<small>Micropigmentación facial</small></span>
+  <header class="nav" id="inicio" data-nav>
+    <div class="container nav__bar">
+      <a class="nav__brand" href="#inicio" aria-label="Margot Ibáñez, inicio">
+        <span class="nav__sign">Margot Ibáñez</span>
       </a>
-      <nav class="nav" aria-label="Principal">
-        <button class="nav__toggle" aria-expanded="false" aria-controls="menu"><span></span><span></span><span class="sr">Menú</span></button>
-        <ul id="menu">
-          <li><a href="#tratamientos">Tratamientos</a></li>
-          <li><a href="#resultados">Resultados</a></li>
-          <li><a href="#margot">Sobre Margot</a></li>
-          <li><a href="#proceso">Proceso</a></li>
-          <li><a href="#opiniones">Opiniones</a></li>
-          <li><a href="#ubicacion">Ubicación</a></li>
-          <li><a class="nav__cta" href="#cita">Pedir cita</a></li>
-        </ul>
+      <nav class="nav__menu" id="menu" aria-label="Principal">
+        <a href="#tratamientos">Tratamientos</a>
+        <a href="#margot">Sobre Margot</a>
+        <a href="#preguntas">Preguntas</a>
+        <a href="#consulta">Contacto</a>
       </nav>
+      <a class="btn btn--small nav__wa" href="#consulta" data-wa="">WhatsApp</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu">Menú</button>
     </div>
   </header>
 
-  <main>
-    <!-- HERO -->
-    <section class="hero">
-      <div class="wrap hero__grid">
-        <div class="hero__copy">
-          <p class="eyebrow mono">Estudio de micropigmentación facial · Villanueva del Ariscal</p>
-          <h1 class="hero__title">Diseñada<br>al milímetro.<br><em>Natural</em> a simple vista.</h1>
-          <p class="hero__lead">Cejas, mirada y labios trabajados con micropigmentación y un diseño pensado para tu rostro. Antes de pigmentar, se mide, se dibuja y se decide contigo.</p>
-          <div class="hero__actions">
-            <a class="btn btn--ink" href="#cita">Pedir cita</a>
-            <a class="btn btn--line" data-wa="Hola Margot, me gustaría información sobre micropigmentación." href="https://wa.me/34727740824" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+  <main id="contenido">
+    <!-- PORTADA -->
+    <section class="hero" aria-labelledby="hero-title" data-hero-section data-tone="night">
+      <div class="container hero__grid">
+        <div class="hero__text">
+          <h1 id="hero-title" data-hero style="--h:1">Belleza que realza, sin transformar.</h1>
+          <p class="hero__lead" data-hero style="--h:2">Micropigmentación de cejas, labios y ojos, diseñada para tu rostro.</p>
+          <div class="hero__actions" data-hero style="--h:3">
+            <a class="btn btn--pink" href="#consulta" data-wa="">Consultar por WhatsApp</a>
+            <a class="btn btn--ghost" href="#tratamientos">Ver tratamientos</a>
           </div>
-          <ul class="hero__trust">
-            <li><strong>5,0</strong><span class="stars" aria-hidden="true">★★★★★</span><span>87 reseñas en Google</span></li>
-            <li><strong>3</strong><span>zonas: cejas, ojos y labios</span></li>
-            <li><strong>1:1</strong><span>atención personal, con cita previa</span></li>
-          </ul>
         </div>
 
-        <figure class="hero__study" aria-label="Ilustración de un estudio de proporciones del rostro">
-          <svg class="face" viewBox="0 0 520 620" role="img" aria-labelledby="faceT">
-            <title id="faceT">Estudio de proporciones: ilustración de mapeo de cejas, ojos y labios</title>
-            <defs>
-              <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="currentColor" opacity=".18"/></pattern>
-            </defs>
-            <rect x="0" y="0" width="520" height="620" fill="url(#dots)"/>
-            <!-- rostro -->
-            <path class="face__line" d="M260 82 C372 82 432 176 430 300 C428 420 372 540 260 552 C148 540 92 420 90 300 C88 176 148 82 260 82 Z"/>
-            <path class="face__soft" d="M246 300 C244 340 240 370 234 392 M230 404 Q246 414 260 409 Q274 414 290 404"/>
-            <!-- ojos -->
-            <g class="eye">
-              <path class="face__line" d="M138 290 Q178 264 218 292 Q178 308 138 290 Z"/>
-              <circle cx="179" cy="289" r="11" class="iris"/>
-              <path class="liner" d="M136 289 Q178 261 220 291 M136 289 L122 280"/>
-            </g>
-            <g class="eye" transform="translate(520 0) scale(-1 1)">
-              <path class="face__line" d="M138 290 Q178 264 218 292 Q178 308 138 290 Z"/>
-              <circle cx="179" cy="289" r="11" class="iris"/>
-              <path class="liner" d="M136 289 Q178 261 220 291 M136 289 L122 280"/>
-            </g>
-            <!-- cejas -->
-            <path class="brow" d="M228 256 C214 241 184 229 154 223 C134 219 117 227 102 243 C120 234 137 231 154 232 C182 236 207 246 228 262 Z"/>
-            <path class="brow" transform="translate(520 0) scale(-1 1)" d="M228 256 C214 241 184 229 154 223 C134 219 117 227 102 243 C120 234 137 231 154 232 C182 236 207 246 228 262 Z"/>
-            <!-- labios -->
-            <path class="lips" d="M212 470 Q236 452 260 463 Q284 452 308 470 Q284 496 260 498 Q236 496 212 470 Z"/>
-            <path class="lips__line" d="M212 470 Q260 478 308 470"/>
-            <!-- guías de mapeo -->
-            <g class="guides">
-              <path class="guide" d="M230 404 L230 196"/>
-              <path class="guide" d="M230 404 L143 208"/>
-              <path class="guide" d="M230 404 L92 226"/>
-              <path class="guide" d="M290 404 L290 196"/>
-              <path class="guide" d="M290 404 L377 208"/>
-              <path class="guide" d="M290 404 L428 226"/>
-              <path class="guide guide--h" d="M70 246 L450 246"/>
-              <path class="guide guide--h" d="M160 470 L360 470"/>
-              <path class="guide guide--v" d="M260 120 L260 540"/>
-            </g>
-            <g class="pins">
-              <circle cx="230" cy="250" r="4"/><circle cx="154" cy="225" r="4"/><circle cx="104" cy="242" r="4"/>
-              <circle cx="290" cy="250" r="4"/><circle cx="366" cy="225" r="4"/><circle cx="416" cy="242" r="4"/>
-            </g>
-            <g class="notes mono">
-              <text x="236" y="192">01 · inicio</text>
-              <text x="96" y="200">02 · arco</text>
-              <text x="24" y="268">03 · cola</text>
-              <text x="316" y="458">simetría</text>
-              <text x="268" y="132">eje</text>
-            </g>
-          </svg>
-          <figcaption class="mono">Fig. 01 — Así se empieza: medir antes de pigmentar. <span>Ilustración</span></figcaption>
+        <figure class="hero__portrait" data-hero style="--h:1">
+          <img src="assets/img/margot-portada-720.webp" srcset="assets/img/margot-portada-480.webp 480w, assets/img/margot-portada-720.webp 720w, assets/img/margot-portada-960.webp 960w" sizes="(min-width: 60rem) 32vw, 92vw" width="720" height="1080" alt="Margot Ibáñez sentada, con vestido negro y las manos junto al rostro; una franja de su cara aparece en color" fetchpriority="high">
+          <figcaption class="hero__caption">Primero, estudiar tus facciones. Después, diseñar.</figcaption>
         </figure>
       </div>
-      <div class="ticker" aria-hidden="true">
-        <div class="ticker__track mono">
-          <span>Cejas</span><span>·</span><span>Línea de ojos</span><span>·</span><span>Labios</span><span>·</span><span>Diseño a medida</span><span>·</span><span>Cita previa</span><span>·</span>
-          <span>Cejas</span><span>·</span><span>Línea de ojos</span><span>·</span><span>Labios</span><span>·</span><span>Diseño a medida</span><span>·</span><span>Cita previa</span><span>·</span>
-        </div>
+    </section>
+
+    <!-- FILOSOFÍA -->
+    <section class="band statement" aria-labelledby="statement-title" data-section>
+      <svg class="measure" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path class="measure__arc" pathLength="1" d="M-10 104 C 300 70, 700 18, 1000 22 C 1180 24, 1320 52, 1450 88"/>
+        <path class="measure__ticks" d="M120 0 V120 M1000 0 V120 M1360 0 V120"/>
+      </svg>
+      <div class="container statement__grid">
+        <h2 id="statement-title" class="statement__quote" data-reveal>No existen dos rostros iguales, ni dos mujeres que busquen exactamente lo mismo.</h2>
+        <p class="statement__text" data-reveal>Por eso, cada tratamiento comienza escuchándote. Mi objetivo es comprender lo que necesitas, estudiar tus facciones y diseñar un resultado que encaje contigo, con tu estilo y tu esencia.</p>
       </div>
     </section>
 
-    <!-- TRATAMIENTOS -->
-    <section class="section" id="tratamientos">
-      <div class="wrap">
-        <header class="head">
-          <p class="eyebrow mono">01 — Tratamientos</p>
-          <h2>Tres zonas. Un mismo criterio: <em>que parezca tuyo</em>.</h2>
-          <p class="head__lead">La micropigmentación deposita pigmento de forma superficial para definir, rellenar o dar color. Cada diseño se adapta a tus rasgos, tu tono de piel y lo que quieres conseguir.</p>
-        </header>
-
-        <div class="treat">
-          <article class="treat__card">
-            <svg class="treat__icon" viewBox="0 0 120 60" aria-hidden="true"><path d="M110 40 C96 22 66 12 38 12 C24 12 14 20 6 34 C18 26 30 23 40 24 C64 26 88 32 110 48 Z"/><path class="tick" d="M6 54 H114"/></svg>
-            <p class="treat__n mono">A</p>
-            <h3>Cejas</h3>
-            <p>Para dar forma, densidad o simetría a unas cejas despobladas, desiguales o muy claras. Se diseña el arco según la estructura de tu rostro y se elige el tono que encaja con tu pelo y tu piel.</p>
-            <ul class="tags mono"><li>Diseño y visagismo</li><li>Tono a medida</li></ul>
-            <a class="treat__link" data-wa="Hola Margot, me interesa la micropigmentación de cejas." href="https://wa.me/34727740824" target="_blank" rel="noopener">Consultar cejas</a>
-          </article>
-          <article class="treat__card">
-            <svg class="treat__icon" viewBox="0 0 120 60" aria-hidden="true"><path d="M10 34 Q60 2 110 34 Q60 56 10 34 Z" class="o"/><path d="M8 33 Q60 -2 112 33 L120 26"/><path class="tick" d="M6 54 H114"/></svg>
-            <p class="treat__n mono">B</p>
-            <h3>Ojos</h3>
-            <p>Una línea que intensifica la mirada sin necesidad de maquillarte cada mañana. Desde un trazo muy fino pegado a las pestañas hasta una línea más marcada, siempre decidida contigo.</p>
-            <ul class="tags mono"><li>Línea de pestañas</li><li>Eyeliner</li></ul>
-            <a class="treat__link" data-wa="Hola Margot, me interesa la micropigmentación de ojos (eyeliner)." href="https://wa.me/34727740824" target="_blank" rel="noopener">Consultar ojos</a>
-          </article>
-          <article class="treat__card">
-            <svg class="treat__icon" viewBox="0 0 120 60" aria-hidden="true"><path d="M8 30 Q34 8 60 22 Q86 8 112 30 Q86 58 60 58 Q34 58 8 30 Z" class="o"/><path d="M8 30 Q60 40 112 30"/><path class="tick" d="M6 54 H114" opacity="0"/></svg>
-            <p class="treat__n mono">C</p>
-            <h3>Labios</h3>
-            <p>Para redefinir el contorno, corregir pequeñas asimetrías o recuperar color en labios que lo han perdido. El tono se elige para que se vea natural con o sin pintalabios.</p>
-            <ul class="tags mono"><li>Contorno</li><li>Color</li></ul>
-            <a class="treat__link" data-wa="Hola Margot, me interesa la micropigmentación de labios." href="https://wa.me/34727740824" target="_blank" rel="noopener">Consultar labios</a>
-          </article>
+    <!-- TRATAMIENTOS
+         Fotos en assets/img/tratamientos/ (4:3). Para cambiar una, sustituye el archivo con el mismo nombre. -->
+    <section class="section tratamientos" id="tratamientos" aria-labelledby="trat-title" data-section>
+      <div class="container">
+        <div class="section__head" data-reveal>
+          <h2 id="trat-title">Tratamientos</h2>
+          <p>Diecinueve tratamientos en cinco especialidades. Todos empiezan igual: con una valoración y un diseño hecho para ti.</p>
         </div>
 
-        <aside class="also">
-          <h3 class="also__title">También en el estudio</h3>
-          <ul class="also__list">
-            <li>Higiene facial y extracción</li>
-            <li>Dermaplaning</li>
-            <li>Microdermoabrasión</li>
-            <li>Tratamiento facial para hombre</li>
-            <li>Depilación con hilo</li>
-            <li>Maquillaje y maquillaje de novia</li>
-          </ul>
-          <p class="also__note">Pregunta por disponibilidad y precio al pedir tu cita.</p>
-        </aside>
-      </div>
-    </section>
+        <div class="switch" data-switch>
+          <div class="tabs" role="tablist" aria-label="Especialidad" data-reveal>
+            <button class="tab" type="button" role="tab" id="tab-micro" aria-controls="panel-micro" aria-selected="true"><span class="tab__n">I</span>Micropigmentación</button>
+            <button class="tab" type="button" role="tab" id="tab-cejas" aria-controls="panel-cejas" aria-selected="false" tabindex="-1"><span class="tab__n">II</span>Cejas y pestañas</button>
+            <button class="tab" type="button" role="tab" id="tab-facial" aria-controls="panel-facial" aria-selected="false" tabindex="-1"><span class="tab__n">III</span>Facial</button>
+            <button class="tab" type="button" role="tab" id="tab-laser" aria-controls="panel-laser" aria-selected="false" tabindex="-1"><span class="tab__n">IV</span>Láser</button>
+            <button class="tab" type="button" role="tab" id="tab-cuerpo" aria-controls="panel-cuerpo" aria-selected="false" tabindex="-1"><span class="tab__n">V</span>Cuerpo y uñas</button>
+          </div>
 
-    <!-- RESULTADOS -->
-    <section class="section section--dark" id="resultados">
-      <div class="wrap">
-        <header class="head head--split">
-          <div>
-            <p class="eyebrow mono">02 — Resultados</p>
-            <h2>Lo que ves en el espejo<br><em>empieza en un boceto</em>.</h2>
-          </div>
-          <p class="head__lead">Desliza para ver cómo un mapeo de proporciones se convierte en un diseño de ceja. Es una ilustración del método: los trabajos reales de Margot irán en la galería, siempre con el permiso de cada clienta.</p>
-        </header>
+          <!-- I · MICROPIGMENTACIÓN -->
+          <div class="panel" role="tabpanel" id="panel-micro" aria-labelledby="tab-micro" tabindex="0">
+            <h3 class="panel__title">Micropigmentación</h3>
 
-        <div class="compare" data-compare>
-          <div class="compare__layer compare__layer--after">
-            <svg viewBox="0 0 800 360" aria-hidden="true">
-              <rect width="800" height="360" class="compare__bg"/>
-              <path class="c-brow" d="M610 210 C560 150 450 110 330 98 C260 92 200 118 150 178 C210 146 270 136 330 140 C440 150 540 176 610 232 Z"/>
-              <g class="c-hairs">
-                <path d="M590 212 L566 184 M560 196 L538 168 M530 182 L506 156 M496 168 L472 146 M462 156 L438 136 M426 146 L402 128 M392 140 L366 124 M356 134 L330 122 M318 132 L292 124 M282 134 L258 128 M248 140 L224 136 M216 148 L192 148"/>
-              </g>
-              <path class="c-eye" d="M200 280 Q380 214 560 284 Q380 324 200 280 Z"/>
-              <circle class="c-iris" cx="380" cy="276" r="26"/>
-            </svg>
-            <span class="compare__tag mono">Diseño final</span>
+            <article class="treat" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">01</span>
+                <h4>Cejas</h4>
+                <p class="treat__kind">Sombreados y microblading</p>
+                <div class="treat__media">
+                  <img src="assets/img/tratamientos/micro-cejas.webp" width="220" height="165" alt="Ceja diseñada, vista de cerca" loading="lazy" decoding="async">
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">Este tratamiento permite definir, corregir y armonizar la forma de las cejas, aportando un efecto de mayor densidad y simetría, siempre adaptado a las facciones de cada rostro. Mediante un diseño personalizado y la técnica más adecuada para cada caso, conseguimos unas cejas bonitas, equilibradas y naturales.</p>
+                <p>El objetivo es realzar tu mirada, corregir pequeñas imperfecciones y potenciar tu belleza sin perder tu esencia. Disfruta de unas cejas perfectas durante más tiempo, reduce el tiempo que dedicas al maquillaje diario y luce una mirada más expresiva desde que te levantas.</p>
+              </div>
+            </article>
+
+            <article class="treat" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">02</span>
+                <h4>Labios</h4>
+                <div class="treat__media">
+                  <img src="assets/img/tratamientos/micro-labios.webp" width="220" height="165" alt="Labios con color y contorno definidos" loading="lazy" decoding="async">
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">Realza la belleza de tus labios con un toque de color, definición y naturalidad. La micropigmentación permite mejorar y unificar su tono, corregir pequeñas asimetrías y redefinir su contorno, aportando un aspecto más uniforme, fresco y armonioso, también realizamos reconstrucciones de labios con mucosa deformada, rota o labios leporinos.</p>
+                <p>Despierta la belleza de tus labios sin depender del maquillaje cada día. Luce unos labios más definidos, con un color personalizado que potencie tu esencia y tu belleza natural.</p>
+                <p>Es ideal si practicas deporte, piscina o simplemente quieres comer con tranquilidad y derrochar amor dando besos sin preocuparte del maquillaje de labios.</p>
+                <p class="treat__sign">Un poco de ¡Glos! Y los tendrás perfectos todo el día.</p>
+              </div>
+            </article>
+
+            <article class="treat" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">03</span>
+                <h4>Ojos</h4>
+                <p class="treat__kind">Clásicos y sombreados</p>
+                <div class="treat__media">
+                  <img src="assets/img/tratamientos/micro-ojos.webp" width="220" height="165" alt="Ojo con delineado permanente" loading="lazy" decoding="async">
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">Realza la belleza de tu mirada con una definición personalizada que aporta intensidad, profundidad y armonía a tus ojos, eligiendo un Softliner ahumado con sombra espectacular o un Eye Liner clásico.</p>
+                <p>Con la técnica clásica, conseguimos un delineado definido y elegante; con la técnica sombreada, aportamos un efecto difuminado que intensifica la mirada con un acabado más suave y sofisticado.</p>
+                <p>Además, disfrutarás de una mirada visualmente más abierta, pestañas con mayor sensación de densidad y un diseño adaptado a la forma natural de tus ojos. Olvídate de los delineados irregulares, de las manchas y de perder tiempo intentando conseguir el mismo resultado cada mañana.</p>
+                <p>Es una opción ideal si practicas deporte, piscina, tienes una rutina activa, usas gafas o lentillas, o simplemente quieres verte arreglada en cualquier momento del día, incluso al despertar.</p>
+                <p class="treat__sign">Tu mirada, tu esencia… siempre perfectas.</p>
+              </div>
+            </article>
+
+            <article class="treat" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">04</span>
+                <h4>Espesor capilar</h4>
+                <div class="treat__media">
+                  <img src="assets/img/tratamientos/espesor-capilar.webp" width="220" height="165" alt="Raya del pelo vista de cerca" loading="lazy" decoding="async">
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">Micropigmentación en el cuero cabelludo que reduce el contraste entre la piel y el cabello en las zonas donde se ve más fino, como la raya o la coronilla, para dar sensación de más densidad.</p>
+                <ul class="points">
+                  <li>No hace crecer el pelo: es un efecto visual.</li>
+                  <li>Primero valoramos la zona y el tono de tu cabello.</li>
+                </ul>
+              </div>
+            </article>
+            <section class="gallery gallery--full" data-gallery aria-label="Galería de Micropigmentación">
+              <div class="gallery__head">
+                <h4 class="gallery__title">Galería</h4>
+                <p class="gallery__note">Trabajos reales de Margot. Pulsa una foto o un vídeo para verlo en grande.</p>
+              </div>
+              <div class="gallery__feature">
+                  <figure class="gallery__lead">
+                    <button class="gallery__open gallery__open--lead" type="button" data-lead="labios" aria-label="Abrir la galería de labios">
+                      <img src="assets/galeria/micropigmentacion/labios-foto-16.webp" width="1200" height="1600" alt="Labios micropigmentados en tono rosa intenso, vista lateral" loading="lazy" decoding="async">
+                    </button>
+                    <figcaption><span class="gallery__lead-title">Labios</span><span class="gallery__lead-count">25 fotos y vídeos</span></figcaption>
+                  </figure>
+                  <figure class="gallery__lead">
+                    <button class="gallery__open gallery__open--lead" type="button" data-lead="ojos" aria-label="Abrir la galería de ojos">
+                      <img src="assets/galeria/micropigmentacion/ojos-foto-16.webp" width="1200" height="1600" alt="Ojo con delineado permanente, vista de cerca" loading="lazy" decoding="async">
+                    </button>
+                    <figcaption><span class="gallery__lead-title">Ojos</span><span class="gallery__lead-count">37 fotos y vídeos</span></figcaption>
+                  </figure>
+              </div>
+              <div class="gallery__filters" role="group" aria-label="Filtrar la galería">
+                <button type="button" class="gallery__filter" data-filter="all" aria-pressed="true">Todo <span>62</span></button>
+                <button type="button" class="gallery__filter" data-filter="labios" aria-pressed="false">Labios <span>25</span></button>
+                <button type="button" class="gallery__filter" data-filter="ojos" aria-pressed="false">Ojos <span>37</span></button>
+              </div>
+              <div class="gallery__grid" data-gallery-grid>
+                <figure class="gallery__item" data-set="labios"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-01.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-01-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="ojos"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-01.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-01-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="labios"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-02.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-02-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="ojos"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-02.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-02-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="labios"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/labios-video-01.mp4" aria-label="Ver vídeo de labios"><img src="assets/galeria/micropigmentacion/labios-video-01-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de labios" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-01.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-01-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item" data-set="labios"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-03.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-03-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="ojos"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-03.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-03-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="labios"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-04.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-04-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="ojos"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-04.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-04-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="labios"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/labios-video-02.mp4" aria-label="Ver vídeo de labios"><img src="assets/galeria/micropigmentacion/labios-video-02-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de labios" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-02.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-02-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item" data-set="labios"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-05.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-05-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="ojos"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-05.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-05-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="labios"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-06.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-06-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="ojos"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-06.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-06-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="labios"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/labios-video-03.mp4" aria-label="Ver vídeo de labios"><img src="assets/galeria/micropigmentacion/labios-video-03-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de labios" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-03.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-03-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item" data-set="labios"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-07.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-07-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="ojos"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-07.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-07-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="labios"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-08.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-08-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="ojos"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-08.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-08-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="labios"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/labios-video-04.mp4" aria-label="Ver vídeo de labios"><img src="assets/galeria/micropigmentacion/labios-video-04-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de labios" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-04.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-04-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item" data-set="labios"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-09.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-09-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="ojos"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-09.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-09-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="labios"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-10.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-10-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="ojos"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-10.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-10-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="labios"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/labios-video-05.mp4" aria-label="Ver vídeo de labios"><img src="assets/galeria/micropigmentacion/labios-video-05-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de labios" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-05.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-05-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item" data-set="labios"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-11.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-11-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="ojos"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-11.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-11-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="labios"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-12.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-12-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="ojos"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-12.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-12-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="labios"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/labios-video-06.mp4" aria-label="Ver vídeo de labios"><img src="assets/galeria/micropigmentacion/labios-video-06-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de labios" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-06.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-06-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item" data-set="labios"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-13.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-13-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="ojos"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-13.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-13-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="labios"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-14.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-14-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="ojos"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-14.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-14-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="labios"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/labios-video-07.mp4" aria-label="Ver vídeo de labios"><img src="assets/galeria/micropigmentacion/labios-video-07-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de labios" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-07.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-07-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item" data-set="labios"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-15.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-15-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="ojos"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-15.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-15-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="labios"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-17.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-17-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-08.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-08-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item" data-set="labios"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-18.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-18-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="ojos"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-17.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-17-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="ojos"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-18.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-18-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-09.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-09-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-10.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-10-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-11.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-11-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-12.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-12-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-13.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-13-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-14.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-14-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-15.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-15-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-16.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-16-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-17.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-17-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-18.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-18-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item gallery__item--video" data-set="ojos"><button class="gallery__open" type="button" data-video="assets/galeria/micropigmentacion/ojos-video-19.mp4" aria-label="Ver vídeo de ojos"><img src="assets/galeria/micropigmentacion/ojos-video-19-poster-thumb.webp" width="480" height="600" alt="Vídeo: micropigmentación de ojos" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                <figure class="gallery__item" data-set="labios"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-16.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-16-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+                <figure class="gallery__item" data-set="ojos"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-16.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-16-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
+              </div>
+              <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
+            </section>
           </div>
-          <div class="compare__layer compare__layer--before">
-            <svg viewBox="0 0 800 360" aria-hidden="true">
-              <rect width="800" height="360" class="compare__bg compare__bg--paper"/>
-              <path class="c-sketch" d="M610 210 C560 150 450 110 330 98 C260 92 200 118 150 178 C210 146 270 136 330 140 C440 150 540 176 610 232 Z"/>
-              <path class="c-guide" d="M600 340 L600 40 M600 340 L360 40 M600 340 L120 120 M80 150 L720 150"/>
-              <circle class="c-pin" cx="600" cy="214" r="7"/><circle class="c-pin" cx="332" cy="100" r="7"/><circle class="c-pin" cx="152" cy="176" r="7"/>
-              <path class="c-eye c-eye--sketch" d="M200 280 Q380 214 560 284 Q380 324 200 280 Z"/>
-              <circle class="c-iris c-iris--sketch" cx="380" cy="276" r="26"/>
-              <text class="c-note mono" x="612" y="60">inicio</text>
-              <text class="c-note mono" x="370" y="56">arco</text>
-              <text class="c-note mono" x="96" y="112">cola</text>
-            </svg>
-            <span class="compare__tag mono">Mapeo</span>
+
+          <!-- II · CEJAS Y PESTAÑAS -->
+          <div class="panel" role="tabpanel" id="panel-cejas" aria-labelledby="tab-cejas" tabindex="0">
+            <h3 class="panel__title">Cejas y pestañas</h3>
+
+            <article class="treat" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">05</span>
+                <h4>Visagismo, diseño, tinte y laminado</h4>
+                <div class="treat__media">
+                  <img src="assets/img/tratamientos/cejas-diseno-laminado.webp" width="220" height="165" alt="Ceja peinada con un cepillo" loading="lazy" decoding="async">
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">Estudiamos tus facciones para encontrar la forma de ceja que más te favorece. El tinte aporta color y el laminado peina y fija el vello en la dirección que buscamos, para unas cejas más ordenadas y con aspecto más poblado.</p>
+              </div>
+            </article>
+
+            <article class="treat" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">06</span>
+                <h4>Lifting de pestañas</h4>
+                <div class="treat__media">
+                  <img src="assets/img/tratamientos/lifting-pestanas.webp" width="220" height="165" alt="Pestañas naturales con curva" loading="lazy" decoding="async">
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">Eleva y curva tus pestañas naturales desde la raíz para que se vean más largas y la mirada más abierta, sin extensiones y sin rizador.</p>
+              </div>
+            </article>
+
+            <article class="treat" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">07</span>
+                <h4>Depilación con hilo</h4>
+                <div class="treat__media">
+                  <img src="assets/img/tratamientos/depilacion-hilo.webp" width="220" height="165" alt="Depilación con hilo del labio superior" loading="lazy" decoding="async">
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">¿Sabías que un simple hilo puede transformar tu mirada?</p>
+                <p>Descubre la depilación con hilo, una técnica milenaria, natural y súper precisa que elimina el vello desde la raíz, incluso el más pequeñito, dejando un aspecto pulcro y profesional.</p>
+                <p class="treat__label">¿Por qué te va a enamorar?</p>
+                <ul class="points">
+                  <li>Define tus cejas con máxima precisión.</li>
+                  <li>Elimina hasta el vello más fino.</li>
+                  <li>Sin ceras ni productos químicos.</li>
+                  <li>Consigue un acabado limpio y delicado.</li>
+                  <li>Resalta la belleza natural de tu rostro.</li>
+                  <li>No mancha la piel al exponerse al sol como otras técnicas.</li>
+                </ul>
+                <p class="treat__sign">Porque unas cejas bien definidas pueden cambiarlo todo.</p>
+              </div>
+            </article>
+            <section class="gallery" data-gallery aria-label="Galería de Cejas y pestañas">
+              <div class="gallery__head">
+                <h4 class="gallery__title">Galería</h4>
+                <p class="gallery__note">Fotos y vídeos de cejas y pestañas</p>
+              </div>
+              <div class="gallery__grid">
+                <!-- Fotos: assets/galeria/cejas-pestanas/NN.webp. Plantilla:
+                <figure class="gallery__item"><button class="gallery__open" type="button" data-full="assets/galeria/cejas-pestanas/01.webp" aria-label="Ampliar foto"><img src="assets/galeria/cejas-pestanas/01-thumb.webp" width="480" height="600" alt="Describe la foto" loading="lazy" decoding="async"></button></figure>
+                Vídeos (mp4 propio, con imagen de portada):
+                <figure class="gallery__item gallery__item--video"><button class="gallery__open" type="button" data-video="assets/galeria/cejas-pestanas/01.mp4" aria-label="Ver vídeo"><img src="assets/galeria/cejas-pestanas/01-poster.webp" width="480" height="600" alt="Describe el vídeo" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                Los huecos vacíos de abajo desaparecen solos en cuanto hay una foto o vídeo real. -->
+                <div class="gallery__item gallery__item--empty" aria-hidden="true"><span>Foto</span></div>
+                <div class="gallery__item gallery__item--empty" aria-hidden="true"><span>Foto</span></div>
+                <div class="gallery__item gallery__item--empty gallery__item--video" aria-hidden="true"><span>Vídeo</span></div>
+                <div class="gallery__item gallery__item--empty" aria-hidden="true"><span>Foto</span></div>
+              </div>
+            </section>
           </div>
-          <input class="compare__range" type="range" min="0" max="100" value="52" aria-label="Comparar mapeo y diseño">
-          <span class="compare__handle" aria-hidden="true"></span>
+
+          <!-- III · FACIAL -->
+          <div class="panel" role="tabpanel" id="panel-facial" aria-labelledby="tab-facial" tabindex="0">
+            <h3 class="panel__title">Facial</h3>
+
+            <article class="treat treat--wide" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">08</span>
+                <h4>Limpieza y tratamiento facial premium</h4>
+                <div class="treat__media">
+                  <img src="assets/img/tratamientos/tratamientos-faciales.webp" width="220" height="165" alt="Tratamiento facial en cabina" loading="lazy" decoding="async">
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">Mucho más que una limpieza: una experiencia de renovación, hidratación y cuidado avanzado para devolverle a tu piel su mejor versión.</p>
+                <p class="treat__label">¿Qué incluye nuestro ritual premium?</p>
+                <ol class="ritual">
+                  <li><span class="ritual__step">Limpieza profunda con paleta ultrasónica</span><span class="ritual__text">Ayuda a retirar impurezas, células muertas y exceso de grasa, dejando la piel más limpia, fresca y preparada para recibir los activos.</span></li>
+                  <li><span class="ritual__step">Dermapen, microneedling</span><span class="ritual__text">Técnica de microestimulación mediante microagujas que favorece los procesos naturales de regeneración cutánea y estimula la producción de colágeno y elastina. Trabajamos con vitaminas, péptidos y activos de alta calidad, seleccionados según las necesidades de cada piel.</span></li>
+                  <li><span class="ritual__step">Mascarilla personalizada</span><span class="ritual__text">Elegimos la fórmula más adecuada para tu piel, aportando hidratación, confort y luminosidad.</span></li>
+                  <li><span class="ritual__step">Alta frecuencia facial y/o capilar</span><span class="ritual__text">Complemento de nuestro ritual para el cuidado de la piel o del cuero cabelludo, según las necesidades del tratamiento.</span></li>
+                  <li><span class="ritual__step">Masaje relajante</span><span class="ritual__text">Disfruta de un momento de desconexión con un masaje en rostro, cuello, brazos y manos. Porque cuidarte también es regalarte tiempo para ti.</span></li>
+                </ol>
+                <p class="treat__label">¿El resultado que buscamos?</p>
+                <ul class="points">
+                  <li>Una piel más luminosa.</li>
+                  <li>Aspecto fresco y revitalizado.</li>
+                  <li>Mayor suavidad y textura más uniforme.</li>
+                  <li>Hidratación y aspecto jugoso.</li>
+                  <li>Una piel cuidada, bonita y delicada.</li>
+                </ul>
+                <p>¡Queremos que salgas mirándote al espejo y enamorándote de tu piel!</p>
+                <p>Reserva tu experiencia premium en Margot Ibáñez.</p>
+                <p class="treat__sign">Porque tu piel no necesita filtros, necesita cuidados de calidad.</p>
+              </div>
+            </article>
+
+            <article class="treat" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">09</span>
+                <h4>Dermapen con vitaminas</h4>
+                <div class="treat__media">
+                  <img src="assets/img/tratamientos/dermapen.webp" width="220" height="165" alt="Dermapen sobre la mejilla" loading="lazy" decoding="async">
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">Microneedling: microperforaciones controladas que estimulan la producción de colágeno y elastina y facilitan que la piel absorba vitaminas, péptidos y activos elegidos según lo que necesita.</p>
+              </div>
+            </article>
+
+            <article class="treat" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">10</span>
+                <h4>Fibroblast, Plasma Pen</h4>
+                <p class="treat__kind">Párpados u otras zonas</p>
+                <div class="treat__media">
+                  <img src="assets/img/tratamientos/plasma-pen.webp" width="220" height="165" alt="Plasma Pen sobre el párpado" loading="lazy" decoding="async">
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">¿Te sobra piel en los párpados? ¿Notas tu mirada más cansada o tu rostro menos firme?</p>
+                <p>Descubre Fibroblast, Plasma Pen, una técnica de rejuvenecimiento cutáneo que busca mejorar la apariencia de la flacidez y las arrugas superficiales.</p>
+                <p>Una alternativa no quirúrgica para tratar determinadas zonas del rostro, mediante una tecnología de plasma que genera microestímulos térmicos controlados en la piel.</p>
+                <p>Utilizamos un dispositivo que genera un pequeño arco eléctrico de plasma entre su punta y la superficie cutánea. Esta energía produce un efecto térmico muy localizado que provoca una lesión controlada en la piel y activa sus mecanismos naturales de reparación y retracción, eliminando exceso de piel.</p>
+                <p class="treat__label">¿Qué zonas podemos valorar?</p>
+                <dl class="zone-list">
+                  <div><dt>Párpados superiores</dt><dd>para mejorar la apariencia de la piel sobrante leve.</dd></div>
+                  <div><dt>Contorno de ojos</dt><dd>líneas finas y pequeñas arrugas.</dd></div>
+                  <div><dt>Frente</dt><dd>arrugas superficiales.</dd></div>
+                  <div><dt>Código de barras</dt><dd>arruguitas alrededor de los labios.</dd></div>
+                  <div><dt>Mejillas</dt><dd>flacidez superficial.</dd></div>
+                  <div><dt>Óvalo facial</dt><dd>pérdida de firmeza.</dd></div>
+                </dl>
+                <p class="treat__label">¿Qué buscamos conseguir?</p>
+                <ul class="points">
+                  <li>Mejorar visualmente la firmeza de la piel.</li>
+                  <li>Suavizar determinadas arrugas.</li>
+                  <li>Favorecer la remodelación del colágeno.</li>
+                  <li>Mejorar la textura cutánea.</li>
+                  <li>Conseguir un aspecto más rejuvenecido y descansado.</li>
+                </ul>
+                <p class="treat__sign">Cada rostro es único. Por eso, cada tratamiento requiere una valoración individual para determinar si está indicado y qué resultados son realistas.</p>
+              </div>
+            </article>
+            <section class="gallery" data-gallery aria-label="Galería de Facial">
+              <div class="gallery__head">
+                <h4 class="gallery__title">Galería</h4>
+                <p class="gallery__note">Fotos y vídeos de facial</p>
+              </div>
+              <div class="gallery__grid">
+                <!-- Fotos: assets/galeria/facial/NN.webp. Plantilla:
+                <figure class="gallery__item"><button class="gallery__open" type="button" data-full="assets/galeria/facial/01.webp" aria-label="Ampliar foto"><img src="assets/galeria/facial/01-thumb.webp" width="480" height="600" alt="Describe la foto" loading="lazy" decoding="async"></button></figure>
+                Vídeos (mp4 propio, con imagen de portada):
+                <figure class="gallery__item gallery__item--video"><button class="gallery__open" type="button" data-video="assets/galeria/facial/01.mp4" aria-label="Ver vídeo"><img src="assets/galeria/facial/01-poster.webp" width="480" height="600" alt="Describe el vídeo" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                Los huecos vacíos de abajo desaparecen solos en cuanto hay una foto o vídeo real. -->
+                <div class="gallery__item gallery__item--empty" aria-hidden="true"><span>Foto</span></div>
+                <div class="gallery__item gallery__item--empty" aria-hidden="true"><span>Foto</span></div>
+                <div class="gallery__item gallery__item--empty gallery__item--video" aria-hidden="true"><span>Vídeo</span></div>
+                <div class="gallery__item gallery__item--empty" aria-hidden="true"><span>Foto</span></div>
+              </div>
+            </section>
+          </div>
+
+          <!-- IV · LÁSER -->
+          <div class="panel" role="tabpanel" id="panel-laser" aria-labelledby="tab-laser" tabindex="0">
+            <h3 class="panel__title">Láser</h3>
+
+            <figure class="laser-team" data-reveal>
+              <div class="laser-team__photos">
+                <div class="photo laser-team__main"><img src="assets/img/laser-especialista-retrato-720.webp" srcset="assets/img/laser-especialista-retrato-480.webp 480w, assets/img/laser-especialista-retrato-720.webp 720w" sizes="(min-width: 54rem) 26rem, 60vw" width="720" height="1080" alt="Retrato en blanco y negro de la especialista en láser" loading="lazy" decoding="async"></div>
+                <div class="photo laser-team__inset"><img src="assets/img/laser-especialista-sonrisa-960.webp" srcset="assets/img/laser-especialista-sonrisa-560.webp 560w, assets/img/laser-especialista-sonrisa-960.webp 960w" sizes="(min-width: 54rem) 16rem, 40vw" width="960" height="1280" alt="La especialista en láser, sonriendo, con gafas y americana" loading="lazy" decoding="async"></div>
+              </div>
+              <figcaption class="laser-team__text">
+                <span class="laser-team__eyebrow">Equipo láser</span>
+                <span class="laser-team__quote">Los tratamientos láser los realiza personal sanitario, con protocolos específicos de seguridad.</span>
+              </figcaption>
+            </figure>
+
+            <article class="treat" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">11</span>
+                <h4>Eliminación de tatuajes con láser</h4>
+                <div class="treat__media">
+                  <img src="assets/img/tratamientos/eliminacion-tatuajes.webp" width="220" height="165" alt="Láser sobre un tatuaje" loading="lazy" decoding="async">
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">¿Quieres eliminar un tatuaje por completo o aclararlo?</p>
+                <p>Mediante tecnología láser, fragmentamos progresivamente el pigmento para que tu organismo lo elimine de forma natural.</p>
+                <p>Cada tatuaje es diferente, por eso realizamos una valoración personalizada teniendo en cuenta el color, la profundidad, la antigüedad, la zona y tu tipo de piel.</p>
+                <ul class="points">
+                  <li>Tratamiento de tatuajes negros y de color.</li>
+                  <li>Sesiones adaptadas a cada caso.</li>
+                  <li>No requiere tiempo de recuperación, aunque la piel necesita unos cuidados específicos posteriores.</li>
+                  <li>Tratamiento realizado por personal sanitario con protocolos específicos de seguridad.</li>
+                </ul>
+                <p>El número de sesiones dependerá de cada tatuaje. En la valoración te explicaremos el proceso, los cuidados y las expectativas reales de eliminación.</p>
+              </div>
+            </article>
+
+            <article class="treat treat--fade" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">12</span>
+                <h4>Eliminación de micropigmentación de cejas</h4>
+                <div class="treat__media treat__media--glyph">
+                  <!-- Sin foto todavía: cuando Margot la envíe, sustituye el <svg> por un <img> como en los demás. -->
+                  <svg class="glyph glyph--fade" viewBox="0 0 200 110" aria-hidden="true" focusable="false">
+                    <path class="g-draw" d="M22 80 C 52 62, 96 40, 128 38 C 150 37, 170 46, 184 60 C 170 56, 152 52, 128 54 C 98 57, 58 72, 26 88 Z"/>
+                  </svg>
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">¿Te hiciste las cejas hace tiempo y ya no te gustan? ¿El color ha cambiado, la forma no te favorece o simplemente ya no te sientes tú con ellas? Tranquila, tiene solución.</p>
+                <p>Con nuestro tratamiento láser trabajamos para eliminar progresivamente el pigmento y ayudarte a recuperar la naturalidad de tus cejas, respetando al máximo tu piel y el pelo natural.</p>
+                <ul class="points">
+                  <li>Eliminación de pigmentos de diferentes tonalidades.</li>
+                  <li>Tratamiento personalizado según el pigmento y la piel.</li>
+                  <li>Trabajamos para respetar el pelo natural de la ceja.</li>
+                  <li>Sin tiempo de baja ni recuperación que te impida hacer vida normal, aunque la zona requiere cuidados específicos varios días.</li>
+                  <li>Puedes maquillarte la ceja al día siguiente siempre que la piel esté recuperada.</li>
+                </ul>
+                <p>El número de sesiones dependerá del pigmento, su profundidad, antigüedad y respuesta de tu piel. Antes de comenzar realizaremos una valoración para explicarte el procedimiento y las expectativas reales.</p>
+              </div>
+            </article>
+
+            <article class="treat treat--fade" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">13</span>
+                <h4>Eliminación de micropigmentación de labios con láser</h4>
+                <div class="treat__media treat__media--glyph">
+                  <!-- Sin foto todavía: cuando Margot la envíe, sustituye el <svg> por un <img> como en los demás. -->
+                  <svg class="glyph glyph--fade" viewBox="0 0 200 110" aria-hidden="true" focusable="false">
+                    <path class="g-draw" d="M20 58 C 44 48, 66 30, 84 36 C 92 39, 96 42, 100 39 C 104 42, 108 39, 116 36 C 134 30, 156 48, 180 58 C 156 66, 130 92, 100 92 C 70 92, 44 66, 20 58 Z"/>
+                  </svg>
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">¿El color de tus labios ya no te gusta? ¿Ha virado a tonos oscuros, morados, grises o simplemente ya no te ves con él? No tienes por qué conformarte con un resultado que ya no te representa.</p>
+                <p>Mediante láser trabajamos para eliminar o aclarar progresivamente el pigmento, ayudando a recuperar la naturalidad de tus labios. Cada pigmento reacciona de manera diferente, por eso es importante realizar una valoración previa y adaptar el tratamiento a tu caso.</p>
+                <p>Te acompañaré durante todo el proceso, explicándote qué podemos conseguir, las sesiones que podrían ser necesarias y los cuidados que deberás seguir.</p>
+                <p class="treat__sign">Porque tus labios son tuyos, y volver a sentirte cómoda con ellos también importa.</p>
+              </div>
+            </article>
+
+            <article class="treat" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">14</span>
+                <h4>Hollywood Peel</h4>
+                <p class="treat__kind">Luminosidad y rejuvenecimiento con carbón activo</p>
+                <div class="treat__media treat__media--glyph">
+                  <!-- Sin foto todavía: cuando Margot la envíe, sustituye el <svg> por un <img> como en los demás. -->
+                  <svg class="glyph glyph--face" viewBox="0 0 200 220" aria-hidden="true" focusable="false">
+                    <path class="g-draw" pathLength="1" d="M100 16 C 148 16, 170 62, 168 112 C 166 162, 138 204, 100 206 C 62 204, 34 162, 32 112 C 30 62, 52 16, 100 16 Z"/>
+                    <path class="g-dots" d="M70 50 h0.1 M85 46 h0.1 M100 44 h0.1 M115 46 h0.1 M130 50 h0.1 M78 62 h0.1 M92 58 h0.1 M108 58 h0.1 M122 62 h0.1 M100 76 h0.1 M100 92 h0.1 M96 108 h0.1 M104 108 h0.1 M100 124 h0.1 M92 138 h0.1 M108 138 h0.1 M64 132 h0.1 M136 132 h0.1 M58 118 h0.1 M142 118 h0.1"/>
+                  </svg>
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">El Hollywood Peel es un tratamiento innovador que combina láser de alta precisión con carbón activo, eliminando impurezas, reduciendo poros y aportando un efecto rejuvenecedor inmediato. Ideal para quienes buscan una piel más luminosa, uniforme y sin imperfecciones.</p>
+                <ul class="points">
+                  <li>Resultados visibles desde la primera sesión.</li>
+                  <li>Piel más tersa, luminosa y sin impurezas.</li>
+                  <li>Ideal para pieles grasas o con tendencia acneica.</li>
+                  <li>Sin dolor ni tiempo de recuperación.</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="treat" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">15</span>
+                <h4>Láser corporal de vello</h4>
+                <div class="treat__media">
+                  <img src="assets/img/tratamientos/laser-vello.webp" width="220" height="165" alt="Láser de depilación en la pierna" loading="lazy" decoding="async">
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">Depilación láser para reducir el vello de forma progresiva, sesión a sesión. Antes de empezar valoramos tu tipo de piel y de vello.</p>
+              </div>
+            </article>
+            <section class="gallery" data-gallery aria-label="Galería de Láser">
+              <div class="gallery__head">
+                <h4 class="gallery__title">Galería</h4>
+                <p class="gallery__note">Fotos y vídeos de láser</p>
+              </div>
+              <div class="gallery__grid">
+                <!-- Fotos: assets/galeria/laser/NN.webp. Plantilla:
+                <figure class="gallery__item"><button class="gallery__open" type="button" data-full="assets/galeria/laser/01.webp" aria-label="Ampliar foto"><img src="assets/galeria/laser/01-thumb.webp" width="480" height="600" alt="Describe la foto" loading="lazy" decoding="async"></button></figure>
+                Vídeos (mp4 propio, con imagen de portada):
+                <figure class="gallery__item gallery__item--video"><button class="gallery__open" type="button" data-video="assets/galeria/laser/01.mp4" aria-label="Ver vídeo"><img src="assets/galeria/laser/01-poster.webp" width="480" height="600" alt="Describe el vídeo" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                Los huecos vacíos de abajo desaparecen solos en cuanto hay una foto o vídeo real. -->
+                <div class="gallery__item gallery__item--empty" aria-hidden="true"><span>Foto</span></div>
+                <div class="gallery__item gallery__item--empty" aria-hidden="true"><span>Foto</span></div>
+                <div class="gallery__item gallery__item--empty gallery__item--video" aria-hidden="true"><span>Vídeo</span></div>
+                <div class="gallery__item gallery__item--empty" aria-hidden="true"><span>Foto</span></div>
+              </div>
+            </section>
+          </div>
+
+          <!-- V · CUERPO Y UÑAS -->
+          <div class="panel" role="tabpanel" id="panel-cuerpo" aria-labelledby="tab-cuerpo" tabindex="0">
+            <h3 class="panel__title">Cuerpo y uñas</h3>
+
+            <article class="treat" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">16</span>
+                <h4>Presoterapia</h4>
+                <div class="treat__media">
+                  <img src="assets/img/tratamientos/presoterapia.webp" width="220" height="165" alt="Botas de presoterapia" loading="lazy" decoding="async">
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">Unas botas de presión se inflan por secciones, de forma secuencial, y masajean las piernas por compresión. Favorece el drenaje linfático y deja sensación de piernas ligeras.</p>
+              </div>
+            </article>
+
+            <article class="treat" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">17</span>
+                <h4>Masajes linfáticos y relajantes</h4>
+                <div class="treat__media">
+                  <img src="assets/img/tratamientos/masajes.webp" width="220" height="165" alt="Masaje en el abdomen" loading="lazy" decoding="async">
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">El drenaje linfático, con maniobras suaves y rítmicas, ayuda a movilizar los líquidos retenidos. El masaje relajante alivia tensiones: cuidarte también es regalarte tiempo para ti.</p>
+              </div>
+            </article>
+
+            <article class="treat" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">18</span>
+                <h4>Luminique</h4>
+                <div class="treat__media">
+                  <img src="assets/img/tratamientos/luminique.webp" width="220" height="165" alt="Aparato Luminique sobre el brazo" loading="lazy" decoding="async">
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">Pregúntame por este tratamiento y te explico en qué consiste y si es el adecuado para ti.</p>
+              </div>
+            </article>
+
+            <article class="treat" data-reveal>
+              <header class="treat__head">
+                <span class="treat__n">19</span>
+                <h4>Uñas</h4>
+                <div class="treat__media">
+                  <img src="assets/img/tratamientos/unas.webp" width="220" height="165" alt="Manos con uñas en tono nude" loading="lazy" decoding="async">
+                </div>
+              </header>
+              <div class="treat__body">
+                <p class="treat__lead">Cuidado de manos y uñas con un acabado limpio y elegante. Pregúntame por los servicios disponibles.</p>
+              </div>
+            </article>
+            <section class="gallery" data-gallery aria-label="Galería de Cuerpo y uñas">
+              <div class="gallery__head">
+                <h4 class="gallery__title">Galería</h4>
+                <p class="gallery__note">Fotos y vídeos de cuerpo y uñas</p>
+              </div>
+              <div class="gallery__grid">
+                <!-- Fotos: assets/galeria/cuerpo-unas/NN.webp. Plantilla:
+                <figure class="gallery__item"><button class="gallery__open" type="button" data-full="assets/galeria/cuerpo-unas/01.webp" aria-label="Ampliar foto"><img src="assets/galeria/cuerpo-unas/01-thumb.webp" width="480" height="600" alt="Describe la foto" loading="lazy" decoding="async"></button></figure>
+                Vídeos (mp4 propio, con imagen de portada):
+                <figure class="gallery__item gallery__item--video"><button class="gallery__open" type="button" data-video="assets/galeria/cuerpo-unas/01.mp4" aria-label="Ver vídeo"><img src="assets/galeria/cuerpo-unas/01-poster.webp" width="480" height="600" alt="Describe el vídeo" loading="lazy" decoding="async"><span class="gallery__play" aria-hidden="true"></span></button></figure>
+                Los huecos vacíos de abajo desaparecen solos en cuanto hay una foto o vídeo real. -->
+                <div class="gallery__item gallery__item--empty" aria-hidden="true"><span>Foto</span></div>
+                <div class="gallery__item gallery__item--empty" aria-hidden="true"><span>Foto</span></div>
+                <div class="gallery__item gallery__item--empty gallery__item--video" aria-hidden="true"><span>Vídeo</span></div>
+                <div class="gallery__item gallery__item--empty" aria-hidden="true"><span>Foto</span></div>
+              </div>
+            </section>
+          </div>
         </div>
-        <p class="disclaimer mono">Ilustración del proceso · no es un resultado real</p>
-
-        <div class="gallery">
-          <figure class="g g--wide">
-            <img src="assets/galeria/cejas-mapeo.svg" alt="Ilustración de mapeo de cejas con puntos de inicio, arco y cola" loading="lazy" width="800" height="560">
-            <figcaption><span>Cejas · mapeo</span><span class="mono">Ilustración</span></figcaption>
-          </figure>
-          <figure class="g">
-            <img src="assets/galeria/pigmentos.svg" alt="Ilustración de una carta de tonos de pigmento" loading="lazy" width="600" height="600">
-            <figcaption><span>Carta de tonos</span><span class="mono">Ilustración</span></figcaption>
-          </figure>
-          <figure class="g g--slot">
-            <div class="slot"><span class="mono">Foto real</span><p>Espacio para un resultado de cejas de Margot</p></div>
-            <figcaption><span>Cejas</span><span class="mono">Pendiente</span></figcaption>
-          </figure>
-          <figure class="g">
-            <img src="assets/galeria/ojos-linea.svg" alt="Ilustración de una línea de ojos fina" loading="lazy" width="600" height="600">
-            <figcaption><span>Ojos · línea</span><span class="mono">Ilustración</span></figcaption>
-          </figure>
-          <figure class="g">
-            <img src="assets/galeria/labios-contorno.svg" alt="Ilustración del contorno de unos labios" loading="lazy" width="600" height="600">
-            <figcaption><span>Labios · contorno</span><span class="mono">Ilustración</span></figcaption>
-          </figure>
-          <figure class="g g--strip">
-            <div class="slot"><span class="mono">Galería preparada</span><p>Aquí irán los trabajos reales de Margot (cejas, ojos y labios), con el permiso de cada clienta.</p></div>
-          </figure>
+        <div class="treat-close" data-reveal>
+          <h3 class="treat-close__title">¿No sabes cuál es el tuyo?</h3>
+          <p>Cuéntame qué te gustaría mejorar y lo valoramos juntas antes de empezar.</p>
+          <a class="btn" href="#consulta" data-wa="qué tratamiento me conviene">Preguntar por WhatsApp</a>
         </div>
       </div>
     </section>
 
     <!-- SOBRE MARGOT -->
-    <section class="section" id="margot">
-      <div class="wrap about">
-        <div class="about__plate" aria-hidden="true">
-          <span class="about__mono">MI</span>
-          <span class="about__sign">Margot Ibáñez</span>
-          <span class="about__meta mono">Micropigmentación facial<br>Villanueva del Ariscal</span>
-        </div>
-        <div class="about__copy">
-          <p class="eyebrow mono">03 — Sobre Margot</p>
-          <h2>Una sola profesional, <em>de principio a fin</em>.</h2>
-          <p>Margot Ibáñez dedica su estudio de Villanueva del Ariscal a la micropigmentación facial. Quien te recibe es quien diseña contigo, quien pigmenta y quien te revisa después: no hay cambios de mano ni prisas.</p>
-          <p>Sus clientas destacan sobre todo dos cosas: el resultado y el trato. Muchas llegan por recomendación de una amiga, y vuelven a recomendarla.</p>
-          <blockquote class="about__quote">“Ella es una persona súper especial en todos los sentidos.”<cite class="mono">Reseña en Google</cite></blockquote>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROCESO -->
-    <section class="section section--stone" id="proceso">
-      <div class="wrap">
-        <header class="head">
-          <p class="eyebrow mono">04 — Cómo funciona</p>
-          <h2>Nada se pigmenta <em>sin que lo hayas visto antes</em>.</h2>
-        </header>
-        <ol class="steps">
-          <li class="step">
-            <span class="step__n mono">01</span>
-            <h3>Consulta</h3>
-            <p>Hablamos de lo que quieres conseguir, revisamos tu piel y resolvemos dudas. Es el momento de contar si tienes algún trabajo previo.</p>
-          </li>
-          <li class="step">
-            <span class="step__n mono">02</span>
-            <h3>Diseño</h3>
-            <p>Se mide tu rostro y se dibuja el diseño sobre la piel. Lo ves en el espejo y se ajusta hasta que te convence.</p>
-          </li>
-          <li class="step">
-            <span class="step__n mono">03</span>
-            <h3>Color</h3>
-            <p>Se elige el tono de pigmento según tu piel, tu pelo y el efecto que buscas, más suave o más definido.</p>
-          </li>
-          <li class="step">
-            <span class="step__n mono">04</span>
-            <h3>Sesión</h3>
-            <p>Micropigmentación con material de un solo uso y en un ambiente tranquilo, sin prisas.</p>
-          </li>
-          <li class="step">
-            <span class="step__n mono">05</span>
-            <h3>Cuidados y revisión</h3>
-            <p>Te llevas las pautas de cuidado por escrito y se valora la cicatrización para perfeccionar el resultado si hace falta.</p>
-          </li>
-        </ol>
-        <div class="assure">
-          <div><span class="assure__k mono">Higiene</span><p>Agujas y material desechables, abiertos delante de ti.</p></div>
-          <div><span class="assure__k mono">Transparencia</span><p>Sabes el diseño, el tono y el precio antes de empezar.</p></div>
-          <div><span class="assure__k mono">Naturalidad</span><p>Se busca un resultado que te favorezca, no uno que se note.</p></div>
+    <section class="section about" id="margot" aria-labelledby="margot-title" data-section>
+      <div class="container about__grid">
+        <figure class="about__photo photo" data-reveal>
+          <img src="assets/img/margot-retrato-abrigo-960.webp" srcset="assets/img/margot-retrato-abrigo-560.webp 560w, assets/img/margot-retrato-abrigo-960.webp 960w" sizes="(min-width: 60rem) 34vw, 92vw" width="960" height="1280" alt="Retrato en blanco y negro de Margot Ibáñez con abrigo negro" loading="lazy">
+          <span class="marks" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        </figure>
+        <div class="about__text">
+          <h2 id="margot-title" data-reveal>Soy Margot Ibáñez.</h2>
+          <ul class="creds" data-reveal>
+            <li>Premios internacionales de micropigmentación</li>
+            <li>Jurado en congresos nacionales de PMU</li>
+          </ul>
+          <div class="about__story" data-reveal>
+            <p>Siempre he sentido una conexión especial con la belleza, los detalles y la capacidad que tenemos de resaltar aquello que nos hace únicas. Con el tiempo, esa pasión se convirtió en mi profesión, y la micropigmentación facial en mi forma de entender la belleza: una combinación de técnica, sensibilidad, precisión y arte.</p>
+            <p>Detrás de mi trabajo hay mucho más que pigmentos y técnicas. Hay dedicación, errores, formación continua, ilusión por evolucionar y un compromiso real con cada paciente que confía en mis manos.</p>
+          </div>
+          <details class="more" data-reveal>
+            <summary>Seguir leyendo mi historia</summary>
+            <p>Creo en una belleza que no necesita transformar, sino realzar. En unas cejas que armonizan la expresión, unos labios que recuperan su definición y una mirada que refleja seguridad sin perder naturalidad.</p>
+            <p>Detrás de cada trabajo hay horas de aprendizaje, atención a cada detalle y el deseo de ofrecerte una experiencia en la que te sientas escuchada, cuidada y segura.</p>
+            <p>Sigo creciendo, perfeccionando mis técnicas y descubriendo nuevas formas de ofrecer resultados cada vez más personalizados. Porque para mí, evolucionar profesionalmente también significa aprender a mirar la belleza con más sensibilidad y criterio.</p>
+          </details>
+          <blockquote class="about__quote" data-reveal>
+            <p>Si hay algo que da sentido a todo esto, es saber que cada mujer que sale de mi salón lo hace sintiéndose mejor consigo misma.</p>
+            <footer><span class="about__sign">Margot</span></footer>
+          </blockquote>
         </div>
       </div>
     </section>
 
-    <!-- OPINIONES -->
-    <section class="section" id="opiniones">
-      <div class="wrap reviews">
-        <div class="reviews__score">
-          <p class="eyebrow mono">05 — Opiniones</p>
-          <p class="score"><span class="score__n">5,0</span><span class="stars stars--big" aria-hidden="true">★★★★★</span></p>
-          <p class="score__meta">Valoración media en Google con <strong>87 reseñas</strong>.</p>
-          <a class="btn btn--line" href="https://www.google.com/maps/search/?api=1&amp;query=Margot%20Ib%C3%A1%C3%B1ez%20Micropigmentaci%C3%B3n%20Facial%20Villanueva%20del%20Ariscal" target="_blank" rel="noopener">Ver reseñas en Google</a>
+    <!-- VÍDEOS
+         Sección oculta hasta que haya al menos un vídeo. Para añadir uno:
+         1. Copia uno de los dos ejemplos de abajo fuera del comentario y rellénalo.
+         2. Quita el atributo hidden de la <section> (con JavaScript se muestra sola, pero así también se ve sin él).
+         Vídeo propio: guarda el .mp4 y su imagen de portada en assets/video/.
+         YouTube o Vimeo: solo hace falta el identificador del vídeo; no se carga nada de YouTube ni Vimeo hasta que se pulsa reproducir.
+         Vídeo vertical (tipo reel): añade la clase video--vertical a la <figure>. -->
+    <section class="section videos" id="videos" aria-labelledby="videos-title" data-section data-videos hidden>
+      <div class="container">
+        <div class="section__head" data-reveal>
+          <h2 id="videos-title">En vídeo</h2>
+          <p>Un vistazo a mi trabajo.</p>
         </div>
-        <div class="reviews__list">
-          <blockquote class="rv"><p>“Margot, muchas gracias de verdad, ¡estoy encantada!”</p><cite class="mono">Clienta · Google</cite></blockquote>
-          <blockquote class="rv"><p>“Me la recomendó una amiga y viendo las redes sociales me dio buena impresión.”</p><cite class="mono">Clienta · Google</cite></blockquote>
-          <blockquote class="rv"><p>“Magnífica, ella es una persona súper especial en todos los sentidos.”</p><cite class="mono">Clienta · Google</cite></blockquote>
+        <div class="videos__grid">
+          <!-- EJEMPLO · vídeo propio en mp4
+          <figure class="video video--vertical" data-reveal>
+            <video controls preload="none" playsinline poster="assets/video/video-1-portada.webp" width="1080" height="1920">
+              <source src="assets/video/video-1.mp4" type="video/mp4">
+            </video>
+            <figcaption>Texto breve sobre el vídeo</figcaption>
+          </figure>
+          -->
+          <!-- EJEMPLO · YouTube (data-embed="youtube") o Vimeo (data-embed="vimeo"); data-id es el identificador del vídeo
+          <figure class="video" data-reveal>
+            <button class="video__embed" type="button" data-embed="youtube" data-id="IDENTIFICADOR" data-title="Título del vídeo">
+              <img src="assets/video/video-2-portada.webp" alt="" width="1280" height="720" loading="lazy" decoding="async">
+              <span class="video__play">Reproducir vídeo<span class="visually-hidden">: Título del vídeo</span></span>
+            </button>
+            <figcaption>Texto breve sobre el vídeo</figcaption>
+          </figure>
+          -->
         </div>
       </div>
     </section>
 
-    <!-- CITA -->
-    <section class="section section--rouge" id="cita">
-      <div class="wrap book">
-        <div class="book__copy">
-          <p class="eyebrow mono">06 — Pedir cita</p>
-          <h2>Cuéntale qué te gustaría <em>y ella te propone hora</em>.</h2>
-          <p>Las citas se dan por WhatsApp o por teléfono. Elige lo que te interesa y se abrirá WhatsApp con el mensaje ya escrito.</p>
-          <p class="book__phone"><span class="mono">Teléfono</span><a href="tel:+34727740824">727 74 08 24</a></p>
+    <!-- PREGUNTAS -->
+    <section class="band section faq" id="preguntas" aria-labelledby="faq-title" data-section>
+      <div class="container faq__grid">
+        <div class="faq__head" data-reveal>
+          <h2 id="faq-title">Antes de empezar</h2>
+          <p>Lo que más se pregunta. Para tu caso concreto, siempre hay una valoración previa.</p>
         </div>
-        <form class="book__form" id="bookForm">
-          <fieldset>
-            <legend class="mono">¿Qué te interesa?</legend>
-            <div class="chips">
-              <label><input type="radio" name="t" value="cejas" checked><span>Cejas</span></label>
-              <label><input type="radio" name="t" value="ojos (eyeliner)"><span>Ojos</span></label>
-              <label><input type="radio" name="t" value="labios"><span>Labios</span></label>
-              <label><input type="radio" name="t" value="una valoración, aún no lo tengo claro"><span>Aún no lo sé</span></label>
+        <div class="faq__list">
+          <details class="qa" data-reveal>
+            <summary><span class="qa__n">01</span><span class="qa__q">¿Cuántas sesiones necesito para eliminar un tatuaje o una micropigmentación?</span></summary>
+            <p>Depende de cada caso: del color, la profundidad y la antigüedad del pigmento, de la zona y de cómo responda tu piel. En la valoración te explicamos el proceso, los cuidados y las expectativas reales.</p>
+          </details>
+          <details class="qa" data-reveal>
+            <summary><span class="qa__n">02</span><span class="qa__q">¿La eliminación con láser tiene tiempo de recuperación?</span></summary>
+            <p>No necesitas tiempo de baja y puedes hacer vida normal, aunque la zona requiere unos cuidados específicos durante varios días.</p>
+          </details>
+          <details class="qa" data-reveal>
+            <summary><span class="qa__n">03</span><span class="qa__q">¿Quién realiza el tratamiento láser?</span></summary>
+            <p>Personal sanitario, con protocolos específicos de seguridad.</p>
+          </details>
+          <details class="qa" data-reveal>
+            <summary><span class="qa__n">04</span><span class="qa__q">¿Puedo maquillarme las cejas después de eliminar la micropigmentación?</span></summary>
+            <p>Sí, al día siguiente, siempre que la piel esté recuperada.</p>
+          </details>
+          <details class="qa" data-reveal>
+            <summary><span class="qa__n">05</span><span class="qa__q">¿Cómo sé si el Fibroblast es para mí?</span></summary>
+            <p>Cada rostro es único. Hacemos una valoración individual para determinar si está indicado en tu caso y qué resultados son realistas.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CIERRE -->
+    <section class="band final" id="consulta" aria-labelledby="final-title" data-section data-tone="night">
+      <div class="container final__grid">
+        <div class="final__text">
+          <h2 id="final-title" data-reveal>Tu mirada, tu esencia.</h2>
+          <p data-reveal>Cuéntame qué buscas y te respondo personalmente, sin compromiso.</p>
+          <p class="final__alt" data-reveal>¿Prefieres hablar por WhatsApp? <a href="#consulta" data-wa="">Escríbeme por WhatsApp</a></p>
+        </div>
+        <!--
+          FORMULARIO POR EMAIL (Web3Forms). Los mensajes llegan al correo de Margot con el que se creó la clave.
+          Para activarlo, pega la clave de acceso de Web3Forms en el value de "access_key".
+          El email de Margot no aparece en el código a propósito (el repositorio es público y lo leerían los bots de spam).
+        -->
+        <form class="final__form" action="https://api.web3forms.com/submit" method="post" data-mail-form novalidate data-reveal>
+          <input type="hidden" name="access_key" value="">
+          <input type="hidden" name="subject" value="Nueva consulta desde la web">
+          <input type="hidden" name="from_name" value="Web de Margot Ibáñez">
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div class="field">
+            <label for="f-nombre">Nombre</label>
+            <input id="f-nombre" name="nombre" type="text" autocomplete="name" required maxlength="80" aria-describedby="e-nombre">
+            <p class="field__error" id="e-nombre" hidden></p>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="120" aria-describedby="e-email">
+              <p class="field__error" id="e-email" hidden></p>
             </div>
-          </fieldset>
-          <fieldset>
-            <legend class="mono">¿Es tu primera vez?</legend>
-            <div class="chips">
-              <label><input type="radio" name="p" value="Es mi primera vez" checked><span>Sí, primera vez</span></label>
-              <label><input type="radio" name="p" value="Ya tengo un trabajo previo"><span>Tengo un trabajo previo</span></label>
+            <div class="field">
+              <label for="f-tel">Teléfono <span class="field__opt">(opcional)</span></label>
+              <input id="f-tel" name="telefono" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" aria-describedby="e-tel">
+              <p class="field__error" id="e-tel" hidden></p>
             </div>
-          </fieldset>
-          <label class="field">
-            <span class="mono">Tu nombre</span>
-            <input type="text" name="n" autocomplete="given-name" placeholder="Opcional">
-          </label>
-          <button class="btn btn--ink btn--block" type="submit">Enviar por WhatsApp</button>
-          <a class="btn btn--paper btn--block" href="tel:+34727740824">Prefiero llamar</a>
+          </div>
+          <div class="field">
+            <label for="f-trat">¿Sobre qué te gustaría preguntar?</label>
+            <div class="select">
+              <select id="f-trat" name="tratamiento">
+              <option>Aún no lo sé, quiero orientación</option>
+              <option>Micropigmentación de cejas</option>
+              <option>Micropigmentación de labios</option>
+              <option>Micropigmentación de ojos</option>
+              <option>Espesor capilar</option>
+              <option>Visagismo, diseño, tinte y laminado</option>
+              <option>Lifting de pestañas</option>
+              <option>Depilación con hilo</option>
+              <option>Facial premium</option>
+              <option>Dermapen con vitaminas</option>
+              <option>Fibroblast (Plasma Pen)</option>
+              <option>Eliminación de tatuajes</option>
+              <option>Eliminar micropigmentación de cejas</option>
+              <option>Eliminar micropigmentación de labios</option>
+              <option>Hollywood Peel</option>
+              <option>Láser corporal de vello</option>
+              <option>Presoterapia</option>
+              <option>Masajes linfáticos y relajantes</option>
+              <option>Luminique</option>
+              <option>Uñas</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-msg">Tu mensaje</label>
+            <textarea id="f-msg" name="mensaje" rows="4" required maxlength="2000" aria-describedby="e-msg"></textarea>
+            <p class="field__error" id="e-msg" hidden></p>
+          </div>
+          <div class="field field--check">
+            <input id="f-ok" name="consentimiento" type="checkbox" value="Sí" required aria-describedby="e-ok">
+            <label for="f-ok">Acepto que Margot use estos datos solo para responder a mi consulta.</label>
+            <p class="field__error" id="e-ok" hidden></p>
+          </div>
+
+          <button class="btn btn--pink" type="submit">Enviar mensaje</button>
+          <p class="final__hint" data-mail-hint>Tu mensaje me llega directamente al correo. Te contesto personalmente.</p>
+          <p class="final__status" role="status" aria-live="polite" data-mail-status></p>
         </form>
-      </div>
-    </section>
-
-    <!-- UBICACIÓN + CONTACTO -->
-    <section class="section" id="ubicacion">
-      <div class="wrap place">
-        <div class="place__map">
-          <svg viewBox="0 0 600 440" role="img" aria-labelledby="mapT">
-            <title id="mapT">Plano orientativo de Villanueva del Ariscal con la ubicación del estudio</title>
-            <rect width="600" height="440" class="m-bg"/>
-            <path class="m-road m-road--main" d="M-10 300 C120 280 220 250 320 240 C420 230 520 200 610 150"/>
-            <path class="m-road" d="M140 -10 C160 120 180 220 210 450"/>
-            <path class="m-road" d="M380 -10 C370 100 360 180 352 450"/>
-            <path class="m-road" d="M-10 150 C150 160 300 150 610 120"/>
-            <path class="m-road" d="M-10 390 C200 370 400 360 610 330"/>
-            <path class="m-road m-road--thin" d="M260 0 L280 450 M480 -10 L470 450 M60 0 L80 450"/>
-            <circle class="m-pin-ring" cx="352" cy="214" r="34"/>
-            <path class="m-pin" d="M352 168 C334 168 322 181 322 197 C322 219 352 244 352 244 C352 244 382 219 382 197 C382 181 370 168 352 168 Z"/>
-            <circle cx="352" cy="197" r="8" class="m-dot"/>
-            <text class="m-label mono" x="398" y="206">Estudio</text>
-            <text class="m-label m-label--soft mono" x="24" y="428">Plano orientativo, no a escala</text>
-          </svg>
-        </div>
-        <div class="place__info">
-          <p class="eyebrow mono">07 — Ubicación y contacto</p>
-          <h2>En el corazón<br><em>del Aljarafe</em>.</h2>
-          <dl class="info">
-            <div><dt class="mono">Dirección</dt><dd>C. Inocencio Venegas, 15 A<br>41808 Villanueva del Ariscal, Sevilla</dd></div>
-            <div><dt class="mono">Horario</dt><dd>Lunes a viernes, de 10:00 a 14:00<br><small>Siempre con cita previa</small></dd></div>
-            <div><dt class="mono">Teléfono</dt><dd><a href="tel:+34727740824">727 74 08 24</a></dd></div>
-            <div><dt class="mono">WhatsApp</dt><dd><a data-wa="Hola Margot, tengo una pregunta." href="https://wa.me/34727740824" target="_blank" rel="noopener">Escribir un mensaje</a></dd></div>
-          </dl>
-          <a class="btn btn--ink" href="https://www.google.com/maps/search/?api=1&amp;query=C.%20Inocencio%20Venegas%2015%20Villanueva%20del%20Ariscal" target="_blank" rel="noopener">Cómo llegar</a>
-        </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="wrap footer__grid">
-      <div>
-        <p class="footer__brand">Margot Ibáñez</p>
-        <p class="footer__sub mono">Micropigmentación facial</p>
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <p class="footer__sign">Margot Ibáñez</p>
+        <p>Micropigmentación facial y estética avanzada.</p>
       </div>
-      <ul class="footer__links">
-        <li><a href="#tratamientos">Tratamientos</a></li>
-        <li><a href="#resultados">Resultados</a></li>
-        <li><a href="#proceso">Proceso</a></li>
-        <li><a href="#cita">Pedir cita</a></li>
-      </ul>
-      <address>
-        C. Inocencio Venegas, 15 A<br>41808 Villanueva del Ariscal, Sevilla<br>
-        <a href="tel:+34727740824">727 74 08 24</a>
-      </address>
+      <div>
+        <p class="footer__label">Tratamientos</p>
+        <ul>
+          <li><a href="#tratamientos" data-tab="tab-micro">Micropigmentación</a></li>
+          <li><a href="#tratamientos" data-tab="tab-cejas">Cejas y pestañas</a></li>
+          <li><a href="#tratamientos" data-tab="tab-facial">Facial</a></li>
+          <li><a href="#tratamientos" data-tab="tab-laser">Láser</a></li>
+          <li><a href="#tratamientos" data-tab="tab-cuerpo">Cuerpo y uñas</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__label">Contacto</p>
+        <ul>
+          <li><a href="#consulta" data-wa="">Escribir por WhatsApp</a></li>
+          <li><a href="#margot">Sobre Margot</a></li>
+          <li><a href="#preguntas">Preguntas frecuentes</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="wrap footer__base mono">
-      <span>© <span id="year">2026</span> Margot Ibáñez Micropigmentación Facial</span>
-      <a href="#top">Volver arriba ↑</a>
+    <div class="container footer__base">
+      <p>© <span data-year>2026</span> Margot Ibáñez</p>
     </div>
   </footer>
 
-  <div class="dock" aria-label="Contacto rápido">
-    <a href="tel:+34727740824">Llamar</a>
-    <a data-wa="Hola Margot, me gustaría pedir cita." href="https://wa.me/34727740824" target="_blank" rel="noopener">WhatsApp</a>
+  <div class="dock" data-dock>
+    <a class="btn dock__btn" href="#consulta" data-wa="">Consultar por WhatsApp</a>
   </div>
 
   <script src="main.js" defer></script>
+  <dialog class="lightbox" data-lightbox aria-label="Galería ampliada">
+    <div class="lightbox__stage" data-lightbox-stage></div>
+    <p class="lightbox__count" data-lightbox-count aria-live="polite"></p>
+    <button class="lightbox__btn lightbox__close" type="button" data-lightbox-close aria-label="Cerrar"><span aria-hidden="true">×</span></button>
+    <button class="lightbox__btn lightbox__prev" type="button" data-lightbox-prev aria-label="Anterior"><span aria-hidden="true">‹</span></button>
+    <button class="lightbox__btn lightbox__next" type="button" data-lightbox-next aria-label="Siguiente"><span aria-hidden="true">›</span></button>
+  </dialog>
 </body>
 </html>

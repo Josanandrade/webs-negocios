@@ -1,16 +1,65 @@
-# Recursos visuales
+# Recursos visuales · Margot Ibáñez (v2, 2026-11-23)
 
-Todas las imágenes son ilustraciones SVG propias. Ninguna es un trabajo real y todas lo indican en pantalla.
+## Usados
 
-| Archivo | Uso | Sustituir por |
+| Archivo | Origen | Dónde |
 |---|---|---|
-| `demo-host/assets/galeria/cejas-mapeo.svg` | Galería, pieza grande | Foto real de cejas (resultado o mapeo) |
-| `demo-host/assets/galeria/pigmentos.svg` | Galería | Foto de su carta de pigmentos o del estudio |
-| `demo-host/assets/galeria/ojos-linea.svg` | Galería | Foto real de eyeliner |
-| `demo-host/assets/galeria/labios-contorno.svg` | Galería | Foto real de labios |
-| Huecos "Foto real" / "Galería preparada" | Galería | Antes/después reales con permiso de la clienta |
-| Comparador "Mapeo / Diseño final" (SVG inline) | Resultados | Puede convertirse en un antes/después real con dos fotos alineadas |
-| Placa "MI" en Sobre Margot | Retrato | Foto de Margot trabajando |
-| Plano (SVG inline) | Ubicación | Mantener, es orientativo; el botón abre Google Maps |
+| `demo-host/assets/img/margot-retrato-{560,960}.webp` | Retrato en blanco y negro incluido en el Word de Margot (image1) | Portada |
+| `demo-host/assets/img/margot-sonrisa-{560,960}.webp` | Retrato con gafas incluido en el Word de Margot (image2) | Sobre Margot |
 
-No inventar antes/después. Pedir a Margot fotos propias y autorización de las clientas.
+Convertidos a escala de grises y WebP (calidad 78). Se asume que son de Margot y que autoriza su uso: confirmarlo.
+
+Se han eliminado las ilustraciones SVG de la demo anterior (`assets/galeria/`).
+
+## No hay galería
+
+El Word no trae fotos de trabajos, así que no hay sección de galería ni antes/después. No se han generado ni usado imágenes de terceros.
+
+## Pedir a Margot
+
+1. 6 a 12 fotos de trabajos propios (cejas, labios, ojos y, si quiere, eliminación láser), con luz natural, mismo encuadre, y permiso de las clientas para publicarlas. Con ellas se añade una sección "Trabajos" tras los tratamientos.
+2. Confirmar que los dos retratos son suyos y que se pueden publicar, y quién es el fotógrafo si quiere crédito.
+3. 2 o 3 fotos del salón o la cabina (opcional).
+4. Logotipo, si tiene.
+5. Fotos de diplomas o premios, si quiere mostrarlos.
+
+## Fotos de tratamientos (2026-11-24)
+
+Recortadas del cartel "Lista de tratamientos" que envió Margot (16 fotos, unos 220 × 165 px cada una) y guardadas en `demo-host/assets/img/tratamientos/<nombre>.webp` (4:3). Para cambiar una foto basta con sustituir el archivo con el mismo nombre; si es más grande (por ejemplo 800 × 600) se verá más nítida.
+
+Tres tratamientos del texto original no tienen foto en el cartel y siguen con su trazo dibujado dentro del mismo marco: Hollywood Peel, eliminación de micropigmentación de cejas y eliminación de micropigmentación de labios. Para añadirles foto, sustituye el `<svg>` de su ranura por un `<img>` como el de los demás.
+
+Pedir a Margot: las fotos originales del cartel a más resolución, y fotos para esos tres tratamientos.
+
+## Vídeos
+
+La sección "En vídeo" está en `index.html`, entre "Sobre Margot" y "Preguntas", oculta con `hidden`. Dentro hay dos ejemplos comentados:
+
+- **Vídeo propio (mp4):** guardar `video-1.mp4` (H.264, idealmente menos de 15 MB) y su portada `video-1-portada.webp` en `demo-host/assets/video/`. Se carga solo al pulsar play (`preload="none"`) y usa los controles del navegador.
+- **YouTube o Vimeo:** basta el identificador (lo que va tras `v=` en YouTube o el número de Vimeo) en `data-id`, y `data-embed="youtube"` o `"vimeo"`. No se carga nada de esos servicios hasta que la visitante pulsa "Reproducir vídeo" (YouTube en modo sin cookies). Si no se pone portada en YouTube, se usa la miniatura del propio vídeo.
+- **Vertical (reel):** añadir la clase `video--vertical` a la `<figure>`.
+
+Para publicarla: copiar un ejemplo fuera del comentario, rellenarlo y quitar `hidden` de la `<section>`. Con JavaScript la sección también se muestra sola en cuanto tiene un vídeo.
+
+## Retratos (2026-11-24)
+
+- `margot-portada-{480,720,960}.webp`: Margot sentada, con la franja de color en el rostro (portada). `margot-og-960.jpg` es la misma foto para compartir en redes.
+- `margot-retrato-abrigo-{560,960}.webp`: Margot en blanco y negro con abrigo ("Soy Margot Ibáñez").
+- `laser-especialista-*.webp`: los dos retratos que venían en el Word NO son de Margot, sino de la especialista que hace los tratamientos láser. Ahora están al principio de la pestaña Láser. Falta su nombre.
+
+## Galerías por especialidad (2026-11-25)
+
+Cada pestaña de Tratamientos termina con una galería (`section.gallery[data-gallery]`).
+Carpetas: `demo-host/assets/galeria/<micropigmentacion|cejas-pestanas|facial|laser|cuerpo-unas>/`.
+La plantilla de foto y de vídeo está comentada dentro de cada galería en `index.html`.
+- Foto: miniatura 480×600 (4:5) en `img`, original grande en `data-full`.
+- Vídeo: mp4 en `data-video` y una portada 4:5 en `img`; se reproduce en el visor.
+Los huecos "Foto/Vídeo" se quitan solos en cuanto una galería tiene un elemento real.
+Antes de entregar, borra las galerías que se queden sin material.
+
+### Micropigmentación (2026-11-25)
+62 piezas de los zips "Labios" y "Ojos" de Margot (WhatsApp), optimizadas en `assets/galeria/micropigmentacion/`:
+fotos webp (máx. 1200×1600 + miniatura 480×600) y vídeos H.264 720p con portada.
+Foto principal de labios: `labios-foto-16` (original "WhatsApp Image 2026-11-24 at 20.59.37", elegida por Jose).
+Foto principal de ojos: `ojos-foto-16` (original "…09.24.13.jpeg"), propuesta pendiente de validar por Margot.
+Descartada: "…20.59.13" (collage con rótulos en inglés, parece imagen de referencia de terceros).
