@@ -46,13 +46,15 @@
   <main id="contenido">
     <!-- PORTADA: foto en horizontal arriba -->
     <section class="hero" aria-labelledby="hero-title">
-      <figure class="hero__photo">
-        <img src="assets/img/margot-cabecera-1600.webp" srcset="assets/img/margot-cabecera-960.webp 960w, assets/img/margot-cabecera-1600.webp 1600w, assets/img/margot-cabecera-2400.webp 2400w" sizes="100vw" width="2400" height="1200" alt="Margot Ibáñez con vestido negro y las manos junto al rostro; una franja de su cara aparece en color" fetchpriority="high">
-        <a class="hero__chip" href="#margot">Sobre mí</a>
+      <figure class="hero__photo" data-slot="portada">
+        <picture>
+          <source media="(max-width: 60rem)" srcset="assets/img/margot-portada-cartel-720.webp 720w, assets/img/margot-portada-cartel-1086.webp 1086w" sizes="100vw" width="1086" height="1448">
+          <img src="assets/img/margot-portada-ancha-2700.webp" srcset="assets/img/margot-portada-ancha-1800.webp 1800w, assets/img/margot-portada-ancha-2700.webp 2700w, assets/img/margot-portada-ancha-4344.webp 4344w" sizes="(min-width: 60rem) 150vw, 100vw" width="4344" height="1448" alt="Margot Ibáñez, micropigmentación facial: retrato en blanco y negro con su nombre y el lema Realzamos tu belleza natural. Respetamos tu esencia." fetchpriority="high">
+        </picture>
       </figure>
       <div class="container hero__text">
-        <h1 id="hero-title" data-reveal>Belleza que realza, sin transformar.</h1>
-        <p class="hero__lead" data-reveal>Micropigmentación de cejas, labios y ojos, diseñada para tu rostro.</p>
+        <h1 id="hero-title" data-reveal data-k="inicio-01">Belleza que realza, sin transformar.</h1>
+        <p class="hero__lead" data-reveal data-k="inicio-02">Micropigmentación de cejas, labios y ojos, diseñada para tu rostro.</p>
         <div class="hero__actions" data-reveal>
           <a class="btn" href="#consulta" data-wa="">Consultar por WhatsApp</a>
           <a class="btn btn--line" href="#tratamientos">Ver tratamientos</a>
@@ -63,20 +65,20 @@
     <!-- FILOSOFÍA -->
     <section class="section statement" aria-labelledby="statement-title">
       <div class="container statement__inner">
-        <h2 id="statement-title" class="statement__quote" data-reveal>No existen dos rostros iguales, ni dos mujeres que busquen exactamente lo mismo.</h2>
-        <p class="statement__text" data-reveal>Por eso, cada tratamiento comienza escuchándote. Mi objetivo es comprender lo que necesitas, estudiar tus facciones y diseñar un resultado que encaje contigo, con tu estilo y tu esencia.</p>
+        <h2 id="statement-title" class="statement__quote" data-reveal data-k="statement-01">No existen dos rostros iguales, ni dos mujeres que busquen exactamente lo mismo.</h2>
+        <p class="statement__text" data-reveal data-k="statement-02">Por eso, cada tratamiento comienza escuchándote. Mi objetivo es comprender lo que necesitas, estudiar tus facciones y diseñar un resultado que encaje contigo, con tu estilo y tu esencia.</p>
       </div>
     </section>
 
     <!-- TRATAMIENTOS
          Cada tratamiento lleva su propia galería justo debajo de su texto, sin mezclar fotos de otros tratamientos.
-         Para añadir fotos a un tratamiento que aún no tiene, copia un bloque <div class="gallery" data-gallery> de Labios u Ojos
-         dentro de su <article>, y guarda las fotos en assets/galeria/<tratamiento>/ (ver demos/margot-ibanez/docs/README_ASSETS.md). -->
+         Fotos, vídeos y textos se cambian desde el portal de administración (/admin). Los atributos data-k y data-gallery-id
+         son los que usa el portal: no los cambies. -->
     <section class="section tratamientos" id="tratamientos" aria-labelledby="trat-title">
       <div class="container">
         <div class="section__head" data-reveal>
-          <h2 id="trat-title" class="section__title">Tratamientos</h2>
-          <p>Diecinueve tratamientos en cinco especialidades. Todos empiezan igual: con una valoración y un diseño hecho para ti.</p>
+          <h2 id="trat-title" class="section__title" data-k="tratamientos-01">Tratamientos</h2>
+          <p data-k="tratamientos-02">Diecinueve tratamientos en cinco especialidades. Todos empiezan igual: con una valoración y un diseño hecho para ti.</p>
         </div>
 
         <div class="switch" data-switch>
@@ -92,31 +94,34 @@
           <div class="panel" role="tabpanel" id="panel-micro" aria-labelledby="tab-micro" tabindex="0">
             <h3 class="panel__title">Micropigmentación</h3>
 
-            <article class="treat" id="cejas" data-reveal>
+            <article class="treat" id="cejas" data-reveal data-t="cejas">
               <header class="treat__head">
                 <span class="treat__n">01</span>
-                <h4>Cejas</h4>
-                <p class="treat__kind">Sombreados y microblading</p>
+                <h4 data-k="cejas-01">Cejas</h4>
+                <p class="treat__kind" data-k="cejas-02">Sombreados y microblading</p>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">Este tratamiento permite definir, corregir y armonizar la forma de las cejas, aportando un efecto de mayor densidad y simetría, siempre adaptado a las facciones de cada rostro. Mediante un diseño personalizado y la técnica más adecuada para cada caso, conseguimos unas cejas bonitas, equilibradas y naturales.</p>
-                <p>El objetivo es realzar tu mirada, corregir pequeñas imperfecciones y potenciar tu belleza sin perder tu esencia. Disfruta de unas cejas perfectas durante más tiempo, reduce el tiempo que dedicas al maquillaje diario y luce una mirada más expresiva desde que te levantas.</p>
+                <p class="treat__lead" data-k="cejas-03">Este tratamiento permite definir, corregir y armonizar la forma de las cejas, aportando un efecto de mayor densidad y simetría, siempre adaptado a las facciones de cada rostro. Mediante un diseño personalizado y la técnica más adecuada para cada caso, conseguimos unas cejas bonitas, equilibradas y naturales.</p>
+                <p data-k="cejas-04">El objetivo es realzar tu mirada, corregir pequeñas imperfecciones y potenciar tu belleza sin perder tu esencia. Disfruta de unas cejas perfectas durante más tiempo, reduce el tiempo que dedicas al maquillaje diario y luce una mirada más expresiva desde que te levantas.</p>
               </div>
-              <!-- Galería de cejas: pendiente de fotos de Margot (solo cejas). -->
+              <div class="gallery" data-gallery data-gallery-id="cejas" aria-label="Galería de cejas" hidden>
+                <div class="gallery__grid" data-gallery-grid></div>
+                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
+              </div>
             </article>
 
-            <article class="treat" id="labios" data-reveal>
+            <article class="treat" id="labios" data-reveal data-t="labios">
               <header class="treat__head">
                 <span class="treat__n">02</span>
-                <h4>Labios</h4>
+                <h4 data-k="labios-01">Labios</h4>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">Realza la belleza de tus labios con un toque de color, definición y naturalidad. La micropigmentación permite mejorar y unificar su tono, corregir pequeñas asimetrías y redefinir su contorno, aportando un aspecto más uniforme, fresco y armonioso, también realizamos reconstrucciones de labios con mucosa deformada, rota o labios leporinos.</p>
-                <p>Despierta la belleza de tus labios sin depender del maquillaje cada día. Luce unos labios más definidos, con un color personalizado que potencie tu esencia y tu belleza natural.</p>
-                <p>Es ideal si practicas deporte, piscina o simplemente quieres comer con tranquilidad y derrochar amor dando besos sin preocuparte del maquillaje de labios.</p>
-                <p class="treat__sign">Un poco de ¡Glos! Y los tendrás perfectos todo el día.</p>
+                <p class="treat__lead" data-k="labios-02">Realza la belleza de tus labios con un toque de color, definición y naturalidad. La micropigmentación permite mejorar y unificar su tono, corregir pequeñas asimetrías y redefinir su contorno, aportando un aspecto más uniforme, fresco y armonioso, también realizamos reconstrucciones de labios con mucosa deformada, rota o labios leporinos.</p>
+                <p data-k="labios-03">Despierta la belleza de tus labios sin depender del maquillaje cada día. Luce unos labios más definidos, con un color personalizado que potencie tu esencia y tu belleza natural.</p>
+                <p data-k="labios-04">Es ideal si practicas deporte, piscina o simplemente quieres comer con tranquilidad y derrochar amor dando besos sin preocuparte del maquillaje de labios.</p>
+                <p class="treat__sign" data-k="labios-05">Un poco de ¡Glos! Y los tendrás perfectos todo el día.</p>
               </div>
-              <div class="gallery" data-gallery aria-label="Galería de labios">
+              <div class="gallery" data-gallery data-gallery-id="labios" aria-label="Galería de labios">
                 <div class="gallery__grid" data-gallery-grid>
                   <figure class="gallery__item"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-16.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-16-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
                   <figure class="gallery__item"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/labios-foto-01.webp" aria-label="Ampliar foto de labios"><img src="assets/galeria/micropigmentacion/labios-foto-01-thumb.webp" width="480" height="600" alt="Micropigmentación de labios, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
@@ -148,20 +153,20 @@
               </div>
             </article>
 
-            <article class="treat" id="ojos" data-reveal>
+            <article class="treat" id="ojos" data-reveal data-t="ojos">
               <header class="treat__head">
                 <span class="treat__n">03</span>
-                <h4>Ojos</h4>
-                <p class="treat__kind">Clásicos y sombreados</p>
+                <h4 data-k="ojos-01">Ojos</h4>
+                <p class="treat__kind" data-k="ojos-02">Clásicos y sombreados</p>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">Realza la belleza de tu mirada con una definición personalizada que aporta intensidad, profundidad y armonía a tus ojos, eligiendo un Softliner ahumado con sombra espectacular o un Eye Liner clásico.</p>
-                <p>Con la técnica clásica, conseguimos un delineado definido y elegante; con la técnica sombreada, aportamos un efecto difuminado que intensifica la mirada con un acabado más suave y sofisticado.</p>
-                <p>Además, disfrutarás de una mirada visualmente más abierta, pestañas con mayor sensación de densidad y un diseño adaptado a la forma natural de tus ojos. Olvídate de los delineados irregulares, de las manchas y de perder tiempo intentando conseguir el mismo resultado cada mañana.</p>
-                <p>Es una opción ideal si practicas deporte, piscina, tienes una rutina activa, usas gafas o lentillas, o simplemente quieres verte arreglada en cualquier momento del día, incluso al despertar.</p>
-                <p class="treat__sign">Tu mirada, tu esencia… siempre perfectas.</p>
+                <p class="treat__lead" data-k="ojos-03">Realza la belleza de tu mirada con una definición personalizada que aporta intensidad, profundidad y armonía a tus ojos, eligiendo un Softliner ahumado con sombra espectacular o un Eye Liner clásico.</p>
+                <p data-k="ojos-04">Con la técnica clásica, conseguimos un delineado definido y elegante; con la técnica sombreada, aportamos un efecto difuminado que intensifica la mirada con un acabado más suave y sofisticado.</p>
+                <p data-k="ojos-05">Además, disfrutarás de una mirada visualmente más abierta, pestañas con mayor sensación de densidad y un diseño adaptado a la forma natural de tus ojos. Olvídate de los delineados irregulares, de las manchas y de perder tiempo intentando conseguir el mismo resultado cada mañana.</p>
+                <p data-k="ojos-06">Es una opción ideal si practicas deporte, piscina, tienes una rutina activa, usas gafas o lentillas, o simplemente quieres verte arreglada en cualquier momento del día, incluso al despertar.</p>
+                <p class="treat__sign" data-k="ojos-07">Tu mirada, tu esencia… siempre perfectas.</p>
               </div>
-              <div class="gallery" data-gallery aria-label="Galería de ojos">
+              <div class="gallery" data-gallery data-gallery-id="ojos" aria-label="Galería de ojos">
                 <div class="gallery__grid" data-gallery-grid>
                   <figure class="gallery__item"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-16.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-16-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
                   <figure class="gallery__item"><button class="gallery__open" type="button" data-full="assets/galeria/micropigmentacion/ojos-foto-01.webp" aria-label="Ampliar foto de ojos"><img src="assets/galeria/micropigmentacion/ojos-foto-01-thumb.webp" width="480" height="600" alt="Micropigmentación de ojos, trabajo de Margot Ibáñez" loading="lazy" decoding="async"></button></figure>
@@ -205,17 +210,21 @@
               </div>
             </article>
 
-            <article class="treat" data-reveal>
+            <article class="treat" data-reveal data-t="espesor-capilar">
               <header class="treat__head">
                 <span class="treat__n">04</span>
-                <h4>Espesor capilar</h4>
+                <h4 data-k="espesor-capilar-01">Espesor capilar</h4>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">Micropigmentación en el cuero cabelludo que reduce el contraste entre la piel y el cabello en las zonas donde se ve más fino, como la raya o la coronilla, para dar sensación de más densidad.</p>
+                <p class="treat__lead" data-k="espesor-capilar-02">Micropigmentación en el cuero cabelludo que reduce el contraste entre la piel y el cabello en las zonas donde se ve más fino, como la raya o la coronilla, para dar sensación de más densidad.</p>
                 <ul class="points">
-                  <li>No hace crecer el pelo: es un efecto visual.</li>
-                  <li>Primero valoramos la zona y el tono de tu cabello.</li>
+                  <li data-k="espesor-capilar-03">No hace crecer el pelo: es un efecto visual.</li>
+                  <li data-k="espesor-capilar-04">Primero valoramos la zona y el tono de tu cabello.</li>
                 </ul>
+              </div>
+              <div class="gallery" data-gallery data-gallery-id="espesor-capilar" aria-label="Galería de espesor capilar" hidden>
+                <div class="gallery__grid" data-gallery-grid></div>
+                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
               </div>
             </article>
           </div>
@@ -224,44 +233,56 @@
           <div class="panel" role="tabpanel" id="panel-cejas" aria-labelledby="tab-cejas" tabindex="0">
             <h3 class="panel__title">Cejas y pestañas</h3>
 
-            <article class="treat" data-reveal>
+            <article class="treat" data-reveal data-t="visagismo-diseno-tinte-y-laminado">
               <header class="treat__head">
                 <span class="treat__n">05</span>
-                <h4>Visagismo, diseño, tinte y laminado</h4>
+                <h4 data-k="visagismo-diseno-tinte-y-laminado-01">Visagismo, diseño, tinte y laminado</h4>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">Estudiamos tus facciones para encontrar la forma de ceja que más te favorece. El tinte aporta color y el laminado peina y fija el vello en la dirección que buscamos, para unas cejas más ordenadas y con aspecto más poblado.</p>
+                <p class="treat__lead" data-k="visagismo-diseno-tinte-y-laminado-02">Estudiamos tus facciones para encontrar la forma de ceja que más te favorece. El tinte aporta color y el laminado peina y fija el vello en la dirección que buscamos, para unas cejas más ordenadas y con aspecto más poblado.</p>
+              </div>
+              <div class="gallery" data-gallery data-gallery-id="visagismo-diseno-tinte-y-laminado" aria-label="Galería de Visagismo, diseño, tinte y laminado" hidden>
+                <div class="gallery__grid" data-gallery-grid></div>
+                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
               </div>
             </article>
 
-            <article class="treat" data-reveal>
+            <article class="treat" data-reveal data-t="lifting-de-pestanas">
               <header class="treat__head">
                 <span class="treat__n">06</span>
-                <h4>Lifting de pestañas</h4>
+                <h4 data-k="lifting-de-pestanas-01">Lifting de pestañas</h4>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">Eleva y curva tus pestañas naturales desde la raíz para que se vean más largas y la mirada más abierta, sin extensiones y sin rizador.</p>
+                <p class="treat__lead" data-k="lifting-de-pestanas-02">Eleva y curva tus pestañas naturales desde la raíz para que se vean más largas y la mirada más abierta, sin extensiones y sin rizador.</p>
+              </div>
+              <div class="gallery" data-gallery data-gallery-id="lifting-de-pestanas" aria-label="Galería de lifting de pestañas" hidden>
+                <div class="gallery__grid" data-gallery-grid></div>
+                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
               </div>
             </article>
 
-            <article class="treat" data-reveal>
+            <article class="treat" data-reveal data-t="depilacion-con-hilo">
               <header class="treat__head">
                 <span class="treat__n">07</span>
-                <h4>Depilación con hilo</h4>
+                <h4 data-k="depilacion-con-hilo-01">Depilación con hilo</h4>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">¿Sabías que un simple hilo puede transformar tu mirada?</p>
-                <p>Descubre la depilación con hilo, una técnica milenaria, natural y súper precisa que elimina el vello desde la raíz, incluso el más pequeñito, dejando un aspecto pulcro y profesional.</p>
-                <p class="treat__label">¿Por qué te va a enamorar?</p>
+                <p class="treat__lead" data-k="depilacion-con-hilo-02">¿Sabías que un simple hilo puede transformar tu mirada?</p>
+                <p data-k="depilacion-con-hilo-03">Descubre la depilación con hilo, una técnica milenaria, natural y súper precisa que elimina el vello desde la raíz, incluso el más pequeñito, dejando un aspecto pulcro y profesional.</p>
+                <p class="treat__label" data-k="depilacion-con-hilo-04">¿Por qué te va a enamorar?</p>
                 <ul class="points">
-                  <li>Define tus cejas con máxima precisión.</li>
-                  <li>Elimina hasta el vello más fino.</li>
-                  <li>Sin ceras ni productos químicos.</li>
-                  <li>Consigue un acabado limpio y delicado.</li>
-                  <li>Resalta la belleza natural de tu rostro.</li>
-                  <li>No mancha la piel al exponerse al sol como otras técnicas.</li>
+                  <li data-k="depilacion-con-hilo-05">Define tus cejas con máxima precisión.</li>
+                  <li data-k="depilacion-con-hilo-06">Elimina hasta el vello más fino.</li>
+                  <li data-k="depilacion-con-hilo-07">Sin ceras ni productos químicos.</li>
+                  <li data-k="depilacion-con-hilo-08">Consigue un acabado limpio y delicado.</li>
+                  <li data-k="depilacion-con-hilo-09">Resalta la belleza natural de tu rostro.</li>
+                  <li data-k="depilacion-con-hilo-10">No mancha la piel al exponerse al sol como otras técnicas.</li>
                 </ul>
-                <p class="treat__sign">Porque unas cejas bien definidas pueden cambiarlo todo.</p>
+                <p class="treat__sign" data-k="depilacion-con-hilo-11">Porque unas cejas bien definidas pueden cambiarlo todo.</p>
+              </div>
+              <div class="gallery" data-gallery data-gallery-id="depilacion-con-hilo" aria-label="Galería de depilación con hilo" hidden>
+                <div class="gallery__grid" data-gallery-grid></div>
+                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
               </div>
             </article>
           </div>
@@ -270,74 +291,86 @@
           <div class="panel" role="tabpanel" id="panel-facial" aria-labelledby="tab-facial" tabindex="0">
             <h3 class="panel__title">Facial</h3>
 
-            <article class="treat" data-reveal>
+            <article class="treat" data-reveal data-t="limpieza-y-tratamiento-facial-premium">
               <header class="treat__head">
                 <span class="treat__n">08</span>
-                <h4>Limpieza y tratamiento facial premium</h4>
+                <h4 data-k="limpieza-y-tratamiento-facial-premium-01">Limpieza y tratamiento facial premium</h4>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">Mucho más que una limpieza: una experiencia de renovación, hidratación y cuidado avanzado para devolverle a tu piel su mejor versión.</p>
-                <p class="treat__label">¿Qué incluye nuestro ritual premium?</p>
+                <p class="treat__lead" data-k="limpieza-y-tratamiento-facial-premium-02">Mucho más que una limpieza: una experiencia de renovación, hidratación y cuidado avanzado para devolverle a tu piel su mejor versión.</p>
+                <p class="treat__label" data-k="limpieza-y-tratamiento-facial-premium-03">¿Qué incluye nuestro ritual premium?</p>
                 <ol class="ritual">
-                  <li><span class="ritual__step">Limpieza profunda con paleta ultrasónica</span><span class="ritual__text">Ayuda a retirar impurezas, células muertas y exceso de grasa, dejando la piel más limpia, fresca y preparada para recibir los activos.</span></li>
-                  <li><span class="ritual__step">Dermapen, microneedling</span><span class="ritual__text">Técnica de microestimulación mediante microagujas que favorece los procesos naturales de regeneración cutánea y estimula la producción de colágeno y elastina. Trabajamos con vitaminas, péptidos y activos de alta calidad, seleccionados según las necesidades de cada piel.</span></li>
-                  <li><span class="ritual__step">Mascarilla personalizada</span><span class="ritual__text">Elegimos la fórmula más adecuada para tu piel, aportando hidratación, confort y luminosidad.</span></li>
-                  <li><span class="ritual__step">Alta frecuencia facial y/o capilar</span><span class="ritual__text">Complemento de nuestro ritual para el cuidado de la piel o del cuero cabelludo, según las necesidades del tratamiento.</span></li>
-                  <li><span class="ritual__step">Masaje relajante</span><span class="ritual__text">Disfruta de un momento de desconexión con un masaje en rostro, cuello, brazos y manos. Porque cuidarte también es regalarte tiempo para ti.</span></li>
+                  <li><span class="ritual__step" data-k="limpieza-y-tratamiento-facial-premium-04">Limpieza profunda con paleta ultrasónica</span><span class="ritual__text" data-k="limpieza-y-tratamiento-facial-premium-05">Ayuda a retirar impurezas, células muertas y exceso de grasa, dejando la piel más limpia, fresca y preparada para recibir los activos.</span></li>
+                  <li><span class="ritual__step" data-k="limpieza-y-tratamiento-facial-premium-06">Dermapen, microneedling</span><span class="ritual__text" data-k="limpieza-y-tratamiento-facial-premium-07">Técnica de microestimulación mediante microagujas que favorece los procesos naturales de regeneración cutánea y estimula la producción de colágeno y elastina. Trabajamos con vitaminas, péptidos y activos de alta calidad, seleccionados según las necesidades de cada piel.</span></li>
+                  <li><span class="ritual__step" data-k="limpieza-y-tratamiento-facial-premium-08">Mascarilla personalizada</span><span class="ritual__text" data-k="limpieza-y-tratamiento-facial-premium-09">Elegimos la fórmula más adecuada para tu piel, aportando hidratación, confort y luminosidad.</span></li>
+                  <li><span class="ritual__step" data-k="limpieza-y-tratamiento-facial-premium-10">Alta frecuencia facial y/o capilar</span><span class="ritual__text" data-k="limpieza-y-tratamiento-facial-premium-11">Complemento de nuestro ritual para el cuidado de la piel o del cuero cabelludo, según las necesidades del tratamiento.</span></li>
+                  <li><span class="ritual__step" data-k="limpieza-y-tratamiento-facial-premium-12">Masaje relajante</span><span class="ritual__text" data-k="limpieza-y-tratamiento-facial-premium-13">Disfruta de un momento de desconexión con un masaje en rostro, cuello, brazos y manos. Porque cuidarte también es regalarte tiempo para ti.</span></li>
                 </ol>
-                <p class="treat__label">¿El resultado que buscamos?</p>
+                <p class="treat__label" data-k="limpieza-y-tratamiento-facial-premium-14">¿El resultado que buscamos?</p>
                 <ul class="points">
-                  <li>Una piel más luminosa.</li>
-                  <li>Aspecto fresco y revitalizado.</li>
-                  <li>Mayor suavidad y textura más uniforme.</li>
-                  <li>Hidratación y aspecto jugoso.</li>
-                  <li>Una piel cuidada, bonita y delicada.</li>
+                  <li data-k="limpieza-y-tratamiento-facial-premium-15">Una piel más luminosa.</li>
+                  <li data-k="limpieza-y-tratamiento-facial-premium-16">Aspecto fresco y revitalizado.</li>
+                  <li data-k="limpieza-y-tratamiento-facial-premium-17">Mayor suavidad y textura más uniforme.</li>
+                  <li data-k="limpieza-y-tratamiento-facial-premium-18">Hidratación y aspecto jugoso.</li>
+                  <li data-k="limpieza-y-tratamiento-facial-premium-19">Una piel cuidada, bonita y delicada.</li>
                 </ul>
-                <p>¡Queremos que salgas mirándote al espejo y enamorándote de tu piel!</p>
-                <p>Reserva tu experiencia premium en Margot Ibáñez.</p>
-                <p class="treat__sign">Porque tu piel no necesita filtros, necesita cuidados de calidad.</p>
+                <p data-k="limpieza-y-tratamiento-facial-premium-20">¡Queremos que salgas mirándote al espejo y enamorándote de tu piel!</p>
+                <p data-k="limpieza-y-tratamiento-facial-premium-21">Reserva tu experiencia premium en Margot Ibáñez.</p>
+                <p class="treat__sign" data-k="limpieza-y-tratamiento-facial-premium-22">Porque tu piel no necesita filtros, necesita cuidados de calidad.</p>
+              </div>
+              <div class="gallery" data-gallery data-gallery-id="limpieza-y-tratamiento-facial-premium" aria-label="Galería de Limpieza y tratamiento facial premium" hidden>
+                <div class="gallery__grid" data-gallery-grid></div>
+                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
               </div>
             </article>
 
-            <article class="treat" data-reveal>
+            <article class="treat" data-reveal data-t="dermapen-con-vitaminas">
               <header class="treat__head">
                 <span class="treat__n">09</span>
-                <h4>Dermapen con vitaminas</h4>
+                <h4 data-k="dermapen-con-vitaminas-01">Dermapen con vitaminas</h4>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">Microneedling: microperforaciones controladas que estimulan la producción de colágeno y elastina y facilitan que la piel absorba vitaminas, péptidos y activos elegidos según lo que necesita.</p>
+                <p class="treat__lead" data-k="dermapen-con-vitaminas-02">Microneedling: microperforaciones controladas que estimulan la producción de colágeno y elastina y facilitan que la piel absorba vitaminas, péptidos y activos elegidos según lo que necesita.</p>
+              </div>
+              <div class="gallery" data-gallery data-gallery-id="dermapen-con-vitaminas" aria-label="Galería de dermapen con vitaminas" hidden>
+                <div class="gallery__grid" data-gallery-grid></div>
+                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
               </div>
             </article>
 
-            <article class="treat" data-reveal>
+            <article class="treat" data-reveal data-t="fibroblast-plasma-pen">
               <header class="treat__head">
                 <span class="treat__n">10</span>
-                <h4>Fibroblast, Plasma Pen</h4>
-                <p class="treat__kind">Párpados u otras zonas</p>
+                <h4 data-k="fibroblast-plasma-pen-01">Fibroblast, Plasma Pen</h4>
+                <p class="treat__kind" data-k="fibroblast-plasma-pen-02">Párpados u otras zonas</p>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">¿Te sobra piel en los párpados? ¿Notas tu mirada más cansada o tu rostro menos firme?</p>
-                <p>Descubre Fibroblast, Plasma Pen, una técnica de rejuvenecimiento cutáneo que busca mejorar la apariencia de la flacidez y las arrugas superficiales.</p>
-                <p>Una alternativa no quirúrgica para tratar determinadas zonas del rostro, mediante una tecnología de plasma que genera microestímulos térmicos controlados en la piel.</p>
-                <p>Utilizamos un dispositivo que genera un pequeño arco eléctrico de plasma entre su punta y la superficie cutánea. Esta energía produce un efecto térmico muy localizado que provoca una lesión controlada en la piel y activa sus mecanismos naturales de reparación y retracción, eliminando exceso de piel.</p>
-                <p class="treat__label">¿Qué zonas podemos valorar?</p>
+                <p class="treat__lead" data-k="fibroblast-plasma-pen-03">¿Te sobra piel en los párpados? ¿Notas tu mirada más cansada o tu rostro menos firme?</p>
+                <p data-k="fibroblast-plasma-pen-04">Descubre Fibroblast, Plasma Pen, una técnica de rejuvenecimiento cutáneo que busca mejorar la apariencia de la flacidez y las arrugas superficiales.</p>
+                <p data-k="fibroblast-plasma-pen-05">Una alternativa no quirúrgica para tratar determinadas zonas del rostro, mediante una tecnología de plasma que genera microestímulos térmicos controlados en la piel.</p>
+                <p data-k="fibroblast-plasma-pen-06">Utilizamos un dispositivo que genera un pequeño arco eléctrico de plasma entre su punta y la superficie cutánea. Esta energía produce un efecto térmico muy localizado que provoca una lesión controlada en la piel y activa sus mecanismos naturales de reparación y retracción, eliminando exceso de piel.</p>
+                <p class="treat__label" data-k="fibroblast-plasma-pen-07">¿Qué zonas podemos valorar?</p>
                 <dl class="zone-list">
-                  <div><dt>Párpados superiores</dt><dd>para mejorar la apariencia de la piel sobrante leve.</dd></div>
-                  <div><dt>Contorno de ojos</dt><dd>líneas finas y pequeñas arrugas.</dd></div>
-                  <div><dt>Frente</dt><dd>arrugas superficiales.</dd></div>
-                  <div><dt>Código de barras</dt><dd>arruguitas alrededor de los labios.</dd></div>
-                  <div><dt>Mejillas</dt><dd>flacidez superficial.</dd></div>
-                  <div><dt>Óvalo facial</dt><dd>pérdida de firmeza.</dd></div>
+                  <div><dt data-k="fibroblast-plasma-pen-08">Párpados superiores</dt><dd data-k="fibroblast-plasma-pen-09">para mejorar la apariencia de la piel sobrante leve.</dd></div>
+                  <div><dt data-k="fibroblast-plasma-pen-10">Contorno de ojos</dt><dd data-k="fibroblast-plasma-pen-11">líneas finas y pequeñas arrugas.</dd></div>
+                  <div><dt data-k="fibroblast-plasma-pen-12">Frente</dt><dd data-k="fibroblast-plasma-pen-13">arrugas superficiales.</dd></div>
+                  <div><dt data-k="fibroblast-plasma-pen-14">Código de barras</dt><dd data-k="fibroblast-plasma-pen-15">arruguitas alrededor de los labios.</dd></div>
+                  <div><dt data-k="fibroblast-plasma-pen-16">Mejillas</dt><dd data-k="fibroblast-plasma-pen-17">flacidez superficial.</dd></div>
+                  <div><dt data-k="fibroblast-plasma-pen-18">Óvalo facial</dt><dd data-k="fibroblast-plasma-pen-19">pérdida de firmeza.</dd></div>
                 </dl>
-                <p class="treat__label">¿Qué buscamos conseguir?</p>
+                <p class="treat__label" data-k="fibroblast-plasma-pen-20">¿Qué buscamos conseguir?</p>
                 <ul class="points">
-                  <li>Mejorar visualmente la firmeza de la piel.</li>
-                  <li>Suavizar determinadas arrugas.</li>
-                  <li>Favorecer la remodelación del colágeno.</li>
-                  <li>Mejorar la textura cutánea.</li>
-                  <li>Conseguir un aspecto más rejuvenecido y descansado.</li>
+                  <li data-k="fibroblast-plasma-pen-21">Mejorar visualmente la firmeza de la piel.</li>
+                  <li data-k="fibroblast-plasma-pen-22">Suavizar determinadas arrugas.</li>
+                  <li data-k="fibroblast-plasma-pen-23">Favorecer la remodelación del colágeno.</li>
+                  <li data-k="fibroblast-plasma-pen-24">Mejorar la textura cutánea.</li>
+                  <li data-k="fibroblast-plasma-pen-25">Conseguir un aspecto más rejuvenecido y descansado.</li>
                 </ul>
-                <p class="treat__sign">Cada rostro es único. Por eso, cada tratamiento requiere una valoración individual para determinar si está indicado y qué resultados son realistas.</p>
+                <p class="treat__sign" data-k="fibroblast-plasma-pen-26">Cada rostro es único. Por eso, cada tratamiento requiere una valoración individual para determinar si está indicado y qué resultados son realistas.</p>
+              </div>
+              <div class="gallery" data-gallery data-gallery-id="fibroblast-plasma-pen" aria-label="Galería de fibroblast, plasma pen" hidden>
+                <div class="gallery__grid" data-gallery-grid></div>
+                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
               </div>
             </article>
           </div>
@@ -352,86 +385,106 @@
                 <div class="laser-team__inset"><img src="assets/img/laser-especialista-sonrisa-960.webp" srcset="assets/img/laser-especialista-sonrisa-560.webp 560w, assets/img/laser-especialista-sonrisa-960.webp 960w" sizes="(min-width: 54rem) 14rem, 38vw" width="960" height="1280" alt="La especialista en láser, sonriendo, con gafas y americana" loading="lazy" decoding="async"></div>
               </div>
               <figcaption class="laser-team__text">
-                <span class="eyebrow">Equipo láser</span>
-                <span class="laser-team__quote">Los tratamientos láser los realiza personal sanitario, con protocolos específicos de seguridad.</span>
+                <span class="eyebrow" data-k="equipo-laser-01">Equipo láser</span>
+                <span class="laser-team__quote" data-k="equipo-laser-02">Los tratamientos láser los realiza personal sanitario, con protocolos específicos de seguridad.</span>
               </figcaption>
             </figure>
 
-            <article class="treat" data-reveal>
+            <article class="treat" data-reveal data-t="eliminacion-de-tatuajes-con-laser">
               <header class="treat__head">
                 <span class="treat__n">11</span>
-                <h4>Eliminación de tatuajes con láser</h4>
+                <h4 data-k="eliminacion-de-tatuajes-con-laser-01">Eliminación de tatuajes con láser</h4>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">¿Quieres eliminar un tatuaje por completo o aclararlo?</p>
-                <p>Mediante tecnología láser, fragmentamos progresivamente el pigmento para que tu organismo lo elimine de forma natural.</p>
-                <p>Cada tatuaje es diferente, por eso realizamos una valoración personalizada teniendo en cuenta el color, la profundidad, la antigüedad, la zona y tu tipo de piel.</p>
+                <p class="treat__lead" data-k="eliminacion-de-tatuajes-con-laser-02">¿Quieres eliminar un tatuaje por completo o aclararlo?</p>
+                <p data-k="eliminacion-de-tatuajes-con-laser-03">Mediante tecnología láser, fragmentamos progresivamente el pigmento para que tu organismo lo elimine de forma natural.</p>
+                <p data-k="eliminacion-de-tatuajes-con-laser-04">Cada tatuaje es diferente, por eso realizamos una valoración personalizada teniendo en cuenta el color, la profundidad, la antigüedad, la zona y tu tipo de piel.</p>
                 <ul class="points">
-                  <li>Tratamiento de tatuajes negros y de color.</li>
-                  <li>Sesiones adaptadas a cada caso.</li>
-                  <li>No requiere tiempo de recuperación, aunque la piel necesita unos cuidados específicos posteriores.</li>
-                  <li>Tratamiento realizado por personal sanitario con protocolos específicos de seguridad.</li>
+                  <li data-k="eliminacion-de-tatuajes-con-laser-05">Tratamiento de tatuajes negros y de color.</li>
+                  <li data-k="eliminacion-de-tatuajes-con-laser-06">Sesiones adaptadas a cada caso.</li>
+                  <li data-k="eliminacion-de-tatuajes-con-laser-07">No requiere tiempo de recuperación, aunque la piel necesita unos cuidados específicos posteriores.</li>
+                  <li data-k="eliminacion-de-tatuajes-con-laser-08">Tratamiento realizado por personal sanitario con protocolos específicos de seguridad.</li>
                 </ul>
-                <p>El número de sesiones dependerá de cada tatuaje. En la valoración te explicaremos el proceso, los cuidados y las expectativas reales de eliminación.</p>
+                <p data-k="eliminacion-de-tatuajes-con-laser-09">El número de sesiones dependerá de cada tatuaje. En la valoración te explicaremos el proceso, los cuidados y las expectativas reales de eliminación.</p>
+              </div>
+              <div class="gallery" data-gallery data-gallery-id="eliminacion-de-tatuajes-con-laser" aria-label="Galería de Eliminación de tatuajes con láser" hidden>
+                <div class="gallery__grid" data-gallery-grid></div>
+                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
               </div>
             </article>
 
-            <article class="treat" data-reveal>
+            <article class="treat" data-reveal data-t="eliminacion-de-micropigmentacion-de-cejas">
               <header class="treat__head">
                 <span class="treat__n">12</span>
-                <h4>Eliminación de micropigmentación de cejas</h4>
+                <h4 data-k="eliminacion-de-micropigmentacion-de-cejas-01">Eliminación de micropigmentación de cejas</h4>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">¿Te hiciste las cejas hace tiempo y ya no te gustan? ¿El color ha cambiado, la forma no te favorece o simplemente ya no te sientes tú con ellas? Tranquila, tiene solución.</p>
-                <p>Con nuestro tratamiento láser trabajamos para eliminar progresivamente el pigmento y ayudarte a recuperar la naturalidad de tus cejas, respetando al máximo tu piel y el pelo natural.</p>
+                <p class="treat__lead" data-k="eliminacion-de-micropigmentacion-de-cejas-02">¿Te hiciste las cejas hace tiempo y ya no te gustan? ¿El color ha cambiado, la forma no te favorece o simplemente ya no te sientes tú con ellas? Tranquila, tiene solución.</p>
+                <p data-k="eliminacion-de-micropigmentacion-de-cejas-03">Con nuestro tratamiento láser trabajamos para eliminar progresivamente el pigmento y ayudarte a recuperar la naturalidad de tus cejas, respetando al máximo tu piel y el pelo natural.</p>
                 <ul class="points">
-                  <li>Eliminación de pigmentos de diferentes tonalidades.</li>
-                  <li>Tratamiento personalizado según el pigmento y la piel.</li>
-                  <li>Trabajamos para respetar el pelo natural de la ceja.</li>
-                  <li>Sin tiempo de baja ni recuperación que te impida hacer vida normal, aunque la zona requiere cuidados específicos varios días.</li>
-                  <li>Puedes maquillarte la ceja al día siguiente siempre que la piel esté recuperada.</li>
+                  <li data-k="eliminacion-de-micropigmentacion-de-cejas-04">Eliminación de pigmentos de diferentes tonalidades.</li>
+                  <li data-k="eliminacion-de-micropigmentacion-de-cejas-05">Tratamiento personalizado según el pigmento y la piel.</li>
+                  <li data-k="eliminacion-de-micropigmentacion-de-cejas-06">Trabajamos para respetar el pelo natural de la ceja.</li>
+                  <li data-k="eliminacion-de-micropigmentacion-de-cejas-07">Sin tiempo de baja ni recuperación que te impida hacer vida normal, aunque la zona requiere cuidados específicos varios días.</li>
+                  <li data-k="eliminacion-de-micropigmentacion-de-cejas-08">Puedes maquillarte la ceja al día siguiente siempre que la piel esté recuperada.</li>
                 </ul>
-                <p>El número de sesiones dependerá del pigmento, su profundidad, antigüedad y respuesta de tu piel. Antes de comenzar realizaremos una valoración para explicarte el procedimiento y las expectativas reales.</p>
+                <p data-k="eliminacion-de-micropigmentacion-de-cejas-09">El número de sesiones dependerá del pigmento, su profundidad, antigüedad y respuesta de tu piel. Antes de comenzar realizaremos una valoración para explicarte el procedimiento y las expectativas reales.</p>
+              </div>
+              <div class="gallery" data-gallery data-gallery-id="eliminacion-de-micropigmentacion-de-cejas" aria-label="Galería de Eliminación de micropigmentación de cejas" hidden>
+                <div class="gallery__grid" data-gallery-grid></div>
+                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
               </div>
             </article>
 
-            <article class="treat" data-reveal>
+            <article class="treat" data-reveal data-t="eliminacion-de-micropigmentacion-de-labios-con-laser">
               <header class="treat__head">
                 <span class="treat__n">13</span>
-                <h4>Eliminación de micropigmentación de labios con láser</h4>
+                <h4 data-k="eliminacion-de-micropigmentacion-de-labios-con-laser-01">Eliminación de micropigmentación de labios con láser</h4>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">¿El color de tus labios ya no te gusta? ¿Ha virado a tonos oscuros, morados, grises o simplemente ya no te ves con él? No tienes por qué conformarte con un resultado que ya no te representa.</p>
-                <p>Mediante láser trabajamos para eliminar o aclarar progresivamente el pigmento, ayudando a recuperar la naturalidad de tus labios. Cada pigmento reacciona de manera diferente, por eso es importante realizar una valoración previa y adaptar el tratamiento a tu caso.</p>
-                <p>Te acompañaré durante todo el proceso, explicándote qué podemos conseguir, las sesiones que podrían ser necesarias y los cuidados que deberás seguir.</p>
-                <p class="treat__sign">Porque tus labios son tuyos, y volver a sentirte cómoda con ellos también importa.</p>
+                <p class="treat__lead" data-k="eliminacion-de-micropigmentacion-de-labios-con-laser-02">¿El color de tus labios ya no te gusta? ¿Ha virado a tonos oscuros, morados, grises o simplemente ya no te ves con él? No tienes por qué conformarte con un resultado que ya no te representa.</p>
+                <p data-k="eliminacion-de-micropigmentacion-de-labios-con-laser-03">Mediante láser trabajamos para eliminar o aclarar progresivamente el pigmento, ayudando a recuperar la naturalidad de tus labios. Cada pigmento reacciona de manera diferente, por eso es importante realizar una valoración previa y adaptar el tratamiento a tu caso.</p>
+                <p data-k="eliminacion-de-micropigmentacion-de-labios-con-laser-04">Te acompañaré durante todo el proceso, explicándote qué podemos conseguir, las sesiones que podrían ser necesarias y los cuidados que deberás seguir.</p>
+                <p class="treat__sign" data-k="eliminacion-de-micropigmentacion-de-labios-con-laser-05">Porque tus labios son tuyos, y volver a sentirte cómoda con ellos también importa.</p>
+              </div>
+              <div class="gallery" data-gallery data-gallery-id="eliminacion-de-micropigmentacion-de-labios-con-laser" aria-label="Galería de Eliminación de micropigmentación de labios con láser" hidden>
+                <div class="gallery__grid" data-gallery-grid></div>
+                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
               </div>
             </article>
 
-            <article class="treat" data-reveal>
+            <article class="treat" data-reveal data-t="hollywood-peel">
               <header class="treat__head">
                 <span class="treat__n">14</span>
-                <h4>Hollywood Peel</h4>
-                <p class="treat__kind">Luminosidad y rejuvenecimiento con carbón activo</p>
+                <h4 data-k="hollywood-peel-01">Hollywood Peel</h4>
+                <p class="treat__kind" data-k="hollywood-peel-02">Luminosidad y rejuvenecimiento con carbón activo</p>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">El Hollywood Peel es un tratamiento innovador que combina láser de alta precisión con carbón activo, eliminando impurezas, reduciendo poros y aportando un efecto rejuvenecedor inmediato. Ideal para quienes buscan una piel más luminosa, uniforme y sin imperfecciones.</p>
+                <p class="treat__lead" data-k="hollywood-peel-03">El Hollywood Peel es un tratamiento innovador que combina láser de alta precisión con carbón activo, eliminando impurezas, reduciendo poros y aportando un efecto rejuvenecedor inmediato. Ideal para quienes buscan una piel más luminosa, uniforme y sin imperfecciones.</p>
                 <ul class="points">
-                  <li>Resultados visibles desde la primera sesión.</li>
-                  <li>Piel más tersa, luminosa y sin impurezas.</li>
-                  <li>Ideal para pieles grasas o con tendencia acneica.</li>
-                  <li>Sin dolor ni tiempo de recuperación.</li>
+                  <li data-k="hollywood-peel-04">Resultados visibles desde la primera sesión.</li>
+                  <li data-k="hollywood-peel-05">Piel más tersa, luminosa y sin impurezas.</li>
+                  <li data-k="hollywood-peel-06">Ideal para pieles grasas o con tendencia acneica.</li>
+                  <li data-k="hollywood-peel-07">Sin dolor ni tiempo de recuperación.</li>
                 </ul>
+              </div>
+              <div class="gallery" data-gallery data-gallery-id="hollywood-peel" aria-label="Galería de hollywood peel" hidden>
+                <div class="gallery__grid" data-gallery-grid></div>
+                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
               </div>
             </article>
 
-            <article class="treat" data-reveal>
+            <article class="treat" data-reveal data-t="laser-corporal-de-vello">
               <header class="treat__head">
                 <span class="treat__n">15</span>
-                <h4>Láser corporal de vello</h4>
+                <h4 data-k="laser-corporal-de-vello-01">Láser corporal de vello</h4>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">Depilación láser para reducir el vello de forma progresiva, sesión a sesión. Antes de empezar valoramos tu tipo de piel y de vello.</p>
+                <p class="treat__lead" data-k="laser-corporal-de-vello-02">Depilación láser para reducir el vello de forma progresiva, sesión a sesión. Antes de empezar valoramos tu tipo de piel y de vello.</p>
+              </div>
+              <div class="gallery" data-gallery data-gallery-id="laser-corporal-de-vello" aria-label="Galería de láser corporal de vello" hidden>
+                <div class="gallery__grid" data-gallery-grid></div>
+                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
               </div>
             </article>
           </div>
@@ -440,51 +493,67 @@
           <div class="panel" role="tabpanel" id="panel-cuerpo" aria-labelledby="tab-cuerpo" tabindex="0">
             <h3 class="panel__title">Cuerpo y uñas</h3>
 
-            <article class="treat" data-reveal>
+            <article class="treat" data-reveal data-t="presoterapia">
               <header class="treat__head">
                 <span class="treat__n">16</span>
-                <h4>Presoterapia</h4>
+                <h4 data-k="presoterapia-01">Presoterapia</h4>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">Unas botas de presión se inflan por secciones, de forma secuencial, y masajean las piernas por compresión. Favorece el drenaje linfático y deja sensación de piernas ligeras.</p>
+                <p class="treat__lead" data-k="presoterapia-02">Unas botas de presión se inflan por secciones, de forma secuencial, y masajean las piernas por compresión. Favorece el drenaje linfático y deja sensación de piernas ligeras.</p>
+              </div>
+              <div class="gallery" data-gallery data-gallery-id="presoterapia" aria-label="Galería de presoterapia" hidden>
+                <div class="gallery__grid" data-gallery-grid></div>
+                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
               </div>
             </article>
 
-            <article class="treat" data-reveal>
+            <article class="treat" data-reveal data-t="masajes-linfaticos-y-relajantes">
               <header class="treat__head">
                 <span class="treat__n">17</span>
-                <h4>Masajes linfáticos y relajantes</h4>
+                <h4 data-k="masajes-linfaticos-y-relajantes-01">Masajes linfáticos y relajantes</h4>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">El drenaje linfático, con maniobras suaves y rítmicas, ayuda a movilizar los líquidos retenidos. El masaje relajante alivia tensiones: cuidarte también es regalarte tiempo para ti.</p>
+                <p class="treat__lead" data-k="masajes-linfaticos-y-relajantes-02">El drenaje linfático, con maniobras suaves y rítmicas, ayuda a movilizar los líquidos retenidos. El masaje relajante alivia tensiones: cuidarte también es regalarte tiempo para ti.</p>
+              </div>
+              <div class="gallery" data-gallery data-gallery-id="masajes-linfaticos-y-relajantes" aria-label="Galería de Masajes linfáticos y relajantes" hidden>
+                <div class="gallery__grid" data-gallery-grid></div>
+                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
               </div>
             </article>
 
-            <article class="treat" data-reveal>
+            <article class="treat" data-reveal data-t="luminique">
               <header class="treat__head">
                 <span class="treat__n">18</span>
-                <h4>Luminique</h4>
+                <h4 data-k="luminique-01">Luminique</h4>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">Pregúntame por este tratamiento y te explico en qué consiste y si es el adecuado para ti.</p>
+                <p class="treat__lead" data-k="luminique-02">Pregúntame por este tratamiento y te explico en qué consiste y si es el adecuado para ti.</p>
+              </div>
+              <div class="gallery" data-gallery data-gallery-id="luminique" aria-label="Galería de luminique" hidden>
+                <div class="gallery__grid" data-gallery-grid></div>
+                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
               </div>
             </article>
 
-            <article class="treat" data-reveal>
+            <article class="treat" data-reveal data-t="unas">
               <header class="treat__head">
                 <span class="treat__n">19</span>
-                <h4>Uñas</h4>
+                <h4 data-k="unas-01">Uñas</h4>
               </header>
               <div class="treat__body">
-                <p class="treat__lead">Cuidado de manos y uñas con un acabado limpio y elegante. Pregúntame por los servicios disponibles.</p>
+                <p class="treat__lead" data-k="unas-02">Cuidado de manos y uñas con un acabado limpio y elegante. Pregúntame por los servicios disponibles.</p>
+              </div>
+              <div class="gallery" data-gallery data-gallery-id="unas" aria-label="Galería de uñas" hidden>
+                <div class="gallery__grid" data-gallery-grid></div>
+                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
               </div>
             </article>
           </div>
         </div>
 
         <div class="treat-close" data-reveal>
-          <h3 class="treat-close__title">¿No sabes cuál es el tuyo?</h3>
-          <p>Cuéntame qué te gustaría mejorar y lo valoramos juntas antes de empezar.</p>
+          <h3 class="treat-close__title" data-k="tratamientos-03">¿No sabes cuál es el tuyo?</h3>
+          <p data-k="tratamientos-04">Cuéntame qué te gustaría mejorar y lo valoramos juntas antes de empezar.</p>
           <a class="btn" href="#consulta" data-wa="qué tratamiento me conviene">Preguntar por WhatsApp</a>
         </div>
       </div>
@@ -494,28 +563,28 @@
     <section class="section about" id="margot" aria-labelledby="margot-title">
       <div class="container">
         <div class="section__head" data-reveal>
-          <p class="section__title" aria-hidden="true">Sobre mí</p>
+          <p class="section__title" aria-hidden="true" data-k="margot-01">Sobre mí</p>
         </div>
         <div class="about__grid">
-          <figure class="about__photo" data-reveal>
+          <figure class="about__photo" data-slot="sobre-mi" data-reveal>
             <img src="assets/img/margot-retrato-abrigo-960.webp" srcset="assets/img/margot-retrato-abrigo-560.webp 560w, assets/img/margot-retrato-abrigo-960.webp 960w" sizes="(min-width: 60rem) 34vw, 92vw" width="960" height="1280" alt="Retrato en blanco y negro de Margot Ibáñez con abrigo negro" loading="lazy">
           </figure>
           <div class="about__text">
-            <h2 id="margot-title" data-reveal>Soy Margot Ibáñez.</h2>
+            <h2 id="margot-title" data-reveal data-k="margot-02">Soy Margot Ibáñez.</h2>
             <ul class="creds" data-reveal>
-              <li>Premios internacionales de micropigmentación</li>
-              <li>Jurado en congresos nacionales de PMU</li>
+              <li data-k="margot-03">Premios internacionales de micropigmentación</li>
+              <li data-k="margot-04">Jurado en congresos nacionales de PMU</li>
             </ul>
             <div class="about__story" data-reveal>
-              <p>Siempre he sentido una conexión especial con la belleza, los detalles y la capacidad que tenemos de resaltar aquello que nos hace únicas. Con el tiempo, esa pasión se convirtió en mi profesión, y la micropigmentación facial en mi forma de entender la belleza: una combinación de técnica, sensibilidad, precisión y arte.</p>
-              <p>Detrás de mi trabajo hay mucho más que pigmentos y técnicas. Hay dedicación, errores, formación continua, ilusión por evolucionar y un compromiso real con cada paciente que confía en mis manos.</p>
-              <p>Creo en una belleza que no necesita transformar, sino realzar. En unas cejas que armonizan la expresión, unos labios que recuperan su definición y una mirada que refleja seguridad sin perder naturalidad.</p>
-              <p>Detrás de cada trabajo hay horas de aprendizaje, atención a cada detalle y el deseo de ofrecerte una experiencia en la que te sientas escuchada, cuidada y segura.</p>
-              <p>Sigo creciendo, perfeccionando mis técnicas y descubriendo nuevas formas de ofrecer resultados cada vez más personalizados. Porque para mí, evolucionar profesionalmente también significa aprender a mirar la belleza con más sensibilidad y criterio.</p>
+              <p data-k="margot-05">Siempre he sentido una conexión especial con la belleza, los detalles y la capacidad que tenemos de resaltar aquello que nos hace únicas. Con el tiempo, esa pasión se convirtió en mi profesión, y la micropigmentación facial en mi forma de entender la belleza: una combinación de técnica, sensibilidad, precisión y arte.</p>
+              <p data-k="margot-06">Detrás de mi trabajo hay mucho más que pigmentos y técnicas. Hay dedicación, errores, formación continua, ilusión por evolucionar y un compromiso real con cada paciente que confía en mis manos.</p>
+              <p data-k="margot-07">Creo en una belleza que no necesita transformar, sino realzar. En unas cejas que armonizan la expresión, unos labios que recuperan su definición y una mirada que refleja seguridad sin perder naturalidad.</p>
+              <p data-k="margot-08">Detrás de cada trabajo hay horas de aprendizaje, atención a cada detalle y el deseo de ofrecerte una experiencia en la que te sientas escuchada, cuidada y segura.</p>
+              <p data-k="margot-09">Sigo creciendo, perfeccionando mis técnicas y descubriendo nuevas formas de ofrecer resultados cada vez más personalizados. Porque para mí, evolucionar profesionalmente también significa aprender a mirar la belleza con más sensibilidad y criterio.</p>
             </div>
             <blockquote class="about__quote" data-reveal>
-              <p>Si hay algo que da sentido a todo esto, es saber que cada mujer que sale de mi salón lo hace sintiéndose mejor consigo misma.</p>
-              <footer>Margot</footer>
+              <p data-k="margot-10">Si hay algo que da sentido a todo esto, es saber que cada mujer que sale de mi salón lo hace sintiéndose mejor consigo misma.</p>
+              <footer data-k="margot-11">Margot</footer>
             </blockquote>
           </div>
         </div>
@@ -532,8 +601,8 @@
     <section class="section videos" id="videos" aria-labelledby="videos-title" data-videos hidden>
       <div class="container">
         <div class="section__head" data-reveal>
-          <h2 id="videos-title" class="section__title">En vídeo</h2>
-          <p>Un vistazo a mi trabajo.</p>
+          <h2 id="videos-title" class="section__title" data-k="videos-01">En vídeo</h2>
+          <p data-k="videos-02">Un vistazo a mi trabajo.</p>
         </div>
         <div class="videos__grid">
           <!-- EJEMPLO · vídeo propio en mp4
@@ -561,29 +630,29 @@
     <section class="section faq" id="preguntas" aria-labelledby="faq-title">
       <div class="container">
         <div class="section__head" data-reveal>
-          <h2 id="faq-title" class="section__title">Antes de empezar</h2>
-          <p>Lo que más se pregunta. Para tu caso concreto, siempre hay una valoración previa.</p>
+          <h2 id="faq-title" class="section__title" data-k="preguntas-01">Antes de empezar</h2>
+          <p data-k="preguntas-02">Lo que más se pregunta. Para tu caso concreto, siempre hay una valoración previa.</p>
         </div>
         <div class="faq__list">
           <details class="qa" data-reveal>
-            <summary><span class="qa__q">¿Cuántas sesiones necesito para eliminar un tatuaje o una micropigmentación?</span></summary>
-            <p>Depende de cada caso: del color, la profundidad y la antigüedad del pigmento, de la zona y de cómo responda tu piel. En la valoración te explicamos el proceso, los cuidados y las expectativas reales.</p>
+            <summary><span class="qa__q" data-k="preguntas-03">¿Cuántas sesiones necesito para eliminar un tatuaje o una micropigmentación?</span></summary>
+            <p data-k="preguntas-04">Depende de cada caso: del color, la profundidad y la antigüedad del pigmento, de la zona y de cómo responda tu piel. En la valoración te explicamos el proceso, los cuidados y las expectativas reales.</p>
           </details>
           <details class="qa" data-reveal>
-            <summary><span class="qa__q">¿La eliminación con láser tiene tiempo de recuperación?</span></summary>
-            <p>No necesitas tiempo de baja y puedes hacer vida normal, aunque la zona requiere unos cuidados específicos durante varios días.</p>
+            <summary><span class="qa__q" data-k="preguntas-05">¿La eliminación con láser tiene tiempo de recuperación?</span></summary>
+            <p data-k="preguntas-06">No necesitas tiempo de baja y puedes hacer vida normal, aunque la zona requiere unos cuidados específicos durante varios días.</p>
           </details>
           <details class="qa" data-reveal>
-            <summary><span class="qa__q">¿Quién realiza el tratamiento láser?</span></summary>
-            <p>Personal sanitario, con protocolos específicos de seguridad.</p>
+            <summary><span class="qa__q" data-k="preguntas-07">¿Quién realiza el tratamiento láser?</span></summary>
+            <p data-k="preguntas-08">Personal sanitario, con protocolos específicos de seguridad.</p>
           </details>
           <details class="qa" data-reveal>
-            <summary><span class="qa__q">¿Puedo maquillarme las cejas después de eliminar la micropigmentación?</span></summary>
-            <p>Sí, al día siguiente, siempre que la piel esté recuperada.</p>
+            <summary><span class="qa__q" data-k="preguntas-09">¿Puedo maquillarme las cejas después de eliminar la micropigmentación?</span></summary>
+            <p data-k="preguntas-10">Sí, al día siguiente, siempre que la piel esté recuperada.</p>
           </details>
           <details class="qa" data-reveal>
-            <summary><span class="qa__q">¿Cómo sé si el Fibroblast es para mí?</span></summary>
-            <p>Cada rostro es único. Hacemos una valoración individual para determinar si está indicado en tu caso y qué resultados son realistas.</p>
+            <summary><span class="qa__q" data-k="preguntas-11">¿Cómo sé si el Fibroblast es para mí?</span></summary>
+            <p data-k="preguntas-12">Cada rostro es único. Hacemos una valoración individual para determinar si está indicado en tu caso y qué resultados son realistas.</p>
           </details>
         </div>
       </div>
@@ -593,9 +662,9 @@
     <section class="section final" id="consulta" aria-labelledby="final-title">
       <div class="container final__grid">
         <div class="final__text">
-          <p class="section__title section__title--left" aria-hidden="true">Contacto</p>
-          <h2 id="final-title" data-reveal>Tu mirada, tu esencia.</h2>
-          <p data-reveal>Cuéntame qué buscas y te respondo personalmente, sin compromiso.</p>
+          <p class="section__title section__title--left" aria-hidden="true" data-k="consulta-01">Contacto</p>
+          <h2 id="final-title" data-reveal data-k="consulta-02">Tu mirada, tu esencia.</h2>
+          <p data-reveal data-k="consulta-03">Cuéntame qué buscas y te respondo personalmente, sin compromiso.</p>
           <p class="final__alt" data-reveal>¿Prefieres hablar por WhatsApp? <a href="#consulta" data-wa="">Escríbeme por WhatsApp</a></p>
         </div>
         <!--
@@ -665,7 +734,7 @@
           </div>
 
           <button class="btn" type="submit">Enviar mensaje</button>
-          <p class="final__hint" data-mail-hint>Tu mensaje me llega directamente al correo. Te contesto personalmente.</p>
+          <p class="final__hint" data-mail-hint data-k="consulta-04">Tu mensaje me llega directamente al correo. Te contesto personalmente.</p>
           <p class="final__status" role="status" aria-live="polite" data-mail-status></p>
         </form>
       </div>

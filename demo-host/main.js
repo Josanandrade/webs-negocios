@@ -166,6 +166,7 @@ document.querySelectorAll('[data-gallery]').forEach((g) => {
   const grid = g.querySelector('[data-gallery-grid]');
   const more = g.querySelector('[data-gallery-more]');
   if (!grid) return;
+  g.hidden = !grid.querySelector('.gallery__item');
   const all = [...grid.querySelectorAll('.gallery__item')];
   let filter = 'all';
   let expanded = false;
