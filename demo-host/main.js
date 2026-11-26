@@ -155,10 +155,10 @@ document.querySelectorAll('[data-embed]').forEach((btn) => {
 });
 
 /* ==========================================================================
-   Galerías por especialidad + visor a pantalla completa.
+   Galerías: una por tratamiento (labios con labios, ojos con ojos) + visor a pantalla completa.
    Los huecos vacíos (.gallery__item--empty) se quitan en cuanto hay material real.
    ========================================================================== */
-const GALLERY_PAGE = 8;
+const GALLERY_PAGE = window.matchMedia('(max-width: 54rem)').matches ? 6 : 8;
 document.querySelectorAll('[data-gallery]').forEach((g) => {
   if (g.querySelector('.gallery__item:not(.gallery__item--empty)')) {
     g.querySelectorAll('.gallery__item--empty').forEach((el) => el.remove());
@@ -267,19 +267,24 @@ if (lightbox && typeof lightbox.showModal === 'function') {
   });
 }
 
-/* Menú móvil */
+/* Menú móvil: botón centrado que despliega el menú claro */
+const nav = document.querySelector('[data-nav]');
 const toggle = document.querySelector('.nav__toggle');
 const menu = document.getElementById('menu');
-if (toggle && menu) {
-  const close = () => { toggle.setAttribute('aria-expanded', 'false'); toggle.textContent = 'Menú'; document.body.classList.remove('menu-open'); };
-  toggle.addEventListener('click', () => {
-    const open = toggle.getAttribute('aria-expanded') !== 'true';
+if (nav && toggle && menu) {
+  const label = toggle.querySelector('.nav__toggle-label');
+  const set = (open) => {
     toggle.setAttribute('aria-expanded', String(open));
-    toggle.textContent = open ? 'Cerrar' : 'Menú';
-    document.body.classList.toggle('menu-open', open);
-  });
-  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { close(); toggle.focus(); } });
+    nav.classList.toggle('is-open', open);
+    if (label) label.textContent = open ? 'Cerrar' : 'Menú';
+  };
+  toggle.addEventListener('click', () => set(toggle.getAttribute('aria-expanded') !== 'true'));
+  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => set(false)));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { set(false); toggle.focus(); } });
+  /* sombra suave cuando el menú queda fijo arriba */
+  const onScroll = () => nav.classList.toggle('is-stuck', nav.getBoundingClientRect().top <= 0 && window.scrollY > 10);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 }
 
 /* Pestañas de tratamientos (sin JS se ven todos los paneles seguidos). */
@@ -332,52 +337,6 @@ if (reduce || !('IntersectionObserver' in window)) {
     });
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
   revealables.forEach((el) => io.observe(el));
-}
-
-/* Transición entre secciones: al entrar cada sección se dibuja su línea superior. */
-const sections = document.querySelectorAll('[data-section]');
-if (reduce || !('IntersectionObserver' in window)) {
-  sections.forEach((el) => el.classList.add('is-in'));
-} else {
-  const so = new IntersectionObserver((entries) => {
-    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); so.unobserve(e.target); } });
-  }, { rootMargin: '0px 0px -15% 0px' });
-  sections.forEach((el) => so.observe(el));
-}
-
-/* Cabecera camaleón: toma el color de fondo del bloque que tiene justo debajo
-   (negro en la portada y el cierre, beige en las bandas, blanco en el resto).
-   Los bloques oscuros llevan data-tone="night" para pasar el texto a claro. */
-const nav = document.querySelector('[data-nav]');
-if (nav && document.elementsFromPoint) {
-  const bgOf = (el) => {
-    for (let n = el; n && n !== document.documentElement; n = n.parentElement) {
-      const c = getComputedStyle(n).backgroundColor;
-      if (c && c !== 'transparent' && !/rgba?\(.*,\s*0\)$/.test(c)) return { color: c, node: n };
-    }
-    return { color: getComputedStyle(document.body).backgroundColor, node: document.body };
-  };
-  let ticking = false;
-  let last = '';
-  const paint = () => {
-    ticking = false;
-    const y = nav.getBoundingClientRect().bottom + 1;
-    const hit = document.elementsFromPoint(window.innerWidth / 2, y)
-      .find((el) => !nav.contains(el) && !el.closest('[data-dock]'));
-    if (!hit) return;
-    const { color, node } = bgOf(hit);
-    const night = Boolean(node.closest('[data-tone="night"]'));
-    const key = color + night;
-    if (key === last) return;
-    last = key;
-    nav.style.setProperty('--nav-bg', color);
-    nav.classList.toggle('is-night', night);
-  };
-  const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(paint); } };
-  addEventListener('scroll', queue, { passive: true });
-  addEventListener('resize', queue);
-  addEventListener('load', queue);
-  paint();
 }
 
 /* Barra fija de WhatsApp en móvil: aparece tras la portada y se oculta en el cierre. */
