@@ -17,7 +17,7 @@ html:not([data-editing]) .ed-layer, html:not([data-editing]) .ed-gtools, html:no
 .ed-bar__label { padding: 0 10px 0 12px; white-space: nowrap; }
 .ed-bar button, .ed-bar a { min-height: 38px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: inherit; font: inherit; letter-spacing: inherit; text-transform: inherit; text-decoration: none; display: inline-flex; align-items: center; cursor: pointer; white-space: nowrap; }
 .ed-bar button:hover, .ed-bar a:hover, .ed-bar [aria-pressed="true"] { background: rgba(245, 240, 232, .16); }
-@media (max-width: 520px) { .ed-bar__label { display: none; } .ed-bar button, .ed-bar a { padding: 0 11px; } }
+@media (max-width: 520px) { .ed-bar__label { display: none; } .ed-bar { gap: 0; padding: 5px; font-size: 11px; letter-spacing: .04em; } .ed-bar button, .ed-bar a { padding: 0 9px; } }
 html:not([data-editing]) .ed-bar { background: #6E6459; }
 
 .ed-toast { position: fixed; left: 50%; bottom: 72px; transform: translateX(-50%); z-index: 61; max-width: calc(100vw - 32px); padding: 10px 16px; background: #fff; color: #2F2A25; border: 1px solid #C9BEAF; box-shadow: 0 8px 24px -12px rgba(0, 0, 0, .4); font: 500 14px/1.4 "Montserrat", Arial, sans-serif; text-align: center; opacity: 0; pointer-events: none; transition: opacity .2s; }
@@ -63,3 +63,17 @@ html[data-editing] .gallery__item { position: relative; }
 html[data-editing] [data-slot] { position: relative; }
 .ed-slot { position: absolute; right: 12px; top: 12px; z-index: 5; display: flex; flex-wrap: wrap; gap: 6px; }
 .ed-busy { opacity: .6; pointer-events: none; }
+
+/* ajustes de toda la web */
+.ed-global { position: fixed; left: 50%; bottom: 70px; transform: translateX(-50%); z-index: 63; width: min(380px, calc(100vw - 16px)); display: grid; gap: 10px; padding: 16px; background: #fff; border: 1px solid #C9BEAF; box-shadow: 0 14px 40px -16px rgba(0, 0, 0, .5); font: 500 14px/1.35 "Montserrat", Arial, sans-serif; color: #2F2A25; zoom: 1; }
+.ed-global[hidden] { display: none; }
+.ed-global__title { margin: 0; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; font-size: 12px; }
+.ed-global__sub { margin: 8px 0 0; padding-top: 10px; border-top: 1px solid #E5DDD1; font-weight: 600; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: #6E6459; }
+.ed-global__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ed-global__ctl { display: inline-flex; align-items: center; gap: 4px; }
+.ed-global button, .ed-global select { min-height: 38px; min-width: 38px; border: 1px solid #C9BEAF; border-radius: 4px; background: #fff; font: inherit; color: inherit; cursor: pointer; padding: 0 10px; }
+.ed-global select { max-width: 190px; }
+.ed-global .ed-link { justify-self: start; border: 0; padding: 0; min-height: 30px; background: none; text-decoration: underline; text-underline-offset: .2em; font-size: 12px; }
+.ed-global .ed-save { border: 0; background: #2F2A25; color: #fff; padding: 0 18px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-size: 12px; }
+.ed-global__hint { margin: 0; font-size: 12px; color: #6E6459; }
+.ed-global__actions { display: flex; justify-content: flex-end; align-items: center; gap: 16px; }

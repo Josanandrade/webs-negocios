@@ -1,7 +1,7 @@
 /* Página principal: sirve index.html aplicando lo que se ha cambiado en el modo edición.
  * Con la sesión iniciada añade además el editor (lápices); sin sesión, la web no lleva ninguna herramienta.
  * Si no hay KV o no hay cambios, la web sale exactamente como está en el repositorio. */
-import { kvOf, readSite, readSession, galleryItemHtml, esc, safeUrl, renderText } from './_lib/core.js';
+import { kvOf, readSite, writeSite, readSession, galleryItemHtml, esc, safeUrl, renderText, globalCss } from './_lib/core.js';
 
 export async function onRequestGet({ request, env }) {
   const res = await env.ASSETS.fetch(request);
@@ -12,9 +12,9 @@ export async function onRequestGet({ request, env }) {
   try {
     [site, session] = await Promise.all([readSite(kv), readSession(request, env, kv)]);
   } catch { return res; }
-  const { texts, galleries, slots } = site;
-  const hasChanges = Object.keys(texts).length || Object.keys(galleries).length || Object.keys(slots).length;
-  if (!hasChanges && !session) return res;
+  const { texts, galleries, slots, global } = site;
+  if (site.migrated) { delete site.migrated; await writeSite(kv, site).catch(() => {}); }
+  const gcss = globalCss(global);
 
   // HTMLRewriter no da acceso al padre: recordamos la galería en la que estamos al entrar en ella.
   let current = null;
@@ -23,7 +23,7 @@ export async function onRequestGet({ request, env }) {
       element(el) {
         const k = el.getAttribute('data-k');
         if (!Object.prototype.hasOwnProperty.call(texts, k)) return;
-        const { html, css } = renderText(texts[k]);
+        const { html, css } = renderText(texts[k], global.scale);
         if (html !== null) el.setInnerContent(html, { html: true });
         if (css) el.setAttribute('style', css);
       },
@@ -42,6 +42,8 @@ export async function onRequestGet({ request, env }) {
         if (Array.isArray(items)) el.setInnerContent(items.map(galleryItemHtml).join(''), { html: true });
       },
     });
+
+  rw = rw.on('head', { element(el) { el.append(`<style id="site-global">${gcss}</style>`, { html: true }); } });
 
   const portada = slots.portada;
   if (portada && safeUrl(portada.full)) {

@@ -11,12 +11,51 @@ export const MAX_UPLOAD = 25 * 1024 * 1024; // límite de un valor en KV
 
 export const kvOf = (env) => env.MARGOT_KV || null;
 
+/* Ajustes generales («Toda la web»). Por defecto, lo que pidió Jose el 26/11: textos al 90 % y los de tratamientos justificados. */
+export const DEFAULT_GLOBAL = { scale: 0.9, treatAlign: 'justify', treatFont: '' };
+
+export function cleanGlobal(g) {
+  const out = { ...DEFAULT_GLOBAL };
+  if (!g || typeof g !== 'object') return out;
+  const sc = Number(g.scale);
+  if (sc >= 0.6 && sc <= 1.6) out.scale = Math.round(sc * 100) / 100;
+  out.treatAlign = ALIGN.has(g.treatAlign) ? g.treatAlign : '';
+  out.treatFont = FONTS[g.treatFont] ? g.treatFont : '';
+  return out;
+}
+
 export async function readSite(kv) {
   const site = (await kv.get(SITE_KEY, 'json')) || {};
-  return { texts: site.texts || {}, galleries: site.galleries || {}, slots: site.slots || {}, updated: site.updated || null };
+  const out = { texts: site.texts || {}, galleries: site.galleries || {}, slots: site.slots || {}, global: cleanGlobal(site.global), updated: site.updated || null };
+  // Primera vez con ajustes generales: los textos que se pusieron a mano al 90 % pasan a usar el 90 % general
+  // (si no, quedarían al 81 %). El resto de ajustes individuales se respetan tal cual.
+  if (!site.global) {
+    for (const [k, v] of Object.entries(out.texts)) {
+      if (v && typeof v === 'object' && v.s && Math.abs(Number(v.s.z) - out.global.scale) < 0.001) {
+        delete v.s.z;
+        if (!Object.keys(v.s).length) v.s = null;
+        if (v.h == null && !v.s) delete out.texts[k];
+      }
+    }
+    out.migrated = true;
+  }
+  return out;
+}
+
+/* CSS de los ajustes generales: se inserta en <head> como <style id="site-global"> */
+export function globalCss(g) {
+  const c = cleanGlobal(g);
+  const p = [];
+  if (c.scale !== 1) {
+    p.push(`[data-k],.brand,.nav__menu,.nav__toggle,.tabs,.btn,.gallery__more,.field label,.field input,.field select,.field textarea,.footer__inner{zoom:${c.scale}}`);
+  }
+  if (c.treatFont) p.push(`.treat [data-k]{font-family:${FONTS[c.treatFont]}}`);
+  if (c.treatAlign) p.push(`.treat__body [data-k]{text-align:${c.treatAlign};${c.treatAlign === 'justify' ? 'hyphens:auto;-webkit-hyphens:auto;' : ''}}`);
+  return p.join('\n');
 }
 
 export async function writeSite(kv, site) {
+  delete site.migrated;
   site.updated = new Date().toISOString();
   await kv.put(SITE_KEY, JSON.stringify(site));
   return site;
@@ -202,12 +241,13 @@ export function cleanStyle(st) {
   return Object.keys(out).length ? out : null;
 }
 
-export function styleCss(st) {
+export function styleCss(st, scale = 1) {
   const s = cleanStyle(st);
   if (!s) return '';
   const p = [];
   if (s.f) p.push(`font-family:${FONTS[s.f]}`);
-  if (s.z) p.push(`zoom:${s.z}`);
+  // el tamaño propio de un texto se multiplica por el tamaño general
+  if (s.z) p.push(`zoom:${Math.round(s.z * scale * 1000) / 1000}`);
   if (s.b !== undefined) p.push(`font-weight:${s.b ? 700 : 400}`);
   if (s.i !== undefined) p.push(`font-style:${s.i ? 'italic' : 'normal'}`);
   if (s.u) p.push('text-decoration:underline');
@@ -217,8 +257,8 @@ export function styleCss(st) {
 }
 
 /* convierte lo guardado (texto plano antiguo u objeto nuevo) en { html, css } */
-export function renderText(v) {
+export function renderText(v, scale = 1) {
   if (typeof v === 'string') return { html: esc(v), css: '' };
-  if (v && typeof v === 'object') return { html: v.h != null ? sanitizeRich(v.h) : null, css: styleCss(v.s) };
+  if (v && typeof v === 'object') return { html: v.h != null ? sanitizeRich(v.h) : null, css: styleCss(v.s, scale) };
   return { html: null, css: '' };
 }

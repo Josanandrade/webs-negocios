@@ -2,7 +2,7 @@
 import {
   kvOf, readSite, writeSite, json, randomId, MAX_UPLOAD,
   getAuth, checkCredentials, hashPassword, makeSessionCookie, clearSessionCookies, readSession,
-  tooManyAttempts, noteFailure, safeUrl, sanitizeRich, cleanStyle,
+  tooManyAttempts, noteFailure, safeUrl, sanitizeRich, cleanStyle, cleanGlobal,
 } from '../../_lib/core.js';
 
 const ALLOWED_TYPES = new Set(['image/webp', 'image/jpeg', 'image/png', 'image/avif', 'video/mp4', 'video/quicktime', 'video/webm']);
@@ -71,7 +71,21 @@ export async function onRequest(context) {
   const session = await readSession(request, env, kv);
   if (!session) return json({ error: 'La sesión ha caducado. Vuelve a entrar.' }, 401);
 
-  if (path === 'site' && method === 'GET') return json(await readSite(kv));
+  if (path === 'site' && method === 'GET') {
+    const site = await readSite(kv);
+    if (site.migrated) { delete site.migrated; await writeSite(kv, site); }
+    return json(site);
+  }
+
+  if (path === 'global' && method === 'PUT') {
+    const body = await request.json().catch(() => null);
+    if (!body || typeof body.global !== 'object') return json({ error: 'Datos no válidos.' }, 400);
+    const site = await readSite(kv);
+    delete site.migrated;
+    site.global = cleanGlobal(body.global);
+    await writeSite(kv, site);
+    return json({ ok: true, global: site.global });
+  }
 
   if (path === 'original' && method === 'GET') {
     const res = await env.ASSETS.fetch(new Request(new URL('/', url).toString()));

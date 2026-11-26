@@ -38,7 +38,8 @@
   }
 
   /* ---------- estado ---------- */
-  let site = { texts: {}, galleries: {}, slots: {} };
+  let site = { texts: {}, galleries: {}, slots: {}, global: { scale: 1, treatAlign: '', treatFont: '' } };
+  const scaleNow = () => (site.global && site.global.scale) || 1;
   const original = { texts: {}, galleries: {}, names: {} };
 
   function parseOriginal(html) {
@@ -56,11 +57,12 @@
   }
 
   /* ---------- barra inferior ---------- */
-  const viewBtn = h('button', { type: 'button', textContent: 'Ver como visitante' });
+  const viewBtn = h('button', { type: 'button', textContent: 'Vista previa' });
   viewBtn.setAttribute('aria-pressed', 'false');
   const bar = h('div', { className: 'ed-bar' },
     h('span', { className: 'ed-bar__label', textContent: 'Modo edición' }),
     viewBtn,
+    h('button', { type: 'button', textContent: 'Toda la web', onclick: () => openGlobal() }),
     h('a', { href: '/admin/', textContent: 'Cuenta' }),
     h('button', { type: 'button', textContent: 'Salir', onclick: async () => { await sendJson('logout', 'POST', {}).catch(() => {}); location.href = '/'; } }),
   );
@@ -68,7 +70,7 @@
     const on = root.hasAttribute('data-editing');
     if (on) { finishText(true); root.removeAttribute('data-editing'); } else root.setAttribute('data-editing', '');
     viewBtn.setAttribute('aria-pressed', String(on));
-    viewBtn.textContent = on ? 'Volver a editar' : 'Ver como visitante';
+    viewBtn.textContent = on ? 'Volver a editar' : 'Vista previa';
     $$('[data-gallery]').forEach(syncGalleryVisibility);
     schedule();
   });
@@ -139,7 +141,7 @@
   function styleCss(s) {
     const p = [];
     if (s.f && FONTS[s.f]) p.push(`font-family:${FONTS[s.f][1]}`);
-    if (s.z && s.z !== 1) p.push(`zoom:${s.z}`);
+    if (s.z && s.z !== 1) p.push(`zoom:${Math.round(s.z * scaleNow() * 1000) / 1000}`);
     if (s.b !== undefined) p.push(`font-weight:${s.b ? 700 : 400}`);
     if (s.i !== undefined) p.push(`font-style:${s.i ? 'italic' : 'normal'}`);
     if (s.u) p.push('text-decoration:underline');
@@ -430,15 +432,92 @@
     paint();
   }
 
+  /* ---------- ajustes de toda la web ---------- */
+  function globalCss(g) {
+    const p = [];
+    if (g.scale && g.scale !== 1) p.push(`[data-k],.brand,.nav__menu,.nav__toggle,.tabs,.btn,.gallery__more,.field label,.field input,.field select,.field textarea,.footer__inner{zoom:${g.scale}}`);
+    if (g.treatFont && FONTS[g.treatFont]) p.push(`.treat [data-k]{font-family:${FONTS[g.treatFont][1]}}`);
+    if (g.treatAlign) p.push(`.treat__body [data-k]{text-align:${g.treatAlign};${g.treatAlign === 'justify' ? 'hyphens:auto;-webkit-hyphens:auto;' : ''}}`);
+    return p.join('\n');
+  }
+  function paintGlobal() {
+    let tag = document.getElementById('site-global');
+    if (!tag) { tag = h('style', { id: 'site-global' }); document.head.append(tag); }
+    tag.textContent = globalCss(site.global);
+    // los textos con tamaño propio llevan el zoom en línea: se recalcula con el tamaño general
+    $$('[data-k]').forEach((el) => {
+      if (el === activeEl) return;
+      const v = site.texts[el.dataset.k];
+      if (v && typeof v === 'object' && v.s && v.s.z) el.setAttribute('style', styleCss(v.s));
+    });
+    if (activeEl) applyStyle();
+    schedule();
+  }
+  const gPanel = h('div', { className: 'ed-global', hidden: true, role: 'dialog' });
+  gPanel.setAttribute('aria-label', 'Ajustes de toda la web');
+  const gSize = h('span', { className: 'ed-size' });
+  const gMinus = h('button', { type: 'button', textContent: '−' }); gMinus.setAttribute('aria-label', 'Todos los textos más pequeños');
+  const gPlus = h('button', { type: 'button', textContent: '+' }); gPlus.setAttribute('aria-label', 'Todos los textos más grandes');
+  const gReset = h('button', { type: 'button', className: 'ed-link', textContent: 'Tamaño original (100 %)' });
+  const gAlign = h('select');
+  [['', 'Como estaban'], ['left', 'Izquierda'], ['center', 'Centrado'], ['right', 'Derecha'], ['justify', 'Justificado']].forEach(([v, t]) => gAlign.append(new Option(t, v)));
+  const gFont = h('select');
+  gFont.append(new Option('La de la web', ''));
+  Object.entries(FONTS).forEach(([k, [name]]) => gFont.append(new Option(name, k)));
+  const gCancel = h('button', { type: 'button', className: 'ed-link', textContent: 'Cancelar' });
+  const gSave = h('button', { type: 'button', className: 'ed-save', textContent: 'Guardar' });
+  gPanel.append(
+    h('p', { className: 'ed-global__title', textContent: 'Toda la web' }),
+    h('div', { className: 'ed-global__row' }, h('span', { textContent: 'Tamaño de todos los textos' }), h('span', { className: 'ed-global__ctl' }, gMinus, gSize, gPlus)),
+    gReset,
+    h('p', { className: 'ed-global__sub', textContent: 'Textos de los tratamientos' }),
+    h('label', { className: 'ed-global__row' }, h('span', { textContent: 'Alineación' }), gAlign),
+    h('label', { className: 'ed-global__row' }, h('span', { textContent: 'Letra' }), gFont),
+    h('p', { className: 'ed-global__hint', textContent: 'Los textos a los que les hayas puesto algo a mano (tamaño, letra o alineación) mantienen su ajuste; su tamaño propio se suma al general.' }),
+    h('div', { className: 'ed-global__actions' }, gCancel, gSave),
+  );
+  let gBefore = null;
+  const showG = () => { gSize.textContent = Math.round(site.global.scale * 100) + '%'; gAlign.value = site.global.treatAlign || ''; gFont.value = site.global.treatFont || ''; };
+  function openGlobal() {
+    if (activeEl) finishText(false, true);
+    if (!gPanel.hidden) { closeGlobal(true); return; }
+    gBefore = { ...site.global };
+    showG();
+    gPanel.hidden = false;
+  }
+  function closeGlobal(cancel) {
+    if (cancel && gBefore) { site.global = gBefore; paintGlobal(); }
+    gPanel.hidden = true;
+  }
+  const setScale = (v) => { site.global = { ...site.global, scale: Math.min(1.6, Math.max(0.6, Math.round(v * 100) / 100)) }; showG(); paintGlobal(); };
+  gMinus.addEventListener('click', () => setScale(site.global.scale - 0.05));
+  gPlus.addEventListener('click', () => setScale(site.global.scale + 0.05));
+  gReset.addEventListener('click', () => setScale(1));
+  gAlign.addEventListener('change', () => { site.global = { ...site.global, treatAlign: gAlign.value }; paintGlobal(); });
+  gFont.addEventListener('change', () => { site.global = { ...site.global, treatFont: gFont.value }; paintGlobal(); });
+  gCancel.addEventListener('click', () => closeGlobal(true));
+  gSave.addEventListener('click', async () => {
+    try {
+      const r = await sendJson('global', 'PUT', { global: site.global });
+      site.global = r.global;
+      gBefore = null;
+      paintGlobal();
+      toast('Guardado para toda la web.', 'ok');
+      gPanel.hidden = true;
+    } catch (err) { toast(err.message, 'err'); }
+  });
+
   /* ---------- arranque ---------- */
   async function start() {
-    document.body.append(layer, bar, toastEl, tools);
+    document.body.append(layer, bar, toastEl, tools, gPanel);
     // todo visible y quieto mientras se edita
     $$('[data-reveal]').forEach((el) => el.classList.add('is-in'));
     $$('details.qa').forEach((d) => { d.open = true; });
     try {
       const [s, html] = await Promise.all([api('site'), fetch('/admin/api/original', { credentials: 'same-origin' }).then((r) => { if (!r.ok) throw new Error('No se ha podido cargar el original.'); return r.text(); })]);
       site = s;
+      if (!site.global) site.global = { scale: 1, treatAlign: '', treatFont: '' };
+      paintGlobal();
       parseOriginal(html);
     } catch (err) { toast(err.message, 'err'); return; }
     buildPens();
