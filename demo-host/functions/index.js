@@ -54,15 +54,15 @@ export async function onRequestGet({ request, env }) {
       },
     });
   }
-  const sobre = slots['sobre-mi'];
-  if (sobre && safeUrl(sobre.full)) {
-    rw = rw.on('[data-slot="sobre-mi"] img', {
+  for (const [sid, it] of Object.entries(slots)) {
+    if (sid === 'portada' || !/^[a-z-]{1,40}$/.test(sid) || !it || !safeUrl(it.full)) continue;
+    rw = rw.on(`[data-slot="${sid}"] img`, {
       element(el) {
-        el.setAttribute('src', safeUrl(sobre.full));
+        el.setAttribute('src', safeUrl(it.full));
         el.removeAttribute('srcset');
         el.removeAttribute('width');
         el.removeAttribute('height');
-        if (sobre.alt) el.setAttribute('alt', sobre.alt);
+        if (it.alt) el.setAttribute('alt', it.alt);
       },
     });
   }

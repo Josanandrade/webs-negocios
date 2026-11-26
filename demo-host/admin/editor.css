@@ -61,7 +61,10 @@ html[data-editing] .gallery__item { position: relative; }
 
 /* fotos principales */
 html[data-editing] [data-slot] { position: relative; }
+html[data-editing] .laser-team__inset, html[data-editing] .about__inset { position: absolute; }
 .ed-slot { position: absolute; right: 12px; top: 12px; z-index: 5; display: flex; flex-wrap: wrap; gap: 6px; }
+.laser-team__inset .ed-slot, .about__inset .ed-slot { right: 6px; top: auto; bottom: 6px; }
+.laser-team__inset .ed-btn, .about__inset .ed-btn { min-height: 32px; padding: 0 10px; font-size: 10px; letter-spacing: .06em; }
 .ed-busy { opacity: .6; pointer-events: none; }
 
 /* ajustes de toda la web */

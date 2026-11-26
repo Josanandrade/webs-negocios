@@ -393,7 +393,7 @@
   /* ---------- fotos principales ---------- */
   function setupSlot(fig) {
     const id = fig.dataset.slot;
-    const cfg = id === 'portada' ? { name: 'portada', slot: true, maxSide: 2400, label: 'Cambiar foto de portada' } : { name: 'sobre mí', slot: true, maxSide: 1600, label: 'Cambiar foto' };
+    const cfg = id === 'portada' ? { name: 'portada', slot: true, maxSide: 2400, label: 'Cambiar foto de portada' } : { name: 'foto', slot: true, maxSide: 1600, label: 'Cambiar foto' };
     const origHtml = fig.innerHTML, origClass = fig.className;
     const input = h('input', { type: 'file', accept: 'image/*' });
     const reset = h('button', { type: 'button', className: 'ed-btn ed-btn--line', textContent: 'Foto original' });

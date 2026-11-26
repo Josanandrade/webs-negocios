@@ -7,7 +7,7 @@ import {
 
 const ALLOWED_TYPES = new Set(['image/webp', 'image/jpeg', 'image/png', 'image/avif', 'video/mp4', 'video/quicktime', 'video/webm']);
 const GALLERY_ID = /^[a-z0-9-]{1,80}$/;
-const SLOT_IDS = new Set(['portada', 'sobre-mi']);
+const SLOT_IDS = new Set(['portada', 'sobre-mi', 'sobre-mi-detalle', 'micro-principal', 'micro-detalle', 'laser-principal', 'laser-detalle']);
 const mediaIdOf = (u) => { const m = /^\/media\/([A-Za-z0-9_-]+)$/.exec(String(u || '')); return m ? m[1] : null; };
 
 function cleanItem(it) {
