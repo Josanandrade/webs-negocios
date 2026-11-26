@@ -197,6 +197,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .laser-team__main img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; }
 .laser-team__inset { position: absolute; right: 0; bottom: 0; width: 44%; border: 8px solid var(--bone); }
 .laser-team__inset img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.laser-team__main, .laser-team__inset { overflow: hidden; transition: translate .9s var(--ease); }
+.laser-team__photos .mosaic__open img { height: auto; }
 .laser-team__text { display: grid; gap: 14px; }
 .laser-team__quote { font-size: clamp(1.2rem, 2.2vw, 1.6rem); font-weight: 300; line-height: 1.45; color: var(--ink); }
 @media (max-width: 46rem) { .laser-team { grid-template-columns: minmax(0, 1fr); } .laser-team__photos { max-width: 420px; } }
