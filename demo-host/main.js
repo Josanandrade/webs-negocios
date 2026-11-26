@@ -235,23 +235,17 @@ if (lightbox && typeof lightbox.showModal === 'function') {
   };
   const go = (d) => { index = (index + d + items.length) % items.length; render(); };
 
-  document.querySelectorAll('[data-gallery] .gallery__open').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const g = btn.closest('[data-gallery]');
-      const set = btn.dataset.lead || g.dataset.filter || 'all';
-      items = [...g.querySelectorAll('.gallery__item .gallery__open')]
-        .filter((b) => set === 'all' || b.closest('.gallery__item').dataset.set === set);
-      index = Math.max(0, items.indexOf(btn));
-      if (btn.dataset.lead) {
-        const leadImg = btn.querySelector('img');
-        const same = items.findIndex((b) => b.dataset.full && leadImg && leadImg.src.endsWith(b.dataset.full));
-        if (same >= 0) index = same;
-      }
-      if (!items.length) return;
-      opener = btn;
-      render();
-      lightbox.showModal();
-    });
+  /* delegado: vale también para fotos añadidas después (modo edición) */
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-gallery] .gallery__open');
+    if (!btn || e.defaultPrevented) return;
+    const g = btn.closest('[data-gallery]');
+    items = [...g.querySelectorAll('.gallery__item .gallery__open')];
+    index = Math.max(0, items.indexOf(btn));
+    if (!items.length) return;
+    opener = btn;
+    render();
+    lightbox.showModal();
   });
   lightbox.querySelector('[data-lightbox-close]').addEventListener('click', () => lightbox.close());
   lightbox.querySelector('[data-lightbox-prev]').addEventListener('click', () => go(-1));

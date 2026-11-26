@@ -1,1 +1,1 @@
-Montserrat: SIL Open Font License 1.1 (Google Fonts / Fontsource). Autoalojada para que se vea igual en cualquier navegador.
+Montserrat, Raleway, Lora, Playfair Display y Cormorant Garamond: SIL Open Font License 1.1 (Google Fonts / Fontsource). Autoalojadas para que se vean igual en cualquier navegador.

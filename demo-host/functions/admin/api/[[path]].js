@@ -1,8 +1,8 @@
 /* API del portal de administración (/admin). Todo lo que no sea "estado" o "entrar" exige sesión. */
 import {
   kvOf, readSite, writeSite, json, randomId, MAX_UPLOAD,
-  getAuth, checkCredentials, hashPassword, makeSessionCookie, clearSessionCookie, readSession,
-  tooManyAttempts, noteFailure, safeUrl,
+  getAuth, checkCredentials, hashPassword, makeSessionCookie, clearSessionCookies, readSession,
+  tooManyAttempts, noteFailure, safeUrl, sanitizeRich, cleanStyle,
 } from '../../_lib/core.js';
 
 const ALLOWED_TYPES = new Set(['image/webp', 'image/jpeg', 'image/png', 'image/avif', 'video/mp4', 'video/quicktime', 'video/webm']);
@@ -62,7 +62,11 @@ export async function onRequest(context) {
     return json({ ok: true, user: auth.user }, 200, { 'set-cookie': await makeSessionCookie(env, kv, auth) });
   }
 
-  if (path === 'logout' && method === 'POST') return json({ ok: true }, 200, { 'set-cookie': clearSessionCookie() });
+  if (path === 'logout' && method === 'POST') {
+    const res = json({ ok: true });
+    clearSessionCookies().forEach((c) => res.headers.append('set-cookie', c));
+    return res;
+  }
 
   const session = await readSession(request, env, kv);
   if (!session) return json({ error: 'La sesión ha caducado. Vuelve a entrar.' }, 401);
@@ -80,8 +84,14 @@ export async function onRequest(context) {
     const site = await readSite(kv);
     for (const [k, v] of Object.entries(body.texts)) {
       if (!/^[a-z0-9-]{1,90}$/.test(k)) continue;
-      if (v === null) delete site.texts[k];
-      else site.texts[k] = String(v).slice(0, 6000);
+      if (v === null) { delete site.texts[k]; continue; }
+      if (typeof v === 'string') { site.texts[k] = v.slice(0, 6000); continue; }
+      if (v && typeof v === 'object') {
+        const h = v.h == null ? null : sanitizeRich(v.h);
+        const st = cleanStyle(v.s);
+        if (h === null && !st) { delete site.texts[k]; continue; }
+        site.texts[k] = { h, s: st };
+      }
     }
     await writeSite(kv, site);
     return json({ ok: true, texts: site.texts });

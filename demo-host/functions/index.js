@@ -1,16 +1,20 @@
-/* Página principal: sirve index.html aplicando lo que se ha cambiado desde el portal (/admin).
+/* Página principal: sirve index.html aplicando lo que se ha cambiado en el modo edición.
+ * Con la sesión iniciada añade además el editor (lápices); sin sesión, la web no lleva ninguna herramienta.
  * Si no hay KV o no hay cambios, la web sale exactamente como está en el repositorio. */
-import { kvOf, readSite, galleryItemHtml, esc, safeUrl } from './_lib/core.js';
+import { kvOf, readSite, readSession, galleryItemHtml, esc, safeUrl, renderText } from './_lib/core.js';
 
 export async function onRequestGet({ request, env }) {
   const res = await env.ASSETS.fetch(request);
   const kv = kvOf(env);
   if (!kv || !res.ok || !(res.headers.get('content-type') || '').includes('text/html')) return res;
 
-  let site;
-  try { site = await readSite(kv); } catch { return res; }
+  let site, session;
+  try {
+    [site, session] = await Promise.all([readSite(kv), readSession(request, env, kv)]);
+  } catch { return res; }
   const { texts, galleries, slots } = site;
-  if (!Object.keys(texts).length && !Object.keys(galleries).length && !Object.keys(slots).length) return res;
+  const hasChanges = Object.keys(texts).length || Object.keys(galleries).length || Object.keys(slots).length;
+  if (!hasChanges && !session) return res;
 
   // HTMLRewriter no da acceso al padre: recordamos la galería en la que estamos al entrar en ella.
   let current = null;
@@ -18,7 +22,10 @@ export async function onRequestGet({ request, env }) {
     .on('[data-k]', {
       element(el) {
         const k = el.getAttribute('data-k');
-        if (Object.prototype.hasOwnProperty.call(texts, k)) el.setInnerContent(String(texts[k]));
+        if (!Object.prototype.hasOwnProperty.call(texts, k)) return;
+        const { html, css } = renderText(texts[k]);
+        if (html !== null) el.setInnerContent(html, { html: true });
+        if (css) el.setAttribute('style', css);
       },
     })
     .on('[data-gallery-id]', {
@@ -58,9 +65,17 @@ export async function onRequestGet({ request, env }) {
     });
   }
 
+  if (session) {
+    rw = rw
+      .on('html', { element(el) { el.setAttribute('data-editor', ''); } })
+      .on('head', { element(el) { el.append('<link rel="stylesheet" href="/admin/editor.css">', { html: true }); } })
+      .on('body', { element(el) { el.append('<script src="/admin/editor.js" defer></script>', { html: true }); } });
+  }
+
   const out = rw.transform(res);
   const headers = new Headers(out.headers);
-  headers.set('cache-control', 'no-cache');
+  headers.set('cache-control', session ? 'private, no-store' : 'no-cache');
+  headers.set('vary', 'Cookie');
   headers.delete('etag');
   return new Response(out.body, { status: out.status, headers });
 }

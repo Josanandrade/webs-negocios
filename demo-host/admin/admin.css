@@ -64,3 +64,4 @@ textarea { min-height: 70px; resize: vertical; line-height: 1.5; }
 .sticky-save .msg { margin: 0; }
 @media (max-width: 560px) { .top__sub { display: none; } .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } .pane__head .btn { width: 100%; } }
 textarea[rows="1"] { min-height: 46px; }
+.stack { display: grid; gap: 20px; max-width: 620px; margin: 0 auto; } .stack .btn { text-decoration: none; }

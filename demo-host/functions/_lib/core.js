@@ -89,14 +89,25 @@ const SESSION_HOURS = 12;
 export async function makeSessionCookie(env, kv, auth) {
   const payload = b64u(enc.encode(JSON.stringify({ u: auth.user, v: auth.v || 0, exp: Date.now() + SESSION_HOURS * 3600e3 })));
   const sig = await hmac(await getSecret(env, kv), payload);
-  return `${COOKIE}=${payload}.${sig}; Path=/admin; HttpOnly; Secure; SameSite=Strict; Max-Age=${SESSION_HOURS * 3600}`;
+  return `${COOKIE}=${payload}.${sig}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=${SESSION_HOURS * 3600}`;
 }
-export const clearSessionCookie = () => `${COOKIE}=; Path=/admin; HttpOnly; Secure; SameSite=Strict; Max-Age=0`;
+// La sesión vale para toda la web (así la portada sabe que debe mostrar el modo edición). Se borra también la cookie antigua de /admin.
+export const clearSessionCookies = () => [
+  `${COOKIE}=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0`,
+  `${COOKIE}=; Path=/admin; HttpOnly; Secure; SameSite=Strict; Max-Age=0`,
+];
 
 export async function readSession(request, env, kv) {
-  const raw = (request.headers.get('cookie') || '').split(/;\s*/).find((c) => c.startsWith(COOKIE + '='));
-  if (!raw) return null;
-  const [payload, sig] = raw.slice(COOKIE.length + 1).split('.');
+  const raws = (request.headers.get('cookie') || '').split(/;\s*/).filter((c) => c.startsWith(COOKIE + '=') && c.length > COOKIE.length + 1);
+  for (const raw of raws) {
+    const data = await verifyCookie(raw.slice(COOKIE.length + 1), env, kv);
+    if (data) return data;
+  }
+  return null;
+}
+
+async function verifyCookie(value, env, kv) {
+  const [payload, sig] = value.split('.');
   if (!payload || !sig) return null;
   if (!safeEqual(sig, await hmac(await getSecret(env, kv), payload))) return null;
   let data;
@@ -136,3 +147,78 @@ export function galleryItemHtml(it) {
 }
 
 export { esc, safeUrl };
+
+/* ---------- textos con formato ----------
+ * Un texto editado se guarda como { h: html limpio, s: estilo }. Solo se admiten <b> <i> <u> <br> sin atributos,
+ * y el estilo solo con valores de las listas de abajo, así nada de lo guardado puede inyectar código. */
+export const FONTS = {
+  montserrat: '"Montserrat", "Montserrat Fallback", sans-serif',
+  raleway: '"Raleway", "Montserrat Fallback", sans-serif',
+  lora: '"Lora", Georgia, serif',
+  playfair: '"Playfair Display", Georgia, serif',
+  cormorant: '"Cormorant Garamond", Georgia, serif',
+};
+export const COLORS = { negro: '#2F2A25', gris: '#6B6259', topo: '#8A7F72', dorado: '#A9875A', blanco: '#FFFFFF' };
+const ALIGN = new Set(['left', 'center', 'right', 'justify']);
+
+export function sanitizeRich(html) {
+  let s = String(html || '').slice(0, 12000);
+  s = s.replace(/<\s*strong\b[^>]*>/gi, '<b>').replace(/<\s*\/\s*strong\s*>/gi, '</b>')
+       .replace(/<\s*em\b[^>]*>/gi, '<i>').replace(/<\s*\/\s*em\s*>/gi, '</i>')
+       .replace(/<\s*(div|p)\b[^>]*>/gi, '<br>').replace(/<\s*\/\s*(div|p)\s*>/gi, '')
+       .replace(/<(\/?)(b|i|u)\s[^>]*>/gi, '<$1$2>');
+  // fuera cualquier otra etiqueta (se queda su texto)
+  s = s.replace(/<(?!\/?(?:b|i|u)>|br\s*\/?>)[^>]*>?/gi, '');
+  const decode = (t) => t.replace(/&nbsp;/g, ' ').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
+  const open = [];
+  let out = s.split(/(<\/?(?:b|i|u)>|<br\s*\/?>)/i).map((part) => {
+    const m = /^<(\/?)(b|i|u)>$/i.exec(part);
+    if (m) {
+      const t = m[2].toLowerCase();
+      if (!m[1]) { open.push(t); return `<${t}>`; }
+      const i = open.lastIndexOf(t);
+      if (i < 0) return '';
+      open.splice(i, 1);
+      return `</${t}>`;
+    }
+    if (/^<br/i.test(part)) return '<br>';
+    return esc(decode(part));
+  }).join('');
+  out += open.reverse().map((t) => `</${t}>`).join('');
+  return out.replace(/^(\s|<br>)+|(\s|<br>)+$/g, '');
+}
+
+export function cleanStyle(st) {
+  if (!st || typeof st !== 'object') return null;
+  const out = {};
+  if (FONTS[st.f]) out.f = st.f;
+  const z = Number(st.z);
+  if (z && z !== 1 && z >= 0.6 && z <= 3) out.z = Math.round(z * 100) / 100;
+  if (st.b === true || st.b === false) out.b = st.b;
+  if (st.i === true || st.i === false) out.i = st.i;
+  if (st.u === true) out.u = true;
+  if (ALIGN.has(st.a)) out.a = st.a;
+  if (COLORS[st.c]) out.c = st.c;
+  return Object.keys(out).length ? out : null;
+}
+
+export function styleCss(st) {
+  const s = cleanStyle(st);
+  if (!s) return '';
+  const p = [];
+  if (s.f) p.push(`font-family:${FONTS[s.f]}`);
+  if (s.z) p.push(`zoom:${s.z}`);
+  if (s.b !== undefined) p.push(`font-weight:${s.b ? 700 : 400}`);
+  if (s.i !== undefined) p.push(`font-style:${s.i ? 'italic' : 'normal'}`);
+  if (s.u) p.push('text-decoration:underline');
+  if (s.a) p.push(`text-align:${s.a}`);
+  if (s.c) p.push(`color:${COLORS[s.c]}`);
+  return p.join(';');
+}
+
+/* convierte lo guardado (texto plano antiguo u objeto nuevo) en { html, css } */
+export function renderText(v) {
+  if (typeof v === 'string') return { html: esc(v), css: '' };
+  if (v && typeof v === 'object') return { html: v.h != null ? sanitizeRich(v.h) : null, css: styleCss(v.s) };
+  return { html: null, css: '' };
+}
