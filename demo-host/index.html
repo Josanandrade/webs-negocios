@@ -40,6 +40,7 @@
       <li><a href="#margot">Sobre mí</a></li>
       <li><a href="#preguntas">Preguntas</a></li>
       <li><a href="#consulta">Contacto</a></li>
+      <li><a href="#donde">Dónde estamos</a></li>
     </ul>
   </nav>
 
@@ -84,24 +85,28 @@
         <div class="switch" data-switch>
           <div class="tabs" role="tablist" aria-label="Especialidad">
             <button class="tab" type="button" role="tab" id="tab-micro" aria-controls="panel-micro" aria-selected="true">Micropigmentación</button>
-            <button class="tab" type="button" role="tab" id="tab-cejas" aria-controls="panel-cejas" aria-selected="false" tabindex="-1">Cejas y pestañas</button>
+            <button class="tab" type="button" role="tab" id="tab-cejas" aria-controls="panel-cejas" aria-selected="false" tabindex="-1">Cejas</button>
             <button class="tab" type="button" role="tab" id="tab-facial" aria-controls="panel-facial" aria-selected="false" tabindex="-1">Facial</button>
             <button class="tab" type="button" role="tab" id="tab-laser" aria-controls="panel-laser" aria-selected="false" tabindex="-1">Láser</button>
-            <button class="tab" type="button" role="tab" id="tab-cuerpo" aria-controls="panel-cuerpo" aria-selected="false" tabindex="-1">Cuerpo y uñas</button>
+            <button class="tab" type="button" role="tab" id="tab-cuerpo" aria-controls="panel-cuerpo" aria-selected="false" tabindex="-1">Corporal</button>
           </div>
 
           <!-- I · MICROPIGMENTACIÓN -->
           <div class="panel" role="tabpanel" id="panel-micro" aria-labelledby="tab-micro" tabindex="0">
             <h3 class="panel__title">Micropigmentación</h3>
 
-            <figure class="laser-team" data-reveal>
-              <div class="laser-team__photos">
-                <div class="laser-team__main" data-slot="micro-principal"><img src="assets/img/margot-media-cara-800.webp" srcset="assets/img/margot-media-cara-480.webp 480w, assets/img/margot-media-cara-800.webp 800w" sizes="(min-width: 54rem) 22rem, 55vw" width="800" height="1200" alt="Margot Ibáñez en blanco y negro, con las manos junto al rostro y media cara en color" loading="lazy" decoding="async"></div>
-                <div class="laser-team__inset" data-slot="micro-detalle"><img src="assets/img/margot-banco-blanco-750.webp" srcset="assets/img/margot-banco-blanco-480.webp 480w, assets/img/margot-banco-blanco-750.webp 750w" sizes="(min-width: 54rem) 14rem, 38vw" width="750" height="1000" alt="Margot Ibáñez sentada en un banco blanco, con conjunto de satén color champán" loading="lazy" decoding="async"></div>
+            <figure class="micro-team" data-reveal>
+              <div class="mosaic" data-mosaic>
+                <div class="mosaic__tile mosaic__tile--a" data-slot="micro-principal" data-depth="6"><button class="mosaic__open" type="button" aria-label="Ampliar foto"><img src="assets/img/margot-media-cara-800.webp" srcset="assets/img/margot-media-cara-480.webp 480w, assets/img/margot-media-cara-800.webp 800w" sizes="(min-width: 54rem) 26vw, 46vw" width="800" height="1200" alt="Margot Ibáñez en blanco y negro, con las manos junto al rostro y media cara en color" loading="lazy" decoding="async"></button></div>
+                <div class="mosaic__tile mosaic__tile--b" data-slot="micro-3" data-depth="-10"><button class="mosaic__open" type="button" aria-label="Ampliar foto"><img src="assets/img/margot-retrato-gris-900.webp" srcset="assets/img/margot-retrato-gris-480.webp 480w, assets/img/margot-retrato-gris-900.webp 900w" sizes="(min-width: 54rem) 16vw, 27vw" width="900" height="1200" alt="Retrato de Margot Ibáñez con vestido negro y collar dorado, sobre fondo gris" loading="lazy" decoding="async"></button></div>
+                <div class="mosaic__tile mosaic__tile--c" data-slot="micro-4" data-depth="14"><button class="mosaic__open" type="button" aria-label="Ampliar foto"><img src="assets/img/margot-silla-bn-900.webp" srcset="assets/img/margot-silla-bn-480.webp 480w, assets/img/margot-silla-bn-900.webp 900w" sizes="(min-width: 54rem) 12vw, 20vw" width="900" height="1200" alt="Margot Ibáñez en blanco y negro, sentada en una silla con vestido negro" loading="lazy" decoding="async"></button></div>
+                <div class="mosaic__tile mosaic__tile--d" data-slot="micro-detalle" data-depth="-8"><button class="mosaic__open" type="button" aria-label="Ampliar foto"><img src="assets/img/margot-banco-blanco-750.webp" srcset="assets/img/margot-banco-blanco-480.webp 480w, assets/img/margot-banco-blanco-750.webp 750w" sizes="(min-width: 54rem) 18vw, 30vw" width="750" height="1000" alt="Margot Ibáñez sentada en un banco blanco, con conjunto de satén color champán" loading="lazy" decoding="async"></button></div>
+                <div class="mosaic__tile mosaic__tile--e" data-slot="micro-5" data-depth="11"><button class="mosaic__open" type="button" aria-label="Ampliar foto"><img src="assets/img/margot-cortinas-negro-609.webp" srcset="assets/img/margot-cortinas-negro-480.webp 480w, assets/img/margot-cortinas-negro-609.webp 609w" sizes="(min-width: 54rem) 16vw, 26vw" width="609" height="812" alt="Margot Ibáñez con vestido negro, sentada en un banco blanco junto a unas cortinas" loading="lazy" decoding="async"></button></div>
               </div>
               <figcaption class="laser-team__text">
                 <span class="eyebrow" data-k="equipo-micro-01">Margot Ibáñez</span>
                 <span class="laser-team__quote" data-k="equipo-micro-02">Premios internacionales de micropigmentación y jurado en congresos nacionales de PMU.</span>
+                <a class="more-link" href="#premios" data-k="equipo-micro-03">Ver premios</a>
               </figcaption>
             </figure>
 
@@ -242,7 +247,7 @@
 
           <!-- II · CEJAS Y PESTAÑAS -->
           <div class="panel" role="tabpanel" id="panel-cejas" aria-labelledby="tab-cejas" tabindex="0">
-            <h3 class="panel__title">Cejas y pestañas</h3>
+            <h3 class="panel__title">Cejas</h3>
 
             <article class="treat" data-reveal data-t="visagismo-diseno-tinte-y-laminado">
               <header class="treat__head">
@@ -258,23 +263,9 @@
               </div>
             </article>
 
-            <article class="treat" data-reveal data-t="lifting-de-pestanas">
-              <header class="treat__head">
-                <span class="treat__n">06</span>
-                <h4 data-k="lifting-de-pestanas-01">Lifting de pestañas</h4>
-              </header>
-              <div class="treat__body">
-                <p class="treat__lead" data-k="lifting-de-pestanas-02">Eleva y curva tus pestañas naturales desde la raíz para que se vean más largas y la mirada más abierta, sin extensiones y sin rizador.</p>
-              </div>
-              <div class="gallery" data-gallery data-gallery-id="lifting-de-pestanas" aria-label="Galería de lifting de pestañas" hidden>
-                <div class="gallery__grid" data-gallery-grid></div>
-                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
-              </div>
-            </article>
-
             <article class="treat" data-reveal data-t="depilacion-con-hilo">
               <header class="treat__head">
-                <span class="treat__n">07</span>
+                <span class="treat__n">06</span>
                 <h4 data-k="depilacion-con-hilo-01">Depilación con hilo</h4>
               </header>
               <div class="treat__body">
@@ -304,7 +295,7 @@
 
             <article class="treat" data-reveal data-t="limpieza-y-tratamiento-facial-premium">
               <header class="treat__head">
-                <span class="treat__n">08</span>
+                <span class="treat__n">07</span>
                 <h4 data-k="limpieza-y-tratamiento-facial-premium-01">Limpieza y tratamiento facial premium</h4>
               </header>
               <div class="treat__body">
@@ -337,7 +328,7 @@
 
             <article class="treat" data-reveal data-t="dermapen-con-vitaminas">
               <header class="treat__head">
-                <span class="treat__n">09</span>
+                <span class="treat__n">08</span>
                 <h4 data-k="dermapen-con-vitaminas-01">Dermapen con vitaminas</h4>
               </header>
               <div class="treat__body">
@@ -351,7 +342,7 @@
 
             <article class="treat" data-reveal data-t="fibroblast-plasma-pen">
               <header class="treat__head">
-                <span class="treat__n">10</span>
+                <span class="treat__n">09</span>
                 <h4 data-k="fibroblast-plasma-pen-01">Fibroblast, Plasma Pen</h4>
                 <p class="treat__kind" data-k="fibroblast-plasma-pen-02">Párpados u otras zonas</p>
               </header>
@@ -403,7 +394,7 @@
 
             <article class="treat" data-reveal data-t="eliminacion-de-tatuajes-con-laser">
               <header class="treat__head">
-                <span class="treat__n">11</span>
+                <span class="treat__n">10</span>
                 <h4 data-k="eliminacion-de-tatuajes-con-laser-01">Eliminación de tatuajes con láser</h4>
               </header>
               <div class="treat__body">
@@ -426,7 +417,7 @@
 
             <article class="treat" data-reveal data-t="eliminacion-de-micropigmentacion-de-cejas">
               <header class="treat__head">
-                <span class="treat__n">12</span>
+                <span class="treat__n">11</span>
                 <h4 data-k="eliminacion-de-micropigmentacion-de-cejas-01">Eliminación de micropigmentación de cejas</h4>
               </header>
               <div class="treat__body">
@@ -449,7 +440,7 @@
 
             <article class="treat" data-reveal data-t="eliminacion-de-micropigmentacion-de-labios-con-laser">
               <header class="treat__head">
-                <span class="treat__n">13</span>
+                <span class="treat__n">12</span>
                 <h4 data-k="eliminacion-de-micropigmentacion-de-labios-con-laser-01">Eliminación de micropigmentación de labios con láser</h4>
               </header>
               <div class="treat__body">
@@ -466,7 +457,7 @@
 
             <article class="treat" data-reveal data-t="hollywood-peel">
               <header class="treat__head">
-                <span class="treat__n">14</span>
+                <span class="treat__n">13</span>
                 <h4 data-k="hollywood-peel-01">Hollywood Peel</h4>
                 <p class="treat__kind" data-k="hollywood-peel-02">Luminosidad y rejuvenecimiento con carbón activo</p>
               </header>
@@ -487,7 +478,7 @@
 
             <article class="treat" data-reveal data-t="laser-corporal-de-vello">
               <header class="treat__head">
-                <span class="treat__n">15</span>
+                <span class="treat__n">14</span>
                 <h4 data-k="laser-corporal-de-vello-01">Láser corporal de vello</h4>
               </header>
               <div class="treat__body">
@@ -500,61 +491,19 @@
             </article>
           </div>
 
-          <!-- V · CUERPO Y UÑAS -->
+          <!-- V · CORPORAL -->
           <div class="panel" role="tabpanel" id="panel-cuerpo" aria-labelledby="tab-cuerpo" tabindex="0">
-            <h3 class="panel__title">Cuerpo y uñas</h3>
+            <h3 class="panel__title">Corporal</h3>
 
             <article class="treat" data-reveal data-t="presoterapia">
               <header class="treat__head">
-                <span class="treat__n">16</span>
+                <span class="treat__n">15</span>
                 <h4 data-k="presoterapia-01">Presoterapia</h4>
               </header>
               <div class="treat__body">
                 <p class="treat__lead" data-k="presoterapia-02">Unas botas de presión se inflan por secciones, de forma secuencial, y masajean las piernas por compresión. Favorece el drenaje linfático y deja sensación de piernas ligeras.</p>
               </div>
               <div class="gallery" data-gallery data-gallery-id="presoterapia" aria-label="Galería de presoterapia" hidden>
-                <div class="gallery__grid" data-gallery-grid></div>
-                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
-              </div>
-            </article>
-
-            <article class="treat" data-reveal data-t="masajes-linfaticos-y-relajantes">
-              <header class="treat__head">
-                <span class="treat__n">17</span>
-                <h4 data-k="masajes-linfaticos-y-relajantes-01">Masajes linfáticos y relajantes</h4>
-              </header>
-              <div class="treat__body">
-                <p class="treat__lead" data-k="masajes-linfaticos-y-relajantes-02">El drenaje linfático, con maniobras suaves y rítmicas, ayuda a movilizar los líquidos retenidos. El masaje relajante alivia tensiones: cuidarte también es regalarte tiempo para ti.</p>
-              </div>
-              <div class="gallery" data-gallery data-gallery-id="masajes-linfaticos-y-relajantes" aria-label="Galería de Masajes linfáticos y relajantes" hidden>
-                <div class="gallery__grid" data-gallery-grid></div>
-                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
-              </div>
-            </article>
-
-            <article class="treat" data-reveal data-t="luminique">
-              <header class="treat__head">
-                <span class="treat__n">18</span>
-                <h4 data-k="luminique-01">Luminique</h4>
-              </header>
-              <div class="treat__body">
-                <p class="treat__lead" data-k="luminique-02">Pregúntame por este tratamiento y te explico en qué consiste y si es el adecuado para ti.</p>
-              </div>
-              <div class="gallery" data-gallery data-gallery-id="luminique" aria-label="Galería de luminique" hidden>
-                <div class="gallery__grid" data-gallery-grid></div>
-                <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
-              </div>
-            </article>
-
-            <article class="treat" data-reveal data-t="unas">
-              <header class="treat__head">
-                <span class="treat__n">19</span>
-                <h4 data-k="unas-01">Uñas</h4>
-              </header>
-              <div class="treat__body">
-                <p class="treat__lead" data-k="unas-02">Cuidado de manos y uñas con un acabado limpio y elegante. Pregúntame por los servicios disponibles.</p>
-              </div>
-              <div class="gallery" data-gallery data-gallery-id="unas" aria-label="Galería de uñas" hidden>
                 <div class="gallery__grid" data-gallery-grid></div>
                 <button type="button" class="gallery__more" data-gallery-more hidden>Ver más</button>
               </div>
@@ -588,11 +537,21 @@
               <li data-k="margot-04">Jurado en congresos nacionales de PMU</li>
             </ul>
             <div class="about__story" data-reveal>
-              <p data-k="margot-05">Siempre he sentido una conexión especial con la belleza, los detalles y la capacidad que tenemos de resaltar aquello que nos hace únicas. Con el tiempo, esa pasión se convirtió en mi profesión, y la micropigmentación facial en mi forma de entender la belleza: una combinación de técnica, sensibilidad, precisión y arte.</p>
-              <p data-k="margot-06">Detrás de mi trabajo hay mucho más que pigmentos y técnicas. Hay dedicación, errores, formación continua, ilusión por evolucionar y un compromiso real con cada paciente que confía en mis manos.</p>
-              <p data-k="margot-07">Creo en una belleza que no necesita transformar, sino realzar. En unas cejas que armonizan la expresión, unos labios que recuperan su definición y una mirada que refleja seguridad sin perder naturalidad.</p>
-              <p data-k="margot-08">Detrás de cada trabajo hay horas de aprendizaje, atención a cada detalle y el deseo de ofrecerte una experiencia en la que te sientas escuchada, cuidada y segura.</p>
-              <p data-k="margot-09">Sigo creciendo, perfeccionando mis técnicas y descubriendo nuevas formas de ofrecer resultados cada vez más personalizados. Porque para mí, evolucionar profesionalmente también significa aprender a mirar la belleza con más sensibilidad y criterio.</p>
+              <p data-k="margot-05">Siempre he sentido una conexión especial con la belleza, los detalles y la capacidad que tenemos de resaltar aquello que nos hace únicas. Con el tiempo, esa pasión se convirtió en mi profesión, y la micropigmentación facial en mi forma de entender la belleza: <b>una combinación de técnica, sensibilidad, precisión y arte</b>.</p>
+              <p data-k="margot-06">Detrás de mi trabajo hay mucho más que pigmentos y técnicas. Hay dedicación, errores, formación continua, ilusión por evolucionar y <b>un compromiso real con cada paciente que confía en mis manos</b>.</p>
+              <p data-k="margot-07"><b>Creo en una belleza que no necesita transformar, sino realzar.</b> En unas cejas que armonizan la expresión, unos labios que recuperan su definición y una mirada que refleja seguridad sin perder naturalidad.</p>
+              <p data-k="margot-08">Detrás de cada trabajo hay horas de aprendizaje, atención a cada detalle y el deseo de ofrecerte una experiencia en la que <b>te sientas escuchada, cuidada y segura</b>.</p>
+              <p data-k="margot-09">Sigo creciendo, perfeccionando mis técnicas y descubriendo nuevas formas de ofrecer resultados cada vez más personalizados. Porque para mí, evolucionar profesionalmente también significa <b>aprender a mirar la belleza con más sensibilidad y criterio</b>.</p>
+            </div>
+            <div class="awards" id="premios" data-reveal>
+              <h3 class="awards__title" data-k="premios-01">Premios y reconocimientos</h3>
+              <ol class="awards__list">
+                <li><span class="awards__year" data-k="premios-02">2024</span><span class="awards__text" data-k="premios-03">Cuarta a nivel internacional en categoría de Softliner en “New Generation PMU CONGRESS 2024”.</span></li>
+                <li><span class="awards__year" data-k="premios-04">2025</span><span class="awards__text" data-k="premios-05">Jurado Internacional en ojos y labios en PMU “New Generation 2025”.</span></li>
+                <li><span class="awards__year" data-k="premios-06">2026</span><span class="awards__text" data-k="premios-07">Jurado Internacional en ojos y labios de PMU “New Generation 2026”.</span></li>
+                <li class="is-next"><span class="awards__year" data-k="premios-08">2027</span><span class="awards__text" data-k="premios-09">Próximamente Jurado Internacional 2027 en Roma (Italia) de todas las categorías faciales.</span></li>
+                <li class="is-next"><span class="awards__year" data-k="premios-10">2027</span><span class="awards__text" data-k="premios-11">Próximamente participaciones en diferentes congresos PMU en Lisboa, Madrid y Roma en 2027, en todas las categorías.</span></li>
+              </ol>
             </div>
             <blockquote class="about__quote" data-reveal>
               <p data-k="margot-10">Si hay algo que da sentido a todo esto, es saber que cada mujer que sale de mi salón lo hace sintiéndose mejor consigo misma.</p>
@@ -717,7 +676,6 @@
               <option>Micropigmentación de ojos</option>
               <option>Espesor capilar</option>
               <option>Visagismo, diseño, tinte y laminado</option>
-              <option>Lifting de pestañas</option>
               <option>Depilación con hilo</option>
               <option>Facial premium</option>
               <option>Dermapen con vitaminas</option>
@@ -728,9 +686,6 @@
               <option>Hollywood Peel</option>
               <option>Láser corporal de vello</option>
               <option>Presoterapia</option>
-              <option>Masajes linfáticos y relajantes</option>
-              <option>Luminique</option>
-              <option>Uñas</option>
               </select>
             </div>
           </div>
@@ -751,6 +706,19 @@
         </form>
       </div>
     </section>
+    <!-- DÓNDE ESTAMOS -->
+    <section class="section donde" id="donde" aria-labelledby="donde-title">
+      <div class="container donde__grid">
+        <div class="donde__text" data-reveal>
+          <h2 class="section__title section__title--left" id="donde-title" data-k="donde-01">Dónde estamos</h2>
+          <address class="donde__addr" data-k="donde-02">Calle Isaac Peral, 14<br>41808 Villanueva del Ariscal, Sevilla</address>
+          <a class="btn" href="https://www.google.com/maps/dir/?api=1&amp;destination=Calle%20Isaac%20Peral%2014%2C%2041808%20Villanueva%20del%20Ariscal%2C%20Sevilla" target="_blank" rel="noopener" data-k="donde-03">Cómo llegar</a>
+        </div>
+        <div class="donde__map" data-reveal>
+          <iframe src="https://www.google.com/maps?q=Calle%20Isaac%20Peral%2014%2C%2041808%20Villanueva%20del%20Ariscal%2C%20Sevilla&amp;z=17&amp;output=embed" title="Mapa con la ubicación del salón: Calle Isaac Peral 14, Villanueva del Ariscal" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
@@ -759,15 +727,16 @@
       <p class="footer__tag">Micropigmentación facial y estética avanzada.</p>
       <ul class="footer__links">
         <li><a href="#tratamientos" data-tab="tab-micro">Micropigmentación</a></li>
-        <li><a href="#tratamientos" data-tab="tab-cejas">Cejas y pestañas</a></li>
+        <li><a href="#tratamientos" data-tab="tab-cejas">Cejas</a></li>
         <li><a href="#tratamientos" data-tab="tab-facial">Facial</a></li>
         <li><a href="#tratamientos" data-tab="tab-laser">Láser</a></li>
-        <li><a href="#tratamientos" data-tab="tab-cuerpo">Cuerpo y uñas</a></li>
+        <li><a href="#tratamientos" data-tab="tab-cuerpo">Corporal</a></li>
       </ul>
       <ul class="footer__links">
         <li><a href="#consulta" data-wa="">Escribir por WhatsApp</a></li>
         <li><a href="#margot">Sobre mí</a></li>
         <li><a href="#preguntas">Preguntas frecuentes</a></li>
+        <li><a href="#donde">Dónde estamos</a></li>
       </ul>
       <p class="footer__base">© <span data-year>2026</span> Margot Ibáñez</p>
     </div>

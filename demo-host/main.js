@@ -225,7 +225,7 @@ if (lightbox && typeof lightbox.showModal === 'function') {
       stage.append(v);
     } else {
       const big = document.createElement('img');
-      big.src = btn.dataset.full || (img && (img.currentSrc || img.src));
+      big.src = btn.dataset.full || (img && (btn.classList.contains('mosaic__open') ? img.src : (img.currentSrc || img.src)));
       big.alt = img ? img.alt : '';
       big.decoding = 'async';
       stage.append(big);
@@ -237,10 +237,12 @@ if (lightbox && typeof lightbox.showModal === 'function') {
 
   /* delegado: vale también para fotos añadidas después (modo edición) */
   document.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-gallery] .gallery__open');
+    const btn = e.target.closest('[data-gallery] .gallery__open, [data-mosaic] .mosaic__open');
     if (!btn || e.defaultPrevented) return;
-    const g = btn.closest('[data-gallery]');
-    items = [...g.querySelectorAll('.gallery__item .gallery__open')];
+    const mosaic = btn.closest('[data-mosaic]');
+    if (mosaic && document.documentElement.hasAttribute('data-editing')) return;
+    const g = mosaic || btn.closest('[data-gallery]');
+    items = mosaic ? [...g.querySelectorAll('.mosaic__open')] : [...g.querySelectorAll('.gallery__item .gallery__open')];
     index = Math.max(0, items.indexOf(btn));
     if (!items.length) return;
     opener = btn;
@@ -261,6 +263,24 @@ if (lightbox && typeof lightbox.showModal === 'function') {
     if (opener) opener.focus();
   });
 }
+
+/* Mosaico de Margot: las fotos se desplazan un poco siguiendo el ratón. */
+document.querySelectorAll('[data-mosaic]').forEach((m) => {
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const tiles = [...m.querySelectorAll('[data-depth]')];
+  let raf = 0;
+  m.addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse' || document.documentElement.hasAttribute('data-editing')) return;
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      const r = m.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      tiles.forEach((t) => { const d = Number(t.dataset.depth) || 0; t.style.translate = `${(x * d).toFixed(1)}px ${(y * d).toFixed(1)}px`; });
+    });
+  });
+  m.addEventListener('pointerleave', () => { cancelAnimationFrame(raf); tiles.forEach((t) => { t.style.translate = ''; }); });
+});
 
 /* Menú móvil: botón centrado que despliega el menú claro */
 const nav = document.querySelector('[data-nav]');

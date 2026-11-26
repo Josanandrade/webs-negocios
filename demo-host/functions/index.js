@@ -55,7 +55,7 @@ export async function onRequestGet({ request, env }) {
     });
   }
   for (const [sid, it] of Object.entries(slots)) {
-    if (sid === 'portada' || !/^[a-z-]{1,40}$/.test(sid) || !it || !safeUrl(it.full)) continue;
+    if (sid === 'portada' || !/^[a-z0-9-]{1,40}$/.test(sid) || !it || !safeUrl(it.full)) continue;
     rw = rw.on(`[data-slot="${sid}"] img`, {
       element(el) {
         el.setAttribute('src', safeUrl(it.full));

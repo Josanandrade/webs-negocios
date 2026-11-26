@@ -7,7 +7,7 @@ import {
 
 const ALLOWED_TYPES = new Set(['image/webp', 'image/jpeg', 'image/png', 'image/avif', 'video/mp4', 'video/quicktime', 'video/webm']);
 const GALLERY_ID = /^[a-z0-9-]{1,80}$/;
-const SLOT_IDS = new Set(['portada', 'sobre-mi', 'sobre-mi-detalle', 'micro-principal', 'micro-detalle', 'laser-principal', 'laser-detalle']);
+const SLOT_IDS = new Set(['portada', 'sobre-mi', 'sobre-mi-detalle', 'micro-principal', 'micro-detalle', 'micro-3', 'micro-4', 'micro-5', 'laser-principal', 'laser-detalle']);
 const mediaIdOf = (u) => { const m = /^\/media\/([A-Za-z0-9_-]+)$/.exec(String(u || '')); return m ? m[1] : null; };
 
 function cleanItem(it) {
@@ -126,7 +126,7 @@ export async function onRequest(context) {
     return json({ ok: true, items: site.galleries[id] || null });
   }
 
-  if ((m = /^slot\/([a-z-]+)$/.exec(path)) && method === 'PUT') {
+  if ((m = /^slot\/([a-z0-9-]+)$/.exec(path)) && method === 'PUT') {
     const id = m[1];
     if (!SLOT_IDS.has(id)) return json({ error: 'Foto no válida.' }, 400);
     const body = await request.json().catch(() => ({}));
