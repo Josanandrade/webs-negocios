@@ -111,8 +111,8 @@
   const sizeOut = h('span', { className: 'ed-size', textContent: '100%' });
   const btn = (cls, txt, title) => { const b = h('button', { type: 'button', className: cls, textContent: txt, title }); b.setAttribute('aria-label', title); b.setAttribute('aria-pressed', 'false'); return b; };
   const bB = btn('ed-b', 'B', 'Negrita'), bI = btn('ed-i', 'I', 'Cursiva'), bU = btn('ed-u', 'U', 'Subrayado');
-  const aL = btn('', '⟸', 'Alinear a la izquierda'), aC = btn('', '≡', 'Centrar'), aR = btn('', '⟹', 'Alinear a la derecha');
-  aL.innerHTML = alignSvg('M4 6h16M4 10h10M4 14h16M4 18h10'); aC.innerHTML = alignSvg('M4 6h16M7 10h10M4 14h16M7 18h10'); aR.innerHTML = alignSvg('M4 6h16M10 10h10M4 14h16M10 18h10');
+  const aL = btn('', '⟸', 'Alinear a la izquierda'), aC = btn('', '≡', 'Centrar'), aR = btn('', '⟹', 'Alinear a la derecha'), aJ = btn('', '≣', 'Justificar');
+  aL.innerHTML = alignSvg('M4 6h16M4 10h10M4 14h16M4 18h10'); aC.innerHTML = alignSvg('M4 6h16M7 10h10M4 14h16M7 18h10'); aR.innerHTML = alignSvg('M4 6h16M10 10h10M4 14h16M10 18h10'); aJ.innerHTML = alignSvg('M4 6h16M4 10h16M4 14h16M4 18h16');
   function alignSvg(d) { return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="${d}"/></svg>`; }
   const swatches = [['', 'Color original'], ...Object.entries(COLORS).map(([k]) => [k, 'Color ' + k])].map(([k, title]) => {
     const b = btn('ed-sw' + (k ? '' : ' ed-sw--none'), '', title);
@@ -127,7 +127,7 @@
     h('div', { className: 'ed-tools__group' }, fontSel),
     h('div', { className: 'ed-tools__group' }, btn('', '−', 'Más pequeña'), sizeOut, btn('', '+', 'Más grande')),
     h('div', { className: 'ed-tools__group' }, bB, bI, bU),
-    h('div', { className: 'ed-tools__group' }, aL, aC, aR),
+    h('div', { className: 'ed-tools__group' }, aL, aC, aR, aJ),
     h('div', { className: 'ed-tools__group' }, ...swatches),
     h('div', { className: 'ed-tools__group' }, bOrig, bCancel, bSave),
     h('p', { className: 'ed-tools__hint', textContent: 'Escribe directamente sobre el texto. Si seleccionas solo unas palabras, la negrita, cursiva o subrayado se aplica a esas palabras; si no, a todo el texto.' }),
@@ -156,7 +156,7 @@
     bB.setAttribute('aria-pressed', String(st.b !== undefined ? st.b : Number(cs.fontWeight) >= 600));
     bI.setAttribute('aria-pressed', String(st.i !== undefined ? st.i : cs.fontStyle === 'italic'));
     bU.setAttribute('aria-pressed', String(Boolean(st.u)));
-    [[aL, 'left'], [aC, 'center'], [aR, 'right']].forEach(([b, v]) => b.setAttribute('aria-pressed', String(st.a === v)));
+    [[aL, 'left'], [aC, 'center'], [aR, 'right'], [aJ, 'justify']].forEach(([b, v]) => b.setAttribute('aria-pressed', String(st.a === v)));
     swatches.forEach((b) => b.setAttribute('aria-pressed', String((st.c || '') === b.dataset.c)));
     schedule();
   }
@@ -175,7 +175,8 @@
     applyStyle();
     el.focus({ preventScroll: true });
     const r = el.getBoundingClientRect();
-    if (r.top < tools.offsetHeight + 20 || r.bottom > innerHeight - 90) window.scrollBy({ top: r.top - tools.offsetHeight - 60, behavior: 'smooth' });
+    // que el texto quede justo debajo de la barra de formato, visible mientras se escribe
+    if (r.top < tools.offsetHeight + 16 || r.top > innerHeight * 0.55) window.scrollBy({ top: r.top - tools.offsetHeight - 24, behavior: 'instant' });
   }
 
   function cleanHtml(html) { return html.replace(/​/g, '').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim(); }
@@ -231,7 +232,7 @@
   bB.addEventListener('click', () => inline('bold', 'b'));
   bI.addEventListener('click', () => inline('italic', 'i'));
   bU.addEventListener('click', () => inline('underline', 'u'));
-  [[aL, 'left'], [aC, 'center'], [aR, 'right']].forEach(([b, v]) => b.addEventListener('click', () => { if (st.a === v) delete st.a; else st.a = v; applyStyle(); }));
+  [[aL, 'left'], [aC, 'center'], [aR, 'right'], [aJ, 'justify']].forEach(([b, v]) => b.addEventListener('click', () => { if (st.a === v) delete st.a; else st.a = v; applyStyle(); }));
   swatches.forEach((b) => b.addEventListener('click', () => { if (b.dataset.c) st.c = b.dataset.c; else delete st.c; applyStyle(); }));
   bOrig.addEventListener('click', () => { activeEl.innerHTML = original.texts[activeEl.dataset.k] || activeEl.innerHTML; st = {}; applyStyle(); });
   bCancel.addEventListener('click', () => finishText(true));
