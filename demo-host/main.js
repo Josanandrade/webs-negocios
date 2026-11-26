@@ -264,6 +264,36 @@ if (lightbox && typeof lightbox.showModal === 'function') {
   });
 }
 
+/* Mapa de respaldo con teselas de OpenStreetMap (sin iframe): se ve aunque el mapa de Google no cargue. */
+document.querySelectorAll('[data-osm]').forEach((box) => {
+  const lat = Number(box.dataset.lat), lon = Number(box.dataset.lon), z = Number(box.dataset.zoom) || 17;
+  const n = 256 * 2 ** z;
+  const px = ((lon + 180) / 360) * n;
+  const r = (lat * Math.PI) / 180;
+  const py = ((1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2) * n;
+  const draw = () => {
+    const w = box.clientWidth, h = box.clientHeight;
+    if (!w || !h) return;
+    const left = px - w / 2, top = py - h / 2;
+    const pin = box.querySelector('.donde__pin');
+    box.replaceChildren(pin);
+    for (let tx = Math.floor(left / 256); tx * 256 < left + w; tx++) {
+      for (let ty = Math.floor(top / 256); ty * 256 < top + h; ty++) {
+        const img = new Image();
+        img.alt = '';
+        img.decoding = 'async';
+        img.src = `https://tile.openstreetmap.org/${z}/${tx}/${ty}.png`;
+        img.style.left = `${Math.round(tx * 256 - left)}px`;
+        img.style.top = `${Math.round(ty * 256 - top)}px`;
+        box.insertBefore(img, pin);
+      }
+    }
+  };
+  draw();
+  let t = 0;
+  addEventListener('resize', () => { clearTimeout(t); t = setTimeout(draw, 200); });
+});
+
 /* Mosaico de Margot: las fotos se desplazan un poco siguiendo el ratón. */
 document.querySelectorAll('[data-mosaic]').forEach((m) => {
   if (!matchMedia('(hover: hover) and (pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
