@@ -7,7 +7,7 @@
    Mientras esté vacío, los botones abren WhatsApp con el mensaje escrito
    para que se elija el contacto a mano (sirve para probar el texto).
    ========================================================================== */
-const WHATSAPP_NUMBER = '';
+const WHATSAPP_NUMBER = '34727740824';
 
 const WA_GREETING = 'Hola, Margot. He visto tu web y me gustaría recibir información sobre ';
 const WA_DEFAULT_TOPIC = 'tus tratamientos';
