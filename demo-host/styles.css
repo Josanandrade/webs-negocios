@@ -240,7 +240,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .awards__list li { display: grid; grid-template-columns: 4.2em minmax(0, 1fr); gap: 18px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--rule); }
 .awards__list li:first-child { padding-top: 0; }
 .awards__year { font-size: 1.05rem; font-weight: 300; letter-spacing: 0.06em; color: var(--taupe); font-variant-numeric: lining-nums tabular-nums; }
-.awards__text { color: var(--ink-2); }
+.awards__text { color: var(--ink-2); text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
 .awards__list li.is-next .awards__year { color: var(--taupe-dark); }
 .awards__list li.is-next .awards__year::after { content: ""; display: block; width: 18px; height: 1px; margin-top: 8px; background: currentColor; }
 .about__quote { margin: 8px 0 0; padding: 24px 0 0; border-top: 1px solid var(--rule); }
@@ -276,8 +276,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .gift__line { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: .75; }
 .gift__text { display: grid; gap: 16px; justify-items: start; }
 .gift__text .section__title { margin: 0; }
-.gift__lead { font-size: clamp(1.15rem, 1.9vw, 1.4rem); font-weight: 300; line-height: 1.45; color: var(--ink); }
-.gift__text p { color: var(--ink-2); max-width: 56ch; }
+.gift__text p { color: var(--ink-2); max-width: 64ch; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+.gift__text .gift__lead { font-size: 1.06rem; color: var(--ink); }
 .gift__text .btn { margin-top: 6px; }
 @media (max-width: 54rem) { .gift__grid { grid-template-columns: minmax(0, 1fr); } .gift__card { max-width: 340px; } }
 
