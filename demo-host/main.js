@@ -42,7 +42,7 @@ document.querySelectorAll('[data-wa]').forEach((a) => {
    de destino y la clave de Resend permanecen en el servidor.
    ========================================================================== */
 const MAIL_ENDPOINT = 'https://avanttai.com/api/margot-contact';
-const EMAIL_RE = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 document.querySelectorAll('[data-mail-form]').forEach((form) => {
   const status = form.querySelector('[data-mail-status]');
@@ -51,7 +51,7 @@ document.querySelectorAll('[data-mail-form]').forEach((form) => {
   const fields = {
     nombre: (v) => (v.trim().length >= 2 ? '' : 'Escribe tu nombre.'),
     email: (v) => (!v.trim() ? 'Escribe tu email para poder responderte.' : EMAIL_RE.test(v.trim()) ? '' : 'Revisa el email: parece incompleto.'),
-    telefono: (v) => (!v.trim() || /^[+\\d][\\d\\s().-]{6,}$/.test(v.trim()) ? '' : 'Revisa el teléfono o déjalo en blanco.'),
+    telefono: (v) => (!v.trim() || /^[+\d][\d\s().-]{6,}$/.test(v.trim()) ? '' : 'Revisa el teléfono o déjalo en blanco.'),
     mensaje: (v) => (v.trim().length >= 5 ? '' : 'Cuéntame en unas palabras qué te gustaría saber.'),
   };
 
