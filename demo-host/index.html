@@ -620,15 +620,8 @@
           <p data-reveal data-k="consulta-03">Cuéntame qué buscas y te respondo personalmente, sin compromiso.</p>
           <p class="final__alt" data-reveal>¿Prefieres hablar por WhatsApp? <a href="#consulta" data-wa="">Escríbeme por WhatsApp</a></p>
         </div>
-        <!--
-          FORMULARIO POR EMAIL (Web3Forms). Los mensajes llegan al correo de Margot con el que se creó la clave.
-          Para activarlo, pega la clave de acceso de Web3Forms en el value de "access_key".
-          El email de Margot no aparece en el código a propósito (el repositorio es público y lo leerían los bots de spam).
-        -->
-        <form class="final__form" action="https://api.web3forms.com/submit" method="post" data-mail-form novalidate data-reveal>
-          <input type="hidden" name="access_key" value="">
-          <input type="hidden" name="subject" value="Nueva consulta desde la web">
-          <input type="hidden" name="from_name" value="Web de Margot Ibáñez">
+        <!-- El formulario se envía al endpoint seguro de AvanttAI; el email de Margot no se publica aquí. -->
+        <form class="final__form" action="https://avanttai.com/api/margot-contact" method="post" data-mail-form novalidate data-reveal>
           <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 
           <div class="field">
