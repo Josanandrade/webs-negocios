@@ -36,29 +36,22 @@ document.querySelectorAll('[data-wa]').forEach((a) => {
 });
 
 /* ==========================================================================
-   FORMULARIO DE CONTACTO POR EMAIL (Web3Forms)
+   FORMULARIO DE CONTACTO POR EMAIL (AvanttAI)
    --------------------------------------------------------------------------
-   La clave va en index.html, en <input name="access_key" value="">.
-   Con clave: envía el mensaje a Web3Forms, que lo reenvía al correo de Margot.
-   Sin clave: valida, pero avisa de que aún no está activo y remite a WhatsApp.
+   El navegador envía la solicitud al endpoint seguro de AvanttAI. El correo
+   de destino y la clave de Resend permanecen en el servidor.
    ========================================================================== */
-const MAIL_ENDPOINT = 'https://api.web3forms.com/submit';
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const MAIL_ENDPOINT = 'https://avanttai.com/api/margot-contact';
+const EMAIL_RE = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/;
 
 document.querySelectorAll('[data-mail-form]').forEach((form) => {
   const status = form.querySelector('[data-mail-status]');
   const button = form.querySelector('button[type="submit"]');
-  const key = form.elements.access_key;
-  const live = () => Boolean(key && key.value.trim());
-
-  if (!live()) {
-    console.warn('[Margot Ibáñez] Formulario sin clave de Web3Forms: el formulario no envía. Ver access_key en index.html');
-  }
 
   const fields = {
     nombre: (v) => (v.trim().length >= 2 ? '' : 'Escribe tu nombre.'),
     email: (v) => (!v.trim() ? 'Escribe tu email para poder responderte.' : EMAIL_RE.test(v.trim()) ? '' : 'Revisa el email: parece incompleto.'),
-    telefono: (v) => (!v.trim() || /^[+\d][\d\s().-]{6,}$/.test(v.trim()) ? '' : 'Revisa el teléfono o déjalo en blanco.'),
+    telefono: (v) => (!v.trim() || /^[+\\d][\\d\\s().-]{6,}$/.test(v.trim()) ? '' : 'Revisa el teléfono o déjalo en blanco.'),
     mensaje: (v) => (v.trim().length >= 5 ? '' : 'Cuéntame en unas palabras qué te gustaría saber.'),
   };
 
@@ -90,16 +83,10 @@ document.querySelectorAll('[data-mail-form]').forEach((form) => {
     if (button.getAttribute('aria-disabled') === 'true') return;
     const bad = inputs.filter((el) => !check(el));
     if (bad.length) { say(''); bad[0].focus(); return; }
-    if (form.elements.botcheck.checked) return; /* bot */
+    if (form.elements.botcheck.checked) return;
 
     const data = Object.fromEntries(new FormData(form));
     const name = data.nombre.trim();
-    data.subject = 'Consulta web: ' + data.tratamiento + ' (' + name + ')';
-
-    if (!live()) {
-      say('El formulario aún no está activo. Mientras tanto, escríbeme por WhatsApp y te respondo encantada.', 'error');
-      return;
-    }
 
     button.setAttribute('aria-disabled', 'true');
     const label = button.textContent;
@@ -108,11 +95,12 @@ document.querySelectorAll('[data-mail-form]').forEach((form) => {
     try {
       const res = await fetch(MAIL_ENDPOINT, {
         method: 'POST',
+        credentials: 'omit',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(data),
       });
       const json = await res.json().catch(() => ({}));
-      if (!res.ok || json.success === false) throw new Error(json.message || res.status);
+      if (!res.ok || json.success !== true) throw new Error(json.error || res.status);
       form.reset();
       inputs.forEach((el) => setError(el, ''));
       say('Gracias, ' + name + '. Tu mensaje me ha llegado y te responderé lo antes posible.', 'ok');
